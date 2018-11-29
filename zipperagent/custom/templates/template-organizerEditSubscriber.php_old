@@ -1,0 +1,531 @@
+<?php
+if( !empty($_POST) && $_POST['actionType']=='update' ){
+	$vars['id']=$_POST['contactId'];
+	$vars['firstName']=$_POST['firstName'];
+	$vars['lastName']=$_POST['lastName'];
+	$vars['emailWork1']=$_POST['emailWork1'];
+	$vars['phoneOffice']=$_POST['phone'];
+	$vars['propertyAlerts']=isset($_POST['propertyAlerts'])?"true":"false";
+	$vars['alertType']=$_POST['alertType'];
+	$result=saveUserContact($vars);
+	// echo "<pre>"; print_r( $vars); echo "</pre>"; 
+	// echo "<pre>"; print_r( $result); echo "</pre>";
+}
+
+$userdata = getCurrentUserContactLogin();
+
+if( ! $userdata || ! sizeof($userdata)){
+	wp_safe_redirect( site_url('/property-organizer-login') );
+	die();
+}
+// echo "<pre>"; print_r( $userdata ); echo "</pre>";
+// echo "<pre>"; print_r( $_SESSION['userdata'] ); echo "</pre>";
+$userdata = $userdata[0]; //get first index record
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo ZIPPERAGENTURL . 'css/my-account.css'; ?>">
+<style>
+#zpa-main-container .btn-group-justified .btn {
+    width: auto;
+}
+</style>
+<?php //echo '<pre>'; echo print_r($userdata); echo '</pre>'; ?>
+<div id="zpa-main-container" class="zpa-container zpa-color-scheme-gray" style="display: inline;">
+    <div>
+		<?php /*
+        <div class="row mb-10">
+            <div class="col-xs-12">
+                <div class="pull-right"></span> <a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
+            </div>
+        </div>
+        <div class="row mb-10">
+            <div class="col-xs-12">
+                <div class="btn-group btn-group-justified"> <a class="btn btn-primary active" href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
+            </div>
+        </div>
+        <div class="row mb-10 mt-25">
+            <div class="col-xs-12"> <strong> Modify Account Settings </strong> </div>
+        </div>
+		*/ ?>
+		<div class="row mb-10">
+				
+				<section class="bt-content-wrapper px--safe">
+					<div class="za-container">
+						<div class="grid grid--gutters">
+							<div class="cell cell-lg-3 cell-md-12 cell-sm-12 cell-xs-12">
+								<div class="card">
+									<div class="card__body">
+										<div class="grid mb-15 grid--dirColumn grid--center">
+											<div class="cell text-xs--center cell-xs-8">
+												<?php 
+													$nm1 = isset($userdata->firstName)?$userdata->firstName:'';
+													$nm2 = isset($userdata->lastName)?$userdata->lastName:'';
+													
+													$cn1 = '';
+													$cn2 = '';
+													
+													if ($nm1) $cn1 = substr($nm1,0,1); 
+													if ($nm2) $cn2 = substr($nm2,0,1); 
+													
+													$av = $cn1.$cn2;
+												
+												?>
+												<div><div class="user-avatar at-account__avatar"><?php echo $av; ?></div>
+													<div><?php echo isset($userdata->firstName)?$userdata->firstName:''; ?> <?php echo isset($userdata->lastName)?$userdata->lastName:''; ?></div>
+													<div class="uk-text-small uk-text-muted"><?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?></div>
+													<div><?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?></div>
+												</div>
+											</div>
+										</div>
+										<ul class="uk-list">
+											<li class="link-list__item at-main-menu__account">
+												<a href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>" class="py-10 link-list__target link-list__target--active">
+													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													</svg>-->
+													<div class="uk-text-truncate">Profile</div>
+												</a>
+											</li>
+											<li class="link-list__item at-main-menu__favs">
+												<a href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>" class="py-10 link-list__target">
+													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													</svg>-->
+													<div class="uk-text-truncate">My Favorites</div>
+												</a>
+											</li>
+											<li class="link-list__item at-main-menu__notification">
+												<a href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>" class="py-10 link-list__target link-list__target">
+													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													</svg>-->
+													<div class="uk-text-truncate">My Saved Searches</div>
+												</a>
+											</li>
+											<li class="link-list__item at-main-menu__logout">
+												<a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
+													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													</svg>-->
+													<div class="uk-text-truncate">Logout</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="cell cell-sm-fit">
+								<div class="mb-10 card">
+									<div class="collapsible collapsible--borderless">
+										<div class="collapsible__trigger is-open">
+											<div class="mb-0 sc-iAyFgw elMWBD">Contact Information</div>
+											<!--<svg viewBox="0 0 24 24" class="collapsible__trigger__icon sc-bdVaJa dzuKai" width="28" height="28">
+												<path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
+											</svg>-->
+										</div>
+										<div style="height: auto; transition: none 0s ease 0s; overflow: hidden;">
+											<div class="collapsible__inner za-container">
+												<div>
+													<form id="subscriberForm" role="form" class="form-horizontal" action="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=update" method="POST">
+														<input id="subscriberId" name="subscriberId" type="hidden" value="4002770">
+														<input type="hidden" name="actionType" value="update">
+														<div class="grid grid--gutters">
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountFirstName">First Name&nbsp;</label>
+																		<input id="accountFirstName" class="at-firstname-txt" type="text" name="firstName" autocomplete="given-name" value="<?php echo isset($userdata->firstName)?$userdata->firstName:''; ?>">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountLastName">Last Name&nbsp;</label>
+																		<input id="accountLastName" class="at-lastname-txt" type="text" name="lastName" autocomplete="family-name" value="<?php echo isset($userdata->lastName)?$userdata->lastName:''; ?>">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountEmailAddress">Primary Email Address&nbsp;</label>
+																		<input id="accountEmailAddress" class="at-email-txt" type="text" name="newEmail" autocomplete="email" value="<?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?>" disabled>
+																		<input id="zpaOrgProfile_Email" name="emailWork1" type="hidden" class="form-control" value="<?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?>">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountPhoneNumber">Phone Number&nbsp;</label>
+																		<input id="accountPhoneNumber" class="at-phonenumber-txt" type="text" name="phone" autocomplete="tel" value="<?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?>">
+																	</div>
+																</div>
+															</div>
+															<?php /*
+															<div class="cell py-0 cell-xs-12">
+																<div class="callout callout--top-left"><strong>FRIENDLY REMINDER</strong>: If you change your email address, this will also change your login information.</div>
+															</div>&nbsp;
+															*/ ?>
+															<div class="cell cell-xs-12">
+																<div class="row mb-10">
+																	<div>
+																		<div class="col-md-6 col-lg-6 ">
+																			<div class="checkbox">
+																				<label class="field-label">
+																					<input id="zpaOrgProfile_DailyDigest" name="propertyAlerts" <?php checked( $userdata->propertyAlerts, true ) ?> type="checkbox" class="form-control" value="1"> &nbsp; Send me property alerts matching my search preferences.</label>
+																			</div>
+																	   </div>
+																	   <div class="col-md-6 col-lg-6">
+																			<div class="row">
+																				<div class="col-md-3" >
+																					<label style="padding-top:7px" for="alertType">Frequency</label>
+																				</div>
+																				<div class="col-md-9">
+																					<select name="alertType" class="form-control">
+																						<!-- <option value="NONE">Frequency</option> -->
+																						<?php
+																						$alertTypes=za_get_alert_type();
+																						if(isset($alertTypes->result[0]->possibleValues)){
+																							$frequencies=$alertTypes->result[0]->possibleValues;
+																							foreach($frequencies as $frequency){
+																								$selected=isset($userdata->alertType) && $userdata->alertType==$frequency->code ? 'selected' : '';
+																								echo '<option value="'. $frequency->code .'" '. $selected .'>'. $frequency->value .'</option>'."\r\n";
+																							}
+																						}
+																						?>							
+																					</select>
+																				</div>
+																			</div>
+																	   </div>
+																	</div>
+																</div>
+															</div>&nbsp;
+															<!--
+															<div class="cell cell-xs-12">
+																<hr>
+																<div class="mb-10">
+																	<div>
+																		<label for="accountStreetAddress">Street Address&nbsp;</label>
+																		<input id="accountStreetAddress" class="at-address-txt" type="text" name="streetAddress" autocomplete="street-address" value="">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountCity">City&nbsp;</label>
+																		<input id="accountCity" class="at-city-txt" type="text" name="city" value="">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountState">State&nbsp;<span id="accountStateHelper" class="uk-text-small uk-text-muted">(Two letter abbr.)</span>
+																		</label>
+																		<input id="accountState" class="at-state-txt" type="text" aria-describedby="accountStateHelper" name="state" value="">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="accountZipCode">Zip Code&nbsp;</label>
+																		<input id="accountZipCode" class="at-zipcode-txt" type="text" name="postalCode" autocomplete="postal-code" value="">
+																	</div>
+																</div>
+															</div>
+															-->
+														</div>
+														<div class="grid grid--gutters grid--justifycenter">
+															<div class="cell cell-md-6">
+																<input type="hidden" name="contactId" value="<?php echo $userdata->id; ?>" />
+																<button class="at-edit-account-info-submit-btn sc-htpNat eMrTXM sc-bwzfXH dPWOJK width-1-1" type="submit" form="subscriberForm" aria-pressed="false">Save Contact Changes</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--
+								<div class="mb-10 card">
+									<div class="collapsible collapsible--borderless">
+										<div class="collapsible__trigger is-closed">
+											<div class="mb-0 sc-iAyFgw elMWBD">Email Preferences</div>
+											<svg viewBox="0 0 24 24" class="collapsible__trigger__icon sc-bdVaJa dzuKai" width="28" height="28">
+												<path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
+											</svg>
+										</div>
+										<div style="height: 0px; transition: height 300ms ease 0s; overflow: hidden;">
+											<div class="collapsible__inner container">
+												<div>
+													<form id="email-prefs__form">
+														<div>
+															<h4><span>Periodic emails from our <strong>real estate team</strong></span></h4>
+															<label class="form__check" for="email-prefs__subscribe-agent">
+																<input name="agent" type="radio" id="email-prefs__subscribe-agent" value="subscribed"><span> Subscribed</span>
+															</label>
+															<label class="form__check" for="email-prefs__unsubscribe-agent">
+																<input name="agent" type="radio" id="email-prefs__unsubscribe-agent" value="unsubscribed"><span> Unsubscribed</span>
+															</label>
+														</div>
+														<hr>
+														<div>
+															<h4><span>Periodic emails from our <strong>sponsored local lender</strong></span></h4>
+															<label class="form__check" for="email-prefs__subscribe-lender">
+																<input name="lender" type="radio" id="email-prefs__subscribe-lender" value="subscribed"><span> Subscribed</span>
+															</label>
+															<label class="form__check" for="email-prefs__unsubscribe-lender">
+																<input name="lender" type="radio" id="email-prefs__unsubscribe-lender" value="unsubscribed"><span> Unsubscribed</span>
+															</label>
+														</div>
+														<hr>
+														<div class="mb-15">
+															<h4><span>New <strong>Listing e-Alerts</strong> for saved searches</span></h4>
+															<label class="form__check" for="email-prefs__subscribe-ealerts">
+																<input name="ealerts" type="radio" id="email-prefs__subscribe-ealerts" value="subscribed"><span> Subscribed</span>
+															</label>
+															<label class="form__check" for="email-prefs__unsubscribe-ealerts">
+																<input name="ealerts" type="radio" id="email-prefs__unsubscribe-ealerts" value="unsubscribed"><span> Unsubscribed</span>
+															</label>
+														</div>
+														<div class="uk-text-center mb-50">
+															<button class="px-50 sc-bwzfXH izRSvr btn-small" type="button" aria-pressed="false">
+																<div>Edit Saved Searches</div>
+															</button>
+														</div>
+														<hr>
+														<div class="uk-text-small text-xs--center mb-15">To stop all communication from our site, including new listing e-Alerts, click here to <a>Unsubscribe</a> from all.</div>
+														<div class="grid grid--gutters grid--justifycenter">
+															<div class="cell cell-md-6">
+																<button class="at-email-prefs-submit-btn sc-htpNat eMrTXM sc-bwzfXH dPWOJK width-1-1" type="submit" form="email-prefs__form" aria-pressed="false">Update Email Preferences</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mb-10 card">
+									<div class="collapsible collapsible--borderless">
+										<div class="collapsible__trigger is-closed">
+											<div class="mb-0 sc-iAyFgw elMWBD">Change Password</div>
+											<svg viewBox="0 0 24 24" class="collapsible__trigger__icon sc-bdVaJa dzuKai" width="28" height="28">
+												<path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
+											</svg>
+										</div>
+										<div style="height: 0px; transition: height 300ms ease 0s; overflow: hidden;">
+											<div class="collapsible__inner container">
+												<div>
+													<form id="change-password__form">
+														<div class="grid grid--gutters">
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="change-password__current">Current Password&nbsp;</label>
+																		<input id="change-password__current" class="" type="password" value="">
+																	</div>
+																</div>
+															</div>
+															<div class="cell pt-0 pb-10 cell-xs-12">
+																<div class="callout callout--top-left"><strong>PASSWORD REMINDER</strong>: If you have forgotten your password, you may have used your phone number.</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="change-password__new">New Password&nbsp;</label>
+																		<input id="change-password__new" class="" type="password" value="">
+																	</div>
+																</div>
+															</div>
+															<div class="cell cell-xs-12 cell-md-6">
+																<div class="mb-10">
+																	<div>
+																		<label for="change-password__newRepeated">Confirm Password&nbsp;</label>
+																		<input id="change-password__newRepeated" class="" type="password" value="">
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="grid mt-10 grid--gutters grid--justifycenter">
+															<div class="cell cell-md-6">
+																<button class="at-change-password-submit-btn sc-htpNat eMrTXM sc-bwzfXH dPWOJK width-1-1" type="submit" form="change-password__form" aria-pressed="false">Confirm Password Change</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								-->
+							</div>
+							<?php /*
+							<div class="cell cell-md-4 cell-lg-3">
+								<div class="card">
+									<div class="card__body">
+										<div class="sc-iAyFgw elMWBD">Your Agent</div>
+										<div>
+											<div class="text-xs--center">
+												<div>
+													<a class="mb-10 sc-VigVT fNLrff agent-avatar" title="See My Profile" href="/agents/131919-Ethan-Goodrich-Team">
+														<img class="agent-avatar__img width-1-1" itemprop="image" alt="Ethan Goodrich Team" src="//bt-boomstatic.global.ssl.fastly.net/content/tenant/INDGoodrichMA/agent/131919.jpg" title="Ethan Goodrich Team">
+													</a>
+													<div class="h4">Ethan Goodrich Team</div>
+													<div class="uk-text-muted">Associate</div>
+													<div class="uk-text-muted"></div>
+													<div class="bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:(978) 846-1466"><span class="bt-listing__agent__info_phone__type">Cell: </span><span itemprop="telephone">(978) 846.1466</span></a>
+													</div>
+												</div>
+											</div>
+											<form id="contact-agent">
+												<div>
+													<div class="mb-10">
+														<div>
+															<input id="contactAgent__UserFullName" class="at-fullName-txt" type="hidden" name="fullname" autocomplete="given-name" value="Decz Dk">
+														</div>
+													</div>
+													<div class="mb-10">
+														<div>
+															<input id="contactAgent__UserPhone" class="at-phone-txt" type="hidden" name="phone" autocomplete="tel" value="7607567568">
+														</div>
+													</div>
+													<div class="mb-10">
+														<div>
+															<input id="contactAgent__UserEmail" class="at-email-txt" type="hidden" name="email" autocomplete="email" value="seo.deczen@gmail.com">
+														</div>
+													</div>
+													<div class="mb-10">
+														<div>
+															<label for="contactAgent__UserComments">How can I help?&nbsp;</label>
+															<textarea id="contactAgent__UserComments" class="at-comment-txt mb-10" name="comments" cols="30" rows="5"></textarea>
+														</div>
+													</div>
+												</div>
+												<button class="at-submit-btn sc-htpNat eMrTXM sc-bwzfXH dPWOJK width-1-1" type="submit" form="contact-agent" aria-pressed="false">Submit</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							*/ ?>
+						</div>
+					</div>
+				</section>
+				
+        </div>
+    </div>
+</div>
+
+<?php /*
+<div id="zpa-main-container" class="zpa-container zpa-color-scheme-gray" style="display: inline;">
+    <div>
+        <div class="row mb-10">
+            <div class="col-xs-12">
+                <div class="pull-right"> <?php /* <a href="./property-organizer-help/">Help</a> <span>&nbsp;|&nbsp; */ /*?></span> <a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
+            </div>
+        </div>
+        <div class="row mb-10">
+            <div class="col-xs-12">
+                <div class="btn-group btn-group-justified"> <a class="btn btn-primary active" href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
+            </div>
+        </div>
+        <div class="row mb-10 mt-25">
+            <div class="col-xs-12"> <strong> Modify Account Settings </strong> </div>
+        </div>
+        <div class="row mb-10">
+            <div class="col-xs-12">
+                <form id="subscriberForm" role="form" class="form-horizontal" action="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=update" method="POST">
+                    <input id="subscriberId" name="subscriberId" type="hidden" value="4002770">
+                    <input type="hidden" name="actionType" value="update">
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Name" class="col-md-3 col-lg-3 control-label"> First Name </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Name" name="firstName" type="text" class="form-control" value="<?php echo isset($userdata->firstName)?$userdata->firstName:''; ?>" maxlength="60"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Name" class="col-md-3 col-lg-3 control-label"> Last Name </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Name" name="lastName" type="text" class="form-control" value="<?php echo isset($userdata->lastName)?$userdata->lastName:''; ?>" maxlength="60"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Email" class="col-md-3 col-lg-3 control-label"> Email </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Email" name="newEmail" type="text" class="form-control" value="<?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?>" maxlength="60" disabled>
+							<input id="zpaOrgProfile_Email" name="emailWork1" type="hidden" class="form-control" value="<?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?>"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Phone" class="col-md-3 col-lg-3 control-label"> Phone </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Phone" name="phone" type="text" class="form-control" value="<?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?>" maxlength="30"> </div>
+                    </div>
+					<div class="form-group">
+                        <label for="zpaOrgProfile_DailyDigest" class="col-md-3 col-lg-3 control-label"></label>
+                        <div class="col-md-5 col-lg-5 ">
+							<div class="checkbox">
+								<label class="field-label">
+									<input id="zpaOrgProfile_DailyDigest" name="propertyAlerts" <?php checked( $userdata->propertyAlerts, true ) ?> type="checkbox" class="form-control" value="1"> &nbsp; Send me property alerts matching my search preferences.</label>
+							</div>
+					   </div>
+					   <div class="col-md-4 col-lg-4">
+							<select name="alertType" class="form-control">
+								<option value="NONE">Frequency</option>
+								<?php
+								$alertTypes=za_get_alert_type();
+								if(isset($alertTypes->result[0]->possibleValues)){
+									$frequencies=$alertTypes->result[0]->possibleValues;
+									foreach($frequencies as $frequency){
+										$selected=isset($userdata->alertType) && $userdata->alertType==$frequency->code ? 'selected' : '';
+										echo '<option value="'. $frequency->code .'" '. $selected .'>'. $frequency->value .'</option>'."\r\n";
+									}
+								}
+								?>							
+							</select>
+					   </div>
+                    </div>
+					<?php /* 
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Email2" class="col-md-3 col-lg-3 control-label"> Add'l Email Address </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Email2" name="altEmail" type="text" class="form-control" value="" maxlength="60"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Address" class="col-md-3 col-lg-3 control-label"> Address </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Address" name="streetAddress" type="text" class="form-control" value="" maxlength="80"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_City" class="col-md-3 col-lg-3 control-label"> City </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_City" name="city" type="text" class="form-control" value="" maxlength="40"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_State" class="col-md-3 col-lg-3 control-label"> State </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_State" name="state" type="text" class="form-control" value="" maxlength="2"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zpaOrgProfile_Zip" class="col-md-3 col-lg-3 control-label"> Zip Code </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input id="zpaOrgProfile_Zip" name="postalCode" type="text" class="form-control" value="" maxlength="12"> </div>
+                    </div> */ /*?>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9">
+							<input type="hidden" name="contactId" value="<?php echo $userdata->id; ?>" />
+                            <button type="submit" class="btn btn-primary">Save Settings</button>
+                        </div>
+                    </div>
+                    <div> </div>
+                </form>
+				<?php /*
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9"> <span class="help-block">
+						*Required fields. Your personal information is strictly confidential and will not be shared with any outside organizations. <br>
+						<?php /* <br>By submitting this form with your telephone number you are consenting for Keller William Realty Chestnut Hill and authorized representatives to contact you even if your name is on the Federal "Do-not-call List." <br> <br> <a href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=unsubscribe">Delete This Account</a> <br> </span> 
+					</div>
+                </div> */ /*?>
+            </div>
+        </div>
+    </div>
+</div>
+*/

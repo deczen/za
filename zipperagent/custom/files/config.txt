@@ -1,0 +1,3 @@
+root:table {
+	configurationPath {"$HOME/zipperagent/$websitedomain/root.txt"}
+}

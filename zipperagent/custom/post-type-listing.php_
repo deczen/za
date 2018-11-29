@@ -1,0 +1,41 @@
+<?php
+
+class Single_Property {
+	
+	
+	public function __construct() {
+		
+		add_action( 'init', array( &$this, 'init' ) );
+	}
+	
+	/**
+	 * Register the custom post type
+	 */
+	public function init() {		
+		
+		require ZIPPERAGENTPATH . '/custom/listing/metabox.php'; 
+		require ZIPPERAGENTPATH . '/custom/listing/metabox-useage.php';
+		require ZIPPERAGENTPATH . '/custom/listing/themegit.php'; 
+		require ZIPPERAGENTPATH . '/custom/listing/customize.php'; 
+		require ZIPPERAGENTPATH . '/custom/listing/post-types.php'; 
+		require ZIPPERAGENTPATH . '/custom/listing/shortcodes.php';
+		
+		//template process
+		add_action( 'the_content', array( &$this, 'process_template' ) );
+	}
+	
+	public function process_template($content){
+		global $post;
+		// echo "<pre>"; print_r($post); echo "</pre>";
+		if( !is_admin() && $post->post_type=='listings'){
+			ob_start();
+			require ZIPPERAGENTPATH . '/custom/listing/post-template.php';
+			$content = ob_get_clean();
+		}
+		
+		return $content;
+	}
+}
+
+// finally instantiate our plugin class and add it to the set of globals
+$GLOBALS['Single_Property'] = new Single_Property();

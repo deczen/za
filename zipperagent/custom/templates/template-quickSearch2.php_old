@@ -1,0 +1,125 @@
+<div id="zpa-main-container" class="zpa-container " style="display: inline;">
+    <div class="zpa-widget mb-25">
+        <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
+            <fieldset>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-5 mb-10">
+                        <label for="zpa-area-input" class="field-label"> Location </label>
+                        <input id="zpa-area-input" class="zpa-area-input form-control" placeholder="Enter City / County / Zip"  name="location[]"/>
+						<input class="zpa-area-input-hidden" name="" type="hidden">
+					</div>
+                    <div class="col-xs-12 col-sm-4 mb-10">
+                        <label for="zpa-minprice-homes" class="field-label"> Property Type </label>
+                        <select id="zpa-select-property-type" name="propertyType" class="form-control zpa-chosen-select-width">
+                            <?php
+							$propTypeFields = get_property_type();
+							foreach( $propTypeFields as $fieldCode=>$fieldName ){
+								echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+							}
+							?>
+                        </select>
+                    </div>
+                    <?php /* <div class="col-xs-12 col-sm-2">
+                        <label for="zpa-minprice-homes" class="field-label"> Min. Price </label>
+                        <div style="position: relative;">
+                            <div class="zpa-label-overlay-money"> $ </div>
+                            <input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+                    </div> */ ?>
+                    <div class="col-xs-12 col-sm-2">
+                        <label for="zpa-maxprice-homes" class="field-label"> Max. Price </label>
+                        <div style="position: relative;">
+                            <div class="zpa-label-overlay-money"> $ </div>
+                            <input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-1">
+                        <label for="zpa-select-baths-homes" class="field-label">&nbsp;</label>
+                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                    </div>
+                </div>
+            </fieldset>
+            <div> </div>
+        </form>
+    </div>
+	
+	<script>
+		jQuery(document).ready(function($) {
+			
+			var ms = $('#zpa-area-input').magicSuggest({
+				<?php /* data: '<?php echo zipperagent_url(false) . 'custom/options.php' ?>', */ ?>
+				<?php
+					ob_start();
+					include ZIPPERAGENTPATH . '/custom/options.php';
+					$jsonData=ob_get_clean();					
+				?>
+				data: <?php echo $jsonData; ?>,
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				// maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + data.name + '</div>';
+				}
+
+			});
+			
+			var rawValue='';
+			var recentSelected='';
+			
+			//get user input keywords
+			$(ms).on('keyup', function(){
+				rawValue = ms.getRawValue();
+			});
+			
+			//get current selected value
+			$(ms).on('focus', function(c){
+				recentSelected = ms.getValue();
+			});
+			
+			//select value on blur / mouse leave
+			$(ms).on('blur', function(c, e){
+				var data = ms.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				var currentSelected = ms.getValue();
+				
+				if( rawValue!="" && recentSelected.length == currentSelected.length){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms.setValue([firstData.code]);
+					}else{
+						var custom = rawValue;
+						ms.setValue([custom]);
+					}
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 ){ // enter pressed
+					var data = ms.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms.setValue([firstData.code]);
+						}else{
+							var custom = rawValue;
+							ms.setValue([custom]);
+						}
+					}
+					
+					ms.collapse();
+				}
+			});
+		});
+	</script>
+</div>
