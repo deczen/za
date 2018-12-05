@@ -124,7 +124,7 @@ class zipperAgentAdmin {
 		
 		/* Menu name is adjusted by decz */
 		// add_menu_page("Zipperagent", "Zipperagent", "manage_options", zipperAgentConstants::PAGE_INFORMATION, array(zipperAgentAdminInformation::getInstance(), "getPage"));
-		add_menu_page("Zipperagent", "Zipperagent", "manage_options", zipperAgentConstants::PAGE_CONFIGURATION, array(zipperAgentAdminConfiguration::getInstance(), "getPage"));
+		add_menu_page("Zipperagent", "Zipperagent", "manage_options", zipperAgentConstants::PAGE_CONFIGURATION, array(zipperAgentAdminConfiguration::getInstance(), "getPage"), ZIPPERAGENTURL . 'img/za-icon.svg');
 		
 		/* Menu Community Pages is disabled by decz */
 		// add_submenu_page(zipperAgentConstants::PAGE_INFORMATION, "Information", "Information", "manage_options", zipperAgentConstants::PAGE_INFORMATION, array(zipperAgentAdminInformation::getInstance(), "getPage"));
