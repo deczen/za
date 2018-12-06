@@ -1,8 +1,8 @@
 <?php
 // clear option cache files
-if( isset($_GET['clear_cache']) && $_GET['clear_cache']==1 ){
-	zipperagent_clear_caches();
-}
+$user_id = get_current_user_id();
+$user = new WP_User( $user_id );
+$roles = $user->roles;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-save']) ) {
 	global $wp_roles;
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-save']) ) {
 	$agt_cpbs = $_POST['agent_cpb'];
 	// echo '<pre>'; print_r($adm); echo '</pre>';
 	
-	if( current_user_can( 'administrator' )): 
+	if( in_array( 'administrator', $roles ) ):
 	
 		$admin_roles = get_role( 'admin' )->capabilities;
 		foreach($admin_roles as $key => $val){
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-save']) ) {
 		
 	endif;
 	
-	if( current_user_can( 'administrator' ) || current_user_can( 'admin' )):
+	if( (in_array( 'administrator', $roles )) || (in_array( 'admin', $roles )) ):
 	
 		$agent_roles = get_role( 'agent' )->capabilities;
 		foreach($agent_roles as $key => $val){
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-save']) ) {
 
 <form method="post" action="">
 	<table class="form-table">
-		<?php  if( current_user_can( 'administrator' )): ?>
+		<?php  if( in_array( 'administrator', $roles ) ): ?>
 		<tr>
 			<th>
 				<label for="cpb-list">Admin Role</label>
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-save']) ) {
 		</tr>
 		<?php endif; ?>
 		
-		<?php  if( current_user_can( 'administrator' ) || current_user_can( 'admin' )): ?>
+		<?php  if( (in_array( 'administrator', $roles )) || (in_array( 'admin', $roles )) ): ?>
 		<tr>
 			<th>
 				<label for="cpb-agent-list">Agent Role</label>
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-save']) ) {
 		<?php endif; ?>
 	</table>
 	<p class="submit">
-		<button type="submit" class="button-primary" name="btn-save">Save Changes</button> <a href="admin.php?page=za-user-restriction&clear_cache=1" class="button-primary">Clear Cache</a>
+		<button type="submit" class="button-primary" name="btn-save">Save Changes</button>
 	</p>
 </form>
 

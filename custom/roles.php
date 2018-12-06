@@ -79,7 +79,13 @@ function wporg_simple_role_remove(){
 // add_action('init', 'wporg_simple_role_remove');
 
 function za_remove_plugin_admin_menu() {
-    if( current_user_can( 'admin' ) ||  current_user_can( 'agent' ) ):
+	
+	$user_id = get_current_user_id();
+	$user = new WP_User( $user_id );
+	$roles = $user->roles;
+	
+	if( (in_array( 'admin', $roles )) || (in_array( 'agent', $roles )) ):
+    // if( current_user_can( 'admin' ) ||  current_user_can( 'agent' ) ):
         remove_menu_page('edit.php?post_type=portfolio-item');
         remove_menu_page('edit.php?post_type=testimonials');
         remove_menu_page('edit.php?post_type=carousels');
@@ -101,8 +107,12 @@ function za_remove_plugin_admin_menu() {
 add_action( 'admin_menu', 'za_remove_plugin_admin_menu', 9999 );
 
 function restrict_menus() {
-
-    if( current_user_can( 'admin' ) ||  current_user_can( 'agent' ) ) {  
+	
+	$user_id = get_current_user_id();
+	$user = new WP_User( $user_id );
+	$roles = $user->roles;
+	
+	if( (in_array( 'admin', $roles )) || (in_array( 'agent', $roles )) ){ 
         $screen = get_current_screen();
 		// echo '<pre>'; print_r($screen); echo '</pre>';
         $base   = $screen->id;
@@ -123,9 +133,13 @@ add_action( 'current_screen', 'restrict_menus' );
 add_action( 'admin_menu', 'register_user_restriction_setting', 99 );
 function register_user_restriction_setting() {
 	
-  if(current_user_can('administrator'))
+	$user_id = get_current_user_id();
+	$user = new WP_User( $user_id );
+	$roles = $user->roles;
+	
+  if( in_array( 'administrator', $roles ) )
 	add_submenu_page(zipperAgentConstants::PAGE_CONFIGURATION, "User Restriction", "User Restriction", "manage_options", 'za-user-restriction', 'user_restriction_setting_display');
-  else if(current_user_can('admin'))
+  else  if( in_array( 'admin', $roles ) )
 	add_menu_page("User Restriction", "User Restriction", "admin", 'za-user-restriction', 'user_restriction_setting_display', ZIPPERAGENTURL . 'img/za-icon.svg');
 }  
 
@@ -142,9 +156,12 @@ function wpse_hide_special_pages($query) {
 
     global $typenow;
 	$pageID = get_option('page_on_front');
-
+	$user_id = get_current_user_id();
+	$user = new WP_User( $user_id );
+	$roles = $user->roles;
+	
     // Only do this for pages
-    if ( 'page' == $typenow && ( current_user_can( 'admin' ) || current_user_can( 'agent' ) ) ) {
+    if ( 'page' == $typenow && ( in_array( 'admin', $roles ) || in_array( 'agent', $roles ) ) ) {
 
         // Don't show the special pages (get the IDs of the pages and replace these)
         $query->set( 'post__not_in', array($pageID) );
@@ -157,9 +174,11 @@ add_action('pre_get_posts', 'wpse_hide_special_pages');
 
 function wpse_hide_super_admin($user_search) {
 
-    $user = wp_get_current_user();
-
-    if ( ! current_user_can( 'manage_options' ) ) {
+	$user_id = get_current_user_id();
+	$user = new WP_User( $user_id );
+	$roles = $user->roles;
+	
+    if( (in_array( 'admin', $roles )) || (in_array( 'agent', $roles )) ){ 
 
         global $wpdb;
 
@@ -171,13 +190,8 @@ function wpse_hide_super_admin($user_search) {
                     AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')", 
             $user_search->query_where
         );
-
-    }
-	if ( current_user_can( 'admin' ) ) {
-
-        global $wpdb;
-
-        $user_search->query_where = 
+		
+		$user_search->query_where = 
             str_replace('WHERE 1=1', 
             "WHERE 1=1 AND {$wpdb->users}.ID IN (
                  SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta 
@@ -189,9 +203,14 @@ function wpse_hide_super_admin($user_search) {
     }
 }
 add_action('pre_user_query','wpse_hide_super_admin');
-
+ 
 function wpse_editable_roles( $roles ){
-    if( ! current_user_can('administrator') ){
+	
+	$user_id = get_current_user_id();
+	$user = new WP_User( $user_id );
+	$roles2 = $user->roles;
+	
+	if( (in_array( 'admin', $roles2 )) || (in_array( 'agent', $roles2 )) ){
 		
       unset( $roles['administrator']);
       unset( $roles['admin']);
