@@ -261,7 +261,7 @@ class zipperAgentAdminPageConfig extends zipperAgentAdminAbstractPage {
 							/* modified by decz */
 							$this->getOrganizerLogoutPageSetup();
 							/* modified by decz */
-							// $this->getOrganizerEditSubscriberPageSetup();
+							$this->getOrganizerEditSubscriberPageSetup();
 							/* modified by decz */
 							$this->getOrganizerViewSavedSearchListPageSetup();
 							/* modified by decz */
@@ -472,6 +472,7 @@ class zipperAgentAdminPageConfig extends zipperAgentAdminAbstractPage {
 		$this->getPageSetup(array(
 			"sectionTitle" => "Organizer Edit Subscriber",
 			"virtualPageType" => zipperAgentVirtualPageFactory::ORGANIZER_EDIT_SUBSCRIBER, 
+			"permalinkEditable" => false,
 			"permalinkOption" => zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_EDIT_SUBSCRIBER,
 			"titleOption" => zipperAgentConstants::OPTION_VIRTUAL_PAGE_TITLE_ORGANIZER_EDIT_SUBSCRIBER, 
 			"templateOption" => zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_EDIT_SUBSCRIBER,
