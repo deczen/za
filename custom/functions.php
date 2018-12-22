@@ -1238,6 +1238,17 @@ if( ! function_exists('zipperagent_meta') ){
 
 if( ! function_exists('zipperagent_area_town') ){
 	function zipperagent_area_town(){
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/areaTowns.php";
+		$json=ob_get_clean();
+		$data=json_decode($json);
+		
+		return $data;
+	}
+}
+
+if( ! function_exists('generate_area_town') ){
+	function generate_area_town(){
 		$arr=array();
 		
 		$rb = zipperagent_rb();
