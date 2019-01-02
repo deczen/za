@@ -478,6 +478,11 @@ $rb = zipperagent_rb();
 							jQuery('.hidden-on-login').remove();
 							jQuery('#zpa-modal-register-user-form input[name=action]').val('contact_agent');
 							
+							//enable my-account button
+							jQuery('.login-url .link-text').html(response['myaccountname']);
+							jQuery('.login-url').attr('href', response['myaccounturl']);
+							jQuery('.login-url').addClass('myaccount-url').removeClass('login-url');
+							
 							//show close button
 							jQuery('#needLoginModal .close').show();
 							

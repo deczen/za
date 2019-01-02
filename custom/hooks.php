@@ -943,6 +943,18 @@ function zipperagent_template( $content ){
 	if( ! interface_exists( 'zipperAgentConstants' ) )
 		return $content;
 	
+	if ( ! in_the_loop() ) {
+        return $content;
+    }
+
+    if ( ! is_singular() ) {
+        return $content;
+    }
+
+    if ( ! is_main_query() ) {
+        return $content;
+    }
+	
 	$requests = $_REQUEST;
 	
 	//map
@@ -1014,6 +1026,9 @@ function zipperagent_template( $content ){
 		include ZIPPERAGENTPATH . "/custom/templates/template-organizerViewSavedListingList.php";
 		$content.=ob_get_clean();			
 	}
+	
+	
+    remove_filter( 'the_content', 'zipperagent_template' );
 	
 	return $content;
 }

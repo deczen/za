@@ -19,6 +19,10 @@ if( ! $userdata || ! sizeof($userdata)){
 	die();
 }
 
+/*
+ * Saved Favorites
+ */
+
 $page = (get_query_var('page')) ? get_query_var('page') : 1;
 $page = isset($requests['page']) ? $requests['page'] : $page;
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -42,6 +46,23 @@ $result = zipperagent_run_curl( "/api/mls/listListings", $vars );
 // echo "<pre>"; print_r( $result ); echo "</pre>";
 $count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 $list=isset($result['filteredList'])?$result['filteredList']:$result;
+
+
+/*
+ * Saved Searches
+ */
+
+$contactIds = get_contact_id();
+$result = zipperagent_run_curl( '/api/mls/listSearches?contactId='. implode(',',$contactIds) .'&ps=999&sidx=0' );
+$filteredList = isset($result['filteredList'])?$result['filteredList']:array();
+$dataCount = isset($result['dataCount'])?$result['dataCount']:0;
+// echo "<pre>"; print_r( $filteredList ); echo "</pre>";
+
+
+
+/*
+ * Get current profile
+ */
 
 // echo "<pre>"; print_r( $userdata ); echo "</pre>";
 // echo "<pre>"; print_r( $_SESSION['userdata'] ); echo "</pre>";
@@ -115,14 +136,14 @@ $userdata = $userdata[0]; //get first index record
 												<a href="#za-saved-listing-list" class="py-10 link-list__target" data-toggle="tab">
 													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
 													</svg>-->
-													<div class="uk-text-truncate">My Favorites</div>
+													<div class="uk-text-truncate">My Favorites (<?php echo $count; ?>)</div>
 												</a>
 											</li>
 											<li class="link-list__item at-main-menu__notification <?php if($_GET['menu']=='my-search') echo 'active'; ?>">
 												<a href="#za-saved-search-list" class="py-10 link-list__target" data-toggle="tab">
 													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
 													</svg>-->
-													<div class="uk-text-truncate">My Saved Searches</div>
+													<div class="uk-text-truncate">My Saved Searches (<?php echo $dataCount; ?>)</div>
 												</a>
 											</li>
 											<li class="link-list__item at-main-menu__logout">
@@ -381,13 +402,6 @@ $userdata = $userdata[0]; //get first index record
 									<div class="mb-10 card">
 										<div class="collapsible__trigger is-open">
 											<div class="collapsible collapsible--borderless">
-												<?php
-												$contactIds = get_contact_id();
-												$result = zipperagent_run_curl( '/api/mls/listSearches?contactId='. implode(',',$contactIds) .'&ps=999&sidx=0' );
-												$filteredList = isset($result['filteredList'])?$result['filteredList']:array();
-												$dataCount = isset($result['dataCount'])?$result['dataCount']:0;
-												// echo "<pre>"; print_r( $filteredList ); echo "</pre>";
-												?>	
 												<div class="row mb-25">
 													<div class="col-xs-12">
 														<strong><?php echo $dataCount>0?"{$dataCount} Saved Searches":"{$dataCount} Saved Search" ?></strong>
