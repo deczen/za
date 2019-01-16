@@ -301,7 +301,8 @@ $rb = zipperagent_rb();
 					}
 					
 					setTimeout(function() {					  
-						window.location.replace(response['myaccounturl']);
+						// window.location.replace(response['myaccounturl']);
+						window.location.replace(response['thankyouurl']);
 					}, 1000);
 				}else{
 					alert( 'Submit failed!' );
