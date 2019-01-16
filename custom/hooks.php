@@ -216,7 +216,8 @@ function regist_user(){
 			$return['email']=$email;
 			$return['myaccountname']=zipperagent_user_name();
 			$return['myaccounturl']=zipperagent_page_url('property-organizer-edit-subscriber');
-			$return['thankyouurl']=add_query_arg( array('action'=>'verify', 'code' => $result->id), site_url('/thankyou/') );
+			// $return['thankyouurl']=add_query_arg( array('action'=>'verify', 'code' => $result->id), site_url('/thankyou/') );
+			$return['thankyouurl']=add_query_arg( array('email'=>$email), site_url('/thankyou/') );
 			$return['result']=$result;
 			
 			flush_rewrite_rules(); //fix page not found
