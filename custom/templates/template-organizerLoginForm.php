@@ -225,6 +225,7 @@ $rb = zipperagent_rb();
 	jQuery( '#zpa-login-form' ).on( 'submit', function(){
 		
 		jQuery('#zpa-login-form').css('opacity', 0.5);
+		jQuery('#zpa-login-form').css('pointer-events', 'none');
 		
 		var rememberMe;		
 		var email = jQuery('#exampleInputEmail2').val();
@@ -254,6 +255,7 @@ $rb = zipperagent_rb();
 					jQuery( '.zpa-normal-signup' ).show();
 					jQuery('#inputEmail3').val(email);				
 					jQuery('#zpa-login-form').css('opacity', 1);
+					jQuery('#zpa-login-form').css('pointer-events', 'initial');
 				}
 			}
 		});
@@ -263,6 +265,7 @@ $rb = zipperagent_rb();
 	jQuery( '#zpa-create-organizer-form' ).on( 'submit', function(){
 		
 		jQuery('#zpa-create-organizer-form').css('opacity', 0.5);
+		jQuery('#zpa-create-organizer-form').css('pointer-events', 'none');
 		
 		var data = jQuery(this).serialize();
 	 
@@ -296,7 +299,7 @@ $rb = zipperagent_rb();
 					?>
 					
 					//track analytic
-					if (typeof ga !== 'undefined' && $.isFunction(ga)) {
+					if (typeof ga !== 'undefined' && jQuery.isFunction(ga)) {
 						ga('send', 'event', 'User Login', 'Sign Up');
 					}
 					
@@ -307,9 +310,8 @@ $rb = zipperagent_rb();
 				}else{
 					alert( 'Submit failed!' );
 					jQuery('#zpa-create-organizer-form').css('opacity', 1);
+					jQuery('#zpa-create-organizer-form').css('pointer-events', 'initial');
 				}
-				
-				// jQuery('#zpa-create-organizer-form').css('opacity', 1);
 			}
 		});
 		
@@ -404,6 +406,7 @@ $rb = zipperagent_rb();
 			};
 			
 			jQuery('.zpa-social-signup').css('opacity', 0.5);
+			jQuery('.zpa-social-signup').css('pointer-events', 'none');
 			
 			jQuery.ajax({
 				type: 'POST',
@@ -421,6 +424,7 @@ $rb = zipperagent_rb();
 					}
 					
 					jQuery('.zpa-social-signup').css('opacity', 1);
+					jQuery('.zpa-social-signup').css('pointer-events', 'initial');
 				}
 			});
 		});		

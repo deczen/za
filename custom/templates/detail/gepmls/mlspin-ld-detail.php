@@ -768,14 +768,14 @@ $contactIds=get_contact_id();
 						<?php endif; ?>
 						
 						<li class="cell">
-							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) ):?>
+							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->unmapped->Legal) ):?>
 							<h3 class="bt-listing__headline">Taxes</h3>
 							<table class="bt-listing__table">
 								<tbody>
-									<?php if( isset($single_property->taxes)): ?>
+									<?php if( isset($single_property->unmapped->Legal)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Tax Amount ($)</td>
-										<td class="bt-listing__table__items"><span>[taxes]</span></td>
+										<td class="bt-listing__table__label">Legal</td>
+										<td class="bt-listing__table__items"><span>[unmapped_Legal]</span></td> <!-- not done -->
 									</tr>
 									<?php endif; ?>
 									<?php if( isset($single_property->taxyear)): ?>
@@ -784,10 +784,10 @@ $contactIds=get_contact_id();
 										<td class="bt-listing__table__items"><span>[taxyear]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->zoning)): ?>
+									<?php if( isset($single_property->taxes)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Zoning Code</td>
-										<td class="bt-listing__table__items"><span>[zoning]</span></td> <!-- not done -->
+										<td class="bt-listing__table__label">Tax Amount ($)</td>
+										<td class="bt-listing__table__items"><span>[taxes]</span></td>
 									</tr>
 									<?php endif; ?>
 								</tbody>

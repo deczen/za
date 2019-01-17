@@ -185,33 +185,21 @@ function regist_user(){
 		}*/
 		
 		if($result){			
-			//auto login user
-			$userdata=getUserContact($email);
+			/* auto login user */		
+				// userContactLogin($email);
 			
-			if( $userdata ){
+			/* send email (disabled) */
+				/*
+				$url = add_query_arg( array('action'=>'verify', 'code' => $id), site_url('/thankyou/') );
+				$parse = parse_url($url);			
+				$headers = 'From: '. get_bloginfo('name') .' <no-reply@'. $parse['host'] .'>';
+				$subject="[".get_bloginfo('name')."] Please confirm your email";
+				$message="Confirmation url: " . $url;
+				// wp_mail($email, $subject, $message, $headers);
+				// echo $url;
+				// $return['contactId']=$id; */
 				
-				foreach($userdata as $contact){
-					$contactIds[]=$contact->id;
-				}
-				
-				$_SESSION['contactId']=$contactIds;
-				$_SESSION['userMail']=$email;
-				$_SESSION['userRemember']=$rememberMe;
-				$_SESSION['userdata']=$userdata;
-			}
-			
-			//send email (disabled)
-			/*
-			$url = add_query_arg( array('action'=>'verify', 'code' => $id), site_url('/thankyou/') );
-			$parse = parse_url($url);			
-			$headers = 'From: '. get_bloginfo('name') .' <no-reply@'. $parse['host'] .'>';
-			$subject="[".get_bloginfo('name')."] Please confirm your email";
-			$message="Confirmation url: " . $url;
-			// wp_mail($email, $subject, $message, $headers);
-			// echo $url;
-			// $return['contactId']=$id; */
-			
-			// echo "<pre>"; print_r($result); echo "</pre>";
+				// echo "<pre>"; print_r($result); echo "</pre>";
 			
 			$return['email']=$email;
 			$return['myaccountname']=zipperagent_user_name();

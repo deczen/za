@@ -1,6 +1,11 @@
 <?php
 $contactIds=get_contact_id();
 
+// if(isset($_GET['test'])){
+	
+	// echo '<pre>'; print_r($single_property); echo '</pre>';
+	
+// }
 ?>
 <div id="zipperagent-content">
 	<article class="listing-detail listing-wrapper js-listing-detail " itemtype="http://schema.org/Residence">
@@ -372,20 +377,20 @@ $contactIds=get_contact_id();
 							<div class="bt-panel__stack__sub">
 								<ul class="bt-listing__feature-grid" style="margin-bottom:0">
 									<li class="rooms">
-										<div class="attr-num">[nounits]</div>
-										<div class="uk-text-small uk-text-truncate">UNITS</div>
+										<div class="attr-num">[norooms]</div>
+										<div class="uk-text-small uk-text-truncate">TOTAL ROOMS</div>
 									</li>
 									<li class="beds">
-										<div class="attr-num">[nostories]</div>
-										<div class="uk-text-small uk-text-truncate">STORIES</div>
+										<div class="attr-num">[nobedrooms]</div>
+										<div class="uk-text-small uk-text-truncate">BEDS</div>
 									</li>
 									<li class="baths">
-										<div class="attr-num">[nobuildings]</div>
-										<div class="uk-text-small uk-text-truncate">BUILDINGS</div>
+										<div class="attr-num">[nobaths]</div>
+										<div class="uk-text-small uk-text-truncate">BATHS</div>
 									</li>										
 									<li class="half-baths">
-										<div class="attr-num">[parkingspaces]</div>
-										<div class="uk-text-small uk-text-truncate">PARKING SPACES</div>
+										<div class="attr-num">[nohalfbaths]</div>
+										<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
 									</li>
 									<li class="sqft ">
 										<div class="attr-num"> [squarefeet] </div>
@@ -400,6 +405,14 @@ $contactIds=get_contact_id();
 							</div>
 							<div class="bt-panel__stack__sub">
 								<div class="m-0 bt-listing-table bt-listing__table-break">
+
+
+
+									<div class="grid">
+										<div class="cell uk-text-bold">Neighborhood:</div>
+										<div class="cell uk-text-right"> [neighborhood] </div>
+									</div>
+
 
 									<div class="grid">
 										<div class="cell cell-xs-3 uk-text-bold">Type:</div>
@@ -419,6 +432,8 @@ $contactIds=get_contact_id();
 											[lngCOUNTYDESCRIPTION]
 										</div>
 									</div>
+
+
 
 
 									<div class="grid">
@@ -699,175 +714,171 @@ $contactIds=get_contact_id();
 				<aside class="my-15">
 
 					<ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-						<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) || isset($single_property->parkingspaces) || isset($single_property->parkingfeature) ):?>
+						<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures)  ):?>
 						<li class="cell">
-							<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) ):?>
-							<h3 class="bt-listing__headline">Space, #Units, SQ FT</h3>
+							<h3 class="bt-listing__headline">Property Features</h3>
 							<table class="bt-listing__table">
 
 								<tbody>
-									<?php if( isset($single_property->mauunits) || isset($single_property->mafbldgsf)): ?>
+									<?php if( isset($single_property->amenities)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Manufacturing</td>
-										<td class="bt-listing__table__label"><span>[mauunits]</span></td>
-										<td class="bt-listing__table__items"><span>[mafbldgsf]</span></td>
+										<td class="bt-listing__table__label">Amenities</td>
+										<td class="bt-listing__table__items"><span>[amenities]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->ofuunits) || isset($single_property->offbldgsf)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Office</td>
-										<td class="bt-listing__table__label"><span>[ofuunits]</span></td>
-										<td class="bt-listing__table__items"><span>[offbldgsf]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->rsuunits) || isset($single_property->rsfbldgsf)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Residential</td>
-										<td class="bt-listing__table__label"><span>[rsuunits]</span></td>
-										<td class="bt-listing__table__items"><span>[rsfbldgsf]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->reuunits) || isset($single_property->refbldgsf)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Retail</td>
-										<td class="bt-listing__table__label"><span>[reuunits]</span></td>
-										<td class="bt-listing__table__items"><span>[refbldgsf]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->wauunits) || isset($single_property->wafbldgsf)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Warehouse</td>
-										<td class="bt-listing__table__label"><span>[wauunits]</span></td>
-										<td class="bt-listing__table__items"><span>[wafbldgsf]</span></td>
-									</tr>
-									<?php endif; ?>
-								</tbody>
-							</table>
-							<?php endif; ?>
-							
-							<?php if( isset($single_property->garageparking) || isset($single_property->parkingfeature) ):?>
-							<h3 class="bt-listing__headline">Parking Information</h3>
-							<table class="bt-listing__table">
-								<tbody>
-									<?php if( isset($single_property->garageparking)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Garage Parking</td>
-										<td class="bt-listing__table__items"><span>[garageparking]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->parkingfeature)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Parking Feature</td>
-										<td class="bt-listing__table__items"><span>[parkingfeature]</span></td>
-									</tr>
-									<?php endif; ?>
-								</tbody>
-							</table>
-							<?php endif; ?>
-							
-						</li>						
-						<?php endif; ?>
-						
-						<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities)  ):?>
-						<li class="cell">
-							<h3 class="bt-listing__headline">Property Details</h3>
-							<table class="bt-listing__table">
-
-								<tbody>
 									<?php if( isset($single_property->basement)): ?>
 									<tr>
 										<td class="bt-listing__table__label">Basement</td>
 										<td class="bt-listing__table__items"><span>[basement]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->citype)): ?>
+									<?php if( isset($single_property->exterior)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Commercial Type</td>
-										<td class="bt-listing__table__items"><span>[citype]</span></td>
+										<td class="bt-listing__table__label">Exterior Features</td>
+										<td class="bt-listing__table__items"><span>[exterior]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->construction)): ?>
+									<?php if( isset($single_property->fireplaces)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Construction</td>
-										<td class="bt-listing__table__items"><span>[construction]</span></td>
+										<td class="bt-listing__table__label">Fireplaces</td>
+										<td class="bt-listing__table__items"><span>[fireplaces]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->dividable)): ?>
+									<?php if( isset($single_property->flooring)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Dividable</td>
-										<td class="bt-listing__table__items"><span>[dividable]</span></td>
+										<td class="bt-listing__table__label">Floor</td>
+										<td class="bt-listing__table__items"><span>[flooring]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->noofdrivingdoors)): ?>
+									<?php if( isset($single_property->style)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Drive in Doors</td>
-										<td class="bt-listing__table__items"><span>[noofdrivingdoors]</span></td>
+										<td class="bt-listing__table__label">Home Style</td>
+										<td class="bt-listing__table__items"><span>[style]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->elevator)): ?>
+									<?php if( isset($single_property->interiorfeatures)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Elevator</td>
-										<td class="bt-listing__table__items"><span>[elevator]</span></td>
+										<td class="bt-listing__table__label">Interior Features</td>
+										<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->expandable)): ?>
+									<?php if( isset($single_property->waterviewfeatures)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Expandable</td>
-										<td class="bt-listing__table__items"><span>[expandable]</span></td>
+										<td class="bt-listing__table__label">Waterview</td>
+										<td class="bt-listing__table__items"><span>[waterviewfeatures]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->facilities)): ?>
+									<?php if( isset($single_property->waterfront)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Facilities</td>
-										<td class="bt-listing__table__items"><span>[facilities]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->handicapaccess)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Handicap Access</td>
-										<td class="bt-listing__table__items"><span>[handicapaccess]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->noofloadingdocks)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Loading Docks </td>
-										<td class="bt-listing__table__items"><span>[noofloadingdocks]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->noofrestrooms)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Restrooms</td>
-										<td class="bt-listing__table__items"><span>[noofrestrooms]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->sprinklers)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Sprinklers</td>
-										<td class="bt-listing__table__items"><span>[sprinklers]</span></td>
-									</tr>
-									<?php endif; ?>
-									<?php if( isset($single_property->utilities)): ?>
-									<tr>
-										<td class="bt-listing__table__label">Utilities</td>
-										<td class="bt-listing__table__items"><span>[utilities]</span></td>
+										<td class="bt-listing__table__label">Waterfront</td>
+										<td class="bt-listing__table__items"><span>[waterfront]</span></td>
 									</tr>
 									<?php endif; ?>
 								</tbody>
-								
+							</table>
+						</li>						
+						<?php endif; ?>
+						
+						<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water)  ):?>
+						<li class="cell">
+							<h3 class="bt-listing__headline">Cooling, Heating, Utilities</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->cooling)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Cooling</td>
+										<td class="bt-listing__table__items"><span>[cooling]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->coolingzones)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Cool Zones</td>
+										<td class="bt-listing__table__items"><span>[coolingzones]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->heating)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Heating</td>
+										<td class="bt-listing__table__items"><span>[heating]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->heatzones)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Heat Zones</td>
+										<td class="bt-listing__table__items"><span>[heatzones]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->energyfeatures)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Energy Features</td>
+										<td class="bt-listing__table__items"><span>[energyfeatures]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->electricfeature)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Electric</td>
+										<td class="bt-listing__table__items"><span>[electricfeature]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->hotwater)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Hot Water</td>
+										<td class="bt-listing__table__items"><span>[hotwater]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->sewer)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Sewer Utilities</td>
+										<td class="bt-listing__table__items"><span>[sewer]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->water)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Water Utilities</td>
+										<td class="bt-listing__table__items"><span>[water]</span></td>
+									</tr>
+									<?php endif; ?>								
+								</tbody>
 							</table>
 						</li>
 						<?php endif; ?>
 
 						<li class="cell">
-							
-							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->unmapped->Legal) ):?>
-							<h3 class="bt-listing__headline">Taxes</h3>
+							<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
+							<h3 class="bt-listing__headline">Parking Information</h3>
 							<table class="bt-listing__table">
 								<tbody>
-									<?php if( isset($single_property->unmapped->Legal)): ?>
+									<?php if( isset($single_property->garagespaces)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Legal</td>
-										<td class="bt-listing__table__items"><span>[unmapped_Legal]</span></td> <!-- not done -->
+										<td class="bt-listing__table__label">Garage Spaces</td>
+										<td class="bt-listing__table__items"><span>[garagespaces]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->parkingspaces)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Parking Spaces</td>
+										<td class="bt-listing__table__items"><span>[parkingspaces]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->roadtype)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Road Type </td>
+										<td class="bt-listing__table__items"><span>[roadtype]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
+							<h3 class="bt-listing__headline">Taxes, Fees</h3>
+							<table class="bt-listing__table">
+								<tbody>
+									<?php if( isset($single_property->taxes)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Tax Amount ($)</td>
+										<td class="bt-listing__table__items"><span>[taxes]</span></td>
 									</tr>
 									<?php endif; ?>
 									<?php if( isset($single_property->taxyear)): ?>
@@ -876,10 +887,16 @@ $contactIds=get_contact_id();
 										<td class="bt-listing__table__items"><span>[taxyear]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->taxes)): ?>
+									<?php if( isset($single_property->hoafee)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Tax Amount ($)</td>
-										<td class="bt-listing__table__items"><span>[taxes]</span></td>
+										<td class="bt-listing__table__label">Association Fee ($)</td>
+										<td class="bt-listing__table__items"><span>[hoafee]</span></td> <!-- not done -->
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->asscfeeincludes)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Fee Includes</td>
+										<td class="bt-listing__table__items"><span>[asscfeeincludes]</span></td> <!-- not done -->
 									</tr>
 									<?php endif; ?>
 								</tbody>
@@ -888,6 +905,372 @@ $contactIds=get_contact_id();
 						</li>					
 
 					</ul>
+
+					<ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
+						<?php if( isset($single_property->mbrdimen) || isset($single_property->mbrlevel) || isset($single_property->mbrdscrp) || isset($single_property->bed2dimen) || isset($single_property->bed2LEVEL) || isset($single_property->bed2dscrp) || isset($single_property->bed3dimen) || isset($single_property->bed3LEVEL) || isset($single_property->bed3dscrp) || isset($single_property->bed4dimen) || isset($single_property->bed4LEVEL) || isset($single_property->bed4dscrp) || isset($single_property->bed5dimen) || isset($single_property->bed5LEVEL) || isset($single_property->bed5dscrp) ):?>
+						<li class="cell">
+							<?php if( isset($single_property->mbrdimen) || isset($single_property->mbrlevel) || isset($single_property->mbrdscrp) ):?>
+							<h3 class="bt-listing__headline">Master Bedroom</h3>
+							<table class="bt-listing__table">
+								<tbody>
+									<?php if( isset($single_property->mbrdimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[mbrdimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->mbrlevel)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[mbrlevel]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->mbrdscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[mbrdscrp]</span></td>
+									</tr>								
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->bed2dimen) || isset($single_property->bed2LEVEL) || isset($single_property->bed2dscrp) ):?>
+							<h3 class="bt-listing__headline">Bedroom #2</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bed2dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bed2dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed2LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bed2LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed2dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bed2dscrp]</span></td>
+									</tr>								
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->bed3dimen) || isset($single_property->bed3LEVEL) || isset($single_property->bed3dscrp) ):?>
+							<h3 class="bt-listing__headline">Bedroom #3</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bed3dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bed3dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed3LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bed3LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed3dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bed3dscrp]</span></td>
+									</tr>								
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->bed4dimen) || isset($single_property->bed4LEVEL) || isset($single_property->bed4dscrp) ):?>
+							<h3 class="bt-listing__headline">Bedroom #4</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bed4dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bed4dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed4LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bed4LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed4dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bed4dscrp]</span></td>
+									</tr>								
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php //echo $single_property->style; ?>
+							<?php if( isset($single_property->bed5dimen) || isset($single_property->bed5LEVEL) || isset($single_property->bed5dscrp) ):?>
+							<h3 class="bt-listing__headline">Bedroom #5</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bed5dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bed5dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed5LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bed5LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bed5dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bed5dscrp]</span></td>
+									</tr>								
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+						</li>						
+						<?php endif; ?>
+						
+					<?php if( isset($single_property->bth1dimen) || isset($single_property->bth1LEVEL) || isset($single_property->bth1dscrp) || isset($single_property->bth2dimen) || isset($single_property->bth2LEVEL) || isset($single_property->bth2dscrp) || isset($single_property->bth3dimen) || isset($single_property->bth3LEVEL) || isset($single_property->bth3dscrp) || isset($single_property->bth4dimen) || isset($single_property->bth4LEVEL) || isset($single_property->bth4dscrp) || isset($single_property->bth5dimen) || isset($single_property->bth5LEVEL) || isset($single_property->bth5dscrp) ):?>
+						<li class="cell">
+							<?php if( isset($single_property->bth1dimen) || isset($single_property->bth1LEVEL) || isset($single_property->bth1dscrp) ):?>
+							<h3 class="bt-listing__headline">Bathroom #1</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bth1dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bth1dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bth1LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bth1LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bth1dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bth1dscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->bth2dimen) || isset($single_property->bth2LEVEL) || isset($single_property->bth2dscrp) ):?>
+							<h3 class="bt-listing__headline">Bathroom #2</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bth2dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bth2dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bth2LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bth2LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bth2dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bth2dscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->bth3dimen) || isset($single_property->bth3level) || isset($single_property->bth3dscrp) ):?>
+							<h3 class="bt-listing__headline">Bathroom #3</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->bth3dimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[bth3dimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bth3level)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[bth3level]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->bth3dscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[bth3dscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+						</li>
+						<?php endif; ?>
+
+						<li class="cell">
+							<?php if( isset($single_property->kitdimen) || isset($single_property->kitlevel) || isset($single_property->kitdscrp) ):?>
+							<h3 class="bt-listing__headline">Kitchen</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->kitdimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[kitdimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->kitlevel)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[kitlevel]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->kitdscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[kitdscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->famdimen) || isset($single_property->famlevel) || isset($single_property->famdscrp) ):?>
+							<h3 class="bt-listing__headline">Family Room</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->famdimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[famdimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->famlevel)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[famlevel]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->famdscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[famdscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->livdimen) || isset($single_property->livlevel) || isset($single_property->livdscrp) ):?>
+							<h3 class="bt-listing__headline">Living Room</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->livdimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[livdimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->livlevel)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[livlevel]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->livdscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[livdscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->dindimen) || isset($single_property->dinlevel) || isset($single_property->dindscrp) ):?>
+							<h3 class="bt-listing__headline">Dining Room</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->dindimen)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[dindimen]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->dinlevel)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[dinlevel]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->dindscrp)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[dindscrp]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->oth1DIMEN) || isset($single_property->oth1LEVEL) || isset($single_property->oth1DSCRP) ):?>
+							<h3 class="bt-listing__headline">Additional Room #1</h3>
+							<table class="bt-listing__table">
+
+								<tbody>
+									<?php if( isset($single_property->oth1DIMEN)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Size</td>
+										<td class="bt-listing__table__items"><span>[oth1DIMEN]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->oth1LEVEL)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Level</td>
+										<td class="bt-listing__table__items"><span>[oth1LEVEL]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->oth1DSCRP)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Features</td>
+										<td class="bt-listing__table__items"><span>[oth1DSCRP]</span></td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<?php endif; ?>
+							
+						</li>					
+
+					</ul>
+
 
 					<div class="at-full-details-disclaimer">
 						<br> 
@@ -1247,34 +1630,22 @@ $contactIds=get_contact_id();
 			</ul>
 			<table class="bt-print__meta-blocks">
 			   <tr>
-				<?php if(isset($single_property->nounits)): ?>
+				<?php if(isset($single_property->nobedrooms)): ?>
 				  <td>
-					 <div class="bt-print__meta-val">[nounits]</div>
-					 <div class="bt-print__meta-label">Units</div>
+					 <div class="bt-print__meta-val">[nobedrooms]</div>
+					 <div class="bt-print__meta-label">Beds</div>
 				  </td>
 				<?php endif; ?>
-				<?php if(isset($single_property->nostories)): ?>
+				<?php if(isset($single_property->nobaths)): ?>
 				  <td>
-					 <div class="bt-print__meta-val">[nostories]</div>
-					 <div class="bt-print__meta-label">Stories</div>
+					 <div class="bt-print__meta-val">[nobaths]</div>
+					 <div class="bt-print__meta-label">Baths</div>
 				  </td>
 				<?php endif; ?>
-				<?php if(isset($single_property->nobuildings)): ?>
+				<?php if(isset($single_property->nohalfbaths)): ?>
 				  <td>
-					 <div class="bt-print__meta-val">[nobuildings]</div>
-					 <div class="bt-print__meta-label">Buildings</div>
-				  </td>
-				<?php endif; ?>
-				<?php if(isset($single_property->parkingspaces)): ?>
-				  <td>
-					 <div class="bt-print__meta-val">[parkingspaces]</div>
-					 <div class="bt-print__meta-label">Parking Spaces</div>
-				  </td>
-				<?php endif; ?>
-				<?php if(isset($single_property->squarefeet)): ?>
-				  <td>
-					 <div class="bt-print__meta-val">[squarefeet]</div>
-					 <div class="bt-print__meta-label">SQFT</div>
+					 <div class="bt-print__meta-val">[nohalfbaths]</div>
+					 <div class="bt-print__meta-label">&frac12; Baths</div>
 				  </td>
 				<?php endif; ?>
 				<?php if(isset($single_property->acre)): ?>
@@ -1283,20 +1654,30 @@ $contactIds=get_contact_id();
 					 <div class="bt-print__meta-label">Acres</div>
 				  </td>
 				<?php endif; ?>
+				<?php if(isset($single_property->squarefeet)): ?>
+				  <td>
+					 <div class="bt-print__meta-val">[squarefeet]</div>
+					 <div class="bt-print__meta-label">SQFT</div>
+				  </td>
+				<?php endif; ?>
+				  <?php /* <td>
+					 <div class="bt-print__meta-val">$170</div>
+					 <div class="bt-print__meta-label">$/SQFT</div>
+				  </td> */ ?>
+				<?php if(isset($single_property->yearbuilt)): ?>
+				  <td>
+					 <div class="bt-print__meta-val">[yearbuilt]</div>
+					 <div class="bt-print__meta-label">Built</div>
+				  </td>
+				<?php endif; ?>
 			   </tr>
 			</table>
 			<div class="bt-print__area__wrap">
 			   <div class="bt-print__area">
-				<?php if(isset($single_property->proptype)): ?>
+				<?php if(isset($single_property->neighborhood)): ?>
 				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">Type:</div>
-					 <div class="bt-print__area-val">[proptype]</div>
-				  </div>
-				<?php endif; ?>
-				<?php if(isset($single_property->yearbuilt)): ?>
-				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">Built:</div>
-					 <div class="bt-print__area-val">[yearbuilt]</div>
+					 <div class="bt-print__area-label">Neighborhood:</div>
+					 <div class="bt-print__area-val">[neighborhood]</div>
 				  </div>
 				<?php endif; ?>
 				<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
@@ -1324,95 +1705,375 @@ $contactIds=get_contact_id();
 			<div class="bt-print__block">
 			   <h6 class="bt-print__header">Property Features</h6>
 			   <p>
-				  <?php if(isset($single_property->mauunits)): ?>
-				  <strong>Manufacturing</strong>
-				  [mauunits]
+				  <?php if(isset($single_property->adultcommunity)): ?>
+				  <strong>Adult Community</strong>
+				  [adultcommunity]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->ofuunits)): ?>
-				  <strong>Office</strong>
-				  [ofuunits]
+				  <?php if(isset($single_property->apodavailable)): ?>
+				  <strong>Apod Available</strong>
+				  [apodavailable]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->rsuunits)): ?>
-				  <strong>Residential</strong>
-				  [rsuunits]
+				  <?php if(isset($single_property->amenities)): ?>
+				  <strong>Amenities</strong>
+				  [amenities]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->reuunits)): ?>
-				  <strong>Retail</strong>
-				  [reuunits]
+				  <?php if(isset($single_property->assessments)): ?>
+				  <strong>Assessments</strong>
+				  [assessments]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->wauunits)): ?>
-				  <strong>Warehouse</strong>
-				  [wauunits]
+				  <?php if(isset($single_property->disclosure)): ?>
+				  <strong>Disclosure</strong>
+				  [disclosure]
 				  <?php endif; ?>
-				  
-				  <?php if(isset($single_property->basement)): ?>
-				  <strong>Basement</strong>
-				  [basement]
+				  <?php if(isset($single_property->electricfeature)): ?>
+				  <strong>Electric Features</strong>
+				  [electricfeature]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->citype)): ?>
-				  <strong>Commercial Type</strong>
-				  [citype]
+				  <?php if(isset($single_property->exclusions)): ?>
+				  <strong>Exclusions</strong>
+				  [exclusions]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->construction)): ?>
-				  <strong>Construction</strong>
-				  [construction]
+				  <?php if(isset($single_property->netoperatinginc)): ?>
+				  <strong>Gross Operating Income</strong>
+				  [netoperatinginc]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->dividable)): ?>
-				  <strong>Dividable</strong>
-				  [dividable]
+				  <?php /* <strong>Home Owners Association</strong>
+				  No */ ?>
+				  <?php if(isset($single_property->leadpaint)): ?>
+				  <strong>Lead Paint</strong>
+				  [leadpaint]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->noofdrivingdoors)): ?>
-				  <strong>Drive in Doors</strong>
-				  [noofdrivingdoors]
+				  <?php if(isset($single_property->lease1)): ?>
+				  <strong>Lease Unit1</strong>
+				  [lease1]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->elevator)): ?>
-				  <strong>Elevator</strong>
-				  [elevator]
+				  <?php if(isset($single_property->lease2)): ?>
+				  <strong>Lease Unit2</strong>
+				  [lease2]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->expandable)): ?>
-				  <strong>Expandable</strong>
-				  [expandable]
+				  <?php if(isset($single_property->lenderowned)): ?>
+				  <strong>Lender Owned</strong>
+				  [lenderowned]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->facilities)): ?>
-				  <strong>Facilities</strong>
-				  [facilities]
+				  <?php if(isset($single_property->famlevel)): ?>
+				  <strong>Family Room Type</strong>
+				  [famlevel]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->handicapaccess)): ?>
-				  <strong>Handicap Access</strong>
-				  [handicapaccess]
+				  <?php if(isset($single_property->livlevel)): ?>
+				  <strong>Living Room Type</strong>
+				  [livlevel]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->noofloadingdocks)): ?>
-				  <strong>Loading Docks</strong>
-				  [noofloadingdocks]
+				  <?php if(isset($single_property->dinlevel)): ?>
+				  <strong>Dining Room Type</strong>
+				  [dinlevel]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->noofrestrooms)): ?>
-				  <strong>Restrooms</strong>
-				  [noofrestrooms]
+				  <?php if(isset($single_property->oth1LEVEL)): ?>
+				  <strong>Additional Room #1</strong>
+				  [oth1LEVEL]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->sprinklers)): ?>
-				  <strong>Sprinklers</strong>
-				  [sprinklers]
+				  <?php if(isset($single_property->netoperatinginc)): ?>
+				  <strong>Net Operating Income</strong>
+				  [netoperatinginc]
 				  <?php endif; ?>
 				  <?php if(isset($single_property->rntdscrp1)): ?>
 				  <strong>Rent Description Unit1</strong>
 				  [rntdscrp1]
 				  <?php endif; ?>
-				  <?php if(isset($single_property->utilities)): ?>
-				  <strong>Utilities</strong>
-				  [utilities]
+				  <?php if(isset($single_property->rent1)): ?>
+				  <strong>Rent Unit1</strong>
+				  [rent1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->rent2)): ?>
+				  <strong>Rent Unit2</strong>
+				  [rent2]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->style)): ?>
+				  <strong>House Style</strong>
+				  [style]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->sewer)): ?>
+				  <strong>Sewer Utilities</strong>
+				  [sewer]
+				  <?php endif; ?>
+				  <?php /* <strong>Lender Owned</strong>
+				  No 
+				  <strong>Sewer</strong>
+				  Private Sewerage */ ?>
+				  <?php if(isset($single_property->shortsalelenderappreqd)): ?>
+				  <strong>Short Sale Lender App Required</strong>
+				  [shortsalelenderappreqd]
+				  <?php endif; ?>
+				  <?php /* <strong>Single Family Type</strong>
+				  Detached 
+				  <strong>Sq Ft Disclosures</strong>
+				  1762 is The First FloorThe inl-aw is 880. Calculated By Matterport Not Guaranteed. */ ?>
+				  <?php if(isset($single_property->squarefeetsource)): ?>
+				  <strong>Sq Ft Source</strong>
+				  [squarefeetsource]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->taxyear)): ?>
+				  <strong>Tax Year</strong>
+				  [taxyear]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->taxes)): ?>
+				  <strong>Tax Amount ($)</strong>
+				  [taxes]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->hoafee)): ?>
+				  <strong>Association Fee ($)</strong>
+				  [hoafee]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->asscfeeincludes)): ?>
+				  <strong>Fee Includes</strong>
+				  [asscfeeincludes]
+				  <?php endif; ?>
+				  <?php /* <strong>Utility Connections</strong>
+				  For Electric OvenFor Electric DryerWasher Hookup */ ?>
+				  <?php if(isset($single_property->water)): ?>
+				  <strong>Water Utilities</strong>
+				  [water]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->yearbuiltdescrp)): ?>
+				  <strong>Year Built Description</strong>
+				  [yearbuiltdescrp]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->yearbuiltsource)): ?>
+				  <strong>Year Built Source</strong>
+				  [yearbuiltsource]
+				  <?php endif; ?>
+				  <?php /* <strong>Year Round</strong>
+				  Yes */ ?>
+				  <?php if(isset($single_property->zoning)): ?>
+				  <strong>Zoning</strong>
+				  [zoning]
 				  <?php endif; ?>
 			   </p>
 			</div>
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Details</h6>
+			   <h6 class="bt-print__header">Exterior Features</h6>
 			   <p>
-				  <?php if(isset($single_property->parkingspaces)): ?>
-				  <strong>Parking Spaces</strong>
-				  [parkingspaces]
+				  <?php /* <strong>Beach Description</strong>
+				  Lake/Pond
+				  <strong>Beach Ownership</strong>
+				  Private */ ?>
+				  <?php if(isset($single_property->beachfrontflag)): ?>
+				  <strong>Beachfront</strong>
+				  [beachfrontflag]
+				  <?php endif; ?>
+				  <?php /* <strong>Color</strong>
+				  Light Grey */ ?>
+				  <?php if(isset($single_property->construction)): ?>
+				  <strong>Construction</strong>
+				  [construction]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->exterior)): ?>
+				  <strong>Exterior</strong>
+				  [exterior]
+				  <?php endif; ?>
+				  <?php /* <strong>Exterior Features</strong>
+				  Deck */ ?>
+				  <?php if(isset($single_property->foundation)): ?>
+				  <strong>Foundation</strong>
+				  [foundation]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->garagespaces)): ?>
+				  <strong>Garage Spaces</strong>
+				  [garagespaces]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->roadtype)): ?>
+				  <strong>Road Type</strong>
+				  [roadtype]
 				  <?php endif; ?>
 				  <?php if(isset($single_property->parkingfeature)): ?>
 				  <strong>Parking Features</strong>
 				  [parkingfeature]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->parkingspaces)): ?>
+				  <strong>Parking Spaces</strong>
+				  [parkingspaces]
+				  <?php endif; ?>
+				  <?php /* <strong>Road Type</strong>
+				  Private */ ?>
+				  <?php if(isset($single_property->roofmaterial)): ?>
+				  <strong>Roof Material</strong>
+				 [roofmaterial]
+				  <?php endif; ?>
+				  <?php /* <strong>Style</strong>
+				  Ranch
+				  <strong>Water View Features</strong>
+				  Pond
+				  <strong>Waterfront</strong> 
+				  Pond */ ?>
+				  <?php if(isset($single_property->waterviewfeatures)): ?>
+				  <strong>Waterview</strong>
+				  [waterviewfeatures]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->waterfront)): ?>
+				  <strong>Waterfront</strong>
+				  [waterfront]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->waterfrontflag)): ?>
+				  <strong>Waterfront Flag</strong>
+				  [waterfrontflag]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->waterviewflag)): ?>
+				  <strong>Waterview Flag</strong>
+				  [waterviewflag]
+				  <?php endif; ?>
+			   </p>
+			</div>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header">Interior Features</h6>
+			   <p>
+				  <?php if(isset($single_property->basement)): ?>
+				  <strong>Basement</strong>
+				  [basement]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->basementfeature)): ?>
+				  <strong>Basement Feature</strong>
+				  [basementfeature]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->mbrlevel)): ?>
+				  <strong>Master Bedroom</strong>
+				  [mbrlevel]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed2LEVEL)): ?>
+				   <strong>Bedrooms #2</strong>
+				  [bed2LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed3LEVEL)): ?>
+				   <strong>Bedrooms #3</strong>
+				  [bed3LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed4LEVEL)): ?>
+				   <strong>Bedrooms #4</strong>
+				  [bed4LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed5LEVEL)): ?>
+				   <strong>Bedrooms #5</strong>
+				  [bed5LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth1LEVEL)): ?>
+				   <strong>Bathroom #1</strong>
+				  [bth1LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth2LEVEL)): ?>
+				   <strong>Bathroom #2</strong>
+				  [bth2LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth3level)): ?>
+				   <strong>Bathroom #3</strong>
+				  [bth3level]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->cooling)): ?>
+				  <strong>Cooling</strong>
+				  [cooling]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->coolingzones)): ?>
+				  <strong>Cool Zones</strong>
+				  [coolingzones]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->heatzones)): ?>
+				  <strong>Heat Zones</strong>
+				  [heatzones]
+				  <?php endif; ?>
+				  <?php /* <strong>Cooling</strong>
+				  Wall Ac
+				  <strong>Cooling Zones</strong>
+				  0 */ ?>
+				  <?php if(isset($single_property->energyfeatures)): ?>
+				  <strong>Energy Features</strong>
+				  [energyfeatures]
+				  <?php endif; ?>
+				  <?php /* <strong>Family Room Level</strong>
+				  First Floor */ ?>
+				  <?php if(isset($single_property->fireplaces)): ?>
+				  <strong>Fireplaces</strong>
+				  [fireplaces]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->frplcs1)): ?>
+				  <strong>Fireplaces Unit1</strong>
+				  [frplcs1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->frplcs2)): ?>
+				  <strong>Fireplaces Unit2</strong>
+				  [frplcs2]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->flooring)): ?>
+				  <strong>Floor</strong>
+				  [flooring]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->flrs1)): ?>
+				  <strong>Floors Unit1</strong>
+				  [flrs1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->flrs2)): ?>
+			      <strong>Floors Unit2</strong>
+				  [flrs2]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->fbths1)): ?>
+				  <strong>Full Baths Unit1</strong>
+				  [fbths1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->fbths2)): ?>
+				  <strong>Full Baths Unit2</strong>
+				  [fbths2]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->hbths1)): ?>
+				  <strong>Half Baths Unit1</strong>
+				  [hbths1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->hbths2)): ?>
+				  <strong>Half Baths Unit2</strong>
+				  [hbths2]
+				  <?php endif; ?>
+				  <?php /* <strong>Heat Zones</strong>
+				  2
+				  <strong>Heating</strong>
+				  Hot Water Baseboard */ ?>
+				  <?php if(isset($single_property->hotwater)): ?>
+				  <strong>Hot Water</strong>
+				  [hotwater]
+				  <?php endif; ?>
+				  <?php /* <strong>Insulation Features</strong>
+				  FullFiberglass
+				  <strong>Interior Features</strong>
+				  Cable Available
+				  <strong>Kitchen Level</strong>
+				  First Floor
+				  <strong>Living Room Level</strong>
+				  First Floor
+				  <strong>Master Bath</strong>
+				  No
+				  <strong>Master Bedroom Level</strong>
+				  First Floor */ ?>
+				  <?php if(isset($single_property->levels)): ?>
+				  <strong>Levels</strong>
+				  [levels]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->levels1)): ?>
+				  <strong>Levels Unit1</strong>
+				  [levels1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->levels2)): ?>
+				  <strong>Levels Unit2</strong>
+				  [levels2]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->norooms)): ?>
+				  <strong>Rooms</strong>
+				  [norooms]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->rms1)): ?>
+				  <strong>Rooms Unit1</strong>
+				  [rms1]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->rms2)): ?>
+				  <strong>Rooms Unit2</strong>
+				  [rms2]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->kitlevel)): ?>
+				  <strong>Kitchen</strong>
+				  [kitlevel]
 				  <?php endif; ?>
 			   </p>
 			</div>

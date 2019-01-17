@@ -745,19 +745,19 @@ $contactIds=get_contact_id();
 							</table>
 							<?php endif; ?>
 							
-							<?php if( isset($single_property->garageparking) || isset($single_property->parkingfeature) ):?>
+							<?php if( isset($single_property->parkingspaces) || isset($single_property->parkingfeature) ):?>
 							<h3 class="bt-listing__headline">Parking Information</h3>
 							<table class="bt-listing__table">
 								<tbody>
-									<?php if( isset($single_property->garageparking)): ?>
+									<?php if( isset($single_property->parkingspaces)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Garage Parking</td>
-										<td class="bt-listing__table__items"><span>[garageparking]</span></td>
+										<td class="bt-listing__table__label">Parking Spaces</td>
+										<td class="bt-listing__table__items"><span>[parkingspaces]</span></td>
 									</tr>
 									<?php endif; ?>
 									<?php if( isset($single_property->parkingfeature)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Parking Feature</td>
+										<td class="bt-listing__table__label">Parking Features</td>
 										<td class="bt-listing__table__items"><span>[parkingfeature]</span></td>
 									</tr>
 									<?php endif; ?>
@@ -860,14 +860,14 @@ $contactIds=get_contact_id();
 
 						<li class="cell">
 							
-							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->unmapped->Legal) ):?>
-							<h3 class="bt-listing__headline">Taxes</h3>
+							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) || isset($single_property->zonedescription) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
+							<h3 class="bt-listing__headline">Taxes & Considerations</h3>
 							<table class="bt-listing__table">
 								<tbody>
-									<?php if( isset($single_property->unmapped->Legal)): ?>
+									<?php if( isset($single_property->taxes)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Legal</td>
-										<td class="bt-listing__table__items"><span>[unmapped_Legal]</span></td> <!-- not done -->
+										<td class="bt-listing__table__label">Tax Amount ($)</td>
+										<td class="bt-listing__table__items"><span>[taxes]</span></td>
 									</tr>
 									<?php endif; ?>
 									<?php if( isset($single_property->taxyear)): ?>
@@ -876,10 +876,28 @@ $contactIds=get_contact_id();
 										<td class="bt-listing__table__items"><span>[taxyear]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->taxes)): ?>
+									<?php if( isset($single_property->zoning)): ?>
 									<tr>
-										<td class="bt-listing__table__label">Tax Amount ($)</td>
-										<td class="bt-listing__table__items"><span>[taxes]</span></td>
+										<td class="bt-listing__table__label">Zoning Code</td>
+										<td class="bt-listing__table__items"><span>[zoning]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->zonedescription)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Zoning Description</td>
+										<td class="bt-listing__table__items"><span>[zonedescription]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->hoafee)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Association Fee ($)</td>
+										<td class="bt-listing__table__items"><span>[hoafee]</span></td> <!-- not done -->
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->asscfeeincludes)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Fee Includes</td>
+										<td class="bt-listing__table__items"><span>[asscfeeincludes]</span></td> <!-- not done -->
 									</tr>
 									<?php endif; ?>
 								</tbody>

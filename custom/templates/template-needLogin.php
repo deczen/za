@@ -206,6 +206,7 @@ $rb = zipperagent_rb();
 		jQuery( '#needLoginModal #zpa-save-listing-form' ).on( 'submit', function(){
 			
 			jQuery('#needLoginModal #zpa-save-listing-form').css('opacity', 0.5);
+			jQuery('#needLoginModal #zpa-save-listing-form').css('pointer-events', 'none');
 			
 			var data = jQuery(this).serializeArray();
 			var afterAction = jQuery(this).find('input[name=afterAction]').val();
@@ -278,6 +279,7 @@ $rb = zipperagent_rb();
 					}
 					
 					jQuery('#needLoginModal #zpa-save-listing-form').css('opacity', 1);
+					jQuery('#needLoginModal #zpa-save-listing-form').css('pointer-events', 'initial');
 				}
 			});
 			
@@ -287,6 +289,7 @@ $rb = zipperagent_rb();
 		jQuery( '#needLoginModal #zpa-modal-register-user-form' ).on( 'submit', function(){
 			
 			jQuery('#needLoginModal #zpa-modal-register-user-form').css('opacity', 0.5);
+			jQuery('#needLoginModal #zpa-modal-register-user-form').css('pointer-events', 'none');
 			
 			var data = jQuery(this).serializeArray();
 			var afterAction = jQuery(this).find('input[name=afterAction]').val();
@@ -331,13 +334,14 @@ $rb = zipperagent_rb();
 								break;
 						}
 						
+						<?php /*
 						//process message
 						var message="<div class='thankyou-box'>"+
 									"<img src='<?php echo ZIPPERAGENTURL . "images/thankyou-envelope.png"; ?>' alt='envelope' />"+
 									"<h3 class='user-verification verification-success'>Sign Up Success</h3>"+
 									"</div>";							
 						jQuery('#needLoginModal .modal-body #zpa-modal-register-user-form').addClass('signup-conf-box');
-						jQuery('#needLoginModal .modal-body #zpa-modal-register-user-form').html(message);
+						jQuery('#needLoginModal .modal-body #zpa-modal-register-user-form').html(message); */ ?>
 						
 						//set contactId to input field
 						jQuery('input[name=contactId]').val(contactId);
@@ -360,17 +364,23 @@ $rb = zipperagent_rb();
 							echo 'gtag_report_conversion();'."\r\n";
 						?>
 						//track analytic
-						if (typeof ga !== 'undefined' && $.isFunction(ga)) {
+						if (typeof ga !== 'undefined' && jQuery.isFunction(ga)) {
 							ga('send', 'event', 'User Login', 'Sign Up');
 						}
 						
 						//show close button
 						jQuery('#needLoginModal .close').show();
+						
+						//redirect
+						var current_url=encodeURIComponent(window.location.href);
+						setTimeout(function() {					  
+							window.location.replace(response['thankyouurl'] + '&previous_url=' + current_url);
+						}, 1000);
 					}else{
-						alert( 'Submit failed!' );
+						alert( 'Submit failed!' );					
+						jQuery('#needLoginModal #zpa-modal-register-user-form').css('opacity', 1);
+						jQuery('#needLoginModal #zpa-modal-register-user-form').css('pointer-events', 'initial');
 					}
-					
-					jQuery('#needLoginModal #zpa-modal-register-user-form').css('opacity', 1);
 				}
 			});
 			
@@ -430,6 +440,7 @@ $rb = zipperagent_rb();
 				};
 			
 				jQuery('.zpa-social-signup').css('opacity', 0.5);
+				jQuery('.zpa-social-signup').css('pointer-events', 'none');
 				
 				jQuery.ajax({
 					type: 'POST',
@@ -494,6 +505,7 @@ $rb = zipperagent_rb();
 						}
 						
 						jQuery('.zpa-social-signup').css('opacity', 1);
+						jQuery('.zpa-social-signup').css('pointer-events', 'initial');
 					}
 				});
 			});		
