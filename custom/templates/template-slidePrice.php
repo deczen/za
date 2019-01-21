@@ -17,6 +17,7 @@
 	$range.ionRangeSlider({
 		// type: "single",
 		grid: false,
+		step: 10000,
 		min: 50000,
 		max: 2000000,
 		step: 10000,

@@ -215,6 +215,7 @@ if(get_query_var('page')){
 		$range.ionRangeSlider({
 			type: "double",
 			grid: false,
+			step: 10000,
 			min: 500,
 			max: 10000000,
 			from: '<?php echo $minListPrice ?>',
@@ -226,7 +227,9 @@ if(get_query_var('page')){
 				jQuery( "#zpa-maxprice-homes" ).val(data.to);
 			},
 			onFinish: function(data){
-				jQuery('#zpa-search-filter-form').submit();
+				setTimeout(function(){			
+					jQuery('#zpa-search-filter-form').submit();
+				}, 1000);				
 			},
 		});
 		

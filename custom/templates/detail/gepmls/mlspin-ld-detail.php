@@ -732,8 +732,9 @@ $contactIds=get_contact_id();
 						</li>						
 						<?php endif; ?>
 						
-						<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
+						<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
 						<li class="cell">
+							<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
 							<h3 class="bt-listing__headline">Utilities</h3>
 							<table class="bt-listing__table">
 
@@ -764,6 +765,33 @@ $contactIds=get_contact_id();
 									<?php endif; ?>								
 								</tbody>
 							</table>
+							<?php endif; ?>
+							
+							<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
+							<h3 class="bt-listing__headline">Schools</h3>
+							<table class="bt-listing__table">
+								<tbody>
+									<?php if( isset($single_property->gradeschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Grade School</td>
+										<td class="bt-listing__table__items"><span>[gradeschool]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->highschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">High School</td>
+										<td class="bt-listing__table__items"><span>[highschool]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->middleschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Middle School</td>
+										<td class="bt-listing__table__items"><span>[middleschool]</span></td>
+									</tr>
+									<?php endif; ?>	
+								</tbody>
+							</table>
+							<?php endif; ?>
 						</li>
 						<?php endif; ?>
 						

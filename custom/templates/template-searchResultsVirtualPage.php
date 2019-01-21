@@ -295,6 +295,7 @@ unset($alstid); */
 							<?php if( is_price_slider_enabled() ): ?>
 							<div id="zpa-price-slider">
 								<input type="hidden" id="price-slider-range" />
+								<input type="hidden" id="priceRangeOnTemp" />
 							</div>
 							<script>
 								var $range = jQuery("#price-slider-range");
@@ -302,6 +303,7 @@ unset($alstid); */
 								$range.ionRangeSlider({
 									type: "double",
 									grid: false,
+									step: 10000,
 									min: 500,
 									max: 10000000,
 									from: '<?php echo $minListPrice ?>',
@@ -312,10 +314,29 @@ unset($alstid); */
 										jQuery( "#maxListPrice--ballerbox" ).val(data.to);
 										
 										onFilterChange( filterLabel('minlistprice',data.from), 'minlistprice'); //add field to filter
-										onFilterChange( filterLabel('maxlistprice',data.to), 'maxlistprice'); //add field to filter
+										onFilterChange( filterLabel('maxlistprice',data.to), 'maxlistprice'); //add field to filter										
+										
+										// localStorage.setItem('priceRangeOnTemp', "slide");
+										// jQuery('#priceRangeOnTemp').val('slide');
+										// console.log('change: ' + localStorage.getItem('priceRangeOnTemp'));
+										// console.log('change: ' + jQuery('#priceRangeOnTemp').val());
 									},
-									onFinish: function(data){
-										jQuery('#zpa-search-filter-form').submit();
+									onFinish: function(data){										
+										// localStorage.setItem('priceRangeOnTemp', "go");
+										// jQuery('#priceRangeOnTemp').val('go');
+										// console.log('finish: ' + localStorage.getItem('priceRangeOnTemp'));
+										// console.log('finish: ' + jQuery('#priceRangeOnTemp').val());
+										setTimeout(function(){			
+											// var priceRangeOnTemp = localStorage.getItem('priceRangeOnTemp');
+											// var priceRangeOnTemp = jQuery('#priceRangeOnTemp').val();
+											// console.log('execute: ' + localStorage.getItem('priceRangeOnTemp'));
+											// console.log('>> execute: ' + jQuery('#priceRangeOnTemp').val());
+											// if(priceRangeOnTemp!=="slide"){
+												jQuery('#zpa-search-filter-form').submit();
+											// }											
+											
+											// jQuery('#priceRangeOnTemp').val('go');
+										}, 1000);
 									},
 								});
 							</script>

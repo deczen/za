@@ -214,7 +214,7 @@ else: ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="col-md-12 mb-10 mt-25">
-			<span>No Matches Found </span>
+			<span>No Properties Found </span>
 		</div>
 		<div class="col-md-12 pagination-wrap">
 			<ul class="pagination">

@@ -40,9 +40,16 @@ if($templatename && file_exists($template_path)){
 	</div>
 	<?php endif; */ ?>
 	<div class="row mb-10 mt-25">
-		<?php if( $showResults ): ?>
-		<div class="col-xs-4"> <?php echo number_format_i18n($count,0); ?> Result(s)</div>
-		<?php endif; ?>
+		
+		<?php
+		if(isset($list['totalCount']) && $list['totalCount']==0){
+		?>
+			<div class="col-xs-4"> No Properties Found </div>
+		<?php
+		}else if( $showResults ){ ?>
+			<div class="col-xs-4"> <?php echo number_format_i18n($count,0); ?> Result(s)</div>
+		<?php } ?>
+		
 		<div class="col-xs-8">
 			<?php /*
 			<div class="btn-group pull-right">

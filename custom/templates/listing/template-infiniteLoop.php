@@ -8,9 +8,15 @@ $contactIds=get_contact_id();
 	</div>
 	
 	<div class="row mb-10 mt-25">
-		<?php if( $showResults ): ?>
-		<div class="col-xs-4"> <?php echo number_format_i18n($count,0); ?> Result(s)</div>
-		<?php endif; ?>
+		<?php
+		if(isset($list['totalCount']) && $list['totalCount']==0){
+		?>
+			<div class="col-xs-4"> No Properties Found </div>
+		<?php
+		}else if( $showResults ){ ?>
+			<div class="col-xs-4"> <?php echo number_format_i18n($count,0); ?> Result(s)</div>
+		<?php } ?>
+		
 		<div class="col-xs-8">			
 			
 			<?php if( $enable_filter ): ?>
@@ -27,6 +33,15 @@ $contactIds=get_contact_id();
 	<?php if( !isset($infiniteajax) || ! $infiniteajax ): ?>
 	<div id="first-section" class="row list-section">
 	<?php endif; ?>
+		<?php
+		if(isset($list['totalCount']) && $list['totalCount']==0){
+			?>
+			<div class="mb-10 mt-25">
+				<div class="col-xs-4"> No Properties Found </div>
+			</div>
+			<?php
+		}
+		?>
 	   <?php foreach( $list as $option ): ?>
 			<?php 				
 			

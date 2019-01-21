@@ -425,7 +425,7 @@ if( ! $is_shortcode ):
 			
 		</div>
 		<div class="row mb-10 mt-25">
-			<div class="col-xs-4"> No Matches Found </div>
+			<div class="col-xs-4"> No Properties Found </div>
 		</div>
 		<div class="row "> </div>
 		<div class="row">

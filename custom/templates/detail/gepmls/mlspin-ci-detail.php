@@ -857,7 +857,8 @@ $contactIds=get_contact_id();
 							</table>
 						</li>
 						<?php endif; ?>
-
+						
+						<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->unmapped->Legal) || isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
 						<li class="cell">
 							
 							<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->unmapped->Legal) ):?>
@@ -885,8 +886,34 @@ $contactIds=get_contact_id();
 								</tbody>
 							</table>
 							<?php endif; ?>
+							
+							<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
+							<h3 class="bt-listing__headline">Schools</h3>
+							<table class="bt-listing__table">
+								<tbody>
+									<?php if( isset($single_property->gradeschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Grade School</td>
+										<td class="bt-listing__table__items"><span>[gradeschool]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->highschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">High School</td>
+										<td class="bt-listing__table__items"><span>[highschool]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->middleschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Middle School</td>
+										<td class="bt-listing__table__items"><span>[middleschool]</span></td>
+									</tr>
+									<?php endif; ?>	
+								</tbody>
+							</table>
+							<?php endif; ?>
 						</li>					
-
+						<?php endif; ?>
 					</ul>
 
 					<div class="at-full-details-disclaimer">

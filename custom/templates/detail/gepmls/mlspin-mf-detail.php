@@ -865,7 +865,7 @@ $contactIds=get_contact_id();
 										<td class="bt-listing__table__items"><span>[unmapped_Is Property Also For Lease?]</span></td>
 									</tr>
 									<?php endif; ?>
-									<?php if( isset($single_property->vacant)): ?>
+									<?php if( !empty($single_property->vacant)): ?>
 									<tr>
 										<td class="bt-listing__table__label">Vacant</td>
 										<td class="bt-listing__table__items"><span>[vacant]</span></td>

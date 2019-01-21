@@ -271,6 +271,7 @@ $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10
 		$range.ionRangeSlider({
 			// type: "single",
 			grid: false,
+			step: 10000,
 			min: 500,
 			max: 10000000,
 			from: '<?php echo $minListPrice ?>',

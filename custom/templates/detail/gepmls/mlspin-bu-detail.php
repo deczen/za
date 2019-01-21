@@ -766,7 +766,35 @@ $contactIds=get_contact_id();
 							</table>
 						</li>
 						<?php endif; ?>
-
+						
+						<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
+						<li class="cell">
+							<h3 class="bt-listing__headline">Schools</h3>
+							<table class="bt-listing__table">
+								<tbody>
+									<?php if( isset($single_property->gradeschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Grade School</td>
+										<td class="bt-listing__table__items"><span>[gradeschool]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->highschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">High School</td>
+										<td class="bt-listing__table__items"><span>[highschool]</span></td>
+									</tr>
+									<?php endif; ?>
+									<?php if( isset($single_property->middleschool)): ?>
+									<tr>
+										<td class="bt-listing__table__label">Middle School</td>
+										<td class="bt-listing__table__items"><span>[middleschool]</span></td>
+									</tr>
+									<?php endif; ?>	
+								</tbody>
+							</table>
+						</li>
+						<?php endif; ?>
+						
 						<li class="cell">
 							
 							<?php if( isset($single_property->businesshrs) || isset($single_property->butype) || isset($single_property->equiplistavail) || isset($single_property->form) || isset($single_property->inventoryavail) || isset($single_property->realestateincld) || isset($single_property->speciallicenses) || isset($single_property->tenantexpanses) || isset($single_property->yearbuilt) || isset($single_property->zoning) || isset($single_property->zonedescription) ):?>
