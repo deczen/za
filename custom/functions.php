@@ -2836,8 +2836,8 @@ if( ! function_exists('auto_trigger_button_script') ){
 			jQuery(document).ready(function(){
 				<?php 
 				// echo "<pre>"; print_r($requests); echo "</pre>";
-				$afteraction = isset($requests['afteraction'])?$requests['afteraction']:'';
-				$listingparams = isset($requests['listingparams'])?$requests['listingparams']:'';
+				$afteraction = isset($_GET['afteraction'])?$_GET['afteraction']:'';
+				$listingparams = isset($_GET['listingparams'])?$_GET['listingparams']:'';
 				$listingparams_arr = explode(';', $listingparams);
 				$savedListingId=isset($listingparams_arr[0])?$listingparams_arr[0]:'';
 				$savedSearchId=isset($listingparams_arr[1])?$listingparams_arr[1]:'';
