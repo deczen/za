@@ -232,13 +232,13 @@ $rb = zipperagent_rb();
 									save_favorite( element, listingId, contactId, searchId);
 								break;
 							case "save_favorite":
-									save_favorite( contactId, '');
+									save_favorite( contactId, ''); 
 								break;
 							case "save_property":
 									save_property( contactId, '');
 								break;
 							case "save_search":
-									save_search( contactId );
+									save_search( contactId ); 
 								break;
 							case "schedule_show":
 									jQuery('#zpa-schedule-showing-request-form input[name=contactId]').val(contactId);
@@ -304,7 +304,7 @@ $rb = zipperagent_rb();
 					if( response['result'] ){
 						console.log(response['result']);
 						var contactId=response['result']['id'];
-						
+						var action_params='';
 						// alert(afterAction + contactId);
 						switch(afterAction){
 							case "save_favorite_listing":
@@ -313,24 +313,36 @@ $rb = zipperagent_rb();
 									var element = jQuery('.listing-'+listingId);
 									// jQuery('.save-favorite-btn').attr('contactId', contactId);
 									// jQuery('#saveSearchButton').attr('contactId', contactId);
-									save_favorite( element, listingId, contactId, searchId);
+									// save_favorite( element, listingId, contactId, searchId); //disable couse redirect
+									
+									action_params=encodeURIComponent( '&afteraction=' + afterAction + '&listingparams=' + listingId + ';' + searchId );
 								break;
 							case "save_favorite":
-									save_favorite( contactId, '');
+									// save_favorite( contactId, ''); //disable couse redirect
+									
+									action_params=encodeURIComponent( '&afteraction=' + afterAction );
 								break;
 							case "save_property":
-									save_property( contactId, '');
+									// save_property( contactId, ''); //disable couse redirect
+									
+									action_params=encodeURIComponent( '&afteraction=' + afterAction );
 								break;
 							case "save_search":
-									save_search( contactId );
+									// save_search( contactId ); //disable couse redirect
+									
+									action_params=encodeURIComponent( '&afteraction=' + afterAction );
 								break;
 							case "schedule_show":
 									jQuery('#zpa-schedule-showing-request-form input[name=contactId]').val(contactId);
-									jQuery('#zpaScheduleShowing').modal('show');
+									// jQuery('#zpaScheduleShowing').modal('show'); //disable couse redirect
+									
+									action_params=encodeURIComponent( '&afteraction=' + afterAction );
 								break;
 							case "request_info":
 									jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
-									jQuery('#zpaMoreInfo').modal('show');
+									// jQuery('#zpaMoreInfo').modal('show'); //disable couse redirect
+									
+									action_params=encodeURIComponent( '&afteraction=' + afterAction );
 								break;
 						}
 						
@@ -373,8 +385,9 @@ $rb = zipperagent_rb();
 						
 						//redirect
 						var current_url=encodeURIComponent(window.location.href);
+						var url_with_action = current_url + action_params;
 						setTimeout(function() {					  
-							window.location.replace(response['thankyouurl'] + '&previous_url=' + current_url);
+							window.location.replace(response['thankyouurl'] + '&previous_url=' + url_with_action);
 						}, 1000);
 					}else{
 						alert( 'Submit failed!' );					

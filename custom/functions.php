@@ -1901,6 +1901,11 @@ if( ! function_exists('zipperagent_field_value') ){
 		// echo "<pre>"; print_r( $single_property ); echo "</pre>";
 		// echo "<pre>"; print_r( $fields ); echo "</pre>";
 		
+		if($val===false)
+			$val = 'No';
+		if($val===true)
+			$val = 'Yes';
+		
 		return $val;
 	}
 }
@@ -2004,7 +2009,7 @@ if( ! function_exists('get_long_excludes') ){
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
-					'location_option','criteria',
+					'location_option','criteria','afteraction','listingparams',
 				);
 				
 		return $excludes;
@@ -2013,7 +2018,7 @@ if( ! function_exists('get_long_excludes') ){
 
 if( ! function_exists('get_short_excludes') ){
 	function get_short_excludes(){
-		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime');
+		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams');
 		return $excludes;
 	}
 }
@@ -2026,7 +2031,7 @@ if( ! function_exists('get_filter_excludes') ){
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
-					'location_option','criteria',
+					'location_option','criteria','afteraction','listingparams',
 				);
 				
 		return $excludes;
@@ -2820,6 +2825,386 @@ if( ! function_exists('global_magicsuggest_script') ){
 		});
 	</script>
 	<?php
+	}
+}
+
+if( ! function_exists('auto_trigger_button_script') ){
+	function auto_trigger_button_script(){
+		global $requests;
+		?>
+		<script>
+			jQuery(document).ready(function(){
+				<?php 
+				// echo "<pre>"; print_r($requests); echo "</pre>";
+				$afteraction = isset($requests['afteraction'])?$requests['afteraction']:'';
+				$listingparams = isset($requests['listingparams'])?$requests['listingparams']:'';
+				$listingparams_arr = explode(';', $listingparams);
+				$savedListingId=isset($listingparams_arr[0])?$listingparams_arr[0]:'';
+				$savedSearchId=isset($listingparams_arr[1])?$listingparams_arr[1]:'';
+				switch($afteraction){
+					case "save_favorite_listing":		
+							echo "
+								
+								var listingId =  '{$savedListingId}';
+								var searchId =  '{$savedSearchId}';
+								var element = jQuery('.listing-'+listingId);
+								var contactId = element.attr('contactid');
+								
+								save_favorite( element, listingId, contactId, searchId); ";							
+						break;
+					case "save_favorite":
+							echo "
+								var contactId = jQuery('.bt-listing__favorite-button').attr('contactid');
+								save_favorite( contactId, '');";
+						break;
+					case "save_property":
+							echo "
+								var contactId = jQuery('.save-property-btn').attr('contactid');
+								save_property( contactId, '');";
+						break;
+					case "save_search":
+							echo "
+								var contactId = jQuery('#saveSearchButton').attr('contactid');
+								save_search( contactId );";
+						break;
+					case "schedule_show":
+							echo "jQuery('#zpaScheduleShowing').modal('show');";
+						break;
+					case "request_info":
+							echo "jQuery('#zpaMoreInfo').modal('show');";
+						break;
+				}
+				if($afteraction) echo "removeParams('afteraction');";
+				if($listingparams) echo "removeParams('listingparams');";
+				?>
+				function removeParams(sParam)
+				{
+					var url = window.location.href.split('?')[0]+'?';
+					var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+						sURLVariables = sPageURL.split('&'),
+						sParameterName,
+						i;
+				 
+					for (i = 0; i < sURLVariables.length; i++) {
+						sParameterName = sURLVariables[i].split('=');
+						if (sParameterName[0] != sParam) {
+							url = url + sParameterName[0] + '=' + sParameterName[1] + '&'
+						}
+					}
+					var newUrl = url.substring(0,url.length-1);
+					window.history.pushState("", "", newUrl);
+				}
+			});
+		</script>
+		<?php
+	}
+}
+
+if( ! function_exists('zipperagent_search_filter') ){
+	function zipperagent_search_filter(){
+		global $requests;
+		?>
+		<div id="zpa-view-selected-filter">
+			<input type="text" id="zpa-selected-filter">
+			<script>
+			jQuery(document).ready(function(){
+				var msSelect = jQuery('#zpa-selected-filter').magicSuggest({
+					allowFreeEntries: false,
+					editable: false,
+					hideTrigger: true,
+					placeholder: '',
+					maxSelection: 999,
+					selectionRenderer: function(data){
+						// console.log(data);
+						return '<div class="name">' + data.name + '</div>';
+					}
+				});
+				
+				var currentSelection=[];
+				
+				jQuery(msSelect).on('selectionchange', function(e,m){
+					
+					var new_parameters;
+					var newSelection = this.getValue();
+					if(newSelection.length < currentSelection.length){ //remove mark
+						var removedSelection = currentSelection.filter(function(obj) { return newSelection.indexOf(obj) == -1; });
+						if(removedSelection.length){
+							jQuery.each(removedSelection, function(index,value){
+								switch(value) {
+									case "status":															
+									case "propertytype":															
+									case "bedrooms":															
+									case "bathcount":															
+									case "o":															
+										jQuery("#zpa-search-filter-form input[name*='"+value+"' i]").prop('checked', false);
+										break;
+									case "minlistprice":
+									case "maxlistprice":
+										jQuery("#zpa-search-filter-form input[name*='"+value+"' i]").val('');
+										break;
+									default:															
+										jQuery("#zpa-search-filter-form input[name*='"+value+"' i]").remove();
+								}
+								new_parameters=removeUrlParameter(value);
+								var url = jQuery('#zpa-search-filter-form').attr('action') + '?' + new_parameters;	
+								window.history.pushState("", "", url);											
+								
+								jQuery('#zpa-search-filter-form').submit();
+							});
+						}
+					}
+					currentSelection = newSelection;		
+					
+				});
+				
+				function removeUrlParameter(parameter){
+					/*
+					 * queryParameters -> handles the query string parameters
+					 * queryString -> the query string without the fist '?' character
+					 * re -> the regular expression
+					 * m -> holds the string matching the regular expression
+					 */
+					var queryParameters = {}, queryString = location.search.substring(1),
+						re = /([^&=]+)=([^&]*)/g, m;
+
+					// Creates a map with the query string parameters
+					while (m = re.exec(queryString)) {
+						queryParameters[decodeURIComponent(m[1]).toLowerCase()] = decodeURIComponent(m[2]);
+					}
+
+					// Add new parameters or update existing ones
+					delete queryParameters[parameter];
+					/*
+					 * Replace the query portion of the URL.
+					 * jQuery.param() -> create a serialized representation of an array or
+					 *     object, suitable for use in a URL query string or Ajax request.
+					 */
+					return jQuery.param(queryParameters); // Causes page to reload
+				}
+				
+				window.onFilterChange = function(label, name){
+					
+					if(label==''){
+						return;
+					}
+					
+					var value = {id:name, name: label};
+					currentSelection.push(value);
+					// removeFilterField(label, name);
+					msSelect.setValue([value]);
+					changeLabel(name, label);
+				}
+				
+				function removeFilterField(label, name){
+					var value = {id:name, name: label};
+					msSelect.removeFromSelection([value]);
+				}
+				
+				window.filterLabel = function(name, value){
+					name = name.toLowerCase();
+					var newLabel;
+					var currency='<?php echo zipperagent_currency(); ?>';
+					var vall;
+					switch(name){
+						case "maxlistprice":
+							newLabel = 'up to '+ currency + shortenmoney(value) ;	
+							break;
+						case "minlistprice":
+							newLabel = 'over '+ currency + shortenmoney(value) ;	
+							break;
+						case "bedrooms":
+							newLabel = value + ' + Beds';	
+							break;
+						case "bathcount":
+							newLabel = value + ' + Bath';	
+							break;
+						case "squarefeet":
+							newLabel = value + ' sqft';	
+							break;
+						case "propertytype":
+							switch(value){
+								<?php
+									$propTypeFields = get_property_type();
+									foreach($propTypeFields as $key => $val){
+										
+										echo "case '".$key."':"."\r\n";
+										echo "newLabel = '".$val."';"."\r\n";
+										echo "break;"."\r\n";
+
+									}
+								?>
+							}
+							break;
+						case "yearbuilt":
+							newLabel = 'year ' + value;	
+							break;
+						case "maxdayslisted":
+							newLabel = 'max ' + value + ' days listed';
+							break;
+						case "withimage":
+							newLabel = 'has photos';	
+							break;
+						case "featuredonlyyn":
+							newLabel = 'featured';	
+							break;
+						case "openhomesonlyyn":
+							newLabel = 'open homes only';	
+							break;
+						case "hasvirtualtour":
+							newLabel = 'has virtual tour';	
+							break;
+						case "listinapage":
+							newLabel = value + ' results per page';	
+							break;
+						case "o":
+							switch(value){
+								case "apmin:DESC":
+									vall = 'price (high to low)';
+								break;
+								case "apmin:ASC":
+									vall = 'price (low to high)';
+								break;
+								case "asts:ASC":
+									vall = 'status';
+								break;
+								case "atwns:ASC":
+									vall = 'city';
+								break;
+								case "lid:DESC":
+									vall = 'listing date';
+								break;
+								case "apt:DESC":
+									vall = 'type/price descending';
+								break;
+								case "alstid:ASC":
+									vall = 'listing number';
+								break;
+								default:
+									vall = value;
+								break;
+							}
+							
+							// newLabel = 'order by ' + vall; //disable order label
+							newLabel='';
+							break;
+						case "advstno":
+							newLabel = 'street number ' + value;	
+							break;
+						case "advstname":
+						case "advtownnm":
+						case "advstates":
+						case "advcounties":
+							newLabel = value;	
+							break;
+						case "advstzip":
+							newLabel = 'zipcode ' + value;	
+							break;
+						case "alstid":
+							newLabel = 'mls# ' + value;	
+							break;
+						default:												
+							newLabel = name.toLowerCase()+' '+value;
+							break;
+					}
+					return newLabel;
+				}
+				
+				function shortenmoney(num){
+					if(num>=1000){
+						return num/1000 + 'K';
+					}else{
+						return num;
+					}
+				}
+				
+				function changeLabel(name, newLabel){
+					var index=0;
+					jQuery('#zpa-selected-filter input[type=hidden]').each(function(){
+						if(jQuery(this).val()==name){
+							return false; 
+						}
+						index++;
+					});
+					
+					var oldLabel = jQuery('#zpa-selected-filter .ms-sel-item:eq('+index+') .name').html();
+					jQuery('#zpa-selected-filter .ms-sel-item .name:contains("'+oldLabel+'")').html(newLabel);
+				}
+				
+				jQuery('#zpa-main-container').on('click', '#zpa-selected-filter .ms-sel-ctn .ms-sel-item', function(){
+					jQuery(this).find('.ms-close-btn').click();
+				});
+				
+				<?php /*
+				function changeSelection(name, newLabel){
+					var selection = msSelect.getSelection();
+					var newSelection = [];
+					var newValue;
+					var i;
+					var found=0;
+					
+					console.log(selection);
+					for (i = 0; i < selection.length; ++i) {
+						// do something with `selection[i]`
+						if(selection[i].id==name){
+							selection[i].name=newLabel;
+							found=1;
+						}
+						
+						newValue = {name:name, value: newLabel};
+						newSelection.push(newValue);
+					}
+					if(!found){
+						var value = {id:name, name: newLabel};
+						newValue = {name:name, value: newLabel};
+						selection.push(value);
+						newSelection.push(newValue);
+					}
+					// console.log(selection);
+					// selection = (object) selection;
+					// console.log(newSelection);
+					// msSelect.removeFromSelection(newSelection, true);
+					// msSelect.setSelection([]);
+					msSelect.clear();
+					msSelect.setSelection(newSelection);
+				}
+				
+				function populateFromArray(array) {
+				  var output = {};
+				  array.forEach(function(item, index) {
+					if (!item) return;
+					if (Array.isArray(item)) {
+					  output[index] = populateFromArray(item);
+					} else {
+					  output[index] = item;
+					}
+				  });
+				  return output;
+				} */ ?>
+				
+				<?php																		
+				$filterExcluded=get_filter_excludes();
+				
+				foreach($requests as $filterField=>$filterValue){
+					if(!in_array($filterField, $filterExcluded) && !empty($filterValue) ){
+						$label='';
+						switch($filterField){
+							case "propertytype":
+									$label="$filterField $filterValue";
+								break;
+							default:
+									$label="$filterField $filterValue";
+								break;
+						}
+						
+						// echo "onFilterChange('{$label}', '{$filterField}');"."\r\n";
+						echo "onFilterChange(filterLabel('{$filterField}','{$filterValue}'), '{$filterField}');"."\r\n";
+					}
+				}
+				?>
+			});
+			</script>
+		</div>
+		<?php
 	}
 }
 

@@ -771,3 +771,4 @@ else: ?>
 	initialize();
 	});
 </script>
+<?php auto_trigger_button_script(); ?>

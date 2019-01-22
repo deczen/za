@@ -114,3 +114,4 @@ if( $list ): ?>
 		});
 	}
 </script>
+<?php auto_trigger_button_script(); ?>

@@ -340,5 +340,6 @@ jQuery(document).ready(function ($) {
 	// console.log(thumbnailSlider);
 });
 </script>
+<?php auto_trigger_button_script(); ?>
 <script src="<?php echo zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
 <script src="<?php echo zipperagent_url(false) . 'js/owl.lazyload.js'; ?>"></script>

@@ -623,3 +623,4 @@ if( $enable_filter ):
 	  e.stopPropagation();
 	});
 </script>
+<?php auto_trigger_button_script(); ?>
