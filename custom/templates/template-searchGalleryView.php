@@ -62,11 +62,11 @@ if( $list ): ?>
 		var searchId = element.attr('searchId');
 		var contactId = element.attr('contactId');
 		var listingId = element.attr('listingId');
-		save_favorite(element, listingId, contactId, searchId );		
+		save_favorite_listing(element, listingId, contactId, searchId );		
 		return false;
 	});
 	
-	function save_favorite(element, listingId, contactId, searchId){
+	function save_favorite_listing(element, listingId, contactId, searchId){
 		
 		var crit={
 			<?php

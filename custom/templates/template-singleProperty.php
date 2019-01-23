@@ -454,7 +454,64 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 				}
 			});
 		}
-		
+		function save_favorite_listing(element, listingId, contactId, searchId){
+			var crit={
+				<?php
+				$saved_crit=array();
+				if(!$crit){
+					$search=array(
+						'asrc'=>$rb['web']['asrc'],
+						'aloff'=>$rb['web']['aloff'],
+						'abeds'=>$bedrooms,
+						'abths'=>$bathCount,
+						'apt'=>$propertyType,
+						'asts'=>$status,
+						'apmin'=>za_correct_money_format($minListPrice),
+						'apmax'=>za_correct_money_format($maxListPrice),
+						'aacr'=>$lotAcres,
+					);	
+					
+					$saved_crit= array_merge($search, $locqry, $advSearch);
+				}else{
+					$temp = explode(';', $crit);
+					foreach( $temp as $val ){
+						if( empty($val) )
+							continue;
+						
+						$temp2 = explode(':', $val);
+						$saved_crit[$temp2[0]]=$temp2[1];
+					}
+				}
+				
+				foreach( $saved_crit as $key=>$val ){
+					echo "'{$key}': '{$val}',"."\r\n";
+				}
+				?>
+			};
+			var data = {
+				action: 'save_as_favorite',
+				'listingId': listingId,                  
+				'contactId': contactId,                    
+				'crit': crit,                    
+				'searchId': searchId,                    
+			};
+			
+			jQuery.ajax({
+				type: 'POST',
+				dataType : 'json',
+				url: zipperagent.ajaxurl,
+				data: data,
+				success: function( response ) {    
+					// console.log(response);
+					if( response['result'] ){
+						// alert('success');
+						element.addClass('active');
+					}else{
+						// alert( 'Submit failed!' );
+					}
+				}
+			});
+		}
 		function save_property(contactId, searchId){
 			var listingId = '<?php echo $single_property->id; ?>';
 			var crit={

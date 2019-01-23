@@ -292,8 +292,8 @@ $rb = zipperagent_rb();
 			jQuery('#needLoginModal #zpa-modal-register-user-form').css('pointer-events', 'none');
 			
 			var data = jQuery(this).serializeArray();
-			var afterAction = jQuery(this).find('input[name=afterAction]').val();
-			
+			var afterAction = jQuery(this).find('input[name=afterAction]').val();			
+						
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
@@ -315,34 +315,34 @@ $rb = zipperagent_rb();
 									// jQuery('#saveSearchButton').attr('contactId', contactId);
 									// save_favorite( element, listingId, contactId, searchId); //disable couse redirect
 									
-									action_params=encodeURIComponent( '&afteraction=' + afterAction + '&listingparams=' + listingId + ';' + searchId );
+									action_params=encodeURIComponent( 'afteraction=' + afterAction + '&listingparams=' + listingId + ';' + searchId );
 								break;
 							case "save_favorite":
 									// save_favorite( contactId, ''); //disable couse redirect
 									
-									action_params=encodeURIComponent( '&afteraction=' + afterAction );
+									action_params=encodeURIComponent( 'afteraction=' + afterAction );
 								break;
 							case "save_property":
 									// save_property( contactId, ''); //disable couse redirect
 									
-									action_params=encodeURIComponent( '&afteraction=' + afterAction );
+									action_params=encodeURIComponent( 'afteraction=' + afterAction );
 								break;
 							case "save_search":
 									// save_search( contactId ); //disable couse redirect
 									
-									action_params=encodeURIComponent( '&afteraction=' + afterAction );
+									action_params=encodeURIComponent( 'afteraction=' + afterAction );
 								break;
 							case "schedule_show":
 									jQuery('#zpa-schedule-showing-request-form input[name=contactId]').val(contactId);
 									// jQuery('#zpaScheduleShowing').modal('show'); //disable couse redirect
 									
-									action_params=encodeURIComponent( '&afteraction=' + afterAction );
+									action_params=encodeURIComponent( 'afteraction=' + afterAction );
 								break;
 							case "request_info":
 									jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
 									// jQuery('#zpaMoreInfo').modal('show'); //disable couse redirect
 									
-									action_params=encodeURIComponent( '&afteraction=' + afterAction );
+									action_params=encodeURIComponent( 'afteraction=' + afterAction );
 								break;
 						}
 						
@@ -384,10 +384,16 @@ $rb = zipperagent_rb();
 						jQuery('#needLoginModal .close').show();
 						
 						//redirect
-						var current_url=encodeURIComponent(window.location.href);
-						var url_with_action = current_url + action_params;
+						var current_url=window.location.href;
+						if(current_url.indexOf("?") != -1 && action_params) {							
+							var previous_url = encodeURIComponent( current_url + '&' + action_params );
+						}else if(action_params){
+							var previous_url = encodeURIComponent( current_url + '?' + action_params );
+						}else{
+							var previous_url = encodeURIComponent( current_url );
+						}
 						setTimeout(function() {					  
-							window.location.replace(response['thankyouurl'] + '&previous_url=' + url_with_action);
+							window.location.replace(response['thankyouurl'] + '&previous_url=' + previous_url);
 						}, 1000);
 					}else{
 						alert( 'Submit failed!' );					
@@ -399,7 +405,6 @@ $rb = zipperagent_rb();
 			
 			return false;
 		});
-		
 	</script>
 
 	<?php if(isset($rb['facebook']['appid'])): ?>

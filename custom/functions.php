@@ -2836,8 +2836,10 @@ if( ! function_exists('auto_trigger_button_script') ){
 			jQuery(document).ready(function(){
 				<?php 
 				// echo "<pre>"; print_r($requests); echo "</pre>";
-				$afteraction = isset($_GET['afteraction'])?$_GET['afteraction']:'';
-				$listingparams = isset($_GET['listingparams'])?$_GET['listingparams']:'';
+				// echo "<pre>"; print_r($_GET); echo "</pre>";
+				// echo "<pre>"; print_r($_REQUEST); echo "</pre>";
+				$afteraction = isset($_REQUEST['afteraction'])?$_REQUEST['afteraction']:'';
+				$listingparams = isset($_REQUEST['listingparams'])?$_REQUEST['listingparams']:'';
 				$listingparams_arr = explode(';', $listingparams);
 				$savedListingId=isset($listingparams_arr[0])?$listingparams_arr[0]:'';
 				$savedSearchId=isset($listingparams_arr[1])?$listingparams_arr[1]:'';
@@ -2850,7 +2852,7 @@ if( ! function_exists('auto_trigger_button_script') ){
 								var element = jQuery('.listing-'+listingId);
 								var contactId = element.attr('contactid');
 								
-								save_favorite( element, listingId, contactId, searchId); ";							
+								save_favorite_listing( element, listingId, contactId, searchId); ";							
 						break;
 					case "save_favorite":
 							echo "
@@ -2877,8 +2879,8 @@ if( ! function_exists('auto_trigger_button_script') ){
 				if($afteraction) echo "removeParams('afteraction');";
 				if($listingparams) echo "removeParams('listingparams');";
 				?>
-				function removeParams(sParam)
-				{
+				
+				function removeParams(sParam){
 					var url = window.location.href.split('?')[0]+'?';
 					var sPageURL = decodeURIComponent(window.location.search.substring(1)),
 						sURLVariables = sPageURL.split('&'),
@@ -2895,6 +2897,7 @@ if( ! function_exists('auto_trigger_button_script') ){
 					window.history.pushState("", "", newUrl);
 				}
 			});
+			// xxxx
 		</script>
 		<?php
 	}
