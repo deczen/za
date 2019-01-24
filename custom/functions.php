@@ -173,6 +173,7 @@ if( ! function_exists('zipperagent_rb') ){
 			$save_session['web']['popup_visit_counter'] = $rb['web']['popup_visit_counter'];
 			$save_session['web']['show_agent_list'] = $rb['web']['show_agent_list'];
 			$save_session['web']['branded_virtualtour'] = $rb['web']['branded_virtualtour'];
+			$save_session['web']['show_agent_name'] = $rb['web']['show_agent_name'];
 			
 			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
@@ -1385,7 +1386,7 @@ if( ! function_exists('zipperagent_get_idx_logo') ){
 }
 
 if( ! function_exists('zipperagent_get_source_text') ){
-	function zipperagent_get_source_text($sourceid, $listOfficeName, $type){
+	function zipperagent_get_source_text($sourceid, $params, $type){
 		$sources = zipperagent_get_source_details_cached();
 		
 		if( ! isset($sources[$sourceid]) )
@@ -1394,31 +1395,67 @@ if( ! function_exists('zipperagent_get_source_text') ){
 		$source = $sources[$sourceid];
 		$text = '';
 		
+		extract($params);
+		
 		switch($type){
 			case "list":
-					$text.= "Listing Provided Courtesy of";
-					if($listOfficeName){
-						$text.= ' '. "<strong>$listOfficeName</strong>";
+					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+						$text.= sprintf( "Listing Provided Courtesy %s of", $listAgentName);							
+					}else{
+						$text.= "Listing Provided Courtesy of";						
 					}
+					
+					if(isset($listOfficeName) && !empty($listOfficeName)){
+						$text.= ' '. "<strong>$listOfficeName</strong>";
+					}		
+					
 					if(file_exists($source['logo_path'])){
-						$text.=' ' . '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
+						$text.='<br />' . '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
 						
 						if($source['copyrightUrl']){
 							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
 						}
 					}
 					$text.= ' '. 'via ' . $source['name'];
+					
 				break;
-			case "detail":
+			/* case "detail":
 					$year = isset($source['year'])?$source['year']:date("Y");
 					$text.= 'Listing information &copy; ' . $year;					
 					if(isset($source['logo_path']) && file_exists($source['logo_path'])){
 						$text.=' ' . '<img src="'. $source['logo_url'] .'" alt="'. (isset($source['name'])?$source['name']:'') .'" />';
 					}
 					$text.= '<br />' . "Listing Provided Courtesy of";
-					if($listOfficeName){
+					if(isset($listOfficeName) && !empty($listOfficeName)){
 						$text.= ' '. $listOfficeName;
 					}
+					$text.='<br />';
+					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? $source['discComingle'] : (isset($source['discDetail']) ? $source['discDetail'] : '' );
+					
+				break; */
+			case "detail":
+					$year = isset($source['year'])?$source['year']:date("Y");
+					$text.= 'Listing information &copy; ' . $year . '<br />';		
+					
+					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+						$text.= sprintf( "Listing Provided Courtesy %s of", $listAgentName);							
+					}else{
+						$text.= "Listing Provided Courtesy of";						
+					}
+					
+					if(isset($listOfficeName) && !empty($listOfficeName)){
+						$text.= ' '. "<strong>$listOfficeName</strong>";
+					}		
+					
+					if(file_exists($source['logo_path'])){
+						$text.='<br />' . '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
+						
+						if($source['copyrightUrl']){
+							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
+						}
+					}
+					$text.= ' '. 'via ' . $source['name'];
+					
 					$text.='<br />';
 					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? $source['discComingle'] : (isset($source['discDetail']) ? $source['discDetail'] : '' );
 					
@@ -1426,7 +1463,7 @@ if( ! function_exists('zipperagent_get_source_text') ){
 			case "newdetail":
 					$year = isset($source['year'])?$source['year']:date("Y");
 					$text.= '<br />' . "<strong>Listing Provided Courtesy of";
-					if($listOfficeName){
+					if(isset($listOfficeName) && !empty($listOfficeName)){
 						$text.= ' '. $listOfficeName;
 					}
 					$text.='</strong><br />';
@@ -2373,6 +2410,18 @@ if( ! function_exists('is_branded_virtualtour') ){
 				
 		$rb = zipperagent_rb();
 		$enabled = $rb['web']['branded_virtualtour'];
+		
+		$enabled=$enabled?true:false;
+		
+		return $enabled;
+	}
+}
+
+if( ! function_exists('is_show_agent_name') ){
+	function is_show_agent_name(){
+				
+		$rb = zipperagent_rb();
+		$enabled = $rb['web']['show_agent_name'];
 		
 		$enabled=$enabled?true:false;
 		

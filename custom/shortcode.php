@@ -127,6 +127,8 @@ function display_quick_search($atts){
 		'location_option' => '',
 		// 'property_type_option' => '',
 		// 'property_type_default' => '',
+		'minlistprice' => 500,
+		'maxlistprice' => 10000000,
 	), $atts, 'quick_search' );
 	
 	$requests = $atts;
@@ -147,6 +149,8 @@ function display_quick_search2($atts){
 		'location_option' => '',
 		'property_type_option' => '',
 		'property_type_default' => '',
+		'minlistprice' => 500,
+		'maxlistprice' => 10000000,
 	), $atts, 'quick_search2' );
 	
 	$requests = $atts;
@@ -167,6 +171,8 @@ function display_quick_search3($atts){
 		'location_option' => '',
 		'property_type_option' => '',
 		'property_type_default' => '',
+		'minlistprice' => 500,
+		'maxlistprice' => 10000000,
 	), $atts, 'quick_search3' );
 	
 	$requests = $atts;
@@ -187,10 +193,12 @@ function display_quick_search4($atts){
 		'location_option' => '',
 		'property_type_option' => '',
 		'property_type_default' => '',
+		'minlistprice' => 500,
+		'maxlistprice' => 10000000,
 	), $atts, 'quick_search4' );
 	
 	$requests = $atts;
-		
+	
 	ob_start();	
 	include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch4.php";
 	$html=ob_get_clean();
@@ -207,6 +215,8 @@ function display_quick_search5($atts){
 		'location_option' => '',
 		'property_type_option' => '',
 		'property_type_default' => '',
+		// 'minlistprice' => 500,
+		// 'maxlistprice' => 10000000,
 	), $atts, 'quick_search5' );
 	
 	$requests = $atts;

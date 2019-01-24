@@ -1,9 +1,6 @@
 <?php
 global $requests;
 
-$minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
-$maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
-
 ?><div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
         <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET">

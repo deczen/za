@@ -1,8 +1,8 @@
 <?php
 global $requests;
 
-$minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
-$maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
+$minListPrice 		= $requests['minlistprice'];
+$maxListPrice		= $requests['maxlistprice'];
 
 ?><div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
@@ -272,7 +272,7 @@ $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10
 			// type: "single",
 			grid: false,
 			step: 10000,
-			min: 500,
+			min: '<?php echo $minListPrice ?>',
 			max: 10000000,
 			from: '<?php echo $minListPrice ?>',
 			to: '<?php echo $maxListPrice ?>',

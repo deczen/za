@@ -3,7 +3,7 @@ global $requests, $single_property;
 // global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o;
 
 $rb = zipperagent_rb();
-$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'detail') : false;
+$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
 
 $excludes = get_short_excludes();
 $requests=key_to_lowercase($requests); //convert all key to lowercase
@@ -471,7 +471,7 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 						'aacr'=>$lotAcres,
 					);	
 					
-					$saved_crit= array_merge($search, $locqry, $advSearch);
+					$saved_crit= $search;
 				}else{
 					$temp = explode(';', $crit);
 					foreach( $temp as $val ){
