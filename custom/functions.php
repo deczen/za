@@ -1410,7 +1410,7 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					}		
 					
 					if(file_exists($source['logo_path'])){
-						$text.='<br />' . '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
+						$text.= '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
 						
 						if($source['copyrightUrl']){
 							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
@@ -1471,6 +1471,39 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					
 				break;
 		}
+		
+		return $text;
+	}
+}
+if( ! function_exists('property_source_info') ){
+	function property_source_info($sourceid, $params){
+		
+		$sources = zipperagent_get_source_details_cached();
+		
+		if( ! isset($sources[$sourceid]) )
+			return '';
+		
+		extract($params);
+		
+		$source = $sources[$sourceid];
+		$text = '';
+		
+		if(!is_show_agent_name())
+			return $text;
+		
+		$text.= '<div class="property-source">';
+		
+		if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+			$text.= sprintf( "Listing Provided Courtesy %s of", $listAgentName);							
+		}else{
+			$text.= "Listing Provided Courtesy of";						
+		}
+		
+		if(isset($listOfficeName) && !empty($listOfficeName)){
+			$text.= ' '. "<strong>$listOfficeName</strong>";
+		}	
+		
+		$text.= '</div>';	
 		
 		return $text;
 	}

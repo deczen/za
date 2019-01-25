@@ -12,7 +12,8 @@ $contactIds=get_contact_id();
 							<div class="grid grid--gutters">
 								<div class="cell cell-md-7 cell-lg-8 cell-xs-12">									
 									<div class="bt-listing__header-grid">
-										<div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
+										<?php echo property_source_info($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' )); ?>
+<div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 											<!-- <div class="grid grid--gutters"> -->
 												<!-- <div class="cell-xs-8"> -->
 													<?php
