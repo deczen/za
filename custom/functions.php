@@ -1892,7 +1892,10 @@ if( ! function_exists('zipperagent_field_value') ){
 		}
 		$KEY=strtoupper($key);
 		
-		if( isset( $fields->$key ) || isset( $fields->$KEY ) ){
+		$nostripkey = str_replace('_', '', $key);
+		$NOSTRIPKEY = str_replace('_', '', $KEY);
+		
+		if( isset( $fields->$key ) || isset( $fields->$KEY ) || isset( $fields->$nostripkey ) || isset( $fields->$NOSTRIPKEY ) ){
 			
 			$temp=array();
 			$values=explode(',', $val );
@@ -1902,25 +1905,30 @@ if( ! function_exists('zipperagent_field_value') ){
 			}
 			
 			$keyFeaturesRaw=isset($fields->$key)?$fields->$key:(isset( $fields->$KEY )? $fields->$KEY:array());
+			
+			if(!$keyFeaturesRaw){
+				$keyFeaturesRaw=isset($fields->$nostripkey)?$fields->$nostripkey:(isset( $fields->$NOSTRIPKEY )? $fields->$NOSTRIPKEY:array());
+			}
+			
 			$keyFeatures = array();
 			$p_typ = $proptype;
 			$p_pty_mask = 7;
 			
-			if (strcmp(p_typ,"BU")== 0){
+			if (strcmp($p_typ,"BU")== 0){
 				$p_pty_mask = 0;			
-			} else if (strcmp(p_typ,"CC")== 0){
+			} else if (strcmp($p_typ,"CC")== 0){
 				$p_pty_mask = 1;			
-			} else if (strcmp(p_typ,"CI")== 0){
+			} else if (strcmp($p_typ,"CI")== 0){
 				$p_pty_mask = 2;			
-			} else if (strcmp(p_typ,"LD")== 0){
+			} else if (strcmp($p_typ,"LD")== 0){
 				$p_pty_mask = 3;			
-			} else if (strcmp(p_typ,"MF")== 0){
+			} else if (strcmp($p_typ,"MF")== 0){
 				$p_pty_mask = 4;			
-			} else if (strcmp(p_typ,"MH")== 0){
+			} else if (strcmp($p_typ,"MH")== 0){
 				$p_pty_mask = 5;			
-			} else if (strcmp(p_typ,"RN")== 0){
+			} else if (strcmp($p_typ,"RN")== 0){
 				$p_pty_mask = 6;			
-			} else if (strcmp(p_typ,"SF")== 0){
+			} else if (strcmp($p_typ,"SF")== 0){
 				$p_pty_mask = 7;			
 			}
 			foreach($keyFeaturesRaw as $entity){
@@ -1928,7 +1936,7 @@ if( ! function_exists('zipperagent_field_value') ){
 					array_push($keyFeatures,$entity);
 				}
 			}
-			// echo "<pre>"; print_r($p_pty_mask); echo "</pre>"; die();
+			// echo "<pre>"; print_r($p_pty_mask); echo "</pre>"; 
 			// echo "<pre>"; print_r($keyFeaturesRaw); echo "</pre>";
 			// echo "<pre>"; print_r($keyFeatures); echo "</pre>";
 			// echo "<hr />";
