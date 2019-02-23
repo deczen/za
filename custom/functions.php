@@ -174,6 +174,8 @@ if( ! function_exists('zipperagent_rb') ){
 			$save_session['web']['show_agent_list'] = $rb['web']['show_agent_list'];
 			$save_session['web']['branded_virtualtour'] = $rb['web']['branded_virtualtour'];
 			$save_session['web']['show_agent_name'] = $rb['web']['show_agent_name'];
+			$save_session['web']['print_logo'] = $rb['web']['print_logo'];
+			$save_session['web']['print_color'] = $rb['web']['print_color'];
 			
 			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];

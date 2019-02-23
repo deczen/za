@@ -1718,8 +1718,26 @@ $contactIds=get_contact_id();
 		</div>
 	</article>
 	<!-- print view -->
-	<div class="bt-print-view js-print-view">
+	<?php
+		$rb = zipperagent_rb();
+		
+		$print_logo = $rb['web']['print_logo'];
+		$print_color = $rb['web']['print_color'];
+		
+		// echo "<pre>"; print_r( $rb ); echo "</pre>";
+	?>
+	<div class="bt-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
 	  <div class="bt-print__wrap">
+		<div class="bt-print__header_top">
+			<div class="bt-print__logo">
+				<img src="<?php echo $print_logo; ?>">
+			</div>
+			<div class="bt-print__title">
+				<h4 class="my-5 uk-text-truncate" style="color: <?php echo $print_color; ?> !important;">
+				   <?php echo zipperagent_get_address($single_property); ?> 
+				</h4>
+			</div>
+		</div>
 		 <div class="bt-print__left">
 			<div class="uk-text-small mb-5">
 			   <?php echo get_permalink(); ?>
@@ -1844,20 +1862,20 @@ $contactIds=get_contact_id();
 			</div>
 			<?php if(isset($single_property->remarks)): ?>
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Description</h6>
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Description</h6>
 			   <div class="bt-print__description">[remarks]</div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if(isset($single_property->direction)): ?>
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Directions</h6>
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Directions</h6>
 			   <div class="bt-print__description">[direction]</div>
 			</div>
 			<?php endif; ?>
 			
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Features</h6>
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 			   <p>
 				  <?php if(isset($single_property->adultcommunity)): ?>
 				  <strong>Adult Community</strong>
@@ -2061,7 +2079,7 @@ $contactIds=get_contact_id();
 			   </p>
 			</div>
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Exterior Features</h6>
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Exterior Features</h6>
 			   <p>
 				  <?php /* <strong>Beach Description</strong>
 				  Lake/Pond
@@ -2134,7 +2152,7 @@ $contactIds=get_contact_id();
 			   </p>
 			</div>
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Interior Features</h6>
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
 			   <p>
 				  <?php if(isset($single_property->basement)): ?>
 				  <strong>Basement</strong>
@@ -2424,7 +2442,7 @@ $contactIds=get_contact_id();
 			
 			<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
 			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Schools</h6>
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6>
 			   <p>
 				  <?php if(isset($single_property->gradeschool)): ?>
 				  <strong>Grade School</strong>
