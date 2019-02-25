@@ -57,6 +57,7 @@ $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
+$column 			= ( isset($requests['column'])?$requests['column']:'' );
 
 //distance search variables
 $searchDistance 	= ( isset($requests['searchdistance'])?$requests['searchdistance']:'' );
@@ -76,6 +77,23 @@ if( $is_ajax )
 	$actual_link = $requests['actual_link'];
 else
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+/* set column number */
+switch( $column ){
+	case 4:
+			$columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
+		break;
+	case 1:
+			$columns_code = 'col-lg-12 col-sm-12 col-md-12 col-xs-12';
+		break;
+	case 2:
+			$columns_code = 'col-lg-6 col-sm-6 col-md-6 col-xs-12';
+		break;
+	case 3:
+	default:
+			$columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
+		break;
+}
 
 /* get town list */
 $locqry=array();

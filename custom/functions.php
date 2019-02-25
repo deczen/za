@@ -2098,7 +2098,7 @@ if( ! function_exists('get_long_excludes') ){
 
 if( ! function_exists('get_short_excludes') ){
 	function get_short_excludes(){
-		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams');
+		$excludes = array('location', 'propertytype', 'status', 'column', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams');
 		return $excludes;
 	}
 }

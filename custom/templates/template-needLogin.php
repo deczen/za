@@ -251,6 +251,7 @@ $rb = zipperagent_rb();
 						}
 						
 						//process message
+						jQuery('#needLoginModal .modal-header .close').click();
 						jQuery('#needLoginModal .modal-body #content').html('<p>Login success</p>');
 						
 						//set contactId to input field
@@ -498,6 +499,7 @@ $rb = zipperagent_rb();
 									break;
 							}
 							
+							jQuery('#needLoginModal .modal-header .close').click();
 							jQuery('#needLoginModal .modal-body #content').html('<p>Login success</p>');
 							jQuery('input[name=contactId]').val(contactId);
 							jQuery('.needLogin').attr('contactId', contactId);

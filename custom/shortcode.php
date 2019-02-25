@@ -105,6 +105,7 @@ function display_open_house_search($atts){
 	
 	$atts = shortcode_atts( array(
 		'location_option' => '',
+		'column' => '',
 		// 'property_type_option' => '',
 		// 'property_type_default' => '',
 	), $atts, 'quick_search' );
@@ -125,6 +126,7 @@ function display_quick_search($atts){
 	
 	$atts = shortcode_atts( array(
 		'location_option' => '',
+		'column' => '',
 		// 'property_type_option' => '',
 		// 'property_type_default' => '',
 		'minlistprice' => 500,
@@ -151,6 +153,7 @@ function display_quick_search2($atts){
 		'property_type_default' => '',
 		'minlistprice' => 500,
 		'maxlistprice' => 10000000,
+		'column' => '',
 	), $atts, 'quick_search2' );
 	
 	$requests = $atts;
@@ -173,6 +176,7 @@ function display_quick_search3($atts){
 		'property_type_default' => '',
 		'minlistprice' => 500,
 		'maxlistprice' => 10000000,
+		'column' => '',
 	), $atts, 'quick_search3' );
 	
 	$requests = $atts;
@@ -195,6 +199,7 @@ function display_quick_search4($atts){
 		'property_type_default' => '',
 		'minlistprice' => 500,
 		'maxlistprice' => 10000000,
+		'column' => '',
 	), $atts, 'quick_search4' );
 	
 	$requests = $atts;
@@ -217,6 +222,7 @@ function display_quick_search5($atts){
 		'property_type_default' => '',
 		// 'minlistprice' => 500,
 		// 'maxlistprice' => 10000000,
+		'column' => '',
 	), $atts, 'quick_search5' );
 	
 	$requests = $atts;
@@ -560,7 +566,8 @@ function getBasicSearch($atts){
 		'location_option' => '',
 		'property_type_option' => '',
 		'property_type_default' => '',
-	), $atts, 'quick_search2' );
+		'column' => '',
+	), $atts, 'basic_search' );
 	
 	$requests = $atts;
 	
@@ -580,6 +587,7 @@ function getAdvancedSearch($atts){
 		'location_option' => '',
 		'property_type_option' => '',
 		'property_type_default' => '',
+		'column' => '',
 	), $atts, 'quick_search2' );
 	
 	$requests = $atts;

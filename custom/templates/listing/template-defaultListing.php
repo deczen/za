@@ -153,7 +153,7 @@ if($templatename && file_exists($template_path)){
 			$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 			$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 			?>
-			<div class="zpa-grid-result col-lg-4 col-sm-6 col-md-6 col-xs-12">
+			<div class="zpa-grid-result <?php echo $columns_code ?>">
 				<div class="zpa-grid-result-container well">
 					<div class="row">
 						<div class="col-xs-12">

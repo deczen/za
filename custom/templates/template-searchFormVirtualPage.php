@@ -384,6 +384,10 @@ $addressSearch = 1;
                     <div class="col-xs-12" style="text-align: right;"> <a href="<?php echo site_url('/'); ?>homes-for-sale-search-advanced/" class="zpa-advanced-search-launch"> MORE SEARCH OPTIONS </a> </div>
                 </div>
             </fieldset>
+			
+			<?php if(isset($requests['column'])): ?>
+			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+			<?php endif; ?>
         </form>
     </div>
 	

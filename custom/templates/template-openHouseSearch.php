@@ -97,6 +97,9 @@ global $requests;
                 </div>
             </fieldset>
             <div> </div>
+			<?php if(isset($requests['column'])): ?>
+			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+			<?php endif; ?>
         </form>
     </div>
 	
