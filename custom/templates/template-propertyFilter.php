@@ -19,12 +19,19 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 					</select>
 				</div>
 				<div class="col-xs-12 col-sm-3">
-					<select id="zpa-select-property-type" name="propertyType" class="form-control zpa-chosen-select-width">
+					<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 						<?php
-							$propTypeFields = get_property_type();
-							foreach( $propTypeFields as $fieldCode=>$fieldName ){
-								echo "<option ". selected( $propertyType, $fieldCode, false ) ." value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
-							}
+						$propTypeFields = get_property_type();
+						$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+					
+						foreach( $propTypeFields as $fieldCode=>$fieldName ){
+							if(in_array($fieldCode, $propDefaultOption) || in_array($fieldCode, $propertyType))
+								$selected="selected";
+							else
+								$selected="";
+							
+							echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
+						}
 						?>
 					</select>						
 				</div>
@@ -107,4 +114,16 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 		<input type="hidden" name="action" value="properties_view" />
 		<input type="hidden" name="view_type" value="<?php echo $type ?>" />
 	</form>
-</div>	
+	<script>
+		// Material Select Initialization
+		jQuery(document).ready(function($) {
+		  $('.multiselect').multiselect({
+			// buttonWidth : '160px',
+			includeSelectAllOption : true,
+			nonSelectedText: 'Select',
+			numberDisplayed: 1,
+			buttonClass: 'form-control',
+		  });
+		});
+	</script>
+</div>

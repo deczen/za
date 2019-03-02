@@ -92,14 +92,18 @@ global $requests;
                     </div>
 					
                     <input id="openHomesMode" name="openHomesMode" type="hidden" value="true">
-					<?php $default_order = za_get_default_order(); ?>
-					<?php if($default_order){ ?><input type="hidden" name="o" value="<?php echo $default_order; ?>" /><?php } ?>
+					<?php 
+					$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
+					if($default_order): ?>
+					<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
+					<?php endif; ?>
+					
+					<?php if(isset($requests['column'])): ?>
+					<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+					<?php endif; ?>
                 </div>
             </fieldset>
             <div> </div>
-			<?php if(isset($requests['column'])): ?>
-			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
-			<?php endif; ?>
         </form>
     </div>
 	

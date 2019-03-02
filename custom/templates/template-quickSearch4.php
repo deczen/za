@@ -35,11 +35,11 @@ $maxListPrice		= $requests['maxlistprice'];
 							<div class="row">
 								<div class="col-xs-12 col-sm-4 mb-10 field-input">					
 									<label for="zpa-select-baths-homes" class="field-label"> Property Type </label>
-									<select id="zpa-select-property-type" name="propertyType" class="form-control zpa-chosen-select-width">
+									<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 										<?php
 										$propTypeFields = get_property_type();
 										$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
-										$propDefaultOption = !empty($requests['property_type_default']) ? $requests['property_type_default'] : '';
+										$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
 									
 										foreach( $propTypeFields as $fieldCode=>$fieldName ){
 											if($propTypeOption){
@@ -48,7 +48,7 @@ $maxListPrice		= $requests['maxlistprice'];
 												}
 											}else{
 												// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-												if($propDefaultOption==$fieldCode)
+												if(in_array($fieldCode, $propDefaultOption))
 													$selected="selected";
 												else
 													$selected="";
@@ -141,8 +141,15 @@ $maxListPrice		= $requests['maxlistprice'];
 								
 								<div class="col-xs-12 col-md-2 col-sm-2">
 									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-									<?php $default_order = za_get_default_order(); ?>
-									<?php if($default_order){ ?><input type="hidden" name="o" value="<?php echo $default_order; ?>" /><?php } ?>
+									<?php 
+									$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
+									if($default_order): ?>
+									<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
+									<?php endif; ?>
+									
+									<?php if(isset($requests['column'])): ?>
+									<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+									<?php endif; ?>
 								</div>
 							</div>
 						</div>
@@ -151,9 +158,6 @@ $maxListPrice		= $requests['maxlistprice'];
                 
             </fieldset>
             <div> </div>
-			<?php if(isset($requests['column'])): ?>
-			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
-			<?php endif; ?>
         </form>
     </div>
 	
@@ -321,6 +325,18 @@ $maxListPrice		= $requests['maxlistprice'];
 			onFinish: function(data){
 				jQuery('#zpa-search-filter-form').submit();
 			},
+		});
+	</script>
+	<script>
+		// Material Select Initialization
+		jQuery(document).ready(function($) {
+		  $('.multiselect').multiselect({
+			// buttonWidth : '160px',
+			includeSelectAllOption : true,
+			nonSelectedText: 'Select',
+			numberDisplayed: 1,
+			buttonClass: 'form-control',
+		  });
 		});
 	</script>
 </div>

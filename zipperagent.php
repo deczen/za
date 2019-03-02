@@ -11,7 +11,7 @@ License: GPL
 $GLOBALS['WORK_ENV'] = 'PROD';
 // $GLOBALS['WORK_ENV'] = 'DEV';
 
-define( 'ZIPPERAGENT_VERSION', '20190223.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
+define( 'ZIPPERAGENT_VERSION', '20190302.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
 define( 'ZIPPERAGENTPATH', dirname( __FILE__ ) );
 define( 'ZIPPERAGENTURL', plugins_url( '/', __FILE__ ) );
 

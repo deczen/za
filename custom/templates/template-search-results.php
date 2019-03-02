@@ -30,7 +30,7 @@ $advStates 			= ( isset($requests['advstates'])?$requests['advstates']:'' );
 $advCounties 		= ( isset($requests['advcounties'])?$requests['advcounties']:'' );
 $advStZip 			= str_replace( ' ', '', ( isset($requests['advstzip'])?$requests['advstzip']:'' ) );
 $boundaryWKT 		= ( isset($requests['boundarywkt'])?$requests['boundarywkt']:'' );
-$propertyType 		= ( isset($requests['propertytype'])?urldecode($requests['propertytype']):'' );
+$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):'' );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:'' );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:'' );
@@ -65,8 +65,6 @@ $distance 			= ( isset($requests['distance'])?$requests['distance']:'' );
 $lat 				= ( isset($requests['lat'])?$requests['lat']:'' );
 $lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
 
-//default status
-$status = empty($status)?zipperagent_active_status():$status;
 
 /**
  * PREPARATION
@@ -77,6 +75,9 @@ if( $is_ajax )
 	$actual_link = $requests['actual_link'];
 else
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+/* default status */
+$status = empty($status)?zipperagent_active_status():$status;
 
 /* set column number */
 switch( $column ){
@@ -247,7 +248,7 @@ if( $openHomesMode ){ // open homes mode
 		// 'aloff'=>$rb['web']['aloff'],
 		'abeds'=>$bedrooms,
 		'abths'=>$bathCount,
-		'apt'=>$propertyType,
+		'apt'=>implode( ',', array_map("trim",$propertyType) ),
 		'asts'=>$status,
 		'apmin'=>za_correct_money_format($minListPrice),
 		'apmax'=>za_correct_money_format($maxListPrice),
@@ -288,7 +289,7 @@ if( $openHomesMode ){ // open homes mode
 		// 'aloff'=>$rb['web']['aloff'],
 		'abeds'=>$bedrooms,
 		'abths'=>$bathCount,
-		'apt'=>$propertyType,
+		'apt'=>implode( ',', array_map("trim",$propertyType) ),
 		'asts'=>$status,
 		'apmin'=>za_correct_money_format($minListPrice),
 		'apmax'=>za_correct_money_format($maxListPrice),
@@ -324,7 +325,7 @@ if( $openHomesMode ){ // open homes mode
 		// 'aloff'=>$rb['web']['aloff'],
 		'abeds'=>$bedrooms,
 		'abths'=>$bathCount,
-		'apt'=>$propertyType,
+		'apt'=>implode( ',', array_map("trim",$propertyType) ),
 		'asts'=>$status,
 		'apmin'=>za_correct_money_format($minListPrice),
 		'apmax'=>za_correct_money_format($maxListPrice),
@@ -364,7 +365,7 @@ if( $openHomesMode ){ // open homes mode
 		// 'aloff'=>$rb['web']['aloff'],
 		'abeds'=>$bedrooms,
 		'abths'=>$bathCount,
-		'apt'=>$propertyType,
+		'apt'=>implode( ',', array_map("trim",$propertyType) ),
 		'asts'=>$status,
 		'apmin'=>za_correct_money_format($minListPrice),
 		'apmax'=>za_correct_money_format($maxListPrice),
@@ -587,7 +588,7 @@ if( $enable_filter ):
 					'aloff'=>$rb['web']['aloff'],
 					'abeds'=>$bedrooms,
 					'abths'=>$bathCount,
-					'apt'=>$propertyType,
+					'apt'=>implode( ',', array_map("trim",$propertyType) ),
 					'asts'=>$status,
 					'apmin'=>za_correct_money_format($minListPrice),
 					'apmax'=>za_correct_money_format($maxListPrice),

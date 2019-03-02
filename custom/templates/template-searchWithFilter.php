@@ -10,7 +10,7 @@ $requests=key_to_lowercase($requests); //convert all key to lowercase
 $addressSearch = false;
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
-$propertyType 		= ( isset($requests['propertytype'])?urldecode($requests['propertytype']):'none' );
+$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):'' );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
@@ -50,14 +50,21 @@ if(get_query_var('page')){
 						</select>
 					</div>											
 					<div class="col-xs-6 col-sm-3 field-input">
-						<select id="zpa-select-property-type" name="propertyType" class="form-control zpa-chosen-select-width">
-							<?php
-								$propTypeFields = get_property_type();
-								foreach( $propTypeFields as $fieldCode=>$fieldName ){
-									echo "<option ". selected( $propertyType, $fieldCode, false ) ." value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
-								}
-							?>
-						</select>						
+						<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
+						<?php
+						$propTypeFields = get_property_type();
+						$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+					
+						foreach( $propTypeFields as $fieldCode=>$fieldName ){
+							if(in_array($fieldCode, $propDefaultOption) || in_array($fieldCode, $propertyType))
+								$selected="selected";
+							else
+								$selected="";
+							
+							echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
+						}
+						?>
+					</select>								
 					</div>
 				</div>
 				
@@ -403,6 +410,18 @@ if(get_query_var('page')){
 					}
 				}
 			});
+		});
+	</script>
+	<script>
+		// Material Select Initialization
+		jQuery(document).ready(function($) {
+		  $('.multiselect').multiselect({
+			// buttonWidth : '160px',
+			includeSelectAllOption : true,
+			nonSelectedText: 'Property Type',
+			numberDisplayed: 1,
+			buttonClass: 'form-control',
+		  });
 		});
 	</script>
 </div>

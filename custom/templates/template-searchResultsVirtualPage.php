@@ -7,7 +7,7 @@ $requests=key_to_lowercase($requests); //convert all key to lowercase
 $zpa_show_login_popup = 1;
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
-$propertyType 		= ( isset($requests['propertytype'])?urldecode($requests['propertytype']):'none' );
+$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):'' );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
 $maxListPrice		= ( isset($requests['maxlistprice']) && !empty($requests['maxlistprice']) ?$requests['maxlistprice']:10000000 );
@@ -124,6 +124,7 @@ unset($alstid); */
 											</div>
 										</div>
 										
+										<?php /*
 										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
 											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Type
@@ -151,6 +152,35 @@ unset($alstid); */
 																$propertyType=""; //avoid result zero
 															echo '<input style="display:none" type="radio" value="'. $propertyType .'" name="propertyType" checked />';
 														}														
+														?>
+													</ul>
+												</div>
+											</div>
+										</div> */ ?>
+										
+										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+												<!-- react-text: 48 -->Type
+												
+												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+											</button>
+											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+												<div class="bt-ccomp__content__inner">
+													<ul class="uk-list uk-list-space m-0">
+														<?php
+															$propTypeFields = get_property_type();
+															$propTypeNum=0;
+															$excludePropTypeFields=array();
+															foreach( $propTypeFields as $fieldCode=>$fieldName ){
+																$checked='';
+																if(in_array($fieldCode,$propertyType))
+																	$checked='checked';
+																
+																echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertyType[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
+																$propTypeNum++;
+																
+																$excludePropTypeFields[]=$fieldCode;
+															}
 														?>
 													</ul>
 												</div>
@@ -379,14 +409,45 @@ unset($alstid); */
 		);
 		<?php endif; ?>
 		
-		jQuery('#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea').on( 'change', function(){
+		jQuery('body').on('change', '#zpa-search-filter-form .btn-group input:not([type=checkbox]), #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea', function(e){
+		// jQuery('#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea').on( 'change', function(){
 			jQuery('#zpa-search-filter-form').submit();
 			jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
-			
+		
 			var field=jQuery(this);
 			var value=field.val();
-			var name=field.attr('name');			
-			onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
+			var name=field.attr('name');	
+			if(name.substr(name.length - 2)=='[]'){
+				name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
+				onFilterChange( filterLabel(name,value), name); 
+			}else{
+				onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
+			}
+		});
+		
+		jQuery('body').on('change', '#zpa-search-filter-form .btn-group input[type=checkbox]', function(){
+			jQuery('#zpa-search-filter-form').submit();
+			jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
+			var field=jQuery(this);
+			var value=field.val();
+			var name=field.attr('name');	
+			var label=field.attr('label');
+			
+			if(field.prop("checked") == false){
+			   if(name.substr(name.length - 2)=='[]'){
+					name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
+					removeFilterField(label, name);
+				}else{
+					removeFilterField(label, name);
+				}	
+			}else{	
+				if(name.substr(name.length - 2)=='[]'){
+					name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
+					onFilterChange( filterLabel(name,value), name); 
+				}else{
+					onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
+				}
+			}
 		});
 		
 		jQuery('#zpa-search-filter-form').on("submit", function(event) {

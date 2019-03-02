@@ -96,11 +96,11 @@ $addressSearch=1;
 									 <div class="col-xs-12 col-sm-4 mb-10">
 										<label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
 										<div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
-										<select name="propertyType" class="form-control zpa-chosen-select-width">
+										<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 											<?php
 											$propTypeFields = get_property_type();
 											$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
-											$propDefaultOption = !empty($requests['property_type_default']) ? $requests['property_type_default'] : '';
+											$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
 										
 											foreach( $propTypeFields as $fieldCode=>$fieldName ){
 												if($propTypeOption){
@@ -109,7 +109,7 @@ $addressSearch=1;
 													}
 												}else{
 													// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-													if($propDefaultOption==$fieldCode)
+													if(in_array($fieldCode, $propDefaultOption))
 														$selected="selected";
 													else
 														$selected="";
@@ -169,8 +169,10 @@ $addressSearch=1;
 									</div>
 								</div>
 								<input id="zpa-boundary" name="boundaryWKT" type="hidden" value="" disabled="disabled">
-								<?php $default_order = za_get_default_order(); ?>
-								<?php if($default_order){ ?><input type="hidden" name="o" value="<?php echo $default_order; ?>" /><?php } ?>
+								
+								<?php if(isset($requests['column'])): ?>
+								<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+								<?php endif; ?>
 							</div>	
 						</div>
 					</div>
@@ -181,11 +183,11 @@ $addressSearch=1;
 						<div class="col-xs-12 col-sm-6 mb-10">
 							<label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
 							<div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
-							<select id="zpa-select-property-type" name="propertyType" class="form-control zpa-chosen-select-width">
+							<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 								<?php
 								$propTypeFields = get_property_type();
 								$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
-								$propDefaultOption = !empty($requests['property_type_default']) ? $requests['property_type_default'] : '';
+								$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
 							
 								foreach( $propTypeFields as $fieldCode=>$fieldName ){
 									if($propTypeOption){
@@ -194,7 +196,7 @@ $addressSearch=1;
 										}
 									}else{
 										// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-										if($propDefaultOption==$fieldCode)
+										if(in_array($fieldCode, $propDefaultOption))
 											$selected="selected";
 										else
 											$selected="";
@@ -339,8 +341,10 @@ $addressSearch=1;
 					<div class="row mt-25 filter">
 						<div class="col-xs-12 col-sm-6 mb-10">
 							<label for="zpa-select-order-by" class="field-label zpa-select-order-by-label"> Sort by </label>
+							<?php 
+							$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order(); ?>
 							<select id="zpa-select-order-by" name="o" class="form-control zpa-chosen-select-width">
-								<option value="<?php echo za_get_default_order(); ?>">Select</option>
+								<option value="<?php echo $default_order; ?>">Select</option>
 								<option value="apmin:DESC">Price (High to Low)</option>
 								<option value="apmin:ASC">Price (Low to High)</option>
 								<option value="asts:ASC">Status</option>
@@ -415,11 +419,6 @@ $addressSearch=1;
 					*/ ?>
 				</div>
             </fieldset>
-			<?php 
-			
-			if(isset($requests['column'])): ?>
-			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
-			<?php endif; ?>
         </form>
     </div>
 	
@@ -557,6 +556,18 @@ $addressSearch=1;
 				$('.rental-field').show();
 				$('.rental-field input').prop('disabled', false);
 			}
+		});
+	</script>
+	<script>
+		// Material Select Initialization
+		jQuery(document).ready(function($) {
+		  $('.multiselect').multiselect({
+			// buttonWidth : '160px',
+			includeSelectAllOption : true,
+			nonSelectedText: 'Select',
+			numberDisplayed: 1,
+			buttonClass: 'form-control',
+		  });
 		});
 	</script>
 	<script>  

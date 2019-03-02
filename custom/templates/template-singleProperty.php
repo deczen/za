@@ -9,7 +9,7 @@ $excludes = get_short_excludes();
 $requests=key_to_lowercase($requests); //convert all key to lowercase
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
-$propertyType 		= ( isset($requests['propertytype'])?urldecode($requests['propertytype']):'none' );
+$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):'' );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:'' );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:'' );
@@ -171,19 +171,15 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 															$propTypeNum=0;
 															$excludePropTypeFields=array();
 															foreach( $propTypeFields as $fieldCode=>$fieldName ){
-																echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='radio' class='at-propertyType' value='{$fieldCode}' name='propertyType' id='propertyType-{$propTypeNum}' ". checked( $propertyType, $fieldCode, false ) ."><span>{$fieldName}</span></label></li>"."\r\n";
+																$checked='';
+																if(in_array($fieldCode,$propertyType))
+																	$checked='checked';
+																
+																echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertyType[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
 																$propTypeNum++;
 																
 																$excludePropTypeFields[]=$fieldCode;
 															}
-														?>
-														
-														<?php														
-														if( !empty($propertyType) && ! in_array( $propertyType, $excludePropTypeFields ) ){
-															if( $propertyType=="none" )
-																$propertyType=""; //avoid result zero
-															echo '<input style="display:none" type="radio" value="'. $propertyType .'" name="propertyType" checked />';
-														}														
 														?>
 													</ul>
 												</div>
@@ -464,7 +460,7 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 						'aloff'=>$rb['web']['aloff'],
 						'abeds'=>$bedrooms,
 						'abths'=>$bathCount,
-						'apt'=>$propertyType,
+						'apt'=>implode( ',', array_map("trim",$propertyType) ),
 						'asts'=>$status,
 						'apmin'=>za_correct_money_format($minListPrice),
 						'apmax'=>za_correct_money_format($maxListPrice),
@@ -643,7 +639,7 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 			);
 			<?php endif; ?>
 			
-			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea', function(e){
+			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input:not([type=checkbox]), #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea', function(e){
 			// jQuery('#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea').on( 'change', function(){
 				// jQuery(this).closest(".dropdown-toggle").dropdown("toggle"); //close dropdown
 				// jQuery(this).closest(".dropdown-menu").toggle(100); //close dropdown
@@ -654,10 +650,39 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 				
 				var field=jQuery(this);
 				var value=field.val();
-				var name=field.attr('name');			
-				onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
+				var name=field.attr('name');	
+				if(name.substr(name.length - 2)=='[]'){
+					name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
+					onFilterChange( filterLabel(name,value), name); 
+				}else{
+					onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
+				}
 			});
 			
+			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input[type=checkbox]', function(){
+				jQuery('#zpa-search-filter-form').submit();
+				jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
+				var field=jQuery(this);
+				var value=field.val();
+				var name=field.attr('name');	
+				var label=field.attr('label');
+				
+				if(field.prop("checked") == false){
+				   if(name.substr(name.length - 2)=='[]'){
+						name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
+						removeFilterField(label, name);
+					}else{
+						removeFilterField(label, name);
+					}	
+				}else{	
+					if(name.substr(name.length - 2)=='[]'){
+						name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
+						onFilterChange( filterLabel(name,value), name); 
+					}else{
+						onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
+					}
+				}
+			});
 			// jQuery("#zpa-search-filter-form .dropdown .dropdown-toggle").click(function(){
 				// e.stopPropagation();
 				// jQuery(this).closest(".dropdown-menu").hide();

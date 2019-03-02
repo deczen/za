@@ -84,6 +84,7 @@ class zipperAgentEnqueueResource {
 			/* Start modification by Decz */
 			// $this->enqueueScript('jquery-ui-slider');
 			$this->enqueueScript('za-bundle-js', zipperagent_url(false) . 'js/bundle.js');
+			$this->enqueueScript('bootstrap-multiselect', zipperagent_url(false) . 'js/bootstrap-multiselect.min.js');
 			$this->enqueueScript('magicsuggest-js', zipperagent_url(false) . 'js/magicsuggest.js');
 			$this->enqueueScript('momment', zipperagent_url(false) . 'js/moment.min.js');
 			$this->enqueueScript('pikaday-js', zipperagent_url(false) . 'js/pikaday.js');

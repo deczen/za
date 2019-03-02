@@ -176,6 +176,7 @@ if( ! function_exists('zipperagent_rb') ){
 			$save_session['web']['show_agent_name'] = $rb['web']['show_agent_name'];
 			$save_session['web']['print_logo'] = $rb['web']['print_logo'];
 			$save_session['web']['print_color'] = $rb['web']['print_color'];
+			$save_session['web']['default_proptype'] = $rb['web']['default_proptype'];
 			
 			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
@@ -2728,6 +2729,23 @@ if( ! function_exists('za_get_default_order') ){
 	}
 }
 
+if( ! function_exists('za_get_default_proptype') ){
+	function za_get_default_proptype(){
+		
+		$default_value = array(
+			'SF','MF','CC'
+		);
+			
+		$rb = zipperagent_rb();
+			
+		$default_proptype = isset($rb['web']['default_proptype'])?$rb['web']['default_proptype']:'';
+		
+		$default_proptype = !$default_proptype ? $default_value : explode(',',$default_proptype);
+		
+		return $default_proptype;
+	}
+}
+
 if( ! function_exists('zp_using_criteria') ){
 	function zp_using_criteria(){
 		
@@ -3000,7 +3018,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 		global $requests;
 		?>
 		<div id="zpa-view-selected-filter">
-			<input type="text" id="zpa-selected-filter">
+			<input type="text" id="zpa-selected-filter" style="border:0;">
 			<script>
 			jQuery(document).ready(function(){
 				var msSelect = jQuery('#zpa-selected-filter').magicSuggest({
@@ -3019,30 +3037,46 @@ if( ! function_exists('zipperagent_search_filter') ){
 				
 				jQuery(msSelect).on('selectionchange', function(e,m){
 					
+					// console.log(this.getSelection());
+					// this.removeFromSelection(this.getSelection(), true);
+					// alert('Choose something else. Glory to Arstotzka!');
+					
 					var new_parameters;
 					var newSelection = this.getValue();
+					var parameter;
+					var value;
 					if(newSelection.length < currentSelection.length){ //remove mark
 						var removedSelection = currentSelection.filter(function(obj) { return newSelection.indexOf(obj) == -1; });
 						if(removedSelection.length){
-							jQuery.each(removedSelection, function(index,value){
-								switch(value) {
-									case "status":															
-									case "propertytype":															
+							jQuery.each(removedSelection, function(index,parameter){
+								value='';
+								switch(parameter) {
+									<?php
+									$propTypeFields = get_property_type();
+									foreach($propTypeFields as $key => $val){
+									echo "\r\n" .
+									'case "propertytype_'.trim($key).'":'."\r\n" .
+										"jQuery(\"#zpa-search-filter-form input[name*='propertytype' i][value='{$key}']\").prop('checked',false);"."\r\n" .
+										"parameter='propertytype';"."\r\n" .
+										"value='{$key}';"."\r\n" .
+										'break;'."\r\n";
+									} ?>
+									case "status":																	
 									case "bedrooms":															
 									case "bathcount":															
 									case "o":															
-										jQuery("#zpa-search-filter-form input[name*='"+value+"' i]").prop('checked', false);
+										jQuery("#zpa-search-filter-form input[name*='"+parameter+"' i]").prop('checked', false);
 										break;
 									case "minlistprice":
 									case "maxlistprice":
-										jQuery("#zpa-search-filter-form input[name*='"+value+"' i]").val('');
+										jQuery("#zpa-search-filter-form input[name*='"+parameter+"' i]").val('');
 										break;
 									default:															
-										jQuery("#zpa-search-filter-form input[name*='"+value+"' i]").remove();
+										jQuery("#zpa-search-filter-form input[name*='"+parameter+"' i]").remove();
 								}
-								new_parameters=removeUrlParameter(value);
-								var url = jQuery('#zpa-search-filter-form').attr('action') + '?' + new_parameters;	
-								window.history.pushState("", "", url);											
+								// new_parameters=removeUrlParameter(parameter, value);
+								// console.log(new_parameters);
+								// var url = jQuery('#zpa-search-filter-form').attr('action') + '?' + new_parameters;										
 								
 								jQuery('#zpa-search-filter-form').submit();
 							});
@@ -3052,7 +3086,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 					
 				});
 				
-				function removeUrlParameter(parameter){
+				function removeUrlParameter(parameter,value){
 					/*
 					 * queryParameters -> handles the query string parameters
 					 * queryString -> the query string without the fist '?' character
@@ -3061,14 +3095,39 @@ if( ! function_exists('zipperagent_search_filter') ){
 					 */
 					var queryParameters = {}, queryString = location.search.substring(1),
 						re = /([^&=]+)=([^&]*)/g, m;
-
+					
 					// Creates a map with the query string parameters
 					while (m = re.exec(queryString)) {
-						queryParameters[decodeURIComponent(m[1]).toLowerCase()] = decodeURIComponent(m[2]);
+						var indexParameter = decodeURIComponent(m[1]).toLowerCase();
+						
+						if(indexParameter.substr(indexParameter.length - 2)=='[]'){ //if array
+							indexParameter = indexParameter.substring(0, indexParameter.length-2); //remove []
+							if(!Array.isArray(queryParameters[indexParameter])){
+								queryParameters[indexParameter]=[];
+							}
+							queryParameters[indexParameter].push(decodeURIComponent(m[2]));
+								
+						}else{ // string
+							queryParameters[indexParameter] = decodeURIComponent(m[2]);
+						}
 					}
 
 					// Add new parameters or update existing ones
-					delete queryParameters[parameter];
+					if(value){
+						if(Array.isArray(queryParameters[parameter])){
+							for(var i=0; queryParameters[parameter].length; i++){
+								if(queryParameters[parameter][i]==value){
+									queryParameters[parameter].splice(i,1);
+									break;
+								}
+							}
+						}else if(queryParameters[parameter]==value){
+							delete queryParameters[parameter];	
+						}
+					}else{
+						delete queryParameters[parameter];						
+					}
+					
 					/*
 					 * Replace the query portion of the URL.
 					 * jQuery.param() -> create a serialized representation of an array or
@@ -3090,9 +3149,15 @@ if( ! function_exists('zipperagent_search_filter') ){
 					changeLabel(name, label);
 				}
 				
-				function removeFilterField(label, name){
+				window.removeFilterField = function(label, name){
 					var value = {id:name, name: label};
-					msSelect.removeFromSelection([value]);
+					var selection = msSelect.getSelection();
+					for(var i=0; i < selection.length; i++){
+						if(selection[i].id==name){
+							// console.log('remove ' + name);
+							msSelect.removeFromSelection([value], true);
+						}
+					}
 				}
 				
 				window.filterLabel = function(name, value){
@@ -3116,20 +3181,14 @@ if( ! function_exists('zipperagent_search_filter') ){
 						case "squarefeet":
 							newLabel = value + ' sqft';	
 							break;
-						case "propertytype":
-							switch(value){
-								<?php
-									$propTypeFields = get_property_type();
-									foreach($propTypeFields as $key => $val){
-										
-										echo "case '".$key."':"."\r\n";
-										echo "newLabel = '".$val."';"."\r\n";
-										echo "break;"."\r\n";
-
-									}
-								?>
-							}
-							break;
+						<?php
+						$propTypeFields = get_property_type();
+						foreach($propTypeFields as $key => $val){
+						echo "\r\n" .
+						'case "propertytype_'.strtolower($key).'":'."\r\n" .
+							"newLabel = '{$val}'"."\r\n" .
+							'break;'."\r\n";
+						} ?>
 						case "yearbuilt":
 							newLabel = 'year ' + value;	
 							break;
@@ -3292,7 +3351,14 @@ if( ! function_exists('zipperagent_search_filter') ){
 						}
 						
 						// echo "onFilterChange('{$label}', '{$filterField}');"."\r\n";
-						echo "onFilterChange(filterLabel('{$filterField}','{$filterValue}'), '{$filterField}');"."\r\n";
+						if(is_array($filterValue)){
+							foreach($filterValue as $singleFilterval){
+								$singleFilterField=$filterField.'_'. trim( str_replace(' ','', $singleFilterval) );
+								echo "onFilterChange(filterLabel('{$singleFilterField}','{$singleFilterval}'), '{$singleFilterField}');"."\r\n";
+							}
+						}
+						else
+							echo "onFilterChange(filterLabel('{$filterField}','{$filterValue}'), '{$filterField}');"."\r\n";
 					}
 				}
 				?>

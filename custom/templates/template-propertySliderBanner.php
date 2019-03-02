@@ -21,7 +21,7 @@ $advStates 			= ( isset($requests['advstates'])?$requests['advstates']:'' );
 $advCounties 		= ( isset($requests['advcounties'])?$requests['advcounties']:'' );
 $advStZip 			= str_replace( ' ', '', ( isset($requests['advstzip'])?$requests['advstzip']:'' ) );
 $boundaryWKT 		= ( isset($requests['boundarywkt'])?$requests['boundarywkt']:'' );
-$propertyType 		= ( isset($requests['propertytype'])?urldecode($requests['propertytype']):'' );
+$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):'' );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:'' );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:'' );
@@ -48,9 +48,6 @@ $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 
-//default status
-$status = empty($status)?zipperagent_active_status():$status;
-
 /**
  * PREPARATION
  * @ prepare the arguments before API process
@@ -60,6 +57,9 @@ if( $is_ajax )
 	$actual_link = $requests['actual_link'];
 else
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+/* default status */
+$status = empty($status)?zipperagent_active_status():$status;
 
 /* get town list */
 $locqry=array();
@@ -197,7 +197,7 @@ $search=array(
 	'aloff'=>$aloff,
 	'abeds'=>$bedrooms,
 	'abths'=>$bathCount,
-	'apt'=>$propertyType,
+	'apt'=>implode( ',', array_map("trim",$propertyType) ),
 	'asts'=>$status,
 	'apmin'=>za_correct_money_format($minListPrice),
 	'apmax'=>za_correct_money_format($maxListPrice),

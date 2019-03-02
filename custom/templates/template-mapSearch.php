@@ -6,14 +6,21 @@
 					 <div class="col-xs-12 col-sm-4 mb-10">
                         <label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
                         <div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
-                        <select id="zpa-select-property-type" name="propertyType" class="form-control zpa-chosen-select-width">
-                            <?php
+                        <select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
+							<?php
 							$propTypeFields = get_property_type();
+							$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+						
 							foreach( $propTypeFields as $fieldCode=>$fieldName ){
-								echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+								if(in_array($fieldCode, $propDefaultOption))
+									$selected="selected";
+								else
+									$selected="";
+								
+								echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
 							}
 							?>
-                        </select>						
+						</select>						
                     </div>
 					<div class="col-xs-12 col-sm-2 mb-10">
 						<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
@@ -264,4 +271,16 @@
 		});
 	  });
     </script>
+	<script>
+		// Material Select Initialization
+		jQuery(document).ready(function($) {
+		  $('.multiselect').multiselect({
+			// buttonWidth : '160px',
+			includeSelectAllOption : true,
+			nonSelectedText: 'Select',
+			numberDisplayed: 1,
+			buttonClass: 'form-control',
+		  });
+		});
+	</script>
 </div>
