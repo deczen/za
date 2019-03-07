@@ -1859,10 +1859,10 @@ $contactIds=get_contact_id();
 					 <?php /* <div class="uk-text-muted">The King Team</div> */ ?>
 					 <ul class="uk-list mt-5">
 						<li>
-						   <strong>Phone:</strong> <?php echo isset( $agent->phone )?$agent->phone:'-'; ?>
+						   <?php echo isset( $agent->phoneMobile )? $agent->phoneMobile : ( isset($agent->phoneOffice) ? $agent->phoneOffice : ''); ?>
 						</li>
 						<li>
-						   <strong>Email:</strong> <?php echo isset( $agent->email )?$agent->email:''; ?>
+						   <?php echo isset( $agent->email )?$agent->email:''; ?>
 						</li>
 					 </ul>
 				  </div>

@@ -42,7 +42,7 @@ if(get_query_var('page')){
 					<div class="row sticky-container" style="position:relative;">      
 						<div id="map" class="col-lg-5 col-md-6 ml-auto">
 							<div id="map_wrapper">
-								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
+								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
 							</div>
 						</div>
 						<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">
@@ -167,7 +167,7 @@ if(get_query_var('page')){
 	* @ javascript
 	*/	
 	?>
-	
+	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	<script>
 		
 		jQuery(document).ready(function(){

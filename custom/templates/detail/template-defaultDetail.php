@@ -2,7 +2,12 @@
 $contactIds=get_contact_id();
 
 /* Process the template */	
-$templatename='';
+$template_name='';
+$template_features='';
+$template_print='';
+$template_sidebar='';
+$template_vtlink='';
+$is_custom_template=0;
 
 switch($single_property->proptype){
 	case "SF": //Single Family		
@@ -13,53 +18,92 @@ switch($single_property->proptype){
 	case "CS": //CommonInterest CS
 	case "CL": //CommonInterest CL
 	case "BF": //ResidentialProperty BF
-		$templatename=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'mlspin-sf-detail.php';
+		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
+		$template_features='sf-features.php';
+		$template_print='sf-print.php';
+		$template_sidebar='sf-sidebar.php';
+		$template_vtlink='sf-vtlink.php';
 		break;
 	case "MF": //Multifamily	
 	case "MUL": //Multifamily	
 	case "MUL": //Multifamily	
-		$templatename=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'mlspin-mf-detail.php';
+		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
+		$template_features='mf-features.php';
+		$template_print='mf-print.php';
+		$template_sidebar='mf-sidebar.php';
+		$template_vtlink='mf-vtlink.php';
 		break;
 	case "MH": //Mobile Home	
-		$templatename=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'mlspin-mh-detail.php';
+		$template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
+		$template_features='mh-features.php';
+		$template_print='mh-print.php';
+		$template_sidebar='mh-sidebar.php';
+		$template_vtlink='mh-vtlink.php';
 		break;
 	case "LD": //Land		
 	case "LND": //Land		
 	case "LAND": //Land		
 	case "VLD": //Land		
-		$templatename=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'mlspin-ld-detail.php';
+		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
+		$template_features='ld-features.php';
+		$template_print='ld-print.php';
+		$template_sidebar='ld-sidebar.php';
+		$template_vtlink='ld-vtlink.php';
 		break;
 	case "RN": //Rental		
 	case "RNT": //Rental		
 	case "LSE": //Rental		
 	case "RENT": //Rental		
-		$templatename=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'mlspin-rn-detail.php';
+		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
+		$template_features='rn-features.php';
+		$template_print='rn-print.php';
+		$template_sidebar='rn-sidebar.php';
+		$template_vtlink='rn-vtlink.php';
 		break;
 	case "CC": //Condo		
 	case "CND": //Condo		
 	case "CND": //Condo		
 	case "ATTSF": //Attached Single Family	
-		$templatename=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'mlspin-cc-detail.php';
+		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
+		$template_features='cc-features.php';
+		$template_print='cc-print.php';
+		$template_sidebar='cc-sidebar.php';
+		$template_vtlink='cc-vtlink.php';
 		break;
 	case "CI": //Commercial			
-	case "COM": //Commercial			
-	case "COM": //Commercial			
+	case "COM": //Commercial				
 	case "COMM": //Commercial		
 	case "INC": //Income		
-		$templatename=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'mlspin-ci-detail.php';
+		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
+		$template_features='ci-features.php';
+		$template_print='ci-print.php';
+		$template_sidebar='ci-sidebar.php';
+		$template_vtlink='ci-vtlink.php';
 		break;
 	case "BU": //Business		
 	case "BUS": //Business		
-		$templatename=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'mlspin-bu-detail.php';
+		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
+		$template_features='bu-features.php';
+		$template_print='bu-print.php';
+		$template_sidebar='bu-sidebar.php';
+		$template_vtlink='bu-vtlink.php';
 		break;
 	case "RESI": //Residential
 	case "RINC": //Residential
 	case "RLSE": //Residential
-		$templatename=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'mlspin-rd-detail.php';
+		$template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
+		$template_features='rd-features.php';
+		$template_print='rd-print.php';
+		$template_sidebar='rd-sidebar.php';
+		$template_vtlink='rd-vtlink.php';
 		break;
 	default: //custom default		
-		// $templatename = zipperagent_detailpage_layout();
-		$templatename=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'mlspin-sf-detail.php';
+		// $template_name = zipperagent_detailpage_layout();
+		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
+		$template_features='sf-features.php';
+		$template_print='sf-print.php';
+		$template_sidebar='sf-sidebar.php';
+		$template_vtlink='sf-vtlink.php';
 		break;
 	
 }
@@ -67,18 +111,27 @@ switch($single_property->proptype){
 /* Generate custom template */
 $groupname = zipperagent_detailpage_group();
 if($groupname == 'old_mlspin'){
-	$group_dir = '';
+	$group_dir = '/default';
+	$template_features = 'default-features.php';
+	$template_print	   = 'default-print.php';
+	$template_sidebar  = 'default-sidebar.php';
+	$template_vtlink   = 'default-vtlink.php';
 }else{
-	$group_dir = $groupname ? '/' . $groupname : '/mlspin';
+	$group_dir = $groupname ? '/' . $groupname : '';
 }
 
-$template_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/'. $templatename;
+$template_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/'. $template_name;
+$template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/features/'. $template_features;
+$template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/print/'. $template_print;
+$template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/sidebar/'. $template_sidebar;
+$template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/vtlink/'. $template_vtlink;
 
-/* if template exists, show the template */
-if(file_exists($template_path) && $templatename){
+/* if custom template exists, show the template */
+if(file_exists($template_path) && $template_name ){
 	include $template_path;
 	return;
 }	
+
 /* if there is no template, run default template */
 ?>
 <div id="zipperagent-content">
@@ -98,7 +151,7 @@ if(file_exists($template_path) && $templatename){
 									<div class="bt-listing__header-grid">
 
 										<?php echo property_source_info($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' )); ?>
-<div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
+										<div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 											<h1 class="uk-h2 mt-5 mb-0 listing-address at-prop-addr-txt">
 												<span itemprop="streetAddress"> [streetno] <?php echo isset($single_property->streetname)?$single_property->streetname:'' ?> </span></h1>
 											<div class="bt-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
@@ -224,17 +277,69 @@ if(file_exists($template_path) && $templatename){
 													<i class="bt-icon bt-icon--larger fa fa-map-marker" aria-hidden="true"></i>
 												</span> Map
 											</button>
-											 */ ?>
+											 */
+											 
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$current_url = esc_url_raw($current_url); //encode it
+// $urll = url_encode( $current_url );
+
+											 ?>
+											 
 											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
 												<span class="bt-icon--stack">
 													<i class="bt-icon bt-icon--larger fa fa-info" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
+											<div class="info-share">
+												<button type="button" class="btn-small share-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> dropdown-toggle" id="dropdownShare" data-toggle="dropdown">
+													<span class="bt-icon--stack">
+														<i class="bt-icon bt-icon--larger fa fa-share-square-o" aria-hidden="true"></i>
+													</span> <span class="hidden-md text">Share</span><span class="visible-md text"> Share </span>
+												</button>
+												<?php //0url_encode( $url ) ?>
+												<div class="dropdown-menu" aria-labelledby="dropdownShare">
+													<ul class="menu-list">
+														<li>
+															<a class="share-item" href="https://pinterest.com/pin/create/button/?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+																<i class="bt-icon bt-icon--larger fa fa-pinterest" aria-hidden="true"></i>
+																<span>Share on Pinterest</span>
+															</a>
+														</li>
+														<li>
+															<a class="share-item" href="https://plus.google.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+																<i class="bt-icon bt-icon--larger fa fa-google-plus" aria-hidden="true"></i>
+																<span>Share on Google+</span>
+															</a>
+														</li>
+														<li>
+															<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'facebook-share-dialog', 'width=626,height=436'); return false;">
+																<i class="bt-icon bt-icon--larger fa fa-facebook" aria-hidden="true"></i>
+																<span>Share on Facebook</span>
+															</a>
+														</li>
+														<li>
+															<a class="share-item" href="https://twitter.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=626,height=436'); return false;">
+																<i class="bt-icon bt-icon--larger fa fa-twitter" aria-hidden="true"></i>
+																<span>Share on Twitter</span>
+															</a>
+														</li>
+														<li>
+															<a class="share-item" href="#" onClick="window.print()" target="_blank">
+																<i class="bt-icon bt-icon--larger fa fa-print" aria-hidden="true"></i>
+																<span>Print this listing</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<?php /*
 											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="bt-icon--stack">
 													<i class="bt-icon bt-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
 											</button>
+											*/ ?>
 										</div>
 										<!-- end .top-action-buttons -->
 									</div>
@@ -525,24 +630,13 @@ if(file_exists($template_path) && $templatename){
 							
 						<?php endif; ?>
 						
-						<?php if(isset($single_property->vtlink)): ?>
-						<div class="bt-listing__virtual-tour">
+						<?php
+						/* incldue vtlink template */
+						if(file_exists($template_vtlink_path) && $template_vtlink){
+							include $template_vtlink_path;
+						}
+						?>						
 						
-							<?php if(is_array($single_property->vtlink)): ?>
-							<?php foreach( $single_property->vtlink as $virtual_index => $virtual_tour_url ): ?>
-						
-							<a target="_blank" href="<?php echo $virtual_tour_url ?>" class="bt-listing__virtual-tour__link js-vtour">
-							  <div class="uk-float-left">
-								<i class="fa fa-camera"></i>
-							  </div>
-							  <div class="uk-float-right bt-listing__virtual-tour__text">
-								Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?>
-							  </div>
-							</a>
-							<?php endforeach; ?>
-							<?php endif; ?>
-						</div>
-						<?php endif; ?>
 						<aside class="my-15">
 							<div class="uk-hidden-small uk-hidden-medium">
 
@@ -555,106 +649,13 @@ if(file_exists($template_path) && $templatename){
 						</aside>
 					</div>
 					<div id="props-column" class="cell">
-						<div class="mb-15 p-0 bt-panel uk-panel uk-panel-box">
-							<div class="bt-panel__stack__sub bt-panel--small uk-text-center">
-								<div class="">
-
-									<strong>$[realprice]</strong>
-
-								</div>
-
-								<?php /*
-								<button type="button" class="js-mortgage-modal btn-small mt-5 uk-text-success" title="Payment Calculator">
-									<svg class="bt-icon bt-icon--larger">
-										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-calculator"></use>
-									</svg>
-									<span class="js-mortgage">$2,887/mo.</span>
-								</button> */ ?>
-
-
-							</div>
-							<div class="bt-panel__stack__sub">
-								<ul class="bt-listing__feature-grid" style="margin-bottom:0">
-									<li class="beds">
-										<div class="attr-num">[nobedrooms]</div>
-										<div class="uk-text-small uk-text-truncate">BEDS</div>
-									</li>
-									<li class="acres">
-
-										<div class="attr-num bt-listing__acreage-text">[acre]</div>
-
-										<div class="uk-text-small uk-text-truncate">ACRES</div>
-									</li>
-									<li class="baths">
-										<div class="attr-num">[nobaths]</div>
-										<div class="uk-text-small uk-text-truncate">BATHS</div>
-									</li>										
-									<li class="half-baths">
-										<div class="attr-num">[nohalfbaths]</div>
-										<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
-									</li>
-									<li class="sqft ">
-										<div class="attr-num">
-											[squarefeet]
-										</div>
-										<div class="uk-text-small uk-text-truncate">SQFT</div>
-									</li>										
-									
-									<li class="price-sqft">
-										<?php /*
-										<div class="attr-num">$[bldgsqfeet]</div>
-										<div class="uk-text-small uk-text-truncate">$/SQFT</div> */ ?>
-										<div class="attr-num">&nbsp;</div>
-										<div class="uk-text-small uk-text-truncate">&nbsp;</div>
-									</li>
-
-								</ul>
-							</div>
-							<div class="bt-panel__stack__sub">
-								<div class="m-0 bt-listing-table bt-listing__table-break">
-
-
-
-									<div class="grid">
-										<div class="cell uk-text-bold">Neighborhood:</div>
-										<div class="cell uk-text-right"> [neighborhood] </div>
-									</div>
-
-
-									<div class="grid">
-										<div class="cell cell-xs-3 uk-text-bold">Type:</div>
-										<div class="cell uk-text-right">[proptype]</div>
-									</div>
-
-									<div class="grid">
-										<div class="cell cell-xs-3 uk-text-bold">Built:</div>
-										<div class="cell uk-text-right">[yearbuilt]</div>
-									</div>
-
-
-
-									<div class="grid">
-										<div class="cell cell-xs-4 uk-text-bold">County:</div>
-										<div class="cell uk-text-right">
-											[lngCOUNTYDESCRIPTION]
-										</div>
-									</div>
-
-
-
-
-									<div class="grid">
-										<div class="cell cell-xs-3 uk-text-bold">Area:</div>
-										<div class="cell uk-text-right">
-											[lngAREADESCRIPTION]
-										</div>
-									</div>
-
-
-
-								</div>
-							</div>
-						</div>							
+						
+						<?php
+						/* incldue sidebar template */
+						if(file_exists($template_sidebar_path) && $template_sidebar){
+							include $template_sidebar_path;
+						}
+						?>			
 						
 						<div class="mb-15 p-0 bt-panel school-rating" <?php if(is_great_school_enabled() || (is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng))): ?>style="display:none;"<?php endif; ?>>
 							<div class="bt-panel--small">
@@ -744,8 +745,8 @@ if(file_exists($template_path) && $templatename){
 																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Sales &amp; Leasing Agent </div>
 																<div class="bt-listing__agent__info">
 																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $agent->userName )?$agent->userName:''; ?></span></div>
-																	<?php if(isset( $agent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phone )?$agent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $agent->phone )?$agent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $agent->phoneMobile )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phoneMobile )?$agent->phoneMobile:''; ?>"><?php /* <span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span> * ?><span itemprop="telephone"><?php echo isset( $agent->phoneMobile )?$agent->phoneMobile:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><?php /* <span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span> * ?><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
@@ -764,7 +765,11 @@ if(file_exists($template_path) && $templatename){
 							<?php endif; ?>
 						</div> */ ?>
 						
-						<?php if( isset($single_property->listingAgent) ): ?>
+						<?php if( isset($single_property->listingAgent) ): 
+						$agentFullName = isset( $single_property->listingAgent->userName ) ? explode( ' ',  $single_property->listingAgent->userName ) : '';
+						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentPhone = isset( $single_property->listingAgent->phoneMobile )? $single_property->listingAgent->phoneMobile : ( isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '');
+						?>
 						<div class="grid mb-15">
 							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
@@ -782,14 +787,13 @@ if(file_exists($template_path) && $templatename){
 																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Listing Agent </div>
 																<div class="bt-listing__agent__info">
 																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->listingAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->listingAgent->phone )?$single_property->listingAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->listingAgent->phone )?$single_property->listingAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->listingAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?></span></a></div><?php endif; ?>
+																	<?php if( $agentPhone ): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo $agentPhone; ?>"><?php /* <span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span> */ ?><span itemprop="telephone"><?php echo $agentPhone; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->listingAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?>"><?php /* <span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span> */ ?><span itemprop="email"><?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
-																<a href="#ask-a-question-form">
-																<button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?></span>
-																</button></a>
+																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?></span></button></a> */ ?>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 															</div>
 														</div>
 													</div>
@@ -802,7 +806,11 @@ if(file_exists($template_path) && $templatename){
 						</div>
 						<?php endif; ?>
 						
-						<?php if( isset($single_property->coListingAgent) ): ?>
+						<?php if( isset($single_property->coListingAgent) ):
+						$agentFullName = isset( $single_property->coListingAgent->userName ) ? explode( ' ',  $single_property->coListingAgent->userName ) : '';
+						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentPhone = isset( $single_property->coListingAgent->phoneMobile )? $single_property->coListingAgent->phoneMobile : ( isset($single_property->coListingAgent->phoneOffice) ? $single_property->coListingAgent->phoneOffice : '');
+						?>
 						<div class="grid mb-15">
 							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
@@ -820,14 +828,13 @@ if(file_exists($template_path) && $templatename){
 																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Co-Listing Agent </div>
 																<div class="bt-listing__agent__info">
 																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->coListingAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->coListingAgent->phone )?$single_property->coListingAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->coListingAgent->phone )?$single_property->coListingAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->coListingAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?></span></a></div><?php endif; ?>
+																	<?php if( $agentPhone ): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo $agentPhone; ?>"><?php /* <span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span> */ ?><span itemprop="telephone"><?php echo $agentPhone; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->coListingAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?>"><?php /* <span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span> */ ?><span itemprop="email"><?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
-																<a href="#ask-a-question-form">
-																<button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?></span>
-																</button></a>
+																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?></span></button></a> */ ?>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 															</div>
 														</div>
 													</div>
@@ -840,7 +847,11 @@ if(file_exists($template_path) && $templatename){
 						</div>
 						<?php endif; ?>
 						
-						<?php if( isset($single_property->salesAgent) ): ?>
+						<?php if( isset($single_property->salesAgent) ):
+						$agentFullName = isset( $single_property->salesAgent->userName ) ? explode( ' ',  $single_property->salesAgent->userName ) : '';
+						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
+						?>
 						<div class="grid mb-15">
 							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
@@ -858,15 +869,14 @@ if(file_exists($template_path) && $templatename){
 																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Sales Agent </div>
 																<div class="bt-listing__agent__info">
 																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->salesAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->salesAgent->phone )?$single_property->salesAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->salesAgent->phone )?$single_property->salesAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->salesAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?></span></a></div><?php endif; ?>
+																	<?php if( $agentPhone ): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo $agentPhone; ?>"><?php /* <span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span> */ ?><span itemprop="telephone"><?php echo $agentPhone; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->salesAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?>"><?php /* <span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span> */ ?><span itemprop="email"><?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
-																<a href="#ask-a-question-form">
-																<button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?></span>
-																</button></a>
-															</div>
+																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?></span></button></a> */ ?>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
+														</div>
 														</div>
 													</div>
 												</div>
@@ -878,7 +888,11 @@ if(file_exists($template_path) && $templatename){
 						</div>
 						<?php endif; ?>
 						
-						<?php if( isset($single_property->coSalesAgent) ): ?>
+						<?php if( isset($single_property->coSalesAgent) ):
+						$agentFullName = isset( $single_property->coSalesAgent->userName ) ? explode( ' ',  $single_property->coSalesAgent->userName ) : '';
+						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentPhone = isset( $single_property->coSalesAgent->phoneMobile )? $single_property->coSalesAgent->phoneMobile : ( isset($single_property->coSalesAgent->phoneOffice) ? $single_property->coSalesAgent->phoneOffice : '');
+						?>
 						<div class="grid">
 							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
@@ -896,14 +910,13 @@ if(file_exists($template_path) && $templatename){
 																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Co-Sales Agent </div>
 																<div class="bt-listing__agent__info">
 																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->coSalesAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->coSalesAgent->phone )?$single_property->coSalesAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->coSalesAgent->phone )?$single_property->coSalesAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->coSalesAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?></span></a></div><?php endif; ?>
+																	<?php if( $agentPhone ): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo $agentPhone; ?>"><?php /* <span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span> */ ?><span itemprop="telephone"><?php echo $agentPhone; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->coSalesAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?>"><?php /* <span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span> */ ?><span itemprop="email"><?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
-																<a href="#ask-a-question-form">
-																<button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?></span>
-																</button></a>
+																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?></span></button></a> */ ?>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 															</div>
 														</div>
 													</div>
@@ -920,445 +933,12 @@ if(file_exists($template_path) && $templatename){
 				
 				<aside class="my-15">
 
-					<ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-
-						<li class="cell">
-							<h3 class="bt-listing__headline">Exterior Features</h3>
-							<table class="bt-listing__table">
-
-								<tbody>
-									<tr>
-										<td class="bt-listing__table__label">Beachfront</td>
-										<td class="bt-listing__table__items">
-											<span>[beachfrontflag]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Construction</td>
-										<td class="bt-listing__table__items">
-											<span>[construction]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Exterior</td>
-										<td class="bt-listing__table__items">
-											<span>[exterior]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Foundation</td>
-										<td class="bt-listing__table__items">
-											<span>[foundation]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Garage Spaces</td>
-										<td class="bt-listing__table__items">
-											<span>[garagespaces]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Lot Description</td>
-										<td class="bt-listing__table__items">
-											<span>[roadtype]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Parking Features</td>
-										<td class="bt-listing__table__items">
-											<span>[parkingfeature]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Parking Spaces</td>
-										<td class="bt-listing__table__items">
-											<span>[parkingspaces]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Roof Material</td>
-										<td class="bt-listing__table__items">
-											<span>[roofmaterial]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Waterfront Flag</td>
-										<td class="bt-listing__table__items">
-											<span>[waterfrontflag]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Waterview Flag</td>
-										<td class="bt-listing__table__items">
-											<span>[waterviewflag]</span>
-										</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</li>
-
-
-						<li class="cell">
-							<h3 class="bt-listing__headline">Interior Features</h3>
-							<table class="bt-listing__table">
-
-								<tbody>
-									<tr>
-										<td class="bt-listing__table__label">Basement</td>
-										<td class="bt-listing__table__items">
-											<span>[basement]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Basement Features</td>
-										<td class="bt-listing__table__items">
-											<span>[basementfeature]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Bedrooms Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[bed1LEVEL]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Bedrooms Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[bed2LEVEL]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Energy Features</td>
-										<td class="bt-listing__table__items">
-											<span>[energyfeatures]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Fireplaces</td>
-										<td class="bt-listing__table__items">
-											<span>[fireplaces]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Fireplaces Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[frplcs1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Fireplaces Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[frplcs2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Flooring</td>
-										<td class="bt-listing__table__items">
-											<span>[flooring]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Floors Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[flrs1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Floors Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[flrs2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Full Baths Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[fbths1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Full Baths Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[fbths2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Half Baths Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[hbths1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Half Baths Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[hbths2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Hot Water</td>
-										<td class="bt-listing__table__items">
-											<span>[hotwater]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Levels</td>
-										<td class="bt-listing__table__items">
-											<span>[levels]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Levels Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[levels1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Levels Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[levels2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Rooms</td>
-										<td class="bt-listing__table__items">
-											<span>[norooms]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Rooms Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[rms1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Rooms Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[rms2]</span>
-										</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</li>
-
-
-						<li class="cell">
-							<h3 class="bt-listing__headline">Property Features</h3>
-							<table class="bt-listing__table">
-
-								<tbody>
-									<tr>
-										<td class="bt-listing__table__label">Adult Community</td>
-										<td class="bt-listing__table__items">
-											<span>[adultcommunity]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Apod Available</td>
-										<td class="bt-listing__table__items">
-											<span>[apodavailable]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Assessments</td>
-										<td class="bt-listing__table__items">
-											<span>[assessments]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Disclosure</td>
-										<td class="bt-listing__table__items">
-											<span>[disclosure]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Electric Features</td>
-										<td class="bt-listing__table__items">
-											<span>[electricfeature]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Exclusions</td>
-										<td class="bt-listing__table__items">
-											<span>[exclusions]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Gross Operating Income</td>
-										<td class="bt-listing__table__items">
-											<span>[netoperatinginc]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Lead Paint</td>
-										<td class="bt-listing__table__items">
-											<span>[leadpaint]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Lease Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[lease1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Lease Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[lease2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Lender Owned</td>
-										<td class="bt-listing__table__items">
-											<span>[lenderowned]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Multifamily Type</td>
-										<td class="bt-listing__table__items">
-											<span>[famlevel]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Net Operating Income</td>
-										<td class="bt-listing__table__items">
-											<span>[netoperatinginc]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Rent Description Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[rntdscrp1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Rent Unit1</td>
-										<td class="bt-listing__table__items">
-											<span>[rent1]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Rent Unit2</td>
-										<td class="bt-listing__table__items">
-											<span>[rent2]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Sewer</td>
-										<td class="bt-listing__table__items">
-											<span>[sewer]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Short Sale Lender App Required</td>
-										<td class="bt-listing__table__items">
-											<span>[shortsalelenderappreqd]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Sq Ft Source</td>
-										<td class="bt-listing__table__items">
-											<span>[squarefeetsource]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Tax Year</td>
-										<td class="bt-listing__table__items">
-											<span>[taxyear]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Taxes</td>
-										<td class="bt-listing__table__items">
-											<span>[taxes]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Water</td>
-										<td class="bt-listing__table__items">
-											<span>[water]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Year Built Description</td>
-										<td class="bt-listing__table__items">
-											<span>[yearbuiltdescrp]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Year Built Source</td>
-										<td class="bt-listing__table__items">
-											<span>[yearbuiltsource]</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td class="bt-listing__table__label">Zoning</td>
-										<td class="bt-listing__table__items">
-											<span>[zoning]</span>
-										</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</li>
-
-					</ul>
-
+					<?php
+					/* incldue content template */
+					if(file_exists($template_features_path) && $template_features){
+						include $template_features_path;
+					}
+					?>
 
 					<div class="at-full-details-disclaimer">
 						<br> 
@@ -1425,6 +1005,7 @@ if(file_exists($template_path) && $templatename){
 								<!-- Direction Results -->
 								<div class="bt-listing__directions-results uk-clearfix uk-hidden js-listing__directions-results"></div>
 							</li>
+							<?php /*
 							<li aria-hidden="true">
 								<div class="bt-border-pad">
 									<div class="bt-listing__map-object">
@@ -1440,7 +1021,7 @@ if(file_exists($template_path) && $templatename){
 										<div class="gmap js-listing__birdview-map"></div>
 									</div>
 								</div>
-							</li>
+							</li> */ ?>
 						</ul>
 					</div>
 				</aside>
@@ -1495,7 +1076,7 @@ if(file_exists($template_path) && $templatename){
 														<div class="cell cell-md-6 hidden-on-login">
 															<div>
 																<label for="ListingDetailsContactForm__phone">
-																	<!-- react-text: 35 -->Phone
+																	<!-- react-text: 35 -->phoneMobile
 																	
 																	<!-- react-text: 36 -->&nbsp;
 																	
@@ -1559,9 +1140,13 @@ if(file_exists($template_path) && $templatename){
 															<div class="cell">
 																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Sales &amp; Leasing Agent </div>
 																<div class="bt-listing__agent__info">
+																	<?php
+																	$agentPhone = isset( $agent->phoneMobile )? $agent->phoneMobile : ( isset($agent->phoneOffice) ? $agent->phoneOffice : '');
+																	
+																	?>
 																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $agent->userName )?$agent->userName:''; ?></span></div>
-																	<?php if(isset( $agent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phone )?$agent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 79 -->Office<!-- react-text: 80 -->: </span><span itemprop="telephone"><?php echo isset( $agent->phone )?$agent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
+																	<?php if( $agentPhone ): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $agentPhone )?$agentPhone:''; ?>"><?php /* <span class="bt-listing__agent__info_phone__type"><!-- react-text: 79 -->Office<!-- react-text: 80 -->: </span> */ ?><span itemprop="telephone"><?php echo isset( $agentPhone )?$agentPhone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><?php /* <span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span> */ ?><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
 																	
 																</div>
 															</div>
@@ -1859,442 +1444,18 @@ if(file_exists($template_path) && $templatename){
 	</article>
 	<!-- print view -->
 	<div class="bt-print-view js-print-view">
-	  <div class="bt-print__wrap">
-		 <div class="bt-print__left">
-			<div class="uk-text-small mb-5">
-			   <?php echo get_permalink(); ?>
-			   <?php // echo $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
-			</div>
-			<?php	
-			$img=array();
-			if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
-				$i=0;
-				foreach ($single_property->photoList as $pic ){ 
-					if( strpos($pic->imgurl, 'mlspin.com') !== false ):
-						$img[]= "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=744&h=419&n={$i}";
-					else:
-						$img[]=$pic->imgurl;
-					endif;
-				$i++;
-				}
-			} ?>
-			<?php if ( isset($img[0]) ) echo "<img src='$img[0]' />";?>			
-			<h4 class="my-5 uk-text-truncate">
-			   <?php echo zipperagent_get_address($single_property); ?> 
-			</h4>
-			<ul class="bt-print__meta">
-			   <li>Price: $[realprice]</li>
-			   <li>Status: [status]</li>
-			   <li>Updated: [syncAge] min ago</li>
-			   <li>MLS #: [id]</li>
-			</ul>
-			<table class="bt-print__meta-blocks">
-			   <tr>
-				  <td>
-					 <div class="bt-print__meta-val">[nobedrooms]</div>
-					 <div class="bt-print__meta-label">Beds</div>
-				  </td>
-				  <td>
-					 <div class="bt-print__meta-val">[nobaths]</div>
-					 <div class="bt-print__meta-label">Baths</div>
-				  </td>
-				  <td>
-					 <div class="bt-print__meta-val">[nohalfbaths]</div>
-					 <div class="bt-print__meta-label">&frac12; Baths</div>
-				  </td>
-				  <td>
-					 <div class="bt-print__meta-val">[acre]</div>
-					 <div class="bt-print__meta-label">Acres</div>
-				  </td>
-				  <td>
-					 <div class="bt-print__meta-val">[squarefeet]</div>
-					 <div class="bt-print__meta-label">SQFT</div>
-				  </td>
-				  <?php /* <td>
-					 <div class="bt-print__meta-val">$170</div>
-					 <div class="bt-print__meta-label">$/SQFT</div>
-				  </td> */ ?>
-				  <td>
-					 <div class="bt-print__meta-val">[yearbuilt]</div>
-					 <div class="bt-print__meta-label">Built</div>
-				  </td>
-			   </tr>
-			</table>
-			<div class="bt-print__area__wrap">
-			   <div class="bt-print__area">
-				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">Neighborhood:</div>
-					 <div class="bt-print__area-val">[neighborhood]</div>
-				  </div>
-				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">County:</div>
-					 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
-				  </div>
-				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">Area:</div>
-					 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
-				  </div>
-			   </div>
-			   <div class="bt-print__area">
-			   </div>
-			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Description</h6>
-			   <div class="bt-print__description">[remarks]</div>
-			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Exterior Features</h6>
-			   <p>
-				  <?php /* <strong>Beach Description</strong>
-				  Lake/Pond
-				  <strong>Beach Ownership</strong>
-				  Private */ ?>
-				  <?php if(isset($single_property->beachfrontflag)): ?>
-				  <strong>Beachfront</strong>
-				  [beachfrontflag]
-				  <?php endif; ?>
-				  <?php /* <strong>Color</strong>
-				  Light Grey */ ?>
-				  <?php if(isset($single_property->construction)): ?>
-				  <strong>Construction</strong>
-				  [construction]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->exterior)): ?>
-				  <strong>Exterior</strong>
-				  [exterior]
-				  <?php endif; ?>
-				  <?php /* <strong>Exterior Features</strong>
-				  Deck */ ?>
-				  <?php if(isset($single_property->foundation)): ?>
-				  <strong>Foundation</strong>
-				  [foundation]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->garagespaces)): ?>
-				  <strong>Garage Spaces</strong>
-				  [garagespaces]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->roadtype)): ?>
-				  <strong>Lot Description</strong>
-				  [roadtype]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->parkingfeature)): ?>
-				  <strong>Parking Features</strong>
-				  [parkingfeature]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->parkingspaces)): ?>
-				  <strong>Parking Spaces</strong>
-				  [parkingspaces]
-				  <?php endif; ?>
-				  <?php /* <strong>Road Type</strong>
-				  Private */ ?>
-				  <?php if(isset($single_property->roofmaterial)): ?>
-				  <strong>Roof Material</strong>
-				 [roofmaterial]
-				  <?php endif; ?>
-				  <?php /* <strong>Style</strong>
-				  Ranch
-				  <strong>Water View Features</strong>
-				  Pond
-				  <strong>Waterfront</strong> 
-				  Pond */ ?>
-				  <?php if(isset($single_property->waterfrontflag)): ?>
-				  <strong>Waterfront Flag</strong>
-				  [waterfrontflag]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->waterviewflag)): ?>
-				  <strong>Waterview Flag</strong>
-				  [waterviewflag]
-				  <?php endif; ?>
-			   </p>
-			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Interior Features</h6>
-			   <p>
-				  <?php if(isset($single_property->basement)): ?>
-				  <strong>Basement</strong>
-				  [basement]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->basementfeature)): ?>
-				  <strong>Basement Feature</strong>
-				  [basementfeature]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->bed1LEVEL)): ?>
-				  <strong>Bedrooms Unit1</strong>
-				  [bed1LEVEL]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->bed2LEVEL)): ?>
-				   <strong>Bedrooms Unit2</strong>
-				  [bed2LEVEL]
-				  <?php endif; ?>
-				  <?php /* <strong>Cooling</strong>
-				  Wall Ac
-				  <strong>Cooling Zones</strong>
-				  0 */ ?>
-				  <?php if(isset($single_property->energyfeatures)): ?>
-				  <strong>Energy Features</strong>
-				  [energyfeatures]
-				  <?php endif; ?>
-				  <?php /* <strong>Family Room Level</strong>
-				  First Floor */ ?>
-				  <?php if(isset($single_property->fireplaces)): ?>
-				  <strong>Fireplaces</strong>
-				  [fireplaces]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->frplcs1)): ?>
-				  <strong>Fireplaces Unit1</strong>
-				  [frplcs1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->frplcs2)): ?>
-				  <strong>Fireplaces Unit2</strong>
-				  [frplcs2]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->flooring)): ?>
-				  <strong>Flooring</strong>
-				  [flooring]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->flrs1)): ?>
-				  <strong>Floors Unit1</strong>
-				  [flrs1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->flrs2)): ?>
-			      <strong>Floors Unit2</strong>
-				  [flrs2]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->fbths1)): ?>
-				  <strong>Full Baths Unit1</strong>
-				  [fbths1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->fbths2)): ?>
-				  <strong>Full Baths Unit2</strong>
-				  [fbths2]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->hbths1)): ?>
-				  <strong>Half Baths Unit1</strong>
-				  [hbths1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->hbths2)): ?>
-				  <strong>Half Baths Unit2</strong>
-				  [hbths2]
-				  <?php endif; ?>
-				  <?php /* <strong>Heat Zones</strong>
-				  2
-				  <strong>Heating</strong>
-				  Hot Water Baseboard */ ?>
-				  <?php if(isset($single_property->hotwater)): ?>
-				  <strong>Hot Water</strong>
-				  [hotwater]
-				  <?php endif; ?>
-				  <?php /* <strong>Insulation Features</strong>
-				  FullFiberglass
-				  <strong>Interior Features</strong>
-				  Cable Available
-				  <strong>Kitchen Level</strong>
-				  First Floor
-				  <strong>Living Room Level</strong>
-				  First Floor
-				  <strong>Master Bath</strong>
-				  No
-				  <strong>Master Bedroom Level</strong>
-				  First Floor */ ?>
-				  <?php if(isset($single_property->levels)): ?>
-				  <strong>Levels</strong>
-				  [levels]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->levels1)): ?>
-				  <strong>Levels Unit1</strong>
-				  [levels1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->levels2)): ?>
-				  <strong>Levels Unit2</strong>
-				  [levels2]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->norooms)): ?>
-				  <strong>Rooms</strong>
-				  [norooms]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->rms1)): ?>
-				  <strong>Rooms Unit1</strong>
-				  [rms1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->rms2)): ?>
-				  <strong>Rooms Unit2</strong>
-				  [rms2]
-				  <?php endif; ?>
-			   </p>
-			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Features</h6>
-			   <p>
-				  <?php if(isset($single_property->adultcommunity)): ?>
-				  <strong>Adult Community</strong>
-				  [adultcommunity]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->apodavailable)): ?>
-				  <strong>Apod Available</strong>
-				  [apodavailable]
-				  <?php endif; ?>
-				  <?php /* <strong>Amenities</strong>
-				  Highway Access */ ?>
-				  <?php if(isset($single_property->assessments)): ?>
-				  <strong>Assessments</strong>
-				  [assessments]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->disclosure)): ?>
-				  <strong>Disclosure</strong>
-				  [disclosure]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->electricfeature)): ?>
-				  <strong>Electric Features</strong>
-				  [electricfeature]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->exclusions)): ?>
-				  <strong>Exclusions</strong>
-				  [exclusions]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->netoperatinginc)): ?>
-				  <strong>Gross Operating Income</strong>
-				  [netoperatinginc]
-				  <?php endif; ?>
-				  <?php /* <strong>Home Owners Association</strong>
-				  No */ ?>
-				  <?php if(isset($single_property->leadpaint)): ?>
-				  <strong>Lead Paint</strong>
-				  [leadpaint]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->lease1)): ?>
-				  <strong>Lease Unit1</strong>
-				  [lease1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->lease2)): ?>
-				  <strong>Lease Unit2</strong>
-				  [lease2]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->lenderowned)): ?>
-				  <strong>Lender Owned</strong>
-				  [lenderowned]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->famlevel)): ?>
-				  <strong>Multifamily Type</strong>
-				  [famlevel]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->netoperatinginc)): ?>
-				  <strong>Net Operating Income</strong>
-				  [netoperatinginc]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->rntdscrp1)): ?>
-				  <strong>Rent Description Unit1</strong>
-				  [rntdscrp1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->rent1)): ?>
-				  <strong>Rent Unit1</strong>
-				  [rent1]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->rent2)): ?>
-				  <strong>Rent Unit2</strong>
-				  [rent2]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->sewer)): ?>
-				  <strong>Sewer</strong>
-				  [sewer]
-				  <?php endif; ?>
-				  <?php /* <strong>Lender Owned</strong>
-				  No 
-				  <strong>Sewer</strong>
-				  Private Sewerage */ ?>
-				  <?php if(isset($single_property->shortsalelenderappreqd)): ?>
-				  <strong>Short Sale Lender App Required</strong>
-				  [shortsalelenderappreqd]
-				  <?php endif; ?>
-				  <?php /* <strong>Single Family Type</strong>
-				  Detached 
-				  <strong>Sq Ft Disclosures</strong>
-				  1762 is The First FloorThe inl-aw is 880. Calculated By Matterport Not Guaranteed. */ ?>
-				  <?php if(isset($single_property->squarefeetsource)): ?>
-				  <strong>Sq Ft Source</strong>
-				  [squarefeetsource]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->taxyear)): ?>
-				  <strong>Tax Year</strong>
-				  [taxyear]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->taxes)): ?>
-				  <strong>Taxes</strong>
-				  [taxes]
-				  <?php endif; ?>
-				  <?php /* <strong>Utility Connections</strong>
-				  For Electric OvenFor Electric DryerWasher Hookup */ ?>
-				  <?php if(isset($single_property->water)): ?>
-				  <strong>Water</strong>
-				  [water]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->yearbuiltdescrp)): ?>
-				  <strong>Year Built Description</strong>
-				  [yearbuiltdescrp]
-				  <?php endif; ?>
-				  <?php if(isset($single_property->yearbuiltsource)): ?>
-				  <strong>Year Built Source</strong>
-				  [yearbuiltsource]
-				  <?php endif; ?>
-				  <?php /* <strong>Year Round</strong>
-				  Yes */ ?>
-				  <?php if(isset($single_property->zoning)): ?>
-				  <strong>Zoning</strong>
-				  [zoning]
-				  <?php endif; ?>
-			   </p>
-			</div>
-			<div class="bt-print__block">
-			<?php if( $source_details ){
-				echo $source_details;
-			}else{
-				echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
-			} ?>
-			</div>
-		 </div>
-		 <div class="bt-print__right">
-			<div class="uk-text-small mb-5">&nbsp;</div>
-			<div class="bt-print__media-list">
-				<?php if ( isset($img[1]) ) echo "<img src='$img[1]' />";?>
-				<?php if ( isset($img[2]) ) echo "<img src='$img[2]' />";?>
-				<?php if ( isset($img[3]) ) echo "<img src='$img[3]' />";?>
-				<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="bt-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
-			</div>
-			<?php if( $agent ): ?>
-			<div class="bt-print__agent">
-			   <div class="bt-cell-align bt-cell-align--small">
-				  <?php  if( isset( $agent->imageURL ) ): ?>
-				  <div>
-					 <img class="bt-image__no-mw bt-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
-				  </div>
-				  <?php endif; ?>
-				  <div class="pl-10">
-					 <h6 class="mt-5 mb-0"><?php echo isset( $agent->userName )?$agent->userName:'-'; ?></h6>
-					 <?php /* <div class="uk-text-muted">The King Team</div> */ ?>
-					 <ul class="uk-list mt-5">
-						<li>
-						   <strong>Phone:</strong> <?php echo isset( $agent->phone )?$agent->phone:'-'; ?>
-						</li>
-						<li>
-						   <strong>Email:</strong> <?php echo isset( $agent->email )?$agent->email:''; ?>
-						</li>
-					 </ul>
-				  </div>
-			   </div>
-			</div>
-			<?php endif; ?>
-			<?php /* 
-			<div class="bt-print__office">
-			   <img src="https://bt-wpstatic.freetls.fastly.net/wp-content/blogs.dir/3244/files/2017/08/Web-Top-Left-Logo-new.jpg">
-			   <address>
-				  <div class="mt-5">RE/MAX Patriot Realty</div>
-				  <div>55 Mead Street</div>
-				  <div>Leominster MA, 01453</div>
-			   </address>
-			</div>
-			<div class="bt-print__block">
-			   <font size="2">Listing courtesy of some text.</font>
-			</div> */ ?>
-		 </div>
-	  </div>
-   </div>
+	<?php
+		$rb = zipperagent_rb();
+		
+		$print_logo = $rb['web']['print_logo'];
+		$print_color = $rb['web']['print_color'];
+		
+		// echo "<pre>"; print_r( $rb ); echo "</pre>";
+	
+		/* incldue print template */
+		if(file_exists($template_print_path) && $template_print){
+			include $template_print_path;
+		}
+	?>
+	</div>
 </div>

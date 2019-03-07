@@ -2234,7 +2234,70 @@ if( ! function_exists('zipperagent_detailpage_group') ){
 		$rb = zipperagent_rb();		
 		$detailpage_group = isset($rb['layout']['detailpage_group'])?$rb['layout']['detailpage_group']:'';
 		
-		return $detailpage_group;
+		return $detailpage_group ? $detailpage_group : 'mlspin';
+	}
+}
+
+if( ! function_exists('zipperagent_get_saved_search_count') ){
+	function zipperagent_get_saved_search_count(){
+
+		// $contactIds = get_contact_id();	
+		$userdata = getCurrentUserContactLogin();
+		$contactIds=array();
+		foreach($userdata as $contact){
+			$contactIds[]=$contact->id;
+		}
+			
+		$combined_contactIds = implode(',',$contactIds);
+		$contactIds_key = implode('_',$contactIds);
+		$option_key = $contactIds_key . '_saved_search_count';
+		
+		$dataCount = get_option( $option_key );
+		
+		if($dataCount!=='')
+			return (integer) $dataCount;
+		
+		$result = zipperagent_run_curl( '/api/mls/listSearches?contactId='. $combined_contactIds .'&ps=10&sidx=0' );
+		$dataCount = isset($result['dataCount'])?$result['dataCount']:0;
+		
+		update_option( $option_key, $dataCount );
+		
+		return $dataCount;
+	}
+}
+
+if( ! function_exists('zipperagent_get_favorites_count') ){
+	function zipperagent_get_favorites_count(){
+		
+		// $contactIds = get_contact_id();	
+		$userdata = getCurrentUserContactLogin();
+		$contactIds=array();
+		foreach($userdata as $contact){
+			$contactIds[]=$contact->id;
+		}
+		
+		$combined_contactIds = implode(',',$contactIds);
+		$contactIds_key = implode('_',$contactIds);
+		$option_key = $contactIds_key . '_favorites_count';
+		
+		$dataCount = get_option( $option_key );
+		
+		if($dataCount!=='')
+			return (integer) $dataCount;
+		
+		$vars=array(
+			'sidx'=>0,
+			'ps'=>10,
+			'contactId'=>$combined_contactIds,
+		);
+
+		$result = zipperagent_run_curl( "/api/mls/listListings", $vars );
+		$dataCount=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+		$list=isset($result['filteredList'])?$result['filteredList']:$result;
+		
+		update_option( $option_key, $dataCount );
+		
+		return $dataCount;
 	}
 }
 

@@ -73,7 +73,7 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 
 	<div class="zpa-listing-detail">
-		<div class="bt-listing-search__wrapper js-filter-bar hideonprint">
+		<div class="bt-listing-search__wrapper js-filter-bar hideonprint" style="margin-bottom:0;">
 			<div class="grid grid--gutters grid--center">
 				<div class="cell">
 					<div>

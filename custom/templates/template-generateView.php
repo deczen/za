@@ -53,6 +53,8 @@ $showPagination 	= ( isset($requests['pagination'])?$requests['pagination']:1 );
 $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
+$alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
+$column 			= ( isset($requests['column'])?$requests['column']:'' );
 
 /**
  * PREPARATION
@@ -66,6 +68,23 @@ else
 
 /* default status */
 $status = empty($status)?zipperagent_active_status():$status;
+
+/* set column number */
+switch( $column ){
+	case 4:
+			$columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
+		break;
+	case 1:
+			$columns_code = 'col-lg-12 col-sm-12 col-md-12 col-xs-12';
+		break;
+	case 2:
+			$columns_code = 'col-lg-6 col-sm-6 col-md-6 col-xs-12';
+		break;
+	case 3:
+	default:
+			$columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
+		break;
+}
 
 /* get town list */
 $locqry=array();
@@ -301,6 +320,10 @@ if( $openHomesMode ){ // open homes mode
 		'apmax'=>za_correct_money_format($maxListPrice),
 		'aacr'=>$lotAcres,
 	);
+	
+	if($alstid){
+		unset($search['asts']);
+	}
 	
 	$search= array_merge($search, $locqry, $advSearch);
 	

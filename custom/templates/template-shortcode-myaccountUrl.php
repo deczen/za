@@ -8,11 +8,14 @@ if( ! getCurrentUserContactLogin()){
 
 }else{
 	$myaccountname=zipperagent_user_name();
-	echo '<ul class="nav nav-myaccount"><li><a class="myaccount-url" href="'.$myaccount_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">'.$myaccountname.'</span></a>';
+	echo '<ul class="nav nav-myaccount">';
+	echo "<li><a href='".$myaccount_url."?menu=my-favorite'>My Favorites (<span class='zp_count'>".zipperagent_get_favorites_count()."</span>)</a></li>";
+	echo "<li><a href='".$myaccount_url."?menu=my-search'>My Saved Searches (".zipperagent_get_saved_search_count().")</a></li>";
+	echo '<li><a class="myaccount-url" href="'.$myaccount_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">'.$myaccountname.'</span></a>';
 	echo "<ul class='sub-menu'>";
 	echo "<li><a href='".$myaccount_url."'>Profile</a></li>";
-	echo "<li><a href='".$myaccount_url."?menu=my-favorite'>My Favorites</a></li>";
-	echo "<li><a href='".$myaccount_url."?menu=my-search'>My Saved Searches</a></li>";
+	// echo "<li><a href='".$myaccount_url."?menu=my-favorite'>My Favorites</a></li>";
+	// echo "<li><a href='".$myaccount_url."?menu=my-search'>My Saved Searches</a></li>";
 	echo "<li><a href='".zipperagent_page_url('property-organizer-logout')."'>Logout</a></li>";
 	
 	echo "</ul></li></ul>";
@@ -46,7 +49,8 @@ if( ! getCurrentUserContactLogin()){
 <style>
 .nav-myaccount{float: right;}
 .nav-myaccount .myaccount-url{padding-bottom: 10px;}
-.nav-myaccount li{list-style: none;}
+.nav-myaccount li{list-style: none;display: inline-block;padding: 0 5px;}
+.nav-myaccount li a{padding-bottom: 0;}
 .nav-myaccount li ul{
 	max-width: 175px;
 	margin-top: 10px;
@@ -63,7 +67,7 @@ if( ! getCurrentUserContactLogin()){
     padding: 20px 0;
 }
 .nav-myaccount .sub-menu a{color: #666 !important;padding: 5px 0 !important;}
-.nav-myaccount .sub-menu li{padding: 0 20px;}
+.nav-myaccount .sub-menu li{padding: 0 20px; display: block;}
 .nav li.et-touch-hover>ul, .nav li:hover>ul {
     visibility: visible;
     opacity: 1;

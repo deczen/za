@@ -319,6 +319,12 @@ function save_search_result(){
 		$array['result']=$searchId;
 		// $array['result']=1;
 		
+		//reset saved search count
+		$contactIds = $vars['contactId'];
+		$contactIds_key = str_replace(',','_',$contactIds);
+		$option_key = $contactIds_key . '_saved_search_count';
+		update_option( $option_key, '' );
+		
 		echo json_encode($array);
 		// echo json_encode($result);
          
@@ -451,6 +457,11 @@ function do_save_as_favorite(){
 		// echo "<pre>"; print_r( $result ); echo "</pre>";
 		$array['result']=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		// $array['result']=1;
+		
+		//reset favorites count
+		$contactIds_key = str_replace(',','_',$contactIds);
+		$option_key = $contactIds_key . '_favorites_count';
+		update_option( $option_key, '' );
 		
 		echo json_encode($array);
          
@@ -599,6 +610,7 @@ function load_more_properties(){
 		$showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 		$crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
 		$searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
+		$alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 
 		//default status
 		$status = empty($status)?zipperagent_active_status():$status;
@@ -707,7 +719,11 @@ function load_more_properties(){
 
 		if( $aloff )
 			$advSearch['aloff']=$aloff;
-
+		
+		//remove space from alstid (listing id search)
+		if( isset($requests['alstid']) )
+			$requests['alstid']=str_replace(' ','', $requests['alstid']);
+		
 		foreach( $requests as $key=>$val ){
 			if( ! in_array( strtolower($key), $excludes ) ){
 				$advSearch[$key]=($val);
@@ -817,6 +833,10 @@ function load_more_properties(){
 				'apmax'=>za_correct_money_format($maxListPrice),
 				'aacr'=>$lotAcres,
 			);
+			
+			if($alstid){
+				unset($search['asts']);
+			}
 			
 			$search= array_merge($search, $locqry, $advSearch);
 			
@@ -1293,4 +1313,13 @@ function zp_auto_login(){
 			}
 		}
 	}
+}
+
+//fix divi detail property br on the top
+add_action( 'wp_head', 'fix_divi_br' );
+
+function fix_divi_br(){
+?>
+<style>#post-0 .entry-content > br{display:none;}</style>
+<?php
 }
