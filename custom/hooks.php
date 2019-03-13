@@ -92,11 +92,17 @@ function login_user(){
 			$_SESSION['userdata']=$userdata;
 		
 			// $return['result']=$userdata->id;
+			$myaccounturl=zipperagent_page_url('property-organizer-edit-subscriber');
 			$return['myaccountname']=zipperagent_user_name();
-			$return['myaccounturl']=zipperagent_page_url('property-organizer-edit-subscriber');
+			$return['myaccounturl']=$myaccounturl;
+			$return['favorites_url']=add_query_arg( array('menu'=>'my-favorite'), $myaccounturl );
+			$return['saved_search_url']=add_query_arg( array('menu'=>'my-search'), $myaccounturl );
 			$return['result']=implode(',',$contactIds);
 			
 			flush_rewrite_rules(); //fix page not found
+			
+			//add saved cookies to account
+			// add_saved_cookies_to_account();
 		}else{
 			$return['result']=0;
 		}
@@ -114,9 +120,14 @@ function check_user_logged_in(){
 	if ( isset($_REQUEST) ) {
 		
 		if(getCurrentUserContactLogin()){ //is user logged in
+			$return['myaccount_name']=zipperagent_user_name();
+			$return['saved_search_count']=zipperagent_get_saved_search_count();
+			$return['favorites_count']=zipperagent_get_favorites_count();
 			$return['is_login']=1;
 		}else{ // if no login
 			$return['is_login']=0;
+			$return['saved_search_count']=zipperagent_get_saved_search_count();
+			$return['favorites_count']=zipperagent_get_favorites_count();
 		}
 		
 		echo json_encode($return);
@@ -201,14 +212,22 @@ function regist_user(){
 				
 				// echo "<pre>"; print_r($result); echo "</pre>";
 			
+			
+			$myaccounturl=zipperagent_page_url('property-organizer-edit-subscriber');
+			
 			$return['email']=$email;
 			$return['myaccountname']=zipperagent_user_name();
-			$return['myaccounturl']=zipperagent_page_url('property-organizer-edit-subscriber');
+			$return['myaccounturl']=$myaccounturl;
 			// $return['thankyouurl']=add_query_arg( array('action'=>'verify', 'code' => $result->id), site_url('/thankyou/') );
-			$return['thankyouurl']=add_query_arg( array('email'=>$email), site_url('/thankyou/') );
+			$return['thankyouurl']=add_query_arg( array('email'=>$email), site_url('/thankyou/') );			
+			$return['favorites_url']=add_query_arg( array('menu'=>'my-favorite'), $myaccounturl );
+			$return['saved_search_url']=add_query_arg( array('menu'=>'my-search'), $myaccounturl );
 			$return['result']=$result;
 			
 			flush_rewrite_rules(); //fix page not found
+			
+			//add saved cookies to account
+			// add_saved_cookies_to_account();
 		}else{
 			$return['result']=0;
 		}
@@ -313,17 +332,30 @@ function save_search_result(){
 	if ( isset($_REQUEST) ) {
 		
 		$vars = $_REQUEST['vars'];
-		// $result = zipperagent_run_curl( "/api/mls/saveSearch/", $vars, 1 );
-		$result = zipperagent_run_curl( "/api/mls/multi/saveSearch", $vars, 1 );
-		$searchId=isset($result['id'])?$result['id']:( isset($result[0]->id)?$result[0]->id:'' );
-		$array['result']=$searchId;
-		// $array['result']=1;
+		$isLogin = $_REQUEST['isLogin'];
 		
-		//reset saved search count
-		$contactIds = $vars['contactId'];
-		$contactIds_key = str_replace(',','_',$contactIds);
-		$option_key = $contactIds_key . '_saved_search_count';
-		update_option( $option_key, '' );
+		if($isLogin){
+			
+			$result = zipperagent_save_search($vars);
+			$searchId=isset($result['id'])?$result['id']:( isset($result[0]->id)?$result[0]->id:'' );
+			
+			//reset saved search count
+			if($searchId){				
+				$contactIds = $vars['contactId'];
+				$contactIds_key = str_replace(',','_',$contactIds);
+				$option_key = $contactIds_key . '_saved_search_count';
+				update_option( $option_key, '' );
+			}
+			
+			$array['result']=$searchId;			
+			$array['saved_search_count']=(integer) zipperagent_get_saved_search_count();
+		}else{
+						
+			$count=zipperagent_save_search_cookie($vars);
+			
+			$array['result']=$count;
+			$array['saved_search_count']=$count;
+		}		
 		
 		echo json_encode($array);
 		// echo json_encode($result);
@@ -450,18 +482,31 @@ function do_save_as_favorite(){
 		
 		$listingId = isset($_REQUEST['listingId'])?$_REQUEST['listingId']:'';
 		$contactIds = isset($_REQUEST['contactId'])?$_REQUEST['contactId']:'';
+		$isLogin = isset($_REQUEST['isLogin'])?$_REQUEST['isLogin']:'';
 		// $contactIds = is_array($contactIds)?$contactIds[0]:$contactIds;
 		$crit      = isset( $_REQUEST['crit'] ) ? $_REQUEST['crit']:array();
 		$searchId  = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
-		$result    = zipperagent_save_property($listingId, $contactIds, true, $crit, $searchId);
-		// echo "<pre>"; print_r( $result ); echo "</pre>";
-		$array['result']=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
-		// $array['result']=1;
 		
-		//reset favorites count
-		$contactIds_key = str_replace(',','_',$contactIds);
-		$option_key = $contactIds_key . '_favorites_count';
-		update_option( $option_key, '' );
+		if($isLogin){
+			$result = zipperagent_save_property($listingId, $contactIds, true, $crit, $searchId);
+			
+			//reset favorites count
+			if(isset($result->status) && $result->status=='SUCCESS'){
+				if($isLogin){
+					$contactIds_key = str_replace(',','_',$contactIds);
+					$option_key = $contactIds_key . '_favorites_count';
+					update_option( $option_key, '' );
+				}
+			}
+			
+			$array['favorites_count']=(integer) zipperagent_get_favorites_count();
+		}else{
+			$count = zipperagent_save_property_cookie($listingId, $contactIds, true, $crit, $searchId);			
+			$array['favorites_count']=$count;
+			$result =  $count ? (object) array('status'=>'SUCCESS') : false;
+		}
+		
+		$array['result']=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		
 		echo json_encode($array);
          
@@ -1245,10 +1290,14 @@ function zipperagent_global_popup_variable(){
 add_action( 'wp_footer', 'zipperagent_login_popup', 11);
 
 function zipperagent_login_popup(){
-	global $zpa_show_login_popup;
+	global $zpa_show_login_popup, $is_detail_page;
 	
-	if( ! is_home() && ! is_front_page() && !$zpa_show_login_popup)
+	if( ! is_home() && ! is_front_page() && !$zpa_show_login_popup) // show only on homepage and zipperagent page
 		return;
+	
+	if(!$is_detail_page && is_popup_detail_page_only()) //show on detailpage only ?
+		return;
+	
 	?>
 	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>

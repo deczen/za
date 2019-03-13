@@ -62,11 +62,13 @@ if( $list ): ?>
 		var searchId = element.attr('searchId');
 		var contactId = element.attr('contactId');
 		var listingId = element.attr('listingId');
-		save_favorite_listing(element, listingId, contactId, searchId );		
+		var isLogin = element.attr('isLogin');
+		
+		save_favorite_listing(element, listingId, contactId, searchId, isLogin );		
 		return false;
 	});
 	
-	function save_favorite_listing(element, listingId, contactId, searchId){
+	function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
 		
 		var crit={
 			<?php
@@ -94,7 +96,8 @@ if( $list ): ?>
 			'listingId': listingId,                  
 			'contactId': contactId,                    
 			'crit': crit,                    
-			'searchId': searchId,                    
+			'searchId': searchId,
+			'isLogin': isLogin,
 		};
 		
 		jQuery.ajax({
@@ -107,6 +110,9 @@ if( $list ): ?>
 				if( response['result'] ){
 					// alert('success');
 					element.addClass('active');
+					
+					//set topbar count
+					jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
 				}else{
 					// alert( 'Submit failed!' );
 				}

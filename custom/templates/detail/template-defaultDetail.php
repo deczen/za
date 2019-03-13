@@ -349,8 +349,8 @@ $current_url = esc_url_raw($current_url); //encode it
 							<!-- end .grid -->
 						</div>
 					</div>
-					<div class="js-details-fav__container bt-listing__favorite-container hideonprint">
-						<button class="bt-listing__favorite-button at-fav-btn js-details-fav <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+					<div class="js-details-fav__container bt-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
+						<button class="bt-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 							<i class="bt-icon fa fa-heart" aria-hidden="true"></i>
 						</button>
 					</div>
@@ -1443,12 +1443,18 @@ $current_url = esc_url_raw($current_url); //encode it
 		</div> */ ?>
 	</article>
 	<!-- print view -->
-	<div class="bt-print-view js-print-view">
 	<?php
 		$rb = zipperagent_rb();
 		
 		$print_logo = $rb['web']['print_logo'];
 		$print_color = $rb['web']['print_color'];
+	?>
+	<div class="bt-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
+	<?php
+		// $rb = zipperagent_rb();
+		
+		// $print_logo = $rb['web']['print_logo'];
+		// $print_color = $rb['web']['print_color'];
 		
 		// echo "<pre>"; print_r( $rb ); echo "</pre>";
 	

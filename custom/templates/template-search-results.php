@@ -486,10 +486,11 @@ if( $enable_filter ):
 	jQuery(document).on('click', '#saveSearchButton:not(.needLogin)', function(){
 	// jQuery('.zpa-listing-search-results').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
 		var contactId=jQuery(this).attr('contactId');
+		var isLogin=jQuery(this).attr('isLogin');
 		<?php if($is_view_save_search): ?>
 		update_search();
 		<?php else: ?>
-		save_search(contactId);
+		save_search(contactId,isLogin);
 		<?php endif; ?>
 		return false;
 	});	
@@ -528,12 +529,13 @@ if( $enable_filter ):
 		});
 	}
 	<?php }else{ ?>
-	function save_search(contactId){
+	function save_search(contactId,isLogin){
 		var vars = jQuery.parseJSON('<?php echo json_encode( $vars ); ?>');
 		vars['contactId']=contactId;
 		var data = {
 			action: 'save_search_result',
 			'vars': vars,  
+			'isLogin': isLogin,  
 		};
 	 
 		jQuery.ajax({
@@ -554,6 +556,9 @@ if( $enable_filter ):
 						// jQuery(this).attr( 'href', url + '?searchId=' + searchId );
 						jQuery(this).attr( 'href', url + '&searchId=' + searchId );
 					});
+					
+					//set topbar count
+					jQuery('.save-search-count .za-count-num').html(response['saved_search_count']);
 				}else{
 					alert( 'save failed!' );
 				}
@@ -574,11 +579,14 @@ if( $enable_filter ):
 		var searchId = element.attr('searchId');
 		var contactId = element.attr('contactId');
 		var listingId = element.attr('listingId');
-		save_favorite_listing(element, listingId, contactId, searchId );		
+		var isLogin = element.attr('isLogin');
+		
+		save_favorite_listing(element, listingId, contactId, searchId, isLogin );
+		
 		return false;
 	});
 	
-	function save_favorite_listing(element, listingId, contactId, searchId){
+	function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
 		var crit={
 			<?php
 			$saved_crit=array();
@@ -614,10 +622,11 @@ if( $enable_filter ):
 		};
 		var data = {
 			action: 'save_as_favorite',
-			'listingId': listingId,                  
-			'contactId': contactId,                    
-			'crit': crit,                    
-			'searchId': searchId,                    
+			'listingId': listingId,
+			'contactId': contactId,
+			'crit': crit,
+			'searchId': searchId,
+			'isLogin': isLogin,
 		};
 		
 		jQuery.ajax({
@@ -630,6 +639,9 @@ if( $enable_filter ):
 				if( response['result'] ){
 					// alert('success');
 					element.addClass('active');
+					
+					//set topbar count
+					jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
 				}else{
 					// alert( 'Submit failed!' );
 				}

@@ -229,10 +229,10 @@ $rb = zipperagent_rb();
 									var element = jQuery('.listing-'+listingId);
 									// jQuery('.save-favorite-btn').attr('contactId', contactId);
 									// jQuery('#saveSearchButton').attr('contactId', contactId);
-									save_favorite( element, listingId, contactId, searchId);
+									save_favorite_listing( element, listingId, contactId, searchId, 1);
 								break;
 							case "save_favorite":
-									save_favorite( contactId, ''); 
+									save_favorite( contactId, '', 1); 
 								break;
 							case "save_property":
 									save_property( contactId, '');
@@ -247,6 +247,14 @@ $rb = zipperagent_rb();
 							case "request_info":
 									jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
 									jQuery('#zpaMoreInfo').modal('show');
+								break;
+							case "myaccount_favorite":
+									var url = response['favorites_url'];
+									window.location.replace(url);
+								break;
+							case "myaccount_saved_search":
+									var url = response['saved_search_url'];
+									window.location.replace(url);
 								break;
 						}
 						
@@ -344,6 +352,14 @@ $rb = zipperagent_rb();
 									// jQuery('#zpaMoreInfo').modal('show'); //disable couse redirect
 									
 									action_params=encodeURIComponent( 'afteraction=' + afterAction );
+								break;
+							case "myaccount_favorite":
+									var url = response['favorites_url'];
+									window.location.replace(url);
+								break;
+							case "myaccount_saved_search":
+									var url = response['saved_search_url'];
+									window.location.replace(url);
 								break;
 						}
 						
@@ -478,10 +494,10 @@ $rb = zipperagent_rb();
 										var element = jQuery('.listing-'+listingId);
 										// jQuery('.save-favorite-btn').attr('contactId', contactId);
 										// jQuery('#saveSearchButton').attr('contactId', contactId);
-										save_favorite( element, listingId, contactId, searchId);
+										save_favorite_listing( element, listingId, contactId, searchId, 1);
 									break;
 								case "save_favorite":
-										save_favorite( contactId, '');
+										save_favorite( contactId, '', 1);
 									break;
 								case "save_property":
 										save_property( contactId, '');
@@ -496,6 +512,14 @@ $rb = zipperagent_rb();
 								case "request_info":
 										jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
 										jQuery('#zpaMoreInfo').modal('show');
+									break;
+								case "myaccount_favorite":
+										var url = response['favorites_url'];
+										window.location.replace(url);
+									break;
+								case "myaccount_saved_search":
+										var url = response['saved_search_url'];
+										window.location.replace(url);
 									break;
 							}
 							

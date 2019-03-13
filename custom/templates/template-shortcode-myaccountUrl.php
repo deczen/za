@@ -4,13 +4,18 @@ global $requests;
 $login_url=isset($requests['login_url'])&&!empty($requests['login_url'])?$requests['login_url']:zipperagent_page_url('property-organizer-login');
 $myaccount_url=isset($requests['myaccount_url'])&&!empty($requests['myaccount_url'])?$requests['myaccount_url']:zipperagent_page_url('property-organizer-edit-subscriber');
 if( ! getCurrentUserContactLogin()){
-	echo '<a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a>';
+	// echo '<a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a>';
+	echo '<ul class="nav nav-myaccount">';
+	echo "<li><a class='favorites-count needLogin' href='".$myaccount_url."?menu=my-favorite' afterAction='myaccount_favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
+	echo "<li><a class='save-search-count needLogin' href='".$myaccount_url."?menu=my-search' afterAction='myaccount_saved_search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
+	echo '<li><a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a></li>';
+	echo '</ul>';
 
 }else{
 	$myaccountname=zipperagent_user_name();
 	echo '<ul class="nav nav-myaccount">';
-	echo "<li><a href='".$myaccount_url."?menu=my-favorite'>My Favorites (<span class='zp_count'>".zipperagent_get_favorites_count()."</span>)</a></li>";
-	echo "<li><a href='".$myaccount_url."?menu=my-search'>My Saved Searches (".zipperagent_get_saved_search_count().")</a></li>";
+	echo "<li><a class='favorites-count' href='".$myaccount_url."?menu=my-favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
+	echo "<li><a class='save-search-count' href='".$myaccount_url."?menu=my-search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
 	echo '<li><a class="myaccount-url" href="'.$myaccount_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">'.$myaccountname.'</span></a>';
 	echo "<ul class='sub-menu'>";
 	echo "<li><a href='".$myaccount_url."'>Profile</a></li>";
@@ -34,13 +39,17 @@ if( ! getCurrentUserContactLogin()){
 			success: function( response ) { 
 				// console.log(response);
 				if( response['is_login'] ){
-					$('.login-url .link-text').html('MY ACCOUNT');
+					$('.login-url .link-text, .myaccount-url .link-text').html(response['myaccount_name']);
 					$('.login-url').attr('href', '<?php echo $myaccount_url; ?>');
 					$('.login-url').addClass('myaccount-url').removeClass('login-url');
+					$('.save-search-count .za-count-num').html(response['saved_search_count']);
+					$('.favorites-count .za-count-num').html(response['favorites_count']);
 				}else{
 					$('.myaccount-url .link-text').html('LOGIN');
 					$('.myaccount-url').attr('href', '<?php echo $login_url; ?>');
 					$('.myaccount-url').addClass('login-url').removeClass('myaccount-url');
+					$('.save-search-count .za-count-num').html(response['saved_search_count']);
+					$('.favorites-count .za-count-num').html(response['favorites_count']);
 				}
 			}
 		});

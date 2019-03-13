@@ -172,7 +172,7 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 															$excludePropTypeFields=array();
 															foreach( $propTypeFields as $fieldCode=>$fieldName ){
 																$checked='';
-																if(in_array($fieldCode,$propertyType))
+																if(is_array($propertyType) && in_array($fieldCode,$propertyType))
 																	$checked='checked';
 																
 																echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertyType[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
@@ -409,7 +409,9 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 		jQuery('body').on('click', '.bt-listing__favorite-container:not(.favorited) .bt-listing__favorite-button:not(.needLogin)', function(e){
 			var contactId = jQuery(this).attr('contactid');
 			var searchId = jQuery(this).attr('searchid');
-			save_favorite( contactId, searchId );			
+			var isLogin = jQuery(this).attr('isLogin');
+			
+			save_favorite( contactId, searchId, isLogin );			
 		});
 		jQuery('body').on('click', '.save-property-btn:not(.needLogin)', function(e){
 			var contactId = jQuery(this).attr('contactid');
@@ -417,7 +419,7 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 			save_property( contactId, searchId );			
 		});
 		
-		function save_favorite(contactId, searchId){
+		function save_favorite(contactId, searchId, isLogin){
 			var listingId = '<?php echo $single_property->id; ?>';
 			var crit={
 				<?php				
@@ -431,7 +433,8 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 				'listingId': listingId,                  
 				'contactId': contactId,
 				'crit': crit,				
-				'searchId': searchId,                    
+				'searchId': searchId,
+				'isLogin': isLogin,				
 			};
 			
 			jQuery.ajax({
@@ -444,13 +447,16 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 					if( response['result'] ){
 						// alert('success');
 						jQuery('.bt-listing__favorite-container').addClass('favorited');
+						
+						//set topbar count
+						jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
 					}else{
 						// alert( 'Submit failed!' );
 					}
 				}
 			});
 		}
-		function save_favorite_listing(element, listingId, contactId, searchId){
+		function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
 			var crit={
 				<?php
 				$saved_crit=array();
@@ -489,7 +495,8 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 				'listingId': listingId,                  
 				'contactId': contactId,                    
 				'crit': crit,                    
-				'searchId': searchId,                    
+				'searchId': searchId,
+				'isLogin': isLogin,
 			};
 			
 			jQuery.ajax({
@@ -502,6 +509,9 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 					if( response['result'] ){
 						// alert('success');
 						element.addClass('active');
+						
+						//set topbar count
+						jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
 					}else{
 						// alert( 'Submit failed!' );
 					}

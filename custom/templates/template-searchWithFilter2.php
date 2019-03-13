@@ -39,21 +39,351 @@ if(get_query_var('page')){
 		<div class="zpa-container">
 			<div class="zpa-listing-search-results">					
 				<div class="container-fluid">				
-					<div class="row sticky-container" style="position:relative;">      
+					<div class="row sticky-container" style="position:relative;">
+					
+						<div id="zpa-top-searh-bar" class="zpa-listing-detail">
+							
+							<div class="bt-listing-search__wrapper js-filter-bar">
+								<div class="grid grid--gutters grid--center">
+									<div class="cell">
+										<div>
+											<div class="bt-filter-bar">
+												<form action="" id="zpa-search-filter-form" class="js-search">
+													<div class="row btn-toolbar bt-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
+														<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 bt-search__query-wrapper">
+															<div class="bt-search__query-inner">
+																<div class="cell bt-off-canvas__ballerbox-wrapper width-1-1">
+																	<div class="bt-search__query-wrapper">
+																		<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete bt-search__query" placeholder="Enter City / County / Zip" name="location[]">
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-md-12 col-lg-6 btn-group bt-search__options-wrapper" role="group" aria-label="Properties Search Filters">
+															
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-price-trigger bt-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
+																	<!-- react-text: 42 -->Price&nbsp;
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button>
+																<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right">
+																	<div class="bt-ccomp__content__inner">
+																		<div class="grid grid--gutters grid-xs--halves">
+																			<div class="cell">
+																				<div>
+																					<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox bt-off-canvas__price-range-input" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
+																					<div><span id="minListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Min Price</span></div>
+																				</div>
+																			</div>
+																			<div class="cell">
+																				<div>
+																					<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox bt-off-canvas__price-range-input" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
+																					<div><span id="maxListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Max Price</span></div>
+																				</div>
+																			</div>
+																		</div>													
+																	</div>
+																</div>
+															</div>
+															
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+																	<!-- react-text: 48 -->Status
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button>
+																<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+																	<div class="bt-ccomp__content__inner">
+																		<ul class="uk-list uk-list-space m-0">
+																			<li>
+																				<label class="form__check" for="status-0">
+																					<input type="radio" class="at-status" value="" name="status" id="status-0" <?php checked( $status, '' ) ?>><span>Active</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="status-1">
+																					<input type="radio" class="at-status" value="<?php echo zipperagent_sold_status(); ?>" name="status" id="status-1" <?php checked( $status, zipperagent_sold_status() ) ?>><span>Sold</span></label>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+															
+															<?php /*
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+																	<!-- react-text: 48 -->Type
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button>
+																<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+																	<div class="bt-ccomp__content__inner">
+																		<ul class="uk-list uk-list-space m-0">
+																			<?php
+																				$propTypeFields = get_property_type();
+																				$propTypeNum=0;
+																				$excludePropTypeFields=array();
+																				foreach( $propTypeFields as $fieldCode=>$fieldName ){
+																					echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='radio' class='at-propertyType' value='{$fieldCode}' name='propertyType' id='propertyType-{$propTypeNum}' ". checked( $propertyType, $fieldCode, false ) ."><span>{$fieldName}</span></label></li>"."\r\n";
+																					$propTypeNum++;
+																					
+																					$excludePropTypeFields[]=$fieldCode;
+																				}
+																			?>
+																			
+																			<?php														
+																			if( !empty($propertyType) && ! in_array( $propertyType, $excludePropTypeFields ) ){
+																				if( $propertyType=="none" )
+																					$propertyType=""; //avoid result zero
+																				echo '<input style="display:none" type="radio" value="'. $propertyType .'" name="propertyType" checked />';
+																			}														
+																			?>
+																		</ul>
+																	</div>
+																</div>
+															</div> */ ?>
+															
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+																	<!-- react-text: 48 -->Type
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button>
+																<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+																	<div class="bt-ccomp__content__inner">
+																		<ul class="uk-list uk-list-space m-0">
+																			<?php
+																				$propTypeFields = get_property_type();
+																				$propTypeNum=0;
+																				$excludePropTypeFields=array();
+																				foreach( $propTypeFields as $fieldCode=>$fieldName ){
+																					$checked='';
+																					if(in_array($fieldCode,$propertyType))
+																						$checked='checked';
+																					
+																					echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertyType[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
+																					$propTypeNum++;
+																					
+																					$excludePropTypeFields[]=$fieldCode;
+																				}
+																			?>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+															
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-minbeds-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+																	<!-- react-text: 54 -->Beds
+																	
+																	<!-- react-text: 55 -->
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button>
+																<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+																	<div class="bt-ccomp__content__inner">
+																		<ul class="uk-list uk-list-space m-0">
+																			<li>
+																				<label class="form__check" for="bedrooms-0">
+																					<input type="radio" class="at-bedrooms" value="" name="bedrooms" id="bedrooms-0" <?php checked( $bedrooms, '' ) ?>><span>Any</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bedrooms-1">
+																					<input type="radio" class="at-bedrooms" value="1" name="bedrooms" id="bedrooms-1" <?php checked( $bedrooms, '1' ) ?>><span>1+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bedrooms-2">
+																					<input type="radio" class="at-bedrooms" value="2" name="bedrooms" id="bedrooms-2" <?php checked( $bedrooms, '2' ) ?>><span>2+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bedrooms-3">
+																					<input type="radio" class="at-bedrooms" value="3" name="bedrooms" id="bedrooms-3" <?php checked( $bedrooms, '3' ) ?>><span>3+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bedrooms-4">
+																					<input type="radio" class="at-bedrooms" value="4" name="bedrooms" id="bedrooms-4" <?php checked( $bedrooms, '4' ) ?>><span>4+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bedrooms-5">
+																					<input type="radio" class="at-bedrooms" value="5" name="bedrooms" id="bedrooms-5" <?php checked( $bedrooms, '5' ) ?>><span>5+</span></label>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>									
+															
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-minbaths-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+																	<!-- react-text: 61 -->Baths
+																	
+																	<!-- react-text: 62 -->
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button><div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+																	<div class="bt-ccomp__content__inner">
+																		<ul class="uk-list uk-list-space m-0">
+																			<li>
+																				<label class="form__check" for="bathCount-0">
+																					<input type="radio" class="at-bathCount" value="" name="bathCount" id="bathCount-0" <?php checked( $bathCount, '' ) ?>><span>Any</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bathCount-1">
+																					<input type="radio" class="at-bathCount" value="1" name="bathCount" id="bathCount-1" <?php checked( $bathCount, '1' ) ?>><span>1+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bathCount-2">
+																					<input type="radio" class="at-bathCount" value="2" name="bathCount" id="bathCount-2" <?php checked( $bathCount, '2' ) ?>><span>2+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bathCount-3">
+																					<input type="radio" class="at-bathCount" value="3" name="bathCount" id="bathCount-3" <?php checked( $bathCount, '3' ) ?>><span>3+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bathCount-4">
+																					<input type="radio" class="at-bathCount" value="4" name="bathCount" id="bathCount-4" <?php checked( $bathCount, '4' ) ?>><span>4+</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="bathCount-5">
+																					<input type="radio" class="at-bathCount" value="5" name="bathCount" id="bathCount-5" <?php checked( $bathCount, '5' ) ?>><span>5+</span></label>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+															
+															<div class="bt-ccomp bt-ccomp__dropdown dropdown">
+																<button class="dropdown-toggle bt-ccomp__trigger at-minbaths-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+																	<!-- react-text: 61 -->Order By
+																	
+																	<!-- react-text: 62 -->
+																	
+																	<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																</button><div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
+																	<div class="bt-ccomp__content__inner">
+																															
+																		<ul class="uk-list uk-list-space m-0">
+																			<li>
+																				<label class="form__check" for="o-0">
+																					<input type="radio" class="at-o" value="apmin:DESC" name="o" id="o-0" <?php checked( $o, 'apmin:DESC' ) ?>><span>Price (High to Low)</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="o-1">
+																					<input type="radio" class="at-o" value="apmin:ASC" name="o" id="o-1" <?php checked( $o, 'apmin:ASC' ) ?>><span>Price (Low to High)</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="o-2">
+																					<input type="radio" class="at-o" value="asts:ASC" name="o" id="o-2" <?php checked( $o, 'asts:ASC' ) ?>><span>Status</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="o-3">
+																					<input type="radio" class="at-o" value="atwns:ASC" name="o" id="o-3" <?php checked( $o, 'atwns:ASC' ) ?>><span>City</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="o-4">
+																					<input type="radio" class="at-o" value="lid:DESC" name="o" id="o-4" <?php checked( $o, 'lid:DESC' ) ?>><span>Listing Date</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="o-5">
+																					<input type="radio" class="at-o" value="apt:DESC" name="o" id="o-5" <?php checked( $o, 'apt:DESC' ) ?>><span>Type / Price Descending</span></label>
+																			</li>
+																			<li>
+																				<label class="form__check" for="o-6">
+																					<input type="radio" class="at-o" value="alstid:ASC" name="o" id="o-6" <?php checked( $o, 'alstid:ASC' ) ?>><span>Listing Number</span></label>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<?php
+													if( isset($requests) && sizeof($requests) ){
+														foreach( $requests as $key=>$val ){
+															if( ! in_array(strtolower($key), $excludes) ){
+																echo "<input type='hidden' name='{$key}' value='{$val}' />"."\r\n";
+															}
+														}
+													}
+													?>
+												</form>
+												
+												<?php /* if( is_price_slider_enabled() ): ?>
+												<div id="zpa-price-slider">
+													<input type="hidden" id="price-slider-range" />
+													<input type="hidden" id="priceRangeOnTemp" />
+												</div>
+												<script>
+													var $range = jQuery("#price-slider-range");
+													
+													$range.ionRangeSlider({
+														type: "double",
+														grid: false,
+														step: 10000,
+														min: 500,
+														max: 10000000,
+														from: '<?php echo $minListPrice ?>',
+														to: '<?php echo $maxListPrice ?>',
+														prefix: "$",
+														onChange: function(data){
+															jQuery( "#minListPrice--ballerbox" ).val(data.from);
+															jQuery( "#maxListPrice--ballerbox" ).val(data.to);
+															
+															onFilterChange( filterLabel('minlistprice',data.from), 'minlistprice'); //add field to filter
+															onFilterChange( filterLabel('maxlistprice',data.to), 'maxlistprice'); //add field to filter										
+															
+															// localStorage.setItem('priceRangeOnTemp', "slide");
+															// jQuery('#priceRangeOnTemp').val('slide');
+															// console.log('change: ' + localStorage.getItem('priceRangeOnTemp'));
+															// console.log('change: ' + jQuery('#priceRangeOnTemp').val());
+														},
+														onFinish: function(data){										
+															// localStorage.setItem('priceRangeOnTemp', "go");
+															// jQuery('#priceRangeOnTemp').val('go');
+															// console.log('finish: ' + localStorage.getItem('priceRangeOnTemp'));
+															// console.log('finish: ' + jQuery('#priceRangeOnTemp').val());
+															setTimeout(function(){			
+																// var priceRangeOnTemp = localStorage.getItem('priceRangeOnTemp');
+																// var priceRangeOnTemp = jQuery('#priceRangeOnTemp').val();
+																// console.log('execute: ' + localStorage.getItem('priceRangeOnTemp'));
+																// console.log('>> execute: ' + jQuery('#priceRangeOnTemp').val());
+																// if(priceRangeOnTemp!=="slide"){
+																	jQuery('#zpa-search-filter-form').submit();
+																// }											
+																
+																// jQuery('#priceRangeOnTemp').val('go');
+															}, 1000);
+														},
+													});
+												</script>
+												<?php endif; ?>
+												
+												<?php zipperagent_search_filter(); */ ?>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="loading-wrap">
+							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+						</div>
+						
 						<div id="map" class="col-lg-5 col-md-6 ml-auto">
 							<div id="map_wrapper">
-								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
+								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
 							</div>
 						</div>
 						<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">
-						
+							<?php /*
 							<div id="filter-wrap">							
 								<form id="zpa-search-filter-form" class="form-inline" action="" method="GET" target="_self" novalidate="novalidate">
 									<fieldset>
 										<div class="row mt-25 filter field-wrap">
 											<div class="col-xs-12 col-sm-6 field-input exception">
 												<input id="zpa-area-input" class="zpa-area-input form-control" placeholder="<?php echo (empty($requests['location_option'])) ? "Enter City / County / Zip" : "Select Location"; ?>"  name="location[]"/>
-												<?php /* <input class="zpa-area-input-hidden" name="" type="hidden"> */ ?>
+												<?php /* <input class="zpa-area-input-hidden" name="" type="hidden"> * ?>
 											</div>	
 											<div class="col-xs-6 col-sm-3 field-input"> 
 												<select id="zpa-status-fields" name="status" class="form-control zpa-chosen-select-width">
@@ -115,14 +445,14 @@ if(get_query_var('page')){
 													<option <?php selected( $o, 'lid:DESC' ) ?> value="lid:DESC">Listing Date</option>
 													<option <?php selected( $o, 'apt:DESC' ) ?> value="apt:DESC">Type / Price Descending</option>
 													<option <?php selected( $o, 'alstid:ASC' ) ?> value="alstid:ASC">Listing Number</option>
-													<?php /* <option value="">Open Home Date Asc</option> */ ?>
+													<?php /* <option value="">Open Home Date Asc</option> * ?>
 												</select>
 											</div>
 										</div>
 										
 										<div class="row field-wrap">	
 											<div class="col-xs-12 mt-15 col-sm-12 field-input">
-												<?php /* <div><label>Price Range:</label>&nbsp;<span id="price-amount-show"><?php echo $priceRange ?></span></div> */ ?>
+												<?php /* <div><label>Price Range:</label>&nbsp;<span id="price-amount-show"><?php echo $priceRange ?></span></div> * ?>
 												<div><label>Price Range:</label>&nbsp;
 													$<input id="zpa-minprice-homes" name="minListPrice" type="number" value="<?php echo $minListPrice ?>"> 
 													- 
@@ -134,7 +464,7 @@ if(get_query_var('page')){
 									</fieldset>
 									
 									<?php /* <input id="zpa-minprice-homes" name="minListPrice" type="hidden" value="<?php echo $minListPrice ?>">
-									<input id="zpa-maxprice-homes" name="maxListPrice" type="hidden" value="<?php echo $maxListPrice ?>"> */ ?> 
+									<input id="zpa-maxprice-homes" name="maxListPrice" type="hidden" value="<?php echo $maxListPrice ?>"> * ?> 
 									<input type="hidden" name="action" value="properties_view" />
 									<input type="hidden" name="view_type" value="<?php echo $type ?>" />
 									<?php
@@ -147,9 +477,10 @@ if(get_query_var('page')){
 									}
 									?>
 								</form>
-							</div>	
+							</div>
 							
-							<div id="zipperagent-content" class="row"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
+							*/ ?>
+							<div id="zipperagent-content" class="row"></div>
 						</div>
 						<div class="clearfix"></div>
 					</div>
@@ -197,6 +528,7 @@ if(get_query_var('page')){
 				data: data,
 				success: function( response ) {         
 					if( response['html'] ){
+						jQuery( '.loading-wrap' ).hide();
 						jQuery( '#zipperagent-content' ).html( response['html'] );
 					}
 				}
@@ -204,6 +536,7 @@ if(get_query_var('page')){
 		});
 	</script>
 	<script>
+	/*
 		function addCommas(nStr)
 		{
 			nStr += '';
@@ -257,9 +590,9 @@ if(get_query_var('page')){
 				to: val
 			});
 		});
-		
+	
 		jQuery(document).ready(function() {
-			/* allow only number input */
+			//allow only number input
 			jQuery("#zpa-minprice-homes, #zpa-maxprice-homes").keydown(function (e) {
 				// Allow: backspace, delete, tab, escape, enter and .
 				if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
@@ -280,6 +613,7 @@ if(get_query_var('page')){
 				}
 			});
 		});
+	*/	
 	</script>
 	
 	<?php if(empty($requests['location_option'])): ?>
@@ -308,7 +642,9 @@ if(get_query_var('page')){
 			);
 			<?php endif; ?>
 			
-			jQuery('#zpa-search-filter-form .field-input:not(.exception) input, #zpa-search-filter-form .field-input select, #zpa-search-filter-form .field-input textarea').on( 'change', function(){
+			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input:not([type=checkbox]), #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea, #zpa-search-filter-form .btn-group input[type=checkbox]', function(e){
+			// jQuery('#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea').on( 'change', function(){
+			// jQuery('#zpa-search-filter-form .field-input:not(.exception) input, #zpa-search-filter-form .field-input select, #zpa-search-filter-form .field-input textarea').on( 'change', function(){
 				jQuery('#zpa-search-filter-form').submit();
 			});
 			
@@ -317,13 +653,21 @@ if(get_query_var('page')){
 				var data = jQuery(this).serialize();
 				var request = jQuery(this).serializeArray();
 				var url = $form.attr('action') + '?' + data;
-				var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />';
+				<?php /* var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />'; */ ?>
+				var valueToPush={};
+				valueToPush = {"name":"view_type", "value":"map"};
+				request.push(valueToPush);
+				var valueToPush={};
+				valueToPush = {"name":"action", "value":"properties_view"};
+				request.push(valueToPush);
 				var valueToPush={};
 				valueToPush = {"name":"actual_link", "value":url};
 				request.push(valueToPush);
 				window.history.pushState("", "", url);
 				
-				jQuery( '#zipperagent-content' ).html( loading );
+				jQuery( '.loading-wrap' ).show();
+				jQuery( '#map' ).hide();
+				jQuery( '#zipperagent-content' ).html( '' );
 		 
 				jQuery.ajax({
 					type: 'POST',
@@ -332,6 +676,8 @@ if(get_query_var('page')){
 					data: request,
 					success: function( response ) {         
 						if( response['html'] ){
+							jQuery( '.loading-wrap' ).hide();
+							jQuery( '#map' ).show();
 							jQuery( '#zipperagent-content' ).html( response['html'] );
 						}
 					}
@@ -354,4 +700,53 @@ if(get_query_var('page')){
 		  });
 		});
 	</script>
+	
+	<script>
+		jQuery(document).ready(function($) {
+			
+			jQuery('.item-toggle').click(function(){
+				
+				// jQuery('.detail-toggle').hide();
+				// jQuery(this).parent().find('.detail-toggle').toggle();
+				jQuery(this).parent().find('.detail-toggle').toggle();
+				
+			});
+			jQuery('.detail-toggle .btn-group').click(function(){
+				
+				jQuery(this).parent().find('select').toggle().focus();
+				
+			});
+			
+			// jQuery('.detail-toggle select').change(function(event){
+				
+				// jQuery(this).parent().hide();
+			// });
+			
+			// jQuery('.detail-toggle #zpa-select-property-type').change(function(event){
+				// event.stopPropagation();
+			// });
+			
+			jQuery(document).click(function(event){
+				jQuery('.detail-toggle').hide();
+			});
+			jQuery('.item-mn').click(function(event) {
+			  event.stopPropagation();
+			});
+		});
+	</script>
+	<script>
+		jQuery(document).on('click', '#zpa-main-container .dropdown-menu', function (e) {
+		  e.stopPropagation();
+		});
+	</script>
 </div>
+
+<style>
+.detail-toggle{display: none;}
+.uc-searchBar-toggleMenuIcon {
+    display: inline-block;
+    margin: 0 0 0 14px;
+    width: 16px;
+    height: 16px;
+}
+</style>

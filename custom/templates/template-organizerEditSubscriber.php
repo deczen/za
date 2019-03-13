@@ -12,6 +12,9 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	// echo "<pre>"; print_r( $result); echo "</pre>";
 }
 
+//add saved cookies to account
+add_saved_cookies_to_account();
+
 $userdata = getCurrentUserContactLogin();
 
 if( ! $userdata || ! sizeof($userdata)){
@@ -47,7 +50,16 @@ $result = zipperagent_run_curl( "/api/mls/listListings", $vars );
 $count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 $list=isset($result['filteredList'])?$result['filteredList']:$result;
 
-
+//save favorites cache
+$contactIds_key = implode('_',$contactIds);
+$option_key_listid = $contactIds_key . '_favorite_listingIds';
+foreach($list as $property){
+	$favorite_listingIds[]['listingId']=$property->listing->id;
+}
+update_option( $option_key_listid, $favorite_listingIds );
+// $saved_favorites = get_option($option_key_listid);
+// echo "option_key_listid: $option_key_listid | ";
+// echo "<pre>"; print_r($saved_favorites); echo "</pre>";
 /*
  * Saved Searches
  */

@@ -1,7 +1,8 @@
 <?php
-global $zpa_show_login_popup, $requests;
+global $zpa_show_login_popup, $requests, $is_detail_page;
 
 $zpa_show_login_popup=1;
+$is_detail_page=1;
 
 $listing='zipperagentnotfound';
 

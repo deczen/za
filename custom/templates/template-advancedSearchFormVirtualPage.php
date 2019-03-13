@@ -339,7 +339,7 @@ $addressSearch=1;
 					</div>
 					*/ ?>
 					<div class="row mt-25 filter">
-						<div class="col-xs-12 col-sm-6 mb-10">
+						<div class="col-xs-12 col-sm-3 mb-10">
 							<label for="zpa-select-order-by" class="field-label zpa-select-order-by-label"> Sort by </label>
 							<?php 
 							$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order(); ?>
@@ -354,6 +354,11 @@ $addressSearch=1;
 								<option value="alstid:ASC">Listing Number</option>
 								<?php /* <option value="">Open Home Date Asc</option> */ ?>
 							</select>
+						</div>
+						
+						<div class="col-xs-12 col-sm-3">
+							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Waterfront Flag </label>
+							<input id="zpa-max-days-listed" name="awtrf" placeholder="" type="text" class="form-control" value="">
 						</div>
 						
 						<div class="col-xs-12 col-sm-2">
@@ -374,6 +379,19 @@ $addressSearch=1;
 							<input id="zpa-year" name="yearBuilt" placeholder="Ex: 1990" type="text" class="form-control" value="">
 						</div>
 					</div>
+					
+					<div class="row mt-25 filter">
+						<div class="col-xs-12 col-sm-3 mb-10">
+							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Pool Description </label>
+							<input id="zpa-max-days-listed" name="apold" placeholder="" type="text" class="form-control" value="">
+						</div>
+						
+						<div class="col-xs-12 col-sm-3">
+							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Lot Description </label>
+							<input id="zpa-max-days-listed" name="altand" placeholder="" type="text" class="form-control" value="">
+						</div>
+					</div>
+					
 					<div class="row">
 						<div class="col-xs-12 mb-10"> </div>
 					</div>

@@ -103,8 +103,8 @@ $contactIds=get_contact_id();
 							<!-- end .grid -->
 						</div>
 					</div>
-					<div class="js-details-fav__container bt-listing__favorite-container hideonprint">
-						<button class="bt-listing__favorite-button at-fav-btn js-details-fav <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+					<div class="js-details-fav__container bt-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
+						<button class="bt-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 							<i class="bt-icon fa fa-heart" aria-hidden="true"></i>
 						</button>
 					</div>

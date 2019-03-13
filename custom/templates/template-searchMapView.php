@@ -44,7 +44,7 @@ if( $list ): ?>
 					<div class="col-xs-12">
 						<div style="background-image: url('<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>');" class="zpa-results-grid-photo" >
 							<img class="printonly" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" />
-							<a class="listing-<?php echo $property->id; ?> <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> save-favorite-btn" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>
+							<a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>
 							<a class="property_url" href="<?php echo $single_url ?>"></a>
 							<a class="property_url" href="<?php echo $single_url ?>"><span class="zpa-for-sale-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?></a>
 						</div>
@@ -431,11 +431,14 @@ else: ?>
 		var searchId = element.attr('searchId');
 		var contactId = element.attr('contactId');
 		var listingId = element.attr('listingId');
-		save_favorite_listing(element, listingId, contactId, searchId );		
+		var isLogin = element.attr('isLogin');
+		
+		save_favorite_listing(element, listingId, contactId, searchId, isLogin, isLogin );	
+		
 		return false;
 	});
 	
-	function save_favorite_listing(element, listingId, contactId, searchId){
+	function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
 		var crit={
 			<?php
 			$saved_crit=array();
@@ -462,7 +465,8 @@ else: ?>
 			'listingId': listingId,                  
 			'contactId': contactId,                    
 			'crit': crit,                    
-			'searchId': searchId,                    
+			'searchId': searchId,
+			'isLogin': isLogin,
 		};
 		
 		jQuery.ajax({
@@ -475,6 +479,9 @@ else: ?>
 				if( response['result'] ){
 					// alert('success');
 					element.addClass('active');
+					
+					//set topbar count
+					jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
 				}else{
 					// alert( 'Submit failed!' );
 				}
@@ -521,6 +528,7 @@ else: ?>
 		// Multiple Markers
 		var markers = [
 		<?php
+			$index=0;
 			foreach( $maplist as $option ){			
 									
 				if( $open )
@@ -537,8 +545,17 @@ else: ?>
 				$fulladdress = zipperagent_get_address($property);
 				$lat = $property->lat;
 				$lng = $property->lng;
+				$listingId = $property->id;
+				$beds = $property->nobedrooms;
+				$bath = $property->nobaths;
+				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
+				$price = zipperagent_currency() . number_format_i18n( $price, 0 );
+				$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
 				
-				echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng}],"."\r\n";
+				
+				echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$price}','{$shortprice}','{$beds}','{$bath}',{$index}],"."\r\n";
+				
+				$index++;
 			}
 		?>
 		];
@@ -565,7 +582,8 @@ else: ?>
 				$beds = $property->nobedrooms;
 				$bath = $property->nobaths;
 				$sqft = $property->squarefeet;
-				$price = zipperagent_currency() . number_format_i18n( $property->listprice, 0 );
+				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
+				$price = zipperagent_currency() . number_format_i18n( $price, 0 );
 				if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )
 					$src = "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=100&h=100&n=0";
 				else
@@ -580,11 +598,17 @@ else: ?>
 					$query_args['criteria']= $critBase64;
 				}
 				$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+				$is_login=getCurrentUserContactLogin() ? 1:0;
+				$is_active=zipperagent_is_favorite($property->id)?"active":"";
+				$searchId='';
+				$str_contactIds=implode(',',$contactIds);
+				
 				echo "['<div class=\"info_content\">' +
 						'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"{$src}\" /></div>' +
 						'<div class=\"content\">' +				
 							'<a href=\"{$single_url}\"><strong>". str_replace( "'", "\'", $fulladdress )  ."</strong></a>' +
 							'<p class=\"price\">{$price}</p>' +
+							'<p class=\"favorite\"><a class=\"listing-{$property->id} save-favorite-btn {$is_active}\" isLogin=\"{$is_login}\" listingId=\"{$property->id}\" searchId=\"{$searchId}\" contactId=\"{$str_contactIds}\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>' +
 							'<p class=\"info\">{$beds} BEDS | {$bath} BATH | {$sqft} SF</p>' +
 						'</div>' +
 					'</div>'],"."\r\n";
@@ -605,15 +629,31 @@ else: ?>
 			var position = new google.maps.LatLng(markers[i][1], markers[i][2]);		
 			
 			bounds.extend(position);
+			
+			<?php /*
 			marker = new google.maps.Marker({
 				position: position,
 				map: map,			
 				icon: icon1,
 				title: markers[i][0]
-			});
+			}); */ ?>
+			
+			marker = new CustomMarker(
+				position, 
+				map,
+				{
+					marker_id: markers[i][3],
+					price: markers[i][4],
+					shortprice: markers[i][5],
+					bedrooms: markers[i][6],
+					bath: markers[i][7],
+					index: markers[i][8],
+				}
+			);
 			
 			saved_markers.push(marker);
 			
+			<?php /*
 			// Allow each marker to have an info window    
 			google.maps.event.addListener(marker, 'click', (function(marker, i) {
 				return function() {
@@ -632,18 +672,19 @@ else: ?>
 				return function() {
 					marker.setIcon(icon1);
 				}
-			})(marker, i));
+			})(marker, i)); */ ?>
 			
 			// Automatically center the map fitting all markers on the screen
 			map.fitBounds(bounds);        
 		}
 		
+		<?php /* //not works
 		//fit all markers
 		// var latlngbounds = new google.maps.LatLngBounds();
 		// for (var i = 0; i < markers.length; i++) {
 			// latlngbounds.extend(markers[i]);
 		// }
-		// map.fitBounds(latlngbounds);
+		// map.fitBounds(latlngbounds); */ ?>
 		
 		// Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
 		var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
@@ -652,7 +693,7 @@ else: ?>
 		});
 		
 		//map clustering
-	  var markerCluster = new MarkerClusterer(map, saved_markers,
+		var markerCluster = new MarkerClusterer(map, saved_markers,
 		{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 		
 		<?php		
@@ -759,11 +800,88 @@ else: ?>
 		}
 		?>
 	}
+	
+	function CustomMarker(latlng, map, args) {
+		this.latlng = latlng;	
+		this.args = args;	
+		this.setMap(map);	
+	}
 
+	CustomMarker.prototype = new google.maps.OverlayView();
+
+	CustomMarker.prototype.draw = function() {
+		
+		var self = this;
+		
+		var div = this.div;
+		
+		var price = this.args.price;
+		var shortprice = this.args.shortprice;
+		var bedrooms = this.args.bedrooms;
+		var bath = this.args.bath;
+		var index = this.args.index;
+		
+		if (!div) {
+		
+			div = this.div = document.createElement('div');
+			
+			div.className = 'zpa-marker';
+			
+			div.style.position = 'absolute';
+			div.style.cursor = 'pointer';
+			// div.style.width = '100px';
+			// div.style.height = '20px';
+			div.style.background = 'white';
+			div.setAttribute("index", index)
+			
+			if (typeof(self.args.marker_id) !== 'undefined') {
+				div.dataset.marker_id = self.args.marker_id;
+			}
+			
+			div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span></div>" +
+							"<span class=\"short-price\">"+ shortprice +"</span>";
+							
+			// div.innerHTML ='<div class="marker" data-marker_id="123" style="position: absolute; cursor: pointer; width: 20px; height: 20px; background: blue; left: -9.65656px; top: -20.4536px;"></div>');
+			// console.log(div);
+			
+			google.maps.event.addDomListener(div, "click", function(event) {
+				// alert('You clicked on a custom marker!');		
+				google.maps.event.trigger(self, "click");
+				// console.log(event);
+				infoWindow.setContent(infoWindowContent[index][0]);
+				// console.log(infoWindowContent[index][0]);
+				// console.log(map);
+				infoWindow.open(map, self);
+			});
+			
+			var panes = this.getPanes();
+			panes.overlayImage.appendChild(div);
+		}
+		
+		var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+		
+		if (point) {
+			div.style.left = (point.x - 20) + 'px';
+			div.style.top = (point.y - 0) + 'px';
+		}
+	};
+
+	CustomMarker.prototype.remove = function() {
+		if (this.div) {
+			this.div.parentNode.removeChild(this.div);
+			this.div = null;
+		}	
+	};
+
+	CustomMarker.prototype.getPosition = function() {
+		return this.latlng;	
+	};
+	
+	
 	function scrollToMarker(index) {
 		map.panTo(saved_markers[index].getPosition());
 	}	
-
+	
 	jQuery(".zpa-grid-result").mouseover( function(){
 		var index = jQuery(this).attr('index');	
 		google.maps.event.trigger(saved_markers[index], 'mouseover');

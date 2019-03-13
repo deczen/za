@@ -177,6 +177,7 @@ if( ! function_exists('zipperagent_rb') ){
 			$save_session['web']['print_logo'] = $rb['web']['print_logo'];
 			$save_session['web']['print_color'] = $rb['web']['print_color'];
 			$save_session['web']['default_proptype'] = $rb['web']['default_proptype'];
+			$save_session['web']['popup_detail_page_only'] = $rb['web']['popup_detail_page_only'];
 			
 			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
@@ -1201,6 +1202,15 @@ if( ! function_exists('zipperagent_request_info') ){
 	}
 }
 
+if( ! function_exists('zipperagent_save_search') ){
+	function zipperagent_save_search($vars){
+		// $result = zipperagent_run_curl( "/api/mls/saveSearch/", $vars, 1 );
+		$result = zipperagent_run_curl( "/api/mls/multi/saveSearch", $vars, 1 );
+		
+		return $result;
+	}
+}
+	
 if( ! function_exists('zipperagent_save_property') ){
 	function zipperagent_save_property($listingId, $contactIds, $favorite, $crit=array(), $searchId=''){
 		
@@ -1227,6 +1237,94 @@ if( ! function_exists('zipperagent_save_property') ){
 		$result = (object) zipperagent_run_curl($url, $vars, 1, array(), 1);
 		
 		return $result;
+	}
+}
+
+if( ! function_exists('add_saved_cookies_to_account') ){
+	function add_saved_cookies_to_account(){
+			
+			if( ! getCurrentUserContactLogin() ) //only for login user
+				return;
+			
+			$saved_search = zipperagent_get_cookie('saved_search');
+			$saved_favorites = zipperagent_get_cookie('saved_favorites');
+			
+			$contactIds = implode(',', get_contact_id());
+			
+			//add cookies to account
+			if(is_array($saved_search)){
+				foreach($saved_search as $search){
+					$vars=$search['vars'];
+					$vars['contactId']=$contactIds;
+					$result=zipperagent_save_search($vars);
+					// echo "<pre>"; print_r($result); echo "</pre>";
+				}
+			}
+			
+			if(is_array($saved_favorites)){
+				foreach($saved_favorites as $favorite){
+					zipperagent_save_property($favorite['listingId'], $contactIds, true, $favorite['crit'], $favorite['searchId']);
+				}
+			}
+			
+			//clear cookies
+			zipperagent_set_cookie('saved_search', ''); 
+			zipperagent_set_cookie('saved_favorites', '');
+			
+			//reset cache count
+			$contactIds_key = str_replace(',','_',$contactIds);
+			
+			$option_key = $contactIds_key . '_saved_search_count';
+			update_option( $option_key, '' );
+			
+			$option_key = $contactIds_key . '_favorites_count';
+			update_option( $option_key, '' );
+	}
+}
+
+if( ! function_exists('zipperagent_save_property_cookie') ){
+	function zipperagent_save_property_cookie($listingId, $contactIds, $favorite, $crit=array(), $searchId=''){
+		
+		$add=array(
+			'listingId'=>$listingId,
+			'contactIds'=>$contactIds,
+			'favorite'=>$favorite,
+			'crit'=>$crit,
+			'searchId'=>$searchId,
+		);		
+		
+		$saved = zipperagent_get_cookie('saved_favorites');
+		
+		if(!is_array($saved)){
+			$saved=array();
+		}
+		
+		$saved[$listingId]=$add;
+		
+		zipperagent_set_cookie('saved_favorites', $saved);
+		
+		return count($saved);
+	}
+}
+
+if( ! function_exists('zipperagent_save_search_cookie') ){
+	function zipperagent_save_search_cookie($vars){
+		
+		$add=array(
+			'vars'=>$vars,
+		);		
+		
+		$saved = zipperagent_get_cookie('saved_search');
+		
+		if(!is_array($saved)){
+			$saved=array();
+		}
+		
+		$saved[]=$add;
+		
+		zipperagent_set_cookie('saved_search', $saved);
+		
+		return count($saved);
 	}
 }
 
@@ -1821,6 +1919,38 @@ if( ! function_exists('is_open_house_search_enabled') ){
 	}
 }
 
+if( ! function_exists('zipperagent_is_favorite') ){
+	function zipperagent_is_favorite($listingId){
+		$checked=false;
+		
+		if( $userdata = getCurrentUserContactLogin() ){	
+			
+			$contactIds=array();
+			foreach($userdata as $contact){
+				$contactIds[]=$contact->id;
+			}
+			
+			$contactIds_key = implode('_',$contactIds);
+			$option_key_listid = $contactIds_key . '_favorite_listingIds';
+			
+			$saved_favorites = get_option($option_key_listid);
+		}else{			
+			$saved_favorites = zipperagent_get_cookie('saved_favorites');			
+		}
+		
+		if(is_array($saved_favorites)){
+			foreach($saved_favorites as $favorite){
+				if($favorite['listingId']==$listingId){
+					$checked=true;
+					break;
+				}
+			}
+		}
+		
+		return $checked;
+	}
+}
+
 if( ! function_exists('get_property_images') ){
 	function get_property_images( $listingId, $contactIds ){
 		$single_property = get_single_property($listingId, $contactIds);
@@ -2120,6 +2250,39 @@ if( ! function_exists('get_filter_excludes') ){
 }
 
 if( ! function_exists('key_to_lowercase') ){
+	function number_format_short( $n, $precision = 1 ) {
+		if ($n < 900) {
+			// 0 - 900
+			$n_format = number_format($n, $precision);
+			$suffix = '';
+		} else if ($n < 900000) {
+			// 0.9k-850k
+			$n_format = number_format($n / 1000, $precision);
+			$suffix = 'K';
+		} else if ($n < 900000000) {
+			// 0.9m-850m
+			$n_format = number_format($n / 1000000, $precision);
+			$suffix = 'M';
+		} else if ($n < 900000000000) {
+			// 0.9b-850b
+			$n_format = number_format($n / 1000000000, $precision);
+			$suffix = 'B';
+		} else {
+			// 0.9t+
+			$n_format = number_format($n / 1000000000000, $precision);
+			$suffix = 'T';
+		}
+	  // Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+	  // Intentionally does not affect partials, eg "1.50" -> "1.50"
+		if ( $precision > 0 ) {
+			$dotzero = '.' . str_repeat( '0', $precision );
+			$n_format = str_replace( $dotzero, '', $n_format );
+		}
+		return $n_format . $suffix;
+	}
+}		
+		
+if( ! function_exists('key_to_lowercase') ){
 	function key_to_lowercase($args){
 		$new_args=array();
 		
@@ -2243,24 +2406,30 @@ if( ! function_exists('zipperagent_get_saved_search_count') ){
 
 		// $contactIds = get_contact_id();	
 		$userdata = getCurrentUserContactLogin();
-		$contactIds=array();
-		foreach($userdata as $contact){
-			$contactIds[]=$contact->id;
-		}
+		
+		if($userdata){
+			$contactIds=array();
+			foreach($userdata as $contact){
+				$contactIds[]=$contact->id;
+			}
+				
+			$combined_contactIds = implode(',',$contactIds);
+			$contactIds_key = implode('_',$contactIds);
+			$option_key = $contactIds_key . '_saved_search_count';
 			
-		$combined_contactIds = implode(',',$contactIds);
-		$contactIds_key = implode('_',$contactIds);
-		$option_key = $contactIds_key . '_saved_search_count';
-		
-		$dataCount = get_option( $option_key );
-		
-		if($dataCount!=='')
-			return (integer) $dataCount;
-		
-		$result = zipperagent_run_curl( '/api/mls/listSearches?contactId='. $combined_contactIds .'&ps=10&sidx=0' );
-		$dataCount = isset($result['dataCount'])?$result['dataCount']:0;
-		
-		update_option( $option_key, $dataCount );
+			$dataCount = get_option( $option_key );
+			
+			if($dataCount!=='')
+				return (integer) $dataCount;
+			
+			$result = zipperagent_run_curl( '/api/mls/listSearches?contactId='. $combined_contactIds .'&ps=10&sidx=0' );
+			$dataCount = isset($result['dataCount'])?$result['dataCount']:0;
+			
+			update_option( $option_key, $dataCount );
+		}else{
+			$saved = zipperagent_get_cookie('saved_search');
+			$dataCount = $saved ? count($saved) : 0;
+		}
 		
 		return $dataCount;
 	}
@@ -2271,31 +2440,46 @@ if( ! function_exists('zipperagent_get_favorites_count') ){
 		
 		// $contactIds = get_contact_id();	
 		$userdata = getCurrentUserContactLogin();
-		$contactIds=array();
-		foreach($userdata as $contact){
-			$contactIds[]=$contact->id;
-		}
 		
-		$combined_contactIds = implode(',',$contactIds);
-		$contactIds_key = implode('_',$contactIds);
-		$option_key = $contactIds_key . '_favorites_count';
-		
-		$dataCount = get_option( $option_key );
-		
-		if($dataCount!=='')
-			return (integer) $dataCount;
-		
-		$vars=array(
-			'sidx'=>0,
-			'ps'=>10,
-			'contactId'=>$combined_contactIds,
-		);
+		if($userdata){
+			$contactIds=array();
+			foreach($userdata as $contact){
+				$contactIds[]=$contact->id;
+			}
+			
+			$combined_contactIds = implode(',',$contactIds);
+			$contactIds_key = implode('_',$contactIds);
+			$option_key = $contactIds_key . '_favorites_count';
+			$option_key_listid = $contactIds_key . '_favorite_listingIds';
+			
+			$dataCount = get_option( $option_key );
+			
+			if($dataCount!=='')
+				return (integer) $dataCount;
+			
+			$vars=array(
+				'sidx'=>0,
+				'ps'=>100,
+				'contactId'=>$combined_contactIds,
+			);
 
-		$result = zipperagent_run_curl( "/api/mls/listListings", $vars );
-		$dataCount=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
-		$list=isset($result['filteredList'])?$result['filteredList']:$result;
+			$result = zipperagent_run_curl( "/api/mls/listListings", $vars );
+			$dataCount=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+			$list=isset($result['filteredList'])?$result['filteredList']:$result;
+			
+			//save favorite count cache
+			update_option( $option_key, $dataCount );			
+			
+			//save favorites cache
+			foreach($list as $property){
+				$favorite_listingIds[]['listingId']=$property->listing->id;
+			}
+			update_option( $option_key_listid, $favorite_listingIds );
 		
-		update_option( $option_key, $dataCount );
+		}else{
+			$saved = zipperagent_get_cookie('saved_favorites');
+			$dataCount = $saved ? count($saved) : 0;
+		}
 		
 		return $dataCount;
 	}
@@ -2809,6 +2993,17 @@ if( ! function_exists('za_get_default_proptype') ){
 	}
 }
 
+if( ! function_exists('is_popup_detail_page_only') ){
+	function is_popup_detail_page_only(){
+		
+		$rb = zipperagent_rb();
+			
+		$check = isset($rb['web']['popup_detail_page_only'])?$rb['web']['popup_detail_page_only']:0;
+				
+		return $check;
+	}
+}
+
 if( ! function_exists('zp_using_criteria') ){
 	function zp_using_criteria(){
 		
@@ -3024,13 +3219,16 @@ if( ! function_exists('auto_trigger_button_script') ){
 								var searchId =  '{$savedSearchId}';
 								var element = jQuery('.listing-'+listingId);
 								var contactId = element.attr('contactid');
+								var isLogin = element.attr('isLogin');
 								
-								save_favorite_listing( element, listingId, contactId, searchId); ";							
+								save_favorite_listing( element, listingId, contactId, searchId, isLogin); ";							
 						break;
 					case "save_favorite":
 							echo "
 								var contactId = jQuery('.bt-listing__favorite-button').attr('contactid');
-								save_favorite( contactId, '');";
+								var isLogin = jQuery('.bt-listing__favorite-button').attr('isLogin');
+								
+								save_favorite( contactId, '', isLogin );";
 						break;
 					case "save_property":
 							echo "
@@ -3040,7 +3238,7 @@ if( ! function_exists('auto_trigger_button_script') ){
 					case "save_search":
 							echo "
 								var contactId = jQuery('#saveSearchButton').attr('contactid');
-								save_search( contactId );";
+								save_search( contactId, 1 );";
 						break;
 					case "schedule_show":
 							echo "jQuery('#zpaScheduleShowing').modal('show');";
@@ -3318,6 +3516,15 @@ if( ! function_exists('zipperagent_search_filter') ){
 							break;
 						case "alstid":
 							newLabel = 'mls# ' + value;	
+							break;
+						case "apold":
+							newLabel = 'pool description ' + value;	
+							break;
+						case "altand":
+							newLabel = 'lot description ' + value;	
+							break;
+						case "awtrf":
+							newLabel = 'waterfront flag ' + value;	
 							break;
 						default:												
 							newLabel = name.toLowerCase()+' '+value;

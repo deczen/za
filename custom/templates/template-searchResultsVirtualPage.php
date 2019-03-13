@@ -173,7 +173,7 @@ unset($alstid); */
 															$excludePropTypeFields=array();
 															foreach( $propTypeFields as $fieldCode=>$fieldName ){
 																$checked='';
-																if(in_array($fieldCode,$propertyType))
+																if(is_array($propertyType) && in_array($fieldCode,$propertyType))
 																	$checked='checked';
 																
 																echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertyType[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
