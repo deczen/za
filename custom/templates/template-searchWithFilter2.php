@@ -12,7 +12,7 @@ $addressSearch = false;
 $enable_filter  = false;
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
-$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):'' );
+$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
