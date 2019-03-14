@@ -549,11 +549,11 @@ else: ?>
 				$beds = $property->nobedrooms;
 				$bath = $property->nobaths;
 				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
-				$price = zipperagent_currency() . number_format_i18n( $price, 0 );
+				$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
 				$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
 				
 				
-				echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$price}','{$shortprice}','{$beds}','{$bath}',{$index}],"."\r\n";
+				echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$longprice}','{$shortprice}','{$beds}','{$bath}',{$index}],"."\r\n";
 				
 				$index++;
 			}
