@@ -5,6 +5,19 @@
 #zpa-top-searh-bar .bt-filter-bar{border:1px solid #ddd;padding:6px 0px;}
 #zpa-top-searh-bar #zpa-area-input{border: none;box-shadow: none;padding-left: 17px;padding-top: 10px;padding-bottom: 0;}
 #zpa-top-searh-bar .btn-primary{background:none;border:none;color: #000;overflow: hidden;}
+#zpa-top-searh-bar .btn-primary:hover,#zpa-top-searh-bar .btn-primary:focus, #zpa-top-searh-bar .open .btn-primary{background:none !important;color: #000;}
+
+#map .zpa-marker{padding:5px; border-radius:5px; box-shadow:0px 3px 10px; }
+#map .zpa-marker:hover{background:#800 !important; color: #fff; box-shadow:0px 3px 10px #000; font-weight:bold;}
+#map .zpa-marker .short-info{text-transform:uppercase; font-size: 12px; top: -28px; left:-65px; position:absolute; min-width:100px; height:auto; box-shadow:0px 3px 10px #4a4a4a; background:#4a4a4a; color: #fff; font-weight:bold; padding:5px; display:none;}
+#map .zpa-marker:hover .short-info{display:block;}
+
+/*
+#zpa-top-searh-bar{padding-left:15px;padding-right:15px;}
+#zpa-top-searh-bar .bt-listing-search__wrapper{}
+#zpa-top-searh-bar .bt-filter-bar{border:1px solid #ddd;padding:6px 0px;}
+#zpa-top-searh-bar #zpa-area-input{border: none;box-shadow: none;padding-left: 17px;padding-top: 10px;padding-bottom: 0;}
+#zpa-top-searh-bar .btn-primary{background:none;border:none;color: #000;overflow: hidden;}
 #zpa-top-searh-bar .btn-primary:hover,#zpa-top-searh-bar .btn-primary:focus, #zpa-top-searh-bar .open .btn-primary{background:none;color: #000}
 
 #map .zpa-marker{display:block; margin:0 auto; text-align:center; background:none !important;}
@@ -12,6 +25,7 @@
 #map .zpa-marker .short-price:hover{background:#800 !important; color:#fff; box-shadow:0px 3px 10px #000; font-weight:bold;}
 #map .zpa-marker .short-info{text-transform:uppercase; font-size: 12px; position:relative; margin-bottom: 10px; min-width:100px; height:auto; box-shadow:0px 3px 10px #4a4a4a; background:#4a4a4a; color: #fff; font-weight:bold; padding:5px; visibility:hidden;}
 #map .zpa-marker:hover .short-info{visibility:visible;}
+*/
 
 /*
 #zpa-top-searh-bar #filter-wrap{background-color: #fff;border-color: #ddd;border-radius: 2px; padding: 10px;}

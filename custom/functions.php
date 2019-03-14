@@ -695,42 +695,9 @@ if( ! function_exists('get_static_references') ){
 		
 		$obj = (object) zipperagent_run_curl('/api/mls/staticReferences', array(), 0, '', 1);
 		
-		// $obj = (object) array(
-			// "status"=>"SUCCESS",
-			// "result"=>(object) array(
-				// "filteredDataMap" => (object) array(
-					// "PROPTYPE"=> (object) array(
-						// (object)array(
-							// "id"=>"FMLS-Property-PROPTYPE-ATT",
-							// "version"=>0,
-							// "fieldName"=>"PROPTYPE",
-							// "shortDescription"=>"ATT",
-							// "mediumDescription"=>"ATT",
-							// "longDescription"=>"Residential Attached"
-						// ),
-						// (object)array(
-							// "id"=>"FMLS-Property-PROPTYPE-COM",
-							// "version"=>0,
-							// "fieldName"=>"PROPTYPE",
-							// "shortDescription"=>"COM",
-							// "mediumDescription"=>"COM",
-							// "longDescription"=>"Commercial"
-						// )
-					// )
-				// ),
-				// "dataCount"=>11,
-				// "totalCount"=>0
-			// ),
-			// "responseCode"=>200,
-			// "editable"=>false,
-			// "deletable"=>false,
-			// "forbidden"=>false,
-			// "returnedCount"=>0
-		// );
-		
 		if(isset($obj->status) && $obj->status=='SUCCESS' && isset($obj->result)){
 			$result = $obj->result;
-			
+			// echo "<pre>"; print_r($result); echo "</pre>";
 			if( isset($result->filteredDataMap->$type) ){
 				$entities = $result->filteredDataMap->$type;
 				$arr=$entities;
@@ -745,6 +712,15 @@ if( ! function_exists('get_static_references') ){
 		}
 		
 		return $arr;
+	}
+}
+
+if( ! function_exists('get_meta_fields') ){
+	function get_meta_fields(){
+		
+		$obj = (object) zipperagent_run_curl('/api/mls/meta', array(), 0, '', 1);
+				
+		return $obj;
 	}
 }
 
@@ -764,6 +740,23 @@ if( ! function_exists('get_property_type') ){
 			}else if(!$type){
 				$arr[$entity->shortDescription]=$entity->longDescription;
 			}
+		}
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('get_lot_descriptions') ){
+	function get_lot_descriptions(){	
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/lotdescription.php";
+		$json=ob_get_clean();
+		$data=json_decode($json);
+		
+		$arr=array();
+		
+		foreach($data as $entity){			
+			$arr[$entity->shortDescription]=$entity->longDescription;			
 		}
 		
 		return $arr;
@@ -2031,48 +2024,14 @@ if( ! function_exists('zipperagent_field_value') ){
 		if( isset( $fields->$key ) || isset( $fields->$KEY ) || isset( $fields->$nostripkey ) || isset( $fields->$NOSTRIPKEY ) ){
 			
 			$temp=array();
+			
 			$values=explode(',', $val );
 			// print_r( "Before: " . $val. "<br />" );
 			foreach( $values as $value ){
 				$temp[]=0;
 			}
 			
-			$keyFeaturesRaw=isset($fields->$key)?$fields->$key:(isset( $fields->$KEY )? $fields->$KEY:array());
-			
-			if(!$keyFeaturesRaw){
-				$keyFeaturesRaw=isset($fields->$nostripkey)?$fields->$nostripkey:(isset( $fields->$NOSTRIPKEY )? $fields->$NOSTRIPKEY:array());
-			}
-			
-			$keyFeatures = array();
-			$p_typ = $proptype;
-			$p_pty_mask = 7;
-			
-			if (strcmp($p_typ,"BU")== 0){
-				$p_pty_mask = 0;			
-			} else if (strcmp($p_typ,"CC")== 0){
-				$p_pty_mask = 1;			
-			} else if (strcmp($p_typ,"CI")== 0){
-				$p_pty_mask = 2;			
-			} else if (strcmp($p_typ,"LD")== 0){
-				$p_pty_mask = 3;			
-			} else if (strcmp($p_typ,"MF")== 0){
-				$p_pty_mask = 4;			
-			} else if (strcmp($p_typ,"MH")== 0){
-				$p_pty_mask = 5;			
-			} else if (strcmp($p_typ,"RN")== 0){
-				$p_pty_mask = 6;			
-			} else if (strcmp($p_typ,"SF")== 0){
-				$p_pty_mask = 7;			
-			}
-			foreach($keyFeaturesRaw as $entity){
-				if ( isset($entity->propTypeMask) && ( ($entity->propTypeMask == 255) || ($entity->propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))){
-					array_push($keyFeatures,$entity);
-				}
-			}
-			// echo "<pre>"; print_r($p_pty_mask); echo "</pre>"; 
-			// echo "<pre>"; print_r($keyFeaturesRaw); echo "</pre>";
-			// echo "<pre>"; print_r($keyFeatures); echo "</pre>";
-			// echo "<hr />";
+			$keyFeatures = zipperagent_type_mask($fields, $key, $proptype);
 			
 			foreach( $keyFeatures as $entity ){
 				$version = isset($entity->version)?$entity->version:'';
@@ -2118,6 +2077,51 @@ if( ! function_exists('zipperagent_field_value') ){
 			$val = 'Yes';
 		
 		return $val;
+	}
+}
+
+if( ! function_exists('zipperagent_type_mask') ){
+	function zipperagent_type_mask($fields, $key, $proptype){
+		
+		$KEY=strtoupper($key);
+		
+		$nostripkey = str_replace('_', '', $key);
+		$NOSTRIPKEY = str_replace('_', '', $KEY);
+			
+		$keyFeaturesRaw=isset($fields->$key)?$fields->$key:(isset( $fields->$KEY )? $fields->$KEY:array());
+		
+		if(!$keyFeaturesRaw){
+			$keyFeaturesRaw=isset($fields->$nostripkey)?$fields->$nostripkey:(isset( $fields->$NOSTRIPKEY )? $fields->$NOSTRIPKEY:array());
+		}
+		
+		$keyFeatures = array();
+		$p_typ = $proptype;
+		$p_pty_mask = 7;
+		
+		if (strcmp($p_typ,"BU")== 0){
+			$p_pty_mask = 0;			
+		} else if (strcmp($p_typ,"CC")== 0){
+			$p_pty_mask = 1;			
+		} else if (strcmp($p_typ,"CI")== 0){
+			$p_pty_mask = 2;			
+		} else if (strcmp($p_typ,"LD")== 0){
+			$p_pty_mask = 3;			
+		} else if (strcmp($p_typ,"MF")== 0){
+			$p_pty_mask = 4;			
+		} else if (strcmp($p_typ,"MH")== 0){
+			$p_pty_mask = 5;			
+		} else if (strcmp($p_typ,"RN")== 0){
+			$p_pty_mask = 6;			
+		} else if (strcmp($p_typ,"SF")== 0){
+			$p_pty_mask = 7;			
+		}
+		foreach($keyFeaturesRaw as $entity){
+			if ( isset($entity->propTypeMask) && ( ($entity->propTypeMask == 255) || ($entity->propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))){
+				array_push($keyFeatures,$entity);
+			}
+		}
+		
+		return $keyFeatures;
 	}
 }
 
@@ -3113,12 +3117,14 @@ if( ! function_exists('global_magicsuggest_script') ){
 								if(substr($element, 0, 5)=='azip_'){
 									$azip = str_replace(substr($element, 0, 5),'', $element);
 									$modified_location[] = $azip;
-								}else{						
+								}else if(!empty($element)) {						
 									$modified_location[] = $element;
 								}
 							}
-							$vars = implode( "','", $modified_location );
-							echo "value: ['{$vars}'],";
+							if($modified_location){
+								$vars = implode( "','", $modified_location );
+								echo "value: ['{$vars}'],";
+							}
 						}
 					}
 				}
@@ -3518,13 +3524,13 @@ if( ! function_exists('zipperagent_search_filter') ){
 							newLabel = 'mls# ' + value;	
 							break;
 						case "apold":
-							newLabel = 'pool description ' + value;	
+							newLabel = 'Pool Description';	
 							break;
 						case "altand":
-							newLabel = 'lot description ' + value;	
+							newLabel = 'Lot Description ' + value;	
 							break;
 						case "awtrf":
-							newLabel = 'waterfront flag ' + value;	
+							newLabel = 'Waterfront Flag';	
 							break;
 						default:												
 							newLabel = name.toLowerCase()+' '+value;

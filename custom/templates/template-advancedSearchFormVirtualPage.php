@@ -357,8 +357,24 @@ $addressSearch=1;
 						</div>
 						
 						<div class="col-xs-12 col-sm-3">
-							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Waterfront Flag </label>
-							<input id="zpa-max-days-listed" name="awtrf" placeholder="" type="text" class="form-control" value="">
+							<?php
+							
+							$lotDescriptions = get_lot_descriptions();
+							
+							if($lotDescriptions):
+							?>
+							<label for="zpa-lot-description-listed" class="field-label zpa-lot-description-label"> Lot Description </label>
+							
+							<select id="zpa-select-lot-description" name="altand" class="form-control">
+								<option value="">Select</option>
+								<?php								
+								foreach( $lotDescriptions as $fieldCode=>$fieldName ){
+									$selected="";									
+									echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";										
+								}
+								?>
+							</select>
+							<?php endif; ?>
 						</div>
 						
 						<div class="col-xs-12 col-sm-2">
@@ -377,18 +393,6 @@ $addressSearch=1;
 						<div class="col-xs-12 col-sm-2">
 							<label for="zpa-year" class="field-label zpa-year-label"> Year </label>
 							<input id="zpa-year" name="yearBuilt" placeholder="Ex: 1990" type="text" class="form-control" value="">
-						</div>
-					</div>
-					
-					<div class="row mt-25 filter">
-						<div class="col-xs-12 col-sm-3 mb-10">
-							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Pool Description </label>
-							<input id="zpa-max-days-listed" name="apold" placeholder="" type="text" class="form-control" value="">
-						</div>
-						
-						<div class="col-xs-12 col-sm-3">
-							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Lot Description </label>
-							<input id="zpa-max-days-listed" name="altand" placeholder="" type="text" class="form-control" value="">
 						</div>
 					</div>
 					
@@ -415,6 +419,14 @@ $addressSearch=1;
 							<div class="checkbox filter">
 								<label class="field-label zpa-with-image-label">
 									<input id="zpa-with-image" name="withImage" type="checkbox" value="true"> With Image </label>
+							</div>
+							<div class="checkbox filter">
+								<label class="field-label zpa-with-image-label">
+									<input id="zpa-with-image" name="apold" type="checkbox" value="$$ISNOTNULL$$"> Pool Description </label>
+							</div>
+							<div class="checkbox filter">
+								<label class="field-label zpa-with-image-label">
+									<input id="zpa-with-image" name="awtrf" type="checkbox" value="1"> Waterfront Flag </label>
 							</div>
 							<div class="clearfix"></div>
 							<?php /*

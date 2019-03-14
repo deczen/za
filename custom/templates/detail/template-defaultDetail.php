@@ -110,12 +110,19 @@ switch($single_property->proptype){
 
 /* Generate custom template */
 $groupname = zipperagent_detailpage_group();
+
+$group_dir_default='/default';
+$template_features_default = 'default-features.php';
+$template_print_default	   = 'default-print.php';
+$template_sidebar_default  = 'default-sidebar.php';
+$template_vtlink_default   = 'default-vtlink.php';
+
 if($groupname == 'old_mlspin'){
-	$group_dir = '/default';
-	$template_features = 'default-features.php';
-	$template_print	   = 'default-print.php';
-	$template_sidebar  = 'default-sidebar.php';
-	$template_vtlink   = 'default-vtlink.php';
+	$group_dir = $group_dir_default;
+	$template_features = $template_features_default;
+	$template_print	   = $template_print_default;
+	$template_sidebar  = $template_sidebar_default;
+	$template_vtlink   = $template_vtlink_default;
 }else{
 	$group_dir = $groupname ? '/' . $groupname : '';
 }
@@ -125,6 +132,12 @@ $template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_d
 $template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/print/'. $template_print;
 $template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/sidebar/'. $template_sidebar;
 $template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir .'/vtlink/'. $template_vtlink;
+
+//default template
+$template_features_path_default = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir_default .'/features/'. $template_features_default;
+$template_print_path_default = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir_default .'/print/'. $template_print_default;
+$template_sidebar_path_default = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir_default .'/sidebar/'. $template_sidebar_default;
+$template_vtlink_path_default = ZIPPERAGENTPATH . '/custom/templates/detail'. $group_dir_default .'/vtlink/'. $template_vtlink_default;
 
 /* if custom template exists, show the template */
 if(file_exists($template_path) && $template_name ){
@@ -279,10 +292,10 @@ if(file_exists($template_path) && $template_name ){
 											</button>
 											 */
 											 
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$current_url = esc_url_raw($current_url); //encode it
-// $urll = url_encode( $current_url );
+											$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+											$current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+											$current_url = esc_url_raw($current_url); //encode it
+											// $urll = url_encode( $current_url );
 
 											 ?>
 											 
@@ -634,6 +647,8 @@ $current_url = esc_url_raw($current_url); //encode it
 						/* incldue vtlink template */
 						if(file_exists($template_vtlink_path) && $template_vtlink){
 							include $template_vtlink_path;
+						}else{
+							include $template_vtlink_path_default;
 						}
 						?>						
 						
@@ -654,6 +669,8 @@ $current_url = esc_url_raw($current_url); //encode it
 						/* incldue sidebar template */
 						if(file_exists($template_sidebar_path) && $template_sidebar){
 							include $template_sidebar_path;
+						}else{
+							include $template_sidebar_path_default;
 						}
 						?>			
 						
@@ -937,6 +954,8 @@ $current_url = esc_url_raw($current_url); //encode it
 					/* incldue content template */
 					if(file_exists($template_features_path) && $template_features){
 						include $template_features_path;
+					}else{
+						include $template_features_path_default;
 					}
 					?>
 
@@ -1461,6 +1480,8 @@ $current_url = esc_url_raw($current_url); //encode it
 		/* incldue print template */
 		if(file_exists($template_print_path) && $template_print){
 			include $template_print_path;
+		}else{
+			include $template_print_path_default;
 		}
 	?>
 	</div>
