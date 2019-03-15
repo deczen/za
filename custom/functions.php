@@ -862,10 +862,18 @@ if( ! function_exists('getCurrentUserContactLogin') ){
 				$userdata=$_SESSION['userdata'];
 			}else{
 				$userdata=getUserContact($email);
-				$_SESSION['userdata']=$userdata;
+				
+				if($userdata){
+					$_SESSION['userdata']=$userdata;					
+				}else{
+					$userdata=array();
+					//destroy session if fail retrieve data
+					userContactLoggout();
+				}
 			}
-		}else
+		}else{
 			$userdata=array();
+		}
 		
 		return $userdata;
 	}

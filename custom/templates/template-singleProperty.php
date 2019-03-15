@@ -367,8 +367,8 @@ if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) 
 	</div>
 	
 	<?php // include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
-	<?php include ZIPPERAGENTPATH . '/custom/templates/template-schedule-show.php'; ?>
-	<?php include ZIPPERAGENTPATH . '/custom/templates/template-requestInfo.php'; ?>
+	<?php //include ZIPPERAGENTPATH . '/custom/templates/template-schedule-show.php'; ?>
+	<?php //include ZIPPERAGENTPATH . '/custom/templates/template-requestInfo.php'; ?>
 	
 	<script>
 		jQuery('.js-listing-map').on('click', function(){

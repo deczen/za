@@ -78,18 +78,9 @@ function login_user(){
         $email = $_REQUEST['username'];
 		// $rememberMe = isset($_REQUEST['rememberMe'])?$_REQUEST['rememberMe']:0;
 		$rememberMe = 1;
-		$userdata=getUserContact($email);
+		$check=userContactLogin($email, $rememberMe);
 		
-		if( $userdata ){
-			
-			foreach($userdata as $contact){
-				$contactIds[]=$contact->id;
-			}
-			
-			$_SESSION['contactId']=$contactIds;
-			$_SESSION['userMail']=$email;
-			$_SESSION['userRemember']=$rememberMe;
-			$_SESSION['userdata']=$userdata;
+		if( $check ){
 		
 			// $return['result']=$userdata->id;
 			$myaccounturl=zipperagent_page_url('property-organizer-edit-subscriber');
@@ -1301,6 +1292,21 @@ function zipperagent_login_popup(){
 	?>
 	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
+	</div>
+	<?php
+}
+
+add_action( 'wp_footer', 'zipperagent_detail_page_popup', 11);
+
+function zipperagent_detail_page_popup(){
+	global $is_detail_page;
+	
+	if(!$is_detail_page) //show on detailpage only ?
+		return;
+	?>
+	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
+	<?php include ZIPPERAGENTPATH . '/custom/templates/template-schedule-show.php'; ?>
+	<?php include ZIPPERAGENTPATH . '/custom/templates/template-requestInfo.php'; ?>
 	</div>
 	<?php
 }

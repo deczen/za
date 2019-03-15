@@ -25,10 +25,10 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 						$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
 					
 						foreach( $propTypeFields as $fieldCode=>$fieldName ){
-							if(in_array($fieldCode, $propDefaultOption) || in_array($fieldCode, $propertyType))
-								$selected="selected";
-							else
-								$selected="";
+							// if(in_array($fieldCode, $propDefaultOption) || in_array($fieldCode, $propertyType))
+								// $selected="selected";
+							// else
+								// $selected="";
 							
 							echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
 						}
@@ -118,12 +118,14 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 		// Material Select Initialization
 		jQuery(document).ready(function($) {
 		  $('.multiselect').multiselect({
-			// buttonWidth : '160px',
+			// buttonWidth : '160px',			
 			includeSelectAllOption : true,
 			nonSelectedText: 'Select',
 			numberDisplayed: 1,
 			buttonClass: 'form-control',
 		  });
+		  
+		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
 		});
 	</script>
 </div>

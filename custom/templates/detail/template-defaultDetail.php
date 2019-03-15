@@ -304,8 +304,9 @@ if(file_exists($template_path) && $template_name ){
 													<i class="bt-icon bt-icon--larger fa fa-info" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
+											<?php /*
 											<div class="info-share">
-												<button type="button" class="btn-small share-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> dropdown-toggle" id="dropdownShare" data-toggle="dropdown">
+												<button type="button" class="btn-small share-btn width-1-2 dropdown-toggle" id="dropdownShare" data-toggle="dropdown">
 													<span class="bt-icon--stack">
 														<i class="bt-icon bt-icon--larger fa fa-share-square-o" aria-hidden="true"></i>
 													</span> <span class="hidden-md text">Share</span><span class="visible-md text"> Share </span>
@@ -346,13 +347,13 @@ if(file_exists($template_path) && $template_name ){
 													</ul>
 												</div>
 											</div>
-											<?php /*
+											*/ ?>
 											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="bt-icon--stack">
 													<i class="bt-icon bt-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
 											</button>
-											*/ ?>
+											
 										</div>
 										<!-- end .top-action-buttons -->
 									</div>

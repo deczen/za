@@ -317,6 +317,9 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 		var data = jQuery(this).serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
 		// var data = objectifyForm( formArray );
 		
+		jQuery('#zpaScheduleShowing #zpa-schedule-showing-request-form').css('opacity', 0.5);
+		jQuery('#zpaScheduleShowing #zpa-schedule-showing-request-form').css('pointer-events', 'none');
+		
 		var crit={
 			<?php				
 			foreach( $saved_crit as $key=>$val ){
@@ -339,6 +342,9 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 				}else{
 					alert( 'Submit failed!' );
 				}
+				
+				jQuery('#zpaScheduleShowing #zpa-schedule-showing-request-form').css('opacity', 1);
+				jQuery('#zpaScheduleShowing #zpa-schedule-showing-request-form').css('pointer-events', 'initial');
 			}
 		});
 		

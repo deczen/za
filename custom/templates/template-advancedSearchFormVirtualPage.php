@@ -109,10 +109,10 @@ $addressSearch=1;
 													}
 												}else{
 													// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-													if(in_array($fieldCode, $propDefaultOption))
-														$selected="selected";
-													else
-														$selected="";
+													// if(in_array($fieldCode, $propDefaultOption))
+														// $selected="selected";
+													// else
+														// $selected="";
 													
 													echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
 												}										
@@ -196,10 +196,10 @@ $addressSearch=1;
 										}
 									}else{
 										// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-										if(in_array($fieldCode, $propDefaultOption))
-											$selected="selected";
-										else
-											$selected="";
+										// if(in_array($fieldCode, $propDefaultOption))
+											// $selected="selected";
+										// else
+											// $selected="";
 										
 										echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
 									}										
@@ -592,12 +592,14 @@ $addressSearch=1;
 		// Material Select Initialization
 		jQuery(document).ready(function($) {
 		  $('.multiselect').multiselect({
-			// buttonWidth : '160px',
+			// buttonWidth : '160px',			
 			includeSelectAllOption : true,
 			nonSelectedText: 'Select',
 			numberDisplayed: 1,
 			buttonClass: 'form-control',
 		  });
+		  
+		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
 		});
 	</script>
 	<script>  
