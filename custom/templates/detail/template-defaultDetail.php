@@ -8,8 +8,9 @@ $template_print='';
 $template_sidebar='';
 $template_vtlink='';
 $is_custom_template=0;
+$property_type = strtoupper($single_property->proptype);
 
-switch($single_property->proptype){
+switch($property_type){
 	case "SF": //Single Family		
 	case "SFR": //Single Family		
 	case "RES": //Single Family			
@@ -18,6 +19,7 @@ switch($single_property->proptype){
 	case "CS": //CommonInterest CS
 	case "CL": //CommonInterest CL
 	case "BF": //ResidentialProperty BF
+	case "COF": //OFFICE
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -27,6 +29,7 @@ switch($single_property->proptype){
 	case "MF": //Multifamily	
 	case "MUL": //Multifamily	
 	case "MUL": //Multifamily	
+	case "MANU": //MAnufactured in Park	
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -44,6 +47,7 @@ switch($single_property->proptype){
 	case "LND": //Land		
 	case "LAND": //Land		
 	case "VLD": //Land		
+	case "LN": //Land		
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -71,6 +75,7 @@ switch($single_property->proptype){
 		$template_vtlink='cc-vtlink.php';
 		break;
 	case "CI": //Commercial			
+	case "CLSE": //Commercial Lease			
 	case "COM": //Commercial				
 	case "COMM": //Commercial		
 	case "INC": //Income		
@@ -82,6 +87,10 @@ switch($single_property->proptype){
 		break;
 	case "BU": //Business		
 	case "BUS": //Business		
+	case "BUSOP": //Business Opportunity		
+	case "BOP": //Business Opportunity		
+	case "IND": //Industri		
+	case "BUSI": //Business		
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';
@@ -659,10 +668,25 @@ if(file_exists($template_path) && $template_name ){
 
 								<h3 class="bt-listing__headline mt-15 at-desc-header">Description</h3>
 								<p class="at-desc-body">[remarks]</p>
+								<?php if(isset($single_property->landdesc)): ?>
+								<p class="at-desc-body">[landdesc]</p>
+								<?php endif; ?>
 
 
 							</div>
 						</aside>
+						
+						<aside class="my-15">
+							<div class="uk-hidden-small uk-hidden-medium">
+
+
+								<h3 class="bt-listing__headline mt-15 at-desc-header">Direction</h3>
+								<p class="at-desc-body">[direction]</p>
+
+
+							</div>
+						</aside>
+						
 					</div>
 					<div id="props-column" class="cell">
 						
