@@ -755,8 +755,10 @@ if( ! function_exists('get_lot_descriptions') ){
 		
 		$arr=array();
 		
-		foreach($data as $entity){			
-			$arr[$entity->shortDescription]=$entity->longDescription;			
+		if($data){
+			foreach($data as $entity){			
+				$arr[$entity->shortDescription]=$entity->longDescription;			
+			}
 		}
 		
 		return $arr;

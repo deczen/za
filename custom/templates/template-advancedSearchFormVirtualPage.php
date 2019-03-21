@@ -67,7 +67,7 @@ $addressSearch=1;
 									
 										 <div id="locationField" class="col-xs-12">
 											<label for="zpa-area-address" class="field-label"> Address </label>
-											<input type="text" id="zpa-area-address" class="zpa-area-address form-control" placeholder="Type address here" onFocus="geolocate()" name="address"/>
+											<input type="text" id="zpa-area-address" class="zpa-area-address form-control" placeholder="Type address here" onFocus="geolocate()" name="address" disabled />
 																																	
 											<input type="hidden" id="street_number" name="advStNo" disabled="true" />
 											<input type="hidden" id="route" name="advStName" disabled="true" />
@@ -86,7 +86,7 @@ $addressSearch=1;
 									<div class="row mt-10">				
 										<div class="col-xs-12">
 											<label for="zpa-listingids" class="field-label"> Listing Id </label>
-											<input id="zpa-listingids" class="zpa-area-input form-control" placeholder="Comma separted listing ids"  name="alstid"/>
+											<input id="zpa-listingids" class="zpa-area-input form-control" placeholder="Comma separted listing ids"  name="alstid" disabled />
 										</div>
 									</div>
 								</div>
@@ -96,7 +96,7 @@ $addressSearch=1;
 									 <div class="col-xs-12 col-sm-4 mb-10">
 										<label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
 										<div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
-										<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
+										<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple" disabled>
 											<?php
 											$propTypeFields = get_property_type();
 											$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
@@ -124,13 +124,13 @@ $addressSearch=1;
 										<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
 										<div class="" style="position:relative;">
 											<div class="zpa-label-overlay-money"> $ </div>
-											<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+											<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled /> </div>
 									</div>
 									<div class="col-xs-12 col-sm-2 mb-10">
 										<label for="zpa-maxprice-homes" class="field-label zpa-maxprice-label"> Max. Price </label>
 										<div class="" style="position:relative;">
 											<div class="zpa-label-overlay-money"> $ </div>
-											<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+											<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled /> </div>
 									</div>
 									<div class="col-xs-12 col-sm-2 mb-10">
 										<label for="zpa-select-bedrooms-homes" class="field-label zpa-select-bedrooms-label"> Beds </label>
@@ -555,6 +555,13 @@ $addressSearch=1;
 				});
 				element.find('textarea').each(function(){
 					jQuery(this).prop('disabled', ! enable);
+				});
+				element.find('button.multiselect').each(function(){
+					jQuery(this).prop('disabled', ! enable);
+					if(enable)
+						jQuery(this).removeClass('disabled');
+					else
+						jQuery(this).addClass('disabled');
 				});
 			}
 		});
