@@ -52,12 +52,19 @@ if( isset( $single_property->listagent ) || isset( $single_property->saleagent )
 }
 
 // if( sizeof($_GET)<=3 && ( $searchId || $criteriaBase64|| $afteraction ) ){
-if( isset($_GET['afteraction']) && sizeof($_GET)==1 || isset($_GET['searchId']) && sizeof($_GET)==1 || isset($_GET['criteria']) && sizeof($_GET)==1 ||
-	isset($_GET['afteraction']) && isset($_GET['searchId']) && sizeof($_GET)==2 || 
-	isset($_GET['criteria']) && isset($_GET['searchId']) && sizeof($_GET)==2 || 
-	isset($_GET['criteria']) && isset($_GET['afteraction']) && sizeof($_GET)==2 || 
-	isset($_GET['afteraction']) && isset($_GET['searchId'])&& isset($_GET['criteria']) && sizeof($_GET)==3
- ){
+
+$excParamCount=0;
+if(isset($_GET['afteraction']))
+	$excParamCount++;
+if(isset($_GET['searchId']))
+	$excParamCount++;
+if(isset($_GET['criteria']))
+	$excParamCount++;
+if(isset($_GET['fbclid']))
+	$excParamCount++;
+	
+	
+if( sizeof($_GET)==$excParamCount ){
 	$is_search_apply=0;
 }else if(!empty($_GET)){
 	$is_search_apply=1;
