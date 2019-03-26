@@ -84,6 +84,7 @@ function login_user(){
 		
 			// $return['result']=$userdata->id;
 			$myaccounturl=zipperagent_page_url('property-organizer-edit-subscriber');
+			$contactIds = get_contact_id();
 			$return['myaccountname']=zipperagent_user_name();
 			$return['myaccounturl']=$myaccounturl;
 			$return['favorites_url']=add_query_arg( array('menu'=>'my-favorite'), $myaccounturl );

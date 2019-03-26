@@ -29,9 +29,6 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 							<div class="panel-body">
 								<form id="zpa-schedule-showing-request-form" class="form-inline" data-zpa-event="schedule-showing-form-submit" action="" method="GET" data-zpa-event-bound="true">
 									<input name="action" value="schedule_show" type="hidden">
-									<?php
-									echo "<pre>"; print_r($single_property); echo "</pre>";
-									?>
 									<input name="listingId" value="<?php echo $single_property->id; ?>" type="hidden">
 									<input name="contactId" value="<?php echo implode(',',$contactIds) ?>" type="hidden">
 									<input name="searchId" value="<?php echo $searchId ?>" type="hidden">
