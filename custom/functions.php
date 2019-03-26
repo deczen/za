@@ -2000,7 +2000,7 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "headscrp4":case "coldscrp4":
 			case "headscrp5":case "coldscrp5":
 				$key=isset($fields->ROOM)?"ROOM":$key;
-			break;
+				break;
 			
 			case "mbrlevel":
 			case "bed2LEVEL":
@@ -2020,11 +2020,23 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "oth4LEVEL":
 			case "oth5LEVEL":
 				$key=isset($fields->ROOMLEVEL)?"ROOMLEVEL":$key;
-			break;
+				break;
 			
 			case "roomLevel":
 				$key=isset($fields->BEDROOMMASTERLEVEL)?"BEDROOMMASTERLEVEL":$key;
-			break;
+				break;
+				
+			case "CommunityFeatures":
+				$key=isset($fields->COMMUNITY)?"COMMUNITY":$key;
+				break;
+				
+			case "RoomType":
+				$key=isset($fields->ROOMS)?"ROOMS":$key;
+				break;
+				
+			case "Levels":
+				$key=isset($fields->STORIES)?"STORIES":$key;
+				break;
 		}
 		$KEY=strtoupper($key);
 		
