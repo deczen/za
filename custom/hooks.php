@@ -891,8 +891,10 @@ function load_more_properties(){
 			if( $contactIds )
 				$vars['contactId'] = implode(',',$contactIds);
 			
-			$result = zipperagent_run_curl( "/api/mls/advSearch", $vars );
-			$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+			$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
+			$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+			// $count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
 			$list=isset($result['filteredList'])?$result['filteredList']:$result;
 			
 		}
@@ -1263,14 +1265,8 @@ function automate_create_thankyou_page(){
 register_activation_hook( ZIPPERAGENTPATH . '/zipperagent.php', 'zipperagent_plugin_active' );
 
 function zipperagent_plugin_active() {	
-	$filename=ABSPATH . "/za-plugin-version.txt";
-	
-	//create version txt file
-	
-    $file = fopen( $filename, "wb" );
-	$txt = "version: " . ZIPPERAGENT_VERSION;
-	fwrite($file, $txt);
-	fclose($file);
+
+	create_zipperagent_plugin_version_file();
 }
 
 add_action( 'init', 'zipperagent_global_popup_variable', 1);

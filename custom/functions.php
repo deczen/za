@@ -2036,6 +2036,50 @@ if( ! function_exists('zipperagent_field_value') ){
 				
 			case "Levels":
 				$key=isset($fields->STORIES)?"STORIES":$key;
+				break;	
+				
+			case "Fees Include":
+				$key=isset($fields->FEESINCLUD)?"FEESINCLUD":$key;
+				break;	
+				
+			case "Laundry Type":
+				$key=isset($fields->LAUNDRYTYP)?"LAUNDRYTYP":$key;
+				break;
+				
+			case "Fireplace Type":
+				$key=isset($fields->FIREPLCTYP)?"FIREPLCTYP":$key;
+				break;
+				
+			case "Financing Type":
+				$key=isset($fields->HOWSOLD)?"HOWSOLD":$key;
+				break;
+				
+			case "Possible Financing":
+				$key=isset($fields->PSSBLFNCNG)?"PSSBLFNCNG":$key;
+				break;
+				
+			case "Kitchen/Breakfast":
+				$key=isset($fields->KTCHNBRKFS)?"KTCHNBRKFS":$key;
+				break;
+				
+			case "Kitchen Equipment":
+				$key=isset($fields->KTCHNQPMNT)?"KTCHNQPMNT":$key;
+				break;
+				
+			case "Laundry Location":
+				$key=isset($fields->LANDRYLCTN)?"LANDRYLCTN":$key;
+				break;
+				
+			case "Fireplace Location":
+				$key=isset($fields->FIRPLCLCTN)?"FIRPLCLCTN":$key;
+				break;
+				
+			case "Cooling Source":
+				$key=isset($fields->COOLINGSRC)?"COOLINGSRC":$key;
+				break;
+				
+			case "Heating Source":
+				$key=isset($fields->HEATINGSRC)?"HEATINGSRC":$key;
 				break;
 		}
 		$KEY=strtoupper($key);
@@ -2732,6 +2776,19 @@ if( ! function_exists('is_branded_virtualtour') ){
 		$enabled=$enabled?true:false;
 		
 		return $enabled;
+	}
+}
+
+if( ! function_exists('create_zipperagent_plugin_version_file') ){
+	function create_zipperagent_plugin_version_file(){
+		$filename=ABSPATH . "/za-plugin-version.txt";
+	
+		//create version txt file
+		
+		$file = fopen( $filename, "wb" );
+		$txt = "version: " . ZIPPERAGENT_VERSION;
+		fwrite($file, $txt);
+		fclose($file);
 	}
 }
 

@@ -225,8 +225,10 @@ if( $aloff ){
 	if( $contactIds )
 		$vars['contactId'] = implode(',',$contactIds);
 	
-	$result = zipperagent_run_curl( "/api/mls/advSearch", $vars );
-	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
+	$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+	// $count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+	$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
 	$list=isset($result['filteredList'])?$result['filteredList']:$result;
 	
 	// echo "<pre>"; print_r( $result ); echo "</pre>";

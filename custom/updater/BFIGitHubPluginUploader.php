@@ -175,6 +175,10 @@ class BFIGitHubPluginUpdater {
         if ( $wasActivated ) {
             $activate = activate_plugin( $this->slug );
         }
+		
+		if(function_exists('create_zipperagent_plugin_version_file')){
+			create_zipperagent_plugin_version_file();
+		}
 
         return $result;
     }
