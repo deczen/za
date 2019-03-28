@@ -66,6 +66,9 @@ if( $is_ajax )
 else
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+/* set count variable */
+$is_ajax_count=0;
+
 /* default status */
 $status = empty($status)?zipperagent_active_status():$status;
 
@@ -342,9 +345,7 @@ if( $openHomesMode ){ // open homes mode
 		$vars['contactId'] = implode(',',$contactIds);
 	
 	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
-	$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
-	// $count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
-	$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 	$list=isset($result['filteredList'])?$result['filteredList']:$result;
 	
 	if($type=='map'){
@@ -356,6 +357,8 @@ if( $openHomesMode ){ // open homes mode
 		$mapresult = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $mapvars );
 		$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
 	}
+	
+	$is_ajax_count=1;
 }
 
 $searchId=isset($result['id'])?$result['id']:'';

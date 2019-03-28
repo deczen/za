@@ -1131,6 +1131,36 @@ if( ! function_exists('zipperagent_property_fields') ){
 	}
 }
 
+if( ! function_exists('zipperagent_list_total') ){
+	function zipperagent_list_total($count){
+		return number_format_i18n($count,0) . " Result(s)";
+	}
+}
+if( ! function_exists('zipperagent_pagination') ){
+	function zipperagent_pagination($page, $num, $count, $actual_link){
+		ob_start();
+		?>
+		<ul class="pagination">
+			<?php
+			/* pagination */
+			$total = $count;
+			$pagescount = ceil($total/$num);
+			$current_url=$actual_link;
+			$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
+			$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
+			?>
+			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
+			</li>
+			<li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a>
+			</li>
+			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>">&raquo;</a>
+			</li>
+		</ul>
+		<?php
+		return ob_get_clean();
+	}
+}
+
 if( ! function_exists('zipperagent_yes_no_value') ){
 	function zipperagent_yes_no_value($code){
 		switch($code){

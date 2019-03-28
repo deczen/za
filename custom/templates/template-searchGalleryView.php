@@ -120,4 +120,39 @@ if( $list ): ?>
 		});
 	}
 </script>
+<?php if($is_ajax_count): ?>
+<script>
+	jQuery(document).ready(function(){
+		var vars={
+			<?php 
+			foreach($vars as $key=>$val){
+				echo "$key: '$val',"."\r\n";
+			}			
+			?>
+		};
+		
+		var data = {
+			action: 'prop_result_and_pagination',
+			'vars': vars,
+			'page': '<?php echo $page; ?>',
+			'num': '<?php echo $num; ?>',
+			'actual_link': '<?php echo $actual_link; ?>',
+		};
+		
+		jQuery.ajax({
+			type: 'POST',
+			dataType : 'json',
+			url: zipperagent.ajaxurl,
+			data: data,
+			success: function( response ) {    
+			
+				if( response['result'] ){
+					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
+					jQuery('.zpa-listing-search-results .prop-pagination').html('<div class="col-xs-6">' + response['html_pagination'] + '</div>');
+				}
+			}
+		});
+	});
+</script>
+<?php endif; ?>
 <?php auto_trigger_button_script(); ?>

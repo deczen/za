@@ -281,27 +281,18 @@ if( $list ): ?>
 	endforeach; ?>
    
    
-   <?php if( $showPagination ): ?>
+	<?php if( $showPagination ): ?>
 	<div class="clearfix"></div>
-	<div class="col-md-12 pagination-wrap">
-		<ul class="pagination">
-			<?php
-			/* pagination */
-			$total = $count;
-			$pagescount = ceil($total/$num);
-			$current_url=$actual_link;
-			$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
-			$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
-			?>
-			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
-			</li>
-			<li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a>
-			</li>
-			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>">&raquo;</a>
-			</li>
-		</ul>
-	</div>
-	<!--col-->
+		<?php if( ! $is_ajax_count ): ?>
+		<div class="col-md-12 pagination-wrap prop-pagination">
+			<div class="col-xs-6">			
+				<?php echo zipperagent_pagination($page, $num, $count, $actual_link); ?>
+			</div>
+		</div>
+		<!--col-->
+		<?php else: ?>
+		<div class="col-md-12 pagination-wrap prop-pagination"></div> <!-- show on ajax -->
+		<?php endif; ?>
 	<?php endif; ?>
 	
 	<?php
@@ -900,4 +891,39 @@ else: ?>
 	initialize();
 	});
 </script>
+<?php if($is_ajax_count): ?>
+<script>
+	jQuery(document).ready(function(){
+		var vars={
+			<?php 
+			foreach($vars as $key=>$val){
+				echo "$key: '$val',"."\r\n";
+			}			
+			?>
+		};
+		
+		var data = {
+			action: 'prop_result_and_pagination',
+			'vars': vars,
+			'page': '<?php echo $page; ?>',
+			'num': '<?php echo $num; ?>',
+			'actual_link': '<?php echo $actual_link; ?>',
+		};
+		
+		jQuery.ajax({
+			type: 'POST',
+			dataType : 'json',
+			url: zipperagent.ajaxurl,
+			data: data,
+			success: function( response ) {    
+			
+				if( response['result'] ){
+					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
+					jQuery('.zpa-listing-search-results .prop-pagination').html(response['html_pagination']);
+				}
+			}
+		});
+	});
+</script>
+<?php endif; ?>
 <?php auto_trigger_button_script(); ?>

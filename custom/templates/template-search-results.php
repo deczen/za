@@ -76,6 +76,9 @@ if( $is_ajax )
 else
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+/* set count variable */
+$is_ajax_count=0;
+
 /* default status */
 $status = empty($status)?zipperagent_active_status():$status;
 
@@ -393,11 +396,10 @@ if( $openHomesMode ){ // open homes mode
 		$vars['contactId'] = implode(',',$contactIds);
 	
 	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
-	$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
-	// $count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
-	$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 	$list=isset($result['filteredList'])?$result['filteredList']:$result;
 	
+	$is_ajax_count=1;
 }
 
 $enable_filter= $coords || $openHomesMode == "true" ? false : true;
@@ -656,4 +658,39 @@ if( $enable_filter ):
 	  e.stopPropagation();
 	});
 </script>
+<?php if($is_ajax_count): ?>
+<script>
+	jQuery(document).ready(function(){
+		var vars={
+			<?php 
+			foreach($vars as $key=>$val){
+				echo "$key: '$val',"."\r\n";
+			}			
+			?>
+		};
+		
+		var data = {
+			action: 'prop_result_and_pagination',
+			'vars': vars,
+			'page': '<?php echo $page; ?>',
+			'num': '<?php echo $num; ?>',
+			'actual_link': '<?php echo $actual_link; ?>',
+		};
+		
+		jQuery.ajax({
+			type: 'POST',
+			dataType : 'json',
+			url: zipperagent.ajaxurl,
+			data: data,
+			success: function( response ) {    
+			
+				if( response['result'] ){
+					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
+					jQuery('.zpa-listing-search-results .prop-pagination').html('<div class="col-xs-6">' + response['html_pagination'] + '</div>');
+				}
+			}
+		});
+	});
+</script>
+<?php endif; ?>
 <?php auto_trigger_button_script(); ?>

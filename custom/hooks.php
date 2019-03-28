@@ -292,6 +292,41 @@ function search_results_view(){
     }
 }
 
+add_action( 'wp_ajax_prop_result_and_pagination', 'prop_result_and_pagination' );
+add_action( 'wp_ajax_nopriv_prop_result_and_pagination', 'prop_result_and_pagination' );
+
+function prop_result_and_pagination(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		global $requests, $is_ajax, $is_view_save_search;
+		
+		$requests = $_REQUEST;
+		$is_ajax = 1;
+		$is_view_save_search = 0;
+		
+		if(isset($_REQUEST['is_view_save_search']) && !empty($_REQUEST['is_view_save_search'])){
+			$is_view_save_search=1;
+		}
+		
+		$vars = $_REQUEST['vars'];
+		$page = $_REQUEST['page'];
+		$num = $_REQUEST['num'];
+		$actual_link = $_REQUEST['actual_link'];
+		
+		$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+		
+		$result['result']=1;
+		$result['html_count']=zipperagent_list_total($count);
+		$result['html_pagination']=zipperagent_pagination($page, $num, $count, $actual_link);
+		
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
 add_action( 'wp_ajax_properties_view', 'display_properties_view' );
 add_action( 'wp_ajax_nopriv_properties_view', 'display_properties_view' );
 

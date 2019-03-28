@@ -22,10 +22,10 @@ $access_token = $rb['web']['authorization']['access_token'];
 // $url = 'https://ssingh.zipperagent.com/api/mls/advSearchWoCnt?crit=asrc:0;abeds:0;abths:0;apt:SF,CC;asts:ACT,NEW,PCG,BOM,EXT,RAC;&sidx=0&ps=24&o';
 // $url = 'https://adam.zipperagent.com/api/mls/advSearchWoCnt?crit=asrc:0;abeds:0;abths:0;apt:SF,CC;asts:ACT,NEW,PCG,BOM,EXT,RAC;&sidx=0&ps=24&o';
 // $url = 'https://terry.zipperagent.com/api/mls/advSearchWoCnt?crit=asrc:0;abeds:0;abths:0;asts:ACT,NEW,PCG,BOM,EXT,RAC;&sidx=0&ps=24&o';
-// $url = $protocol  . '://'  . $subdomain . '/api/mls/getAreaTowns/';
+$url = $protocol  . '://'  . $subdomain . '/api/mls/getAreaTowns/';
 
-$url = '/api/mls/advSearchOnlyCnt?crit=asrc:FMLS_N,GAMLS;asts:$ACT$1$,$PND$3$;&sidx=0&ps=24&o&contactId=59034302-ceed-4572-900c-f604d89aa7aa';
-$url = $protocol .'://'. $subdomain . $url;
+// $url = '/api/mls/advSearchOnlyCnt?crit=asrc:FMLS_N,GAMLS;asts:$ACT$1$,$PND$3$;&sidx=0&ps=24&o&contactId=59034302-ceed-4572-900c-f604d89aa7aa';
+// $url = $protocol .'://'. $subdomain . $url;
 echo $url;
 
 $headers = array(
