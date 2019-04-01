@@ -226,7 +226,7 @@ $open=0;
  * @ call method and get properties
  */
 
-if( $openHomesMode ){ // open homes mode
+if( $openHomesMode ){ // open houses mode
 	
 	$current_date = current_time( 'Y-m-d' );
 	// echo $current_date;

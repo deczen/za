@@ -3,26 +3,45 @@
 class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtualPage {
 	
 	private $single_property;
+	private $property_cache;
 	
 	/* modified by decz */
 	public function __construct(){
 		$this->remoteRequest = new zipperAgentRequestor();
 		
-		$listingNumber = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
+		$listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 		
-		if( $listingNumber ){
+		if( $listingId ){
 			$contactIds=get_contact_id();
 			
 			$searchId = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
 			
-			$single_property=get_single_property( $listingNumber, implode(',',$contactIds), $searchId );
+			$lastest_cache = zipperagent_get_session_result('/api/mls/advSearchWoCnt');
+			$property_cache=false;
 			
-			if($_GET['debug']){				
-				echo "<pre>"; print_r( $single_property ); echo "</pre>";
-				echo "<pre>"; print_r($_SESSION); echo "</pre>";
+			if(is_array($lastest_cache) && isset($lastest_cache['filteredList']) && $lastest_cache){
+				foreach($lastest_cache['filteredList'] as $property){
+					if($property->id==$listingId){
+						$property_cache=$property;
+						break;
+					}
+				}
 			}
 			
+			$single_property=false;
+			if(! $property_cache){
+				$single_property=get_single_property( $listingId, implode(',',$contactIds), $searchId );	
+			}
+			
+			$this->property_cache = $property_cache;
 			$this->single_property = $single_property;
+						
+			if($_GET['debug']){				
+				// echo "<pre>"; print_r( $single_property ); echo "</pre>";
+				// echo "<pre>"; print_r($_SESSION); echo "</pre>";
+				// echo "<pre>"; print_r($lastest_cache); echo "</pre>";
+				echo "<pre>"; print_r($property_cache); echo "</pre>";
+			}
 		}
 	}
 	/* end modified */
@@ -121,7 +140,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 		// $this->remoteResponse = $this->remoteRequest->remoteGetRequest();
 		
 		/* Modified by Decz */
-		$this->remoteRequest->setSingleProperty($this->single_property);
+		$this->remoteRequest->setSingleProperty($this->single_property, $this->property_cache);
 		$this->remoteResponse = $this->remoteRequest->remoteGetSpecialRequest('listingDetail');
 		/* end modified codes */
 	}

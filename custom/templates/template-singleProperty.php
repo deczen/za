@@ -1,8 +1,13 @@
 <?php
-global $requests, $single_property;
+global $requests, $single_property, $property_cache;
 // global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o;
+		
+if(!$single_property && $property_cache){
+	$single_property=$property_cache;
+}			
 
 $rb = zipperagent_rb();
+//get source details
 $source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
 
 $excludes = get_short_excludes();
@@ -36,6 +41,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 
 $back_url = class_exists('zipperAgentStateManager') ? zipperAgentStateManager::getInstance()->getLastSearchUrl() : '';
 
+//get agent
 $agent=array();
 // echo $single_property->listagent;
 if( isset( $single_property->listagent ) || isset( $single_property->saleagent ) ){
@@ -61,6 +67,8 @@ if(isset($_GET['searchId']))
 if(isset($_GET['criteria']))
 	$excParamCount++;
 if(isset($_GET['fbclid']))
+	$excParamCount++;
+if(isset($_GET['debug']))
 	$excParamCount++;
 	
 	
@@ -365,7 +373,9 @@ if( sizeof($_GET)==$excParamCount ){
 		}
 		
 		ob_start();
+		
 		include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
+		
 		$property_detail=ob_get_clean();
 		$property_detail = zipperagent_property_fields($single_property, $property_detail);	
 		echo $property_detail;
@@ -387,27 +397,27 @@ if( sizeof($_GET)==$excParamCount ){
 		
 		<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
 		<script>
-		  jQuery(document).ready(function(){
-			function initMap() {
+			jQuery(document).ready(function(){
+				window.initMap=function(){
+					
+					var myLatLng = {lat: <?php echo $single_property->lat; ?>, lng: <?php echo $single_property->lng; ?>};
+
+					var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 15,
+					center: myLatLng,
+					gestureHandling: 'greedy',
+					});
+
+					var marker = new google.maps.Marker({
+					position: myLatLng,
+					map: map,
+					// title: 'Hello World!'
+					});
+				}
 				
-				var myLatLng = {lat: <?php echo $single_property->lat; ?>, lng: <?php echo $single_property->lng; ?>};
-
-				var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 15,
-				center: myLatLng,
-				gestureHandling: 'greedy',
-				});
-
-				var marker = new google.maps.Marker({
-				position: myLatLng,
-				map: map,
-				// title: 'Hello World!'
-				});
-			}
-			
-			initMap();
-		  });
-		  
+				if(jQuery('#map').length)
+					initMap();
+			});		  
 		</script>
 		<?php endif; ?>
 	
@@ -768,6 +778,32 @@ if( sizeof($_GET)==$excParamCount ){
 				success: function( response ) {         
 					if( response['html'] ){
 						jQuery( '#zipperagent-content' ).html( response['html'] );
+					}
+				}
+			});
+		});
+	</script>
+	<?php endif; ?>
+	<?php if($property_cache): ?>
+	<script>
+		jQuery(document).ready(function(){
+			var data = {
+				action: 'property_detail',
+				listingId: '<?php echo zipperAgentUtility::getInstance()->getQueryVar("listingNumber"); ?>',                 
+				searchId: '<?php echo $searchId; ?>',                 
+			};
+	 
+			jQuery.ajax({
+				type: 'POST',
+				dataType : 'json',
+				url: zipperagent.ajaxurl,
+				data: data,
+				success: function( response ) {         
+					if( response['html'] ){
+						jQuery( '#zipperagent-content' ).replaceWith( response['html'] );
+						<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
+						initMap();
+						<?php endif; ?>
 					}
 				}
 			});

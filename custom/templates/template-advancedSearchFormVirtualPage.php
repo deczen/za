@@ -410,7 +410,7 @@ $addressSearch=1;
 							
 							<div class="checkbox filter">
 								<label class="field-label zpa-open-homes-only-label">
-									<input id="zpa-open-homes-only" name="openHomesOnlyYn" type="checkbox" value="true"> Open Homes </label>
+									<input id="zpa-open-homes-only" name="openHomesOnlyYn" type="checkbox" value="true"> Open Houses </label>
 							</div>
 							<div class="checkbox filter">
 								<label class="field-label zpa-has-virtual-tour-label">

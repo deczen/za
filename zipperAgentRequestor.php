@@ -197,8 +197,9 @@ class zipperAgentRequestor {
 		$this->single_luxury = $single_luxury;
 	}
 	
-	public function setSingleProperty( $single_property ){
+	public function setSingleProperty( $single_property, $property_cache ){
 		$this->single_property = $single_property;
+		$this->property_cache = $property_cache;
 	}
 	
 	/* end modified */
@@ -255,8 +256,9 @@ class zipperAgentRequestor {
 				break;
 				
 			case "listingDetail":			
-					global $single_property;					
+					global $single_property, $property_cache;					
 					$single_property = $this->single_property;					
+					$property_cache  = $this->property_cache;					
 					ob_start();	
 					include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
 					include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";

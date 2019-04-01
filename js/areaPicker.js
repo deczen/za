@@ -40,7 +40,7 @@
 	 * new form inputs) and possibly parent id preSelectedItems: items that
 	 * should be selected when the area picker loads enabledItems: if empty, all
 	 * items are enabled. if not empty all items display but only items in this
-	 * list are selectable (useful for list of cities with Open Homes)
+	 * list are selectable (useful for list of cities with Open Houses)
 	 * selectedItemsContainer: id of an HTML element used to display selected areas
 	 * selectedItemsLabel: id of an HTML element used to display selected areas label
 	 * selected items autoCompleteMatchValues: id of an HTML element to display

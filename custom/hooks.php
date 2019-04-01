@@ -824,7 +824,7 @@ function load_more_properties(){
 		 * @ call method and get properties
 		 */
 
-		if( $openHomesMode ){ // open homes mode
+		if( $openHomesMode ){ // open houses mode
 			
 			$current_date = current_time( 'Y-m-d' );
 			$daytoadd = isset($daysfromnow)?$daysfromnow:"14";

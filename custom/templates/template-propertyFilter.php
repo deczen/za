@@ -98,7 +98,7 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 					<div class="checkbox">
 						<label class="field-label zpa-open-homes-only-label">
 							<input id="zpa-open-homes-only" name="openHomesOnlyYn" type="checkbox" value="true">
-							<input type="hidden" name="_openHomesOnlyYn" value="on"> Open Homes </label>
+							<input type="hidden" name="_openHomesOnlyYn" value="on"> Open Houses </label>
 					</div>
 					<div class="clearfix"></div>
 					<div class="checkbox">

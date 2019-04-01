@@ -138,7 +138,7 @@ class zipperAgentMenu {
 		}
 		
 		if($displayRules->isOpenHomeSearchEnabled()) {
-			$openHomesMenuItemId = $this->addMenuItem($menuId, "Open Homes", $urlFactory->getOpenHomeSearchFormUrl(true), $findHomeMenuItemId);
+			$openHomesMenuItemId = $this->addMenuItem($menuId, "Open Houses", $urlFactory->getOpenHomeSearchFormUrl(true), $findHomeMenuItemId);
 		}
 		
 		if($displayRules->isAdvancedSearchEnabled()) {

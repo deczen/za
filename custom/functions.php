@@ -3579,7 +3579,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 							newLabel = 'featured';	
 							break;
 						case "openhomesonlyyn":
-							newLabel = 'open homes only';	
+							newLabel = 'open houses only';	
 							break;
 						case "hasvirtualtour":
 							newLabel = 'has virtual tour';	

@@ -3,7 +3,7 @@ add_shortcode( 'single_property', 'display_single_property' );
 
 function display_single_property(){
 	
-	global $single_property, $requests, $zpa_show_login_popup, $is_detail_page;
+	global $single_property, $property_cache, $requests, $zpa_show_login_popup, $is_detail_page;
 	
 	$zpa_show_login_popup=1;
 	$is_detail_page=1;
