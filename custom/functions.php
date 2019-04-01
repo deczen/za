@@ -18,6 +18,7 @@ if( ! function_exists('zipperagent_run_curl') ){
 			// $v=($v);
 		// }
 		
+		$index=$url;
 		$url = add_query_arg( $args, $protocol .'://'. $subdomain . $url );
 		$url=esc_url_raw($url);
 		// echo $url;
@@ -83,7 +84,21 @@ if( ! function_exists('zipperagent_run_curl') ){
 		else
 			$result = isset($server_output->result)?$server_output->result:array();
 		
+		zipperagent_save_session_result($index, $result);
+		
 		return (array) $result;
+	}
+}
+
+if( ! function_exists('zipperagent_save_session_result') ){
+	function zipperagent_save_session_result($index, $result){
+		$_SESSION[$index]=(array) $result;
+	}
+}
+
+if( ! function_exists('zipperagent_get_session_result') ){
+	function zipperagent_get_session_result($index){
+		return isset($_SESSION[$index]) ? $_SESSION[$index] : '';
 	}
 }
 
@@ -547,7 +562,7 @@ if( ! function_exists('zipperagent_property_url') ){
 		if( interface_exists( 'zipperAgentConstants' ) ){
 			$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_DETAIL, null);
 			$endpoint = !empty($endpoint)?$endpoint:'listing';
-			$url = site_url("/{$endpoint}/{$propertyId}/".sanitize_title($fulladdress));	
+			$url = site_url("/{$endpoint}/{$propertyId}/".sanitize_title($fulladdress)."/");	
 		}
 		return $url;
 	}
@@ -2007,28 +2022,33 @@ if( ! function_exists('zipperagent_field_value') ){
 		
 		//special case
 		switch($key){
-			case "mbrdimen":case "mbrdscrp":
+			case "mbrdimen":case "mbrdscrp":case "mbrDSCRP":
 			case "bed2dimen":case "bed2DSCRP":
 			case "bed3dimen":case "bed3DSCRP":
 			case "bed4dimen":case "bed4DSCRP":
 			case "bed5dimen":case "bed5DSCRP":
-			case "bth1dimen":case "bth1dscrp":
-			case "bth2dimen":case "bth2dscrp":
-			case "bth3dimen":case "bth3dscrp":
-			case "kitdimen":case "kitdscrp":
-			case "famdimen":case "famdscrp":
-			case "livdimen":case "livdscrp":
-			case "dindimen":case "dindscrp":
+			case "bth1dimen":case "bth1dscrp":case "bth1DSCRP":
+			case "bth2dimen":case "bth2dscrp":case "bth2DSCRP":
+			case "bth3dimen":case "bth3dscrp":case "bth3DSCRP":
+			case "kitdimen":case "kitdscrp":case "kitDSCRP":
+			case "famdimen":case "famdscrp":case "famDSCRP":
+			case "livdimen":case "livdscrp":case "livDSCRP":
+			case "dindimen":case "dindscrp":case "dinDSCRP":
 			case "oth1DIMEN":case "oth1DSCRP":
 			case "oth2DIMEN":case "oth2DSCRP":
 			case "oth3DIMEN":case "oth3DSCRP":
 			case "oth4DIMEN":case "oth4DSCRP":
 			case "oth5DIMEN":case "oth5DSCRP":
 			case "headscrp1":case "coldscrp1":
+			case "heaDSCRP1":case "colDSCRP1":
 			case "headscrp2":case "coldscrp2":
+			case "heaDSCRP2":case "colDSCRP2":
 			case "headscrp3":case "coldscrp3":
+			case "heaDSCRP3":case "colDSCRP3":
 			case "headscrp4":case "coldscrp4":
+			case "heaDSCRP4":case "colDSCRP4":
 			case "headscrp5":case "coldscrp5":
+			case "heaDSCRP5":case "colDSCRP5":
 				$key=isset($fields->ROOM)?"ROOM":$key;
 				break;
 			

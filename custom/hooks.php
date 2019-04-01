@@ -351,6 +351,52 @@ function display_properties_view(){
     }
 }
 
+add_action( 'wp_ajax_property_detail', 'display_property_detail' );
+add_action( 'wp_ajax_nopriv_property_detail', 'display_property_detail' );
+
+function display_property_detail(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		global $single_property, $property_cache;
+		
+		$property_cache=false;
+		$contactIds=get_contact_id();			
+		$listingId = isset($_REQUEST['listingId'])?$_REQUEST['listingId']:'';
+		$searchId = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
+		$single_property=get_single_property( $listingId, implode(',',$contactIds), $searchId );
+		
+		//get source details
+		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
+		
+		//get agent
+		$agent=array();
+		if( isset( $single_property->listagent ) || isset( $single_property->saleagent ) ){
+			$mlsid = isset($single_property->saleagent) ? $single_property->saleagent : '';
+			if($mlsid)
+				$agent = zipperagent_get_agent($mlsid);
+			
+			if(!$agent){
+				$mlsid = isset($single_property->listagent) ? $single_property->listagent : '';
+				if($mlsid)
+					$agent = zipperagent_get_agent($mlsid);
+			}// $agent = zipperagent_get_agent("G0003031");
+			// $agent = zipperagent_get_agent("BB981188");
+		}
+		
+		ob_start();
+		include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';		
+		$property_detail=ob_get_clean();
+		$property_detail = zipperagent_property_fields($single_property, $property_detail);	
+		
+		$result['html']=$property_detail;
+		
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
 add_action( 'wp_ajax_save_search_result', 'save_search_result' );
 add_action( 'wp_ajax_nopriv_save_search_result', 'save_search_result' );
 
