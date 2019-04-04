@@ -2695,13 +2695,21 @@ if( ! function_exists('detailpage_visit_counter') ){
 		$counter=SignUpPopupVisitCounter();
 		
 		if($counter){
-			$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
-			if(!is_numeric($detailpage_visit_counter) || $detailpage_visit_counter < 0){
-				$detailpage_visit_counter=0;
+			$lastVisitedUrl =  zipperagent_get_cookie('last_detail_page_url');
+			$currentUrl="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
+			
+			if($isPageDifferent){
+				$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
+				if(!is_numeric($detailpage_visit_counter) || $detailpage_visit_counter < 0){
+					$detailpage_visit_counter=0;
+				}
+				// echo "COUNTER++ : ". $detailpage_visit_counter;
+				$detailpage_visit_counter++; //raise up by one, if user visit
+				zipperagent_set_cookie('detailpage_visit_counter', $detailpage_visit_counter);
 			}
-			// echo "COUNTER++ : ". $detailpage_visit_counter;
-			$detailpage_visit_counter++; //raise up by one, if user visit
-			zipperagent_set_cookie('detailpage_visit_counter', $detailpage_visit_counter);
+			
+			zipperagent_set_cookie('last_detail_page_url',$currentUrl);
 		}
 	}
 }
@@ -2714,9 +2722,14 @@ if( ! function_exists('showSignUpPopup') ){
 	 */
 		$counter=SignUpPopupVisitCounter();
 		if($counter){// do popup if only counter not empty
+			
+			$lastVisitedUrl =  zipperagent_get_cookie('last_detail_page_url');
+			$currentUrl="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
+			
 			$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
 			// echo "COUNTER: ". $detailpage_visit_counter;
-			if($detailpage_visit_counter>=$counter){
+			if($detailpage_visit_counter>=$counter && $isPageDifferent){
 				zipperagent_set_cookie('detailpage_visit_counter', 0); //reset counter
 				return 1;
 			}else{
@@ -2746,10 +2759,11 @@ if( ! function_exists('showSignUpPopup') ){
 		if(!$lastDateTime){
 			zipperagent_set_cookie('last_popup_time', $currDateTime);
 		}else{
-			$diffInSeconds = ($currDateTime-$lastDateTime); //minutes			
+			$diffInSeconds = ($currDateTime-$lastDateTime); //seconds
+			$diffInMinutes = $diffInSeconds / 60;
 			
 			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
-			if($diffInSeconds > $interval && $isPageDifferent){
+			if($diffInMinutes > $interval && $isPageDifferent){
 				$status=1;
 				zipperagent_set_cookie('last_popup_time', $currDateTime);		
 				zipperagent_set_cookie('last_visited_url', $currentUrl);
