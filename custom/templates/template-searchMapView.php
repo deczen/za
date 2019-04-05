@@ -754,12 +754,15 @@ else: ?>
 			foreach($search as $search_query){	
 				$coordinates=array();
 				$areas = get_map_coordinate($search_query);
+				// echo "<pre>"; print_r($areas); echo "</pre>";
 				if(isset($areas[0]->geojson->coordinates[0])){
 					foreach($areas[0]->geojson->coordinates[0] as $coordinate){
-						$coordinates[]=array(
-							'lat'=> $coordinate[1],
-							'lng'=> $coordinate[0],
-						);
+						if(isset($$coordinate[0]) && $coordinate[0] && isset($$coordinate[1]) && $coordinate[1]){
+							$coordinates[]=array(
+								'lat'=> $coordinate[1],
+								'lng'=> $coordinate[0],
+							);
+						}
 					}
 				}
 				

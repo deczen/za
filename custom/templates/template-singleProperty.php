@@ -799,8 +799,13 @@ if( sizeof($_GET)==$excParamCount ){
 				url: zipperagent.ajaxurl,
 				data: data,
 				success: function( response ) {         
-					if( response['html'] ){
-						jQuery( '#zipperagent-content' ).replaceWith( response['html'] );
+					if( response ){
+						// jQuery( '#zipperagent-content' ).replaceWith( response['html'] );						
+						jQuery( '#header-column' ).html( response['header_section'] );						
+						jQuery( '#description-column' ).html( response['description_section'] );						
+						jQuery( '#props-column' ).html( response['sidebar_section'] );
+						jQuery( '#detail-column' ).html( response['bottom_section'] );
+						jQuery( '#print-view-column' ).html( response['print_section'] );
 						<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
 						initMap();
 						<?php endif; ?>

@@ -33,7 +33,11 @@ switch( $column ){
 		
 		<div class="row mb-10 mt-25">
 			<?php if( $showResults ): ?>
-			<div class="col-xs-4"> <?php echo number_format_i18n($count,0); ?> Result(s)</div>
+				<?php if( ! $is_ajax_count ): ?>
+				<div class="col-xs-4 prop-total"><?php echo zipperagent_list_total($count); ?></div>
+				<?php else: ?>
+				<div class="col-xs-4 prop-total"></div>
+				<? endif; ?>
 			<?php endif; ?>
 			
 			<div class="col-xs-8">
@@ -314,28 +318,17 @@ switch( $column ){
 		</div>
 		
 		<?php if( $showPagination ): ?>
-		<div class="row">
-			<div class="col-xs-6">
-				<ul class="pagination">
-					<?php
-					/* pagination */
-					$total = $count;
-					$pagescount = ceil($total/$num);
-					$current_url=$actual_link;
-					$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
-					$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
-					?>
-					<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
-					</li>
-					<li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a>
-					</li>
-					<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>">&raquo;</a>
-					</li>
-				</ul>
+			<?php if( ! $is_ajax_count ): ?>
+			<div class="row prop-pagination">
+				<div class="col-xs-6">				
+					<?php echo zipperagent_pagination($page, $num, $count, $actual_link); ?>
+				</div>
+				<!--col-->
 			</div>
-			<!--col-->
-		</div>
-		<!--row-->
+			<!--row-->
+			<?php else: ?>
+			<div class="row prop-pagination"></div> <!-- show on ajax -->
+			<?php endif; ?>
 		<?php endif; ?>
 		
 		<?php

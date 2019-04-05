@@ -384,12 +384,23 @@ function display_property_detail(){
 			// $agent = zipperagent_get_agent("BB981188");
 		}
 		
-		ob_start();
-		include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';		
-		$property_detail=ob_get_clean();
-		$property_detail = zipperagent_property_fields($single_property, $property_detail);	
+		$is_doing_ajax=1;
 		
-		$result['html']=$property_detail;
+		ob_start();
+		include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
+		ob_clean(); //clear buffer
+		
+		$header_section = zipperagent_property_fields($single_property, $header_section);	
+		$description_section = zipperagent_property_fields($single_property, $description_section);		
+		$sidebar_section = zipperagent_property_fields($single_property, $sidebar_section);	
+		$bottom_section = zipperagent_property_fields($single_property, $bottom_section);
+		$print_section = zipperagent_property_fields($single_property, $print_section);	
+		
+		$result['header_section']=$header_section;
+		$result['description_section']=$description_section;		
+		$result['sidebar_section']=$sidebar_section;
+		$result['bottom_section']=$bottom_section;
+		$result['print_section']=$print_section;
 		
 		echo json_encode($result);
          
