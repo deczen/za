@@ -128,6 +128,28 @@ function check_user_logged_in(){
 	}
 }
 
+add_action( 'wp_ajax_image_click_count', 'check_image_click_count' );
+add_action( 'wp_ajax_nopriv_image_click_count', 'check_image_click_count' );
+
+function check_image_click_count(){
+	if ( isset($_REQUEST) ) {
+		
+		$limit = zipperagent_slider_limit_popup();
+		$count = (int) $_SESSION['za_image_clicked'] += 1;
+		
+		$return['result']=0;
+		
+		if($count >= $limit){ //is user logged in
+			$return['result']=$count;
+			$_SESSION['za_image_clicked']=0;
+		}
+		
+		echo json_encode($return);
+         
+        die();
+	}
+}
+
 add_action( 'wp_ajax_regist_user', 'regist_user' );
 add_action( 'wp_ajax_nopriv_regist_user', 'regist_user' );
 

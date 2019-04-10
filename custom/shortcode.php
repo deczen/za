@@ -112,7 +112,7 @@ function display_open_house_search($atts){
 		'o' => '',
 		// 'property_type_option' => '',
 		// 'property_type_default' => '',
-	), $atts, 'quick_search' );
+	), $atts, 'open_house' );
 	
 	$requests = $atts;
 	
@@ -238,6 +238,30 @@ function display_quick_search5($atts){
 		
 	ob_start();	
 	include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch5.php";
+	$html=ob_get_clean();
+	
+	return $html;
+}
+
+add_shortcode( 'za_quick_search6', 'display_quick_search6' );
+
+function display_quick_search6($atts){
+	global $requests;
+	
+	$atts = shortcode_atts( array(
+		'location_option' => '',
+		'column' => '',
+		'o' => '',
+		// 'property_type_option' => '',
+		// 'property_type_default' => '',
+		'minlistprice' => 500,
+		'maxlistprice' => 10000000,
+	), $atts, 'quick_search6' );
+	
+	$requests = $atts;
+		
+	ob_start();	
+	include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch6.php";
 	$html=ob_get_clean();
 	
 	return $html;

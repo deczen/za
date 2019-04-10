@@ -2699,7 +2699,8 @@ if( ! function_exists('detailpage_visit_counter') ){
 			$currentUrl="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
 			
-			if($isPageDifferent){
+			// if($isPageDifferent){
+			if(1){
 				$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
 				if(!is_numeric($detailpage_visit_counter) || $detailpage_visit_counter < 0){
 					$detailpage_visit_counter=0;
@@ -2729,7 +2730,8 @@ if( ! function_exists('showSignUpPopup') ){
 			
 			$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
 			// echo "COUNTER: ". $detailpage_visit_counter;
-			if($detailpage_visit_counter>=$counter && $isPageDifferent){
+			// if($detailpage_visit_counter>=$counter && $isPageDifferent){
+			if($detailpage_visit_counter>=$counter){
 				zipperagent_set_cookie('detailpage_visit_counter', 0); //reset counter
 				return 1;
 			}else{
@@ -2763,7 +2765,8 @@ if( ! function_exists('showSignUpPopup') ){
 			$diffInMinutes = $diffInSeconds / 60;
 			
 			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
-			if($diffInMinutes > $interval && $isPageDifferent){
+			// if($diffInMinutes > $interval && $isPageDifferent){
+			if($diffInMinutes > $interval){
 				$status=1;
 				zipperagent_set_cookie('last_popup_time', $currDateTime);		
 				zipperagent_set_cookie('last_visited_url', $currentUrl);
@@ -3199,6 +3202,289 @@ if( ! function_exists('zp_get_credentials') ){
 		);	
 		
 		return $return;
+	}
+}
+
+if( ! function_exists('zipperagent_omnibar') ){
+	function zipperagent_omnibar($requests=array()){
+	?>
+	<div id="omnibar-wrap">
+		<style>
+			#omnibar-wrap .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
+		</style>
+		<div class="row">
+			<div class="input-column col-sm-7">
+				<div class="search-by">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Search By
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<ul>
+						<li>All Categories</li>
+						<li>Address</li>
+						<li>Area</li>
+						<li>City / Town</li>
+						<li>Country</li>
+						<li>MLS #ID</li>
+						<li>School</li>
+						<li>Zip Code</li>
+					</ul>
+				  </div>
+				</div>
+				<div class="field-wrap">
+					<div class="field-section all">
+						<input id="zpa-area-input" class="zpa-area-input form-control" placeholder="<?php echo (empty($requests['location_option'])) ? "Enter City / County / Zip" : "Select Location"; ?>"  name="location[]"/>
+						<input class="zpa-area-input-hidden" name="" type="hidden">
+					</div>
+				</div>
+			</div>
+			<div class="filter-column col-sm-5">
+				<div class="dropdown-group">
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Price
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					  </div>
+					</div>
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Type
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					  </div>
+					</div>
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Beds
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					  </div>
+					</div>
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						 Baths
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					  </div>
+					</div>
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						 More +
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>			
+		<div id="zpa-view-selected-filter">
+			<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
+				<div class="ms-sel-ctn">
+				</div>
+			</div>
+		</div>
+		<form id="zpa-search-filter-form" class="form-inline zpa-quick-search-form">
+		<?php
+			foreach($requests as $key=>$value){
+				echo zipperagent_generate_filter_input($key, $value);
+			}
+		?>
+		</form>
+		<script>
+			jQuery(document).ready(function(){
+				
+				window.addFilterLabel = function(name, value){
+					name = name.toLowerCase();
+					var newLabel;
+					var currency='<?php echo zipperagent_currency(); ?>';
+					
+					switch(name){
+						case "maxlistprice":
+							newLabel = 'up to '+ currency + shortenmoney(value) ;	
+							break;
+						case "minlistprice":
+							newLabel = 'over '+ currency + shortenmoney(value) ;	
+							break;
+						case "bedrooms":
+							newLabel = value + ' + Beds';	
+							break;
+						case "bathcount":
+							newLabel = value + ' + Bath';	
+							break;
+						case "squarefeet":
+							newLabel = value + ' sqft';	
+							break;
+						<?php
+						$propTypeFields = get_property_type();
+						foreach($propTypeFields as $key => $val){
+						echo "\r\n" .
+						'case "propertytype_'.strtolower($key).'":'."\r\n" .
+							"newLabel = '{$val}'"."\r\n" .
+							'break;'."\r\n";
+						} ?>
+						case "yearbuilt":
+							newLabel = 'year ' + value;	
+							break;
+						case "maxdayslisted":
+							newLabel = 'max ' + value + ' days listed';
+							break;
+						case "withimage":
+							newLabel = 'has photos';	
+							break;
+						case "featuredonlyyn":
+							newLabel = 'featured';	
+							break;
+						case "openhomesonlyyn":
+							newLabel = 'open houses only';	
+							break;
+						case "hasvirtualtour":
+							newLabel = 'has virtual tour';	
+							break;
+						case "listinapage":
+							newLabel = value + ' results per page';	
+							break;
+						case "o":
+							switch(value){
+								case "apmin:DESC":
+									vall = 'price (high to low)';
+								break;
+								case "apmin:ASC":
+									vall = 'price (low to high)';
+								break;
+								case "asts:ASC":
+									vall = 'status';
+								break;
+								case "atwns:ASC":
+									vall = 'city';
+								break;
+								case "lid:DESC":
+									vall = 'listing date';
+								break;
+								case "apt:DESC":
+									vall = 'type/price descending';
+								break;
+								case "alstid:ASC":
+									vall = 'listing number';
+								break;
+								default:
+									vall = value;
+								break;
+							}
+							
+							// newLabel = 'order by ' + vall; //disable order label
+							newLabel='';
+							break;
+						case "advstno":
+							newLabel = 'street number ' + value;	
+							break;
+						case "advstname":
+						case "advtownnm":
+						case "advstates":
+						case "advcounties":
+							newLabel = value;	
+							break;
+						case "advstzip":
+							newLabel = 'zipcode ' + value;	
+							break;
+						case "alstid":
+							newLabel = 'mls# ' + value;	
+							break;
+						case "apold":
+							newLabel = 'Pool Description';	
+							break;
+						case "altand":
+							newLabel = 'Lot Description ' + value;	
+							break;
+						case "awtrf":
+							newLabel = 'Waterfront Flag';	
+							break;
+						default:												
+							newLabel = name.toLowerCase()+' '+value;
+							break;
+					}
+					
+					if(!newLabel)
+						return;
+					
+					if(jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name='+name+']').length){
+						var replace='<div class="ms-sel-item" attribute-name="'+name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
+						jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name='+name+']').replaceWith(replace);
+					}else{
+						var add='<div class="ms-sel-item" attribute-name="'+name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
+						jQuery('#zpa-selected-filter .ms-sel-ctn').append(add);						
+					}
+				}
+				
+				function shortenmoney(num){
+					if(num>=1000){
+						return num/1000 + 'K';
+					}else{
+						return num;
+					}
+				}
+				
+				jQuery('body').on('click', '#zpa-selected-filter .ms-sel-ctn .ms-sel-item', function(){
+					name = jQuery(this).attr('attribute-name');
+					value = jQuery(this).attr('attribute-value');
+					
+					jQuery('#zpa-search-filter-form input[linked-name='+name+']').remove();
+					jQuery(this).remove();
+					
+					jQuery('#zpa-search-filter-form').submit();
+				});
+				
+				<?php
+				foreach($requests as $key=>$value){
+					
+					if(empty($value))
+						continue;
+					
+					if(is_array($value)){
+						$values=$value;
+						foreach($values as $value){							
+							echo 'addFilterLabel("'. $key .'_'. $value .'", "'. $value .'");'."\r\n";
+						}
+					}else{
+						echo 'addFilterLabel("'. $key .'", "'. $value .'");'."\r\n";
+					}
+				}
+				?>
+			});
+		</script>
+	</div>
+	<?php
+	}
+}
+
+if( ! function_exists('zipperagent_generate_filter_input') ){
+	function zipperagent_generate_filter_input($key, $value){
+		
+		if(!is_array($value)){
+			$input="<input type='hidden' linked-name='{$key}' name='{$key}' value='{$value}' />"."\r\n";
+		}else{
+			$values=$value;
+			foreach($values as $value){
+				$input="<input type='hidden' linked-name='{$key}_{$value}' name='{$key}[]' value='{$value}' />"."\r\n";
+			}
+		}
+		
+		return $input;
 	}
 }
 

@@ -593,14 +593,31 @@ if(file_exists($template_path) && $template_name ){
 								})
 								
 								<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
-								var count=0;
-								var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
+								<?php /* var count=0;
+								var limit='<?php echo zipperagent_slider_limit_popup(); ?>'; */ ?>
 								$topHeadCarousel.on('changed.owl.carousel', function(event) {
+									<?php /*
 									count++;
 									if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
 										jQuery('#needLoginModal').modal('show');
 										count=0;
-									}
+									} */ ?>
+									
+									var data = {
+										action: 'image_click_count',			
+									};
+									
+									jQuery.ajax({
+										type: 'POST',
+										dataType : 'json',
+										url: zipperagent.ajaxurl,
+										data: data,
+										success: function( response ) {    
+											if( response['result'] ){
+												jQuery('#needLoginModal').modal('show');
+											}
+										}
+									});
 								});
 								<?php endif; ?>
 							})(jQuery)
