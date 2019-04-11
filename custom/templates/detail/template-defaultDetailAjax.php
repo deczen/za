@@ -601,6 +601,9 @@ if(file_exists($template_path) && $template_name ){
 									ajax_image_count(count);		
 									if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
 										jQuery('#needLoginModal').modal('show');
+										<?php if(!zipperagent_signup_optional()): ?>
+										set_popup_is_triggered();
+										<?php endif; ?>
 										count=0;
 									}
 									

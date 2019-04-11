@@ -568,16 +568,39 @@ $rb = zipperagent_rb();
 	<?php endif; ?>
 	<?php if( ! getCurrentUserContactLogin() && showSignUpPopup() ): //only for non logged in user ?>
 	<script>
-		jQuery(document).ready(function(){
+		jQuery(document).ready(function(){			
 			var show = function(){
-				jQuery('#needLoginModal').modal('show');
+				jQuery('#needLoginModal').modal('show');				
+				
+				<?php if(!zipperagent_signup_optional()): ?>
+				set_popup_is_triggered();
+				<?php endif; ?>
 			};
+			
 			var seconds='<?php echo SignUpPopupTime(); ?>';
 			setTimeout(function(){
 				show();
 			}, 1000*parseInt(seconds));
-		});
-		
+		});		
+	</script>
+	<script>
+		function set_popup_is_triggered(){
+			var data = {
+				action: 'trigger_popup',               
+			};
+			
+			jQuery.ajax({
+				type: 'POST',
+				dataType : 'json',
+				url: zipperagent.ajaxurl,
+				data: data,
+				success: function( response ) {    
+					if( response['result'] ){
+						
+					}
+				}
+			});
+		}
 	</script>
 	<?php endif; ?> 
 </div>

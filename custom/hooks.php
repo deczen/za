@@ -93,6 +93,9 @@ function login_user(){
 			
 			flush_rewrite_rules(); //fix page not found
 			
+			if(!zipperagent_signup_optional())
+				$_SESSION['popup_is_triggered'] = 0; //reset popup state
+			
 			//add saved cookies to account
 			// add_saved_cookies_to_account();
 		}else{
@@ -145,6 +148,22 @@ function check_image_click_count(){
 			// $return['result']=$count;
 			// $_SESSION['za_image_clicked']=0;
 		// }
+		
+		echo json_encode($return);
+         
+        die();
+	}
+}
+
+add_action( 'wp_ajax_trigger_popup', 'set_popup_triggered' );
+add_action( 'wp_ajax_nopriv_trigger_popup', 'set_popup_triggered' );
+
+function set_popup_triggered(){
+	if ( isset($_REQUEST) ) {
+		
+		$_SESSION['popup_is_triggered']=1; //popup is already triggered
+		
+		$return['result']=1;
 		
 		echo json_encode($return);
          
@@ -241,6 +260,9 @@ function regist_user(){
 			$return['result']=$result;
 			
 			flush_rewrite_rules(); //fix page not found
+			
+			if(!zipperagent_signup_optional())
+				$_SESSION['popup_is_triggered'] = 0; //reset popup state
 			
 			//add saved cookies to account
 			// add_saved_cookies_to_account();

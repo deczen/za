@@ -2719,6 +2719,13 @@ if( ! function_exists('showSignUpPopup') ){
 	function showSignUpPopup(){
 		
 	/*
+	 * Check is popup is mandatory or not
+	 */
+	
+	if( !zipperagent_signup_optional() && $_SESSION['popup_is_triggered'] == 1)
+		return 1;
+	
+	/*
 	 * using popup detailpage visit counter
 	 */
 		$counter=SignUpPopupVisitCounter();
@@ -2779,7 +2786,10 @@ if( ! function_exists('showSignUpPopup') ){
 
 if( ! function_exists('SignUpPopupTime') ){
 	function SignUpPopupTime(){
-				
+		
+		if( !zipperagent_signup_optional() && $_SESSION['popup_is_triggered'] == 1)
+			return 0; //if sign up is mandatory and already triggered before, show popup immediately
+		
 		$rb = zipperagent_rb();
 		$seconds = $rb['web']['popup_show_time'];
 		
