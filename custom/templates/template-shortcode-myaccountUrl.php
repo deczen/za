@@ -6,16 +6,16 @@ $myaccount_url=isset($requests['myaccount_url'])&&!empty($requests['myaccount_ur
 if( ! getCurrentUserContactLogin()){
 	// echo '<a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a>';
 	echo '<ul class="nav nav-myaccount">';
-	echo "<li><a class='favorites-count needLogin' href='".$myaccount_url."?menu=my-favorite' afterAction='myaccount_favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
-	echo "<li><a class='save-search-count needLogin' href='".$myaccount_url."?menu=my-search' afterAction='myaccount_saved_search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='favorites-count needLogin' href='".$myaccount_url."?menu=my-favorite' afterAction='myaccount_favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='save-search-count needLogin' href='".$myaccount_url."?menu=my-search' afterAction='myaccount_saved_search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
 	echo '<li><a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a></li>';
 	echo '</ul>';
 
 }else{
 	$myaccountname=zipperagent_user_name();
 	echo '<ul class="nav nav-myaccount">';
-	echo "<li><a class='favorites-count' href='".$myaccount_url."?menu=my-favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
-	echo "<li><a class='save-search-count' href='".$myaccount_url."?menu=my-search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='favorites-count' href='".$myaccount_url."?menu=my-favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='save-search-count' href='".$myaccount_url."?menu=my-search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
 	echo '<li><a class="myaccount-url" href="'.$myaccount_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">'.$myaccountname.'</span></a>';
 	echo "<ul class='sub-menu'>";
 	echo "<li><a href='".$myaccount_url."'>Profile</a></li>";
