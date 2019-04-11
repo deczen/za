@@ -529,8 +529,11 @@ if( $enable_filter ):
 					jQuery('.save-favorite-btn').attr( 'contactId', contactId );
 					jQuery('.property_url').each(function(){
 						var url = jQuery(this).attr( 'href' );
-						// jQuery(this).attr( 'href', url + '?searchId=' + searchId );
-						jQuery(this).attr( 'href', url + '&searchId=' + searchId );
+						
+						if(searchId && searchId!==1)
+							jQuery(this).attr( 'href', url + '?searchId=' + searchId );
+						
+						// jQuery(this).attr( 'href', url + '&searchId=' + searchId );
 					});
 				}else{
 					alert( 'save failed!' );
@@ -563,8 +566,11 @@ if( $enable_filter ):
 					jQuery('.save-favorite-btn').attr( 'contactId', contactId );
 					jQuery('.property_url').each(function(){
 						var url = jQuery(this).attr( 'href' );
-						// jQuery(this).attr( 'href', url + '?searchId=' + searchId );
-						jQuery(this).attr( 'href', url + '&searchId=' + searchId );
+						
+						if(searchId && searchId!==1)
+							jQuery(this).attr( 'href', url + '?searchId=' + searchId );
+						
+						// jQuery(this).attr( 'href', url + '&searchId=' + searchId );
 					});
 					
 					//set topbar count

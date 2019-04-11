@@ -522,7 +522,7 @@ if(file_exists($template_path) && $template_name ){
 						</div>
 						<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 						<script>
-							(function($){
+							jQuery(document).ready(function($){
 								function setThumbnailAsASelected(number) {
 									$carouselController.find(".owl-item.selected").removeClass("selected"), $carouselController.find(".owl-item:nth-of-type(" + (number + 1) + ")").addClass("selected")
 								}
@@ -623,7 +623,7 @@ if(file_exists($template_path) && $template_name ){
 									}
 								});
 								<?php endif; ?>
-							})(jQuery)
+							});
 						</script>
 						<?php endif; ?>
 

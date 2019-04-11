@@ -168,7 +168,7 @@ $contactIds=get_contact_id();
 						</div>
 						<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 						<script>
-							(function($){
+							jQuery(document).ready(function($){
 								function setThumbnailAsASelected(number) {
 									$carouselController.find(".owl-item.selected").removeClass("selected"), $carouselController.find(".owl-item:nth-of-type(" + (number + 1) + ")").addClass("selected")
 								}
@@ -269,7 +269,7 @@ $contactIds=get_contact_id();
 									}
 								});
 								<?php endif; ?>
-							})(jQuery)
+							});
 						</script>
 						<?php endif; ?>
 

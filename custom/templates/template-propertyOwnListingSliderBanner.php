@@ -336,7 +336,7 @@ if( $aloff ){
 		</style>
 		<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>			
 		<script>
-			(function($){
+			jQuery(document).ready(function($){
 				
 				var $ = jQuery.noConflict();
 				
@@ -415,7 +415,7 @@ if( $aloff ){
 				}, $(document).ready(function() {
 					$.application.init()
 				});
-			})(jQuery)
+			});
 		</script>
 	<?php
 	}else{
