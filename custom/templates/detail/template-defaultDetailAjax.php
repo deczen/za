@@ -593,31 +593,34 @@ if(file_exists($template_path) && $template_name ){
 								})
 								
 								<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
-								<?php /* var count=0;
-								var limit='<?php echo zipperagent_slider_limit_popup(); ?>'; */ ?>
+								var count=<?php echo $_SESSION['za_image_clicked'] ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
+								var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
 								$topHeadCarousel.on('changed.owl.carousel', function(event) {
-									<?php /*
-									count++;
+									
+									count++;								
+									ajax_image_count(count);		
 									if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
 										jQuery('#needLoginModal').modal('show');
 										count=0;
-									} */ ?>
+									}
 									
-									var data = {
-										action: 'image_click_count',			
-									};
-									
-									jQuery.ajax({
-										type: 'POST',
-										dataType : 'json',
-										url: zipperagent.ajaxurl,
-										data: data,
-										success: function( response ) {    
-											if( response['result'] ){
-												jQuery('#needLoginModal').modal('show');
+									function ajax_image_count(count){
+										var data = {
+											action: 'image_click_count',			
+											count: count,			
+										};
+										
+										jQuery.ajax({
+											type: 'POST',
+											dataType : 'json',
+											url: zipperagent.ajaxurl,
+											data: data,
+											success: function( response ) {    
+												if( response['result'] ){
+												}
 											}
-										}
-									});
+										});
+									}
 								});
 								<?php endif; ?>
 							})(jQuery)

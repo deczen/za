@@ -135,14 +135,16 @@ function check_image_click_count(){
 	if ( isset($_REQUEST) ) {
 		
 		$limit = zipperagent_slider_limit_popup();
-		$count = (int) $_SESSION['za_image_clicked'] += 1;
+		// $count = (int) $_SESSION['za_image_clicked'] += 1;
+		$count = (int) $_SESSION['za_image_clicked'] = (int) $_REQUEST['count'];
 		
-		$return['result']=0;
+		$return['result']=1;
+		$return['count']=$count;
 		
-		if($count >= $limit){ //is user logged in
-			$return['result']=$count;
-			$_SESSION['za_image_clicked']=0;
-		}
+		// if($count >= $limit){ //is user logged in
+			// $return['result']=$count;
+			// $_SESSION['za_image_clicked']=0;
+		// }
 		
 		echo json_encode($return);
          
