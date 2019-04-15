@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
 	
     $('#za-area-input').magicSuggest({
         // data: zipperagent.townurl,
-		data: '/wp-content/plugins/zipperagent/custom/towns.php',
+		data: '/wp-content/plugins/zipperagent/custom/api-processing/towns.php',
         valueField: 'town',
         displayField: 'town',
         groupBy: 'group',

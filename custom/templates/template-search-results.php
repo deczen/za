@@ -61,7 +61,7 @@ $column 			= ( isset($requests['column'])?$requests['column']:'' );
 
 //distance search variables
 $searchDistance 	= ( isset($requests['searchdistance'])?$requests['searchdistance']:'' );
-$distance 			= ( isset($requests['distance'])?$requests['distance']:'' );
+$distance 			= ( isset($requests['distance'])?$requests['distance']:zipperagent_distance() );
 $lat 				= ( isset($requests['lat'])?$requests['lat']:'' );
 $lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
 
@@ -199,7 +199,11 @@ if( isset($requests['alstid']) )
 
 foreach( $requests as $key=>$val ){
 	if( ! in_array( strtolower($key), $excludes ) ){
-		$advSearch[$key]=($val);
+		if(is_array($val)){
+			$advSearch[$key]=implode(',',$val);
+		}else{			
+			$advSearch[$key]=($val);
+		}
 	}
 }
 
@@ -321,7 +325,7 @@ if( $openHomesMode ){ // open houses mode
 	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 	$list=isset($result['filteredList'])?$result['filteredList']:$result;
 	
-}else if( $searchDistance=="true" || $searchDistance=="1" ){ // map mode
+}else if( $searchDistance=="true" || $searchDistance=="1" || ($lat && $lng) ){ // map mode
 	
 	$search=array(
 		'asrc'=>$rb['web']['asrc'],

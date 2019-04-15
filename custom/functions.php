@@ -193,6 +193,7 @@ if( ! function_exists('zipperagent_rb') ){
 			$save_session['web']['print_color'] = $rb['web']['print_color'];
 			$save_session['web']['default_proptype'] = $rb['web']['default_proptype'];
 			$save_session['web']['popup_detail_page_only'] = $rb['web']['popup_detail_page_only'];
+			$save_session['web']['distance'] = $rb['web']['distance'];
 			
 			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
@@ -420,7 +421,7 @@ if( ! function_exists('zipperagent_rental_status') ){
 if( ! function_exists('get_rental_status') ){
 	function get_rental_status(){
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/rental.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/rental.php";
 		$json = ob_get_clean();
 		$obj = json_decode($json);
 		
@@ -739,10 +740,18 @@ if( ! function_exists('get_meta_fields') ){
 	}
 }
 
+if( ! function_exists('get_references_field') ){
+	function get_references_field($field){
+		$fields = get_field_list();
+		
+		return isset($fields->$field)?$fields->$field:array();
+	}
+}
+
 if( ! function_exists('get_property_type') ){
 	function get_property_type($type=array('NA')){	
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/proptype.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 		
@@ -764,7 +773,7 @@ if( ! function_exists('get_property_type') ){
 if( ! function_exists('get_lot_descriptions') ){
 	function get_lot_descriptions(){	
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/lotdescription.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/lotdescription.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 		
@@ -1389,7 +1398,7 @@ if( ! function_exists('zipperagent_meta') ){
 if( ! function_exists('zipperagent_area_town') ){
 	function zipperagent_area_town(){
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/areaTowns.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/areaTowns.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 		
@@ -1484,7 +1493,7 @@ if( ! function_exists('zipperagent_get_source_details_cached') ){
 	function zipperagent_get_source_details_cached(){
 		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/source.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/source.php";
 		$json=ob_get_clean();
 		$data=json_decode($json,true);
 		
@@ -1817,8 +1826,35 @@ if( ! function_exists('get_towns_array') ){
 	}
 }
 
-if( ! function_exists('populate_countries_with_option') ){
-	function populate_countries_with_option($meta){
+if( ! function_exists('populate_areas_with_option') ){
+	function populate_areas_with_option($meta){
+		
+		$arr=array();
+		
+		if( is_object( $meta ) ){
+			$areas = isset($meta->areas) ? $meta->areas : array();
+			$enable_custom_area = get_option( 'enable_custom_area', null );
+			$area_values 		  = get_option( 'area_list', null );
+			
+			foreach( $areas as $area ){
+				$code = 'aars_'.$area->value->shrt;
+				if( $enable_custom_area && in_array( $code, $area_values ) || !$enable_custom_area ){
+					$arr[]=array(
+							'group'=>'Areas',
+							'name'=>$area->value->lng,
+							'code'=> $code,
+							'type'=>'area',
+						);
+				}
+			}
+		}
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('populate_counties_with_option') ){
+	function populate_counties_with_option($meta){
 		
 		$arr=array();
 		
@@ -1874,9 +1910,39 @@ if( ! function_exists('zipperagent_populate_options') ){
 		// $meta = zipperagent_meta();
 		$meta = zipperagent_area_town();
 		$data1 = populate_towns_with_option($meta);
-		$data2 = populate_countries_with_option($meta);
+		$data2 = populate_counties_with_option($meta);
 		
 		$data= array_merge($data1, $data2);
+		
+		return $data;
+	}
+}
+
+if( ! function_exists('zipperagent_populate_autocomplete_data') ){
+	function zipperagent_populate_autocomplete_data(){
+		// $meta = zipperagent_meta();
+		$meta = zipperagent_area_town();
+		$towns = populate_towns_with_option($meta);
+		$areas = populate_areas_with_option($meta);
+		$counties = populate_counties_with_option($meta);
+		
+		$data= array(
+			'towns' => $towns,
+			'areas' => $areas,
+			'counties' => $counties,
+		);
+		
+		return $data;
+	}
+}
+
+if( ! function_exists('get_autocomplete_data') ){
+	function get_autocomplete_data(){
+		ob_start();
+		include ZIPPERAGENTPATH . '/custom/api-processing/autocomplete.php'; 
+		$json = ob_get_clean();
+		
+		$data = json_decode($json);
 		
 		return $data;
 	}
@@ -1916,7 +1982,7 @@ if( ! function_exists('get_town_list') ){
 	function get_town_list(){
 		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/towns.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/towns.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 		$arr=array();
@@ -1935,7 +2001,7 @@ if( ! function_exists('get_field_list') ){
 	function get_field_list(){
 		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/fields.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/fields.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 			
@@ -1947,7 +2013,7 @@ if( ! function_exists('za_get_alert_type') ){
 	function za_get_alert_type(){
 		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/alert.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/alert.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 			
@@ -2275,7 +2341,7 @@ if( ! function_exists('zipperagent_get_agent_list') ){
 	function zipperagent_get_agent_list(){
 		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/users.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/users.php";
 		$users = ob_get_clean();		
 		
 		return json_decode($users);
@@ -3165,6 +3231,16 @@ if( ! function_exists('is_popup_detail_page_only') ){
 	}
 }
 
+if( ! function_exists('zipperagent_distance') ){
+	function zipperagent_distance(){
+		$rb = zipperagent_rb();
+			
+		$distance = isset($rb['web']['distance'])?$rb['web']['distance']:8000;
+		
+		return $distance;
+	}
+}
+
 if( ! function_exists('zp_using_criteria') ){
 	function zp_using_criteria(){
 		
@@ -3217,268 +3293,7 @@ if( ! function_exists('zp_get_credentials') ){
 
 if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
-	?>
-	<div id="omnibar-wrap">
-		<style>
-			#omnibar-wrap .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
-		</style>
-		<div class="row">
-			<div class="input-column col-sm-7">
-				<div class="search-by">
-				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Search By
-				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<ul>
-						<li>All Categories</li>
-						<li>Address</li>
-						<li>Area</li>
-						<li>City / Town</li>
-						<li>Country</li>
-						<li>MLS #ID</li>
-						<li>School</li>
-						<li>Zip Code</li>
-					</ul>
-				  </div>
-				</div>
-				<div class="field-wrap">
-					<div class="field-section all">
-						<input id="zpa-area-input" class="zpa-area-input form-control" placeholder="<?php echo (empty($requests['location_option'])) ? "Enter City / County / Zip" : "Select Location"; ?>"  name="location[]"/>
-						<input class="zpa-area-input-hidden" name="" type="hidden">
-					</div>
-				</div>
-			</div>
-			<div class="filter-column col-sm-5">
-				<div class="dropdown-group">
-					<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Price
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					  </div>
-					</div>
-					<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Type
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					  </div>
-					</div>
-					<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Beds
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					  </div>
-					</div>
-					<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						 Baths
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					  </div>
-					</div>
-					<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						 More +
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					  </div>
-					</div>
-				</div>
-			</div>
-		</div>			
-		<div id="zpa-view-selected-filter">
-			<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
-				<div class="ms-sel-ctn">
-				</div>
-			</div>
-		</div>
-		<form id="zpa-search-filter-form" class="form-inline zpa-quick-search-form">
-		<?php
-			foreach($requests as $key=>$value){
-				echo zipperagent_generate_filter_input($key, $value);
-			}
-		?>
-		</form>
-		<script>
-			jQuery(document).ready(function(){
-				
-				window.addFilterLabel = function(name, value){
-					name = name.toLowerCase();
-					var newLabel;
-					var currency='<?php echo zipperagent_currency(); ?>';
-					
-					switch(name){
-						case "maxlistprice":
-							newLabel = 'up to '+ currency + shortenmoney(value) ;	
-							break;
-						case "minlistprice":
-							newLabel = 'over '+ currency + shortenmoney(value) ;	
-							break;
-						case "bedrooms":
-							newLabel = value + ' + Beds';	
-							break;
-						case "bathcount":
-							newLabel = value + ' + Bath';	
-							break;
-						case "squarefeet":
-							newLabel = value + ' sqft';	
-							break;
-						<?php
-						$propTypeFields = get_property_type();
-						foreach($propTypeFields as $key => $val){
-						echo "\r\n" .
-						'case "propertytype_'.strtolower($key).'":'."\r\n" .
-							"newLabel = '{$val}'"."\r\n" .
-							'break;'."\r\n";
-						} ?>
-						case "yearbuilt":
-							newLabel = 'year ' + value;	
-							break;
-						case "maxdayslisted":
-							newLabel = 'max ' + value + ' days listed';
-							break;
-						case "withimage":
-							newLabel = 'has photos';	
-							break;
-						case "featuredonlyyn":
-							newLabel = 'featured';	
-							break;
-						case "openhomesonlyyn":
-							newLabel = 'open houses only';	
-							break;
-						case "hasvirtualtour":
-							newLabel = 'has virtual tour';	
-							break;
-						case "listinapage":
-							newLabel = value + ' results per page';	
-							break;
-						case "o":
-							switch(value){
-								case "apmin:DESC":
-									vall = 'price (high to low)';
-								break;
-								case "apmin:ASC":
-									vall = 'price (low to high)';
-								break;
-								case "asts:ASC":
-									vall = 'status';
-								break;
-								case "atwns:ASC":
-									vall = 'city';
-								break;
-								case "lid:DESC":
-									vall = 'listing date';
-								break;
-								case "apt:DESC":
-									vall = 'type/price descending';
-								break;
-								case "alstid:ASC":
-									vall = 'listing number';
-								break;
-								default:
-									vall = value;
-								break;
-							}
-							
-							// newLabel = 'order by ' + vall; //disable order label
-							newLabel='';
-							break;
-						case "advstno":
-							newLabel = 'street number ' + value;	
-							break;
-						case "advstname":
-						case "advtownnm":
-						case "advstates":
-						case "advcounties":
-							newLabel = value;	
-							break;
-						case "advstzip":
-							newLabel = 'zipcode ' + value;	
-							break;
-						case "alstid":
-							newLabel = 'mls# ' + value;	
-							break;
-						case "apold":
-							newLabel = 'Pool Description';	
-							break;
-						case "altand":
-							newLabel = 'Lot Description ' + value;	
-							break;
-						case "awtrf":
-							newLabel = 'Waterfront Flag';	
-							break;
-						default:												
-							newLabel = name.toLowerCase()+' '+value;
-							break;
-					}
-					
-					if(!newLabel)
-						return;
-					
-					if(jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name='+name+']').length){
-						var replace='<div class="ms-sel-item" attribute-name="'+name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
-						jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name='+name+']').replaceWith(replace);
-					}else{
-						var add='<div class="ms-sel-item" attribute-name="'+name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
-						jQuery('#zpa-selected-filter .ms-sel-ctn').append(add);						
-					}
-				}
-				
-				function shortenmoney(num){
-					if(num>=1000){
-						return num/1000 + 'K';
-					}else{
-						return num;
-					}
-				}
-				
-				jQuery('body').on('click', '#zpa-selected-filter .ms-sel-ctn .ms-sel-item', function(){
-					name = jQuery(this).attr('attribute-name');
-					value = jQuery(this).attr('attribute-value');
-					
-					jQuery('#zpa-search-filter-form input[linked-name='+name+']').remove();
-					jQuery(this).remove();
-					
-					jQuery('#zpa-search-filter-form').submit();
-				});
-				
-				<?php
-				foreach($requests as $key=>$value){
-					
-					if(empty($value))
-						continue;
-					
-					if(is_array($value)){
-						$values=$value;
-						foreach($values as $value){							
-							echo 'addFilterLabel("'. $key .'_'. $value .'", "'. $value .'");'."\r\n";
-						}
-					}else{
-						echo 'addFilterLabel("'. $key .'", "'. $value .'");'."\r\n";
-					}
-				}
-				?>
-			});
-		</script>
-	</div>
-	<?php
+		include ZIPPERAGENTPATH. "/custom/templates/template-searchBar.php";
 	}
 }
 
@@ -3486,15 +3301,66 @@ if( ! function_exists('zipperagent_generate_filter_input') ){
 	function zipperagent_generate_filter_input($key, $value){
 		
 		if(!is_array($value)){
-			$input="<input type='hidden' linked-name='{$key}' name='{$key}' value='{$value}' />"."\r\n";
+			echo "<input type='hidden' linked-name='{$key}' name='{$key}' value='{$value}' />"."\r\n";
 		}else{
 			$values=$value;
 			foreach($values as $value){
-				$input="<input type='hidden' linked-name='{$key}_{$value}' name='{$key}[]' value='{$value}' />"."\r\n";
+				echo "<input type='hidden' linked-name='{$key}_{$value}' name='{$key}[]' value='{$value}' />"."\r\n";
 			}
 		}
+	}
+}
+
+if( ! function_exists('zipperagent_generate_filter_label') ){
+	function zipperagent_generate_filter_label($key, $value){
 		
-		return $input;
+		$label='';
+		
+		if(empty($value))
+			return;
+		
+		if(is_array($value)){
+			
+			$data = get_autocomplete_data();
+			$values=$value;
+			foreach($values as $value){		
+				
+				switch($key){
+					case "location":
+							$arr=explode('_', $value);
+							$prefix = reset($arr);
+							$code = end($arr);
+							switch($prefix){
+								case "atwns":
+										$index='towns';
+									break;
+								case "aars":
+										$index='areas';
+									break;
+								case "acnty":
+										$index='counties';
+									break;
+								case "azip":
+										$index='zipcodes';
+									break;
+								
+							}
+							
+							if(isset($data->$index)){					
+								foreach($data->$index as $ety){
+									if($ety->code===$value){
+										$label = $ety->name;
+									}
+								}					
+							}
+						break;
+				}
+				
+				echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
+			}
+		}else{
+			echo 'addFilterLabel("'. strtolower($key) .'", "'. $value .'", "'. strtolower($key) .'", "'. $label .'");'."\r\n";
+		}
 	}
 }
 

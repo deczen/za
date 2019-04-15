@@ -57,7 +57,7 @@ unset($alstid); */
 
 	<div class="zpa-listing-detail">
 	
-		<?php if( $top_search_enabled ): ?>
+		<?php if( $top_search_enabled ): /* ?>
 		<div class="bt-listing-search__wrapper js-filter-bar">
 			<div class="grid grid--gutters grid--center">
 				<div class="cell">
@@ -156,7 +156,7 @@ unset($alstid); */
 													</ul>
 												</div>
 											</div>
-										</div> */ ?>
+										</div> * ?>
 										
 										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
 											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
@@ -377,8 +377,8 @@ unset($alstid); */
 					</div>
 				</div>
 			</div>
-		</div>
-		
+		</div> */ ?>
+		<?php zipperagent_omnibar($requests); ?>
 		<?php endif; ?>
 	</div>
 	
@@ -387,9 +387,11 @@ unset($alstid); */
 </div>
 
 <?php if( $top_search_enabled ): ?>
-<?php global_magicsuggest_script($location); ?>
+<?php //global_magicsuggest_script($location); ?>
 <script>
 	jQuery(document).ready(function(){
+		
+		<?php /* //old search bar script, has to disabled
 		
 		<?php if( !empty( $location ) || is_array( $location ) ): ?>
 		var changeCount=0;
@@ -448,7 +450,7 @@ unset($alstid); */
 					onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
 				}
 			}
-		});
+		}); */ ?>
 		
 		jQuery('#zpa-search-filter-form').on("submit", function(event) {
 			var $form = jQuery(this); //wrap this in jQuery

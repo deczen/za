@@ -161,7 +161,11 @@ if( isset($requests['alstid']) )
 
 foreach( $requests as $key=>$val ){
 	if( ! in_array( strtolower($key), $excludes ) ){
-		$advSearch[$key]=($val);
+		if(is_array($val)){
+			$advSearch[$key]=implode(',',$val);
+		}else{			
+			$advSearch[$key]=($val);
+		}
 	}
 }
 

@@ -27,7 +27,7 @@ class zipperAgentEnqueueResource {
 		wp_enqueue_script("jquery-ui-datepicker");
 		wp_enqueue_script("jquery-ui-autocomplete", "", array("jquery-ui-widget", "jquery-ui-position"), "1.8.6");
 		
-		$localize = array('townurl'=> ZIPPERAGENTURL . 'custom/towns.php');
+		$localize = array('townurl'=> ZIPPERAGENTURL . 'custom/api-processing/towns.php');
 		wp_localize_script('jquery','zipperagent',$localize);
 		
 		$remoteRequest = new zipperAgentRequestor();
