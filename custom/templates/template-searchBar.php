@@ -1,5 +1,6 @@
 <?php
 $currency = zipperagent_currency();
+$excludes = get_filter_excludes();
 ?>
 <div id="omnibar-wrap">
 	<div class="desktop-omnibar">
@@ -27,7 +28,7 @@ $currency = zipperagent_currency();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Enter Town / Area / County / Zip"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Enter Town / Area / County / Zip"  name="location[]"/>
 					</div>
 					<div class="field-section addr hide">
 						<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
@@ -74,394 +75,396 @@ $currency = zipperagent_currency();
 				</script>
 			</div>
 			<div class="filter-column col-sm-6">
-				<div class="dropdown-group">
-					<div class="dropdown listprice">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Price
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<div class="row">
-							<div class="min-price col-xs-6">
-								<input id="minlistprice" name="minlistprice" type="text" />
-								<label for="minlistprice">Min Price</label>
-							</div>
-							<div class="max-price col-xs-6">
-								<input id="maxlistprice" name="maxlistprice" type="text" />
-								<label for="maxlistprice">Max Price</label>
-							</div>
-						</div>
-						<div class="select-price row">
-							<div class="col-xs-6">
-								<ul class="select-min-price">
-									<li><a href="#" value="0"><?php echo $currency; ?>0K</a></li>
-									<li><a href="#" value="50000"><?php echo $currency; ?>50K</a></li>
-									<li><a href="#" value="75000"><?php echo $currency; ?>75K</a></li>
-									<li><a href="#" value="100000"><?php echo $currency; ?>100K</a></li>
-									<li><a href="#" value="150000"><?php echo $currency; ?>150K</a></li>
-									<li><a href="#" value="200000"><?php echo $currency; ?>200K</a></li>
-									<li><a href="#" value="250000"><?php echo $currency; ?>250K</a></li>
-									<li><a href="#" value="300000"><?php echo $currency; ?>300K</a></li>
-									<li><a href="#" value="350000"><?php echo $currency; ?>350K</a></li>
-									<li><a href="#" value="400000"><?php echo $currency; ?>400K</a></li>										
-								</ul>
-							</div>
-							<div class="col-xs-6">
-								<ul class="select-max-price">
-									<li><a href="#" value="125000"><?php echo $currency; ?>125K</a></li>
-									<li><a href="#" value="150000"><?php echo $currency; ?>150K</a></li>
-									<li><a href="#" value="175000"><?php echo $currency; ?>175K</a></li>
-									<li><a href="#" value="200000"><?php echo $currency; ?>200K</a></li>
-									<li><a href="#" value="225000"><?php echo $currency; ?>225K</a></li>
-									<li><a href="#" value="250000"><?php echo $currency; ?>250K</a></li>
-									<li><a href="#" value="275000"><?php echo $currency; ?>275K</a></li>
-									<li><a href="#" value="300000"><?php echo $currency; ?>300K</a></li>										
-									<li><a href="#" value="325000"><?php echo $currency; ?>325K</a></li>										
-									<li><a href="#" value="">Any Price</a></li>										
-								</ul>
-							</div>
-						</div>
-					  </div>
-					</div>
-					<div class="dropdown type">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Type
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<div class="row">
-							<div class="proptype col-xs-6">
-								<h3>Property Type</h3>
-								<ul class="propertytype">
-									<?php
-									$propTypeFields = get_property_type();
-									foreach( $propTypeFields as $fieldCode=>$fieldName ){
-										echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propertytype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
-									}
-									?>
-								</ul>									
-							</div>
-							<div class="propstatus col-xs-6">
-								<h3>Listing Status</h3>
-								<ul class="status">
-									<li><label for="active"><input id="active" name="status" type="radio" value="" /> Active</label></li>
-									<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
-								</ul>
-							</div>
-						</div>
-					  </div>
-					</div>
-					<div class="dropdown beds">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Beds
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<ul class="bedrooms">
-							<li><label for="beedrooms"><input id="beedrooms" name="bedrooms" type="radio" value="" /> Any</label></li>
-							<li><label for="beedrooms1"><input id="beedrooms1" name="bedrooms" type="radio" value="1" /> 1+</label></li>
-							<li><label for="beedrooms2"><input id="beedrooms2" name="bedrooms" type="radio" value="2" /> 2+</label></li>
-							<li><label for="beedrooms3"><input id="beedrooms3" name="bedrooms" type="radio" value="3" /> 3+</label></li>
-							<li><label for="beedrooms4"><input id="beedrooms4" name="bedrooms" type="radio" value="4" /> 4+</label></li>
-							<li><label for="beedrooms5"><input id="beedrooms5" name="bedrooms" type="radio" value="5" /> 5+</label></li>
-						</ul>
-					  </div>
-					</div>
-					<div class="dropdown baths">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						 Baths
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<ul class="bathcount">
-							<li><label for="bathcount"><input id="bathcount" name="bathcount" type="radio" value="" /> Any</label></li>
-							<li><label for="bathcount1"><input id="bathcount1" name="bathcount" type="radio" value="1" /> 1+</label></li>
-							<li><label for="bathcount2"><input id="bathcount2" name="bathcount" type="radio" value="2" /> 2+</label></li>
-							<li><label for="bathcount3"><input id="bathcount3" name="bathcount" type="radio" value="3" /> 3+</label></li>
-							<li><label for="bathcount4"><input id="bathcount4" name="bathcount" type="radio" value="4" /> 4+</label></li>
-							<li><label for="bathcount5"><input id="bathcount5" name="bathcount" type="radio" value="5" /> 5+</label></li>
-						</ul>
-					  </div>
-					</div>
-					<div class="dropdown sort">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						 Sort
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<ul class="o">
-						   <li><label for="o-0"><input type="radio" value="apmin%3ADESC" name="o" id="o-0"><span>Price (High to Low)</span></label> </li>
-						   <li><label for="o-1"><input type="radio" value="apmin%3AASC" name="o" id="o-1"><span>Price (Low to High)</span></label></li>
-						   <li><label for="o-2"><input type="radio" value="asts%3AASC" name="o" id="o-2"><span>Status</span></label></li>
-						   <li><label for="o-3"><input type="radio" value="atwns%3AASC" name="o" id="o-3"><span>City</span></label></li>
-						   <li><label for="o-4"><input type="radio" value="lid%3ADESC" name="o" id="o-4"><span>Listing Date</span></label></li>
-						   <li><label for="o-5"><input type="radio" value="apt%3ADESC" name="o" id="o-5"><span>Type / Price Descending</span></label></li>
-						   <li><label for="o-6"><input type="radio" value="alstid%3AASC" name="o" id="o-6"><span>Listing Number</span></label> </li>
-						</ul>
-					  </div>
-					</div>
-					<div class="dropdown more">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						 More +
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<div class="fewer show">
-							<div class="row-fields row">
-								<div class="square-footage col-xs-4">
-									<span class="field-label">Square Footage</span>
-									<div class="two-field-wrap">
-										<select id="searchSqftMin" name="minsqft">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="500">500</option>
-											<option value="550">550</option>
-											<option value="600">600</option>
-											<option value="650">650</option>
-											<option value="700">700</option>
-											<option value="750">750</option>
-											<option value="800">800</option>
-											<option value="850">850</option>
-											<option value="900">900</option>
-											<option value="950">950</option>
-											<option value="1000">1,000</option>
-											<option value="1050">1,050</option>
-											<option value="1100">1,100</option>
-											<option value="1150">1,150</option>
-											<option value="1200">1,200</option>
-											<option value="1250">1,250</option>
-											<option value="1500">1,500</option>
-											<option value="1750">1,750</option>
-											<option value="2000">2,000</option>
-											<option value="2250">2,250</option>
-											<option value="2500">2,500</option>
-											<option value="2750">2,750</option>
-											<option value="3000">3,000</option>
-											<option value="3500">3,500</option>
-											<option value="4000">4,000</option>
-											<option value="5000">5,000</option>
-										</select>
-										<span class="between">to</span>
-										<select id="searchSqftMax" name="maxsqft">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="500">500</option>
-											<option value="550">550</option>
-											<option value="600">600</option>
-											<option value="650">650</option>
-											<option value="700">700</option>
-											<option value="750">750</option>
-											<option value="800">800</option>
-											<option value="850">850</option>
-											<option value="900">900</option>
-											<option value="950">950</option>
-											<option value="1000">1,000</option>
-											<option value="1050">1,050</option>
-											<option value="1100">1,100</option>
-											<option value="1150">1,150</option>
-											<option value="1200">1,200</option>
-											<option value="1250">1,250</option>
-											<option value="1500">1,500</option>
-											<option value="1750">1,750</option>
-											<option value="2000">2,000</option>
-											<option value="2250">2,250</option>
-											<option value="2500">2,500</option>
-											<option value="2750">2,750</option>
-											<option value="3000">3,000</option>
-											<option value="3500">3,500</option>
-											<option value="4000">4,000</option>
-											<option value="5000">5,000</option>
-										</select>
-									</div>
+				<form>
+					<div class="dropdown-group">
+						<div class="dropdown listprice">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Price
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<div class="row">
+								<div class="min-price col-xs-6">
+									<input id="minlistprice" name="minlistprice" type="text" />
+									<label for="minlistprice">Min Price</label>
 								</div>
-								<div class="days-on-site col-xs-4">
-									<span class="field-label"># Days On Site </span>
-									<div class="one-field-wrap">
-										<select id="maxdayslisted" name="maxdayslisted">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="1">New Listings (Since Yesterday)</option>
-											<option value="3">Less than 3 Days</option>
-											<option value="7">Less than 7 Days</option>
-											<option value="14">Less than 14 Days</option>
-											<option value="30">Less than 30 Days</option>
-											<option value="45">Less than 45 Days</option>
-											<option value="60">Less than 60 Days</option>
-										</select>
-									</div>
-								</div>
-								<div class="acres col-xs-4">
-									<span class="field-label">Acres</span>
-									<div class="two-field-wrap">
-										<select id="searchAcresMin" name="minacres">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="0.01">1/100</option>
-											<option value="0.15">1/8</option>
-											<option value="0.25">1/4</option>
-											<option value="0.5">1/2</option>
-											<option value="0.75">3/4</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
-											<option value="20">20</option>
-											<option value="50">50</option>
-											<option value="100">100</option>
-										</select>
-										<span class="between">to</span>
-										<select id="searchAcresMax" name="maxacres">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="0.01">1/100</option>
-											<option value="0.15">1/8</option>
-											<option value="0.25">1/4</option>
-											<option value="0.5">1/2</option>
-											<option value="0.75">3/4</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
-											<option value="20">20</option>
-											<option value="50">50</option>
-											<option value="100">100</option>
-										</select>
-									</div>
+								<div class="max-price col-xs-6">
+									<input id="maxlistprice" name="maxlistprice" type="text" />
+									<label for="maxlistprice">Max Price</label>
 								</div>
 							</div>
-							<div class="row-fields row">
-								<div class="garage-spaces col-xs-4">		
-									<span class="field-label">Garage Spaces</span>
-									<div class="two-field-wrap">
-										<select id="searchGaragesMin" name="mingarages">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</select>
-										<span class="between">to</span>
-										<select id="searchGaragesMax" name="maxgarages">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</select>
-									</div>
-								</div>
-								<div class="stories col-xs-4">
-									<span class="field-label">Stories</span>
-									<div class="two-field-wrap">
-										<select id="searchStoriesMin" name="minstories">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</select>
-										<span class="between">to</span>
-										<select id="searchStoriesMax" name="maxstories">
-											<option value="">Any</option>
-											<option value="---" disabled="">---</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-xs-4">
-								</div>
-							</div>
-							<div class="bottom-fields row">
-								<div class="popular-features col-xs-12">
-									<h3>Popular Features</h3>
-									<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>
-								</div>
-							</div>
-						</div>
-						<div class="more hide">
-							<div class="checkbox-wrap">
-								<h3>Styles</h3>
-								<div class="checkbox-row row">
-									<?php
-									$fields = get_references_field('STYLE');
-									
-									foreach($fields as $field){
-										echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="astle[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-									}
-									?>
-								</div>
-							</div>
-							<div class="checkbox-wrap">
-								<h3>Exterior Features</h3>
-								<div class="checkbox-row row">
-									<?php
-									$fields = get_references_field('EXTERIORFEATURES');
-									
-									foreach($fields as $field){
-										echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aintf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-									}
-									?>
-								</div>
-							</div>
-							<div class="checkbox-wrap">
-								<h3>Water Front</h3>
-								<div class="checkbox-row row">
-									<?php
-									$fields = get_references_field('WATERFRONT');
-									
-									foreach($fields as $field){
-										echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-									}
-									?>
-								</div>
-							</div>
-							<div class="checkbox-wrap">
-								<h3>View</h3>
-								<div class="checkbox-row row">
-									<?php
-									$fields = get_references_field('WATERVIEWFEATURES');
-									
-									foreach($fields as $field){
-										echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awvf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-									}
-									?>
-								</div>
-							</div>
-						</div>
-						<div class="action">
-							<div class="row">		
+							<div class="select-price row">
 								<div class="col-xs-6">
-									<a class="btn-more btn btn-primary"><span class="label-fewer hide">Fewer Options</span><span class="label-more show">More Options</span></a>
+									<ul class="select-min-price">
+										<li><a href="#" value="0"><?php echo $currency; ?>0K</a></li>
+										<li><a href="#" value="50000"><?php echo $currency; ?>50K</a></li>
+										<li><a href="#" value="75000"><?php echo $currency; ?>75K</a></li>
+										<li><a href="#" value="100000"><?php echo $currency; ?>100K</a></li>
+										<li><a href="#" value="150000"><?php echo $currency; ?>150K</a></li>
+										<li><a href="#" value="200000"><?php echo $currency; ?>200K</a></li>
+										<li><a href="#" value="250000"><?php echo $currency; ?>250K</a></li>
+										<li><a href="#" value="300000"><?php echo $currency; ?>300K</a></li>
+										<li><a href="#" value="350000"><?php echo $currency; ?>350K</a></li>
+										<li><a href="#" value="400000"><?php echo $currency; ?>400K</a></li>										
+									</ul>
 								</div>
 								<div class="col-xs-6">
-									<a class="btn-show-result btn btn-primary">Show Result</a>
-								</div>	
+									<ul class="select-max-price">
+										<li><a href="#" value="125000"><?php echo $currency; ?>125K</a></li>
+										<li><a href="#" value="150000"><?php echo $currency; ?>150K</a></li>
+										<li><a href="#" value="175000"><?php echo $currency; ?>175K</a></li>
+										<li><a href="#" value="200000"><?php echo $currency; ?>200K</a></li>
+										<li><a href="#" value="225000"><?php echo $currency; ?>225K</a></li>
+										<li><a href="#" value="250000"><?php echo $currency; ?>250K</a></li>
+										<li><a href="#" value="275000"><?php echo $currency; ?>275K</a></li>
+										<li><a href="#" value="300000"><?php echo $currency; ?>300K</a></li>										
+										<li><a href="#" value="325000"><?php echo $currency; ?>325K</a></li>										
+										<li><a href="#" value="">Any Price</a></li>										
+									</ul>
+								</div>
 							</div>
+						  </div>
 						</div>
-					  </div>
+						<div class="dropdown type">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Type
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<div class="row">
+								<div class="proptype col-xs-6">
+									<h3>Property Type</h3>
+									<ul class="propertytype">
+										<?php
+										$propTypeFields = get_property_type();
+										foreach( $propTypeFields as $fieldCode=>$fieldName ){
+											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propertytype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
+										}
+										?>
+									</ul>									
+								</div>
+								<div class="propstatus col-xs-6">
+									<h3>Listing Status</h3>
+									<ul class="status">
+										<li><label for="active"><input id="active" name="status" type="radio" value="" checked /> Active</label></li>
+										<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
+									</ul>
+								</div>
+							</div>
+						  </div>
+						</div>
+						<div class="dropdown beds">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Beds
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<ul class="bedrooms">
+								<li><label for="beedrooms"><input id="beedrooms" name="bedrooms" type="radio" value="" checked /> Any</label></li>
+								<li><label for="beedrooms1"><input id="beedrooms1" name="bedrooms" type="radio" value="1" /> 1+</label></li>
+								<li><label for="beedrooms2"><input id="beedrooms2" name="bedrooms" type="radio" value="2" /> 2+</label></li>
+								<li><label for="beedrooms3"><input id="beedrooms3" name="bedrooms" type="radio" value="3" /> 3+</label></li>
+								<li><label for="beedrooms4"><input id="beedrooms4" name="bedrooms" type="radio" value="4" /> 4+</label></li>
+								<li><label for="beedrooms5"><input id="beedrooms5" name="bedrooms" type="radio" value="5" /> 5+</label></li>
+							</ul>
+						  </div>
+						</div>
+						<div class="dropdown baths">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							 Baths
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<ul class="bathcount">
+								<li><label for="bathcount"><input id="bathcount" name="bathcount" type="radio" value="" checked /> Any</label></li>
+								<li><label for="bathcount1"><input id="bathcount1" name="bathcount" type="radio" value="1" /> 1+</label></li>
+								<li><label for="bathcount2"><input id="bathcount2" name="bathcount" type="radio" value="2" /> 2+</label></li>
+								<li><label for="bathcount3"><input id="bathcount3" name="bathcount" type="radio" value="3" /> 3+</label></li>
+								<li><label for="bathcount4"><input id="bathcount4" name="bathcount" type="radio" value="4" /> 4+</label></li>
+								<li><label for="bathcount5"><input id="bathcount5" name="bathcount" type="radio" value="5" /> 5+</label></li>
+							</ul>
+						  </div>
+						</div>
+						<div class="dropdown sort">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							 Sort
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<ul class="o">
+							   <li><label for="o-0"><input type="radio" value="apmin%3ADESC" name="o" id="o-0"><span>Price (High to Low)</span></label> </li>
+							   <li><label for="o-1"><input type="radio" value="apmin%3AASC" name="o" id="o-1"><span>Price (Low to High)</span></label></li>
+							   <li><label for="o-2"><input type="radio" value="asts%3AASC" name="o" id="o-2"><span>Status</span></label></li>
+							   <li><label for="o-3"><input type="radio" value="atwns%3AASC" name="o" id="o-3"><span>City</span></label></li>
+							   <li><label for="o-4"><input type="radio" value="lid%3ADESC" name="o" id="o-4"><span>Listing Date</span></label></li>
+							   <li><label for="o-5"><input type="radio" value="apt%3ADESC" name="o" id="o-5"><span>Type / Price Descending</span></label></li>
+							   <li><label for="o-6"><input type="radio" value="alstid%3AASC" name="o" id="o-6"><span>Listing Number</span></label> </li>
+							</ul>
+						  </div>
+						</div>
+						<div class="dropdown more">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							 More +
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<div class="fewer show">
+								<div class="row-fields row">
+									<div class="square-footage col-xs-4">
+										<span class="field-label">Square Footage</span>
+										<div class="two-field-wrap">
+											<select id="searchSqftMin" name="minsqft">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="500">500</option>
+												<option value="550">550</option>
+												<option value="600">600</option>
+												<option value="650">650</option>
+												<option value="700">700</option>
+												<option value="750">750</option>
+												<option value="800">800</option>
+												<option value="850">850</option>
+												<option value="900">900</option>
+												<option value="950">950</option>
+												<option value="1000">1,000</option>
+												<option value="1050">1,050</option>
+												<option value="1100">1,100</option>
+												<option value="1150">1,150</option>
+												<option value="1200">1,200</option>
+												<option value="1250">1,250</option>
+												<option value="1500">1,500</option>
+												<option value="1750">1,750</option>
+												<option value="2000">2,000</option>
+												<option value="2250">2,250</option>
+												<option value="2500">2,500</option>
+												<option value="2750">2,750</option>
+												<option value="3000">3,000</option>
+												<option value="3500">3,500</option>
+												<option value="4000">4,000</option>
+												<option value="5000">5,000</option>
+											</select>
+											<span class="between">to</span>
+											<select id="searchSqftMax" name="maxsqft">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="500">500</option>
+												<option value="550">550</option>
+												<option value="600">600</option>
+												<option value="650">650</option>
+												<option value="700">700</option>
+												<option value="750">750</option>
+												<option value="800">800</option>
+												<option value="850">850</option>
+												<option value="900">900</option>
+												<option value="950">950</option>
+												<option value="1000">1,000</option>
+												<option value="1050">1,050</option>
+												<option value="1100">1,100</option>
+												<option value="1150">1,150</option>
+												<option value="1200">1,200</option>
+												<option value="1250">1,250</option>
+												<option value="1500">1,500</option>
+												<option value="1750">1,750</option>
+												<option value="2000">2,000</option>
+												<option value="2250">2,250</option>
+												<option value="2500">2,500</option>
+												<option value="2750">2,750</option>
+												<option value="3000">3,000</option>
+												<option value="3500">3,500</option>
+												<option value="4000">4,000</option>
+												<option value="5000">5,000</option>
+											</select>
+										</div>
+									</div>
+									<div class="days-on-site col-xs-4">
+										<span class="field-label"># Days On Site </span>
+										<div class="one-field-wrap">
+											<select id="maxdayslisted" name="maxdayslisted">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="1">New Listings (Since Yesterday)</option>
+												<option value="3">Less than 3 Days</option>
+												<option value="7">Less than 7 Days</option>
+												<option value="14">Less than 14 Days</option>
+												<option value="30">Less than 30 Days</option>
+												<option value="45">Less than 45 Days</option>
+												<option value="60">Less than 60 Days</option>
+											</select>
+										</div>
+									</div>
+									<div class="acres col-xs-4">
+										<span class="field-label">Acres</span>
+										<div class="two-field-wrap">
+											<select id="searchAcresMin" name="minacres">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="0.01">1/100</option>
+												<option value="0.15">1/8</option>
+												<option value="0.25">1/4</option>
+												<option value="0.5">1/2</option>
+												<option value="0.75">3/4</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="20">20</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											<span class="between">to</span>
+											<select id="searchAcresMax" name="maxacres">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="0.01">1/100</option>
+												<option value="0.15">1/8</option>
+												<option value="0.25">1/4</option>
+												<option value="0.5">1/2</option>
+												<option value="0.75">3/4</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="20">20</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row-fields row">
+									<div class="garage-spaces col-xs-4">		
+										<span class="field-label">Garage Spaces</span>
+										<div class="two-field-wrap">
+											<select id="searchGaragesMin" name="mingarages">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<span class="between">to</span>
+											<select id="searchGaragesMax" name="maxgarages">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+										</div>
+									</div>
+									<div class="stories col-xs-4">
+										<span class="field-label">Stories</span>
+										<div class="two-field-wrap">
+											<select id="searchStoriesMin" name="minstories">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<span class="between">to</span>
+											<select id="searchStoriesMax" name="maxstories">
+												<option value="">Any</option>
+												<option value="---" disabled="">---</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-4">
+									</div>
+								</div>
+								<div class="bottom-fields row">
+									<div class="popular-features col-xs-12">
+										<h3>Popular Features</h3>
+										<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>
+									</div>
+								</div>
+							</div>
+							<div class="more hide">
+								<div class="checkbox-wrap">
+									<h3>Styles</h3>
+									<div class="checkbox-row row">
+										<?php
+										$fields = get_references_field('STYLE');
+										
+										foreach($fields as $field){
+											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="astle[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
+										}
+										?>
+									</div>
+								</div>
+								<div class="checkbox-wrap">
+									<h3>Exterior Features</h3>
+									<div class="checkbox-row row">
+										<?php
+										$fields = get_references_field('EXTERIORFEATURES');
+										
+										foreach($fields as $field){
+											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aintf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
+										}
+										?>
+									</div>
+								</div>
+								<div class="checkbox-wrap">
+									<h3>Water Front</h3>
+									<div class="checkbox-row row">
+										<?php
+										$fields = get_references_field('WATERFRONT');
+										
+										foreach($fields as $field){
+											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
+										}
+										?>
+									</div>
+								</div>
+								<div class="checkbox-wrap">
+									<h3>View</h3>
+									<div class="checkbox-row row">
+										<?php
+										$fields = get_references_field('WATERVIEWFEATURES');
+										
+										foreach($fields as $field){
+											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awvf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
+										}
+										?>
+									</div>
+								</div>
+							</div>
+							<div class="action">
+								<div class="row">		
+									<div class="col-xs-6">
+										<a class="btn-more btn btn-primary"><span class="label-fewer hide">Fewer Options</span><span class="label-more show">More Options</span></a>
+									</div>
+									<div class="col-xs-6">
+										<a class="btn-show-result btn btn-primary">Show Result</a>
+									</div>	
+								</div>
+							</div>
+						  </div>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
 	<div class="mobile-omnimbar">
-		<?php //include "template-searchBarMobile.php"; ?>
+		<?php include "template-searchBarMobile.php"; ?>
 	</div>
 	<div id="zpa-view-selected-filter">
 		<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
@@ -486,8 +489,20 @@ $currency = zipperagent_currency();
 				//remove from search bar		
 				jQuery('#omnibar-wrap .filter-column input[type=text][name="'+name+'"]').val('');
 				jQuery('#omnibar-wrap .filter-column select[name="'+name+'"]').val('');
-				jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+				if(value)
+					jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+				else
+					jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
 				jQuery('#omnibar-wrap .filter-column input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+				
+				//remove from mobile search bar		
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=text][name="'+name+'"]').val('');
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap select[name="'+name+'"]').val('');
+				if(value)
+					jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+				else
+					jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);			
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
 			}
 			
 			window.addFormField = function(name, value, linked_name){
@@ -807,6 +822,27 @@ $currency = zipperagent_currency();
 				},				
 			});
 			
+			var ms_all_mobile = $('#zpa-mobile-all-input').magicSuggest({
+				
+				data: $.merge(towns, areas, counties, zipcodes),
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + data.name + '</div>';
+				},				
+			});
+			
 			$(ms_town).on('selectionchange', function(e,m){		
 				var values = this.getValue();
 				var value  = values[0];
@@ -917,6 +953,28 @@ $currency = zipperagent_currency();
 				jQuery('#zpa-search-filter-form').submit();
 			});
 			
+			$(ms_all_mobile).on('selectionchange', function(e,m){		
+				var values = this.getValue();
+				var value  = values[0];
+				var data   = this.getData();
+				var label;
+				
+				for(i=0; i<data.length; i++){
+					if(data[i].code==value){
+						label = data[i].name;
+					}
+				}
+				
+				var name = 'location[]';
+				var linked_name = 'location_'+value;
+				
+				this.removeFromSelection(this.getSelection(), true);
+				addFilterLabel(name, value, linked_name, label);
+				addFormField(name,value,linked_name);
+				
+				jQuery('#zpa-search-filter-form').submit();
+			});
+			
 			jQuery('body').on( 'change', '#omnibar-wrap #listid', function(){
 				<?php /* 
 				var values=jQuery(this).val().split(',');
@@ -944,7 +1002,9 @@ $currency = zipperagent_currency();
 		});
 	</script>	
 	<script>
-		jQuery('body').on( 'change', '#omnibar-wrap .filter-column input, #omnibar-wrap .filter-column select', function(){
+		jQuery('body').on( 'change', '#omnibar-wrap .filter-column input, #omnibar-wrap .filter-column select,'+
+									 '#omnibar-wrap .mobile-omnimbar .field-wrap input, #omnibar-wrap .mobile-omnimbar .field-wrap select', function(){
+										 
 			var name = jQuery(this).attr('name').toLowerCase();
 			var value = jQuery(this).val();
 			var is_array = name.substr(name.length - 2) == '[]';
@@ -980,7 +1040,8 @@ $currency = zipperagent_currency();
 			jQuery('#zpa-search-filter-form').submit();
 		});
 		
-		jQuery('body').on( 'click', '#omnibar-wrap .filter-column .select-min-price a', function(){
+		jQuery('body').on( 'click', '#omnibar-wrap .filter-column .select-min-price a,'+
+									'#omnibar-wrap .mobile-omnimbar .select-min-price a', function(){
 			var name='minlistprice';
 			var linked_name=name;
 			var value=jQuery(this).attr('value');
@@ -993,7 +1054,9 @@ $currency = zipperagent_currency();
 			
 			return false;
 		});
-		jQuery('body').on( 'click', '#omnibar-wrap .filter-column .select-max-price a', function(){
+		jQuery('body').on( 'click', '#omnibar-wrap .filter-column .select-max-price a,'+
+									'#omnibar-wrap .mobile-omnimbar .select-max-price a', function(){
+										
 			var name='maxlistprice';
 			var linked_name=name;
 			var value=jQuery(this).attr('value');
@@ -1016,10 +1079,18 @@ $currency = zipperagent_currency();
 				name = jQuery(this).attr('name');				
 				value = jQuery(this).val();	
 				value = value.replace(':', "%3A");
+				
+				//desktop search bar
 				jQuery('#omnibar-wrap .filter-column input[type=text][name="'+name+'"]').val(value);
 				jQuery('#omnibar-wrap .filter-column select[name="'+name+'"]').val(value);
 				jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
 				jQuery('#omnibar-wrap .filter-column input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				
+				//mobile search bar
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=text][name="'+name+'"]').val(value);
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap select[name="'+name+'"]').val(value);
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", true);
 			});
 		});
 	</script>
@@ -1135,7 +1206,7 @@ $currency = zipperagent_currency();
 			var str = input.value;
 			var prefix = '<?php echo $states; ?> | ';
 			if(str.indexOf(prefix) == 0) {
-				// console.log(input.value);
+				
 			} else {
 				if (prefix.indexOf(str) >= 0) {
 					input.value = prefix;
@@ -1178,7 +1249,7 @@ $currency = zipperagent_currency();
 		  function fillInAddress() {
 			// Get the place details from the autocomplete object.
 			var place = autocomplete.getPlace();
-			console.log(place);
+			
 			var name,linked_name;
 			var lat=place['geometry']['location'].lat();
 			var lng=place['geometry']['location'].lng();
@@ -1228,7 +1299,7 @@ $currency = zipperagent_currency();
 			var str = input.value;
 			var prefix = '<?php echo $states; ?> | ';
 			if(str.indexOf(prefix) == 0) {
-				// console.log(input.value);
+				
 			} else {
 				if (prefix.indexOf(str) >= 0) {
 					input.value = prefix;

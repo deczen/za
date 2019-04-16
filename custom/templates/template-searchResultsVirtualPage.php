@@ -55,7 +55,7 @@ unset($alstid); */
 ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 
-	<div class="zpa-listing-detail">
+	<div class="zpa-listing-list">
 	
 		<?php if( $top_search_enabled ): /* ?>
 		<div class="bt-listing-search__wrapper js-filter-bar">

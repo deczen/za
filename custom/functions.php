@@ -2414,6 +2414,20 @@ if( ! function_exists('get_long_excludes') ){
 	}
 }
 
+if( ! function_exists('get_filter_excludes') ){
+	function get_filter_excludes(){
+		$excludes=array( 'address', 'boundarywkt',				
+			'pagination', 'result', 'crit', 'ajax', 'save_search',
+			'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
+			'search_form_enabled', 'listinapage', 'page', 'maxlist',
+			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
+			'starttime','endtime','searchdistance','distance',
+			'location_option','criteria','afteraction','listingparams','fbclid','o',
+		);
+		return $excludes;
+	}
+}
+
 if( ! function_exists('get_short_excludes') ){
 	function get_short_excludes(){
 		$excludes = array('location', 'propertytype', 'status', 'column', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid');

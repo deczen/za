@@ -1,22 +1,20 @@
 <?php
 global $requests;
-// $addressSearch=1;
+$addressSearch = 1;
 ?>
-<div id="zpa-main-container" class="zpa-container " style="display: inline;">
+
+<div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
     <div>
-		<?php
-		$actionUrl = zipperagent_page_url( 'search-results' );
-		?>
-        <form id="zpa-main-search-form" class="form-inline" action="<?php echo $actionUrl ?>" method="GET" target="_self" novalidate="novalidate">
+        <form id="zpa-main-search-form" class="form-inline" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" target="_self" novalidate="novalidate">
             <fieldset>
                 <div class="row">
                     <div class="col-xs-12" id="zpa-search-tabs">
 						<ul class="nav nav-tabs" id="zpa-search-location-tabs">
                             <li class=" active "> <a id="zpa-location-tab" href="#zpa-search-location-tab" data-toggle="tab" data-zpa-search-tab="location"> Location </a> </li>
-                            <?php /* if($addressSearch): ?><li class=" "> <a id="zpa-address-tab" href="#zpa-search-address-tab" data-toggle="tab" data-zpa-search-tab="address"> Address </a> </li><?php endif;
-							<li class=" "> <a id="zpa-listingids-tab" href="#zpa-search-listingids-tab" data-toggle="tab" data-zpa-search-tab="listingids"> Listing Id </a> </li> */ ?>
+                            <?php if($addressSearch): ?><li class=" "> <a id="zpa-address-tab" href="#zpa-search-address-tab" data-toggle="tab" data-zpa-search-tab="address"> Address </a> </li><?php endif; ?>
                             <li class=" "> <a id="zpa-polygon-tab" href="#zpa-search-polygon-tab" data-toggle="tab" data-zpa-search-tab="polygon"> Draw on Map </a> </li> 
-						</ul><script>
+                        </ul>
+						<script>
 							jQuery('#zpa-search-location-tabs a').click(function(){
 								jQuery(this).tab('show');
 							})
@@ -27,78 +25,8 @@ global $requests;
 									<div class="row mt-10" id="areaPickerContainer">										
 										<div class="col-xs-12">
 											<label for="zpa-area-input" class="field-label"> Location </label>
-											<?php /* <input id="zpa-area-input" class="zpa-area-input form-control" placeholder="Enter City / County / Zip"  name="location[]"/>
-											<input class="zpa-area-input-hidden" name="" type="hidden"> */ ?>
-											<div id="zpa-search-location" class="zpa-search-location col-xs-9 col-sm-10">
-												<div class="search-by dropdown">
-												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Search By
-												  </button>
-												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-													<ul>
-														<li><a id="all" href="#">All Categories</a></li>
-														<li><a id="addr" href="#">Address</a></li>
-														<li><a id="area" href="#">Area</a></li>
-														<li><a id="town" href="#">City / Town</a></li>
-														<li><a id="county" href="#">County</a></li>
-														<li><a id="listid" href="#">MLS #ID</a></li>
-														<li><a id="school" href="#">School</a></li>
-														<li><a id="zip" href="#">Zip Code</a></li>
-													</ul>
-												  </div>
-												</div>
-												<div class="field-wrap">
-													<div class="field-section all">
-														<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Enter Town / Area / County / Zip"  name="location[]"/>
-													</div>
-													<div class="field-section addr hide">
-														<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
-																																										
-														<input type="hidden" id="street_number" name="advStNo" disabled="true" />
-														<input type="hidden" id="route" name="advStName" disabled="true" />
-														<input type="hidden" id="locality" name="advTownNm" disabled="true" />
-														<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
-														<input type="hidden" id="country" name="advCounties" disabled="true" />
-														<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
-													</div>
-													<div class="field-section area hide">
-														<input id="zpa-areas-input" class="form-control" placeholder="Enter Area"  name="location[]"/>
-													</div>
-													<div class="field-section town hide">
-														<input id="zpa-town-input" class="form-control" placeholder="Enter City / Town"  name="location[]"/>
-													</div>
-													<div class="field-section county hide">
-														<input id="zpa-county-input" class="form-control" placeholder="Enter County"  name="location[]"/>
-													</div>
-													<div class="field-section listid hide">
-														<input id="listid" class="form-control" placeholder="Comma separated listing ids"  name="alstid"/>
-													</div>
-													<div class="field-section school hide">
-														<input type="text" id="zpa-school" class="form-control" placeholder="Type address here" name="school" />
-														
-														<input type="hidden" id="lat" name="lat" />
-														<input type="hidden" id="lng" name="lng" />
-													</div>
-													<div class="field-section zip hide">
-														<input id="zpa-zipcode-input" class="form-control" placeholder="Enter Zip Code"  name="location[]"/>
-													</div>
-												</div>
-												<script>
-													jQuery('body').on('click', '.zpa-search-location .search-by .dropdown-menu a', function(){
-														var id = jQuery(this).attr('id');
-														var targetClass = id;
-														
-														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +') input').prop('disabled',true);
-														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass+' input').prop('disabled',false);
-														
-														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
-														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
-														
-														jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
-														return false;
-													});
-												</script>
-											</div>
+											<input id="zpa-area-input" class="zpa-area-input form-control" placeholder="Enter City / County / Zip"  name="location[]"/>
+											<input class="zpa-area-input-hidden" name="" type="hidden">
 										</div>
 										<?php /*
 										<div class="col-xs-12">
@@ -129,8 +57,8 @@ global $requests;
 									</div>
 								</div>
 									
-							</div>	
-							<?php /* if($addressSearch): ?>
+							</div>
+							<?php if($addressSearch): ?>
 							<div id="zpa-search-address-tab" class="tab-pane">
 								<div>									
 									 <div class="row mt-10">							
@@ -150,17 +78,7 @@ global $requests;
 								</div>
 									
 							</div>
-							<?php endif; 													
-							<div id="zpa-search-listingids-tab" class="tab-pane">
-								<div>									
-									<div class="row mt-10">				
-										<div class="col-xs-12">
-											<label for="zpa-listingids" class="field-label"> Listing Id </label>
-											<input id="zpa-listingids" class="zpa-area-input form-control" placeholder="Comma separted listing ids"  name="alstid" disabled />
-										</div>
-									</div>
-								</div>
-							</div> */ ?>
+							<?php endif; ?>
 							<div id="zpa-search-polygon-tab" class="tab-pane">
 								<div id="map-fields" class="row mt-10">
 									 <div class="col-xs-12 col-sm-4 mb-10">
@@ -188,7 +106,7 @@ global $requests;
 												}										
 											}
 											?>
-										</select>						
+										</select>					
 									</div>
 									<div class="col-xs-12 col-sm-2 mb-10">
 										<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
@@ -243,7 +161,7 @@ global $requests;
 								<?php if(isset($requests['column'])): ?>
 								<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
 								<?php endif; ?>
-							</div>	
+							</div>
 						</div>
 					</div>
                 </div>
@@ -314,10 +232,12 @@ global $requests;
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
 									<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+									
 							</div>
 							<div class="col-xs-12 col-sm-2">
 								<label for="zpa-sqft-homes" class="field-label zpa-sqft-label"> Min. SqFt. </label>
 								<input id="zpa-sqft-homes" name="squareFeet" placeholder="Any" type="text" class="form-control zpa-search-form-input" value="">
+								
 							</div>
 							<div class="col-xs-12 col-sm-2">
 								<label for="zpa-select-bedrooms-homes" class="field-label zpa-select-bedrooms-label"> Beds </label>
@@ -350,17 +270,19 @@ global $requests;
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
 									<input id="zpa-minprice-lots-land" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4 mb-10">
 								<label for="zpa-maxprice-lots-land" class="field-label zpa-maxprice-label"> Max. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
 									<input id="zpa-maxprice-lots-land" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4 mb-10">
 								<label for="zpa-acres-lots-land" class="field-label zpa-acres-label"> Min. Lot Acres </label>
 								<input id="zpa-acres-lots-land" name="lotAcres" placeholder="Any" class="form-control zpa-search-form-input" type="text" value="" disabled="disabled">
-								<label class="error" for="zpa-sqft-lots-land"></label>
+								
 							</div>
 						</div>
 					</div>
@@ -377,10 +299,12 @@ global $requests;
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
 									<input id="zpa-maxprice-commercial" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-sqft-commercial" class="field-label zpa-sqft-label"> Min. SqFt. </label>
 								<input id="zpa-sqft-commercial" name="squareFeet" placeholder="Any" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled">
+								
 							</div>
 						</div>
 					</div>
@@ -392,24 +316,27 @@ global $requests;
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
 									<input id="zpa-minprice-res-income" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-maxprice-res-income" class="field-label zpa-maxprice-label"> Max. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
 									<input id="zpa-maxprice-res-income" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									
 							</div>
 							<?php /*
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-sqft-res-income" class="field-label zpa-sqft-label"> Min. SqFt. </label>
 								<input id="zpa-sqft-res-income" name="squareFeet" placeholder="Any" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled">
+								
 							</div>
 							* ?>
 						</div>
 					</div>
 					*/ ?>
 					<div class="row mt-25 filter">
-						<div class="col-xs-12 col-sm-3 mb-10">
+						<div class="col-xs-12 col-sm-6 mb-10">
 							<label for="zpa-select-order-by" class="field-label zpa-select-order-by-label"> Sort by </label>
 							<?php 
 							$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order(); ?>
@@ -425,47 +352,8 @@ global $requests;
 								<?php /* <option value="">Open Home Date Asc</option> */ ?>
 							</select>
 						</div>
-						
-						<div class="col-xs-12 col-sm-3">
-							<?php
-							
-							$lotDescriptions = get_lot_descriptions();
-							
-							if($lotDescriptions):
-							?>
-							<label for="zpa-lot-description-listed" class="field-label zpa-lot-description-label"> Lot Description </label>
-							
-							<select id="zpa-select-lot-description" name="altand" class="form-control">
-								<option value="">Select</option>
-								<?php								
-								foreach( $lotDescriptions as $fieldCode=>$fieldName ){
-									$selected="";									
-									echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";										
-								}
-								?>
-							</select>
-							<?php endif; ?>
-						</div>
-						
-						<div class="col-xs-12 col-sm-2">
-							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Max days On Site </label>
-							<input id="zpa-max-days-listed" name="maxDaysListed" placeholder="days number" type="text" class="form-control" value="">
-						</div>
-						<div class="col-xs-12 col-sm-2">
-							<label for="zpa-resulst" class="field-label zpa-resulst-label"> Results per page </label>
-							<select id="zpa-resulst" name="listinapage" class="form-control zpa-chosen-select-width">
-								<option value="24">24</option>
-								<option value="30">30</option>
-								<option value="50">50</option>
-								<option value="100">100</option>
-							</select>
-						</div>
-						<div class="col-xs-12 col-sm-2">
-							<label for="zpa-year" class="field-label zpa-year-label"> Year </label>
-							<input id="zpa-year" name="yearBuilt" placeholder="Ex: 1990" type="text" class="form-control" value="">
-						</div>
+						<div class="col-xs-12 col-sm-6 mb-10"> </div>
 					</div>
-					
 					<div class="row">
 						<div class="col-xs-12 mb-10"> </div>
 					</div>
@@ -477,29 +365,13 @@ global $requests;
 									<input id="zpa-open-homes-only" name="featuredOnlyYn" type="checkbox" value="true">
 									<?php /* <input type="hidden" name="_featuredOnlyYn" value="on"> */ ?> Featured </label>
 							</div>
-							
-							<div class="checkbox filter">
+							<?php /*
+							<div class="checkbox">
 								<label class="field-label zpa-open-homes-only-label">
-									<input id="zpa-open-homes-only" name="openHomesOnlyYn" type="checkbox" value="true"> Open Houses </label>
-							</div>
-							<div class="checkbox filter">
-								<label class="field-label zpa-has-virtual-tour-label">
-									<input id="zpa-has-virtual-tour" name="hasVirtualTour" type="checkbox" value="true"> Virtual Tour </label>
-							</div>
-							<div class="checkbox filter">
-								<label class="field-label zpa-with-image-label">
-									<input id="zpa-with-image" name="withImage" type="checkbox" value="true"> With Image </label>
-							</div>
-							<div class="checkbox filter">
-								<label class="field-label zpa-with-image-label">
-									<input id="zpa-with-image" name="apold" type="checkbox" value="$$ISNOTNULL$$"> Pool Description </label>
-							</div>
-							<div class="checkbox filter">
-								<label class="field-label zpa-with-image-label">
-									<input id="zpa-with-image" name="awtrf" type="checkbox" value="1"> Waterfront Flag </label>
+									<input id="zpa-open-homes-only" name="openHomesOnlyYn" type="checkbox" value="true">
+									<input type="hidden" name="_openHomesOnlyYn" value="on"> Open Houses </label>
 							</div>
 							<div class="clearfix"></div>
-							<?php /*
 							<div class="checkbox">
 								<label class="field-label zpa-date-range-label">
 									<input id="zpa-date-range" name="dateRange" type="checkbox" value="7">
@@ -512,22 +384,199 @@ global $requests;
 							<button id="zpa-main-search-form-submit" type="submit" class="btn btn-lg btn-block btn-primary btn-form-submit"> Search </button>
 						</div>
 					</div>
-					<?php /*
-					<div class="row mt-25">
-						<div class="col-xs-12" style="text-align: right;"> <a href="<?php echo site_url('/'); ?>homes-for-sale-search-advanced/13/" class="zpa-advanced-search-launch"> MORE SEARCH OPTIONS </a> </div>
-					</div>
-					*/ ?>
 				</div>
+                <div class="row mt-25">
+                    <div class="col-xs-12" style="text-align: right;"> <a href="<?php echo site_url('/'); ?>homes-for-sale-search-advanced/" class="zpa-advanced-search-launch"> MORE SEARCH OPTIONS </a> </div>
+                </div>
             </fieldset>
         </form>
     </div>
 	
-	<?php // global_magicsuggest_script(); ?>
+	<?php global_magicsuggest_script(); ?>
 	
+	<script>
+		// jQuery(document).ready(function(){jQuery("input#areaPicker").areaPicker({source:null,preSelectedItems:{areas:{values:[]}},defaultAutocompleteValue:"Enter cities, zip codes or neighborhoods",selectedItemsContainer:jQuery("#zpa-selectedAreas"),selectedItemsLabel:jQuery("#zpa-selectedAreasLabel"),autoCompleteMatchValues:jQuery("#autocompleteMatchValues"),areaPickerExpandAllButtonClass:".areaPickerExpandAllButtonClass",areaPickerExpandAll:jQuery("#areaPickerExpandAll"),areaPickerExpandAllContainer:jQuery("#areaPickerExpandAllContainer"),outerContainer:jQuery("#areaPickerContainer"),omitAreaTypesInExpandedMode:"zip",autocompleteMessage:"",autocompleteTextLength:2,expandSubAreasButton:"<button class='expand-sub-areas btn-default btn-xs glyphicon glyphicon-plus'></button>",closeSubAreasButton:"<button class='close-sub-areas btn-default btn-xs glyphicon glyphicon-minus'></button>",customAreaListToggle:jQuery("#areaPickerCustomListToggle"),customAreaListToggleMoreAreasText:"&nbsp;+&nbsp;More",customAreaListToggleLessAreasText:"&nbsp;-&nbsp;Less",areaPickerClearAll:jQuery("#areaPickerClearAll"),isPhpStyle:"true",autocompleteRequestUrl:"http://www.idxhome.com/service/listing/areas/ajax/101091",restrictCitySearchToCustomList:"true"})});
+	</script>
+	
+	<script type="text/javascript">
+      var drawingManager;
+      var selectedShape;
+      var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
+      var selectedColor;
+      var colorButtons = {};
+
+      function clearSelection() {
+        if (selectedShape) {
+          selectedShape.setEditable(false);
+          selectedShape = null;
+        }
+      }
+
+      function setSelection(shape) {
+        clearSelection();
+        selectedShape = shape;
+        shape.setEditable(true);
+        selectColor(shape.get('fillColor') || shape.get('strokeColor'));
+      }
+
+      function deleteSelectedShape() {
+        if (selectedShape) {
+          selectedShape.setMap(null);
+        }
+      }
+
+      function selectColor(color) {
+        selectedColor = color;
+        for (var i = 0; i < colors.length; ++i) {
+          var currColor = colors[i];
+          colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';
+        }
+
+        // Retrieves the current options from the drawing manager and replaces the
+        // stroke or fill color as appropriate.
+        var polylineOptions = drawingManager.get('polylineOptions');
+        polylineOptions.strokeColor = color;
+        drawingManager.set('polylineOptions', polylineOptions);
+
+        var rectangleOptions = drawingManager.get('rectangleOptions');
+        rectangleOptions.fillColor = color;
+        drawingManager.set('rectangleOptions', rectangleOptions);
+
+        var circleOptions = drawingManager.get('circleOptions');
+        circleOptions.fillColor = color;
+        drawingManager.set('circleOptions', circleOptions);
+
+        var polygonOptions = drawingManager.get('polygonOptions');
+        polygonOptions.fillColor = color;
+        drawingManager.set('polygonOptions', polygonOptions);
+      }
+
+      function setSelectedShapeColor(color) {
+        if (selectedShape) {
+          if (selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
+            selectedShape.set('strokeColor', color);
+          } else {
+            selectedShape.set('fillColor', color);
+          }
+        }
+      }
+
+      function makeColorButton(color) {
+        var button = document.createElement('span');
+        button.className = 'color-button';
+        button.style.backgroundColor = color;
+        google.maps.event.addDomListener(button, 'click', function() {
+          selectColor(color);
+          setSelectedShapeColor(color);
+        });
+
+        return button;
+      }
+
+       function buildColorPalette() {
+         var colorPalette = document.getElementById('color-palette');
+         for (var i = 0; i < colors.length; ++i) {
+           var currColor = colors[i];
+           var colorButton = makeColorButton(currColor);
+           colorPalette.appendChild(colorButton);
+           colorButtons[currColor] = colorButton;
+         }
+         selectColor(colors[0]);
+       }
+
+      function initialize() {
+        <?php extract(zipperagent_get_map_centre()); ?>
+		var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: new google.maps.LatLng('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>'),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          disableDefaultUI: true,
+		  streetViewControl: true,
+          zoomControl: true,
+		  gestureHandling: 'greedy',
+        });
+
+        var polyOptions = {
+          strokeWeight: 0,
+          fillOpacity: 0.45,
+          editable: true
+        };
+        // Creates a drawing manager attached to the map that allows the user to draw
+        // markers, lines, and shapes.
+		drawingManager = new google.maps.drawing.DrawingManager({
+          drawingMode: google.maps.drawing.OverlayType.POLYGON,
+		  drawingControl: true,
+		  drawingControlOptions: {
+			position: google.maps.ControlPosition.TOP_LEFT,
+			drawingModes: ['polygon']
+		  },
+          markerOptions: {
+            draggable: true
+          },
+          polylineOptions: {
+            editable: true
+          },
+          rectangleOptions: polyOptions,
+          circleOptions: polyOptions,
+          polygonOptions: polyOptions,
+          map: map
+        });
+        
+
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+            if (e.type != google.maps.drawing.OverlayType.MARKER) {
+            // Switch back to non-drawing mode after drawing a shape.
+            drawingManager.setDrawingMode(null);
+
+            // Add an event listener that selects the newly-drawn shape when the user
+            // mouses down on it.
+            var newShape = e.overlay;
+            newShape.type = e.type;
+            google.maps.event.addListener(newShape, 'click', function() {
+              setSelection(newShape);
+            });
+            setSelection(newShape);
+          }
+        });
+ 
+
+        // Clear the current selection when the drawing mode is changed, or when the
+        // map is clicked.
+        google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+        google.maps.event.addListener(map, 'click', clearSelection);
+        google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
+		google.maps.event.addListener(drawingManager, 'polylinecomplete', function(line) {
+			var coordinates = line.getPath().getArray().toString();
+			jQuery( '#zpa-boundary' ).val('POLYGON ('+ coordinates +')');
+		});
+		google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(line) {
+			// var coordinates = line.getPath().getArray().toString();
+			// jQuery( '#zpa-boundary' ).val('POLYGON ('+ coordinates +')');
+		});
+		google.maps.event.addListener(drawingManager, 'circlecomplete', function(line) {
+			// alert(line.getPath().getArray().toString());
+		});
+		google.maps.event.addListener(drawingManager, 'polygoncomplete', function(line) {
+			var coordinates = line.getPath().getArray().toString();
+			jQuery( '#zpa-boundary' ).val('POLYGON ('+ coordinates +')');
+		});
+		
+        buildColorPalette();
+      }
+      // google.maps.event.addDomListener(window, 'load', initialize);
+	  
+	  jQuery(document).ready(function(){
+		// initialize();
+		
+		jQuery( '#delete-button' ).on( 'click', function(){
+			jQuery( '.gmnoprint > div:not(:last-child)' ).click();
+			return false;
+		});
+	  });
+    </script>
 	<script>		
 		
 		jQuery(function(){
-			
 			var filter = jQuery('fieldset div.filter');
 			var house=jQuery('#zpa-house-condo-search-fields');
 			var land=jQuery('#zpa-lots-land-search-fields');
@@ -536,7 +585,6 @@ global $requests;
 			var map=jQuery('#map-fields');
 			
 			jQuery('#zpa-select-property-type').on( 'change', function(){
-				
 				switch(jQuery(this).val()){
 					case "SF":
 					case "MF":
@@ -559,7 +607,7 @@ global $requests;
 							enabledFields(land, true);
 							enabledFields(comm, false);
 						break;											
-					case "CI":											
+					case "CI":		
 							house.addClass('hide');
 							land.addClass('hide');
 							comm.removeClass('hide');
@@ -665,22 +713,6 @@ global $requests;
 			}
 		});
 	</script>
-	<script>
-		// Material Select Initialization
-		jQuery(document).ready(function($) {
-		  $('.multiselect').multiselect({
-			// buttonWidth : '160px',			
-			includeSelectAllOption : true,
-			nonSelectedText: 'Select',
-			numberDisplayed: 1,
-			buttonClass: 'form-control',
-		  });
-		  
-		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
-		});
-	</script>
-	
-	<?php /*
 	<script>  
 	  <?php
 	  $rb = zipperagent_rb();
@@ -714,7 +746,7 @@ global $requests;
         // Create the autocomplete object, restricting the search to geographical
         // location types.
         autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} *(input), options);
+            /** @type {!HTMLInputElement} */(input), options);
 
         // When the user selects an address from the dropdown, populate the address
         // fields in the form.
@@ -780,482 +812,282 @@ global $requests;
 	  });
 	  <?php endif; ?>
     </script>
-	<?php /* if(  wp_get_theme() != "Conall" && $addressSearch ): ?>
+	<script>
+		// Material Select Initialization
+		jQuery(document).ready(function($) {
+		  $('.multiselect').multiselect({
+			// buttonWidth : '160px',
+			
+			includeSelectAllOption : true,
+			nonSelectedText: 'Select',
+			numberDisplayed: 1,
+			buttonClass: 'form-control',
+		  });
+		  
+		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
+		});
+	</script>
+    <?php /* if(  wp_get_theme() != "Conall" && $addressSearch ): ?>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuQ5zA1N7-IcAJnbMm_QoZLCNmRhFilNw&libraries=places&callback=initAutocomplete" async defer></script>
 	<?php endif; */ ?>
 	
+	<?php /*
 	<script type="text/javascript">
-      var drawingManager;
-      var selectedShape;
-      var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
-      var selectedColor;
-      var colorButtons = {};
-
-      function clearSelection() {
-        if (selectedShape) {
-          selectedShape.setEditable(false);
-          selectedShape = null;
-        }
-      }
-
-      function setSelection(shape) {
-        clearSelection();
-        selectedShape = shape;
-        shape.setEditable(true);
-        selectColor(shape.get('fillColor') || shape.get('strokeColor'));
-      }
-
-      function deleteSelectedShape() {
-        if (selectedShape) {
-          selectedShape.setMap(null);
-        }
-      }
-
-      function selectColor(color) {
-        selectedColor = color;
-        for (var i = 0; i < colors.length; ++i) {
-          var currColor = colors[i];
-          colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';
-        }
-
-        // Retrieves the current options from the drawing manager and replaces the
-        // stroke or fill color as appropriate.
-        var polylineOptions = drawingManager.get('polylineOptions');
-        polylineOptions.strokeColor = color;
-        drawingManager.set('polylineOptions', polylineOptions);
-
-        var rectangleOptions = drawingManager.get('rectangleOptions');
-        rectangleOptions.fillColor = color;
-        drawingManager.set('rectangleOptions', rectangleOptions);
-
-        var circleOptions = drawingManager.get('circleOptions');
-        circleOptions.fillColor = color;
-        drawingManager.set('circleOptions', circleOptions);
-
-        var polygonOptions = drawingManager.get('polygonOptions');
-        polygonOptions.fillColor = color;
-        drawingManager.set('polygonOptions', polygonOptions);
-      }
-
-      function setSelectedShapeColor(color) {
-        if (selectedShape) {
-          if (selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
-            selectedShape.set('strokeColor', color);
-          } else {
-            selectedShape.set('fillColor', color);
-          }
-        }
-      }
-
-      function makeColorButton(color) {
-        var button = document.createElement('span');
-        button.className = 'color-button';
-        button.style.backgroundColor = color;
-        google.maps.event.addDomListener(button, 'click', function() {
-          selectColor(color);
-          setSelectedShapeColor(color);
-        });
-
-        return button;
-      }
-
-       function buildColorPalette() {
-         var colorPalette = document.getElementById('color-palette');
-         for (var i = 0; i < colors.length; ++i) {
-           var currColor = colors[i];
-           var colorButton = makeColorButton(currColor);
-           colorPalette.appendChild(colorButton);
-           colorButtons[currColor] = colorButton;
-         }
-         selectColor(colors[0]);
-       }
-
-      function initialize() {
-		<?php extract(zipperagent_get_map_centre()); ?>
-		var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 9,
-          center: new google.maps.LatLng('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>'),
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          disableDefaultUI: true,
-		  streetViewControl: true,
-          zoomControl: true,
-		  gestureHandling: 'greedy',
-        });
-
-        var polyOptions = {
-          strokeWeight: 0,
-          fillOpacity: 0.45,
-          editable: true
-        };
-        // Creates a drawing manager attached to the map that allows the user to draw
-        // markers, lines, and shapes.
-        drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.POLYGON,
-		  drawingControl: true,
-		  drawingControlOptions: {
-			position: google.maps.ControlPosition.TOP_LEFT,
-			drawingModes: ['polygon']
-		  },
-          markerOptions: {
-            draggable: true
-          },
-          polylineOptions: {
-            editable: true
-          },
-          rectangleOptions: polyOptions,
-          circleOptions: polyOptions,
-          polygonOptions: polyOptions,
-          map: map
-        });
-        
-
-        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
-            if (e.type != google.maps.drawing.OverlayType.MARKER) {
-            // Switch back to non-drawing mode after drawing a shape.
-            drawingManager.setDrawingMode(null);
-
-            // Add an event listener that selects the newly-drawn shape when the user
-            // mouses down on it.
-            var newShape = e.overlay;
-            newShape.type = e.type;
-            google.maps.event.addListener(newShape, 'click', function() {
-              setSelection(newShape);
-            });
-            setSelection(newShape);
-          }
-        });
- 
-
-        // Clear the current selection when the drawing mode is changed, or when the
-        // map is clicked.
-        google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
-        google.maps.event.addListener(map, 'click', clearSelection);
-        google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
-		google.maps.event.addListener(drawingManager, 'polylinecomplete', function(line) {
-			var coordinates = line.getPath().getArray().toString();
-			jQuery( '#zpa-boundary' ).val('POLYGON ('+ coordinates +')');
-		});
-		google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(line) {
-			// var coordinates = line.getPath().getArray().toString();
-			// jQuery( '#zpa-boundary' ).val('POLYGON ('+ coordinates +')');
-		});
-		google.maps.event.addListener(drawingManager, 'circlecomplete', function(line) {
-			// alert(line.getPath().getArray().toString());
-		});
-		google.maps.event.addListener(drawingManager, 'polygoncomplete', function(line) {
-			var coordinates = line.getPath().getArray().toString();
-			jQuery( '#zpa-boundary' ).val('POLYGON ('+ coordinates +')');
-		});
-		
-        buildColorPalette();
-      }
-      // google.maps.event.addDomListener(window, 'load', initialize);
-	  
-	  jQuery(document).ready(function(){		
-		
-		jQuery( '#delete-button' ).on( 'click', function(){
-			jQuery( '.gmnoprint > div:not(:last-child)' ).click();
-			return false;
-		});
-	  });
-    </script>
-	
-	<script>
-		jQuery(document).ready(function($) {
-			
-			<?php 
-			$data = get_autocomplete_data();
-			
-			$towns = isset($data->towns)?$data->towns:array();
-			$areas = isset($data->areas)?$data->areas:array();
-			$counties = isset($data->counties)?$data->counties:array();
-			$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
-			?>
-			
-			var towns = <?php echo json_encode($towns); ?>;
-			var areas = <?php echo json_encode($areas); ?>;
-			var counties = <?php echo json_encode($counties); ?>;
-			var zipcodes = <?php echo json_encode($zipcodes); ?>;
-			
-			var ms_town = $('#zpa-town-input').magicSuggest({
-				
-				data: towns,
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});
-			
-			var ms_area = $('#zpa-areas-input').magicSuggest({
-				
-				data: areas,
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});
-			
-			var ms_county = $('#zpa-county-input').magicSuggest({
-				
-				data: counties,
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});
-			
-			var ms_zip = $('#zpa-zipcode-input').magicSuggest({
-				
-				data: zipcodes,
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});
-			
-			var ms_all = $('#zpa-all-input').magicSuggest({
-				
-				data: $.merge(towns, areas, counties, zipcodes),
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});						  
-		});
-	</script>		
-	<script>  
-	  <?php
-	  $rb = zipperagent_rb();
-	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
-	  $states=array_map('trim', explode(',', $states));
-	  $states=implode(' | ',$states);
-	  ?>
-	  // This example displays an address form, using the autocomplete feature
-	  // of the Google Places API to help users fill in the information.
-
-	  // This example requires the Places library. Include the libraries=places
-	  // parameter when you first load the API. For example:
-	  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-	  jQuery(document).ready(function(){
-		  var placeSearch, autocomplete;
-		  var componentForm = {
-			street_number: 'short_name',
-			route: 'long_name',
-			locality: 'long_name',
-			administrative_area_level_1: 'short_name',
-			// country: 'short_name',
-			postal_code: 'short_name'
-		  };
-		  var input = document.getElementById('zpa-area-address');
-
-		  function initAutocomplete() {
-			var options = {
-				types: ['geocode'],  // or '(cities)' if that's what you want?
-				componentRestrictions: {country: ["us","ca","in"]},
-			};
-			// Create the autocomplete object, restricting the search to geographical
-			// location types.
-			autocomplete = new google.maps.places.Autocomplete(
-				/** @type {!HTMLInputElement} */(input), options);
-
-			// When the user selects an address from the dropdown, populate the address
-			// fields in the form.
-			autocomplete.addListener('place_changed', fillInAddress);
-		  }
-
-		  function fillInAddress() {
-			// Get the place details from the autocomplete object.
-			var place = autocomplete.getPlace();
-			
-			for (var component in componentForm) {
-			  document.getElementById(component).value = '';
-			  document.getElementById(component).disabled = false;
-			}
-
-			// Get each component of the address from the place details
-			// and fill the corresponding field on the form.
-			for (var i = 0; i < place.address_components.length; i++) {
-			  var addressType = place.address_components[i].types[0];
-			  if (componentForm[addressType]) {
-				var val = place.address_components[i][componentForm[addressType]];
-				var field = jQuery('#'+addressType);
-				document.getElementById(addressType).value = val;
-			  }
-			}
-		  }
-
-		  // Bias the autocomplete object to the user's geographical location,
-		  // as supplied by the browser's 'navigator.geolocation' object.
-		  function geolocate() {
-			if (navigator.geolocation) {
-			  navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation = {
-				  lat: position.coords.latitude,
-				  lng: position.coords.longitude
+		(function() {
+			jQuery(document).ready(function() {
+				var d = null;
+				d = {
+					minListPrice: {
+						number: true,
+						minMaxPrice: ["minListPrice", "maxListPrice"]
+					},
+					maxListPrice: {
+						number: true,
+						minMaxPrice: ["minListPrice", "maxListPrice"]
+					},
+					squareFeet: {
+						number: true
+					},
+					lotAcres: {
+						number: true
+					},
+					location: {
+						areaCheck: ["neighborhood", "neighborhoodId", "schoolDistrict", "region", "cityId", "zip", "mlsarea", "countyId", "mapCode", "propertyLocation", "city", "subdivision", "geographicLike"]
+					}
 				};
-				var circle = new google.maps.Circle({
-				  center: geolocation,
-				  radius: position.coords.accuracy
-				});
-				autocomplete.setBounds(circle.getBounds());
-			  });
-			}
-		  }
-		  
-		  jQuery('#zpa-area-address').on('focus', function(){
-			  geolocate();
-		  });
-		  
-		  initAutocomplete();
-		  
-		  <?php if($states): ?>
-		  jQuery(input).on('input',function(){
-			var str = input.value;
-			var prefix = '<?php echo $states; ?> | ';
-			if(str.indexOf(prefix) == 0) {
-				// console.log(input.value);
-			} else {
-				if (prefix.indexOf(str) >= 0) {
-					input.value = prefix;
-				} else {
-					input.value = prefix+str;
-				}
-			}
-
-		  });
-		  <?php endif; ?>
-	  });
-	  
-	  jQuery(document).ready(function(){
-		  var placeSearch, autocomplete;
-		  var input = document.getElementById('zpa-school');
-
-		  function initAutocomplete() {
-			var options = {
-				types: ['geocode'],  // or '(cities)' if that's what you want?
-				componentRestrictions: {country: ["us","ca","in"]},
-			};
-			// Create the autocomplete object, restricting the search to geographical
-			// location types.
-			autocomplete = new google.maps.places.Autocomplete(
-				/** @type {!HTMLInputElement} */(input), options);
-
-			// When the user selects an address from the dropdown, populate the address
-			// fields in the form.
-			autocomplete.addListener('place_changed', fillInAddress);
-		  }
-
-		  function fillInAddress() {
-			// Get the place details from the autocomplete object.
-			var place = autocomplete.getPlace();
-			
-			var lat=place['geometry']['location'].lat();
-			var lng=place['geometry']['location'].lng();
-			
-			jQuery('#lat').val(lat);
-			jQuery('#lng').val(lng);
-		  }
-
-		  // Bias the autocomplete object to the user's geographical location,
-		  // as supplied by the browser's 'navigator.geolocation' object.
-		  function geolocate() {
-			if (navigator.geolocation) {
-			  navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation = {
-				  lat: position.coords.latitude,
-				  lng: position.coords.longitude
+				var a = null;
+				a = [{
+					propertTypeId: 1,
+					label: "House / Condo",
+					value: "SFR,CND",
+					sortIndex: 1,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}, {
+					propertTypeId: 8,
+					label: "House Only",
+					value: "SFR",
+					sortIndex: 2,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}, {
+					propertTypeId: 9,
+					label: "Condo Only",
+					value: "CND",
+					sortIndex: 3,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}, {
+					propertTypeId: 2,
+					label: "Lots / Land",
+					value: "LL",
+					sortIndex: 4,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}, {
+					propertTypeId: 3,
+					label: "Multi-Unit Residential",
+					value: "RI",
+					sortIndex: 5,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}, {
+					propertTypeId: 4,
+					label: "Mobile Home",
+					value: "MH",
+					sortIndex: 6,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}, {
+					propertTypeId: 6,
+					label: "Commercial",
+					value: "COM",
+					sortIndex: 8,
+					minPrice: 700000,
+					maxPrice: 1500000
+				}];
+				var c = true;
+				var g = false;
+				var i = false;
+				var j = jQuery("#zpa-main-search-form");
+				var b = j.find("#zpa-select-property-type");
+				var f = j.find("input[name='minListPrice']");
+				var e = j.find("input[name='maxListPrice']");
+				var h = function() {
+					var k = function(o) {
+						for (var n = 0; n < o.length; n++) {
+							var m = o[n];
+							jQuery(m).addClass("hide");
+							jQuery(m + " :input").each(function() {
+								jQuery(this).attr("disabled", "disabled")
+							})
+						}
+					};
+					var l = function(o) {
+						for (var n = 0; n < o.length; n++) {
+							var m = o[n];
+							jQuery(m).removeClass("hide");
+							jQuery(m + " :input").each(function() {
+								jQuery(this).removeAttr("disabled")
+							})
+						}
+					};
+					if (b.val() === "RI") {
+						l(["#zpa-residential-income-search-fields", "#zpa-status-fields"]);
+						k(["#zpa-house-condo-search-fields", "#zpa-lots-land-search-fields", "#zpa-commercial-search-fields"])
+					} else {
+						if (b.val() === "COM") {
+							l(["#zpa-commercial-search-fields", "#zpa-status-fields"]);
+							k(["#zpa-house-condo-search-fields", "#zpa-lots-land-search-fields", "#zpa-residential-income-search-fields"])
+						} else {
+							if (b.val() === "LL") {
+								l(["#zpa-lots-land-search-fields", "#zpa-status-fields"]);
+								k(["#zpa-house-condo-search-fields", "#zpa-residential-income-search-fields", "#zpa-commercial-search-fields"])
+							} else {
+								if (b.val() === "RNT") {
+									l(["#zpa-house-condo-search-fields"]);
+									k(["#zpa-status-fields", "#zpa-residential-income-search-fields", "#zpa-lots-land-search-fields", "#zpa-commercial-search-fields"])
+								} else {
+									l(["#zpa-house-condo-search-fields", "#zpa-status-fields"]);
+									k(["#zpa-residential-income-search-fields", "#zpa-lots-land-search-fields", "#zpa-commercial-search-fields"])
+								}
+							}
+						}
+					}
+					if (a) {
+						jQuery.each(a, function(m, n) {
+							if (n.value === b.val()) {
+								if (c || i) {
+									f.val(n.minPrice);
+									e.val(n.maxPrice)
+								}
+								return false
+							}
+						})
+					}
 				};
-				var circle = new google.maps.Circle({
-				  center: geolocation,
-				  radius: position.coords.accuracy
+				h();
+				b.on("change", function() {
+					i = true;
+					h()
 				});
-				autocomplete.setBounds(circle.getBounds());
-			  });
-			}
-		  }
-		  
-		  jQuery('#zpa-school').on('focus', function(){
-			  geolocate();
-		  });
-		  
-		  initAutocomplete();
-		  
-		  <?php if($states): ?>
-		  jQuery(input).on('input',function(){
-			var str = input.value;
-			var prefix = '<?php echo $states; ?> | ';
-			if(str.indexOf(prefix) == 0) {
-				// console.log(input.value);
-			} else {
-				if (prefix.indexOf(str) >= 0) {
-					input.value = prefix;
-				} else {
-					input.value = prefix+str;
+				jQuery.validator.addMethod("minMaxPrice", function(u, o, t) {
+					var v = true;
+					if (u != null && u != "" && t != null && t.length == 2) {
+						var q = "input[name=" + t[0] + "]:enabled";
+						var n = "input[name=" + t[1] + "]:enabled";
+						var m = jQuery(q);
+						var k = jQuery(n);
+						var p = m.val().replace(/,/g, "");
+						var l = k.val().replace(/,/g, "");
+						if (m != null && k != null) {
+							if (jQuery(o).attr("id") == m.attr("id")) {
+								var s = Number(p);
+								var r = Number(l);
+								if (s != null && s != "" && r != null && r != "") {
+									v = (s < r)
+								}
+							} else {
+								this.element(m)
+							}
+						}
+					}
+					return v
+				}, jQuery.validator.format("Min < Max Price"));
+				jQuery.validator.addMethod("areaCheck", function(r, n, o) {
+					var p = jQuery(n).closest("form");
+					var k = p.find(":input:not(:disabled)");
+					for (var q = 0; q < o.length; q++) {
+						var s = o[q];
+						var m = "[name^=" + s + "]";
+						var l = k.filter(m);
+						if (l != undefined && l != null) {
+							if (l.val() != null && l.val().length > 0) {
+								return true
+							}
+						}
+					}
+					return true
+				}, jQuery.validator.format("Area required"));
+				jQuery("#zpa-main-search-form").validate({
+					rules: d,
+					onfocusout: function(k, l) {
+						if (k.name == "minListPrice" || k.name == "maxListPrice" || k.name == "squareFeet" || k.name == "lotAcres") {
+							jQuery.validator.defaults.onfocusout.call(this, k, l)
+						}
+					}
+				});
+				jQuery(".zpa-advanced-search-launch").on("click", function(m) {
+					var l = jQuery(this).attr("href");
+					var k = document.getElementById("zpa-main-search-form");
+					k.action = l;
+					k.submit();
+					m.preventDefault()
+				});
+				jQuery("#zpa-searchprofile-adv-schedule").on("click", function(k) {
+					jQuery("#zaSearchProfile_schedule").show()
+				});
+				jQuery("#zpa-searchprofile-daily-schedule").on("click", function(k) {
+					jQuery("div#zaSearchProfile_schedule input[type=checkbox]").each(function() {
+						jQuery(this).attr("checked", true)
+					});
+					jQuery("#zaSearchProfile_schedule").hide()
+				});
+				if (jQuery("#zaSearchProfile_schedule input[type=checkbox]:checked").length < 7) {
+					jQuery("#zpa-searchprofile-adv-schedule").attr("checked", true);
+					jQuery("#zpa-searchprofile-daily-schedule").removeAttr("checked");
+					jQuery("#zaSearchProfile_schedule").show()
 				}
-			}
-
-		  });
-		  <?php endif; ?>
-	  });
-	</script>
+				b.on("change", function() {
+					var k = b.val();
+					var l = 0;
+					jQuery(".zpa-one-selectedArea").each(function() {
+						var m = jQuery(this).find("input");
+						var n = jQuery(m).attr("name");
+						if (k !== undefined && k.search(/SFR|CND/) === -1 && n !== undefined && n.search(/cityId|zip/) === -1) {
+							l++;
+							jQuery(m).attr("disabled", "disabled");
+							jQuery(this).addClass("disabled")
+						} else {
+							jQuery(m).removeAttr("disabled");
+							jQuery(this).removeClass("disabled")
+						}
+					});
+					if (l > 0) {
+						jQuery(".zpa-property-type-message").show()
+					} else {
+						jQuery(".zpa-property-type-message").hide()
+					}
+				});
+				jQuery("#zpa-polygon-tab").on("show.bs.tab", function() {
+					jQuery("[data-zpa-location-field=true]").each(function() {
+						var k = jQuery(this);
+						k.attr("disabled", true)
+					});
+					jQuery("[data-zpa-geographic-field=true]").each(function() {
+						var k = jQuery(this);
+						k.hide()
+					});
+					jQuery("#zpa-boundary").removeAttr("disabled")
+				});
+				jQuery("#zpa-location-tab").on("show.bs.tab", function() {
+					jQuery("[data-zpa-location-field=true]").each(function() {
+						var k = jQuery(this);
+						k.removeAttr("disabled")
+					});
+					jQuery("[data-zpa-geographic-field=true]").each(function() {
+						var k = jQuery(this);
+						k.show()
+					});
+					jQuery("#zpa-boundary").attr("disabled", true)
+				});
+				if (g) {
+					jQuery("[data-zpa-geographic-field=true]").each(function() {
+						var k = jQuery(this);
+						k.hide()
+					})
+				}
+			})
+		})();
+	</script> */ ?>
 </div>
