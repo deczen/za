@@ -30,9 +30,7 @@
 	ob_start();
 	
 	/** CONTENT HERE **/
-	// $data = get_static_references('PROPTYPE');
-	$fields = get_field_list();
-	$data = isset($fields->PROPTYPE) ? $fields->PROPTYPE : array();
+	$data = get_static_references('PROPTYPE');
 	if(!sizeof($data)){
 		$data['SF']='Single Family';                     
 		$data['MF']='Multifamily';							

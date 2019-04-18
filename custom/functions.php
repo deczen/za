@@ -748,6 +748,7 @@ if( ! function_exists('get_references_field') ){
 	}
 }
 
+/*
 if( ! function_exists('get_property_type') ){
 	function get_property_type($type=array('NA')){	
 		ob_start();
@@ -764,6 +765,30 @@ if( ! function_exists('get_property_type') ){
 			}else if(!$type){
 				$arr[$entity->shortDescription]=$entity->longDescription;
 			}
+		}
+		
+		return $arr;
+	}
+} */
+
+if( ! function_exists('get_property_type') ){
+	function get_property_type($type=array('NA')){	
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
+		$json=ob_get_clean();
+		$data=json_decode($json);
+		
+		$arr=array();
+		
+		// echo "<pre>"; print_r($data); echo "</pre>";
+		
+		foreach($data as $entity){
+			
+			// if($type!='' && in_array($entity->type, $type)){
+				// $arr[$entity->shortDescription]=$entity->longDescription;
+			// }else if(!$type){
+				$arr[$entity->shortDescription]=$entity->longDescription;
+			// }
 		}
 		
 		return $arr;
