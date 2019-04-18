@@ -3841,7 +3841,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 							newLabel = 'zipcode ' + value;	
 							break;
 						case "alstid":
-							newLabel = 'mls# ' + value;	
+							newLabel = 'listing: ' + value;	
 							break;
 						case "apold":
 							newLabel = 'Pool Description';	

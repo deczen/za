@@ -48,7 +48,7 @@ $contactIds=get_contact_id();
 												ON SITE: <span class="uk-text-bold"> [dayssincelisting] DAYS </span>
 											</li>
 											<?php endif; ?>
-											<li>MLS #:
+											<li>[displaySource] #:
 												<span class="uk-text-bold">[listno]</span>
 											</li>
 											<?php if(isset($single_property->dateavailableformatted)): ?>
@@ -1496,7 +1496,7 @@ $contactIds=get_contact_id();
 			   <li>Price: $[realprice]</li>
 			   <li>Status: [status]</li>
 			   <li>Updated: [syncAge] min ago</li>
-			   <li>MLS #: [id]</li>
+			   <li>[displaySource] #: [id]</li>
 			</ul>
 			<table class="bt-print__meta-blocks">
 			   <tr>

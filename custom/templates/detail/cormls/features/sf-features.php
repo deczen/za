@@ -316,93 +316,93 @@
 						<td class="bt-listing__table__items"><span>[unmapped_Rooms]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Great Room Level'})): ?>
+					<?php if( isset($single_property->unmapped->{'Great Room Level'}) && $single_property->unmapped->{'Great Room Level'} !== 0): ?>
 					<tr>
-						<td class="bt-listing__table__label">Great Room Level</td>
+						<td class="bt-listing__table__label">Great Rooms (Entry Level)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Great Room Level]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds Down1'})): ?>
+					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds Down1'}) && $single_property->unmapped->{'Bedroom Level: Beds Down1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedroom Level: Beds Down1</td>
+						<td class="bt-listing__table__label">Bedrooms (Lower Level1)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds Down1]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds Down2'})): ?>
+					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds Down2'}) && $single_property->unmapped->{'Bedroom Level: Beds Down2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedroom Level: Beds Down2</td>
+						<td class="bt-listing__table__label">Bedrooms (Lower Level2)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds Down2]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds UP1'})): ?>
+					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds UP1'}) && $single_property->unmapped->{'Bedroom Level: Beds UP1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedroom Level: Beds UP1</td>
+						<td class="bt-listing__table__label">Bedrooms (Upper Level1)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds UP1]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds UP2'})): ?>
+					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds UP2'}) && $single_property->unmapped->{'Bedroom Level: Beds UP2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedroom Level: Beds UP2</td>
+						<td class="bt-listing__table__label">Bedrooms (Upper Level2)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds UP2]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'})): ?>
+					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'}) && $single_property->unmapped->{'Full Baths Level: Full B Entry Level'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths Level: Full B Entry Level</td>
+						<td class="bt-listing__table__label">Full Baths (Entry Level)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full B Entry Level]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'})): ?>
+					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'}) && $single_property->unmapped->{'Half Baths Level: Half B Entry Level'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths Level: Half B Entry Level</td>
+						<td class="bt-listing__table__label">Half Baths (Entry Level)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half B Entry Level]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'})): ?>
+					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'}) && $single_property->unmapped->{'Half Baths Level: Half Bath Down2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths Level: Half Bath Down2</td>
+						<td class="bt-listing__table__label">Half Baths (Lower Level2)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Bath Down2]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'})): ?>
+					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'}) && $single_property->unmapped->{'Half Baths Level: Half Bath Down1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths Level: Half Bath Down1</td>
+						<td class="bt-listing__table__label">Half Baths (Lower Level1)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Bath Down1]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'})): ?>
+					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'}) && $single_property->unmapped->{'Full Baths Level: Full Baths Down1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths Level: Full Baths Down1</td>
+						<td class="bt-listing__table__label">Full Baths (Lower Level1)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths Down1]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'})): ?>
+					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'}) && $single_property->unmapped->{'Half Baths Level: Half Baths UP2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths Level: Half Baths UP2</td>
+						<td class="bt-listing__table__label">Half Baths (Upper Level2)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Baths UP2]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'})): ?>
+					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'}) && $single_property->unmapped->{'Half Baths Level: Half Baths UP1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths Level: Half Baths UP1</td>
+						<td class="bt-listing__table__label">Half Baths (Upper Level1)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Baths UP1]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'})): ?>
+					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'}) && $single_property->unmapped->{'Full Baths Level: Full Baths UP2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths Level: Full Baths UP2</td>
+						<td class="bt-listing__table__label">Full Baths (Upper Level2)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths UP2]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'})): ?>
+					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'}) && $single_property->unmapped->{'Full Baths Level: Full Baths UP1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths Level: Full Baths UP1</td>
+						<td class="bt-listing__table__label">Full Baths (Upper Level1)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths UP1]</span></td>
 					</tr>
 					<?php endif; ?>
-					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'})): ?>
+					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'}) && $single_property->unmapped->{'Full Baths Level: Full Baths Down2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths Level: Full Baths Down2</td>
+						<td class="bt-listing__table__label">Full Baths (Lower Level2)</td>
 						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths Down2]</span></td>
 					</tr>
 					<?php endif; ?>

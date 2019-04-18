@@ -42,7 +42,7 @@
 		   <li>Updated: [syncAge] min ago</li>
 			<?php endif; ?>
 			<?php if(isset($single_property->id)): ?>
-		   <li>MLS #: [id]</li>
+		   <li>[displaySource] #: [id]</li>
 			<?php endif; ?>
 		</ul>
 		<table class="bt-print__meta-blocks">

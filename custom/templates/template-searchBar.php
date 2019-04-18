@@ -483,8 +483,8 @@ $excludes = get_filter_excludes();
 		jQuery(document).ready(function(){
 			
 			window.removeLabel = function(linked_name, name, value){
-				jQuery('#zpa-search-filter-form input[linked-name='+linked_name+']').remove();
-				jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+ linked_name +'"').remove();
+				jQuery('#zpa-search-filter-form input[linked-name="'+linked_name+'"]').remove();
+				jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+ linked_name +'"]').remove();
 				
 				//remove from search bar		
 				jQuery('#omnibar-wrap .filter-column input[type=text][name="'+name+'"]').val('');
@@ -647,7 +647,7 @@ $excludes = get_filter_excludes();
 							newLabel = 'zipcode ' + value;	
 							break;
 						case "alstid":
-							newLabel = 'mls# ' + value;	
+							newLabel = 'listing: ' + value;	
 							break;
 						case "apold":
 							newLabel = 'Pool Description';	
@@ -664,9 +664,9 @@ $excludes = get_filter_excludes();
 				if(!newLabel)
 					return;
 				
-				if(jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name='+linked_name+']').length){
+				if(jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').length){
 					var replace='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
-					jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name='+linked_name+']').replaceWith(replace);
+					jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').replaceWith(replace);
 				}else{
 					var add='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
 					jQuery('#zpa-selected-filter .ms-sel-ctn').append(add);						
@@ -1026,6 +1026,7 @@ $excludes = get_filter_excludes();
 							addFilterLabel(name, value, linked_name, '');
 							addFormField(name,value,linked_name);							
 						}
+					break;
 				case "text":
 				default:	
 						if(!value){
@@ -1233,7 +1234,7 @@ $excludes = get_filter_excludes();
 
 		  function initAutocomplete() {
 			var options = {
-				types: ['geocode'],  // or '(cities)' if that's what you want?
+				types: ['establishment'],  // or '(cities)' if that's what you want?
 				componentRestrictions: {country: ["us","ca","in"]},
 			};
 			// Create the autocomplete object, restricting the search to geographical

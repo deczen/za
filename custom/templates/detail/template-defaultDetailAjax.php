@@ -195,7 +195,7 @@ if(file_exists($template_path) && $template_name ){
 												ON SITE: <span class="uk-text-bold"> [dayssincelisting] DAYS </span>
 											</li>
 											<?php endif; ?>
-											<li>MLS #:
+											<li>[displaySource] #:
 												<span class="uk-text-bold">[listno]</span>
 											</li>
 											<?php if(isset($single_property->dateavailableformatted)): ?>

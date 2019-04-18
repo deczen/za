@@ -48,7 +48,7 @@ $maxListPrice		= $requests['maxlistprice'];
 												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Enter Town / Area / County / Zip"  name="location[]"/>
 											</div>
 											<div class="field-section addr hide">
-												<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
+												<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" />
 																																								
 												<input type="hidden" id="street_number" name="advStNo" disabled="true" />
 												<input type="hidden" id="route" name="advStName" disabled="true" />
@@ -70,7 +70,7 @@ $maxListPrice		= $requests['maxlistprice'];
 												<input id="listid" class="form-control" placeholder="Comma separated listing ids"  name="alstid"/>
 											</div>
 											<div class="field-section school hide">
-												<input type="text" id="zpa-school" class="form-control" placeholder="Type address here" name="school" />
+												<input type="text" id="zpa-school" class="form-control" placeholder="Type address here" />
 												
 												<input type="hidden" id="lat" name="lat" />
 												<input type="hidden" id="lng" name="lng" />
@@ -574,7 +574,7 @@ $maxListPrice		= $requests['maxlistprice'];
 
 		  function initAutocomplete() {
 			var options = {
-				types: ['geocode'],  // or '(cities)' if that's what you want?
+				types: ['establishment'],  // or '(cities)' if that's what you want?
 				componentRestrictions: {country: ["us","ca","in"]},
 			};
 			// Create the autocomplete object, restricting the search to geographical

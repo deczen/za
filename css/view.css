@@ -13,8 +13,9 @@
 #map .zpa-marker:hover .short-info{display:block;}
 
 #omnibar-wrap .input-column{}
+#omnibar-wrap #zpa-selected-filter{height:auto !important;}
 #omnibar-wrap .input-column .search-by{display:inline-block;width: 106px;border:1px solid #ddd;border-right:0;height: 42px;position: absolute;border-radius:3px 0 0 3px;}
-#omnibar-wrap .input-column .field-wrap{display:inline-block;width: 100%;padding-left: 106px;}
+#omnibar-wrap .input-column .field-wrap{display:inline-block;width: 100%;padding-left: 106px;background: #fff;}
 #omnibar-wrap .input-column .field-wrap .field-section .ms-ctn{border:0 !important;box-shadow:none;padding-top: 7px;padding-bottom: 7px;height:auto;}
 #omnibar-wrap .input-column .field-wrap .field-section{border:1px solid #ddd;min-height: 42px;height: auto;border-radius: 0 3px 3px 0;}
 
@@ -214,6 +215,7 @@
 }
 #omnibar-wrap .ms-res-item-grouped .name.area{padding-left: 0;}
 #omnibar-wrap .mobile-omnimbar{display: none;}
+#omnibar-wrap #zpa-mobile-all-input{height:auto;}
 .mobile-filter{
 	display: none;
 	position: fixed !important;
