@@ -83,6 +83,7 @@ $maxListPrice		= $requests['maxlistprice'];
 						</script>
 					</div>
 					<div class="submit-column col-xs-3 col-sm-2">
+						<input type="hidden" name="newsearchbar" value="1" />
 						<button class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search visible-xs visible-sm visible-md hidden-lg" aria-hidden="true"></i> <span class="hidden-xs hidden-sm hidden-md">Find Your Home</span> </button>
 					</div>
 				</div>

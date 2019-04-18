@@ -233,7 +233,11 @@ class zipperAgentRequestor {
 					ob_start();
 					include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
 					if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
-						include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
+						
+						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1)
+							include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
+						else
+							include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
 					}else{ //map search		
 						$type='map';
 						include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter2.php";

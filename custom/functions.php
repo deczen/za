@@ -2393,6 +2393,13 @@ if( ! function_exists('zipperagent_get_agent_by') ){
 	}
 }
 
+if( ! function_exists('get_short_excludes') ){
+	function get_short_excludes(){
+		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid','newsearchbar','is_shortcode');
+		return $excludes;
+	}
+}
+
 if( ! function_exists('get_long_excludes') ){
 	function get_long_excludes(){
 		$excludes=array( 'o', 'location', 'address', 'advstno', 'advstname', 
@@ -2407,36 +2414,29 @@ if( ! function_exists('get_long_excludes') ){
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
-					'fbclid',
+					'fbclid','newsearchbar',
 				);
 				
 		return $excludes;
 	}
 }
 
-if( ! function_exists('get_filter_excludes') ){
-	function get_filter_excludes(){
+if( ! function_exists('get_new_filter_excludes') ){
+	function get_new_filter_excludes(){
 		$excludes=array( 'address', 'boundarywkt',				
 			'pagination', 'result', 'crit', 'ajax', 'save_search',
 			'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
 			'search_form_enabled', 'listinapage', 'page', 'maxlist',
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
-			'location_option','criteria','afteraction','listingparams','fbclid','o',
+			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
 		);
 		return $excludes;
 	}
 }
 
-if( ! function_exists('get_short_excludes') ){
-	function get_short_excludes(){
-		$excludes = array('location', 'propertytype', 'status', 'column', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid');
-		return $excludes;
-	}
-}
-
-if( ! function_exists('get_filter_excludes') ){
-	function get_filter_excludes(){
+if( ! function_exists('get_old_filter_excludes') ){
+	function get_old_filter_excludes(){
 		$excludes=array( 'location', 'address', 'boundarywkt',				
 					'pagination', 'result', 'crit', 'ajax', 'save_search',
 					'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
@@ -3932,7 +3932,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 				} */ ?>
 				
 				<?php																		
-				$filterExcluded=get_filter_excludes();
+				$filterExcluded=get_old_filter_excludes();
 				
 				foreach($requests as $filterField=>$filterValue){
 					if(!in_array($filterField, $filterExcluded) && !empty($filterValue) ){

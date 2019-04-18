@@ -1,6 +1,6 @@
 <?php
 $currency = zipperagent_currency();
-$excludes = get_filter_excludes();
+$excludes = get_new_filter_excludes();
 ?>
 <div id="omnibar-wrap">
 	<div class="desktop-omnibar">
