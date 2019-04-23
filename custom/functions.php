@@ -397,7 +397,10 @@ if( ! function_exists('zipperagent_sold_status') ){
 if( ! function_exists('zipperagent_rental_status') ){
 	function zipperagent_rental_status(){
 		$rental='';
-		$obj = (object) zipperagent_run_curl('/api/mls/staticReferences', array(), 0, '', 1);
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/api-processing/static-references.php";
+		$json=ob_get_clean();
+		$obj=json_decode($json);
 			
 		if(isset($obj->status) && $obj->status=='SUCCESS' && isset($obj->result)){
 			$result = $obj->result;
@@ -709,7 +712,10 @@ if( ! function_exists('get_static_references') ){
 	function get_static_references($type='PROPTYPE'){
 		$arr=array();
 		
-		$obj = (object) zipperagent_run_curl('/api/mls/staticReferences', array(), 0, '', 1);
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/api-processing/static-references.php";
+		$json=ob_get_clean();
+		$obj=json_decode($json);
 		
 		if(isset($obj->status) && $obj->status=='SUCCESS' && isset($obj->result)){
 			$result = $obj->result;
@@ -731,6 +737,13 @@ if( ! function_exists('get_static_references') ){
 	}
 }
 
+if( ! function_exists('populate_static_references') ){
+	function populate_static_references(){
+		$obj = zipperagent_run_curl('/api/mls/staticReferences', array(), 0, '', 1);
+		
+		return $obj;
+	}
+}
 if( ! function_exists('get_meta_fields') ){
 	function get_meta_fields(){
 		

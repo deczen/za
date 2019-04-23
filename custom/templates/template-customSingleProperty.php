@@ -22,7 +22,11 @@ if( $listing ){
 }else{
 	
 	ob_start();
-	include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty.php";
+	if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
+		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
+	}else{		
+		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty.php";
+	}
 	$html=ob_get_clean();
 	echo $html;
 }

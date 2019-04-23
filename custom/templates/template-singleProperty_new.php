@@ -88,8 +88,10 @@ if( sizeof($_GET)==$excParamCount ){
 ?>
 
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
-
-	<div class="zpa-listing-detail">
+	
+	<div class="zpa-listing-detail">	
+	
+	<?php /*	
 		<div class="bt-listing-search__wrapper js-filter-bar hideonprint" style="margin-bottom:0;">
 			<div class="grid grid--gutters grid--center">
 				<div class="cell">
@@ -109,18 +111,18 @@ if( sizeof($_GET)==$excParamCount ){
 															<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-arrow-down"></use>
 														</svg>
 													</button><span></span></div>
-											</div> */ ?>
+											</div> * ?>
 											<div class="cell bt-off-canvas__ballerbox-wrapper width-1-1">
 												<?php /* <div class="bt-off-canvas__ballerbox-search-icon">
 													<svg class="bt-icon bt-icon--larger">
 														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-search"></use>
 													</svg>
-												</div> */ ?>
+												</div> * ?>
 												<div class="bt-search__query-wrapper">
 													<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete bt-search__query" placeholder="Enter City / County / Zip" name="location[]">
 												</div>
 												<?php /* 
-												<div class="bt-off-canvas__ballerbox-nearby"><a class="bt-nearby-link at-nearby-button"><span><svg class="bt-icon bt-icon--larger"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-search-nearby"></use></svg></span></a></div> */ ?>
+												<div class="bt-off-canvas__ballerbox-nearby"><a class="bt-nearby-link at-nearby-button"><span><svg class="bt-icon bt-icon--larger"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-search-nearby"></use></svg></span></a></div> * ?>
 											</div>
 										</div>
 									</div>
@@ -334,7 +336,7 @@ if( sizeof($_GET)==$excParamCount ){
 												<svg class="bt-icon bt-icon--smaller">
 													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-plus"></use>
 												</svg>
-											</button><span></span></div> */ ?>
+											</button><span></span></div> * ?>
 									</div>
 								</div>
 								<?php
@@ -362,10 +364,13 @@ if( sizeof($_GET)==$excParamCount ){
 							</div>
 							<div id="results-set-interactions" class="cell pl-10 bt-view-options__wrapper"></div>
 						</div>
-					</div> */ ?>
+					</div> * ?>
 				</div>
 			</div>
-		</div>
+		</div> */ ?>
+		
+		<?php zipperagent_omnibar($requests); ?>
+		
 		<?php if( $is_search_apply ): ?>
 		<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
 		<?php else: 
@@ -640,16 +645,17 @@ if( sizeof($_GET)==$excParamCount ){
 		
 	</script>
 	<script>
-		jQuery(document).on('click', '.bt-listing-search__wrapper .dropdown-menu', function (e) {
+		jQuery(document).on('click', '.bt-listing-search__wrapper .dropdown-menu, #omnibar-wrap .dropdown-menu', function (e) {
 		  e.stopPropagation();
 		});
 	</script>
 	
-	<?php global_magicsuggest_script($location); ?>
+	<?php // global_magicsuggest_script($location); ?>
 	
 	<script>
 		jQuery(document).ready(function(){
-			
+			<?php /* //old search bar script, has to disabled
+	
 			<?php if( !empty( $location ) || is_array( $location ) ): ?>
 			var changeCount=0;
 			jQuery(jQuery('#zpa-area-input').magicSuggest()).on(
@@ -717,6 +723,7 @@ if( sizeof($_GET)==$excParamCount ){
 				// jQuery(this).closest(".dropdown-menu").hide();
 				// jQuery(this).parent().find(".dropdown-menu").toggle(100);
 			// });
+			*/ ?>
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				var $form = jQuery(this); //wrap this in jQuery
