@@ -242,7 +242,7 @@ if($templatename && file_exists($template_path)){
 							<?php endif; ?>											
 						</div>
 						<div class="row mb-5 fs-12 mt-10">
-							<div class="<?php echo $column==4 ? "col-xs-6" : "col-xs-7"; ?>">
+							<div class="<?php echo $column==4 ? "col-xs-6" : "col-xs-8"; ?>">
 								<div class="zpa-grid-result-additional-info">
 									<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
 										<?php
@@ -253,7 +253,7 @@ if($templatename && file_exists($template_path)){
 									</div>
 								</div>
 							</div>
-							<div class="<?php echo $column==4 ? "col-xs-6" : "col-xs-5"; ?>">
+							<div class="<?php echo $column==4 ? "col-xs-6" : "col-xs-4"; ?>">
 								<span class="zpa-on-site pull-right"> <?php if(isset($property->dayssincelisting)): ?><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo isset($property->dayssincelisting)?$property->dayssincelisting:'-'; ?> Day(s) <?php endif; ?> </span>
 							</div>
 						</div>

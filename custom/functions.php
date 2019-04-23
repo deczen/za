@@ -686,7 +686,7 @@ if( ! function_exists('zipperagent_property_type') ){
 	function zipperagent_property_type( $code ){
 		
 		$propertyType = '';
-		$propTypeFields = get_property_type(array('NA','NA1'));
+		$propTypeFields = get_field_reference_property_type();
 		
 		if(sizeof($propTypeFields) && isset( $propTypeFields[$code] )){
 			$propertyType = $propTypeFields[$code];
@@ -774,7 +774,7 @@ if( ! function_exists('get_property_type') ){
 if( ! function_exists('get_property_type') ){
 	function get_property_type($type=array('NA')){	
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
+		include ZIPPERAGENTPATH . "/custom/api-processing/proptype-static.php";
 		$json=ob_get_clean();
 		$data=json_decode($json);
 		
@@ -784,11 +784,28 @@ if( ! function_exists('get_property_type') ){
 		
 		foreach($data as $entity){
 			
-			// if($type!='' && in_array($entity->type, $type)){
-				// $arr[$entity->shortDescription]=$entity->longDescription;
-			// }else if(!$type){
+			if($type!='' && in_array($entity->type, $type)){
 				$arr[$entity->shortDescription]=$entity->longDescription;
-			// }
+			}else if(!$type){
+				$arr[$entity->shortDescription]=$entity->longDescription;
+			}
+		}
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('get_field_reference_property_type') ){
+	function get_field_reference_property_type(){	
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
+		$json=ob_get_clean();
+		$data=json_decode($json);
+		
+		$arr=array();
+		
+		foreach($data as $entity){
+			$arr[$entity->shortDescription]=$entity->longDescription;
 		}
 		
 		return $arr;
@@ -1170,11 +1187,19 @@ if( ! function_exists('zipperagent_property_fields') ){
 		}
 		// echo "<pre>"; print_r($find); echo "</pre>";
 		// echo "<pre>"; print_r($replaces); echo "</pre>";
-		$html = str_replace($find,$replaces,$html);
 		
-		// $html = preg_replace("/\[([^\]]*)\]/", "-", $html);
-		// $html = preg_replace("/\[([\w\h,]+)\]/", "-", $html);
-		$html = preg_replace("/\[([\w\h,]+){2,}\]/", "-", $html); //more than 1 chars
+		if(!is_array($html)){
+			$html = str_replace($find,$replaces,$html);
+			
+			// $html = preg_replace("/\[([^\]]*)\]/", "-", $html);
+			// $html = preg_replace("/\[([\w\h,]+)\]/", "-", $html);
+			$html = preg_replace("/\[([\w\h,]+){2,}\]/", "-", $html); //more than 1 chars
+		}else{
+			foreach($html as $key=>&$source){
+				$source = str_replace($find,$replaces,$source);
+				$source = preg_replace("/\[([\w\h,]+){2,}\]/", "-", $source); //more than 1 chars
+			}
+		}
 		
 		return $html;
 	}

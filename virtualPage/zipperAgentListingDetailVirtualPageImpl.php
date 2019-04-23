@@ -36,11 +36,15 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			$this->property_cache = $property_cache;
 			$this->single_property = $single_property;
 						
-			if($_GET['debug']){				
-				echo "<pre>"; print_r( $single_property ); echo "</pre>";
+			if($_GET['debug']){
+				if($single_property){
+					echo "<pre>"; print_r( $single_property ); echo "</pre>";
+				}
+				if($property_cache){					
+					echo "<pre>"; print_r($property_cache); echo "</pre>";
+				}
 				// echo "<pre>"; print_r($_SESSION); echo "</pre>";
 				// echo "<pre>"; print_r($lastest_cache); echo "</pre>";
-				// echo "<pre>"; print_r($property_cache); echo "</pre>";
 			}
 		}
 	}

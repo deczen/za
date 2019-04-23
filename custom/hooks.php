@@ -436,17 +436,19 @@ function display_property_detail(){
 		include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
 		ob_clean(); //clear buffer
 		
-		$header_section = zipperagent_property_fields($single_property, $header_section);	
-		$description_section = zipperagent_property_fields($single_property, $description_section);		
-		$sidebar_section = zipperagent_property_fields($single_property, $sidebar_section);	
-		$bottom_section = zipperagent_property_fields($single_property, $bottom_section);
-		$print_section = zipperagent_property_fields($single_property, $print_section);	
+		$htmls['header_section']=$header_section;
+		$htmls['description_section']=$description_section;
+		$htmls['sidebar_section']=$sidebar_section;
+		$htmls['bottom_section']=$bottom_section;
+		$htmls['print_section']=$print_section;
 		
-		$result['header_section']=$header_section;
-		$result['description_section']=$description_section;		
-		$result['sidebar_section']=$sidebar_section;
-		$result['bottom_section']=$bottom_section;
-		$result['print_section']=$print_section;
+		$htmls = zipperagent_property_fields($single_property, $htmls);	
+		
+		$result['header_section']=$htmls['header_section'];
+		$result['description_section']=$htmls['description_section'];	
+		$result['sidebar_section']=$htmls['sidebar_section'];
+		$result['bottom_section']=$htmls['bottom_section'];
+		$result['print_section']=$htmls['print_section'];
 		
 		echo json_encode($result);
          

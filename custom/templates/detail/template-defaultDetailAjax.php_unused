@@ -170,10 +170,8 @@ if(file_exists($template_path) && $template_name ){
 						<div class="cell">
 							<div class="grid grid--gutters">
 								<div class="cell cell-md-7 cell-lg-8 cell-xs-12">
-									<div id="header-column" class="bt-listing__header-grid">
-										
-										<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save header section ?>
-										
+									<div class="bt-listing__header-grid">
+
 										<?php echo property_source_info($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' )); ?>
 										<div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 											<h1 class="uk-h2 mt-5 mb-0 listing-address at-prop-addr-txt">
@@ -228,9 +226,7 @@ if(file_exists($template_path) && $template_name ){
 										<span class="bt-listing-single__info-updated text-small" data-uk-tooltip="{pos:'bottom'}" title="Our MLS data is the freshest around which ensures the most accurate property information is available to you">
 											UPDATED: <span class="uk-text-bold">198 min ago</span>
 										</span> */ ?>
-										
-										<?php if(isset($is_doing_ajax) && $is_doing_ajax) $header_section = ob_get_clean(); //end save header section ?>
-										
+
 									</div>
 								</div>
 								<div class="bt-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
@@ -473,10 +469,9 @@ if(file_exists($template_path) && $template_name ){
 		<!-- end .bt-listing__header-cta -->
 		<div class="">
 			<section class="mt-15 listing-content">
-				<div id="listing-top-wrapper" class="grid grid--gutters">				
-										
+				<div id="listing-top-wrapper" class="grid grid--gutters">
 					<div id="gallery-column" class="cell cell-xs-12 cell-lg-8 mb-15">
-						
+					
 						<?php if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ): ?>
 											
 						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">						
@@ -634,11 +629,7 @@ if(file_exists($template_path) && $template_name ){
 							})(jQuery)
 						</script>
 						<?php endif; ?>
-						
-						<div id="description-column">
-						
-						<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save description section ?>
-						
+
 						<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>						
 						<aside class="my-15">
 							<div class="uk-hidden-small uk-hidden-medium">
@@ -708,7 +699,6 @@ if(file_exists($template_path) && $template_name ){
 							</div>
 						</aside>
 						
-						<?php if(!$property_cache): //hide on ajax mode, show after ajax finished ?>
 						<aside class="my-15">
 							<div class="uk-hidden-small uk-hidden-medium">
 
@@ -719,21 +709,9 @@ if(file_exists($template_path) && $template_name ){
 
 							</div>
 						</aside>
-						<?php endif; ?>
 						
-						<?php if(!isset($is_doing_ajax) && $property_cache): //only show on ajax mode, hide after ajax finished ?>
-						<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
-						<?php endif; ?>
-					
-						<?php if(isset($is_doing_ajax) && $is_doing_ajax) $description_section = ob_get_clean(); //end save description section ?>
-						
-						</div>
-					
 					</div>
-					
 					<div id="props-column" class="cell">
-					
-						<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save sidebar section ?>
 						
 						<?php
 						/* incldue sidebar template */
@@ -1015,18 +993,10 @@ if(file_exists($template_path) && $template_name ){
 							</div>
 						</div>
 						<?php endif; ?>
-						
-						<?php if(isset($is_doing_ajax) && $is_doing_ajax) $sidebar_section = ob_get_clean(); //end save sidebar section ?>
-						
 					</div>
 				</div>
 				
-				<div id="detail-column">
-				
 				<?php if(! $property_cache): ?>
-				
-				<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save bottom section ?>
-				
 					<aside class="my-15">
 
 						<?php
@@ -1406,13 +1376,8 @@ if(file_exists($template_path) && $template_name ){
 						  </div>
 					   </div>
 					</div>
-					
-			<?php if(isset($is_doing_ajax) && $is_doing_ajax) $bottom_section = ob_get_clean(); //end save bottom section ?>
 			
-			<?php endif; ?>
-			
-			</div>
-			
+			<?php endif; ?> 
 			</section>
 			
 			<?php /*
@@ -1553,9 +1518,7 @@ if(file_exists($template_path) && $template_name ){
 		$print_logo = $rb['web']['print_logo'];
 		$print_color = $rb['web']['print_color'];
 	?>
-	
-	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
-	<div id="print-view-column" class="bt-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
+	<div class="bt-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
 	<?php
 		// $rb = zipperagent_rb();
 		
@@ -1572,7 +1535,4 @@ if(file_exists($template_path) && $template_name ){
 		}
 	?>
 	</div>
-	<?php 
-	if(isset($is_doing_ajax) && $is_doing_ajax) $print_section = ob_get_clean(); //end save print section
-	?>
 </div>
