@@ -32,14 +32,40 @@
 	/** CONTENT HERE **/
 	$data = get_static_references('PROPTYPE');
 	if(!sizeof($data)){
-		$data['SF']='Single Family';                     
-		$data['MF']='Multifamily';							
-		$data['MH']='Mobile Home';
-		$data['LD']='Land';
-		$data['RN']='Rental';
-		$data['CC']='Condo';
-		$data['CI']='Commercial';
-		$data['BU']='Business';
+		$data=array(
+			0 => array(
+				'shortDescription'=>'SF',
+				'longDescription'=>'Single Family',
+			),
+			1 => array(
+				'shortDescription'=>'MF',
+				'longDescription'=>'Multifamily',
+			),
+			2 => array(
+				'shortDescription'=>'MH',
+				'longDescription'=>'Mobile Home',
+			),
+			3 => array(
+				'shortDescription'=>'LD',
+				'longDescription'=>'Land',
+			),
+			4 => array(
+				'shortDescription'=>'RN',
+				'longDescription'=>'Rental',
+			),
+			5 => array(
+				'shortDescription'=>'CC',
+				'longDescription'=>'Condo',
+			),
+			6 => array(
+				'shortDescription'=>'CI',
+				'longDescription'=>'Commercial',
+			),
+			7 => array(
+				'shortDescription'=>'BU',
+				'longDescription'=>'Business',
+			),			
+		); 
 	}
 		
 	echo json_encode( $data );
