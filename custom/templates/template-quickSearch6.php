@@ -82,21 +82,23 @@ $maxListPrice		= $requests['maxlistprice'];
 							});
 						</script>
 					</div>
-					<div class="submit-column col-xs-3 col-sm-2">
-						<input type="hidden" name="newsearchbar" value="1" />
+					<div class="submit-column col-xs-3 col-sm-2">						
 						<button class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search visible-xs visible-sm visible-md hidden-lg" aria-hidden="true"></i> <span class="hidden-xs hidden-sm hidden-md">Find Your Home</span> </button>
-						<?php 
-						$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
-						if($default_order): ?>
-						<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
-						<?php endif; ?>
 						
-						<?php if(isset($requests['column'])): ?>
-						<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
-						<?php endif; ?>
 					</div>
 				</div>
 			</div>
+			
+			<input type="hidden" name="newsearchbar" value="1" />
+			<?php 
+			$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
+			if($default_order): ?>
+			<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
+			<?php endif; ?>
+			
+			<?php if(isset($requests['column'])): ?>
+			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+			<?php endif; ?>
 		</form>	
 		<script>
 			jQuery(document).ready(function($) {

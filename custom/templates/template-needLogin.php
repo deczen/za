@@ -248,6 +248,10 @@ $rb = zipperagent_rb();
 									jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
 									jQuery('#zpaMoreInfo').modal('show');
 								break;
+							case "share_email":
+									jQuery('#zpa-modal-share-email-form input[name=contactId]').val(contactId);
+									jQuery('#zpaShareEmail').modal('show');
+								break;
 							case "myaccount_favorite":
 									var url = response['favorites_url'];
 									window.location.replace(url);
@@ -350,6 +354,12 @@ $rb = zipperagent_rb();
 							case "request_info":
 									jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
 									// jQuery('#zpaMoreInfo').modal('show'); //disable couse redirect
+									
+									action_params=encodeURIComponent( 'afteraction=' + afterAction );
+								break;
+							case "share_email":
+									jQuery('#zpa-modal-share-email-form input[name=contactId]').val(contactId);
+									// jQuery('#zpaShareEmail').modal('show'); //disable couse redirect
 									
 									action_params=encodeURIComponent( 'afteraction=' + afterAction );
 								break;
@@ -512,6 +522,10 @@ $rb = zipperagent_rb();
 								case "request_info":
 										jQuery('#zpa-more-info-request-form input[name=contactId]').val(contactId);
 										jQuery('#zpaMoreInfo').modal('show');
+									break;
+								case "share_email":
+										jQuery('#zpa-modal-share-email-form input[name=contactId]').val(contactId);
+										jQuery('#zpaShareEmail').modal('show');
 									break;
 								case "myaccount_favorite":
 										var url = response['favorites_url'];

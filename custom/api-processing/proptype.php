@@ -33,6 +33,8 @@
 	// $data = get_static_references('PROPTYPE');
 	$fields = get_field_list();
 	$data = isset($fields->PROPTYPE) ? $fields->PROPTYPE : array();
+	
+	/*
 	if(!sizeof($data)){
 		$data=array(
 			0 => array(
@@ -68,7 +70,7 @@
 				'longDescription'=>'Business',
 			),			
 		);                   
-	}
+	} */
 		
 	echo json_encode( $data );
 	/** CONTENT END **/

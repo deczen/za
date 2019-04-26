@@ -140,6 +140,7 @@ function display_quick_search($atts){
 		// 'property_type_default' => '',
 		'minlistprice' => 500,
 		'maxlistprice' => 10000000,
+		'newsearchbar' => '',
 	), $atts, 'quick_search' );
 	
 	$requests = $atts;
@@ -164,12 +165,17 @@ function display_quick_search2($atts){
 		'maxlistprice' => 10000000,
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 	), $atts, 'quick_search2' );
 	
 	$requests = $atts;
 		
-	ob_start();	
-	include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch2.php";
+	ob_start();
+	if($requests['newsearchbar']==1){	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch2_new.php";
+	}else{	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch2.php";
+	}
 	$html=ob_get_clean();
 	
 	return $html;
@@ -188,12 +194,17 @@ function display_quick_search3($atts){
 		'maxlistprice' => 10000000,
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 	), $atts, 'quick_search3' );
 	
 	$requests = $atts;
 		
 	ob_start();	
-	include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch3.php";
+	if($requests['newsearchbar']==1){	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch3_new.php";
+	}else{	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch3.php";
+	}
 	$html=ob_get_clean();
 	
 	return $html;
@@ -212,12 +223,17 @@ function display_quick_search4($atts){
 		'maxlistprice' => 10000000,
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 	), $atts, 'quick_search4' );
 	
 	$requests = $atts;
 	
 	ob_start();	
-	include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch4.php";
+	if($requests['newsearchbar']==1){	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch4_new.php";
+	}else{	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch4.php";
+	}
 	$html=ob_get_clean();
 	
 	return $html;
@@ -236,6 +252,7 @@ function display_quick_search5($atts){
 		// 'maxlistprice' => 10000000,
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 	), $atts, 'quick_search5' );
 	
 	$requests = $atts;
@@ -605,12 +622,17 @@ function getBasicSearch($atts){
 		'property_type_default' => '',
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 	), $atts, 'basic_search' );
 	
 	$requests = $atts;
 	
 	ob_start();	
-	include ZIPPERAGENTPATH . "/custom/templates/template-searchFormVirtualPage.php";
+	if($requests['newsearchbar']==1){		
+		include ZIPPERAGENTPATH . "/custom/templates/template-searchFormVirtualPage_new.php";
+	}else{
+		include ZIPPERAGENTPATH . "/custom/templates/template-searchFormVirtualPage.php";
+	}
 	$html=ob_get_clean();
 	
 	return $html;
@@ -627,12 +649,17 @@ function getAdvancedSearch($atts){
 		'property_type_default' => '',
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 	), $atts, 'quick_search2' );
 	
 	$requests = $atts;
 		
 	ob_start();	
-	include ZIPPERAGENTPATH . "/custom/templates/template-advancedSearchFormVirtualPage.php";
+	if($requests['newsearchbar']==1){
+		include ZIPPERAGENTPATH . "/custom/templates/template-advancedSearchFormVirtualPage_new.php";
+	}else{
+		include ZIPPERAGENTPATH . "/custom/templates/template-advancedSearchFormVirtualPage.php";
+	}
 	$html=ob_get_clean();
 	
 	return $html;	

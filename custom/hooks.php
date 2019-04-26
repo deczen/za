@@ -524,10 +524,10 @@ function update_search_result(){
     }
 }
 
-add_action( 'wp_ajax_schedule_show', 'schedule_show' );
-add_action( 'wp_ajax_nopriv_schedule_show', 'schedule_show' );
+add_action( 'wp_ajax_schedule_show', 'schedule_show_func' );
+add_action( 'wp_ajax_nopriv_schedule_show', 'schedule_show_func' );
 
-function schedule_show(){
+function schedule_show_func(){
 	
 	if ( isset($_REQUEST) ) {
 		
@@ -577,10 +577,10 @@ function schedule_show(){
     }
 }
 
-add_action( 'wp_ajax_request_info', 'request_info' );
-add_action( 'wp_ajax_nopriv_request_info', 'request_info' );
+add_action( 'wp_ajax_request_info', 'request_info_func' );
+add_action( 'wp_ajax_nopriv_request_info', 'request_info_func' );
 
-function request_info(){
+function request_info_func(){
 	
 	if ( isset($_REQUEST) ) {
 		
@@ -598,6 +598,34 @@ function request_info(){
 		$array['result']=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		// $array['result']=$result?1:0;
 		// $array['result']=1;
+		
+		echo json_encode($array);
+         
+        die();
+    }
+}
+
+add_action( 'wp_ajax_share_email', 'share_email_func' );
+add_action( 'wp_ajax_nopriv_share_email', 'share_email_func' );
+
+function share_email_func(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		$listingId = isset($_REQUEST['listingId'])?$_REQUEST['listingId']:'';
+		$contactIds = isset($_REQUEST['contactId'])?$_REQUEST['contactId']:'';
+		$recepient_name = isset($_REQUEST['recepient_name'])?$_REQUEST['recepient_name']:'';
+		$recepient_email = isset($_REQUEST['recepient_email'])?$_REQUEST['recepient_email']:'';
+		$email_subject = isset($_REQUEST['email_subject'])?$_REQUEST['email_subject']:'';
+		$default_body = isset($_REQUEST['default_body'])?$_REQUEST['default_body']:'';
+		$email_body = isset($_REQUEST['email_body'])?$_REQUEST['email_body']:'';
+		$send_copy = isset($_REQUEST['send_copy'])?$_REQUEST['send_copy']:0;
+		
+		$body = $default_body. "<br /><br />" . $email_body;
+		$result = zipperagent_share_email($listingId, $contactIds, $recepient_name, $recepient_email, $email_subject, $body, $send_copy);
+		// echo "<pre>"; print_r( $_REQUEST ); echo "</pre>";
+		// echo "<pre>"; print_r( $result ); echo "</pre>";
+		$array['result']=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		
 		echo json_encode($array);
          
@@ -1454,6 +1482,7 @@ function zipperagent_detail_page_popup(){
 	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-schedule-show.php'; ?>
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-requestInfo.php'; ?>
+	<?php include ZIPPERAGENTPATH . '/custom/templates/template-share-email.php'; ?>
 	</div>
 	<?php
 }

@@ -202,15 +202,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								
 								<div class="col-xs-12 col-md-2 col-sm-2">
 									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-									<?php 
-									$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
-									if($default_order): ?>
-									<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
-									<?php endif; ?>
 									
-									<?php if(isset($requests['column'])): ?>
-									<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
-									<?php endif; ?>
 								</div>
 							</div>
 							
@@ -220,6 +212,20 @@ $maxListPrice		= $requests['maxlistprice'];
                 
             </fieldset>
             <div> </div>
+			
+			<?php 
+			$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
+			if($default_order): ?>
+			<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
+			<?php endif; ?>
+			
+			<?php if(isset($requests['column'])): ?>
+			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
+			<?php endif; ?>
+			
+			<?php if(isset($requests['newsearchbar'])): ?>
+			<input type="hidden" name="newsearchbar" value="<?php echo $requests['newsearchbar']; ?>" />
+			<?php endif; ?>
         </form>
     </div>
 	

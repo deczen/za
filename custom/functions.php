@@ -194,6 +194,7 @@ if( ! function_exists('zipperagent_rb') ){
 			$save_session['web']['default_proptype'] = $rb['web']['default_proptype'];
 			$save_session['web']['popup_detail_page_only'] = $rb['web']['popup_detail_page_only'];
 			$save_session['web']['distance'] = $rb['web']['distance'];
+			$save_session['web']['company_name'] = $rb['web']['company_name'];
 			
 			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
@@ -688,8 +689,12 @@ if( ! function_exists('zipperagent_page_url') ){
 if( ! function_exists('zipperagent_property_type') ){
 	function zipperagent_property_type( $code ){
 		
-		$propertyType = '';
+		$propertyType = $code;
 		$propTypeFields = get_field_reference_property_type();
+		
+		if(!$propTypeFields){// if value empty, use static references
+			$propTypeFields=get_property_type();
+		}
 		
 		if(sizeof($propTypeFields) && isset( $propTypeFields[$code] )){
 			$propertyType = $propTypeFields[$code];
@@ -1317,6 +1322,46 @@ if( ! function_exists('zipperagent_request_info') ){
 		}
 		
 		$result = (object) zipperagent_run_curl($url, $vars, 1, array(), 1);
+		
+		return $result;
+	}
+}
+
+if( ! function_exists('zipperagent_share_email') ){
+	function zipperagent_share_email($listingId, $contactIds, $recepient_name, $recepient_email, $email_subject, $body, $send_copy=0){
+		
+		$recipients=array();
+		
+		$recipients[]=array(
+			'email'=>$recepient_email,
+			'type'=>$recepient_name,
+		);
+		
+		if($send_copy){
+			
+			$userdata = getCurrentUserContactLogin();
+			$firstUser=isset($userdata[0])?$userdata[0]:false;
+			$firstname=isset($firstUser->firstName)?$firstUser->firstName:'';
+			$lastname=isset($firstUser->lastName)?$firstUser->lastName:'';
+			$fullname = $firstname. ' ' .$lastname;
+			$recipients[]=array(
+				'email'=>isset($firstUser->emailWork1)?$firstUser->emailWork1:'',
+				'type'=>$lastname,
+			);
+		}
+		
+		$vars=array(
+			'allRecipients'=>$recipients,		
+			'subject'=>$email_subject,		
+			'body'=>$body,
+			'tracked'=> true,
+		);
+				
+		$url="/api/mls/sendEmail/{$contactIds}/{$listingId}";
+		
+		$result = (object) zipperagent_run_curl($url, array(), 1, $vars, 1);
+		
+		// echo "<pre>"; print_r($vars); echo "</pre>";
 		
 		return $result;
 	}
@@ -3318,6 +3363,16 @@ if( ! function_exists('zipperagent_distance') ){
 	}
 }
 
+if( ! function_exists('zipperagent_company_name') ){
+	function zipperagent_company_name(){
+		$rb = zipperagent_rb();
+			
+		$company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:get_bloginfo('name');
+		
+		return $company_name;
+	}
+}
+
 if( ! function_exists('zp_using_criteria') ){
 	function zp_using_criteria(){
 		
@@ -3634,6 +3689,9 @@ if( ! function_exists('auto_trigger_button_script') ){
 						break;
 					case "request_info":
 							echo "jQuery('#zpaMoreInfo').modal('show');";
+						break;
+					case "share_email":
+							echo "jQuery('#zpaShareEmail').modal('show');";
 						break;
 				}
 				if($afteraction) echo "removeParams('afteraction');";

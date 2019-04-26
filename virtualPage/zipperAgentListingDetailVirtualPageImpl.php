@@ -58,8 +58,11 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 		// } elseif(is_object($this->remoteResponse) && $this->remoteResponse->hasTitle()) {
 			// $default = $this->remoteResponse->getTitle();
 		// }
-		if( isset( $this->single_property->streetno) )
-			$default = zipperagent_get_address( $this->single_property);
+		
+		$property = $this->property_cache ? $this->property_cache : $this->single_property;
+		
+		if( $property )
+			$default = zipperagent_get_address( $property);
 		else
 			$default = $this->getText(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TITLE_DETAIL, "Property Title");
 		/* end modified */
@@ -81,14 +84,18 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 	}
 	
 	public function getMetaTags() {
-		$default = "<meta property=\"og:image\" content=\"{listingPhotoUrl}\" />\n<meta property=\"og:image:width\" content=\"{listingPhotoWidth}\" />\n<meta property=\"og:image:height\" content=\"{listingPhotoHeight}\" />\n<meta name=\"description\" content=\"Photos and Property Details for {listingAddress}. Get complete property information, maps, street view, schools, walk score and more. Request additional information, schedule a showing, save to your property organizer.\" />\n<meta name=\"keywords\" content=\"{listingAddress}, {listingCity} Real Estate, {listingCity} Property for Sale\" />";
+		$default = "<meta property=\"og:image\" content=\"{listingPhotoUrl}\" />\n<meta property=\"og:image:width\" content=\"{listingPhotoWidth}\" />\n<meta property=\"og:image:height\" content=\"{listingPhotoHeight}\" />\n<meta property=\"og:url\" content=\"{listingUrl}\" />\n<meta property=\"og:type\" content=\"website\" />\n<meta property=\"og:title\" content=\"{listingTitle}\" />\n<meta property=\"og:description\" content=\"{listingDescription}\" />\n<meta property=\"fb:app_id\" content=\"{app_id}\" />\n<meta name=\"description\" content=\"Photos and Property Details for {listingAddress}. Get complete property information, maps, street view, schools, walk score and more. Request additional information, schedule a showing, save to your property organizer.\" />\n<meta name=\"keywords\" content=\"{listingAddress}, {listingCity} Real Estate, {listingCity} Property for Sale\" />";
 		
 		$metaTags = $this->getText(zipperAgentConstants::OPTION_VIRTUAL_PAGE_META_TAGS_DETAIL, $default);
 		
 		$listingNumber = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 		
 		if( $listingNumber ){
-		
+			
+			$rb = zipperagent_rb();	
+				
+			$property = $this->property_cache ? $this->property_cache : $this->single_property;
+			
 			$find = array(
 				'{listingPhotoUrl}',
 				'{listingPhotoWidth}',
@@ -96,14 +103,23 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				'{listingAddress}',
 				'{listingCity}',
 				
+				'{listingUrl}',
+				'{listingTitle}',
+				'{listingDescription}',
+				'{app_id}',				
 			);
 			
 			$replace = array(
-				isset($this->single_property->photoList[0]) ? $this->single_property->photoList[0]->imgurl : ZIPPERAGENTURL . "images/no-photo.jpg",
+				isset($property->photoList[0]) ? $property->photoList[0]->imgurl : ZIPPERAGENTURL . "images/no-photo.jpg",
 				'1024',
 				'768',
-				zipperagent_get_address($this->single_property),
-				zipperagent_field_value('lngTOWNSDESCRIPTION',$this->single_property->lngTOWNSDESCRIPTION, $this->single_property->proptype),
+				zipperagent_get_address($property),
+				zipperagent_field_value('lngTOWNSDESCRIPTION',$property->lngTOWNSDESCRIPTION, $property->proptype),
+				
+				zipperagent_property_url( $property->id, zipperagent_get_address($property) ),
+				zipperagent_company_name().', '.$this->getTitle(),
+				$property->remarks,
+				isset($rb['facebook']['appid'])?$rb['facebook']['appid']:'',
 			);
 			
 			$metaTags = str_replace($find, $replace, $metaTags);

@@ -305,10 +305,13 @@ if(file_exists($template_path) && $template_name ){
 											</button>
 											 */
 											 
-											$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-											$current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-											$current_url = esc_url_raw($current_url); //encode it
+											// $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+											// $current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+											// $current_url = esc_url_raw($current_url); //encode it
 											// $urll = url_encode( $current_url );
+											
+											$fulladdress = zipperagent_get_address($single_property);
+											$current_url = zipperagent_property_url( $single_property->id, $fulladdress );
 
 											 ?>
 											 
@@ -317,7 +320,7 @@ if(file_exists($template_path) && $template_name ){
 													<i class="bt-icon bt-icon--larger fa fa-info" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
-											<?php /*
+											
 											<div class="info-share">
 												<button type="button" class="btn-small share-btn width-1-2 dropdown-toggle" id="dropdownShare" data-toggle="dropdown">
 													<span class="bt-icon--stack">
@@ -327,6 +330,14 @@ if(file_exists($template_path) && $template_name ){
 												<?php //0url_encode( $url ) ?>
 												<div class="dropdown-menu" aria-labelledby="dropdownShare">
 													<ul class="menu-list">
+														<li>
+															<a class="share-item share-email <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="share_email" contactid="<?php echo implode(',',$contactIds) ?>" href="#">
+																<i class="bt-icon bt-icon--larger fa fa-at" aria-hidden="true"></i>
+																<span>Email this listing</span>
+															</a>
+															
+														</li>
+														<?php /*
 														<li>
 															<a class="share-item" href="https://pinterest.com/pin/create/button/?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
 																<i class="bt-icon bt-icon--larger fa fa-pinterest" aria-hidden="true"></i>
@@ -338,13 +349,14 @@ if(file_exists($template_path) && $template_name ){
 																<i class="bt-icon bt-icon--larger fa fa-google-plus" aria-hidden="true"></i>
 																<span>Share on Google+</span>
 															</a>
-														</li>
+														</li> */ ?>
 														<li>
 															<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'facebook-share-dialog', 'width=626,height=436'); return false;">
 																<i class="bt-icon bt-icon--larger fa fa-facebook" aria-hidden="true"></i>
 																<span>Share on Facebook</span>
 															</a>
 														</li>
+														<?php /*
 														<li>
 															<a class="share-item" href="https://twitter.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=626,height=436'); return false;">
 																<i class="bt-icon bt-icon--larger fa fa-twitter" aria-hidden="true"></i>
@@ -356,16 +368,16 @@ if(file_exists($template_path) && $template_name ){
 																<i class="bt-icon bt-icon--larger fa fa-print" aria-hidden="true"></i>
 																<span>Print this listing</span>
 															</a>
-														</li>
+														</li> */ ?>
 													</ul>
 												</div>
 											</div>
-											*/ ?>
-											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+											
+											<?php /*<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="bt-icon--stack">
 													<i class="bt-icon bt-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
-											</button>
+											</button> */ ?>
 											
 										</div>
 										<!-- end .top-action-buttons -->
