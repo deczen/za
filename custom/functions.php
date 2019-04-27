@@ -1334,7 +1334,8 @@ if( ! function_exists('zipperagent_share_email') ){
 		
 		$recipients[]=array(
 			'email'=>$recepient_email,
-			'type'=>$recepient_name,
+			// 'type'=>$recepient_name,
+			'type'=>'to',
 		);
 		
 		if($send_copy){
@@ -1346,7 +1347,8 @@ if( ! function_exists('zipperagent_share_email') ){
 			$fullname = $firstname. ' ' .$lastname;
 			$recipients[]=array(
 				'email'=>isset($firstUser->emailWork1)?$firstUser->emailWork1:'',
-				'type'=>$lastname,
+				// 'type'=>$lastname,
+				'type'=>'to',
 			);
 		}
 		
