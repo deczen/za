@@ -42,12 +42,12 @@ $default_body = "Take a look at this property I found on {$site_domain}: {$actua
 												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 													<div class="form-group">
 														<label for="share-recepient-name"> Recepient Name<span class="required-mark">*</span> </label>
-														<input id="share-recepient-name" name="recepient_name" class="form-control" required="required" type="text" value=""> </div>
+														<input id="share-recepient-name" name="recepient_name" class="form-control" required="required" type="text" placeholder="recepient name" value=""> </div>
 												</div>
 												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 													<div class="form-group">
-														<label for="share-recepient-email"> Recepient Email<span class="required-mark">*</span> </label>
-														<input id="share-recepient-email" name="recepient_email" type="email" class="form-control" required="required" value=""> </div>
+														<label for="share-recepient-email"> Recepient Email(s)<span class="required-mark">*</span> </label>
+														<input id="share-recepient-email" name="recepient_emails" type="text" class="form-control" required="required" placeholder="Separated by comma" value=""> </div>
 												</div>
 											</div>
 											

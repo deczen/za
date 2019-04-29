@@ -1328,15 +1328,19 @@ if( ! function_exists('zipperagent_request_info') ){
 }
 
 if( ! function_exists('zipperagent_share_email') ){
-	function zipperagent_share_email($listingId, $contactIds, $recepient_name, $recepient_email, $email_subject, $body, $send_copy=0){
+	function zipperagent_share_email($listingId, $contactIds, $recepient_name, $recepient_emails=array(), $email_subject, $body, $send_copy=0){
 		
 		$recipients=array();
 		
-		$recipients[]=array(
-			'email'=>$recepient_email,
-			// 'type'=>$recepient_name,
-			'type'=>'to',
-		);
+		foreach($recepient_emails as $recepient_email){
+			$recepient_email=trim($recepient_email);
+			if (filter_var($recepient_email, FILTER_VALIDATE_EMAIL)) {
+				$recipients[]=array(
+					'email'=>$recepient_email,
+					'type'=>'to',
+				);
+			}
+		}
 		
 		if($send_copy){
 			
@@ -1347,7 +1351,6 @@ if( ! function_exists('zipperagent_share_email') ){
 			$fullname = $firstname. ' ' .$lastname;
 			$recipients[]=array(
 				'email'=>isset($firstUser->emailWork1)?$firstUser->emailWork1:'',
-				// 'type'=>$lastname,
 				'type'=>'to',
 			);
 		}

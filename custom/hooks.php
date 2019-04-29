@@ -615,14 +615,20 @@ function share_email_func(){
 		$listingId = isset($_REQUEST['listingId'])?$_REQUEST['listingId']:'';
 		$contactIds = isset($_REQUEST['contactId'])?$_REQUEST['contactId']:'';
 		$recepient_name = isset($_REQUEST['recepient_name'])?$_REQUEST['recepient_name']:'';
-		$recepient_email = isset($_REQUEST['recepient_email'])?$_REQUEST['recepient_email']:'';
+		$recepient_emails = isset($_REQUEST['recepient_emails'])?$_REQUEST['recepient_emails']:'';
 		$email_subject = isset($_REQUEST['email_subject'])?$_REQUEST['email_subject']:'';
 		$default_body = isset($_REQUEST['default_body'])?$_REQUEST['default_body']:'';
 		$email_body = isset($_REQUEST['email_body'])?$_REQUEST['email_body']:'';
 		$send_copy = isset($_REQUEST['send_copy'])?$_REQUEST['send_copy']:0;
 		
+		
+		// $recepient_emails=array_map('trim',$recepient_emails);
+		
+		//convert to array
+		$recepient_emails = explode(',',$recepient_emails);
+		
 		$body = $default_body. "<br /><br />" . $email_body;
-		$result = zipperagent_share_email($listingId, $contactIds, $recepient_name, $recepient_email, $email_subject, $body, $send_copy);
+		$result = zipperagent_share_email($listingId, $contactIds, $recepient_name, $recepient_emails, $email_subject, $body, $send_copy);
 		// echo "<pre>"; print_r( $_REQUEST ); echo "</pre>";
 		// echo "<pre>"; print_r( $result ); echo "</pre>";
 		$array['result']=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
