@@ -982,7 +982,10 @@ global $requests;
 			var areas = <?php echo json_encode($areas); ?>;
 			var counties = <?php echo json_encode($counties); ?>;
 			var zipcodes = <?php echo json_encode($zipcodes); ?>;
-			
+			var all = $.merge(towns, areas);
+				all = $.merge(all, counties);
+				all = $.merge(all, zipcodes);
+					
 			var ms_town = $('#zpa-town-input').magicSuggest({
 				
 				data: towns,
@@ -1069,7 +1072,7 @@ global $requests;
 			
 			var ms_all = $('#zpa-all-input').magicSuggest({
 				
-				data: $.merge(towns, areas, counties, zipcodes),
+				data: all,
 				valueField: 'code',
 				displayField: 'name',
 				hideTrigger: true,

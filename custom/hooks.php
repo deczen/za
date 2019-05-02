@@ -858,6 +858,8 @@ function load_more_properties(){
 					$loc_town[]=substr($temp, 6);
 				}else if( substr($temp, 0, 5) == 'aars_' ){
 					$loc_area[]=substr($temp, 5);
+				}else if( substr($temp, 0, 5) == 'azip_' ){
+					$loc_zipcode[]=substr($temp, 5);
 				}else{
 					$loc_zipcode[]=$temp;
 				}

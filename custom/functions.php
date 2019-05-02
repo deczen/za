@@ -1993,6 +1993,86 @@ if( ! function_exists('populate_counties_with_option') ){
 	}
 }
 
+if( ! function_exists('populate_zipcodes') ){
+	function populate_zipcodes(){
+		
+		$arr=array();
+		
+		$rb = zipperagent_rb();
+		$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+		$states=trim($states);
+		$states=explode(',',$states);
+		$defaultStates = array(
+			'AA','AE','AK','AL','AP',
+			'AR','AS','AZ','CA','CO',
+			'CT','DC','DE','FL','FM',
+			'GA','GU','HI','IA','ID',
+			'IL','IN','KS','KY','LA',
+			'MA','MD','ME','MH','MI',
+			'MN','MO','MP','MS','MT',
+			'NC','ND','NE','NH','NJ',
+			'NM','NV','NY','OH','OK',
+			'OR','PA','PR','PW','RI',
+			'SC','SD','TN','TX','UT',
+			'VA','VI','VT','WA','WI',
+			'WV','WY',
+		);
+		
+		$HOME = dirname(dirname( $_SERVER['DOCUMENT_ROOT']));
+		$defaultPath = $HOME . '/zipperagent/$websitedomain/root.txt';
+		$domainName = str_replace( 'https://', '', get_site_url() );
+		$domainName = str_replace( 'http://', '', $domainName );
+			
+		$config = zipperagent_config();
+		$configurationPath = $config['configurationPath'];	
+		$configurationPath = str_replace( 'ZIPPER_AGENT_HOME', $defaultPath, $configurationPath );
+		$configurationPath = str_replace( '$HOME', $HOME, $configurationPath );
+		$configurationPath = str_replace( '$websitedomain', $domainName, $configurationPath );
+		$configurationPath = str_replace( '//', '/', $configurationPath );
+		
+		$directoryPath = dirname($configurationPath);
+		
+		if(!$states){
+			$states=$defaultStates;
+		}
+		
+		foreach($states as $state){
+				
+			$line=0;
+			$filename=$state.".csv";
+			$path=$directoryPath.'/zipcode';
+			$filepath=$path.'/'.$filename;
+			// echo $filepath; die('vvv');
+			if(file_exists($filepath)){
+
+				$file = fopen($filepath,"r");
+			
+				while (($row = fgetcsv($file, 10000, ",")) !== FALSE){
+					
+					$line++;
+					
+					if($line===1){
+						continue; //skip header
+					}
+					
+					$zipcode = $row[0];
+					
+					$arr[]=array(
+						'group'=>'Zipcode',
+						'name'=>$zipcode,
+						'code'=>'azip_'.$zipcode,
+						'type'=>'zipcode',
+					);
+				}
+
+				fclose($file);
+			}
+		}
+		
+		return $arr;
+	}
+}
+
 if( ! function_exists('populate_countries') ){
 	function populate_countries($meta){
 		
@@ -2038,11 +2118,13 @@ if( ! function_exists('zipperagent_populate_autocomplete_data') ){
 		$towns = populate_towns_with_option($meta);
 		$areas = populate_areas_with_option($meta);
 		$counties = populate_counties_with_option($meta);
+		$zipcodes = populate_zipcodes();
 		
 		$data= array(
 			'towns' => $towns,
 			'areas' => $areas,
 			'counties' => $counties,
+			'zipcodes' => $zipcodes,
 		);
 		
 		return $data;
@@ -3720,7 +3802,6 @@ if( ! function_exists('auto_trigger_button_script') ){
 					window.history.pushState("", "", newUrl);
 				}
 			});
-			// xxxx
 		</script>
 		<?php
 	}

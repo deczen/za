@@ -1,6 +1,6 @@
 <?php
 	if( ! defined('ABSPATH') )
-		include "../../../../wp-load.php";
+		include "../../../../../wp-load.php";
 	
 	$domainName = str_replace( 'https://', '', get_site_url() );
 	$domainName = str_replace( 'http://', '', $domainName );

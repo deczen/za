@@ -1,5 +1,6 @@
 <?php
 
+include "lib/Mobile_Detect/Mobile_Detect.php";
 include "log.php";
 include "functions.php";
 include "hooks.php";

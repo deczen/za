@@ -259,8 +259,8 @@
 	#zpa-view-selected-filter{display: none;}
 	#omnibar-wrap .mobile-omnimbar #zpa-view-selected-filter{display: block;}
 	#omnibar-wrap .desktop-omnibar{display: none !important;}
-	#omnibar-wrap .mobile-omnimbar{display: block !important;}
-	.zpa-listing-detail #omnibar-wrap .mobile-omnimbar{display:none !important;}
+	#omnibar-wrap .mobile-omnimbar{display: block !important;margin-bottom: 20px;}
+	.zpa-listing-detail #omnibar-wrap .mobile-omnimbar{/*display:none !important;*/}
 	#omnibar-wrap .mobile-omnimbar button{font-size: 16px !important;line-height: 48px;vertical-align: middle;min-height: 50px;padding: 0;}
 	#omnibar-wrap .haKWSj {
 		width: 26px;
@@ -329,6 +329,12 @@
 	.omnibar .input-column{/* width: unset !important; */}
 	.omnibar .input-column .field-wrap{width: 100% !important;float: unset;padding-left: 0 !important;}
 	.omnibar .input-column .field-wrap input{width: 100% !important;}
+	#main-header, #top-header,
+	#main-header .container.et_menu_container{z-index: 9 !important;}
+	.edgtf-top-bar,
+	header.edgtf-mobile-header{z-index: 100 !important;}
+	#zipperagent-content header.bt-listing__header .bt-header__inner{padding: 0 15px;}
+	
 }
 @media(max-width: 540px){
 	#omnibar-wrap .mobile-omnimbar button{line-height: 40px;min-height: 40px;}
@@ -348,6 +354,12 @@
 #zpa-main-container .search-wrap .dropdown-menu,
 #zpa-main-container #omnibar-wrap .ms-res-ctn.dropdown-menu{padding: 0 !important;margin-top: 0;width: 100% !important;}
 #zpa-main-container #omnibar-wrap .ms-res-ctn.dropdown-menu:before{display: none;}
+
+#omnibar-wrap .desktop-omnibar .dropdown .dropdown-menu{left: auto !important;}
+#omnibar-wrap .desktop-omnibar .dropdown.type .dropdown-menu{min-width: 320px;}
+#omnibar-wrap .desktop-omnibar .dropdown.listprice .dropdown-menu{min-width: 250px;}
+#omnibar-wrap .desktop-omnibar .dropdown.sort .dropdown-menu{min-width: 200px;}
+#omnibar-wrap .desktop-omnibar .dropdown.more .dropdown-menu{min-width: 900px;}
 
 .omnibar .search-by .dropdown-menu{padding-left: 0 !important;padding-right: 0 !important;}
 .omnibar .search-by .dropdown-menu li a{padding: 0 10px;display:block !important;}

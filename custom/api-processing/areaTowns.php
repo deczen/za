@@ -23,7 +23,7 @@
 	$cachetime = 86400;
 	// Check if the cached file is still fresh. If it is, serve it up and exit.
 	if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
-   	include($cachefile);
+		include($cachefile);
     	return;
 	}
 	// if there is either no file OR the file to too old, render the page and capture the HTML.

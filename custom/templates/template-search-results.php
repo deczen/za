@@ -83,6 +83,9 @@ $is_ajax_count=0;
 $status = empty($status)?zipperagent_active_status():$status;
 
 /* set column number */
+$default_column=3;
+$column = empty($column)?$default_column:$column;
+$column = $column > 4 || $column < 1 ? $default_column : $column;
 switch( $column ){
 	case 4:
 			$columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
@@ -120,6 +123,8 @@ if( $location ){
 			$loc_town[]=substr($temp, 6);
 		}else if( substr($temp, 0, 5) == 'aars_' ){
 			$loc_area[]=substr($temp, 5);
+		}else if( substr($temp, 0, 5) == 'azip_' ){
+			$loc_zipcode[]=substr($temp, 5);
 		}else{
 			$loc_zipcode[]=$temp;
 		}
