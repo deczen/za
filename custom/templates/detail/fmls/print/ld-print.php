@@ -47,45 +47,15 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php if(isset($single_property->nolots)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[norooms]</div>
-				 <div class="bt-print__meta-label">Total Rooms</div>
-			  </td>
-			<?php endif; ?>
-			<?php if(isset($single_property->nobedrooms)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[nobedrooms]</div>
-				 <div class="bt-print__meta-label">Beds</div>
-			  </td>
-			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[nofullbaths]</div>
-				 <div class="bt-print__meta-label">FULL BATHS</div>
-			  </td>
-			<?php endif; ?>
-			<?php if(isset($single_property->unmapped->BathsThreeQuarter)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[unmapped_BathsThreeQuarter]</div>
-				 <div class="bt-print__meta-label">3/4 Baths</div>
-			  </td>
-			<?php endif; ?>
-			<?php if(isset($single_property->nohalfbaths)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[nohalfbaths]</div>
-				 <div class="bt-print__meta-label">&frac12; Baths</div>
-			  </td>
-			<?php endif; ?>
-			<?php if(isset($single_property->squarefeet)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[unmapped_LivingArea]</div>
-				 <div class="bt-print__meta-label">SQFT</div>
+				 <div class="bt-print__meta-val">[nolots]</div>
+				 <div class="bt-print__meta-label">APPROVED LOTS</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->acre)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[unmapped_TotalAcreage]</div>
+				 <div class="bt-print__meta-val">[acre]</div>
 				 <div class="bt-print__meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
@@ -342,7 +312,9 @@
 			  <strong>Amenities</strong>
 			  [amenities]
 			  <?php endif; ?>
-			 
+			</p>
+			   <!-- Parking Information -->
+			<p>
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
 			  [parkingfeature]
@@ -359,7 +331,9 @@
 			  <strong>Parking Spaces</strong>
 			  [parkingspaces]
 			  <?php endif; ?>
-			  
+			</p>
+			   <!-- Schools -->
+			<p>  
 			  <?php if(isset($single_property->gradeschool)): ?>
 			  <strong>Grade School</strong>
 			  [gradeschool]
@@ -401,7 +375,9 @@
 			  <strong>Assc Fee Includes</strong>
 			  [asscfeeincludes]
 			  <?php endif; ?>
-			  
+			</p>
+			   <!-- Taxes, Fees -->
+			<p>  
 			  <?php if(isset($single_property->unmapped->{'Tax ID'})): ?>
 			  <strong>Tax ID</strong>
 			  [unmapped_Tax ID]

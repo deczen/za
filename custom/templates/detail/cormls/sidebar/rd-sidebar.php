@@ -15,11 +15,11 @@
 			<li class="beds">
 				<div class="attr-num">[nofullbaths]</div>
 				<div class="uk-text-small uk-text-truncate">FULL BATHS</div>
-			</li>
+			</li><?php /*
 			<li class="baths">
 				<div class="attr-num">[unmapped_BathsThreeQuarter]</div>
 				<div class="uk-text-small uk-text-truncate">3/4 BATHS</div>
-			</li>										
+			</li> */ ?>										
 			<li class="half-baths">
 				<div class="attr-num">[nohalfbaths]</div>
 				<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
@@ -31,6 +31,10 @@
 			<li class="acres">
 				<div class="attr-num bt-listing__acreage-text">[unmapped_TotalAcreage]</div>
 				<div class="uk-text-small uk-text-truncate">ACRES</div>
+			</li>
+			<li>
+				<div class="attr-num bt-listing__acreage-text">&nbsp;</div>
+				<div class="uk-text-small uk-text-truncate">&nbsp;</div>
 			</li>
 
 		</ul>

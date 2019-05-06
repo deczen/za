@@ -77,13 +77,13 @@
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->squarefeet)): ?>
+			<?php if(isset($single_property->unmapped->LivingArea)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[unmapped_LivingArea]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
+			<?php if(isset($single_property->unmapped->TotalAcreage)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[unmapped_TotalAcreage]</div>
 				 <div class="bt-print__meta-label">Acres</div>
@@ -290,7 +290,9 @@
 			  <strong>Zoning</strong>
 			  [zoning]
 			  <?php endif; ?>
-			 
+			</p>
+			  <!-- parking information -->
+			<p> 
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
 			  [parkingfeature]

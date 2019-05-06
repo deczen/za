@@ -35,8 +35,8 @@
 				<div class="uk-text-small uk-text-truncate">ACRES</div>
 			</li>
 			<li>
-				<div class="attr-num bt-listing__acreage-text">&nbsp;</div>
-				<div class="uk-text-small uk-text-truncate">&nbsp;</div>
+				<div class="attr-num bt-listing__acreage-text">[unmapped_List Price/SqFt]</div>
+				<div class="uk-text-small uk-text-truncate">PRICE/SQFT</div>
 			</li>
 
 		</ul>

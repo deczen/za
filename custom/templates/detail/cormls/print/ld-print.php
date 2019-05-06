@@ -79,8 +79,14 @@
 			<?php endif; ?>
 			<?php if(isset($single_property->lotsize)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[lotsize]</div>
+				 <div class="bt-print__meta-val">[acre]</div>
 				 <div class="bt-print__meta-label">Acres</div>
+			  </td>
+			<?php endif; ?>
+			<?php if(isset($single_property->nolots)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[nolots]</div>
+				 <div class="bt-print__meta-label">APPROVED LOTS</div>
 			  </td>
 			<?php endif; ?>
 			  <?php /* <td>
@@ -161,7 +167,7 @@
 			  [unmapped_Levels]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->style)): ?>
-			  <strong>Style</strong>
+			  <strong>House Style</strong>
 			  [style]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->vacant)): ?>
@@ -272,7 +278,9 @@
 			  <strong>Pets Allowed</strong>
 			  [petsallowed]
 			  <?php endif; ?>
+			</p>
 			  <!-- parking information -->
+			<p>
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
 			  [parkingfeature]
@@ -306,7 +314,9 @@
 			  <strong>Utilities</strong>
 			  [utilities]
 			  <?php endif; ?>
-			  
+			</p>
+				<!-- Association Information -->
+			<p>
 			  <?php if(isset($single_property->reqdownassociation)): ?>
 			  <strong>Reqdown Association</strong>
 			  [reqdownassociation]
@@ -328,6 +338,29 @@
 			  [unmapped_HOA/COA Info: HOA/COA Contact Name]
 			  <?php endif; ?>
 		   </p>
+		   <!-- Taxes, Fees -->
+		   <p>
+			  <?php if(isset($single_property->unmapped->LegalDescription)): ?>
+			  <strong>Legal Description</strong>
+			  [unmapped_LegalDescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Tax District'})): ?>
+			  <strong>Tax District</strong>
+			  [unmapped_Tax]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Tax Abatement'})): ?>
+			  <strong>Tax Abatement</strong>
+			  [unmapped_Tax Abatement]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Tax Amount ($)</strong>
+			  [taxes]
+			  <?php endif; ?>
+		   </p>
 		</div>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
@@ -337,63 +370,63 @@
 			  [unmapped_Rooms]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Great Room Level'})): ?>
-			  <strong>Great Room Level</strong>
+			  <strong>Great Rooms (Entry Level)</strong>
 			  [unmapped_Great Room Level]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Bedroom Level: Beds Down1'})): ?>
-			  <strong>Bedroom Level: Beds Down1</strong>
+			  <strong>Bedrooms (Lower Level1)</strong>
 			  [unmapped_Bedroom Level: Beds Down1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Bedroom Level: Beds Down2'})): ?>
-			  <strong>Bedroom Level: Beds Down2</strong>
+			  <strong>Bedrooms (Lower Level2)</strong>
 			  [unmapped_Bedroom Level: Beds Down2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Bedroom Level: Beds UP1'})): ?>
-			  <strong>Bedroom Level: Beds UP1</strong>
+			  <strong>>Bedrooms (Upper Level1)</strong>
 			  [unmapped_Bedroom Level: Beds UP1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Bedroom Level: Beds UP2'})): ?>
-			  <strong>Bedroom Level: Beds UP2</strong>
+			  <strong>Bedrooms (Upper Level2)</strong>
 			  [unmapped_Bedroom Level: Beds UP2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'})): ?>
-			  <strong>Full Baths Level: Full B Entry Level</strong>
+			  <strong>Full Baths (Entry Level)</strong>
 			  [unmapped_Full Baths Level: Full B Entry Level]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'})): ?>
-			  <strong>Half Baths Level: Half B Entry Level</strong>
+			  <strong>Half Baths (Entry Level)</strong>
 			  [unmapped_Half Baths Level: Half B Entry Level]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'})): ?>
-			  <strong>Half Baths Level: Half Bath Down2</strong>
+			  <strong>Half Baths (Lower Level2)</strong>
 			  [unmapped_Half Baths Level: Half Bath Down2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'})): ?>
-			  <strong>Half Baths Level: Half Bath Down1</strong>
+			  <strong>Half Baths (Lower Level1)</strong>
 			  [unmapped_Half Baths Level: Half Bath Down1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'})): ?>
-			  <strong>Full Baths Level: Full Baths Down1</strong>
+			  <strong>Full Baths (Lower Level1)</strong>
 			  [unmapped_Full Baths Level: Full Baths Down1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'})): ?>
-			  <strong>Half Baths Level: Half Baths UP2</strong>
+			  <strong>Half Baths (Upper Level2)</strong>
 			  [unmapped_Half Baths Level: Half Baths UP2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'})): ?>
-			  <strong>Half Baths Level: Half Baths UP1</strong>
+			  <strong>Half Baths (Upper Level1)</strong>
 			  [unmapped_Half Baths Level: Half Baths UP1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'})): ?>
-			  <strong>Full Baths Level: Full Baths UP2</strong>
+			  <strong>Full Baths (Upper Level2)</strong>
 			  [unmapped_Full Baths Level: Full Baths UP2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'})): ?>
-			  <strong>Full Baths Level: Full Baths UP1</strong>
+			  <strong>Full Baths (Upper Level1)</strong>
 			  [unmapped_Full Baths Level: Full Baths UP1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'})): ?>
-			  <strong>Full Baths Level: Full Baths Down2</strong>
+			  <strong>Full Baths (Lower Level2)</strong>
 			  [unmapped_Full Baths Level: Full Baths Down2]
 			  <?php endif; ?>
 		   </p>

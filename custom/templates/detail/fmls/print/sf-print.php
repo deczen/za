@@ -79,13 +79,13 @@
 			<?php endif; ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[unmapped_LivingArea]</div>
+				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
+			<?php if(isset($single_property->lotsize)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[unmapped_TotalAcreage]</div>
+				 <div class="bt-print__meta-val">[lotsize]</div>
 				 <div class="bt-print__meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
@@ -342,7 +342,9 @@
 			  <strong>Amenities</strong>
 			  [amenities]
 			  <?php endif; ?>
-			 
+			</p>
+			   <!-- Parking Information -->
+			<p>  
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
 			  [parkingfeature]
@@ -359,7 +361,9 @@
 			  <strong>Parking Spaces</strong>
 			  [parkingspaces]
 			  <?php endif; ?>
-			  
+			</p>
+			   <!-- Schools -->
+			<p>    
 			  <?php if(isset($single_property->gradeschool)): ?>
 			  <strong>Grade School</strong>
 			  [gradeschool]
@@ -401,7 +405,9 @@
 			  <strong>Assc Fee Includes</strong>
 			  [asscfeeincludes]
 			  <?php endif; ?>
-			  
+			</p>
+			   <!-- Taxes, Fees -->
+			<p>   
 			  <?php if(isset($single_property->unmapped->{'Tax ID'})): ?>
 			  <strong>Tax ID</strong>
 			  [unmapped_Tax ID]

@@ -79,13 +79,13 @@
 			<?php endif; ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[unmapped_LivingArea]</div>
+				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->acre)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[unmapped_TotalAcreage]</div>
+				 <div class="bt-print__meta-val">[acre]</div>
 				 <div class="bt-print__meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
@@ -290,7 +290,9 @@
 			  <strong>Zoning</strong>
 			  [zoning]
 			  <?php endif; ?>
-			 
+			</p>
+			  <!-- parking information -->
+			<p> 
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
 			  [parkingfeature]
