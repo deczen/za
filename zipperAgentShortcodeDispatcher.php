@@ -54,7 +54,7 @@ class zipperAgentShortcodeDispatcher {
 		// add_shortcode(self::QUICK_SEARCH_SHORTCODE, array($this, "getQuickSearch"));
 		add_shortcode(self::SEARCH_BY_ADDRESS_SHORTCODE, array($this, "getSearchByAddress"));
 		add_shortcode(self::SEARCH_BY_LISTING_ID_SHORTCODE, array($this, "getSearchByListingId"));
-		add_shortcode(self::MAP_SEARCH_SHORTCODE, array($this, "getMapSearch"));
+		// add_shortcode(self::MAP_SEARCH_SHORTCODE, array($this, "getMapSearch"));
 		add_shortcode(self::AGENT_LISTINGS_SHORTCODE, array($this, "getAgentListings"));
 		add_shortcode(self::OFFICE_LISTINGS_SHORTCODE, array($this, "getOfficeListings"));
 		add_shortcode(self::GALLERY_SLIDER_SHORTCODE, array($this, "getGallerySlider"));

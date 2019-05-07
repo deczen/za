@@ -103,11 +103,11 @@
 								<h4>Price Range</h4>
 							</div>
 							<div class="min-price col-xs-6">
-								<input id="minlistprice" name="minlistprice" type="text" />
+								<input id="minlistprice" name="minlistprice" class="input-number" type="text" />
 								<label for="minlistprice">Min Price</label>
 							</div>
 							<div class="max-price col-xs-6">
-								<input id="maxlistprice" name="maxlistprice" type="text" />
+								<input id="maxlistprice" name="maxlistprice" class="input-number" type="text" />
 								<label for="maxlistprice">Max Price</label>
 							</div>
 						</div>

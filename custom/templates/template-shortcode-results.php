@@ -6,7 +6,7 @@ $detect = new Mobile_Detect;
 $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 $zpa_show_login_popup=1;
 
-$column = isset( $requests['column'] ) ? $requests['column'] : '';
+$column = isset( $requests['column'] ) ? $requests['column'] : 3;
 $maxlist=isset($requests['maxlist']) ? $requests['maxlist'] : $count;
 $count=$count>=$maxlist?$maxlist:$count;
 $query_args=array();

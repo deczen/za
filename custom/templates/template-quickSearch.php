@@ -32,13 +32,13 @@ $maxListPrice		= $requests['maxlistprice'];
 									<label for="zpa-minprice-homes" class="field-label"> Min. Price </label>
 									<div style="position: relative;">
 										<div class="zpa-label-overlay-money"> $ </div>
-										<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+										<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value=""> </div>
 								</div>
 								<div class="col-xs-12 col-sm-2 mb-10">
 									<label for="zpa-maxprice-homes" class="field-label"> Max. Price </label>
 									<div style="position: relative;">
 										<div class="zpa-label-overlay-money"> $ </div>
-										<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+										<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value=""> </div>
 								</div>
 								<div class="col-xs-12 col-sm-2 mb-10">
 									<label for="zpa-select-bedrooms-homes" class="field-label"> Beds </label>
@@ -293,8 +293,8 @@ $maxListPrice		= $requests['maxlistprice'];
 			prefix: "$",
 			onChange: function(data){
 				// jQuery( "#price-amount-show" ).html( "<?php echo zipperagent_currency() ?>" + addCommas(data.from) + " - <?php echo zipperagent_currency() ?>" + addCommas(data.to) );
-				jQuery( "#zpa-minprice-homes" ).val(data.from);
-				jQuery( "#zpa-maxprice-homes" ).val(data.to);
+				jQuery( "#zpa-minprice-homes" ).val(addCommas(data.from));
+				jQuery( "#zpa-maxprice-homes" ).val(addCommas(data.to));
 			},
 			onFinish: function(data){
 				jQuery('#zpa-search-filter-form').submit();
@@ -307,7 +307,7 @@ $maxListPrice		= $requests['maxlistprice'];
 			var val = jQuery(this).prop("value");
 			
 			instance.update({
-				from: val
+				from: val.replace(/,/g, '')
 			});
 		});
 		
@@ -315,7 +315,7 @@ $maxListPrice		= $requests['maxlistprice'];
 			var val = jQuery(this).prop("value");
 			
 			instance.update({
-				to: val
+				to: val.replace(/,/g, '')
 			});
 		});
 		
@@ -339,6 +339,36 @@ $maxListPrice		= $requests['maxlistprice'];
 				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
 					e.preventDefault();
 				}
+			});
+		});
+	</script>
+	<script>
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + ',' + '$2');
+			}
+			return x1 + x2;
+		}
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			});
 		});
 	</script>

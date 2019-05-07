@@ -260,7 +260,7 @@
 			<tbody>
 				<?php if( isset($single_property->reqdownassociation)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Reqdown Association</td>
+					<td class="bt-listing__table__label">HOA Fee</td>
 					<td class="bt-listing__table__items"><span>[reqdownassociation]</span></td>
 				</tr>
 				<?php endif; ?>

@@ -57,13 +57,13 @@ $maxListPrice		= $requests['maxlistprice'];
 									<label for="zpa-minprice-homes" class="field-label"> Min. Price </label>
 									<div style="position: relative;">
 										<div class="zpa-label-overlay-money"> $ </div>
-										<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+										<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value=""> </div>
 								</div> */ ?>
 								<div class="col-xs-12 col-sm-2">
 									<label for="zpa-maxprice-homes" class="field-label"> Max. Price </label>
 									<div style="position: relative;">
 										<div class="zpa-label-overlay-money"> $ </div>
-										<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+										<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value=""> </div>
 								</div>
 								<div class="col-xs-12 col-sm-1 hidden-xs hidden-sm">
 									<label for="zpa-select-baths-homes" class="field-label">&nbsp;</label>						
@@ -285,7 +285,7 @@ $maxListPrice		= $requests['maxlistprice'];
 			to: '<?php echo $maxListPrice ?>',
 			prefix: "$",
 			onChange: function(data){
-				jQuery( "#zpa-maxprice-homes" ).val(data.from);
+				jQuery( "#zpa-maxprice-homes" ).val(addCommas(data.from));
 			},
 			onFinish: function(data){
 				jQuery('#zpa-search-filter-form').submit();
@@ -298,7 +298,7 @@ $maxListPrice		= $requests['maxlistprice'];
 			var val = jQuery(this).prop("value");
 			
 			instance.update({
-				from: val
+				from: val.replace(/,/g, '')
 			});
 		});
 		
@@ -337,6 +337,36 @@ $maxListPrice		= $requests['maxlistprice'];
 		  });
 		  
 		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
+		});
+	</script>
+	<script>
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + ',' + '$2');
+			}
+			return x1 + x2;
+		}
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
 		});
 	</script>
 </div>

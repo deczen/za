@@ -111,9 +111,9 @@ if(get_query_var('page')){
 					<div class="col-xs-12 mt-15 col-sm-12 field-input">
 						<?php /* <div><label>Price Range:</label>&nbsp;<span id="price-amount-show"><?php echo $priceRange ?></span></div> */ ?>
 						<div><label>Price Range:</label>&nbsp;
-							$<input id="zpa-minprice-homes" name="minListPrice" type="number" value="<?php echo $minListPrice ?>"> 
+							$<input id="zpa-minprice-homes" class="input-number" name="minListPrice" type="text" value="<?php echo $minListPrice ?>"> 
 							- 
-							$<input id="zpa-maxprice-homes" name="maxListPrice" type="number" value="<?php echo $maxListPrice ?>"> 
+							$<input id="zpa-maxprice-homes" class="input-number" name="maxListPrice" type="text" value="<?php echo $maxListPrice ?>"> 
 						</div>
 						<input type="hidden" id="price-slider-range" />
 					</div>
@@ -141,20 +141,7 @@ if(get_query_var('page')){
 	<?php else: ?>
 		<?php global_magicsuggest_script($location, $requests); ?>
 	<?php endif; ?>
-	<script>
-		function addCommas(nStr)
-		{
-			nStr += '';
-			x = nStr.split('.');
-			x1 = x[0];
-			x2 = x.length > 1 ? '.' + x[1] : '';
-			var rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				x1 = x1.replace(rgx, '$1' + ',' + '$2');
-			}
-			return x1 + x2;
-		}
-		
+	<script>		
 		var $range = jQuery("#price-slider-range");
 		
 		$range.ionRangeSlider({
@@ -168,8 +155,8 @@ if(get_query_var('page')){
 			prefix: "$",
 			onChange: function(data){
 				jQuery( "#price-amount-show" ).html( "<?php echo zipperagent_currency() ?>" + addCommas(data.from) + " - <?php echo zipperagent_currency() ?>" + addCommas(data.to) );
-				jQuery( "#zpa-minprice-homes" ).val(data.from);
-				jQuery( "#zpa-maxprice-homes" ).val(data.to);
+				jQuery( "#zpa-minprice-homes" ).val(addCommas(data.from));
+				jQuery( "#zpa-maxprice-homes" ).val(addCommas(data.to));
 			},
 			onFinish: function(data){
 				setTimeout(function(){			
@@ -184,37 +171,14 @@ if(get_query_var('page')){
 			var val = jQuery(this).prop("value");
 			
 			instance.update({
-				from: val
+				from: val.replace(/,/g, '')
 			});
 		});
 		jQuery('#zpa-maxprice-homes').on("change keyup", function () {
 			var val = jQuery(this).prop("value");
 			
 			instance.update({
-				to: val
-			});
-		});
-		
-		jQuery(document).ready(function() {
-			/* allow only number input */
-			jQuery("#zpa-minprice-homes, #zpa-maxprice-homes").keydown(function (e) {
-				// Allow: backspace, delete, tab, escape, enter and .
-				if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-					 // Allow: Ctrl/cmd+A
-					(e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-					 // Allow: Ctrl/cmd+C
-					(e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-					 // Allow: Ctrl/cmd+X
-					(e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-					 // Allow: home, end, left, right
-					(e.keyCode >= 35 && e.keyCode <= 39)) {
-						 // let it happen, don't do anything
-						 return;
-				}
-				// Ensure that it is a number and stop the keypress
-				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-					e.preventDefault();
-				}
+				to: val.replace(/,/g, '')
 			});
 		});
 	</script>
@@ -424,6 +388,36 @@ if(get_query_var('page')){
 		  });
 		  
 		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
+		});
+	</script>
+	<script>
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + ',' + '$2');
+			}
+			return x1 + x2;
+		}
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
 		});
 	</script>
 </div>

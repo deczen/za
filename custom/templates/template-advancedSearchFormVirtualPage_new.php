@@ -194,13 +194,13 @@ global $requests;
 										<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
 										<div class="" style="position:relative;">
 											<div class="zpa-label-overlay-money"> $ </div>
-											<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled /> </div>
+											<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>" disabled /> </div>
 									</div>
 									<div class="col-xs-12 col-sm-2 mb-10">
 										<label for="zpa-maxprice-homes" class="field-label zpa-maxprice-label"> Max. Price </label>
 										<div class="" style="position:relative;">
 											<div class="zpa-label-overlay-money"> $ </div>
-											<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled /> </div>
+											<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>" disabled /> </div>
 									</div>
 									<div class="col-xs-12 col-sm-2 mb-10">
 										<label for="zpa-select-bedrooms-homes" class="field-label zpa-select-bedrooms-label"> Beds </label>
@@ -304,13 +304,13 @@ global $requests;
 								<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+									<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-3">
 								<label for="zpa-maxprice-homes" class="field-label zpa-maxprice-label"> Max. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+									<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-2">
 								<label for="zpa-sqft-homes" class="field-label zpa-sqft-label"> Min. SqFt. </label>
@@ -346,13 +346,13 @@ global $requests;
 								<label for="zpa-minprice-lots-land" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-minprice-lots-land" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									<input id="zpa-minprice-lots-land" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>" disabled="disabled"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4 mb-10">
 								<label for="zpa-maxprice-lots-land" class="field-label zpa-maxprice-label"> Max. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-maxprice-lots-land" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									<input id="zpa-maxprice-lots-land" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>" disabled="disabled"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4 mb-10">
 								<label for="zpa-acres-lots-land" class="field-label zpa-acres-label"> Min. Lot Acres </label>
@@ -367,13 +367,13 @@ global $requests;
 								<label for="zpa-minprice-commercial" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-minprice-commercial" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									<input id="zpa-minprice-commercial" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>" disabled="disabled"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-maxprice-commercial" class="field-label zpa-maxprice-label"> Max. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-maxprice-commercial" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									<input id="zpa-maxprice-commercial" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>" disabled="disabled"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-sqft-commercial" class="field-label zpa-sqft-label"> Min. SqFt. </label>
@@ -388,13 +388,13 @@ global $requests;
 								<label for="zpa-minprice-res-income" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-minprice-res-income" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									<input id="zpa-minprice-res-income" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>" disabled="disabled"> </div>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-maxprice-res-income" class="field-label zpa-maxprice-label"> Max. Price </label>
 								<div class="" style="position:relative;">
 									<div class="zpa-label-overlay-money"> $ </div>
-									<input id="zpa-maxprice-res-income" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value="" disabled="disabled"> </div>
+									<input id="zpa-maxprice-res-income" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>" disabled="disabled"> </div>
 							</div>
 							<?php /*
 							<div class="col-xs-12 col-sm-4 col-lg-4">
@@ -1266,5 +1266,23 @@ global $requests;
 		  });
 		  <?php endif; ?>
 	  });
+	</script>
+	<script>
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
+		});
 	</script>
 </div>

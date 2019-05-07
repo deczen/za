@@ -84,11 +84,11 @@ $excludes = get_new_filter_excludes();
 						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<div class="row">
 								<div class="min-price col-xs-6">
-									<input id="minlistprice" name="minlistprice" type="text" />
+									<input id="minlistprice" name="minlistprice" class="input-number" type="text" />
 									<label for="minlistprice">Min Price</label>
 								</div>
 								<div class="max-price col-xs-6">
-									<input id="maxlistprice" name="maxlistprice" type="text" />
+									<input id="maxlistprice" name="maxlistprice" class="input-number" type="text" />
 									<label for="maxlistprice">Max Price</label>
 								</div>
 							</div>
@@ -524,10 +524,10 @@ $excludes = get_new_filter_excludes();
 				if(!newLabel){
 					switch(linked_name){
 						case "maxlistprice":
-							newLabel = 'up to '+ currency + shortenmoney(value) ;	
+							newLabel = 'up to '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
 							break;
 						case "minlistprice":
-							newLabel = 'over '+ currency + shortenmoney(value) ;	
+							newLabel = 'over '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
 							break;
 						case "bedrooms":
 							newLabel = value + ' + Beds';	
@@ -674,11 +674,24 @@ $excludes = get_new_filter_excludes();
 			}
 			
 			function shortenmoney(num){
-				if(num>=1000){
-					return num/1000 + 'K';
-				}else{
-					return num;
-				}
+				var digits=0;
+				var si = [
+					{ value: 1, symbol: "" },
+					{ value: 1E3, symbol: "k" },
+					{ value: 1E6, symbol: "M" },
+					{ value: 1E9, symbol: "G" },
+					{ value: 1E12, symbol: "T" },
+					{ value: 1E15, symbol: "P" },
+					{ value: 1E18, symbol: "E" }
+				  ];
+				  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+				  var i;
+				  for (i = si.length - 1; i > 0; i--) {
+					if (num >= si[i].value) {
+					  break;
+					}
+				  }
+				  return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 			}
 			
 			jQuery('body').on('click', '#zpa-selected-filter .ms-sel-ctn .ms-sel-item', function(){
@@ -1050,7 +1063,7 @@ $excludes = get_new_filter_excludes();
 			var linked_name=name;
 			var value=jQuery(this).attr('value');
 			
-			jQuery(this).closest('.listprice').find('input[name=minlistprice]').val(value);			
+			jQuery(this).closest('.listprice').find('input[name=minlistprice]').val(addCommas(value));			
 			addFilterLabel(name, value, linked_name, '');
 			addFormField(name,value,linked_name);
 			
@@ -1065,7 +1078,7 @@ $excludes = get_new_filter_excludes();
 			var linked_name=name;
 			var value=jQuery(this).attr('value');
 			
-			jQuery(this).closest('.listprice').find('input[name=maxlistprice]').val(value);			
+			jQuery(this).closest('.listprice').find('input[name=maxlistprice]').val(addCommas(value));			
 			addFilterLabel(name, value, linked_name, '');
 			addFormField(name,value,linked_name);
 			
@@ -1343,6 +1356,36 @@ $excludes = get_new_filter_excludes();
 				jQuery(this).find('.label-more').removeClass('show').addClass('hide');				
 			}			
 			return false;
+		});
+	</script>
+	<script>
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + ',' + '$2');
+			}
+			return x1 + x2;
+		}
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
 		});
 	</script>
 </div>

@@ -72,13 +72,13 @@ if(get_query_var('page')){
 																		<div class="grid grid--gutters grid-xs--halves">
 																			<div class="cell">
 																				<div>
-																					<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox bt-off-canvas__price-range-input" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
+																					<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox bt-off-canvas__price-range-input input-number" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
 																					<div><span id="minListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Min Price</span></div>
 																				</div>
 																			</div>
 																			<div class="cell">
 																				<div>
-																					<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox bt-off-canvas__price-range-input" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
+																					<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox bt-off-canvas__price-range-input input-number" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
 																					<div><span id="maxListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Max Price</span></div>
 																				</div>
 																			</div>
@@ -737,6 +737,24 @@ if(get_query_var('page')){
 	<script>
 		jQuery(document).on('click', '#zpa-main-container .dropdown-menu', function (e) {
 		  e.stopPropagation();
+		});
+	</script>
+	<script>
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
 		});
 	</script>
 </div>

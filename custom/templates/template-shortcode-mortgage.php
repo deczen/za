@@ -1,3 +1,11 @@
+<?php
+global $requests;
+
+$home_price=!empty($requests['home_price'])?$requests['home_price']:1000000;
+$down_payment_percentage=!empty($requests['down_payment_percentage'])?$requests['down_payment_percentage']:20;
+$interest_rate_percentage=!empty($requests['interest_rate_percentage'])?$requests['interest_rate_percentage']:4.5;
+$tax_percentage=!empty($requests['tax_percentage'])?$requests['tax_percentage']:1.3;
+?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 
 	<div class="zpa-listing-detail">
@@ -24,7 +32,7 @@
 														 <svg viewBox="0 0 24 24" class="sc-bZQynM fLbDvk" width="20">
 															<path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"></path>
 														 </svg>
-														 <input type="text" id="MobileMortgageCalcForm-listPrice" class="at-price-txt fieldchange" value="1000000" name="price">
+														 <input type="text" id="MobileMortgageCalcForm-listPrice" class="at-price-txt fieldchange" value="<?php echo $home_price; ?>" name="price">
 													  </div>
 												   </div>
 												</div>
@@ -50,7 +58,7 @@
 														 <svg viewBox="0 0 24 24" class="sc-bZQynM FEJtT" width="15">
 															<path d="M7.17,10.5a4.12,4.12,0,0,0,3.94-4.28A4.14,4.14,0,0,0,7.17,1.94,4.12,4.12,0,0,0,3.23,6.22,4.11,4.11,0,0,0,7.17,10.5Zm0-6.92A2.54,2.54,0,0,1,9.52,6.24,2.52,2.52,0,0,1,7.17,8.91,2.52,2.52,0,0,1,4.82,6.24,2.52,2.52,0,0,1,7.17,3.57Zm9.66,9.93a4.12,4.12,0,0,0-3.94,4.28,4.12,4.12,0,0,0,3.94,4.28,4.12,4.12,0,0,0,3.94-4.28A4.11,4.11,0,0,0,16.83,13.5Zm0,6.92a2.54,2.54,0,0,1-2.35-2.67,2.51,2.51,0,0,1,2.35-2.67,2.52,2.52,0,0,1,2.35,2.67A2.51,2.51,0,0,1,16.83,20.43ZM17.82,2,3.21,22h3L20.79,2Z"></path>
 														 </svg>
-														 <input type="text" id="MobileMortgageCalcForm-percentDown" class="at-percentDown-txt fieldchange" value="20" aria-label="Down Payment Percentage" name="percentDown" maxlength="5">
+														 <input type="text" id="MobileMortgageCalcForm-percentDown" class="at-percentDown-txt fieldchange" value="<?php echo $down_payment_percentage; ?>" aria-label="Down Payment Percentage" name="percentDown" maxlength="5">
 													  </div>
 												   </div>
 												</div>
@@ -75,7 +83,7 @@
 														 <svg viewBox="0 0 24 24" class="sc-bZQynM FEJtT" width="15">
 															<path d="M7.17,10.5a4.12,4.12,0,0,0,3.94-4.28A4.14,4.14,0,0,0,7.17,1.94,4.12,4.12,0,0,0,3.23,6.22,4.11,4.11,0,0,0,7.17,10.5Zm0-6.92A2.54,2.54,0,0,1,9.52,6.24,2.52,2.52,0,0,1,7.17,8.91,2.52,2.52,0,0,1,4.82,6.24,2.52,2.52,0,0,1,7.17,3.57Zm9.66,9.93a4.12,4.12,0,0,0-3.94,4.28,4.12,4.12,0,0,0,3.94,4.28,4.12,4.12,0,0,0,3.94-4.28A4.11,4.11,0,0,0,16.83,13.5Zm0,6.92a2.54,2.54,0,0,1-2.35-2.67,2.51,2.51,0,0,1,2.35-2.67,2.52,2.52,0,0,1,2.35,2.67A2.51,2.51,0,0,1,16.83,20.43ZM17.82,2,3.21,22h3L20.79,2Z"></path>
 														 </svg>
-														 <input type="text" id="MobileMortgageCalcForm-interestRate" class="at-interest-txt fieldchange" value="4.5" name="interestRate" maxlength="5">
+														 <input type="text" id="MobileMortgageCalcForm-interestRate" class="at-interest-txt fieldchange" value="<?php echo $interest_rate_percentage; ?>" name="interestRate" maxlength="5">
 													  </div>
 												   </div>
 												   <?php /* <a class="uk-text-small">Contact our Lending Specialist</a> */ ?>
@@ -104,7 +112,7 @@
 															   <svg viewBox="0 0 24 24" class="sc-bZQynM FEJtT" width="15">
 																  <path d="M7.17,10.5a4.12,4.12,0,0,0,3.94-4.28A4.14,4.14,0,0,0,7.17,1.94,4.12,4.12,0,0,0,3.23,6.22,4.11,4.11,0,0,0,7.17,10.5Zm0-6.92A2.54,2.54,0,0,1,9.52,6.24,2.52,2.52,0,0,1,7.17,8.91,2.52,2.52,0,0,1,4.82,6.24,2.52,2.52,0,0,1,7.17,3.57Zm9.66,9.93a4.12,4.12,0,0,0-3.94,4.28,4.12,4.12,0,0,0,3.94,4.28,4.12,4.12,0,0,0,3.94-4.28A4.11,4.11,0,0,0,16.83,13.5Zm0,6.92a2.54,2.54,0,0,1-2.35-2.67,2.51,2.51,0,0,1,2.35-2.67,2.52,2.52,0,0,1,2.35,2.67A2.51,2.51,0,0,1,16.83,20.43ZM17.82,2,3.21,22h3L20.79,2Z"></path>
 															   </svg>
-															   <input type="text" id="MobileMortgageCalcForm-taxAndInsPercent" class="at-tax-percent fieldchange" value="1.3" name="taxAndInsPercent" maxlength="5">
+															   <input type="text" id="MobileMortgageCalcForm-taxAndInsPercent" class="at-tax-percent fieldchange" value="<?php echo $tax_percentage; ?>" name="taxAndInsPercent" maxlength="5">
 															</div>
 														 </div>
 													  </div>

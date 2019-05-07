@@ -290,8 +290,18 @@ function display_quick_search6($atts){
 
 add_shortcode( 'zpa_mortgage_calculator', 'display_mortgage_calculator' );
 
-function display_mortgage_calculator(){
-		
+function display_mortgage_calculator($atts){
+	global $requests;
+	
+	$atts = shortcode_atts( array(
+		'home_price' => '',
+		'down_payment_percentage' => '',
+		'interest_rate_percentage' => '',
+		'tax_percentage' => '',
+	), $atts, 'quick_search6' );
+	
+	$requests = $atts;
+	
 	ob_start();	
 	include ZIPPERAGENTPATH . "/custom/templates/template-shortcode-mortgage.php";
 	$html=ob_get_clean();
@@ -623,6 +633,8 @@ function getBasicSearch($atts){
 		'column' => '',
 		'o' => '',
 		'newsearchbar' => '',
+		'minlistprice' => '',
+		'maxlistprice' => '',
 	), $atts, 'basic_search' );
 	
 	$requests = $atts;
@@ -650,6 +662,8 @@ function getAdvancedSearch($atts){
 		'column' => '',
 		'o' => '',
 		'newsearchbar' => '',
+		'minlistprice' => '',
+		'maxlistprice' => '',
 	), $atts, 'quick_search2' );
 	
 	$requests = $atts;
@@ -660,6 +674,30 @@ function getAdvancedSearch($atts){
 	}else{
 		include ZIPPERAGENTPATH . "/custom/templates/template-advancedSearchFormVirtualPage.php";
 	}
+	$html=ob_get_clean();
+	
+	return $html;	
+}
+
+add_shortcode( 'za_map_search', 'getMapSearch' );
+function getMapSearch($atts){
+	
+	global $requests;
+	
+	$atts = shortcode_atts( array(
+		'location_option' => '',
+		'property_type_option' => '',
+		'property_type_default' => '',
+		'o' => '',
+		'newsearchbar' => '',
+		'minlistprice' => '',
+		'maxlistprice' => '',
+	), $atts, 'quick_search2' );
+	
+	$requests = $atts;
+		
+	ob_start();	
+	include ZIPPERAGENTPATH . "/custom/templates/template-mapSearch.php";	
 	$html=ob_get_clean();
 	
 	return $html;	

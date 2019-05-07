@@ -1,3 +1,7 @@
+<?php
+global $requests;
+
+?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
     <div>
         <form id="zpa-main-search-form" class="form-inline" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" target="_self" novalidate="novalidate">
@@ -9,15 +13,23 @@
                         <select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 							<?php
 							$propTypeFields = get_property_type();
+							$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
 							$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
 						
 							foreach( $propTypeFields as $fieldCode=>$fieldName ){
-								// if(in_array($fieldCode, $propDefaultOption))
-									// $selected="selected";
-								// else
-									// $selected="";
-								
-								echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
+								if($propTypeOption){
+									if(in_array($fieldCode, $propTypeOption)){
+										echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+									}
+								}else{
+									// echo $propDefaultOption . " == " . $fieldCode. "<br>";
+									// if(in_array($fieldCode, $propDefaultOption))
+										// $selected="selected";
+									// else
+										// $selected="";
+									
+									echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+								}										
 							}
 							?>
 						</select>						
@@ -26,13 +38,13 @@
 						<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
 						<div class="" style="position:relative;">
 							<div class="zpa-label-overlay-money"> $ </div>
-							<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+							<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>"> </div>
 					</div>
 					<div class="col-xs-12 col-sm-2 mb-10">
 						<label for="zpa-maxprice-homes" class="field-label zpa-maxprice-label"> Max. Price </label>
 						<div class="" style="position:relative;">
 							<div class="zpa-label-overlay-money"> $ </div>
-							<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input" value=""> </div>
+							<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>"> </div>
 					</div>
 					<div class="col-xs-12 col-sm-2 mb-10">
 						<label for="zpa-select-bedrooms-homes" class="field-label zpa-select-bedrooms-label"> Beds </label>
@@ -88,6 +100,11 @@
 					</div>
                 </div>
             </fieldset>
+			<?php 
+			$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
+			if($default_order): ?>
+			<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
+			<?php endif; ?>
         </form>
     </div>
 	<?php /*
@@ -283,6 +300,24 @@
 		  });
 		  
 		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
+		});
+	</script>
+	<script>
+		jQuery(document).ready(function($){
+			$('.input-number').keyup(function(event) {
+
+				// skip for arrow keys
+				if(event.which >= 37 && event.which <= 40) return;
+
+				// format number
+				$(this).val(function(index, value) {
+					return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				});
+			});
+			
+			$('.input-number').val(function(index, value) {
+				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
 		});
 	</script>
 </div>
