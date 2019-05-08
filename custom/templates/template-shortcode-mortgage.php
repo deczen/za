@@ -5,6 +5,8 @@ $home_price=!empty($requests['home_price'])?$requests['home_price']:1000000;
 $down_payment_percentage=!empty($requests['down_payment_percentage'])?$requests['down_payment_percentage']:20;
 $interest_rate_percentage=!empty($requests['interest_rate_percentage'])?$requests['interest_rate_percentage']:4.5;
 $tax_percentage=!empty($requests['tax_percentage'])?$requests['tax_percentage']:1.3;
+$loan_type=!empty($requests['loan_type'])?$requests['loan_type']:1;
+
 ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 
@@ -68,9 +70,9 @@ $tax_percentage=!empty($requests['tax_percentage'])?$requests['tax_percentage']:
 														 <!-- react-text: 35 -->Loan Type<!-- /react-text --><!-- react-text: 36 -->&nbsp;<!-- /react-text -->
 													  </label>
 													  <select id="MobileMortgageCalcForm-loanType" class="at-loanType-sel loantype" name="loanType">
-														 <option value="30">30 Year Fixed</option>
-														 <option value="15">15 Year Fixed</option>
-														 <option value="5">5/1 ARM</option>
+														 <option <?php selected($loan_type, "1"); ?> value="30">30 Year Fixed</option>
+														 <option <?php selected($loan_type, "2"); ?> value="15">15 Year Fixed</option>
+														 <option <?php selected($loan_type, "3"); ?> value="5">5/1 ARM</option>
 													  </select>
 												   </div>
 												</div>

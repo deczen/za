@@ -478,7 +478,7 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->taxes)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Tax Amount ($)</td>
+					<td class="bt-listing__table__label">Taxes</td>
 					<td class="bt-listing__table__items"><span>[taxes]</span></td> 
 				</tr>
 				<?php endif; ?>
