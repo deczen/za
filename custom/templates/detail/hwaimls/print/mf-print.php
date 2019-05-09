@@ -77,10 +77,10 @@
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
+			<?php if(isset($single_property->lotsize)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[acre]</div>
-				 <div class="bt-print__meta-label">Acres</div>
+				 <div class="bt-print__meta-val">[lotsize]</div>
+				 <div class="bt-print__meta-label">Land Square Feet</div>
 			  </td>
 			<?php endif; ?>
 			  <?php /* <td>

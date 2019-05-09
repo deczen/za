@@ -2001,7 +2001,7 @@ if( ! function_exists('populate_zipcodes') ){
 		$rb = zipperagent_rb();
 		$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 		$states=trim($states);
-		$states=explode(',',$states);
+		$states=$states?explode(',',$states):array();
 		$defaultStates = array(
 			'AA','AE','AK','AL','AP',
 			'AR','AS','AZ','CA','CO',
@@ -2030,7 +2030,7 @@ if( ! function_exists('populate_zipcodes') ){
 		$configurationPath = str_replace( '$websitedomain', $domainName, $configurationPath );
 		$configurationPath = str_replace( '//', '/', $configurationPath );
 		
-		$directoryPath = dirname($configurationPath);
+		$directoryPath = dirname(dirname($configurationPath));
 		
 		if(!$states){
 			$states=$defaultStates;
@@ -2042,7 +2042,7 @@ if( ! function_exists('populate_zipcodes') ){
 			$filename=$state.".csv";
 			$path=$directoryPath.'/zipcode';
 			$filepath=$path.'/'.$filename;
-			// echo $filepath; die('vvv');
+			
 			if(file_exists($filepath)){
 
 				$file = fopen($filepath,"r");

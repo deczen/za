@@ -9,8 +9,8 @@
 	<div class="bt-panel__stack__sub">
 		<ul class="bt-listing__feature-grid" style="margin-bottom:0">
 			<li class="acres">
-				<div class="attr-num bt-listing__acreage-text">[acre]</div>
-				<div class="uk-text-small uk-text-truncate">ACRES</div>
+				<div class="attr-num bt-listing__acreage-text">[lotsize]</div>
+				<div class="uk-text-small uk-text-truncate">Land Square Feet</div>
 			</li>
 			<li class="sqft ">
 				<div class="attr-num"> [nolots] </div>
