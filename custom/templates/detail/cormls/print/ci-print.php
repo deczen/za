@@ -148,6 +148,30 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
+			  <?php if(isset($single_property->propsubtype)): ?>
+			  <strong>Type</strong>
+			  [propsubtype]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
+			  <strong>County</strong>
+			  [lngCOUNTYDESCRIPTION]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'For Lease'})): ?>
+			  <strong>For Lease</strong>
+			  [unmapped_For Lease]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Lease Rate $/Sq Ft'})): ?>
+			  <strong>Lease Rate per Sq. Ft</strong>
+			  [unmapped_Lease Rate $/Sq Ft]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Heat Fuel'})): ?>
+			  <strong>Heating Fuel</strong>
+			  [unmapped_Heat Fuel]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Services Available'})): ?>
+			  <strong>Utility Desc.</strong>
+			  [unmapped_Services Available]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->unitno)): ?>
 			  <strong>Unit No</strong>
 			  [unitno]

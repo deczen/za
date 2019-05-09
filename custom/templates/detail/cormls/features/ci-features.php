@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->propsubtype) || isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) || isset($single_property->vacant) || isset($single_property->buildingconstruction) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->interiorfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Manufactured Housing Y/N'}) /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ || isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->Basement) || isset($single_property->unmapped->{'Tenant Occupied'}) || isset($single_property->unmapped->{'Lot Size (Side)'}) || isset($single_property->unmapped->{'Mid/High Rise'}) || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->lotdescription) || isset($single_property->zoning) || isset($single_property->petsallowed) ):?>
+	<?php if( isset($single_property->propsubtype) || isset($single_property->lngCOUNTYDESCRIPTION) || isset($single_property->unmapped->{'For Lease'}) || isset($single_property->unmapped->{'Lease Rate $/Sq Ft'}) || isset($single_property->unmapped->{'Heat Fuel'}) || isset($single_property->unmapped->{'Services Available'}) || isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) || isset($single_property->vacant) || isset($single_property->buildingconstruction) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->interiorfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Manufactured Housing Y/N'}) /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ || isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->Basement) || isset($single_property->unmapped->{'Tenant Occupied'}) || isset($single_property->unmapped->{'Lot Size (Side)'}) || isset($single_property->unmapped->{'Mid/High Rise'}) || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->lotdescription) || isset($single_property->zoning) || isset($single_property->petsallowed) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -9,6 +9,36 @@
 				<tr>
 					<td class="bt-listing__table__label">Type</td>
 					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->lngCOUNTYDESCRIPTION)): ?>
+				<tr>
+					<td class="bt-listing__table__label">County</td>
+					<td class="bt-listing__table__items"><span>[lngCOUNTYDESCRIPTION]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'For Lease'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">For Lease</td>
+					<td class="bt-listing__table__items"><span>[unmapped_For Lease]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lease Rate $/Sq Ft'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lease Rate per Sq. Ft</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lease Rate $/Sq Ft]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Heat Fuel'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Heating Fuel</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Heat Fuel]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Services Available'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Utility Desc.</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Services Available]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unitno)): ?>

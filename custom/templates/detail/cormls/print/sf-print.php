@@ -154,6 +154,10 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
+			  <?php if(isset($single_property->propsubtype)): ?>
+			  <strong>Type</strong>
+			  [propsubtype]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->unitno)): ?>
 			  <strong>Unit No</strong>
 			  [unitno]
