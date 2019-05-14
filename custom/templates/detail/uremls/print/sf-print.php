@@ -47,6 +47,12 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
+			<?php if(isset($single_property->norooms)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[norooms]</div>
+				 <div class="bt-print__meta-label">Total Rooms</div>
+			  </td>
+			<?php endif; ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
@@ -65,28 +71,28 @@
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[acre]</div>
-				 <div class="bt-print__meta-label">Acres</div>
-			  </td>
-			<?php endif; ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
+			<?php if(isset($single_property->acre)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[acre]</div>
+				 <div class="bt-print__meta-label">Acres</div>
+			  </td>
+			<?php endif; ?>
 			  <?php /* <td>
 				 <div class="bt-print__meta-val">$170</div>
 				 <div class="bt-print__meta-label">$/SQFT</div>
-			  </td> */ ?>
+			  </td>  ?>
 			<?php if(isset($single_property->yearbuilt)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[yearbuilt]</div>
 				 <div class="bt-print__meta-label">Built</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 		   </tr>
 		</table>
 		<div class="bt-print__area__wrap">
@@ -95,6 +101,18 @@
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->proptype)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Type:</div>
+				 <div class="bt-print__area-val">[proptype]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->yearbuilt)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Built:</div>
+				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
@@ -186,7 +204,7 @@
 			  <?php endif; ?>
 			  <?php if(isset($single_property->oth1level)): ?>
 			  <strong>Additional Room #1</strong>
-			  [oth1LEVEL]
+			  [oth1level]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->netoperatinginc)): ?>
 			  <strong>Net Operating Income</strong>
@@ -204,9 +222,9 @@
 			  <strong>Rent Unit2</strong>
 			  [rent2]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->cctype)): ?>
-			  <strong>Condo Style</strong>
-			  [cctype]
+			  <?php if(isset($single_property->style)): ?>
+			  <strong>House Style</strong>
+			  [style]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->sewer)): ?>
 			  <strong>Sewer Utilities</strong>
@@ -260,9 +278,26 @@
 			  <?php endif; ?>
 			  <?php /* <strong>Year Round</strong>
 			  Yes */ ?>
+			  
 			  <?php if(isset($single_property->zoning)): ?>
 			  <strong>Zoning</strong>
 			  [zoning]
+			  <?php endif; ?>
+			   <?php if(isset($single_property->facingdirection)): ?>
+			  <strong>Facing Direction</strong>
+			  [facingdirection]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->landdesc)): ?>
+			  <strong>Land Desc</strong>
+			  [landdesc]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->schooldistrict)): ?>
+			  <strong>School District</strong>
+			  [schooldistrict]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->termsfeature)): ?>
+			  <strong>Terms Feature</strong>
+			  [termsfeature]
 			  <?php endif; ?>
 		   </p>
 		</div>
@@ -346,21 +381,17 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
 		   <p>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fireplaces)): ?>
+			  <strong>Fireplaces</strong>
+			  [fireplaces]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->laundrylevel)): ?>
-			  <strong>Laundry</strong>
-			  [laundrylevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->petsallowed)): ?>
-			  <strong>Pets Allowed</strong>
-			  [petsallowed]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unitlevel)): ?>
-			  <strong>Unit Level</strong>
-			  [unitlevel]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basementfeature)): ?>
 			  <strong>Basement Feature</strong>
@@ -433,7 +464,7 @@
 			  [frplcs2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->flooring)): ?>
-			  <strong>Flooring</strong>
+			  <strong>Floor</strong>
 			  [flooring]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->flrs1)): ?>
@@ -507,6 +538,10 @@
 			  <?php if(isset($single_property->kitlevel)): ?>
 			  <strong>Kitchen</strong>
 			  [kitlevel]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->aircondition)): ?>
+			  <strong>Air Condition</strong>
+			  [aircondition]
 			  <?php endif; ?>
 		   </p>
 		</div>

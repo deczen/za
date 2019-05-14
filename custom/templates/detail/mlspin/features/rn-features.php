@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->rntype) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundryfeatures) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront)  ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->rntype) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundryfeatures) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront)  ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -23,9 +23,15 @@
 					<td class="bt-listing__table__items"><span>[rntype]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->exterior)): ?>
+				<?php if( isset($single_property->exteriorfeatures)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Exterior Features</td>
+					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->exterior)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Exterior</td>
 					<td class="bt-listing__table__items"><span>[exterior]</span></td>
 				</tr>
 				<?php endif; ?>

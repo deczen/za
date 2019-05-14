@@ -55,8 +55,8 @@
 			<?php endif; ?>
 			<?php if(isset($single_property->nobaths)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nofullbaths]</div>
-				 <div class="bt-print__meta-label">FULL BATHS</div>
+				 <div class="bt-print__meta-val">[nobaths]</div>
+				 <div class="bt-print__meta-label">Baths</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->nohalfbaths)): ?>
@@ -184,7 +184,7 @@
 			  <strong>Dining Room Type</strong>
 			  [dinlevel]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->oth1level)): ?>
+			  <?php if(isset($single_property->oth1LEVEL)): ?>
 			  <strong>Additional Room #1</strong>
 			  [oth1LEVEL]
 			  <?php endif; ?>
@@ -204,9 +204,9 @@
 			  <strong>Rent Unit2</strong>
 			  [rent2]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->cctype)): ?>
-			  <strong>Condo Style</strong>
-			  [cctype]
+			  <?php if(isset($single_property->style)): ?>
+			  <strong>House Style</strong>
+			  [style]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->sewer)): ?>
 			  <strong>Sewer Utilities</strong>
@@ -263,6 +263,22 @@
 			  <?php if(isset($single_property->zoning)): ?>
 			  <strong>Zoning</strong>
 			  [zoning]
+			  <?php endif; ?>
+			   <?php if(isset($single_property->facingdirection)): ?>
+			  <strong>Facing Direction</strong>
+			  [facingdirection]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->landdesc)): ?>
+			  <strong>Land Desc</strong>
+			  [landdesc]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->schooldistrict)): ?>
+			  <strong>School District</strong>
+			  [schooldistrict]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->termsfeature)): ?>
+			  <strong>Terms Feature</strong>
+			  [termsfeature]
 			  <?php endif; ?>
 		   </p>
 		</div>
@@ -346,21 +362,17 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
 		   <p>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fireplaces)): ?>
+			  <strong>Fireplaces</strong>
+			  [fireplaces]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->laundrylevel)): ?>
-			  <strong>Laundry</strong>
-			  [laundrylevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->petsallowed)): ?>
-			  <strong>Pets Allowed</strong>
-			  [petsallowed]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unitlevel)): ?>
-			  <strong>Unit Level</strong>
-			  [unitlevel]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basementfeature)): ?>
 			  <strong>Basement Feature</strong>
@@ -433,7 +445,7 @@
 			  [frplcs2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->flooring)): ?>
-			  <strong>Flooring</strong>
+			  <strong>Floor</strong>
 			  [flooring]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->flrs1)): ?>
@@ -508,6 +520,10 @@
 			  <strong>Kitchen</strong>
 			  [kitlevel]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->aircondition)): ?>
+			  <strong>Air Condition</strong>
+			  [aircondition]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		
@@ -551,4 +567,4 @@
 		</div>
 		<?php endif; ?>
 	 </div>
-  </div>
+</div>

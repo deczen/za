@@ -164,34 +164,34 @@
 			  <strong>Levels</strong>
 			  [unmapped_Levels]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->style)): ?>
+			  <?php /*if(isset($single_property->style)): ?>
 			  <strong>House Style</strong>
 			  [style]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->vacant)): ?>
+			  <?php endif;*/ ?>
+			  <?php /*if(isset($single_property->vacant)): ?>
 			  <strong>Vacant</strong>
 			  [vacant]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->buildingconstruction)): ?>
 			  <strong>Building Construction</strong>
 			  [buildingconstruction]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->construction)): ?>
+			  <?php /*if(isset($single_property->construction)): ?>
 			  <strong>Construction</strong>
 			  [construction]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->foundation)): ?>
+			  <?php endif;*/ ?>
+			  <?php /*if(isset($single_property->foundation)): ?>
 			  <strong>Foundation</strong>
 			  [foundation]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->basement)): ?>
+			  <?php endif;*/ ?>
+			  <?php /*if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basementfeature)): ?>
 			  <strong>Basement Feature</strong>
 			  [basementfeature]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->schooldistrict)): ?>
 			  <strong>School District</strong>
 			  [schooldistrict]
@@ -232,34 +232,34 @@
 			  <strong>Cumulative DOM</strong>
 			  [unmapped_Cumulative DOM]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})): ?>
 			  <strong>Dir Neg w/Sell Perm</strong>
 			  [unmapped_Dir Neg w/Sell Perm]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Basement)): ?>
+			  <?php /*if(isset($single_property->unmapped->Basement)): ?>
 			  <strong>Basement</strong>
 			  [unmapped_Basement]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->{'Tenant Occupied'})): ?>
 			  <strong>Tenant Occupied</strong>
 			  [unmapped_Tenant Occupied]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Lot Size (Side)'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Lot Size (Side)'})): ?>
 			  <strong>Lot Size (Side)</strong>
 			  [unmapped_Lot Size (Side)]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->{'Mid/High Rise'})): ?>
 			  <strong>Mid/High Rise</strong>
 			  [unmapped_Mid/High Rise]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Built Prior to 1978'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Built Prior to 1978'})): ?>
 			  <strong>Built Prior to 1978</strong>
 			  [unmapped_Built Prior to 1978]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Documented SqFt Source'})): ?>
+			  <?php endif;*/ ?>
+			  <?php /*if(isset($single_property->unmapped->{'Documented SqFt Source'})): ?>
 			  <strong>Documented SqFt Source</strong>
 			  [unmapped_Documented SqFt Source]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->TransactionType)): ?>
 			  <strong>Transaction Type</strong>
 			  [unmapped_TransactionType]
@@ -275,6 +275,26 @@
 			  <?php if(isset($single_property->petsallowed)): ?>
 			  <strong>Pets Allowed</strong>
 			  [petsallowed]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->yearbuilt)): ?>
+			  <strong>Year Built</strong>
+			  [yearbuilt]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rentalterms)): ?>
+			  <strong>Lease Term</strong>
+			  [rentalterms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Application Fee Reqd'})): ?>
+			  <strong>Application Fee</strong>
+			  [unmapped_Application Fee Reqd]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->secdeposit)): ?>
+			  <strong>Security Deposit</strong>
+			  [secdeposit]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->tenantexpanses)): ?>
+			  <strong>Tenant Pays</strong>
+			  [tenantexpanses]
 			  <?php endif; ?>
 			</p>
 			  <!-- parking information -->

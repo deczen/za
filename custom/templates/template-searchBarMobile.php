@@ -429,13 +429,14 @@
 						
 					</div>
 				</div>
+				<?php
+				$fields = get_references_field('STYLE');				
+				if($fields): ?>
 				<div class="field-wrap proptype-type" id="droptop">
 					<button class="btn btn-secondary dropdown-toggle" type="button">Styles</button>
 					<div class="sub-menu col-xs-12">
 						<ul class="styles">
-							<?php
-							$fields = get_references_field('STYLE');
-							
+							<?php							
 							foreach($fields as $field){
 								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="astle[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
 							}
@@ -443,27 +444,33 @@
 						</ul>
 					</div>
 				</div>
+				<?php endif; ?>
+				
+				<?php
+				$fields = get_references_field('EXTERIORFEATURES');		
+				if($fields): ?>
 				<div class="field-wrap proptype-type" id="droptop">
 					<button class="btn btn-secondary dropdown-toggle" type="button">Exterior Features</button>
 					<div class="sub-menu col-xs-12">
 						<ul class="exteriorfeatures">
-							<?php
-							$fields = get_references_field('EXTERIORFEATURES');
-							
+							<?php							
 							foreach($fields as $field){
-								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aintf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
+								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aextf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
 							}
 							?>
 						</ul>
 					</div>
 				</div>
+				<?php endif; ?>
+				
+				<?php
+				$fields = get_references_field('WATERFRONT');				
+				if($fields): ?>
 				<div class="field-wrap" id="droptop">
 					<button class="btn btn-secondary dropdown-toggle" type="button">Water Front</button>
 					<div class="sub-menu col-xs-12">
 						<ul class="waterfront">
-							<?php
-							$fields = get_references_field('WATERFRONT');
-							
+							<?php							
 							foreach($fields as $field){
 								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
 							}
@@ -471,13 +478,16 @@
 						</ul>
 					</div>
 				</div>
+				<?php endif; ?>
+				
+				<?php
+				$fields = get_references_field('WATERVIEWFEATURES');			
+				if($fields): ?>
 				<div class="field-wrap" id="droptop">
 					<button class="btn btn-secondary dropdown-toggle" type="button">View</button>
 					<div class="sub-menu col-xs-12">
 						<ul class="View">
-							<?php
-							$fields = get_references_field('WATERVIEWFEATURES');
-							
+							<?php							
 							foreach($fields as $field){
 								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awvf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
 							}
@@ -485,7 +495,7 @@
 						</ul>
 					</div>
 				</div>
-				
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->propsubtype) || isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) || isset($single_property->vacant) || isset($single_property->buildingconstruction) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->interiorfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Manufactured Housing Y/N'}) /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})*/ || isset($single_property->unmapped->Basement) || isset($single_property->unmapped->{'Tenant Occupied'}) || isset($single_property->unmapped->{'Lot Size (Side)'}) || isset($single_property->unmapped->{'Mid/High Rise'}) || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->lotdescription) || isset($single_property->zoning) || isset($single_property->petsallowed) ):?>
+	<?php if( isset($single_property->propsubtype) || isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) || isset($single_property->vacant) || isset($single_property->buildingconstruction) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->interiorfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Manufactured Housing Y/N'}) /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})*/ || isset($single_property->unmapped->Basement) || isset($single_property->unmapped->{'Tenant Occupied'}) || isset($single_property->unmapped->{'Lot Size (Side)'}) || isset($single_property->unmapped->{'Mid/High Rise'}) || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->lotdescription) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->{'Price Per Acre'}) || isset($single_property->unmapped->{'Multiple Parcels'}) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -196,6 +196,18 @@
 				<tr>
 					<td class="bt-listing__table__label">Pets Allowed</td>
 					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Price Per Acre'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Price Per Acre</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Price Per Acre]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Multiple Parcels'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Mulitple Parcels</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Multiple Parcels]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

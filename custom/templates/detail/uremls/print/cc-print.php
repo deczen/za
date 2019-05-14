@@ -264,6 +264,22 @@
 			  <strong>Zoning</strong>
 			  [zoning]
 			  <?php endif; ?>
+			   <?php if(isset($single_property->facingdirection)): ?>
+			  <strong>Facing Direction</strong>
+			  [facingdirection]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->landdesc)): ?>
+			  <strong>Land Desc</strong>
+			  [landdesc]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->schooldistrict)): ?>
+			  <strong>School District</strong>
+			  [schooldistrict]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->termsfeature)): ?>
+			  <strong>Terms Feature</strong>
+			  [termsfeature]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
@@ -283,13 +299,13 @@
 			  <strong>Construction</strong>
 			  [construction]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->exteriorfeatures)): ?>
-			  <strong>Exterior Features</strong>
-			  [exteriorfeatures]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->exterior)): ?>
 			  <strong>Exterior</strong>
 			  [exterior]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->exteriorfeatures)): ?>
+			  <strong>Exterior Features</strong>
+			  [exteriorfeatures]
 			  <?php endif; ?>
 			  <?php /* <strong>Exterior Features</strong>
 			  Deck */ ?>
@@ -346,6 +362,14 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
 		   <p>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fireplaces)): ?>
+			  <strong>Fireplaces</strong>
+			  [fireplaces]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
@@ -507,6 +531,10 @@
 			  <?php if(isset($single_property->kitlevel)): ?>
 			  <strong>Kitchen</strong>
 			  [kitlevel]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->aircondition)): ?>
+			  <strong>Air Condition</strong>
+			  [aircondition]
 			  <?php endif; ?>
 		   </p>
 		</div>

@@ -282,6 +282,14 @@
 			  <strong>Pets Allowed</strong>
 			  [petsallowed]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Price Per Acre'})): ?>
+			  <strong>Price Per Acre</strong>
+			  [unmapped_Price Per Acre]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Multiple Parcels'})): ?>
+			  <strong>Mulitple Parcels</strong>
+			  [unmapped_Multiple Parcels]
+			  <?php endif; ?>
 			</p>
 			  <!-- parking information -->
 			<p>

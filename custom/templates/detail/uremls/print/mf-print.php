@@ -1,5 +1,5 @@
 <div class="bt-print__wrap">
-	<div class="bt-print__header_top">
+	<div class="bt-print__header">
 		<div class="bt-print__logo">
 			<img src="<?php echo $print_logo; ?>">
 		</div>
@@ -47,13 +47,19 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
+			<?php if(isset($single_property->totalrooms)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[totalrooms]</div>
+				 <div class="bt-print__meta-label">Total Units</div>
+			  </td>
+			<?php endif; ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">FULL BATHS</div>
@@ -65,28 +71,28 @@
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[acre]</div>
-				 <div class="bt-print__meta-label">Acres</div>
-			  </td>
-			<?php endif; ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
+			<?php if(isset($single_property->acre)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[acre]</div>
+				 <div class="bt-print__meta-label">Acres</div>
+			  </td>
+			<?php endif; ?>
 			  <?php /* <td>
 				 <div class="bt-print__meta-val">$170</div>
 				 <div class="bt-print__meta-label">$/SQFT</div>
-			  </td> */ ?>
+			  </td>  ?>
 			<?php if(isset($single_property->yearbuilt)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[yearbuilt]</div>
 				 <div class="bt-print__meta-label">Built</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif; */?>
 		   </tr>
 		</table>
 		<div class="bt-print__area__wrap">
@@ -95,6 +101,18 @@
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->proptype)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Type:</div>
+				 <div class="bt-print__area-val">[proptype]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->yearbuilt)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Built:</div>
+				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
@@ -186,7 +204,7 @@
 			  <?php endif; ?>
 			  <?php if(isset($single_property->oth1level)): ?>
 			  <strong>Additional Room #1</strong>
-			  [oth1LEVEL]
+			  [oth1level]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->netoperatinginc)): ?>
 			  <strong>Net Operating Income</strong>
@@ -204,9 +222,9 @@
 			  <strong>Rent Unit2</strong>
 			  [rent2]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->cctype)): ?>
-			  <strong>Condo Style</strong>
-			  [cctype]
+			  <?php if(isset($single_property->style)): ?>
+			  <strong>House Style</strong>
+			  [style]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->sewer)): ?>
 			  <strong>Sewer Utilities</strong>
@@ -263,6 +281,22 @@
 			  <?php if(isset($single_property->zoning)): ?>
 			  <strong>Zoning</strong>
 			  [zoning]
+			  <?php endif; ?>
+			   <?php if(isset($single_property->facingdirection)): ?>
+			  <strong>Facing Direction</strong>
+			  [facingdirection]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->landdesc)): ?>
+			  <strong>Land Desc</strong>
+			  [landdesc]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->schooldistrict)): ?>
+			  <strong>School District</strong>
+			  [schooldistrict]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->termsfeature)): ?>
+			  <strong>Terms Feature</strong>
+			  [termsfeature]
 			  <?php endif; ?>
 		   </p>
 		</div>
@@ -346,21 +380,17 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
 		   <p>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fireplaces)): ?>
+			  <strong>Fireplaces</strong>
+			  [fireplaces]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->laundrylevel)): ?>
-			  <strong>Laundry</strong>
-			  [laundrylevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->petsallowed)): ?>
-			  <strong>Pets Allowed</strong>
-			  [petsallowed]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unitlevel)): ?>
-			  <strong>Unit Level</strong>
-			  [unitlevel]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basementfeature)): ?>
 			  <strong>Basement Feature</strong>
@@ -396,7 +426,7 @@
 			  <?php endif; ?>
 			  <?php if(isset($single_property->bth3level)): ?>
 			   <strong>Bathroom #3</strong>
-			  [bth3level]
+			  [bth3LEVEL]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->cooling)): ?>
 			  <strong>Cooling</strong>
@@ -420,6 +450,94 @@
 			  <?php endif; ?>
 			  <?php /* <strong>Family Room Level</strong>
 			  First Floor */ ?>
+			  <?php if(isset($single_property->bedrms1)): ?>
+			  <strong>Beds Unit1</strong>
+			  [[bedrms1]]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->bedrms2)): ?>
+			  <strong>Beds Unit2</strong>
+			  [[bedrms2]]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->bedrms3)): ?>
+			  <strong>Beds Unit3</strong>
+			  [[bedrms3]]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->bedrms4)): ?>
+			  <strong>Beds Unit4</strong>
+			  [[bedrms4]]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->bedrms5)): ?>
+			  <strong>Beds Unit5</strong>
+			  [[bedrms5]]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths1)): ?>
+			  <strong>Full Baths Unit1</strong>
+			  [fbths1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths2)): ?>
+			  <strong>Full Baths Unit2</strong>
+			  [fbths2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths3)): ?>
+			  <strong>Full Baths Unit3</strong>
+			  [fbths3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths4)): ?>
+			  <strong>Full Baths Unit4</strong>
+			  [fbths4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths5)): ?>
+			  <strong>Full Baths Unit5</strong>
+			  [fbths5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coolingunits)): ?>
+			  <strong>Cooling</strong>
+			  [coolingunits]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp1)): ?>
+			  <strong>Cooling Unit1</strong>
+			  [coldscrp1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp2)): ?>
+			  <strong>Cooling Unit2</strong>
+			  [coldscrp2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp3)): ?>
+			  <strong>Cooling Unit3</strong>
+			  [coldscrp3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp4)): ?>
+			  <strong>Cooling Unit4</strong>
+			  [coldscrp4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp5)): ?>
+			  <strong>Cooling Unit5</strong>
+			  [coldscrp5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->heating)): ?>
+			  <strong>Heating</strong>
+			  [heating]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp1)): ?>
+			  <strong>Heating Unit1</strong>
+			  [headscrp1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp2)): ?>
+			  <strong>Heating Unit2</strong>
+			  [headscrp2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp3)): ?>
+			  <strong>Heating Unit3</strong>
+			  [headscrp3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp4)): ?>
+			  <strong>Heating Unit4</strong>
+			  [headscrp4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp5)): ?>
+			  <strong>Heating Unit5</strong>
+			  [headscrp5]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->fireplaces)): ?>
 			  <strong>Fireplaces</strong>
 			  [fireplaces]
@@ -432,8 +550,20 @@
 			  <strong>Fireplaces Unit2</strong>
 			  [frplcs2]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs3)): ?>
+			  <strong>Fireplaces Unit3</strong>
+			  [frplcs3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs4)): ?>
+			  <strong>Fireplaces Unit4</strong>
+			  [frplcs4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs5)): ?>
+			  <strong>Fireplaces Unit5</strong>
+			  [frplcs5]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->flooring)): ?>
-			  <strong>Flooring</strong>
+			  <strong>Floor</strong>
 			  [flooring]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->flrs1)): ?>
@@ -444,13 +574,65 @@
 			  <strong>Floors Unit2</strong>
 			  [flrs2]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->fbths1)): ?>
-			  <strong>Full Baths Unit1</strong>
-			  [fbths1]
+			  <?php if(isset($single_property->flrs3)): ?>
+			  <strong>Floors Unit3</strong>
+			  [flrs3]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->fbths2)): ?>
-			  <strong>Full Baths Unit2</strong>
-			  [fbths2]
+			  <?php if(isset($single_property->flrs4)): ?>
+			  <strong>Floors Unit4</strong>
+			  [flrs4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->flrs5)): ?>
+			  <strong>Floors Unit5</strong>
+			  [flrs5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels)): ?>
+			  <strong>Levels</strong>
+			  [levels]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels1)): ?>
+			  <strong>Levels Unit1</strong>
+			  [levels1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels2)): ?>
+			  <strong>Levels Unit2</strong>
+			  [levels2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels3)): ?>
+			  <strong>Levels Unit3</strong>
+			  [levels3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels4)): ?>
+			  <strong>Levels Unit4</strong>
+			  [levels4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels5)): ?>
+			  <strong>Levels Unit5</strong>
+			  [levels5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->norooms)): ?>
+			  <strong>Rooms</strong>
+			  [norooms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms1)): ?>
+			  <strong>Rooms Unit1</strong>
+			  [rms1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms2)): ?>
+			  <strong>Rooms Unit2</strong>
+			  [rms2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms3)): ?>
+			  <strong>Rooms Unit3</strong>
+			  [rms3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms4)): ?>
+			  <strong>Rooms Unit4</strong>
+			  [rms4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms5)): ?>
+			  <strong>Rooms Unit5</strong>
+			  [rms5]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->hbths1)): ?>
 			  <strong>Half Baths Unit1</strong>
@@ -480,33 +662,14 @@
 			  No
 			  <strong>Master Bedroom Level</strong>
 			  First Floor */ ?>
-			  <?php if(isset($single_property->levels)): ?>
-			  <strong>Levels</strong>
-			  [levels]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->levels1)): ?>
-			  <strong>Levels Unit1</strong>
-			  [levels1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->levels2)): ?>
-			  <strong>Levels Unit2</strong>
-			  [levels2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->norooms)): ?>
-			  <strong>Rooms</strong>
-			  [norooms]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rms1)): ?>
-			  <strong>Rooms Unit1</strong>
-			  [rms1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rms2)): ?>
-			  <strong>Rooms Unit2</strong>
-			  [rms2]
-			  <?php endif; ?>
+			  
 			  <?php if(isset($single_property->kitlevel)): ?>
 			  <strong>Kitchen</strong>
 			  [kitlevel]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->aircondition)): ?>
+			  <strong>Air Condition</strong>
+			  [aircondition]
 			  <?php endif; ?>
 		   </p>
 		</div>

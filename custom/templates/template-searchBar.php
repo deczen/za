@@ -397,54 +397,66 @@ $excludes = get_new_filter_excludes();
 								</div>
 							</div>
 							<div class="more hide">
+							
+								<?php
+								$fields = get_references_field('STYLE');
+								if($fields): ?>
 								<div class="checkbox-wrap">
 									<h3>Styles</h3>
 									<div class="checkbox-row row">
-										<?php
-										$fields = get_references_field('STYLE');
-										
+										<?php										
 										foreach($fields as $field){
 											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="astle[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
 										}
 										?>
 									</div>
 								</div>
+								<?php endif; ?>
+								
+								<?php
+								$fields = get_references_field('EXTERIORFEATURES');
+								if($fields): ?>
 								<div class="checkbox-wrap">
 									<h3>Exterior Features</h3>
 									<div class="checkbox-row row">
-										<?php
-										$fields = get_references_field('EXTERIORFEATURES');
-										
+										<?php										
 										foreach($fields as $field){
-											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aintf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
+											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aextf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
 										}
 										?>
 									</div>
 								</div>
+								<?php endif; ?>
+								
+								<?php
+								$fields = get_references_field('WATERFRONT');
+								if($fields): ?>
 								<div class="checkbox-wrap">
 									<h3>Water Front</h3>
 									<div class="checkbox-row row">
-										<?php
-										$fields = get_references_field('WATERFRONT');
-										
+										<?php										
 										foreach($fields as $field){
 											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
 										}
 										?>
 									</div>
 								</div>
+								<?php endif; ?>
+								
+								<?php
+								$fields = get_references_field('WATERVIEWFEATURES');
+								if($fields): ?>
 								<div class="checkbox-wrap">
 									<h3>View</h3>
 									<div class="checkbox-row row">
-										<?php
-										$fields = get_references_field('WATERVIEWFEATURES');
-										
+										<?php										
 										foreach($fields as $field){
 											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awvf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
 										}
 										?>
 									</div>
 								</div>
+								<?php endif; ?>
 							</div>
 							<div class="action">
 								<div class="row">		
@@ -559,7 +571,7 @@ $excludes = get_new_filter_excludes();
 						$fields = get_references_field('EXTERIORFEATURES');
 						foreach($fields as $field){
 						echo "\r\n" .
-						'case "aintf_'.$field->shortDescription.'":'."\r\n" .
+						'case "aextf_'.$field->shortDescription.'":'."\r\n" .
 							"newLabel = '{$field->longDescription}'"."\r\n" .
 							'break;'."\r\n";
 						}
