@@ -131,7 +131,8 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 			?>
 		};
 		data['crit']=crit;
-	 
+		
+		console.time('request info');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -148,6 +149,11 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 				
 				jQuery('#zpaMoreInfo #zpa-more-info-request-form').css('opacity', 1);
 				jQuery('#zpaMoreInfo #zpa-more-info-request-form').css('pointer-events', 'initial');
+				
+				console.timeEnd('request info');
+			},
+			error: function(){
+				console.timeEnd('request info');
 			}
 		});
 		

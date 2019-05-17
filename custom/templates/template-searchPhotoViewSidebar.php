@@ -282,6 +282,7 @@ endforeach; ?>
 			'searchId': searchId,                    
 		};
 		
+		console.time('save favorite');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -298,6 +299,11 @@ endforeach; ?>
 				}else{
 					// alert( 'Submit failed!' );
 				}
+				
+				console.timeEnd('save favorite');
+			},
+			error: function(){
+				console.timeEnd('save favorite');
 			}
 		});
 	}

@@ -100,6 +100,7 @@ if( $list ): ?>
 			'isLogin': isLogin,
 		};
 		
+		console.time('save favorite');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -116,6 +117,11 @@ if( $list ): ?>
 				}else{
 					// alert( 'Submit failed!' );
 				}
+				
+				console.timeEnd('save favorite');
+			},
+			error: function(){
+				console.timeEnd('save favorite');
 			}
 		});
 	}
@@ -139,6 +145,7 @@ if( $list ): ?>
 			'actual_link': '<?php echo $actual_link; ?>',
 		};
 		
+		console.time('generate list count/pagination');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -150,6 +157,11 @@ if( $list ): ?>
 					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
 					jQuery('.zpa-listing-search-results .prop-pagination').html('<div class="col-xs-6">' + response['html_pagination'] + '</div>');
 				}
+				
+				console.timeEnd('generate list count/pagination');
+			},
+			error: function(){
+				console.timeEnd('generate list count/pagination');
 			}
 		});
 	});

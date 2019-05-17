@@ -40,6 +40,8 @@ function cf7_auto_populate($atts){
 				
 				if(isEmail(email)){			
 					// alert(email);
+					
+					console.time('generate fields');
 					jQuery.ajax({
 						type: 'POST',
 						dataType : 'json',
@@ -102,6 +104,11 @@ function cf7_auto_populate($atts){
 								
 								$('.wpcf7 .hide-alert').removeClass('hide-alert');
 							}
+							
+							console.timeEnd('generate fields');
+						},
+						error: function(){
+							console.timeEnd('generate fields');
 						}
 					});
 				}else{

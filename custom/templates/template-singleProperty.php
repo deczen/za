@@ -456,12 +456,13 @@ if( sizeof($_GET)==$excParamCount ){
 				'isLogin': isLogin,				
 			};
 			
+			console.time('save favorite');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					// console.log(response);
 					if( response['result'] ){
 						// alert('success');
@@ -472,6 +473,11 @@ if( sizeof($_GET)==$excParamCount ){
 					}else{
 						// alert( 'Submit failed!' );
 					}
+					
+					console.timeEnd('save favorite');
+				},
+				error: function(){
+					console.timeEnd('save favorite');
 				}
 			});
 		}
@@ -518,12 +524,13 @@ if( sizeof($_GET)==$excParamCount ){
 				'isLogin': isLogin,
 			};
 			
+			console.time('save favorite');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					// console.log(response);
 					if( response['result'] ){
 						// alert('success');
@@ -534,6 +541,11 @@ if( sizeof($_GET)==$excParamCount ){
 					}else{
 						// alert( 'Submit failed!' );
 					}
+					
+					console.timeEnd('save favorite');
+				},
+				error: function(){
+					console.timeEnd('save favorite');
 				}
 			});
 		}
@@ -554,12 +566,13 @@ if( sizeof($_GET)==$excParamCount ){
 				'searchId': searchId,                    
 			};
 			
+			console.time('save property');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					// console.log(response);
 					if( response['result'] ){
 						// alert('success');
@@ -568,6 +581,11 @@ if( sizeof($_GET)==$excParamCount ){
 					}else{
 						// alert( 'Submit failed!' );
 					}
+					
+					console.timeEnd('save property');
+				},
+				error: function(){
+					console.timeEnd('save property');
 				}
 			});
 		}		
@@ -606,13 +624,14 @@ if( sizeof($_GET)==$excParamCount ){
 		jQuery( '#zpa-modal-contact-agent-form' ).on( 'submit', function(){
 			
 			var data = jQuery(this).serialize();
-		 
+			
+			console.time('submit contact form');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					// console.log(response);
 					if( response['result'] ){						
 						var contactId=response['result'];					
@@ -632,6 +651,11 @@ if( sizeof($_GET)==$excParamCount ){
 					}else{
 						alert( 'Submit failed!' );
 					}
+					
+					console.timeEnd('submit contact form');
+				},
+				error: function(){
+					console.timeEnd('submit contact form');
 				}
 			});
 			
@@ -732,16 +756,22 @@ if( sizeof($_GET)==$excParamCount ){
 				window.history.pushState("", "", url);
 				
 				jQuery( '#zipperagent-content' ).html( loading );
-		 
+				
+				console.time('generate list');
 				jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
 					url: zipperagent.ajaxurl,
 					data: request,
-					success: function( response ) {         
+					success: function( response ) {
 						if( response['html'] ){
 							jQuery( '#zipperagent-content' ).html( response['html'] );
 						}
+						
+						console.timeEnd('generate list');
+					},
+					error: function(){
+						console.timeEnd('generate list');
 					}
 				});
 				
@@ -801,16 +831,22 @@ if( sizeof($_GET)==$excParamCount ){
 				echo "'actual_link': '{$actual_link}',"."\r\n";
 				?>                  
 			};
-	 
+			
+			console.time('generate list');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {         
+				success: function( response ) {
 					if( response['html'] ){
 						jQuery( '#zipperagent-content' ).html( response['html'] );
 					}
+					
+					console.timeEnd('generate list');
+				},
+				error: function(){
+					console.timeEnd('generate list');
 				}
 			});
 		});
@@ -824,13 +860,14 @@ if( sizeof($_GET)==$excParamCount ){
 				listingId: '<?php echo zipperAgentUtility::getInstance()->getQueryVar("listingNumber"); ?>',                 
 				searchId: '<?php echo $searchId; ?>',                 
 			};
-	 
+			
+			console.time('generate detail');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {         
+				success: function( response ) {
 					if( response ){
 						// jQuery( '#zipperagent-content' ).replaceWith( response['html'] );						
 						jQuery( '#header-column' ).html( response['header_section'] );						
@@ -842,6 +879,11 @@ if( sizeof($_GET)==$excParamCount ){
 						initMap();
 						<?php endif; ?>
 					}
+					
+					console.timeEnd('generate detail');
+				},
+				error: function(){
+					console.timeEnd('generate detail');
 				}
 			});
 		});

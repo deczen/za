@@ -124,99 +124,58 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
-			  <?php if(isset($single_property->mauunits)): ?>
-			  <strong>Manufacturing</strong>
-			  [mauunits]
+			  <?php if(isset($single_property->unmapped->businessname)): ?>
+			  <strong>Business Name</strong>
+			  [businessname]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->ofuunits)): ?>
-			  <strong>Office</strong>
-			  [ofuunits]
+			  <?php if(isset($single_property->unmapped->caprate)): ?>
+			  <strong>Capitalization Rate</strong>
+			  [unmapped_caprate]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->rsuunits)): ?>
-			  <strong>Residential</strong>
-			  [rsuunits]
+			  <?php if(isset($single_property->unmapped->leasetermsfrom)): ?>
+			  <strong>Lease Terms From</strong>
+			  [unmapped_leasetermsfrom]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->reuunits)): ?>
-			  <strong>Retail</strong>
-			  [reuunits]
+			  <?php if(isset($single_property->unmapped->leasetermsto)): ?>
+			  <strong>Lease Terms To</strong>
+			  [unmapped_leasetermsto]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->wauunits)): ?>
-			  <strong>Warehouse</strong>
-			  [wauunits]
+			  <?php if(isset($single_property->unmapped->ownertype)): ?>
+			  <strong>Owner Type</strong>
+			  [unmapped_ownertype]
 			  <?php endif; ?>
-			  
-			  <?php if(isset($single_property->basement)): ?>
-			  <strong>Basement</strong>
-			  [basement]
+			  <?php if(isset($single_property->possession)): ?>
+			  <strong>Possession</strong>
+			  [possession]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->citype)): ?>
-			  <strong>Commercial Type</strong>
-			  [citype]
+			  <?php if(isset($single_property->unmapped->subleasefrom)): ?>
+			  <strong>Sublease From </strong>
+			  [unmapped_subleasefrom]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->construction)): ?>
-			  <strong>Construction</strong>
-			  [construction]
+			  <?php if(isset($single_property->unmapped->subleaseto)): ?>
+			  <strong>Sublease To</strong>
+			  [unmapped_subleaseto]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->dividable)): ?>
-			  <strong>Dividable</strong>
-			  [dividable]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->noofdrivingdoors)): ?>
-			  <strong>Drive in Doors</strong>
-			  [noofdrivingdoors]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->elevator)): ?>
-			  <strong>Elevator</strong>
-			  [elevator]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->expandable)): ?>
-			  <strong>Expandable</strong>
-			  [expandable]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->facilities)): ?>
-			  <strong>Facilities</strong>
-			  [facilities]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->handicapaccess)): ?>
-			  <strong>Handicap Access</strong>
-			  [handicapaccess]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->noofloadingdocks)): ?>
-			  <strong>Loading Docks</strong>
-			  [noofloadingdocks]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->noofrestrooms)): ?>
-			  <strong>Restrooms</strong>
-			  [noofrestrooms]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->sprinklers)): ?>
-			  <strong>Sprinklers</strong>
-			  [sprinklers]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rntdscrp1)): ?>
-			  <strong>Rent Description Unit1</strong>
-			  [rntdscrp1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->utilities)): ?>
-			  <strong>Utilities</strong>
-			  [utilities]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->aircondition)): ?>
-			  <strong>Air Condition</strong>
-			  [aircondition]
+			  <?php if(isset($single_property->unmapped->zoningchar)): ?>
+			  <strong>Zoning Code</strong>
+			  [unmapped_zoningchar]
 			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Details</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Exterior Features</h6>
 		   <p>
-			  <?php if(isset($single_property->parkingspaces)): ?>
-			  <strong>Parking Spaces</strong>
-			  [parkingspaces]
+			  <?php if(isset($single_property->unmapped->dimback)): ?>
+			  <strong>Length In Feet Of Back Of Property</strong>
+			  [unmapped_dimback]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->parkingfeature)): ?>
-			  <strong>Parking Features</strong>
-			  [parkingfeature]
+			  <?php if(isset($single_property->unmapped->dimside)): ?>
+			  <strong>Length In Feet Of Side Of Property</strong>
+			  [unmapped_dimside]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Taxes</strong>
+			  [taxes]
 			  <?php endif; ?>
 		   </p>
 		</div>

@@ -464,7 +464,8 @@ unset($alstid); */
 			window.history.pushState("", "", url);
 			
 			jQuery( '#zipperagent-content' ).html( loading );
-	 
+			
+			console.time('generate list');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
@@ -474,6 +475,10 @@ unset($alstid); */
 					if( response['html'] ){
 						jQuery( '#zipperagent-content' ).html( response['html'] );
 					}
+					console.timeEnd('generate list');
+				},
+				error: function(){
+					console.timeEnd('generate list');
 				}
 			});
 			
@@ -533,7 +538,8 @@ unset($alstid); */
 			echo "'actual_link': '{$actual_link}',"."\r\n";
 			?>                  
 		};
- 
+		
+		console.time('generate list');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -543,6 +549,10 @@ unset($alstid); */
 				if( response['html'] ){
 					jQuery( '#zipperagent-content' ).html( response['html'] );
 				}
+				console.timeEnd('generate list');
+			},
+			error: function(){
+				console.timeEnd('generate list');
 			}
 		});
 	});

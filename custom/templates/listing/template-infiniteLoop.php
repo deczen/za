@@ -363,6 +363,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 		
 		jQuery('#modal-'+listingId+' .modal-body').html('<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/tenor.gif"; ?>" />');
 		
+		console.time('generate slides');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -373,6 +374,10 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 				if( response['html'] ){
 					jQuery('#modal-'+listingId+' .modal-body').html(response['html']);
 				}
+				console.timeEnd('generate slides');
+			},
+			error: function(){
+				console.timeEnd('generate slides');
 			}
 		});
 	});
@@ -506,6 +511,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 					$('#loadmore img').show();
 					$('#loadmore').addClass('loading');
 					
+					console.time('generate list');
 					jQuery.ajax({
 						type: 'POST',
 						dataType : 'json',
@@ -527,6 +533,11 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 								$('#loadmore').removeClass('loading');
 								$('#loadmore').attr('pagenumber', pagenumber);
 							}
+							
+							console.timeEnd('generate list');
+						},
+						error: function(){
+							console.timeEnd('generate list');
 						}
 					});
 				}

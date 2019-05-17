@@ -1,8 +1,10 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 
-	<?php if( isset($single_property->amenities) || isset($single_property->unmapped->hascommunitypool) || isset($single_property->exclusions) || isset($single_property->unmapped->ownertype) || isset($single_property->asscpool) || isset($single_property->possession) || isset($single_property->unmapped->schoolother) || isset($single_property->unmapped->hasspa) || isset($single_property->unmapped->telcom) || isset($single_property->termsfeature) || isset($single_property->utilities) || isset($single_property->water) || isset($single_property->unmapped->watershares) || isset($single_property->unmapped->yearremodeled) || isset($single_property->zoning) || isset($single_property->unmapped->zoningchar) ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->unmapped->hascommunitypool) || isset($single_property->exclusions) || isset($single_property->unmapped->ownertype) || isset($single_property->asscpool) || isset($single_property->possession) || isset($single_property->unmapped->schoolother) || isset($single_property->unmapped->hasspa) || isset($single_property->unmapped->telcom) || isset($single_property->termsfeature) || isset($single_property->utilities) || isset($single_property->water) || isset($single_property->unmapped->watershares) || isset($single_property->unmapped->yearremodeled) || isset($single_property->zoning) || isset($single_property->unmapped->zoningchar) || isset($single_property->unmapped->capcarport) || isset($single_property->unmapped->deck) || isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->unmapped->patio) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) || isset($single_property->style) || isset($single_property->aircondition) || isset($single_property->basement) || isset($single_property->unmapped->basmntfin) || isset($single_property->flooring) || isset($single_property->heating) || isset($single_property->interiorfeatures) || isset($single_property->unmapped->levbbed) || isset($single_property->unmapped->levbbathfull) || isset($single_property->unmapped->levbbathhalf) || isset($single_property->unmapped->levbsqf) || isset($single_property->unmapped->levbbathtq) || isset($single_property->unmapped->lev1bed) || isset($single_property->unmapped->lev1bathfull) || isset($single_property->unmapped->lev1bathhalf) || isset($single_property->unmapped->lev1sqf) || isset($single_property->unmapped->lev1bathtq) || isset($single_property->unmapped->lev2bed) || isset($single_property->unmapped->lev2bathfull) || isset($single_property->unmapped->lev2bathhalf) || isset($single_property->unmapped->lev2sqf) || isset($single_property->unmapped->lev2bathtq) || isset($single_property->unmapped->lev3bed) || isset($single_property->unmapped->lev3bathfull) || isset($single_property->unmapped->lev3bathhalf) || isset($single_property->unmapped->lev3sqf) || isset($single_property->unmapped->lev3bathtq) || isset($single_property->unmapped->lev4bed) || isset($single_property->unmapped->lev4bathfull) || isset($single_property->unmapped->lev4bathhalf) || isset($single_property->unmapped->lev4sqf) || isset($single_property->unmapped->lev4bathtq) || isset($single_property->nobaths) || isset($single_property->unmapped->totkitchenb) || isset($single_property->unmapped->totden) || isset($single_property->unmapped->totfamroom) || isset($single_property->fireplaces) || isset($single_property->unmapped->totdiningf) || isset($single_property->unmapped->nolivinglevels) || isset($single_property->unmapped->totkitchenk) || isset($single_property->unmapped->totlaundry) || isset($single_property->unmapped->totdinings) || isset($single_property->unmapped->windows) ):?>
 	
 	<li class="cell">
+	
+		<?php if( isset($single_property->amenities) || isset($single_property->unmapped->hascommunitypool) || isset($single_property->exclusions) || isset($single_property->unmapped->ownertype) || isset($single_property->asscpool) || isset($single_property->possession) || isset($single_property->unmapped->schoolother) || isset($single_property->unmapped->hasspa) || isset($single_property->unmapped->telcom) || isset($single_property->termsfeature) || isset($single_property->utilities) || isset($single_property->water) || isset($single_property->unmapped->watershares) || isset($single_property->unmapped->yearremodeled) || isset($single_property->zoning) || isset($single_property->unmapped->zoningchar) ):?>
 		
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -106,14 +108,8 @@
 				<?php endif; ?>
 			</tbody>
 		</table>
-	
-	</li>
-	
-	<?php endif; ?>
-	
-	<?php if( isset($single_property->unmapped->capcarport) || isset($single_property->unmapped->deck) || isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->unmapped->patio) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) || isset($single_property->style) || isset($single_property->garagespaces) || isset($single_property->garageparking) || isset($single_property->parkingspaces) || isset($single_property->taxes) || isset($single_property->homeownassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->maintfree) ):?>
-	
-	<li class="cell">
+		
+		<?php endif; ?>
 		
 		<?php if( isset($single_property->unmapped->capcarport) || isset($single_property->unmapped->deck) || isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->unmapped->patio) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) || isset($single_property->style) ):?>
 		
@@ -207,77 +203,9 @@
 				<?php endif; ?>
 			</tbody>
 		</table>
+		
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->garagespaces) || isset($single_property->garageparking) || isset($single_property->parkingspaces) ):?>
-		<h3 class="bt-listing__headline">Parking Information</h3>
-		<table class="bt-listing__table">
-			<tbody>
-				<?php if( isset($single_property->garagespaces)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Garage Capacity</td>
-					<td class="bt-listing__table__items"><span>[garagespaces]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->garageparking)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Garage Parking Features</td>
-					<td class="bt-listing__table__items"><span>[garageparking]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->parkingspaces)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Parking Capacity</td>
-					<td class="bt-listing__table__items"><span>[parkingspaces]</span></td>
-				</tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-		<?php endif; ?>
-		
-		<?php if( isset($single_property->taxes) || isset($single_property->homeownassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->maintfree) ):?>
-		<h3 class="bt-listing__headline">Taxes, Fees</h3>
-		<table class="bt-listing__table">
-			<tbody>
-				<?php if( isset($single_property->taxes)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Taxes</td>
-					<td class="bt-listing__table__items"><span>[taxes]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->homeownassociation)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Hoa</td>
-					<td class="bt-listing__table__items"><span>[homeownassociation]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->hoafee)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Hoa Fee</td>
-					<td class="bt-listing__table__items"><span>[hoafee]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->asscfeeincludes)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Inclusions</td>
-					<td class="bt-listing__table__items"><span>[asscfeeincludes]</span></td> <!-- not done -->
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->maintfree)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Maintenance Fee</td>
-					<td class="bt-listing__table__items"><span>[unmapped_maintfree]</span></td> <!-- not done -->
-				</tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-		<?php endif; ?>
-		
-	</li>	
-	<?php endif; ?>
-	
-	<li class="cell">
-	
 		<?php if( isset($single_property->aircondition) || isset($single_property->basement) || isset($single_property->unmapped->basmntfin) || isset($single_property->flooring) || isset($single_property->heating) || isset($single_property->interiorfeatures) || isset($single_property->unmapped->levbbed) || isset($single_property->unmapped->levbbathfull) || isset($single_property->unmapped->levbbathhalf) || isset($single_property->unmapped->levbsqf) || isset($single_property->unmapped->levbbathtq) || isset($single_property->unmapped->lev1bed) || isset($single_property->unmapped->lev1bathfull) || isset($single_property->unmapped->lev1bathhalf) || isset($single_property->unmapped->lev1sqf) || isset($single_property->unmapped->lev1bathtq) || isset($single_property->unmapped->lev2bed) || isset($single_property->unmapped->lev2bathfull) || isset($single_property->unmapped->lev2bathhalf) || isset($single_property->unmapped->lev2sqf) || isset($single_property->unmapped->lev2bathtq) || isset($single_property->unmapped->lev3bed) || isset($single_property->unmapped->lev3bathfull) || isset($single_property->unmapped->lev3bathhalf) || isset($single_property->unmapped->lev3sqf) || isset($single_property->unmapped->lev3bathtq) || isset($single_property->unmapped->lev4bed) || isset($single_property->unmapped->lev4bathfull) || isset($single_property->unmapped->lev4bathhalf) || isset($single_property->unmapped->lev4sqf) || isset($single_property->unmapped->lev4bathtq) || isset($single_property->nobaths) || isset($single_property->unmapped->totkitchenb) || isset($single_property->unmapped->totden) || isset($single_property->unmapped->totfamroom) || isset($single_property->fireplaces) || isset($single_property->unmapped->totdiningf) || isset($single_property->unmapped->nolivinglevels) || isset($single_property->unmapped->totkitchenk) || isset($single_property->unmapped->totlaundry) || isset($single_property->unmapped->totdinings) || isset($single_property->unmapped->windows) ):?>
 		
 		<h3 class="bt-listing__headline">Interior Features</h3>
@@ -544,14 +472,15 @@
 				<?php endif; ?>
 			</tbody>
 		</table>
+		
 		<?php endif; ?>
 		
-	</li>
+	</li>						
+	<?php endif; ?>
 	
-	<?php /*
 	<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->aircondition) || isset($single_property->gradeschool) || isset($single_property->middleschool) || isset($single_property->highschool) ):?>
 	<li class="cell">
-	 
+	
 		<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->aircondition) ):?>
 		<h3 class="bt-listing__headline">Cooling, Heating, Utilities</h3>
 		<table class="bt-listing__table">
@@ -707,7 +636,7 @@
 					<td class="bt-listing__table__label">Tax Year</td>
 					<td class="bt-listing__table__items"><span>[taxyear]</span></td>
 				</tr>
-				<?php endif;*//* ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->hoafee)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Hoa Fee</td>
@@ -771,11 +700,9 @@
 		<?php endif; ?>
 		
 	</li>					
-	
-	*/ ?>
-	
+
 </ul>
-<?php /*
+
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 	<?php if( isset($single_property->mbrdimen) || isset($single_property->mbrlevel) || isset($single_property->mbrdscrp) || isset($single_property->bed2DIMEN) || isset($single_property->bed2LEVEL) || isset($single_property->bed2DSCRP) || isset($single_property->bed3DIMEN) || isset($single_property->bed3LEVEL) || isset($single_property->bed3DSCRP) || isset($single_property->bed4DIMEN) || isset($single_property->bed4LEVEL) || isset($single_property->bed4DSCRP) || isset($single_property->bed5DIMEN) || isset($single_property->bed5LEVEL) || isset($single_property->bed5DSCRP) ):?>
 	<li class="cell">
@@ -1274,4 +1201,4 @@
 		
 	</li>					
 
-</ul> */ ?>
+</ul>

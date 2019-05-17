@@ -329,6 +329,8 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 		};
 		data['crit']=crit;
 		// console.log(data);
+		
+		console.time('schedule show');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -345,6 +347,11 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 				
 				jQuery('#zpaScheduleShowing #zpa-schedule-showing-request-form').css('opacity', 1);
 				jQuery('#zpaScheduleShowing #zpa-schedule-showing-request-form').css('pointer-events', 'initial');
+				
+				console.timeEnd('schedule show');
+			},
+			error: function(){
+				console.timeEnd('schedule show');
 			}
 		});
 		

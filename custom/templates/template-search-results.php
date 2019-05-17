@@ -522,7 +522,8 @@ if( $enable_filter ):
 			'criteria': search,			
 			'id': '<?php echo $searchId ?>',
 		};
-	 
+		
+		console.time('update search');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -547,6 +548,11 @@ if( $enable_filter ):
 				}else{
 					alert( 'save failed!' );
 				}
+				
+				console.timeEnd('update search');
+			},
+			error: function(){
+				console.timeEnd('update search');
 			}
 		});
 	}
@@ -559,13 +565,14 @@ if( $enable_filter ):
 			'vars': vars,  
 			'isLogin': isLogin,  
 		};
-	 
+		
+		console.time('save search');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
 			url: zipperagent.ajaxurl,
 			data: data,
-			success: function( response ) {    
+			success: function( response ) {
 				// console.log(response);
 				if( response['result'] ){
 					var searchId = response['result'];
@@ -587,6 +594,11 @@ if( $enable_filter ):
 				}else{
 					alert( 'save failed!' );
 				}
+				
+				console.timeEnd('save search');
+			},
+			error: function(){
+				console.timeEnd('save search');
 			}
 		});
 	}
@@ -654,6 +666,7 @@ if( $enable_filter ):
 			'isLogin': isLogin,
 		};
 		
+		console.time('save favorite');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -670,6 +683,11 @@ if( $enable_filter ):
 				}else{
 					// alert( 'Submit failed!' );
 				}
+				
+				console.timeEnd('save favorite');
+			},
+			error: function(){
+				console.timeEnd('save favorite');
 			}
 		});
 	}
@@ -698,6 +716,7 @@ if( $enable_filter ):
 			'actual_link': '<?php echo $actual_link; ?>',
 		};
 		
+		console.time('generate list count/pagination');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -709,6 +728,11 @@ if( $enable_filter ):
 					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
 					jQuery('.zpa-listing-search-results .prop-pagination').html('<div class="col-xs-6">' + response['html_pagination'] + '</div>');
 				}
+				
+				console.timeEnd('generate list count/pagination');
+			},
+			error: function(){
+				console.timeEnd('generate list count/pagination');
 			}
 		});
 	});

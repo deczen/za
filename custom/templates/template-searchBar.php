@@ -21,7 +21,8 @@ $excludes = get_new_filter_excludes();
 						<li><a id="town" href="#">City / Town</a></li>
 						<li><a id="county" href="#">County</a></li>
 						<li><a id="listid" href="#">MLS #ID</a></li>
-						<li><a id="school" href="#">School</a></li>
+						<!-- <li><a id="school" href="#">School</a></li> -->
+						<li><a id="school2" href="#">School</a></li>
 						<li><a id="zip" href="#">Zip Code</a></li>
 					</ul>
 				  </div>
@@ -54,6 +55,9 @@ $excludes = get_new_filter_excludes();
 					</div>
 					<div class="field-section school hide">
 						<input type="text" id="zpa-school" class="form-control" placeholder="Type address here" name="school" />
+					</div>					
+					<div class="field-section school2 hide">
+						<input id="zpa-school-input" class="form-control" placeholder="Type address here"  name="aschlnm[]"/>
 					</div>
 					<div class="field-section zip hide">
 						<input id="zpa-zipcode-input" class="form-control" placeholder="Enter Zip Code"  name="location[]"/>
@@ -667,6 +671,9 @@ $excludes = get_new_filter_excludes();
 						case "altand":
 							newLabel = 'Lot Description ' + value;	
 							break;
+						case "aschlnm":
+							newLabel = value;	
+							break;
 						default:												
 							newLabel = linked_name.toLowerCase()+' '+value;
 							break;
@@ -727,6 +734,8 @@ $excludes = get_new_filter_excludes();
 	
 	<script>
 		jQuery(document).ready(function($) {
+			
+			var timer;
 			
 			<?php 
 			$data = get_autocomplete_data();
@@ -871,6 +880,60 @@ $excludes = get_new_filter_excludes();
 				},				
 			});
 			
+			var ms_school = $('#zpa-school-input').magicSuggest({
+				
+				data: null,
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + data.name + '</div>';
+				},				
+			});		
+
+			jQuery(ms_school).on('keyup', function(event){
+				
+				event.preventDefault();
+				
+				clearTimeout(timer);
+				//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+				timer = setTimeout(function () {
+					//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+					var inputText = ms_school.getRawValue();
+					
+					console.time('populate schools');
+					jQuery.ajax({
+						type: 'POST',
+						dataType : 'json',
+						url: zipperagent.ajaxurl,
+						data: {
+							'key': inputText,
+							'action': 'school_options',
+						},
+						success: function( response ) {         
+							if( response ){
+								var data = response.schools;
+								ms_school.setData(data);
+							}
+							console.timeEnd('populate schools');
+						},
+						error: function(){
+							console.timeEnd('populate schools');
+						}
+					});
+				}, 500);
+			});
+			
 			$(ms_town).on('selectionchange', function(e,m){		
 				var values = this.getValue();
 				var value  = values[0];
@@ -951,6 +1014,28 @@ $excludes = get_new_filter_excludes();
 				
 				var name = 'location[]';
 				var linked_name = 'location_'+value;
+				
+				this.removeFromSelection(this.getSelection(), true);
+				addFilterLabel(name, value, linked_name, label);
+				addFormField(name,value,linked_name);
+				
+				jQuery('#zpa-search-filter-form').submit();
+			});
+			
+			$(ms_school).on('selectionchange', function(e,m){		
+				var values = this.getValue();
+				var value  = values[0];
+				var data   = this.getData();
+				var label;
+				
+				for(i=0; i<data.length; i++){
+					if(data[i].code==value){
+						label = data[i].name;
+					}
+				}
+				
+				var name = 'aschlnm[]';
+				var linked_name = 'aschlnm_'+value;
 				
 				this.removeFromSelection(this.getSelection(), true);
 				addFilterLabel(name, value, linked_name, label);

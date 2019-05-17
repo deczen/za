@@ -325,6 +325,8 @@ function generate_listing_by_id(){
 		var listid = jQuery(this).val();
 		
 		if(listid!=''){
+			
+			console.time('generate fields');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
@@ -348,6 +350,11 @@ function generate_listing_by_id(){
 						}
 						// console.log(response['fields']);
 					}
+					
+					console.timeEnd('generate fields');
+				},
+				error: function(){
+					console.timeEnd('generate fields');
 				}
 			});	
 		}		

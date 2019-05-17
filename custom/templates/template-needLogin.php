@@ -211,12 +211,13 @@ $rb = zipperagent_rb();
 			var data = jQuery(this).serializeArray();
 			var afterAction = jQuery(this).find('input[name=afterAction]').val();
 			
+			console.time('check login');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					// console.log(response);
 					if( response['result'] ){
 						var contactId=response['result'];
@@ -293,6 +294,11 @@ $rb = zipperagent_rb();
 					
 					jQuery('#needLoginModal #zpa-save-listing-form').css('opacity', 1);
 					jQuery('#needLoginModal #zpa-save-listing-form').css('pointer-events', 'initial');
+					
+					console.timeEnd('check login');
+				},
+				error: function(){
+					console.timeEnd('check login');
 				}
 			});
 			
@@ -306,16 +312,16 @@ $rb = zipperagent_rb();
 			
 			var data = jQuery(this).serializeArray();
 			var afterAction = jQuery(this).find('input[name=afterAction]').val();			
-						
+			
+			console.time('sign up');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					// console.log(response);
 					if( response['result'] ){
-						console.log(response['result']);
 						var contactId=response['result']['id'];
 						var action_params='';
 						// alert(afterAction + contactId);
@@ -427,6 +433,11 @@ $rb = zipperagent_rb();
 						jQuery('#needLoginModal #zpa-modal-register-user-form').css('opacity', 1);
 						jQuery('#needLoginModal #zpa-modal-register-user-form').css('pointer-events', 'initial');
 					}
+					
+					console.timeEnd('sign up');
+				},
+				error: function(){
+					console.timeEnd('sign up');
 				}
 			});
 			
@@ -487,12 +498,13 @@ $rb = zipperagent_rb();
 				jQuery('.zpa-social-signup').css('opacity', 0.5);
 				jQuery('.zpa-social-signup').css('pointer-events', 'none');
 				
+				console.time('check login');
 				jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
 					url: zipperagent.ajaxurl,
 					data: data,
-					success: function( response ) {    
+					success: function( response ) {
 						if( response['result'] ){
 							var contactId=response['result'];
 							
@@ -564,6 +576,11 @@ $rb = zipperagent_rb();
 						
 						jQuery('.zpa-social-signup').css('opacity', 1);
 						jQuery('.zpa-social-signup').css('pointer-events', 'initial');
+						
+						console.timeEnd('check login');
+					},
+					error: function(){
+						console.timeEnd('check login');
 					}
 				});
 			});		

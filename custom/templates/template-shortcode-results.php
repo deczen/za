@@ -382,6 +382,7 @@ switch( $column ){
 				'contactId': '<?php echo implode(',',$contactIds) ?>',                      
 			};
 			
+			console.time('generate slides');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
@@ -392,6 +393,11 @@ switch( $column ){
 					if( response['html'] ){
 						jQuery('#modal-'+listingId+' .modal-body').html(response['html']);
 					}
+					
+					console.timeEnd('generate slides');
+				},
+				error: function(){
+					console.timeEnd('generate slides');
 				}
 			});
 		});

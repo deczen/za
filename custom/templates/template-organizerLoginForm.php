@@ -241,12 +241,13 @@ $rb = zipperagent_rb();
 			'rememberMe': rememberMe,                    
 		};
 		
+		console.time('check login');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
 			url: zipperagent.ajaxurl,
 			data: data,
-			success: function( response ) {    
+			success: function( response ) {
 				// console.log(response);
 				if( response['result'] ){
 					window.location.replace(response['myaccounturl']);
@@ -257,6 +258,11 @@ $rb = zipperagent_rb();
 					jQuery('#zpa-login-form').css('opacity', 1);
 					jQuery('#zpa-login-form').css('pointer-events', 'initial');
 				}
+				
+				console.timeEnd('check login');
+			},
+			error: function(){
+				console.timeEnd('check login');
 			}
 		});
 		
@@ -268,13 +274,14 @@ $rb = zipperagent_rb();
 		jQuery('#zpa-create-organizer-form').css('pointer-events', 'none');
 		
 		var data = jQuery(this).serialize();
-	 
+		
+		console.time('sign up');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
 			url: zipperagent.ajaxurl,
 			data: data,
-			success: function( response ) {    
+			success: function( response ) {
 				// console.log(response);
 				if( response['result'] ){
 					<?php
@@ -312,6 +319,11 @@ $rb = zipperagent_rb();
 					jQuery('#zpa-create-organizer-form').css('opacity', 1);
 					jQuery('#zpa-create-organizer-form').css('pointer-events', 'initial');
 				}
+				
+				console.timeEnd('sign up');
+			},
+			error: function(){
+				console.timeEnd('sign up');
 			}
 		});
 		
@@ -408,12 +420,13 @@ $rb = zipperagent_rb();
 			jQuery('.zpa-social-signup').css('opacity', 0.5);
 			jQuery('.zpa-social-signup').css('pointer-events', 'none');
 			
+			console.time('check login');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: zipperagent.ajaxurl,
 				data: data,
-				success: function( response ) {    
+				success: function( response ) {
 					if( response['result'] ){
 						window.location.replace(response['myaccounturl']);
 					}else{
@@ -425,6 +438,11 @@ $rb = zipperagent_rb();
 					
 					jQuery('.zpa-social-signup').css('opacity', 1);
 					jQuery('.zpa-social-signup').css('pointer-events', 'initial');
+					
+					console.timeEnd('check login');
+				},
+				error: function(){
+					console.timeEnd('check login');
 				}
 			});
 		});		

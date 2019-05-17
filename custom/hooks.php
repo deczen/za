@@ -1156,6 +1156,24 @@ function get_zipperagent_property_fields(){
     }
 }
 
+add_action( 'wp_ajax_school_options', 'get_school_options' );
+add_action( 'wp_ajax_nopriv_school_options', 'get_school_options' );
+
+function get_school_options(){
+	
+	if ( isset($_REQUEST) ) {
+				
+		$key = isset($_REQUEST['key'])?$_REQUEST['key']:'';
+		
+		$schools = populate_schools($key);
+		
+		$result['schools']=$schools;
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
 add_action( 'zipperagent_single_content', 'zipperagent_single_content' );
 
 function zipperagent_single_content($content){

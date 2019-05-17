@@ -116,6 +116,7 @@ $default_body = "Take a look at this property I found on {$site_domain}: {$actua
 		jQuery('#zpaShareEmail #zpa-modal-share-email-form').css('opacity', 0.5);
 		jQuery('#zpaShareEmail #zpa-modal-share-email-form').css('pointer-events', 'none');
 		
+		console.time('share email');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -132,6 +133,11 @@ $default_body = "Take a look at this property I found on {$site_domain}: {$actua
 				
 				jQuery('#zpaShareEmail #zpa-modal-share-email-form').css('opacity', 1);
 				jQuery('#zpaShareEmail #zpa-modal-share-email-form').css('pointer-events', 'initial');
+				
+				console.timeEnd('share email');
+			},
+			error: function(){
+				console.timeEnd('share email');
 			}
 		});
 		

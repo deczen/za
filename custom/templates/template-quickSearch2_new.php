@@ -38,7 +38,8 @@ $maxListPrice		= $requests['maxlistprice'];
 												<li><a id="town" href="#">City / Town</a></li>
 												<li><a id="county" href="#">County</a></li>
 												<li><a id="listid" href="#">MLS #ID</a></li>
-												<li><a id="school" href="#">School</a></li>
+												<!-- <li><a id="school" href="#">School</a></li> -->
+												<li><a id="school2" href="#">School</a></li>
 												<li><a id="zip" href="#">Zip Code</a></li>
 											</ul>
 										  </div>
@@ -74,6 +75,9 @@ $maxListPrice		= $requests['maxlistprice'];
 												
 												<input type="hidden" id="lat" name="lat" />
 												<input type="hidden" id="lng" name="lng" />
+											</div>
+											<div class="field-section school2 hide">
+												<input id="zpa-school-input" class="form-control" placeholder="Type address here"  name="aschlnm[]"/>
 											</div>
 											<div class="field-section zip hide">
 												<input id="zpa-zipcode-input" class="form-control" placeholder="Enter Zip Code"  name="location[]"/>
@@ -351,6 +355,8 @@ $maxListPrice		= $requests['maxlistprice'];
 	<script>
 		jQuery(document).ready(function($) {
 			
+			var timer;
+			
 			<?php 
 			$data = get_autocomplete_data();
 			
@@ -471,7 +477,61 @@ $maxListPrice		= $requests['maxlistprice'];
 				selectionRenderer: function(data){
 					return '<div class="name">' + data.name + '</div>';
 				},				
-			});						  
+			});
+
+			var ms_school = $('#zpa-school-input').magicSuggest({
+				
+				data: null,
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				// maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + data.name + '</div>';
+				},				
+			});		
+
+			jQuery(ms_school).on('keyup', function(event){
+				
+				event.preventDefault();
+				
+				clearTimeout(timer);
+				//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+				timer = setTimeout(function () {
+					//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+					var inputText = ms_school.getRawValue();
+					
+					console.time('populate schools');
+					jQuery.ajax({
+						type: 'POST',
+						dataType : 'json',
+						url: zipperagent.ajaxurl,
+						data: {
+							'key': inputText,
+							'action': 'school_options',
+						},
+						success: function( response ) {         
+							if( response ){
+								var data = response.schools;
+								ms_school.setData(data);
+							}
+							console.timeEnd('populate schools');
+						},
+						error: function(){
+							console.timeEnd('populate schools');
+						}
+					});
+				}, 500);
+			});			
 		});
 	</script>		
 	<script>  

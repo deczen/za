@@ -107,7 +107,8 @@ $contactIds=get_contact_id();
 		jQuery('#zpa-modal-register-user-form').css('opacity', 0.5);
 		
 		var data = jQuery(this).serialize();
-	 
+		
+		console.time('registration');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -141,6 +142,11 @@ $contactIds=get_contact_id();
 				}
 				
 				jQuery('#zpa-modal-register-user-form').css('opacity', 1);
+				
+				console.timeEnd('registration');
+			},
+			error: function(){
+				console.timeEnd('registration');
 			}
 		});
 		

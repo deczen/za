@@ -2073,6 +2073,37 @@ if( ! function_exists('populate_zipcodes') ){
 	}
 }
 
+if( ! function_exists('populate_schools') ){
+	function populate_schools($t,$limit=100){
+		
+		$rb = zipperagent_rb();
+		$asrc=isset($rb['web']['asrc']) ? $rb['web']['asrc'] : '';
+		$vars=array(
+			'asrc'=>$asrc,
+			't'=>$t,
+			'ps'=>$limit,
+			'sidx'=>0,
+		);
+
+		$result = zipperagent_run_curl('/api/mls/allschools', $vars);
+		$schools = isset($result['filteredList'])?$result['filteredList']:array();
+		
+		$arr=array();
+		
+		foreach( $schools as $school ){
+			
+			$arr[]=array(
+				'group'=>'School',
+				'name'=>$school->name,
+				'code'=> $school->code,
+				'type'=>'school',
+			);
+		}
+		
+		return $arr;
+	}
+}
+
 if( ! function_exists('populate_countries') ){
 	function populate_countries($meta){
 		
@@ -2625,6 +2656,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
+			'lat','lng',
 		);
 		return $excludes;
 	}
@@ -3572,10 +3604,20 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 									}
 								}					
 							}
+							
+							echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
 						break;
-				}
-				
-				echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
+					
+					case "aschlnm":
+							$label = $value;
+							// echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'", "'. $label .'");'."\r\n";							
+							echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
+						break;
+						
+					default:
+							echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";							
+						break;
+				}				
 			}
 		}else{
 			echo 'addFilterLabel("'. strtolower($key) .'", "'. $value .'", "'. strtolower($key) .'", "'. $label .'");'."\r\n";

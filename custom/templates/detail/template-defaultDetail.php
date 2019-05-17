@@ -48,6 +48,8 @@ switch($property_type){
 	case "LAND": //Land		
 	case "VLD": //Land		
 	case "LN": //Land		
+	case "FM": //Farm		
+	case "FR": //Farm		
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -58,6 +60,8 @@ switch($property_type){
 	case "RNT": //Rental		
 	case "LSE": //Rental		
 	case "RENT": //Rental		
+	case "REN": //Rental		
+	case "REL": //Rental		
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -78,6 +82,7 @@ switch($property_type){
 	case "CLSE": //Commercial Lease			
 	case "COM": //Commercial				
 	case "COMM": //Commercial		
+	case "CM": //Commercial		
 	case "INC": //Income		
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';

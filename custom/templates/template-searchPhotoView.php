@@ -348,6 +348,7 @@ jQuery(document).ready(function ($) {
 			'actual_link': '<?php echo $actual_link; ?>',
 		};
 		
+		console.time('generate list count/pagination');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -359,6 +360,11 @@ jQuery(document).ready(function ($) {
 					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
 					jQuery('.zpa-listing-search-results .prop-pagination').html(response['html_pagination']);
 				}
+				
+				console.timeEnd('generate list count/pagination');
+			},
+			error: function(){
+				console.timeEnd('generate list count/pagination');
 			}
 		});
 	});

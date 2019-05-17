@@ -186,7 +186,8 @@ if(get_query_var('page')){
 				echo "'view_type': '{$type}',"."\r\n";
 				?>
 			};
-	 
+			
+			console.time('generate list');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
@@ -197,6 +198,10 @@ if(get_query_var('page')){
 						jQuery( '#small-property' ).html( response['sidebar'] );
 						jQuery( '#zipperagent-content' ).html( response['html'] );
 					}
+					console.timeEnd('generate list');
+				},
+				error: function(){
+					console.timeEnd('generate list');
 				}
 			});
 		});
@@ -287,7 +292,8 @@ if(get_query_var('page')){
 				
 				jQuery( '#small-property' ).html( loading );
 				jQuery( '#zipperagent-content' ).html( loading );
-		 
+				
+				console.time('generate list');
 				jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
@@ -298,6 +304,10 @@ if(get_query_var('page')){
 							jQuery( '#small-property' ).html( response['sidebar'] );
 							jQuery( '#zipperagent-content' ).html( response['html'] );
 						}
+						console.timeEnd('generate list');
+					},
+					error: function(){
+						console.timeEnd('generate list');
 					}
 				});
 				event.preventDefault();

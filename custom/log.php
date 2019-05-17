@@ -1,6 +1,9 @@
 <?php
 
 class ZipperAgentLog{
+	
+	private $limit=10; //limit log file by max 10 MB
+	
 	public function __construct($log_name,$page_name){
 		
 		// $file_dir = ZIPPERAGENTPATH . "/custom/log/";
@@ -22,6 +25,13 @@ class ZipperAgentLog{
 
 	public function log_msg($msg){//the action
 		// $log_line=join(' : ', array( date(DATE_RFC822), $this->page_name, $this->app_id, $msg ) );
+		$current_file_size = filesize($this->log_file) / ( 1024 * 1024 ); // file size in MB
+		
+		if($current_file_size > $this->limit){ // reset file if file size is reach the limit
+			@unlink($this->log_file);
+			$this->log=fopen($this->log_file,'a');
+		}
+		
 		$log_line=join(' : ', array( current_time('mysql'), $this->page_name, $this->app_id, $msg ) );
 		fwrite($this->log, $log_line."\n");
 	}

@@ -520,7 +520,8 @@ if(get_query_var('page')){
 				echo "'view_type': '{$type}',"."\r\n";
 				?>
 			};
-	 
+			
+			console.time('generate list');
 			jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
@@ -531,6 +532,10 @@ if(get_query_var('page')){
 						jQuery( '.loading-wrap' ).hide();
 						jQuery( '#zipperagent-content' ).html( response['html'] );
 					}
+					console.timeEnd('generate list');
+				},
+				error: function(){
+					console.timeEnd('generate list');
 				}
 			});
 		});
@@ -668,7 +673,8 @@ if(get_query_var('page')){
 				jQuery( '.loading-wrap' ).show();
 				jQuery( '#map' ).hide();
 				jQuery( '#zipperagent-content' ).html( '' );
-		 
+				
+				console.time('generate list');
 				jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
@@ -680,6 +686,10 @@ if(get_query_var('page')){
 							jQuery( '#map' ).show();
 							jQuery( '#zipperagent-content' ).html( response['html'] );
 						}
+						console.timeEnd('generate list');
+					},
+					error: function(){
+						console.timeEnd('generate list');
 					}
 				});
 				event.preventDefault();
