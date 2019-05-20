@@ -822,7 +822,15 @@ function load_more_properties(){
 		$crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
 		$searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 		$alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
+		$column 			= ( isset($requests['column'])?$requests['column']:'' );
+		$school 			= ( isset($requests['school'])?$requests['school']:'' );
 
+		//distance search variables
+		$searchDistance 	= ( isset($requests['searchdistance'])?$requests['searchdistance']:'' );
+		$distance 			= ( isset($requests['distance'])?$requests['distance']:zipperagent_distance() );
+		$lat 				= ( isset($requests['lat'])?$requests['lat']:'' );
+		$lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
+			
 		//default status
 		$status = empty($status)?zipperagent_active_status():$status;
 
@@ -933,6 +941,20 @@ function load_more_properties(){
 		if( $aloff )
 			$advSearch['aloff']=$aloff;
 		
+		//generate school variables
+		if( $school  ){
+			foreach($school as $scl){
+				$school_tmp = explode('_', $scl);
+				$school_code=isset($school_tmp[0])?$school_tmp[0]:$scl;
+				$school_name=isset($school_tmp[1])?$school_tmp[1]:'';
+				
+				if($school_code && $school_name)
+					$requests['aschlnm'][]=$school_code.'$'.$school_name;
+				else
+					$requests['aschlnm'][]=$school_code;
+			}
+		}
+		
 		//remove space from alstid (listing id search)
 		if( isset($requests['alstid']) )
 			$requests['alstid']=str_replace(' ','', $requests['alstid']);
@@ -1034,6 +1056,46 @@ function load_more_properties(){
 				// $vars['crit'] = $crit;
 			
 			$result = zipperagent_run_curl( "/api/mls/within", $vars );
+			$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+			$list=isset($result['filteredList'])?$result['filteredList']:$result;
+			
+		}else if( $searchDistance=="true" || $searchDistance=="1" || ($lat && $lng) ){ // map mode
+			
+			$search=array(
+				'asrc'=>$rb['web']['asrc'],
+				// 'aloff'=>$rb['web']['aloff'],
+				'abeds'=>$bedrooms,
+				'abths'=>$bathCount,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'asts'=>$status,
+				'apmin'=>za_correct_money_format($minListPrice),
+				'apmax'=>za_correct_money_format($maxListPrice),
+				'aacr'=>$lotAcres,
+			);
+			
+			$search= array_merge($search, $locqry, $advSearch);
+			
+			// $search=array(
+				// 'asrc'=>$rb['web']['asrc'],
+				// 'asts'=>$status,
+			// );
+			
+			$vars=array(
+				'crit'=>proces_crit($search),
+				'distance'=>$distance,
+				'lat'=>$lat,
+				'lng'=>$lng,
+				'sidx'=>$index,
+				'ps'=>$num,
+			);
+			
+			if( $crit )
+				$vars['crit'] = $crit;
+			
+			// $crit="crit=acnty:LINC,CATA,GASTON;asts:ACT,UCS,CS;apt:SFR,CND;alotd:WTRVIEW,WTRFRNT;awbn:Lake Norman";
+			// $xxx="?o=alstp:ASC&distance=402.336&lat=0.00000&lng=0.00000&sidx=0&ps=20";
+			
+			$result = zipperagent_run_curl( "/api/mls/distance", $vars );
 			$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 			$list=isset($result['filteredList'])?$result['filteredList']:$result;
 			

@@ -57,7 +57,7 @@ $excludes = get_new_filter_excludes();
 						<input type="text" id="zpa-school" class="form-control" placeholder="Type address here" name="school" />
 					</div>					
 					<div class="field-section school2 hide">
-						<input id="zpa-school-input" class="form-control" placeholder="Type address here"  name="aschlnm[]"/>
+						<input id="zpa-school-input" class="form-control" placeholder="Type address here"  name="school[]"/>
 					</div>
 					<div class="field-section zip hide">
 						<input id="zpa-zipcode-input" class="form-control" placeholder="Enter Zip Code"  name="location[]"/>
@@ -671,7 +671,7 @@ $excludes = get_new_filter_excludes();
 						case "altand":
 							newLabel = 'Lot Description ' + value;	
 							break;
-						case "aschlnm":
+						case "school":
 							newLabel = value;	
 							break;
 						default:												
@@ -1034,8 +1034,8 @@ $excludes = get_new_filter_excludes();
 					}
 				}
 				
-				var name = 'aschlnm[]';
-				var linked_name = 'aschlnm_'+value;
+				var name = 'school[]';
+				var linked_name = 'school_'+value;
 				
 				this.removeFromSelection(this.getSelection(), true);
 				addFilterLabel(name, value, linked_name, label);

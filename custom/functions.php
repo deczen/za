@@ -2095,7 +2095,7 @@ if( ! function_exists('populate_schools') ){
 			$arr[]=array(
 				'group'=>'School',
 				'name'=>$school->name,
-				'code'=> $school->code,
+				'code'=> $school->code . '_' . $school->name ,
 				'type'=>'school',
 			);
 		}
@@ -2640,7 +2640,7 @@ if( ! function_exists('get_long_excludes') ){
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
-					'fbclid','newsearchbar',
+					'fbclid','newsearchbar','school',
 				);
 				
 		return $excludes;
@@ -3606,10 +3606,15 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 							}
 							
 							echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
-						break;
+						break;					
 					
-					case "aschlnm":
-							$label = $value;
+					case "school": // case "aschlnm":
+							$school_tmp = explode('_', $value);
+							$school_code=isset($school_tmp[0])?$school_tmp[0]:$value;
+							$school_name=isset($school_tmp[1])?$school_tmp[1]:'';
+							
+							$label = $school_name;
+							
 							// echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'", "'. $label .'");'."\r\n";							
 							echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
 						break;

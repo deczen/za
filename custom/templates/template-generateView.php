@@ -55,6 +55,7 @@ $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 $column 			= ( isset($requests['column'])?$requests['column']:'' );
+$school 			= ( isset($requests['school'])?$requests['school']:'' );
 
 /**
  * PREPARATION
@@ -187,6 +188,20 @@ if( $alagt )
 
 if( $aloff )
 	$advSearch['aloff']=$aloff;
+
+//generate school variables
+if( $school  ){
+	foreach($school as $scl){
+		$school_tmp = explode('_', $scl);
+		$school_code=isset($school_tmp[0])?$school_tmp[0]:$scl;
+		$school_name=isset($school_tmp[1])?$school_tmp[1]:'';
+		
+		if($school_code && $school_name)
+			$requests['aschlnm'][]=$school_code.'$'.$school_name;
+		else
+			$requests['aschlnm'][]=$school_code;
+	}
+}
 
 //remove space from alstid (listing id search)
 if( isset($requests['alstid']) )

@@ -77,7 +77,7 @@ $maxListPrice		= $requests['maxlistprice'];
 												<input type="hidden" id="lng" name="lng" />
 											</div>
 											<div class="field-section school2 hide">
-												<input id="zpa-school-input" class="form-control" placeholder="Type address here"  name="aschlnm[]"/>
+												<input id="zpa-school-input" class="form-control" placeholder="Type address here"  name="school[]"/>
 											</div>
 											<div class="field-section zip hide">
 												<input id="zpa-zipcode-input" class="form-control" placeholder="Enter Zip Code"  name="location[]"/>
