@@ -105,6 +105,10 @@ global $requests;
 			if($default_order): ?>
 			<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
 			<?php endif; ?>
+			
+			<?php if(isset($requests['newsearchbar'])): ?>
+			<input type="hidden" name="newsearchbar" value="<?php echo $requests['newsearchbar']; ?>" />
+			<?php endif; ?>
         </form>
     </div>
 	<?php /*

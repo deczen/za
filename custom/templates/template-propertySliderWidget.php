@@ -268,6 +268,10 @@ if( $aloff ){
 						if(zp_using_criteria() && !empty($critBase64)){
 							$query_args['criteria']= $critBase64;
 						}
+						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+							$query_args['newsearchbar']= 1;
+						}
+						
 						$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 						?>
 						<?php /* <div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=1024&h=768&n={$i}" ?>"> </span> </div> */ ?>

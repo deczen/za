@@ -101,6 +101,10 @@ global $requests;
 					<?php if(isset($requests['column'])): ?>
 					<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
 					<?php endif; ?>
+					
+					<?php if(isset($requests['newsearchbar'])): ?>
+					<input type="hidden" name="newsearchbar" value="<?php echo $requests['newsearchbar']; ?>" />
+					<?php endif; ?>
                 </div>
             </fieldset>
             <div> </div>

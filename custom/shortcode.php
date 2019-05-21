@@ -114,6 +114,7 @@ function display_open_house_search($atts){
 		'location_option' => '',
 		'column' => '',
 		'o' => '',
+		'newsearchbar' => '',
 		// 'property_type_option' => '',
 		// 'property_type_default' => '',
 	), $atts, 'open_house' );
@@ -693,7 +694,7 @@ function getMapSearch($atts){
 		'newsearchbar' => '',
 		'minlistprice' => '',
 		'maxlistprice' => '',
-	), $atts, 'quick_search2' );
+	), $atts, 'za_map_search' );
 	
 	$requests = $atts;
 		

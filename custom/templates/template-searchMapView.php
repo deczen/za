@@ -35,6 +35,9 @@ if( $list ): ?>
 		if(zp_using_criteria() && !empty($critBase64)){
 			$query_args['criteria']= $critBase64;
 		}
+		if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+			$query_args['newsearchbar']= 1;
+		}
 		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 		?>
@@ -599,6 +602,9 @@ else: ?>
 				}
 				if(zp_using_criteria() && !empty($critBase64)){
 					$query_args['criteria']= $critBase64;
+				}
+				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+					$query_args['newsearchbar']= 1;
 				}
 				$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 				$is_login=getCurrentUserContactLogin() ? 1:0;
