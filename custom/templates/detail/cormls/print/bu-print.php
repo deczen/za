@@ -357,7 +357,7 @@
 			  [unmapped_Bedroom Level: Beds Down2]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Bedroom Level: Beds UP1'})): ?>
-			  <strong>>Bedrooms (Upper Level1)</strong>
+			  <strong>Bedrooms (Upper Level1)</strong>
 			  [unmapped_Bedroom Level: Beds UP1]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Bedroom Level: Beds UP2'})): ?>

@@ -48,7 +48,7 @@
 			<div class="grid">
 				<div class="cell cell-xs-3 uk-text-bold">Area:</div>
 				<div class="cell uk-text-right">
-					[lngAREADESCRIPTION]
+					[shrtTOWNCODE]
 				</div>
 			</div>
 
