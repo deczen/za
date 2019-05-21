@@ -26,7 +26,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								<li><a id="county" href="#">County</a></li>
 								<li><a id="listid" href="#">MLS #ID</a></li>
 								<!-- <li><a id="school" href="#">School</a></li> -->
-								<li><a id="school2" href="#">School</a></li>
+								<!-- <li><a id="school2" href="#">School</a></li> -->
 								<li><a id="zip" href="#">Zip Code</a></li>
 							</ul>
 						  </div>

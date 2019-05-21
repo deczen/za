@@ -2619,9 +2619,24 @@ if( ! function_exists('zipperagent_get_agent_by') ){
 	}
 }
 
+if( ! function_exists('get_wp_var_excludes') ){
+	function get_wp_var_excludes(){
+		$excludes=array(
+			'woocommerce-login-nonce',
+			'_wpnonce',
+			'woocommerce-reset-password-nonce',
+			'woocommerce-edit-address-nonce',
+			'save-account-details-nonce',
+		);
+		
+		return $excludes;
+	}
+}
+
 if( ! function_exists('get_short_excludes') ){
 	function get_short_excludes(){
 		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid','newsearchbar','is_shortcode');
+		$excludes=array_merge($excludes,get_wp_var_excludes());
 		return $excludes;
 	}
 }
@@ -2643,6 +2658,8 @@ if( ! function_exists('get_long_excludes') ){
 					'fbclid','newsearchbar','school',
 				);
 				
+		$excludes=array_merge($excludes,get_wp_var_excludes());
+				
 		return $excludes;
 	}
 }
@@ -2658,6 +2675,9 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
 			'lat','lng',
 		);
+		
+		$excludes=array_merge($excludes,get_wp_var_excludes());
+		
 		return $excludes;
 	}
 }
@@ -2672,6 +2692,8 @@ if( ! function_exists('get_old_filter_excludes') ){
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams','fbclid',
 				);
+				
+		$excludes=array_merge($excludes,get_wp_var_excludes());
 				
 		return $excludes;
 	}
@@ -2728,6 +2750,10 @@ if( ! function_exists('filter_requests') ){
 	function filter_requests($args){
 		$unused=array(
 			'woocommerce-login-nonce',
+			'_wpnonce',
+			'woocommerce-reset-password-nonce',
+			'woocommerce-edit-address-nonce',
+			'save-account-details-nonce',
 			'-'
 		);
 		if( is_array($args) ){

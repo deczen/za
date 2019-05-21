@@ -22,7 +22,7 @@ $excludes = get_new_filter_excludes();
 						<li><a id="county" href="#">County</a></li>
 						<li><a id="listid" href="#">MLS #ID</a></li>
 						<!-- <li><a id="school" href="#">School</a></li> -->
-						<li><a id="school2" href="#">School</a></li>
+						<!-- <li><a id="school2" href="#">School</a></li> -->
 						<li><a id="zip" href="#">Zip Code</a></li>
 					</ul>
 				  </div>
@@ -491,7 +491,9 @@ $excludes = get_new_filter_excludes();
 	<form id="zpa-search-filter-form" action="" class="form-inline zpa-quick-search-form">
 	<?php
 		foreach($requests as $key=>$value){
-			zipperagent_generate_filter_input($key, $value);
+			if(!in_array($key,get_wp_var_excludes())){
+				zipperagent_generate_filter_input($key, $value);
+			}
 		}
 	?>
 	</form>
@@ -1371,13 +1373,13 @@ $excludes = get_new_filter_excludes();
 			name='lat';
 			linked_name=name;
 			value=lat;
-			addFilterLabel(name, value, linked_name, '');
+			// addFilterLabel(name, value, linked_name, '');
 			addFormField(name,value,linked_name);
 			
 			name='lng';
 			linked_name=name;
 			value=lng;
-			addFilterLabel(name, value, linked_name, '');
+			// addFilterLabel(name, value, linked_name, '');
 			addFormField(name,value,linked_name);
 			
 			input.value='';

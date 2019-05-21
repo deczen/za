@@ -47,33 +47,33 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[norooms]</div>
 				 <div class="bt-print__meta-label">Total Rooms</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">FULL BATHS</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nohalfbaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nohalfbaths]</div>
+				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->squarefeet)): ?>
+			<?php if(isset($single_property->totalbldgsf)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[squarefeet]</div>
+				 <div class="bt-print__meta-val">[totalbldgsf]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
@@ -127,10 +127,10 @@
 				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			<?php if(isset($single_property->shrtTOWNCODE)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="bt-print__area-val">[shrtTOWNCODE]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
@@ -219,7 +219,7 @@
 			  [interiorfeatures]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->appliances)): ?>
-			  <strong>Appliances</strong>
+			  <strong>Appliance</strong>
 			  [appliances]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->exteriorfeatures)): ?>
@@ -290,6 +290,10 @@
 			  <strong>Mulitple Parcels</strong>
 			  [unmapped_Multiple Parcels]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->utilities)): ?>
+			  <strong>Utilities</strong>
+			  [utilities]
+			  <?php endif; ?>
 			</p>
 			  <!-- parking information -->
 			<p>
@@ -329,6 +333,10 @@
 			</p>
 				<!-- Association Information -->
 		    <p>
+			  <?php if(isset($single_property->feeinterval)): ?>
+			  <strong>HOA Fee Frequency</strong>
+			  [feeinterval]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->reqdownassociation)): ?>
 			  <strong>Reqdown Association</strong>
 			  [reqdownassociation]
@@ -371,6 +379,9 @@
 			  <?php if(isset($single_property->taxes)): ?>
 			  <strong>Tax Amount ($)</strong>
 			  [taxes]
+			  <?php if(isset($single_property->specialassessments)): ?>
+			  <strong>Assessments</strong>
+			  [specialassessments]
 			  <?php endif; ?>
 		   </p>
 		</div>

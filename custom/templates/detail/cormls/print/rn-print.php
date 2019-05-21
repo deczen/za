@@ -204,10 +204,6 @@
 			  <strong>Exterior</strong>
 			  [exterior]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->exteriorunitfeatures)): ?>
-			  <strong>Exterior Unit Features</strong>
-			  [exteriorunitfeatures]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->interiorfeatures)): ?>
 			  <strong>Interior Features</strong>
 			  [interiorfeatures]
@@ -295,6 +291,18 @@
 			  <?php if(isset($single_property->tenantexpanses)): ?>
 			  <strong>Tenant Pays</strong>
 			  [tenantexpanses]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->kitdscrp)): ?>
+			  <strong>Kitchen Features</strong>
+			  [kitdscrp]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->nobedrooms)): ?>
+			  <strong>Total Beds</strong>
+			  [nobedrooms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->exteriorunitfeatures)): ?>
+			  <strong>Outside Features</strong>
+			  [exteriorunitfeatures]
 			  <?php endif; ?>
 			</p>
 			  <!-- parking information -->

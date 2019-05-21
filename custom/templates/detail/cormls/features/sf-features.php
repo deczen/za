@@ -104,7 +104,7 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->appliances)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Apliances</td>
+					<td class="bt-listing__table__label">Appliance</td>
 					<td class="bt-listing__table__items"><span>[appliances]</span></td>
 				</tr>
 				<?php endif; ?>
@@ -210,6 +210,12 @@
 					<td class="bt-listing__table__items"><span>[unmapped_Multiple Parcels]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->utilities)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Utilities</td>
+					<td class="bt-listing__table__items"><span>[utilities]</span></td>
+				</tr>
+				<?php endif; ?>
 			</tbody>
 		</table>
 		<?php endif; ?>
@@ -258,7 +264,7 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
+	<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->feeinterval) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
 	<li class="cell">
 		<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) ):?>
 		<h3 class="bt-listing__headline">Cooling, Heating, Utilities</h3>
@@ -321,7 +327,7 @@
 		<?php endif; ?>
 		*/ ?>
 		
-		<?php if( isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
+		<?php if( isset($single_property->feeinterval) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
 		<h3 class="bt-listing__headline">Association Information</h3>
 		<table class="bt-listing__table">
 			<tbody>
@@ -353,6 +359,12 @@
 				<tr>
 					<td class="bt-listing__table__label">HOA/COA Info: HOA/COA Contact Name</td>
 					<td class="bt-listing__table__items"><span>[unmapped_HOA/COA Info: HOA/COA Contact Name]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->feeinterval)): ?>
+				<tr>
+					<td class="bt-listing__table__label">HOA Fee Frequency</td>
+					<td class="bt-listing__table__items"><span>[feeinterval]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -527,7 +539,7 @@
 		</table>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->unmapped->LegalDescription) || isset($single_property->taxyear) || isset($single_property->taxes) ):?>
+		<?php if( isset($single_property->unmapped->specialassessments) || isset($single_property->unmapped->LegalDescription) || isset($single_property->taxyear) || isset($single_property->taxes) ):?>
 		<h3 class="bt-listing__headline">Taxes, Fees</h3>
 		<table class="bt-listing__table">
 			<tbody>
@@ -547,6 +559,12 @@
 				<tr>
 					<td class="bt-listing__table__label">Taxes</td>
 					<td class="bt-listing__table__items"><span>[taxes]</span></td> 
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->specialassessments)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Assessments</td>
+					<td class="bt-listing__table__items"><span>[specialassessments]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php /*if( isset($single_property->unmapped->{'Tax District'})): ?>
