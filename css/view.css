@@ -330,7 +330,7 @@
 	.omnibar .input-column .field-wrap{width: 100% !important;float: unset;padding-left: 0 !important;}
 	.omnibar .input-column .field-wrap input{width: 100% !important;}
 	#main-header, #top-header,
-	#main-header .container.et_menu_container{z-index: 9 !important;}
+	#main-header .container.et_menu_container{z-index: auto !important;}
 	.edgtf-top-bar,
 	header.edgtf-mobile-header{z-index: 100 !important;}
 	#zipperagent-content header.bt-listing__header .bt-header__inner{padding: 0 15px;}

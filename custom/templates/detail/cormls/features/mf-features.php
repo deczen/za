@@ -198,6 +198,102 @@
 					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lot Size (Front)'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Size Frontage</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lot Size (Front)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'3 Bedroom'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">3 Bedroom Units</td>
+					<td class="bt-listing__table__items"><span>[unmapped_3 Bedroom]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Alternate Uses'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Alternate Uses</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Alternate Uses]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Auction</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Auction Info: Auction/Online Bidding]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lot Size (Front)'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Size Frontage</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lot Size (Front)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Between Street (1)'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Between Street1</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Between Street (1)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Between Street (2)'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Between Street2</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Between Street (2)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lot Size (Front)'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Size Frontage</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lot Size (Front)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Corp LimitPerAuditor'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Corp Limit Per Auditor</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Corp LimitPerAuditor]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Dist To Intersxn'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Dist To Intersection</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Dist To Intersxn]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Exchange) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">For Exchange</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Exchange]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->forsale) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">For Sale</td>
+					<td class="bt-listing__table__items"><span>[forsale]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Miscellaneous) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Miscellaneous</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Miscellaneous]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Occupancy Rate'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Occupancy Rate</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Occupancy Rate]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Services Available'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Services Available</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Services Available]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->lngAREADESCRIPTION) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Township</td>
+					<td class="bt-listing__table__items"><span>[lngAREADESCRIPTION]</span></td>
+				</tr>
+				<?php endif; ?>
 			</tbody>
 		</table>
 	</li>						
@@ -232,6 +328,12 @@
 				<tr>
 					<td class="bt-listing__table__label">Utilities</td>
 					<td class="bt-listing__table__items"><span>[utilities]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Heat Fuel'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Heat Fuel</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Heat Fuel]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -492,6 +594,12 @@
 				<tr>
 					<td class="bt-listing__table__label">Taxes</td>
 					<td class="bt-listing__table__items"><span>[taxes]</span></td> 
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Tax District'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Tax District</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Tax District]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /*if( isset($single_property->unmapped->{'Tax District'})): ?>

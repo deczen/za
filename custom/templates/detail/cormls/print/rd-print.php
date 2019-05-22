@@ -71,9 +71,9 @@
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->unmapped->LivingArea)): ?>
+			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[unmapped_LivingArea]</div>
+				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>

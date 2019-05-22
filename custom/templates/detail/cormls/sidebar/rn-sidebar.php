@@ -17,15 +17,15 @@
 				<div class="uk-text-small uk-text-truncate">BEDS</div>
 			</li>
 			<li class="baths">
-				<div class="attr-num">[nobaths]</div>
-				<div class="uk-text-small uk-text-truncate">BATHS</div>
+				<div class="attr-num">[nofullbaths]</div>
+				<div class="uk-text-small uk-text-truncate">FULL BATHS</div>
 			</li>										
 			<li class="half-baths">
 				<div class="attr-num">[nohalfbaths]</div>
 				<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
 			</li>
 			<li class="sqft ">
-				<div class="attr-num"> [totalbldgsf] </div>
+				<div class="attr-num"> [squarefeet] </div>
 				<div class="uk-text-small uk-text-truncate">SQFT</div>
 			</li>
 			<li class="acres">

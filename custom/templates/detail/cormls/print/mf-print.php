@@ -276,6 +276,62 @@
 			  <strong>Pets Allowed</strong>
 			  [petsallowed]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Lot Size (Front)'})): ?>
+			  <strong>Lot Size Frontage</strong>
+			  [unmapped_Lot Size (Front)]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'3 Bedroom'})): ?>
+			  <strong>3 Bedroom Units</strong>
+			  [unmapped_3 Bedroom]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Alternate Uses'})): ?>
+			  <strong>Alternate Uses</strong>
+			  [unmapped_Alternate Uses]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'})): ?>
+			  <strong>Auction</strong>
+			  [unmapped_Auction Info: Auction/Online Bidding]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Between Street (1)'})): ?>
+			  <strong>Between Street1</strong>
+			  [unmapped_Between Street1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Between Street (2)'})): ?>
+			  <strong>Between Street2</strong>
+			  [unmapped_Between Street (2)]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Corp LimitPerAuditor'})): ?>
+			  <strong>Corp Limit Per Auditor</strong>
+			  [unmapped_Corp LimitPerAuditor]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Dist To Intersxn'})): ?>
+			  <strong>Dist To Intersection</strong>
+			  [unmapped_Dist To Intersxn]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Exchange)): ?>
+			  <strong>For Exchange</strong>
+			  [unmapped_Exchange]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->forsale)): ?>
+			  <strong>For Sale </strong>
+			  [forsale]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Miscellaneous)): ?>
+			  <strong>Miscellaneous</strong>
+			  [unmapped_Miscellaneous]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Occupancy Rate'})): ?>
+			  <strong>Occupancy Rate</strong>
+			  [unmapped_Occupancy Rate]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Services Available'})): ?>
+			  <strong>Services Available</strong>
+			  [unmapped_Services Available]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			  <strong>Township </strong>
+			  [lngAREADESCRIPTION]
+			  <?php endif; ?>
 			</p>
 			  <!-- parking information -->
 			<p>
@@ -311,6 +367,10 @@
 			  <?php if(isset($single_property->utilities)): ?>
 			  <strong>Utilities</strong>
 			  [utilities]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Heat Fuel'})): ?>
+			  <strong>Heat Fuel</strong>
+			  [unmapped_Heat Fuel]
 			  <?php endif; ?>
 			</p>
 				<!-- Association Information -->
@@ -357,6 +417,10 @@
 			  <?php if(isset($single_property->taxes)): ?>
 			  <strong>Tax Amount ($)</strong>
 			  [taxes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Tax District'})): ?>
+			  <strong>Tax District</strong>
+			  [unmapped_Tax District]
 			  <?php endif; ?>
 		   </p>
 		</div>

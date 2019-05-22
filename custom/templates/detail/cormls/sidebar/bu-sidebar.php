@@ -9,7 +9,7 @@
 	<div class="bt-panel__stack__sub">
 		<ul class="bt-listing__feature-grid" style="margin-bottom:0">
 			<li class="sqft ">
-				<div class="attr-num"> [totalbldgsf] </div>
+				<div class="attr-num"> [squarefeet] </div>
 				<div class="uk-text-small uk-text-truncate">SQFT</div>
 			</li>
 			<li class="acres">

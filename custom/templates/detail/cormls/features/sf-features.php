@@ -1,16 +1,52 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) /* || isset($single_property->vacant) || isset($single_property->buildingconstruction) */ || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->{'Basement: Basement Y/N'}) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) /*|| isset($single_property->unmapped->{'Manufactured Housing Y/N'})*/ /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->{'Tenant Occupied'})*/ || isset($single_property->unmapped->{'Lot Size (Side)'}) /*|| isset($single_property->unmapped->{'Mid/High Rise'})*/ || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->unmapped->{'Lot Characteristics'}) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->Windows) || isset($single_property->unmapped->{'SqFt ATFLS'}) || isset($single_property->unmapped->{'Price Per Acre'}) || isset($single_property->unmapped->{'Multiple Parcels'}) || isset($single_property->propsubtype) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Fireplace Features'}) || isset($single_property->unmapped->Rooms) || isset($single_property->interiorfeatures) || isset($single_property->unmapped->{'Interior Flooring'})):?>
+	<?php if( isset($single_property->unitno) || isset($single_property->lot) || isset($single_property->nobaths) ||isset($single_property->specialassessments) || isset($single_property->kitdscrp) || isset($single_property->unmapped->BuildingLevel) || isset($single_property->unmapped->DistressedProperty) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) /* || isset($single_property->vacant) || isset($single_property->buildingconstruction) */ || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->{'Basement: Basement Y/N'}) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) /*|| isset($single_property->unmapped->{'Manufactured Housing Y/N'})*/ /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->{'Tenant Occupied'})*/ || isset($single_property->unmapped->{'Lot Size (Side)'}) /*|| isset($single_property->unmapped->{'Mid/High Rise'})*/ || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->unmapped->{'Lot Characteristics'}) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->Windows) || isset($single_property->unmapped->{'SqFt ATFLS'}) || isset($single_property->unmapped->{'Price Per Acre'}) || isset($single_property->unmapped->{'Multiple Parcels'}) || isset($single_property->propsubtype) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Fireplace Features'}) || isset($single_property->unmapped->Rooms) || isset($single_property->interiorfeatures) || isset($single_property->unmapped->{'Interior Flooring'})):?>
 	<li class="cell">
 	
-		<?php if( isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) /* || isset($single_property->vacant) || isset($single_property->buildingconstruction) */ || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->{'Basement: Basement Y/N'}) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) /*|| isset($single_property->unmapped->{'Manufactured Housing Y/N'})*/ /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->{'Tenant Occupied'})*/ || isset($single_property->unmapped->{'Lot Size (Side)'}) /*|| isset($single_property->unmapped->{'Mid/High Rise'})*/ || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->unmapped->{'Lot Characteristics'}) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->Windows) || isset($single_property->unmapped->{'SqFt ATFLS'}) || isset($single_property->unmapped->{'Price Per Acre'}) || isset($single_property->unmapped->{'Multiple Parcels'}) || isset($single_property->propsubtype) ):?>
+		<?php if( isset($single_property->unitno) || isset($single_property->lot) || isset($single_property->nobaths) ||isset($single_property->specialassessments) || isset($single_property->kitdscrp) || isset($single_property->unmapped->BuildingLevel) || isset($single_property->unmapped->DistressedProperty) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) /* || isset($single_property->vacant) || isset($single_property->buildingconstruction) */ || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->{'Basement: Basement Y/N'}) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) /*|| isset($single_property->unmapped->{'Manufactured Housing Y/N'})*/ /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->{'Tenant Occupied'})*/ || isset($single_property->unmapped->{'Lot Size (Side)'}) /*|| isset($single_property->unmapped->{'Mid/High Rise'})*/ || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->unmapped->{'Lot Characteristics'}) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->Windows) || isset($single_property->unmapped->{'SqFt ATFLS'}) || isset($single_property->unmapped->{'Price Per Acre'}) || isset($single_property->unmapped->{'Multiple Parcels'}) || isset($single_property->propsubtype) ):?>
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
 
 			<tbody>
 				<?php if( isset($single_property->propsubtype)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Type</td>
+					<td class="bt-listing__table__label">Property Sub Type</td>
 					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->lot)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Size Source</td>
+					<td class="bt-listing__table__items"><span>[lot]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->nobaths)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Baths Total</td>
+					<td class="bt-listing__table__items"><span>[nobaths]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->kitdscrp)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Kitchen Features</td>
+					<td class="bt-listing__table__items"><span>[kitdscrp]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->specialassessments)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Assessments</td>
+					<td class="bt-listing__table__items"><span>[specialassessments]</span></td> 
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->BuildingLevel)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Building Level</td>
+					<td class="bt-listing__table__items"><span>[unmapped_BuildingLevel]</span></td> 
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->DistressedProperty)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Distressed Property</td>
+					<td class="bt-listing__table__items"><span>[unmapped_DistressedProperty]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unitno)): ?>
@@ -380,9 +416,21 @@
 		
 			<h3 class="bt-listing__headline">Room Information</h3>
 			
-			<?php if( isset($single_property->Rooms) || isset($single_property->unmapped->{'Great Room Level'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down2'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'}) ):?>
+			<?php if( isset($single_property->Rooms) || isset($single_property->norooms) || isset($single_property->totalrooms) || isset($single_property->unmapped->{'Great Room Level'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down2'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'}) ):?>
 			<table class="bt-listing__table">
 				<tbody>
+					<?php if( isset($single_property->norooms)): ?>
+					<tr>
+						<td class="bt-listing__table__label">Room Count</td>
+						<td class="bt-listing__table__items"><span>[norooms]</span></td>
+					</tr>
+					<?php endif; ?>
+					<?php if( isset($single_property->totalrooms)): ?>
+					<tr>
+						<td class="bt-listing__table__label">Rooms Total</td>
+						<td class="bt-listing__table__items"><span>[totalrooms]</span></td>
+					</tr>
+					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->Rooms)): ?>
 					<tr>
 						<td class="bt-listing__table__label">Rooms</td>
