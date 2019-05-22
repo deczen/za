@@ -8,18 +8,20 @@
 	</div>
 	<div class="bt-panel__stack__sub">
 		<ul class="bt-listing__feature-grid" style="margin-bottom:0">
+			<!--
 			<li class="rooms">
+				<div class="attr-num">[norooms]</div>
+				<div class="uk-text-small uk-text-truncate">TOTAL ROOMS</div>
+			</li>
+			-->
+			<li class="beds">
 				<div class="attr-num">[nobedrooms]</div>
 				<div class="uk-text-small uk-text-truncate">BEDS</div>
 			</li>
-			<li class="beds">
+			<li class="baths">
 				<div class="attr-num">[nofullbaths]</div>
 				<div class="uk-text-small uk-text-truncate">FULL BATHS</div>
-			</li><?php /*
-			<li class="baths">
-				<div class="attr-num">[unmapped_BathsThreeQuarter]</div>
-				<div class="uk-text-small uk-text-truncate">3/4 BATHS</div>
-			</li> */ ?>										
+			</li>										
 			<li class="half-baths">
 				<div class="attr-num">[nohalfbaths]</div>
 				<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
@@ -33,8 +35,8 @@
 				<div class="uk-text-small uk-text-truncate">ACRES</div>
 			</li>
 			<li>
-				<div class="attr-num bt-listing__acreage-text">&nbsp;</div>
-				<div class="uk-text-small uk-text-truncate">&nbsp;</div>
+				<div class="attr-num bt-listing__acreage-text">[unmapped_List Price/SqFt]</div>
+				<div class="uk-text-small uk-text-truncate">PRICE/SQFT</div>
 			</li>
 
 		</ul>
@@ -63,7 +65,7 @@
 
 
 			<div class="grid">
-				<div class="cell cell-xs-4 uk-text-bold">County:</div>
+				<div class="cell cell-xs-4 uk-text-bold">County:</div> 
 				<div class="cell uk-text-right">
 					[lngCOUNTYDESCRIPTION]
 				</div>
