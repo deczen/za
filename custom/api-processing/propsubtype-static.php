@@ -10,12 +10,12 @@
 	if (!file_exists($dir)) {
 		mkdir($dir, 0777, true);
 	}
-	$filename = 'proptype-static-' . date('M-d-Y').'.php';
+	$filename = 'proptypesub-static-' . date('M-d-Y').'.php';
 	$cachefile = $dir.$filename;
 	
 	$files = scandir($dir);
 	foreach($files as $file) {
-		if( is_file( $dir . $file ) && $file!=$filename && strpos($file, 'proptype-static-') !== false )
+		if( is_file( $dir . $file ) && $file!=$filename && strpos($file, 'proptypesub-static-') !== false )
 			@unlink( $dir . $file );
 	}
 	
@@ -30,51 +30,43 @@
 	ob_start();
 	
 	/** CONTENT HERE **/
-	$data = get_static_references('PROPTYPE');
-	if(!sizeof($data)){
+	$data = get_static_references('PROPSUBTYPE');
+	/* if(!sizeof($data)){
 		$data=array(
 			0 => array(
 				'shortDescription'=>'SF',
 				'longDescription'=>'Single Family',
-				'type'=>'NA',
 			),
 			1 => array(
 				'shortDescription'=>'MF',
 				'longDescription'=>'Multifamily',
-				'type'=>'NA',
 			),
 			2 => array(
 				'shortDescription'=>'MH',
 				'longDescription'=>'Mobile Home',
-				'type'=>'NA',
 			),
 			3 => array(
 				'shortDescription'=>'LD',
 				'longDescription'=>'Land',
-				'type'=>'NA',
 			),
 			4 => array(
 				'shortDescription'=>'RN',
 				'longDescription'=>'Rental',
-				'type'=>'NA',
 			),
 			5 => array(
 				'shortDescription'=>'CC',
 				'longDescription'=>'Condo',
-				'type'=>'NA',
 			),
 			6 => array(
 				'shortDescription'=>'CI',
 				'longDescription'=>'Commercial',
-				'type'=>'NA',
 			),
 			7 => array(
 				'shortDescription'=>'BU',
 				'longDescription'=>'Business',
-				'type'=>'NA',
 			),			
 		); 
-	}
+	} */
 		
 	echo json_encode( $data );
 	/** CONTENT END **/

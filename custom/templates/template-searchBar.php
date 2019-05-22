@@ -142,6 +142,10 @@ $excludes = get_new_filter_excludes();
 										foreach( $propTypeFields as $fieldCode=>$fieldName ){
 											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propertytype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
 										}
+										$propSubTypeFields = get_property_sub_type();
+										foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
+										}
 										?>
 									</ul>									
 								</div>
@@ -561,6 +565,14 @@ $excludes = get_new_filter_excludes();
 						foreach($propTypeFields as $key => $val){
 						echo "\r\n" .
 						'case "propertytype_'.$key.'":'."\r\n" .
+							"newLabel = '{$val}'"."\r\n" .
+							'break;'."\r\n";
+						} ?>
+						<?php
+						$propSubTypeFields = get_property_sub_type();
+						foreach($propSubTypeFields as $key => $val){
+						echo "\r\n" .
+						'case "propsubtype_'.$key.'":'."\r\n" .
 							"newLabel = '{$val}'"."\r\n" .
 							'break;'."\r\n";
 						} ?>

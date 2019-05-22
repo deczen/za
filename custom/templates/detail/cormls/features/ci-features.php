@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->specialassessments) || isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'}) || isset($single_property->unmapped->{'Between Street (1)'}) || isset($single_property->unmapped->{'Between Street (2)'}) || isset($single_property->propsubtype) || isset($single_property->unmapped->{'Corp LimitPerAuditor'}) || isset($single_property->unmapped->{'Dist To Interchange'}) || isset($single_property->electricfeature) || isset($single_property->unmapped->{'Expenses Paid by L: Curr Yr Est $/SF LL'}) || isset($single_property->exchange) || isset($single_property->unmapped->{'For Lease'}) || isset($single_property->forsale) || isset($single_property->unmapped->{'Mult Use'}) || isset($single_property->unmapped->{'Near Interchange'}) || isset($single_property->specialfinancing) || isset($single_property->unmapped->{'Occupancy Rate'}) || isset($single_property->possession) || isset($single_property->unmapped->{'Previous Use'}) || isset($single_property->unmapped->{'Services Available'}) || isset($single_property->unmapped->{'Suite Info 1: Date Available'}) || isset($single_property->lngAREADESCRIPTION) || isset($single_property->unmapped->{'Use Code'}) || isset($single_property->unmapped->{'Year Remodeled'}) || isset($single_property->zoning) ):?>
+	<?php if( isset($single_property->specialassessments) || isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'}) || isset($single_property->unmapped->{'Between Street (1)'}) || isset($single_property->unmapped->{'Between Street (2)'}) || isset($single_property->propsubtype) || isset($single_property->unmapped->{'Corp LimitPerAuditor'}) || isset($single_property->unmapped->{'Dist To Interchange'}) || isset($single_property->electricfeature) || isset($single_property->unmapped->{'Expenses Paid by L: Curr Yr Est $/SF LL'}) || isset($single_property->exchange) || isset($single_property->unmapped->{'For Lease'}) || isset($single_property->forsale) || isset($single_property->unmapped->{'Mult Use'}) || isset($single_property->unmapped->{'Near Interchange'}) || isset($single_property->specialfinancing) || isset($single_property->unmapped->{'Occupancy Rate'}) || isset($single_property->possession) || isset($single_property->unmapped->{'Previous Use'}) || isset($single_property->unmapped->{'Services Available'}) || isset($single_property->unmapped->{'Suite Info 1: Date Available'}) || isset($single_property->lngAREADESCRIPTION) || isset($single_property->unmapped->{'Use Code'}) || isset($single_property->unmapped->{'Year Remodeled'}) || isset($single_property->zoning) || isset($single_property->zoning) || isset($single_property->unmapped->{'TransactionType'}) || isset($single_property->unmapped->{'VacancyPCT'}) || isset($single_property->unmapped->{'TaxesRealEstate'}) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -148,6 +148,24 @@
 				<tr>
 					<td class="bt-listing__table__label">Zoning</td>
 					<td class="bt-listing__table__items"><span>[zoning]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'TransactionType'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Transaction Type</td>
+					<td class="bt-listing__table__items"><span>[unmapped_TransactionType]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'VacancyPCT'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Vacancy PCT</td>
+					<td class="bt-listing__table__items"><span>[unmapped_VacancyPCT]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'TaxesRealEstate'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Taxes Real Estate</td>
+					<td class="bt-listing__table__items"><span>[unmapped_TaxesRealEstate]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

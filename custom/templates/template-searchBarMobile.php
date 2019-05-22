@@ -196,6 +196,10 @@
 							foreach( $propTypeFields as $fieldCode=>$fieldName ){
 								echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propertytype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
 							}
+							$propSubTypeFields = get_property_sub_type();
+							foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+								echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
+							}
 							?>
 						</ul>
 					</div>

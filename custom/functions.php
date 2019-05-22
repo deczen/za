@@ -802,7 +802,35 @@ if( ! function_exists('get_property_type') ){
 		
 		foreach($data as $entity){
 			
-			if($type!='' && in_array($entity->type, $type)){
+			$curr_type = isset($entity->type)?$entity->type:'';
+			
+			if($type!='' && in_array($curr_type, $type)){
+				$arr[$entity->shortDescription]=$entity->longDescription;
+			}else if(!$type){
+				$arr[$entity->shortDescription]=$entity->longDescription;
+			}
+		}
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('get_property_sub_type') ){
+	function get_property_sub_type($type=array('NA')){	
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/api-processing/propsubtype-static.php";
+		$json=ob_get_clean();
+		$data=json_decode($json);
+		
+		$arr=array();
+		
+		// echo "<pre>"; print_r($data); echo "</pre>";
+		
+		foreach($data as $entity){
+			
+			$curr_type = isset($entity->type)?$entity->type:'';
+			
+			if($type!='' && in_array($curr_type, $type)){
 				$arr[$entity->shortDescription]=$entity->longDescription;
 			}else if(!$type){
 				$arr[$entity->shortDescription]=$entity->longDescription;

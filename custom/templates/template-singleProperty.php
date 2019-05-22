@@ -492,6 +492,7 @@ if( sizeof($_GET)==$excParamCount ){
 						'abeds'=>$bedrooms,
 						'abths'=>$bathCount,
 						'apt'=>implode( ',', array_map("trim",$propertyType) ),
+						'apts'=>implode( ',', array_map("trim",$propSubType) ),
 						'asts'=>$status,
 						'apmin'=>za_correct_money_format($minListPrice),
 						'apmax'=>za_correct_money_format($maxListPrice),
