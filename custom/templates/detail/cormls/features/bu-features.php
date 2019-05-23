@@ -316,7 +316,7 @@
 				<?php if( isset($single_property->unmapped->{'Bus Financial Info: From'})): ?>
 				<tr>
 					<td class="bt-listing__table__label">Bus Financial Info From</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: From</span></td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: From]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Gross Profit'})): ?>
@@ -445,9 +445,8 @@
 	<?php endif; ?>
 	
 	<?php if( isset($single_property->bldgsqfeet) || isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
+			
 	<li class="cell">
-		
-		<li class="cell">
 		<?php if( isset($single_property->bldgsqfeet) ):?>
 		<h3 class="bt-listing__headline">Interior Features</h3>
 		<table class="bt-listing__table">
@@ -767,6 +766,5 @@
 			</tbody>
 		</table>
 		<?php endif; ?>
-	</li>					
-
+	</li>	
 </ul>

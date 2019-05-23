@@ -4291,7 +4291,8 @@ if( ! function_exists('zipperagent_search_filter') ){
 						// echo "onFilterChange('{$label}', '{$filterField}');"."\r\n";
 						if(is_array($filterValue)){
 							foreach($filterValue as $singleFilterval){
-								$singleFilterField=$filterField.'_'. trim( str_replace(' ',' ', $singleFilterval) );
+								// $singleFilterField=$filterField.'_'. trim( str_replace(' ','', $singleFilterval) ); //error
+								$singleFilterField=$filterField.'_'. trim( $singleFilterval );
 								echo "onFilterChange(filterLabel('{$singleFilterField}','{$singleFilterval}'), '{$singleFilterField}');"."\r\n";
 							}
 						}
