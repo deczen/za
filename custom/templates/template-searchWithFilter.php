@@ -69,7 +69,7 @@ if(get_query_var('page')){
 						</select> */ ?>
 						
 						<div class="dropdown cq-dropdown">
-							<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+							<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Property Type <span class="caret"></span> </button>
 							<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
 								<?php
 								$propTypeFields = get_property_type();

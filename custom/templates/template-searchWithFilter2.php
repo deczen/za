@@ -711,6 +711,7 @@ if(get_query_var('page')){
 		});
 		
 	</script>
+	<?php /*
 	<script>
 		// Material Select Initialization
 		jQuery(document).ready(function($) {
@@ -722,7 +723,7 @@ if(get_query_var('page')){
 			buttonClass: 'form-control',
 		  });
 		});
-	</script>
+	</script> */ ?>
 	
 	<script>
 		jQuery(document).ready(function($) {

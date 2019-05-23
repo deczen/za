@@ -4293,7 +4293,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 							foreach($filterValue as $singleFilterval){
 								// $singleFilterField=$filterField.'_'. trim( str_replace(' ','', $singleFilterval) ); //error
 								$singleFilterField=$filterField.'_'. trim( $singleFilterval );
-								echo "onFilterChange(filterLabel('{$singleFilterField}','{$singleFilterval}'), '{$singleFilterField}');"."\r\n";
+								echo "onFilterChange(filterLabel('{$singleFilterField}','{$singleFilterval}'), '{$singleFilterField}');"."\r\n"; // <- there is an issue here
 							}
 						}
 						else
