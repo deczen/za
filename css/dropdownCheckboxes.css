@@ -1,0 +1,53 @@
+.dropdownCheckboxes .btn-default {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align:left !important;
+  min-height:34px;
+}
+.dropdownCheckboxes .btn-default .caret{
+ right:8px;
+ position:absolute;
+ top:44%;
+ border-top: 6px solid #999 !important;
+ border-left: 3.5px solid transparent !important;
+ border-right: 3.5px solid transparent !important;
+}
+.dropdownCheckboxes .btn-default:hover{
+ background:none !important;
+ border-color:#ccc !important;
+}
+.dropdownCheckboxes .btn-default:focus{
+    background:none !important;
+ border-color:#66afe9 !important;
+}
+.dropdownCheckboxes ul.dropdown-menu{
+ width:100%;
+}
+.dropdownCheckboxes ul.dropdown-menu li {
+  padding: 0px 10px;
+}
+.dropdownCheckboxes ul.dropdown-menu li input[type=checkbox]{
+   width:20px !important;
+   position:relative;
+   top:2px;
+   text-align:left;
+   display:inline-block;
+}
+.dropdownCheckboxes ul.dropdown-menu li label{
+    width:100%;
+}
+.dropdownCheckboxes ul.dropdown-menu li:hover{
+    background:#428bca;
+}
+.dropdownCheckboxes ul.dropdown-menu li:hover label{
+    color: #fff;
+    width:100%;
+}
+.dropdownCheckboxes ul.dropdown-menu label {
+  font-weight: normal;
+}
+.dropdownCheckboxes ul.dropdown-menu button {
+  display: inline-block;
+  margin: 6px 0 0 0;
+  font-size: 90%
+}

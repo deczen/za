@@ -130,10 +130,6 @@
 			  <strong>Handicap Access</strong>
 			  [handicapaccess]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->parkingspaces)): ?>
-			  <strong>Parking Spaces</strong>
-			  [parkingspaces]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->noofloadingdocks)): ?>
 			  <strong>Loading Docks</strong>
 			  [noofloadingdocks]
@@ -210,7 +206,49 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
-		
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6>
+		   <p>
+			  <?php if(isset($single_property->gradeschool)): ?>
+			  <strong>Grade School</strong>
+			  [gradeschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->middleschool)): ?>
+			  <strong>Middle School</strong>
+			  [middleschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->highschool)): ?>
+			  <strong>High School</strong>
+			  [highschool]
+			  <?php endif; ?>
+			</p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
+		   <p>
+			  <?php if(isset($single_property->homeownassociation)): ?>
+			  <strong>Home Own Association</strong>
+			  [homeownassociation]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hoafee)): ?>
+			  <strong>Hoa Fee</strong>
+			  [hoafee]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->asscfeeincludes)): ?>
+			  <strong>Assc fee includes</strong>
+			  [asscfeeincludes]
+			  <?php endif; ?>
+			</p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+		   <p>
+			  <?php if(isset($single_property->nolivinglevels)): ?>
+			  <strong>No Living Levels</strong>
+			  [nolivinglevels]
+			  <?php endif; ?>
+			</p>
+		</div>
 		<div class="bt-print__block">
 		<?php if( $source_details ){
 			echo $source_details;

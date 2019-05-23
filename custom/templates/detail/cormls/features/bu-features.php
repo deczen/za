@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->propsubtype) || isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) || isset($single_property->vacant) || isset($single_property->buildingconstruction) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->interiorfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Manufactured Housing Y/N'}) /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})*/ || isset($single_property->unmapped->Basement) || isset($single_property->unmapped->{'Tenant Occupied'}) || isset($single_property->unmapped->{'Lot Size (Side)'}) || isset($single_property->unmapped->{'Mid/High Rise'}) || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->lotdescription) || isset($single_property->zoning) || isset($single_property->petsallowed) ):?>
+	<?php if( isset($single_property->propsubtype) || isset($single_property->unitno) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) || isset($single_property->vacant) || isset($single_property->buildingconstruction) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->interiorfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Manufactured Housing Y/N'}) /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})*/ || isset($single_property->unmapped->Basement) || isset($single_property->unmapped->{'Tenant Occupied'}) || isset($single_property->unmapped->{'Lot Size (Side)'}) || isset($single_property->unmapped->{'Mid/High Rise'}) || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->lotdescription) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->AnnualBaseRent) || isset($single_property->unmapped->EffectiveIncome) || isset($single_property->unmapped->EffectiveIncomePotential) || isset($single_property->unmapped->ExpenseNonReimbursable) || isset($single_property->unmapped->ExpenseNonReimbursementPotential) || isset($single_property->unmapped->ExpenseReimbursable) || isset($single_property->unmapped->ExpenseReimbursablePotential) || isset($single_property->unmapped->GrossIncomePotential) || isset($single_property->unmapped->NetOperatingIncomePotential) || isset($single_property->unmapped->SubLeaseYN) || isset($single_property->unmapped->TaxesRealEstate) || isset($single_property->unmapped->VacancyPCT) || isset($single_property->unmapped->VacancyPCTPotential) || isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'}) || isset($single_property->unmapped->{'Auction Info: Deposit Required'}) || isset($single_property->unmapped->{'Between Street (1)'}) || isset($single_property->unmapped->{'Between Street (2)'}) || isset($single_property->unmapped->{'Bus Financial Info: Annual Expenses'}) || isset($single_property->unmapped->{'Bus Financial Info: Cost of Goods'}) || isset($single_property->unmapped->{'Bus Financial Info: From'}) || isset($single_property->unmapped->{'Bus Financial Info: Gross Profit'}) || isset($single_property->unmapped->{'Bus Financial Info: Gross Sales'}) || isset($single_property->unmapped->{'Bus Financial Info: Net Before Taxes'}) || isset($single_property->unmapped->{'Bus Financial Info: Through'}) || isset($single_property->unmapped->{'Business Description'}) || isset($single_property->unmapped->{'Corp LimitPerAuditor'}) || isset($single_property->unmapped->{'# of Employees'}) || isset($single_property->unmapped->{'Hours Open'}) || isset($single_property->unmapped->{'Landlord Pays'}) || isset($single_property->unmapped->Ownership) || isset($single_property->reasonforsell) || isset($single_property->unmapped->{'Renewals Available'}) || isset($single_property->unmapped->{'Sales Includes'}) || isset($single_property->secdeposit) || isset($single_property->unmapped->{'Seller/Business Name'}) || isset($single_property->unmapped->{'Tax District'}) || isset($single_property->tenantexpanses) || isset($single_property->unmapped->{'Time SellerWillTrain'}) || isset($single_property->lngAREADESCRIPTION) || isset($single_property->unmapped->{'Years in Business'}) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -7,7 +7,7 @@
 			<tbody>
 				<?php if( isset($single_property->propsubtype)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Type</td>
+					<td class="bt-listing__table__label">Property Sub Type</td>
 					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
 				</tr>
 				<?php endif; ?>
@@ -198,13 +198,271 @@
 					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->AnnualBaseRent)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Annual Base Rent</td>
+					<td class="bt-listing__table__items"><span>[unmapped_AnnualBaseRent]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->EffectiveIncome)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Effective Income</td>
+					<td class="bt-listing__table__items"><span>[unmapped_EffectiveIncome]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->EffectiveIncomePotential)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Effective Income Potential</td>
+					<td class="bt-listing__table__items"><span>[unmapped_EffectiveIncomePotential]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExpenseNonReimbursable)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Expense Non Reimbursable</td>
+					<td class="bt-listing__table__items"><span>[unmapped_ExpenseNonReimbursable]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExpenseNonReimbursementPotential)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Expense Non Reimbursement Potent</td>
+					<td class="bt-listing__table__items"><span>[unmapped_ExpenseNonReimbursementPotential]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExpenseReimbursable)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Expense Reimbursable</td>
+					<td class="bt-listing__table__items"><span>[unmapped_ExpenseReimbursable]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExpenseReimbursablePotential)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Expense Reimbursable Potential</td>
+					<td class="bt-listing__table__items"><span>[unmapped_ExpenseReimbursablePotential]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->GrossIncomePotential)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Gross Income Potential</td>
+					<td class="bt-listing__table__items"><span>[unmapped_GrossIncomePotential]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->NetOperatingIncomePotential)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Net Operating Income Potential</td>
+					<td class="bt-listing__table__items"><span>[unmapped_NetOperatingIncomePotential]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->SubLeaseYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Sub Lease YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_SubLeaseYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxesRealEstate)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Taxes Real Estate</td>
+					<td class="bt-listing__table__items"><span>[unmapped_TaxesRealEstate]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->VacancyPCT)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Vacancy PCT</td>
+					<td class="bt-listing__table__items"><span>[unmapped_VacancyPCT]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->VacancyPCTPotential)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Vacancy PCTPotential</td>
+					<td class="bt-listing__table__items"><span>[unmapped_VacancyPCTPotential]</span></td>
+				</tr>
+				<?php endif; ?>
+				
+				<?php if( isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Auction</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Auction Info: Auction/Online Bidding]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Auction Info: Deposit Required'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Auction Deposit Required</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Auction Info: Deposit Required]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Between Street (1)'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Between Street1</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Between Street (1)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Between Street (2)'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Between Street2</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Between Street (2)]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Annual Expenses'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info Annual Expenses</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: Annual Expenses]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Cost of Goods'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info Costof Goods</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: Cost of Goods]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: From'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info From</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: From</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Gross Profit'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info Gross Profit</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: Gross Profit]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Gross Sales'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info Gross Sales</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: Gross Sales]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Net Before Taxes'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info Net Before Taxes</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: Net Before Taxes]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Bus Financial Info: Through'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bus Financial Info Through</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Bus Financial Info: Through]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Business Description'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Business Description</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Business Description]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Corp LimitPerAuditor'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Corp Limit Per Auditor</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Corp LimitPerAuditor]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'# of Employees'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Employees </td>
+					<td class="bt-listing__table__items"><span>[unmapped_# of Employees]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Hours Open'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Hours Open</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Hours Open]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Landlord Pays'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Landlord Pays</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Landlord Pays]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Ownership)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Ownership</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Ownership]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->reasonforsell)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Reason For Sale</td>
+					<td class="bt-listing__table__items"><span>[reasonforsell]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Renewals Available'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Renewals Available</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Renewals Available]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Sales Includes'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Sales Includes</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Sales Includes]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->secdeposit)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Security Deposit</td>
+					<td class="bt-listing__table__items"><span>[secdeposit]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Seller/Business Name'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Seller Business Name</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Seller/Business Name]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Tax District'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Tax District</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Tax District]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->tenantexpanses)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Tenant Pays</td>
+					<td class="bt-listing__table__items"><span>[tenantexpanses]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Time SellerWillTrain'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Time Seller Will Train</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Time SellerWillTrain]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->lngAREADESCRIPTION)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Township </td>
+					<td class="bt-listing__table__items"><span>[lngAREADESCRIPTION]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Years in Business'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Years In Business</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Years in Business]</span></td>
+				</tr>
+				<?php endif; ?>
 			</tbody>
 		</table>
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
+	<?php if( isset($single_property->bldgsqfeet) || isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
 	<li class="cell">
+		
+		<li class="cell">
+		<?php if( isset($single_property->bldgsqfeet) ):?>
+		<h3 class="bt-listing__headline">Interior Features</h3>
+		<table class="bt-listing__table">
+
+			<tbody>
+				<?php if( isset($single_property->bldgsqfeet)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Bldg Sq Ft</td>
+					<td class="bt-listing__table__items"><span>[bldgsqfeet]</span></td>
+				</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+		<?php endif; ?>
+		
 		<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) ):?>
 		<h3 class="bt-listing__headline">Cooling, Heating, Utilities</h3>
 		<table class="bt-listing__table">

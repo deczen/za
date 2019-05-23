@@ -3956,6 +3956,16 @@ if( ! function_exists('zipperagent_search_filter') ){
 										"value='{$key}';"."\r\n" .
 										'break;'."\r\n";
 									} ?>
+									<?php
+									$propSubTypeFields = get_property_sub_type();
+									foreach($propSubTypeFields as $key => $val){
+									echo "\r\n" .
+									'case "propsubtype_'.trim($key).'":'."\r\n" .
+										"jQuery(\"#zpa-search-filter-form input[name*='propsubtype' i][value='{$key}']\").prop('checked',false);"."\r\n" .
+										"parameter='propsubtype';"."\r\n" .
+										"value='{$key}';"."\r\n" .
+										'break;'."\r\n";
+									} ?>
 									case "status":																	
 									case "bedrooms":															
 									case "bathcount":															
@@ -4081,6 +4091,14 @@ if( ! function_exists('zipperagent_search_filter') ){
 						foreach($propTypeFields as $key => $val){
 						echo "\r\n" .
 						'case "propertytype_'.strtolower($key).'":'."\r\n" .
+							"newLabel = '{$val}'"."\r\n" .
+							'break;'."\r\n";
+						} ?>
+						<?php
+						$propSubTypeFields = get_property_sub_type();
+						foreach($propSubTypeFields as $key => $val){
+						echo "\r\n" .
+						'case "propsubtype_'.strtolower($key).'":'."\r\n" .
 							"newLabel = '{$val}'"."\r\n" .
 							'break;'."\r\n";
 						} ?>
@@ -4262,6 +4280,9 @@ if( ! function_exists('zipperagent_search_filter') ){
 							case "propertytype":
 									$label="$filterField $filterValue";
 								break;
+							case "propsubtype":
+									$label="$filterField $filterValue";
+								break;
 							default:
 									$label="$filterField $filterValue";
 								break;
@@ -4270,7 +4291,7 @@ if( ! function_exists('zipperagent_search_filter') ){
 						// echo "onFilterChange('{$label}', '{$filterField}');"."\r\n";
 						if(is_array($filterValue)){
 							foreach($filterValue as $singleFilterval){
-								$singleFilterField=$filterField.'_'. trim( str_replace(' ','', $singleFilterval) );
+								$singleFilterField=$filterField.'_'. trim( str_replace(' ',' ', $singleFilterval) );
 								echo "onFilterChange(filterLabel('{$singleFilterField}','{$singleFilterval}'), '{$singleFilterField}');"."\r\n";
 							}
 						}

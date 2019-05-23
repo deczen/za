@@ -7,7 +7,7 @@
 			<tbody>
 				<?php if( isset($single_property->propsubtype)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Type</td>
+					<td class="bt-listing__table__label">Property Sub Type</td>
 					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
 				</tr>
 				<?php endif; ?>

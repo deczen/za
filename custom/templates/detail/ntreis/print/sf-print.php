@@ -158,6 +158,10 @@
 			  <strong>Style</strong>
 			  [style]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->BuildingUse)): ?>
+			  <strong>Building Use</strong>
+			  [unmapped_BuildingUse]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->construction)): ?>
 			  <strong>Construction</strong>
 			  [construction]
@@ -198,6 +202,10 @@
 			  <strong>Energy features</strong>
 			  [energyfeatures]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CommunityFeatures)): ?>
+			  <strong>Community Features</strong>
+			  [unmapped_CommunityFeatures]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->rentfeeincludes)): ?>
 			  <strong>Rent fee includes</strong>
 			  [rentfeeincludes]
@@ -214,9 +222,49 @@
 			  <strong>Equiplist avail</strong>
 			  [equiplistavail]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Inclusions)): ?>
+			  <strong>Inclusions</strong>
+			  [unmapped_Inclusions]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Development)): ?>
+			  <strong>Development</strong>
+			  [unmapped_Development]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->ProposedUse)): ?>
+			  <strong>Proposed Use</strong>
+			  [unmapped_ProposedUse]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->handicapaccess)): ?>
 			  <strong>Handicap access</strong>
 			  [handicapaccess]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->NumberOfDiningAreas)): ?>
+			  <strong>Number Of Dining Areas</strong>
+			  [unmapped_NumberOfDiningAreas]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->SecuritySystemYN)): ?>
+			  <strong>Security System</strong>
+			  [unmapped_SecuritySystemYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->SecurityFeatures)): ?>
+			  <strong>Security Features</strong>
+			  [unmapped_SecurityFeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->FinancingProposed)): ?>
+			  <strong>Financing Proposed</strong>
+			  [unmapped_FinancingProposed]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->TotalAnnualExpensesInclude)): ?>
+			  <strong>Total Annual Expenses Include</strong>
+			  [unmapped_TotalAnnualExpensesInclude]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->IncomeExpenseSource)): ?>
+			  <strong>Income ExpenseSource</strong>
+			  [unmapped_IncomeExpenseSource]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CommercialFeatures)): ?>
+			  <strong>Commercial Features</strong>
+			  [unmapped_CommercialFeatures]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->tenantexpanses)): ?>
 			  <strong>Tenant expanses</strong>
@@ -225,6 +273,54 @@
 			  <?php if(isset($single_property->laundrylevel)): ?>
 			  <strong>Laundry level</strong>
 			  [laundrylevel]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CeilingHeight)): ?>
+			  <strong>Ceiling Height</strong>
+			  [unmapped_CeilingHeight]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Topography)): ?>
+			  <strong>Topography</strong>
+			  [unmapped_Topography]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->RoadFrontageDistance)): ?>
+			  <strong>Road Frontage Distance</strong>
+			  [unmapped_RoadFrontageDistance]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Fencing)): ?>
+			  <strong>Fencing</strong>
+			  [unmapped_Fencing]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->AccessibilityFeatures)): ?>
+			  <strong>Accessibility Features</strong>
+			  [unmapped_AccessibilityFeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->PlannedDevelopment)): ?>
+			  <strong>Planned Development</strong>
+			  [unmapped_PlannedDevelopment]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->MoniesRequired)): ?>
+			  <strong>Monies Required</strong>
+			  [unmapped_MoniesRequired]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->LeaseConditions)): ?>
+			  <strong>Lease Conditions</strong>
+			  [unmapped_LeaseConditions]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->AppliancesYN)): ?>
+			  <strong>Appliances</strong>
+			  [unmapped_AppliancesYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->PermitInternetYN)): ?>
+			  <strong>Permit Internet</strong>
+			  [unmapped_PermitInternetYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->FencedYardYN)): ?>
+			  <strong>Fenced Yard</strong>
+			  [unmapped_FencedYardYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CompensationPaid)): ?>
+			  <strong>Compensation Paid</strong>
+			  [unmapped_CompensationPaid]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->petsallowed)): ?>
 			  <strong>Pets allowed</strong>
@@ -238,21 +334,40 @@
 			  <strong>Sec deposit</strong>
 			  [secdeposit]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->InsuranceExpense)): ?>
+			  <strong>Insurance Expense</strong>
+			  [unmapped_InsuranceExpense]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->UnitCount)): ?>
+			  <strong>Unit Count</strong>
+			  [unmapped_UnitCount]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->bldgsqfeet)): ?>
 			  <strong>Bldgsqfeet</strong>
 			  [bldgsqfeet]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->PoolYN)): ?>
+			  <strong>Pool</strong>
+			  [unmapped_PoolYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->LotSize)): ?>
+			  <strong>Lot Size</strong>
+			  [unmapped_LotSize]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->lotdescription)): ?>
 			  <strong>Lot description</strong>
 			  [lotdescription]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->restrictions)): ?>
+			  <?php endif; ?> <?php if(isset($single_property->restrictions)): ?>
 			  <strong>Restrictions</strong>
 			  [restrictions]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->easements)): ?>
 			  <strong>Easements</strong>
 			  [easements]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CropRetireProgramYN)): ?>
+			  <strong>Crop Retire Program</strong>
+			  [unmapped_CropRetireProgramYN]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->fireplaces)): ?>
 			  <strong>Fireplaces</strong>
@@ -262,129 +377,13 @@
 			  <strong>Fireplace Features</strong>
 			  [firmrmk1]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->zoning)): ?>
-			  <strong>Zoning</strong>
-			  [zoning]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->ZoningCommercial)): ?>
 			  <strong>Zoning Commercial</strong>
 			  [unmapped_ZoningCommercial]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CropRetireProgramYN)): ?>
-			  <strong>Crop Retire Program</strong>
-			  [unmapped_CropRetireProgramYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->LotSize)): ?>
-			  <strong>Lot Size</strong>
-			  [unmapped_LotSize]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->PoolYN)): ?>
-			  <strong>Pool</strong>
-			  [unmapped_PoolYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->UnitCount)): ?>
-			  <strong>Unit Count</strong>
-			  [unmapped_UnitCount]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->InsuranceExpense)): ?>
-			  <strong>Insurance Expense</strong>
-			  [unmapped_InsuranceExpense]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Fencing)): ?>
-			  <strong>Fencing</strong>
-			  [unmapped_Fencing]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CompensationPaid)): ?>
-			  <strong>Compensation Paid</strong>
-			  [unmapped_CompensationPaid]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->FencedYardYN)): ?>
-			  <strong>Fenced Yard</strong>
-			  [unmapped_FencedYardYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->PermitInternetYN)): ?>
-			  <strong>Permit Internet</strong>
-			  [unmapped_PermitInternetYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->AppliancesYN)): ?>
-			  <strong>Appliances</strong>
-			  [unmapped_AppliancesYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->LeaseConditions)): ?>
-			  <strong>Lease Conditions</strong>
-			  [unmapped_LeaseConditions]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->MoniesRequired)): ?>
-			  <strong>Monies Required</strong>
-			  [unmapped_MoniesRequired]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->PlannedDevelopment)): ?>
-			  <strong>Planned Development</strong>
-			  [unmapped_PlannedDevelopment]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->AccessibilityFeatures)): ?>
-			  <strong>Accessibility Features</strong>
-			  [unmapped_AccessibilityFeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->RoadFrontageDistance)): ?>
-			  <strong>Road Frontage Distance</strong>
-			  [unmapped_RoadFrontageDistance]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Topography)): ?>
-			  <strong>Topography</strong>
-			  [unmapped_Topography]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CeilingHeight)): ?>
-			  <strong>Ceiling Height</strong>
-			  [unmapped_CeilingHeight]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CommercialFeatures)): ?>
-			  <strong>Commercial Features</strong>
-			  [unmapped_CommercialFeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->IncomeExpenseSource)): ?>
-			  <strong>Income ExpenseSource</strong>
-			  [unmapped_IncomeExpenseSource]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->TotalAnnualExpensesInclude)): ?>
-			  <strong>Total Annual Expenses Include</strong>
-			  [unmapped_TotalAnnualExpensesInclude]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->FinancingProposed)): ?>
-			  <strong>Financing Proposed</strong>
-			  [unmapped_FinancingProposed]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->SecurityFeatures)): ?>
-			  <strong>Security Features</strong>
-			  [unmapped_SecurityFeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->SecuritySystemYN)): ?>
-			  <strong>Security System</strong>
-			  [unmapped_SecuritySystemYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->NumberOfDiningAreas)): ?>
-			  <strong>Number Of Dining Areas</strong>
-			  [unmapped_NumberOfDiningAreas]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->ProposedUse)): ?>
-			  <strong>Proposed Use</strong>
-			  [unmapped_ProposedUse]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Development)): ?>
-			  <strong>Development</strong>
-			  [unmapped_Development]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Inclusions)): ?>
-			  <strong>Inclusions</strong>
-			  [unmapped_Inclusions]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CommunityFeatures)): ?>
-			  <strong>Community Features</strong>
-			  [unmapped_CommunityFeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->BuildingUse)): ?>
-			  <strong>Building Use</strong>
-			  [unmapped_BuildingUse]
+			  <?php if(isset($single_property->zoning)): ?>
+			  <strong>Zoning</strong>
+			  [zoning]
 			  <?php endif; ?>
 		   </p>
 		</div>
@@ -420,30 +419,52 @@
 			  <strong>Heating</strong>
 			  [heating]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->sewer)): ?>
-			  <strong>Sewer</strong>
-			  [sewer]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->WaterSource)): ?>
-			  <strong>Water Source</strong>
-			  [unmapped_WaterSource]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->utilities)): ?>
 			   <strong>Utilities</strong>
 			  [utilities]
 			  <?php endif; ?>
-			  
+			</p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6>
+		   <p>  
+			  <?php if(isset($single_property->gradeschool)): ?>
+			   <strong>Grade School</strong>
+			  [gradeschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->highschool)): ?>
+			   <strong>High School</strong>
+			  [highschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->middleschool)): ?>
+			   <strong>Middle School</strong>
+			  [middleschool]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
+		   <p>  
+			  <?php if(isset($single_property->unmapped->ParkingSpacesCoveredTotal)): ?>
+			   <strong>Tax Legal Description</strong>
+			  [unmapped_ParkingSpacesCoveredTotal]
+			  <?php endif; ?>
+			  <?php if( isset($single_property->unmapped->GarageLength) && isset($single_property->unmapped->GarageWidth)): ?>
+			   <strong>Garage Size</strong>
+			  [unmapped_GarageLength] X [unmapped_GarageWidth]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->garagespaces)): ?>
+			   <strong>Garage Spaces</strong>
+			  [garagespaces]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>
+		   <p>    
 			  <?php if(isset($single_property->unmapped->TaxLegalDescription)): ?>
 			   <strong>Tax Legal Description</strong>
 			  [unmapped_TaxLegalDescription]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->TaxBlock)): ?>
-			   <strong>Tax Block</strong>
-			  [unmapped_TaxBlock]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->taxyear)): ?>
-			   <strong>Tax Year</strong>
-			  [taxyear]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->taxes)): ?>
 			   <strong>Tax Amount ($)</strong>
@@ -451,6 +472,31 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
+		
+		<?php $roomLevels = $single_property->roomLevels;
+		if (isset($roomLevels)): ?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+			<p>
+			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+				
+					<strong>Room Type</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomType]
+					<strong>Room Level</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomLevel]
+					
+					<?php $dim1 = $roomLevels[$rkey]->dim1; 
+						  $dim2 = $roomLevels[$rkey]->dim2; 
+					?>
+					<?php if( isset($dim1) && isset($dim2)): ?>
+					<strong>Room Size</strong>
+					[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
+					<?php endif; ?>
+					
+			<?php endforeach; ?>
+			</p>
+		</div>
+		<?php endif; ?>
 		
 		<div class="bt-print__block">
 		<?php if( $source_details ){

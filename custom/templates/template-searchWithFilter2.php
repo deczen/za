@@ -13,6 +13,7 @@ $enable_filter  = false;
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
 $propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
+$propSubType 		= ( isset($requests['propsubtype'])?(!is_array($requests['propsubtype'])?array($requests['propsubtype']):$requests['propsubtype']):array() );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
@@ -165,6 +166,18 @@ if(get_query_var('page')){
 																					$propTypeNum++;
 																					
 																					$excludePropTypeFields[]=$fieldCode;
+																				}
+																			?>
+																			<?php
+																				$propSubTypeFields = get_property_sub_type();
+																				$propTypeNum=0;
+																				foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+																					$checked='';
+																					if(in_array($fieldCode,$propSubType))
+																						$checked='checked';
+																					
+																					echo "<li><label class='form__check' for='propSubType-{$propTypeNum}'><input type='checkbox' class='at-propSubType' value='{$fieldCode}' label='{$fieldName}' name='propSubType[]' id='propSubType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
+																					$propTypeNum++;
 																				}
 																			?>
 																		</ul>

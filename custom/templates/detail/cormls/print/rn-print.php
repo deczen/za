@@ -59,7 +59,7 @@
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">FULL BATHS</div>
@@ -121,10 +121,10 @@
 				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			<?php if(isset($single_property->shrtTOWNCODE)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="bt-print__area-val">[shrtTOWNCODE]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
@@ -164,10 +164,10 @@
 			  <strong>Levels</strong>
 			  [unmapped_Levels]
 			  <?php endif; ?>
-			  <?php /*if(isset($single_property->style)): ?>
-			  <strong>House Style</strong>
+			  <?php if(isset($single_property->style)): ?>
+			  <strong>Style</strong>
 			  [style]
-			  <?php endif;*/ ?>
+			  <?php endif; ?>
 			  <?php /*if(isset($single_property->vacant)): ?>
 			  <strong>Vacant</strong>
 			  [vacant]
@@ -176,19 +176,19 @@
 			  <strong>Building Construction</strong>
 			  [buildingconstruction]
 			  <?php endif; ?>
-			  <?php /*if(isset($single_property->construction)): ?>
-			  <strong>Construction</strong>
+			  <?php if(isset($single_property->construction)): ?>
+			  <strong>Construction Type</strong>
 			  [construction]
-			  <?php endif;*/ ?>
+			  <?php endif; ?>
 			  <?php /*if(isset($single_property->foundation)): ?>
 			  <strong>Foundation</strong>
 			  [foundation]
 			  <?php endif;*/ ?>
-			  <?php /*if(isset($single_property->basement)): ?>
+			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->basementfeature)): ?>
+			  <?php /*if(isset($single_property->basementfeature)): ?>
 			  <strong>Basement Feature</strong>
 			  [basementfeature]
 			  <?php endif;*/ ?>
@@ -220,11 +220,15 @@
 			  <strong>Fireplace</strong>
 			  [unmapped_Fireplace]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->nobaths)): ?>
+			  <strong>Baths Total</strong>
+			  [nobaths]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Manufactured Housing Y/N'})): ?>
 			  <strong>Manufactured Housing</strong>
 			  [unmapped-Manufactured Housing Y/N]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
 			  <strong>Cumulative DOM</strong>
 			  [unmapped_Cumulative DOM]
 			  <?php endif; ?>
@@ -248,10 +252,10 @@
 			  <strong>Mid/High Rise</strong>
 			  [unmapped_Mid/High Rise]
 			  <?php endif; ?>
-			  <?php /*if(isset($single_property->unmapped->{'Built Prior to 1978'})): ?>
+			  <?php if(isset($single_property->unmapped->{'Built Prior to 1978'})): ?>
 			  <strong>Built Prior to 1978</strong>
 			  [unmapped_Built Prior to 1978]
-			  <?php endif;*/ ?>
+			  <?php endif; ?>
 			  <?php /*if(isset($single_property->unmapped->{'Documented SqFt Source'})): ?>
 			  <strong>Documented SqFt Source</strong>
 			  [unmapped_Documented SqFt Source]
@@ -284,10 +288,10 @@
 			  <strong>Application Fee</strong>
 			  [unmapped_Application Fee Reqd]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->secdeposit)): ?>
+			  <?php /*if(isset($single_property->secdeposit)): ?>
 			  <strong>Security Deposit</strong>
 			  [secdeposit]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->tenantexpanses)): ?>
 			  <strong>Tenant Pays</strong>
 			  [tenantexpanses]
@@ -303,6 +307,74 @@
 			  <?php if(isset($single_property->exteriorunitfeatures)): ?>
 			  <strong>Outside Features</strong>
 			  [exteriorunitfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lotsize)): ?>
+			  <strong>Lot Size Frontage</strong>
+			  [lotsize]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->basementfeature)): ?>
+			  <strong>Basement Foundation</strong>
+			  [basementfeature]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Windows'})): ?>
+			  <strong>Windows</strong>
+			  [unmapped_Windows]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Amount'})): ?>
+			  <strong>Amount</strong>
+			  [unmapped_Amount]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Corp LimitPerAuditor'})): ?>
+			  <strong>Corp Limit Per Auditor</strong>
+			  [unmapped_Corp LimitPerAuditor]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Mult Parcels/Sch Dis'})): ?>
+			  <strong>Mult Parcels Sch Dis</strong>
+			  [unmapped_Mult Parcels/Sch Dis]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->construction)): ?>
+			  <strong>New Construction</strong>
+			  [construction]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{"Pet Info: Pet(s) Deposit Req'd"})): ?>
+			  <strong>Pet Info Pets Deposit Reqd</strong>
+			  [unmapped_Pet Info: Pet(s) Deposit Req'd]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Pet Info: Weight Limit'})): ?>
+			  <strong>Pet Info Weight Limit</strong>
+			  [unmapped_Pet Info: Weight Limit]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Pet Type'})): ?>
+			  <strong>Pet Type</strong>
+			  [unmapped_Pet Type]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->possession)): ?>
+			  <strong>Possession</strong>
+			  [possession]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rentalterms)): ?>
+			  <strong>Rental Terms</strong>
+			  [rentalterms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Section 8'})): ?>
+			  <strong>Section8</strong>
+			  [unmapped_Section 8]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->assocsecurity)): ?>
+			  <strong>Security Deposit</strong>
+			  [assocsecurity]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->smokingallowed)): ?>
+			  <strong>Smoking Permitted</strong>
+			  [smokingallowed]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'ATFLS Source'})): ?>
+			  <strong>Source</strong>
+			  [unmapped_ATFLS Source]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			  <strong>Township</strong>
+			  [lngAREADESCRIPTION]
 			  <?php endif; ?>
 			</p>
 			  <!-- parking information -->
@@ -374,9 +446,9 @@
 			  <strong>Tax District</strong>
 			  [unmapped_Tax]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Tax Abatement'})): ?>
-			  <strong>Tax Abatement</strong>
-			  [unmapped_Tax Abatement]
+			  <?php if(isset($single_property->unmapped->{'SqFt ATFLS'})): ?>
+			  <strong>Sq Ft Tax Record</strong>
+			  [unmapped_SqFt ATFLS]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->taxyear)): ?>
 			  <strong>Tax Year</strong>
@@ -394,6 +466,14 @@
 			  <?php if(isset($single_property->unmapped->Rooms)): ?>
 			  <strong>Rooms</strong>
 			  [unmapped_Rooms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->norooms)): ?>
+			  <strong>Room Count</strong>
+			  [norooms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->totalrooms)): ?>
+			  <strong>Rooms Total</strong>
+			  [totalrooms]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Great Room Level'})): ?>
 			  <strong>Great Rooms (Entry Level)</strong>

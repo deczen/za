@@ -13,6 +13,7 @@ $enable_filter  = false;
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
 $propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
+$propSubType 		= ( isset($requests['propsubtype'])?(!is_array($requests['propsubtype'])?array($requests['propsubtype']):$requests['propsubtype']):array() );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
 $minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
 $maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
@@ -61,6 +62,7 @@ if(get_query_var('page')){
 												</select>
 											</div>											
 											<div class="col-xs-6 col-sm-3 field-input">
+												<?php /*
 												<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 													<?php
 													$propTypeFields = get_property_type();
@@ -75,7 +77,50 @@ if(get_query_var('page')){
 														echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
 													}
 													?>
-												</select>								
+												</select> */ ?>
+												
+												<div class="dropdown cq-dropdown">
+													<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+													<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+														<?php
+														$propTypeFields = get_property_type();
+														$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
+														
+														//generate proptype options
+														foreach( $propTypeFields as $fieldCode=>$fieldName ){
+															// echo $propDefaultOption . " == " . $fieldCode. "<br>";
+															if(in_array($fieldCode, $propertyType))
+																$checked="checked";
+															else if(in_array($fieldCode, $propSubType))
+																$checked="checked";
+															else
+																$checked="";
+																
+															if($propTypeOption){
+																if(in_array($fieldCode, $propTypeOption)){
+																	echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+																	echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";
+																}
+															}else{									
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";
+															}										
+														}
+														
+														$propSubTypeFields = get_property_sub_type();
+														
+														//generate propsubtype options
+														foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+															
+															if(in_array($fieldCode, $propDefaultOption))
+																$checked="checked";
+															else
+																$checked="";
+																
+															echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";																		
+														}
+														?>
+													</ul>
+												</div>
 											</div>
 										</div>
 										
@@ -317,6 +362,10 @@ if(get_query_var('page')){
 		
 	</script>
 	<script>
+		jQuery(function(){ jQuery('.cq-dropdown').dropdownCheckboxes(); });
+	</script> 
+	<?php /*
+	<script>
 		// Material Select Initialization
 		jQuery(document).ready(function($) {
 		  $('.multiselect').multiselect({
@@ -329,7 +378,7 @@ if(get_query_var('page')){
 		  
 		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
 		});
-	</script>
+	</script> */ ?>
 	<script>
 		function addCommas(nStr)
 		{

@@ -25,7 +25,7 @@
 				<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
 			</li>
 			<li class="sqft ">
-				<div class="attr-num"> [totalbldgsf] </div>
+				<div class="attr-num"> [squarefeet] </div>
 				<div class="uk-text-small uk-text-truncate">SQFT</div>
 			</li>
 			<li class="acres">

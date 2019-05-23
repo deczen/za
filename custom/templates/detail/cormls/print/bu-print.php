@@ -47,7 +47,7 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[norooms]</div>
 				 <div class="bt-print__meta-label">Total Rooms</div>
@@ -70,7 +70,7 @@
 				 <div class="bt-print__meta-val">[nohalfbaths]</div>
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[squarefeet]</div>
@@ -97,10 +97,16 @@
 		</table>
 		<div class="bt-print__area__wrap">
 		   <div class="bt-print__area">
-			<?php if(isset($single_property->neighborhood)): ?>
+			<?php /*if(isset($single_property->neighborhood)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
+			  </div>
+			<?php endif;*/ ?>
+			<?php if(isset($single_property->location)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Location:</div>
+				 <div class="bt-print__area-val">[location]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->proptype)): ?>
@@ -121,10 +127,10 @@
 				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			<?php if(isset($single_property->shrtTOWNCODE)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="bt-print__area-val">[shrtTOWNCODE]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
@@ -228,14 +234,14 @@
 			  <strong>Manufactured Housing</strong>
 			  [unmapped-Manufactured Housing Y/N]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
 			  <strong>Cumulative DOM</strong>
 			  [unmapped_Cumulative DOM]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})): ?>
 			  <strong>Dir Neg w/Sell Perm</strong>
 			  [unmapped_Dir Neg w/Sell Perm]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->Basement)): ?>
 			  <strong>Basement</strong>
 			  [unmapped_Basement]
@@ -276,20 +282,168 @@
 			  <strong>Pets Allowed</strong>
 			  [petsallowed]
 			  <?php endif; ?>
-			  <!-- parking information -->
-			  <?php if(isset($single_property->parkingfeature)): ?>
-			  <strong>Parking Feature</strong>
-			  [parkingfeature]
+			  <?php if(isset($single_property->unmapped->AnnualBaseRent)): ?>
+			  <strong>Annual Base Rent</strong>
+			  [unmapped_AnnualBaseRent]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->garagespaces)): ?>
-			  <strong>Garage spaces</strong>
-			  [garagespaces]
+			  <?php if(isset($single_property->unmapped->EffectiveIncome)): ?>
+			  <strong>Effective Income</strong>
+			  [unmapped_EffectiveIncome]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->garageparking)): ?>
-			  <strong>Garage parking</strong>
-			  [garageparking]
+			  <?php if(isset($single_property->unmapped->EffectiveIncomePotential)): ?>
+			  <strong>Effective Income Potential</strong>
+			  [unmapped_EffectiveIncomePotential]
 			  <?php endif; ?>
-		   </p>
+			  <?php if(isset($single_property->unmapped->ExpenseNonReimbursable)): ?>
+			  <strong>Expense Non Reimbursable</strong>
+			  [unmapped_ExpenseNonReimbursable]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->ExpenseNonReimbursementPotential)): ?>
+			  <strong>Expense Non Reimbursement Potent</strong>
+			  [unmapped_ExpenseNonReimbursementPotential]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->ExpenseReimbursable)): ?>
+			  <strong>Expense Reimbursable</strong>
+			  [unmapped_ExpenseReimbursable]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->ExpenseReimbursablePotential)): ?>
+			  <strong>Expense Reimbursable Potential</strong>
+			  [unmapped_ExpenseReimbursablePotential]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->GrossIncomePotential)): ?>
+			  <strong>Gross Income Potential</strong>
+			  [unmapped_GrossIncomePotential]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->NetOperatingIncomePotential)): ?>
+			  <strong>Net Operating Income Potential</strong>
+			  [unmapped_NetOperatingIncomePotential]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->SubLeaseYN)): ?>
+			  <strong>Sub Lease YN</strong>
+			  [unmapped_SubLeaseYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->TaxesRealEstate)): ?>
+			  <strong>Taxes Real Estate</strong>
+			  [unmapped_TaxesRealEstate]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->VacancyPCT)): ?>
+			  <strong>Vacancy PCT</strong>
+			  [unmapped_VacancyPCT]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->VacancyPCTPotential)): ?>
+			  <strong>Vacancy PCTPotential</strong>
+			  [unmapped_VacancyPCTPotential]
+			  <?php endif; ?>
+			  
+			  <?php if(isset($single_property->unmapped->{'Auction Info: Auction/Online Bidding'})): ?>
+			  <strong>Auction</strong>
+			  [unmapped_Auction Info: Auction/Online Bidding]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Auction Info: Deposit Required'})): ?>
+			  <strong>Auction Deposit Required</strong>
+			  [unmapped_Auction Info: Deposit Required]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Between Street (1)'})): ?>
+			  <strong>Between Street1</strong>
+			  [unmapped_Between Street (1)]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Between Street (2)'})): ?>
+			  <strong>Between Street2</strong>
+			  [unmapped_Between Street (2)]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: Annual Expenses'})): ?>
+			  <strong>Bus Financial Info Annual Expenses</strong>
+			  [unmapped_Bus Financial Info: Annual Expenses]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: Cost of Goods'})): ?>
+			  <strong>Bus Financial Info Costof Goods</strong>
+			  [unmapped_Bus Financial Info: Cost of Goods]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: From'})): ?>
+			  <strong>Bus Financial Info From</strong>
+			  [unmapped_Bus Financial Info: From]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: Gross Profit'})): ?>
+			  <strong>Bus Financial Info Gross Profit</strong>
+			  [unmapped_Bus Financial Info: Gross Profit]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: Gross Sales'})): ?>
+			  <strong>Bus Financial Info Gross Sales</strong>
+			  [unmapped_Bus Financial Info: Gross Sales]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: Net Before Taxes'})): ?>
+			  <strong>Bus Financial Info Net Before Taxes</strong>
+			  [unmapped_Auction Info: Auction/Online Bidding]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Bus Financial Info: Through'})): ?>
+			  <strong>Bus Financial Info Through</strong>
+			  [unmapped_Bus Financial Info: Through]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Business Description'})): ?>
+			  <strong>Business Description</strong>
+			  [unmapped_Business Description]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Corp LimitPerAuditor'})): ?>
+			  <strong>Corp Limit Per Auditor</strong>
+			  [unmapped_Corp LimitPerAuditor]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'# of Employees'})): ?>
+			  <strong>Employees</strong>
+			  [unmapped_# of Employees]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Hours Open'})): ?>
+			  <strong>Hours Open</strong>
+			  [unmapped_Hours Open]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Landlord Pays'})): ?>
+			  <strong>Landlord Pays</strong>
+			  [unmapped_Landlord Pays]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Ownership)): ?>
+			  <strong>Ownership</strong>
+			  [unmapped_Ownership]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->reasonforsell)): ?>
+			  <strong>Reason For Sale</strong>
+			  [reasonforsell]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Renewals Available'})): ?>
+			  <strong>Renewals Available</strong>
+			  [unmapped_Renewals Available]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Sales Includes'})): ?>
+			  <strong>Sales Includes</strong>
+			  [unmapped_Sales Includes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->secdeposit)): ?>
+			  <strong>Security Deposit</strong>
+			  [secdeposit]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Seller/Business Name'})): ?>
+			  <strong>Seller Business Name</strong>
+			  [unmapped_Seller/Business Name]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Tax District'})): ?>
+			  <strong>Tax District</strong>
+			  [unmapped_Tax District]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->tenantexpanses)): ?>
+			  <strong>Tenant Pays</strong>
+			  [tenantexpanses]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Time SellerWillTrain'})): ?>
+			  <strong>Time Seller Will Train</strong>
+			  [unmapped_Time SellerWillTrain]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			  <strong>Township</strong>
+			  [lngAREADESCRIPTION]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Years in Business'})): ?>
+			  <strong>Years In Business</strong>
+			  [unmapped_Years in Business]
+			  <?php endif; ?>
+			</p>
 		</div>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6>

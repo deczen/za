@@ -56,6 +56,7 @@ class zipperAgentEnqueueResource {
 			$this->enqueueStyle('pikaday-css', zipperagent_url(false) . 'css/pikaday.css');
 			$this->enqueueStyle('social-share', zipperagent_url(false) . 'css/social-share.css');
 			$this->enqueueStyle('property-print', zipperagent_url(false) . 'css/print.css');
+			$this->enqueueStyle('dropdownCheckboxes', zipperagent_url(false) . 'css/dropdownCheckboxes.min.css');
 			
 			if( wp_get_theme() !== "Conall" ){
 				$this->enqueueStyle('owl-carousel-css', zipperagent_url(false) . 'css/owl.carousel.min.css');
@@ -84,11 +85,12 @@ class zipperAgentEnqueueResource {
 			/* Start modification by Decz */
 			// $this->enqueueScript('jquery-ui-slider');
 			$this->enqueueScript('za-bundle-js', zipperagent_url(false) . 'js/bundle.js');
-			$this->enqueueScript('bootstrap-multiselect', zipperagent_url(false) . 'js/bootstrap-multiselect.min.js');
+			// $this->enqueueScript('bootstrap-multiselect', zipperagent_url(false) . 'js/bootstrap-multiselect.min.js');
 			$this->enqueueScript('magicsuggest-js', zipperagent_url(false) . 'js/magicsuggest.js');
 			$this->enqueueScript('momment', zipperagent_url(false) . 'js/moment.min.js');
 			$this->enqueueScript('pikaday-js', zipperagent_url(false) . 'js/pikaday.js');
 			$this->enqueueScript('pikaday-jquery', zipperagent_url(false) . 'js/pikaday.jquery.js');
+			$this->enqueueScript('dropdownCheckboxes', zipperagent_url(false) . 'js/dropdownCheckboxes.min.js');
 			
 			if( wp_get_theme() !== "Conall" ){
 				$this->enqueueScript('owl-carousel-js', zipperagent_url(false) . 'js/owl.carousel.min.js');

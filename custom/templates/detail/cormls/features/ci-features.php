@@ -5,6 +5,12 @@
 		<table class="bt-listing__table">
 
 			<tbody>
+				<?php if( isset($single_property->propsubtype)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Property Sub Type</td>
+					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
+				</tr>
+				<?php endif; ?>
 				<?php if( isset($single_property->specialassessments)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Assessment </td>
@@ -27,12 +33,6 @@
 				<tr>
 					<td class="bt-listing__table__label">Between Street2</td>
 					<td class="bt-listing__table__items"><span>[unmapped_Between Street (2)]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->propsubtype)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Commercial Sub Type</td>
-					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Corp LimitPerAuditor'})): ?>

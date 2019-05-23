@@ -244,6 +244,18 @@
 			  <strong>Zoning</strong>
 			  [zoning]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'TransactionType'})): ?>
+			  <strong>Transaction Type</strong>
+			  [unmapped_TransactionType]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->VacancyPCT)): ?>
+			  <strong>Vacancy PCT</strong>
+			  [unmapped_VacancyPCT]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->TaxesRealEstate)): ?>
+			  <strong>Taxes Real Estate</strong>
+			  [unmapped_TaxesRealEstate]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">

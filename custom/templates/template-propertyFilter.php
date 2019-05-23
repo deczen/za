@@ -19,6 +19,7 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 					</select>
 				</div>
 				<div class="col-xs-12 col-sm-3">
+					<?php /*
 					<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
 						<?php
 						$propTypeFields = get_property_type();
@@ -33,7 +34,49 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 							echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
 						}
 						?>
-					</select>						
+					</select> */ ?>
+
+					<div class="dropdown cq-dropdown">
+						<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+						<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+							<?php
+							$propTypeFields = get_property_type();
+							$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
+							$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+							
+							//generate proptype options
+							foreach( $propTypeFields as $fieldCode=>$fieldName ){
+								// echo $propDefaultOption . " == " . $fieldCode. "<br>";
+								if(in_array($fieldCode, $propDefaultOption))
+									$checked="checked";
+								else
+									$checked="";
+									
+								if($propTypeOption){
+									if(in_array($fieldCode, $propTypeOption)){
+										echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+										echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";
+									}
+								}else{									
+									echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";
+								}										
+							}
+							
+							$propSubTypeFields = get_property_sub_type();
+							
+							//generate propsubtype options
+							foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+								
+								if(in_array($fieldCode, $propDefaultOption))
+									$checked="checked";
+								else
+									$checked="";
+									
+								echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";																		
+							}
+							?>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<div class="row mt-25 zpa-home-search-fields filter">
@@ -115,6 +158,10 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 		<input type="hidden" name="view_type" value="<?php echo $type ?>" />
 	</form>
 	<script>
+		jQuery(function(){ jQuery('.cq-dropdown').dropdownCheckboxes(); });
+	</script> 
+	<?php /*
+	<script>
 		// Material Select Initialization
 		jQuery(document).ready(function($) {
 		  $('.multiselect').multiselect({
@@ -127,5 +174,5 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 		  
 		  <?php if(is_array($propDefaultOption)): ?>$('#zpa-select-property-type.multiselect').multiselect('select', ['<?php echo implode("','",$propDefaultOption) ?>']);<?php endif; ?>
 		});
-	</script>
+	</script> */ ?>
 </div>

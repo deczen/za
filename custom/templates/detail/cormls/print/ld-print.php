@@ -47,7 +47,7 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[norooms]</div>
 				 <div class="bt-print__meta-label">Total Rooms</div>
@@ -76,8 +76,8 @@
 				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
-			<?php endif; ?>
-			<?php if(isset($single_property->lotsize)): ?>
+			<?php endif;*/ ?>
+			<?php if(isset($single_property->acre)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[acre]</div>
 				 <div class="bt-print__meta-label">Acres</div>
@@ -115,22 +115,22 @@
 				 <div class="bt-print__area-val">[proptype]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->yearbuilt)): ?>
+			<?php /*if(isset($single_property->yearbuilt)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Built:</div>
 				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">County:</div>
 				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			<?php if(isset($single_property->shrtTOWNCODE)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="bt-print__area-val">[shrtTOWNCODE]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
@@ -234,14 +234,14 @@
 			  <strong>Manufactured Housing</strong>
 			  [unmapped-Manufactured Housing Y/N]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
 			  <strong>Cumulative DOM</strong>
 			  [unmapped_Cumulative DOM]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})): ?>
 			  <strong>Dir Neg w/Sell Perm</strong>
 			  [unmapped_Dir Neg w/Sell Perm]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->Basement)): ?>
 			  <strong>Basement</strong>
 			  [unmapped_Basement]

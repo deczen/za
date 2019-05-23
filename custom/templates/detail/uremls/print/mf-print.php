@@ -140,6 +140,18 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
+			  <?php if(isset($single_property->unmapped->additinfo)): ?>
+			  <strong>Additional Information</strong>
+			  [unmapped_additinfo]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->grossoper)): ?>
+			  <strong>Gross Operating</strong>
+			  [unmapped_grossoper]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->yearlyoccup)): ?>
+			  <strong>Yearly Occupancy </strong>
+			  [unmapped_yearlyoccup]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->amenities)): ?>
 			  <strong>Amenities</strong>
 			  [amenities]
@@ -199,18 +211,6 @@
 			  <?php if(isset($single_property->zoning)): ?>
 			  <strong>Zoning</strong>
 			  [zoning]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->additinfo)): ?>
-			  <strong>Additional Information</strong>
-			  [unmapped_additinfo]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->grossoper)): ?>
-			  <strong>Gross Operating</strong>
-			  [unmapped_grossoper]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->yearlyoccup)): ?>
-			  <strong>Yearly Occupancy </strong>
-			  [unmapped_yearlyoccup]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->zoningchar)): ?>
 			  <strong>Zoning Code</strong>
@@ -282,7 +282,7 @@
 			  <strong>Interior Features</strong>
 			  [interiorfeatures]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->levbbed)): ?>
+			  <?php /*if(isset($single_property->unmapped->levbbed)): ?>
 			  <strong>Level Basement Bedrooms</strong>
 			  [unmapped_levbbed]
 			  <?php endif; ?>
@@ -425,7 +425,7 @@
 			  <?php if(isset($single_property->unmapped->totdinings)): ?>
 			  <strong>Total Semi Formal Dining Rooms</strong>
 			  [unmapped_totdinings]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->windows)): ?>
 			  <strong>Windows</strong>
 			  [unmapped_windows]

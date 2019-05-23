@@ -65,15 +65,15 @@
 				 <div class="bt-print__meta-label">FULL BATHS</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nofullbaths)): ?>
+			<?php if(isset($single_property->nohalfbaths)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nofullbaths]</div>
+				 <div class="bt-print__meta-val">[nohalfbaths]</div>
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->totalbldgsf)): ?>
+			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[totalbldgsf]</div>
+				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
@@ -195,17 +195,17 @@
 			  [unmapped_Levels]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->style)): ?>
-			  <strong>Style</strong>
+			  <strong>House Style</strong>
 			  [style]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->vacant)): ?>
+			  <?php /*if(isset($single_property->vacant)): ?>
 			  <strong>Vacant</strong>
 			  [vacant]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->buildingconstruction)): ?>
 			  <strong>Building Construction</strong>
 			  [buildingconstruction]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->construction)): ?>
 			  <strong>Construction</strong>
 			  [construction]
@@ -214,9 +214,9 @@
 			  <strong>Foundation</strong>
 			  [foundation]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->basement)): ?>
+			  <?php if(isset($single_property->unmapped->{'Basement: Basement Y/N'})): ?>
 			  <strong>Basement</strong>
-			  [basement]
+			  [unmapped_Basement: Basement Y/N]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basementfeature)): ?>
 			  <strong>Basement Feature</strong>
@@ -254,7 +254,7 @@
 			  <strong>Fireplace</strong>
 			  [unmapped_Fireplace]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Manufactured Housing Y/N'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Manufactured Housing Y/N'})): ?>
 			  <strong>Manufactured Housing</strong>
 			  [unmapped-Manufactured Housing Y/N]
 			  <?php endif; ?>
@@ -273,15 +273,15 @@
 			  <?php if(isset($single_property->unmapped->{'Tenant Occupied'})): ?>
 			  <strong>Tenant Occupied</strong>
 			  [unmapped_Tenant Occupied]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->{'Lot Size (Side)'})): ?>
 			  <strong>Lot Size (Side)</strong>
 			  [unmapped_Lot Size (Side)]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Mid/High Rise'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Mid/High Rise'})): ?>
 			  <strong>Mid/High Rise</strong>
 			  [unmapped_Mid/High Rise]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->{'Built Prior to 1978'})): ?>
 			  <strong>Built Prior to 1978</strong>
 			  [unmapped_Built Prior to 1978]
@@ -294,10 +294,14 @@
 			  <strong>Transaction Type</strong>
 			  [unmapped_TransactionType]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->lotdescription)): ?>
+			  <?php if(isset($single_property->unmapped->{'Lot Characteristics'})): ?>
+			  <strong>Lot Description</strong>
+			  [unmapped_Lot Characteristics]
+			  <?php endif; ?>
+			  <?php /*if(isset($single_property->lotdescription)): ?>
 			  <strong>Lot Description</strong>
 			  [lotdescription]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->zoning)): ?>
 			  <strong>Zoning</strong>
 			  [zoning]
@@ -305,6 +309,14 @@
 			  <?php if(isset($single_property->petsallowed)): ?>
 			  <strong>Pets Allowed</strong>
 			  [petsallowed]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Windows)): ?>
+			  <strong>Windows</strong>
+			  [unmapped_Windows]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'SqFt ATFLS'})): ?>
+			  <strong>Finished Total</strong>
+			  [unmapped_SqFt ATFLS]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Price Per Acre'})): ?>
 			  <strong>Price Per Acre</strong>
@@ -334,6 +346,31 @@
 			  [garageparking]
 			  <?php endif; ?>
 		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
+		   <p>
+			  <?php if(isset($single_property->unmapped->Fireplace)): ?>
+			  <strong>Fireplace</strong>
+			  [unmapped_Fireplace]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Fireplace Features'})): ?>
+			  <strong>Fireplace Features</strong>
+			  [unmapped_Fireplace Features]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Rooms)): ?>
+			  <strong>Rooms</strong>
+			  [unmapped_Rooms]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Interior Flooring'})): ?>
+			  <strong>Flooring</strong>
+			  [unmapped_Interior Flooring]
+			  <?php endif; ?>
+			</p>
 		</div>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6>

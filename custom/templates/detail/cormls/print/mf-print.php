@@ -47,19 +47,19 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[norooms]</div>
 				 <div class="bt-print__meta-label">Total Rooms</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">FULL BATHS</div>
@@ -77,9 +77,9 @@
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->lotsize)): ?>
+			<?php if(isset($single_property->acre)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[lotsize]</div>
+				 <div class="bt-print__meta-val">[acre]</div>
 				 <div class="bt-print__meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
@@ -121,10 +121,10 @@
 				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
+			<?php if(isset($single_property->shrtTOWNCODE)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="bt-print__area-val">[shrtTOWNCODE]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
@@ -228,14 +228,14 @@
 			  <strong>Manufactured Housing</strong>
 			  [unmapped-Manufactured Housing Y/N]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Cumulative DOM'})): ?>
 			  <strong>Cumulative DOM</strong>
 			  [unmapped_Cumulative DOM]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})): ?>
 			  <strong>Dir Neg w/Sell Perm</strong>
 			  [unmapped_Dir Neg w/Sell Perm]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->unmapped->Basement)): ?>
 			  <strong>Basement</strong>
 			  [unmapped_Basement]
@@ -406,10 +406,10 @@
 			  <strong>Tax District</strong>
 			  [unmapped_Tax]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Tax Abatement'})): ?>
+			  <?php /*if(isset($single_property->unmapped->{'Tax Abatement'})): ?>
 			  <strong>Tax Abatement</strong>
 			  [unmapped_Tax Abatement]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->taxyear)): ?>
 			  <strong>Tax Year</strong>
 			  [taxyear]
@@ -417,10 +417,6 @@
 			  <?php if(isset($single_property->taxes)): ?>
 			  <strong>Tax Amount ($)</strong>
 			  [taxes]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->{'Tax District'})): ?>
-			  <strong>Tax District</strong>
-			  [unmapped_Tax District]
 			  <?php endif; ?>
 		   </p>
 		</div>
