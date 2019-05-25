@@ -8,6 +8,9 @@ $rb = zipperagent_rb();
 
 $contactIds=get_contact_id();
 
+//map zoom level
+$zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
+
 if( $list ): ?>
 <div id="map-content">
    <?php 
@@ -712,7 +715,7 @@ else: ?>
 		
 		// Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
 		var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-			this.setZoom(10);
+			this.setZoom(<?php echo $zoom; ?>);
 			google.maps.event.removeListener(boundsListener);
 		});
 		

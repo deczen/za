@@ -248,7 +248,7 @@ global $requests;
       function initialize() {
         <?php extract(zipperagent_get_map_centre()); ?>
 		var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 9,
+          zoom: <?php echo $requests['map_zoom']; ?>,
           center: new google.maps.LatLng('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>'),
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           disableDefaultUI: true,

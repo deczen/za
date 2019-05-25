@@ -97,12 +97,12 @@
 		</table>
 		<div class="bt-print__area__wrap">
 		   <div class="bt-print__area">
-			<?php if(isset($single_property->neighborhood)): ?>
+			<?php /*if(isset($single_property->neighborhood)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
 			  </div>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->proptype)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Type:</div>
@@ -285,7 +285,9 @@
 			  [zoning]
 			  <?php endif; ?>
 			</p>
-			  <!-- parking information -->
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
 			<p> 
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
@@ -299,14 +301,10 @@
 			  <strong>Parking Spaces</strong>
 			  [parkingspaces]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->roadtype)): ?>
-			  <strong>Road Type</strong>
-			  [roadtype]
-			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association information</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
 		   <p>
 			  <?php if(isset($single_property->unmapped->ASSOCSECURITY)): ?>
 			  <strong>Assoc Security</strong>
@@ -353,6 +351,10 @@
 			  <?php if(isset($single_property->unmapped->NumberOfSeparateWaterMeters)): ?>
 			   <strong>Number Of Separate Water Meters</strong>
 			  [unmapped_NumberOfSeparateWaterMeters]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->NumberOfSeparateGasMeters)): ?>
+			   <strong>Number Of Separate Gas Meters</strong>
+			  [unmapped_NumberOfSeparateGasMeters]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->FuelExpense)): ?>
 			   <strong>Fuel Expense</strong>

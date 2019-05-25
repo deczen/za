@@ -47,7 +47,7 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[norooms]</div>
 				 <div class="bt-print__meta-label">Total Rooms</div>
@@ -82,7 +82,7 @@
 				 <div class="bt-print__meta-val">[unmapped_LivingArea]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->acre)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[acre]</div>
@@ -121,12 +121,12 @@
 				 <div class="bt-print__area-val">[proptype]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->yearbuilt)): ?>
+			<?php /*if(isset($single_property->yearbuilt)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Built:</div>
 				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">County:</div>
@@ -297,7 +297,9 @@
 			  [zoning]
 			  <?php endif; ?>
 			</p>
-			  <!-- parking information -->
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
 			<p> 
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
@@ -311,14 +313,10 @@
 			  <strong>Parking Spaces</strong>
 			  [parkingspaces]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->roadtype)): ?>
-			  <strong>Road Type</strong>
-			  [roadtype]
-			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association information</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
 		   <p>
 			  <?php if(isset($single_property->unmapped->ASSOCSECURITY)): ?>
 			  <strong>Assoc Security</strong>
@@ -365,6 +363,10 @@
 			  <?php if(isset($single_property->unmapped->NumberOfSeparateWaterMeters)): ?>
 			   <strong>Number Of Separate Water Meters</strong>
 			  [unmapped_NumberOfSeparateWaterMeters]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->NumberOfSeparateGasMeters)): ?>
+			   <strong>Number Of Separate Gas Meters</strong>
+			  [unmapped_NumberOfSeparateGasMeters]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->FuelExpense)): ?>
 			   <strong>Fuel Expense</strong>

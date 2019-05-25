@@ -356,6 +356,8 @@ function display_zipperagent_map_view($atts){
 	global $type, $requests;
 	
 	$requests=$atts;
+	
+	//define location
 	if( isset($requests['location']) ){
 		$requests['location']=explode(',',$requests['location']);
 	}
@@ -694,6 +696,7 @@ function getMapSearch($atts){
 		'newsearchbar' => '',
 		'minlistprice' => '',
 		'maxlistprice' => '',
+		'map_zoom' => 9,
 	), $atts, 'za_map_search' );
 	
 	$requests = $atts;

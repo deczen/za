@@ -130,29 +130,8 @@
 		<?php endif; ?>
 		
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Details</h6>
 		   <p>
-			  <?php if(isset($single_property->mauunits)): ?>
-			  <strong>Manufacturing</strong>
-			  [mauunits]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->ofuunits)): ?>
-			  <strong>Office</strong>
-			  [ofuunits]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rsuunits)): ?>
-			  <strong>Residential</strong>
-			  [rsuunits]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->reuunits)): ?>
-			  <strong>Retail</strong>
-			  [reuunits]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->wauunits)): ?>
-			  <strong>Warehouse</strong>
-			  [wauunits]
-			  <?php endif; ?>
-			  
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
@@ -245,18 +224,18 @@
 			  <strong>Green Certified</strong>
 			  [greencertified]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->handicapaccess)): ?>
-			  <strong>Handicap Access</strong>
-			  [handicapaccess]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->electricfeature)): ?>
 			  <strong>Electric Feature</strong>
 			  [electricfeature]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->handicapaccess)): ?>
+			  <strong>Handicap Access</strong>
+			  [handicapaccess]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Details</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
 		   <p>
 			  <?php if(isset($single_property->parkingspaces)): ?>
 			  <strong>Parking Spaces</strong>
@@ -268,6 +247,60 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes & Considerations</h6>
+		   <p>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Tax Amount ($)</strong>
+			  [taxes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->zoning)): ?>
+			  <strong>Zoning Code</strong>
+			  [zoning]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->zonedescription)): ?>
+			  <strong>Zoning Description</strong>
+			  [zonedescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hoafee)): ?>
+			  <strong>Association Fee ($)</strong>
+			  [hoafee]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->asscfeeincludes)): ?>
+			  <strong>Fee Includes</strong>
+			  [asscfeeincludes]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		
+		<?php $roomLevels = $single_property->roomLevels;
+		if (isset($roomLevels)): ?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+			<p>
+			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+				
+					<strong>Room Type</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomType]
+					<strong>Room Level</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomLevel]
+					
+					<?php $dim1 = $roomLevels[$rkey]->dim1; 
+						  $dim2 = $roomLevels[$rkey]->dim2; 
+					?>
+					<?php if( isset($dim1) && isset($dim2)): ?>
+					<strong>Room Size</strong>
+					[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
+					<?php endif; ?>
+					
+			<?php endforeach; ?>
+			</p>
+		</div>
+		<?php endif; ?>
 		
 		<div class="bt-print__block">
 		<?php if( $source_details ){
