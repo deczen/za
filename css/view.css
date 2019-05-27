@@ -405,3 +405,6 @@
 
 .zpa-search-location input#zpa-school,
 .zpa-search-location input#zpa-area-address{border: 1px solid #ccc !important;padding-top:0 !important;}
+
+#zpa-main-container #zpaVirtualShowing .modal-dialog{max-width: 1000px; width: 100%;}
+#zpa-main-container #zpaVirtualShowing .modal-dialog iframe{width: 100%;}

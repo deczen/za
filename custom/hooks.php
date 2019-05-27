@@ -1573,6 +1573,7 @@ function zipperagent_detail_page_popup(){
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-schedule-show.php'; ?>
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-requestInfo.php'; ?>
 	<?php include ZIPPERAGENTPATH . '/custom/templates/template-share-email.php'; ?>
+	<?php include ZIPPERAGENTPATH . '/custom/templates/template-virtual-tour.php'; ?>
 	</div>
 	<?php
 }

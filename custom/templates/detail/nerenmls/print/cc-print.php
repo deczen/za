@@ -343,6 +343,354 @@
 		</div>
 		<?php endif; ?>
 		
+		
+		<?php if( isset($single_property->mbrdimen) || isset($single_property->mbrlevel) || isset($single_property->mbrdscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Master Bedroom</h6> 
+			   <p>
+				  <?php if(isset($single_property->mbrdimen)): ?>
+				  <strong>Size</strong>
+				  [mbrdimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->mbrlevel)): ?>
+				  <strong>Level</strong>
+				  [mbrlevel]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->mbrdscrp)): ?>
+				  <strong>Features</strong>
+				  [mbrdscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bed2DIMEN) || isset($single_property->bed2LEVEL) || isset($single_property->bed2DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #2</h6> 
+			   <p>
+				  <?php if(isset($single_property->bed2DIMEN)): ?>
+				  <strong>Size</strong>
+				  [bed2DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed2LEVEL)): ?>
+				  <strong>Level</strong>
+				  [bed2LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed2DSCRP)): ?>
+				  <strong>Features</strong>
+				  [bed2DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bed3DIMEN) || isset($single_property->bed3LEVEL) || isset($single_property->bed3DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #3</h6> 
+			   <p>
+				  <?php if(isset($single_property->bed3DIMEN)): ?>
+				  <strong>Size</strong>
+				  [bed3DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed3LEVEL)): ?>
+				  <strong>Level</strong>
+				  [bed3LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed3DSCRP)): ?>
+				  <strong>Features</strong>
+				  [bed3DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bed4DIMEN) || isset($single_property->bed4LEVEL) || isset($single_property->bed4DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #4</h6> 
+			   <p>
+				  <?php if(isset($single_property->bed4DIMEN)): ?>
+				  <strong>Size</strong>
+				  [bed4DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed4LEVEL)): ?>
+				  <strong>Level</strong>
+				  [bed4LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed4DSCRP)): ?>
+				  <strong>Features</strong>
+				  [bed4DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bed5DIMEN) || isset($single_property->bed5LEVEL) || isset($single_property->bed5DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #5</h6> 
+			   <p>
+				  <?php if(isset($single_property->bed5DIMEN)): ?>
+				  <strong>Size</strong>
+				  [bed5DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed5LEVEL)): ?>
+				  <strong>Level</strong>
+				  [bed5LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bed5DSCRP)): ?>
+				  <strong>Features</strong>
+				  [bed5DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->bth1dimen) || isset($single_property->bth1LEVEL) || isset($single_property->bth1dscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #1</h6> 
+			   <p>
+				  <?php if(isset($single_property->bth1dimen)): ?>
+				  <strong>Size</strong>
+				  [bth1dimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth1LEVEL)): ?>
+				  <strong>Level</strong>
+				  [bth1LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth1dscrp)): ?>
+				  <strong>Features</strong>
+				  [bth1dscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bth2dimen) || isset($single_property->bth2LEVEL) || isset($single_property->bth2dscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #2</h6> 
+			   <p>
+				  <?php if(isset($single_property->bth2dimen)): ?>
+				  <strong>Size</strong>
+				  [bth2dimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth2LEVEL)): ?>
+				  <strong>Level</strong>
+				  [bth2LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth2dscrp)): ?>
+				  <strong>Features</strong>
+				  [bth2dscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bth3dimen) || isset($single_property->bth3level) || isset($single_property->bth3dscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #3</h6> 
+			   <p>
+				  <?php if(isset($single_property->bth3dimen)): ?>
+				  <strong>Size</strong>
+				  [bth3dimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth3level)): ?>
+				  <strong>Level</strong>
+				  [bth3level]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->bth3dscrp)): ?>
+				  <strong>Features</strong>
+				  [bth3dscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->kitdimen) || isset($single_property->kitlevel) || isset($single_property->kitdscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Kitchen</h6> 
+			   <p>
+				  <?php if(isset($single_property->kitdimen)): ?>
+				  <strong>Size</strong>
+				  [kitdimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->kitlevel)): ?>
+				  <strong>Level</strong>
+				  [kitlevel]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->kitdscrp)): ?>
+				  <strong>Features</strong>
+				  [kitdscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->famdimen) || isset($single_property->famlevel) || isset($single_property->famdscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Family Room</h6> 
+			   <p>
+				  <?php if(isset($single_property->famdimen)): ?>
+				  <strong>Size</strong>
+				  [famdimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->famlevel)): ?>
+				  <strong>Level</strong>
+				  [famlevel]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->famdscrp)): ?>
+				  <strong>Features</strong>
+				  [famdscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->livdimen) || isset($single_property->livlevel) || isset($single_property->livdscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Living Room</h6> 
+			   <p>
+				  <?php if(isset($single_property->livdimen)): ?>
+				  <strong>Size</strong>
+				  [livdimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->livlevel)): ?>
+				  <strong>Level</strong>
+				  [livlevel]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->livdscrp)): ?>
+				  <strong>Features</strong>
+				  [livdscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->dindimen) || isset($single_property->dinlevel) || isset($single_property->dindscrp) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Dining Room</h6> 
+			   <p>
+				  <?php if(isset($single_property->dindimen)): ?>
+				  <strong>Size</strong>
+				  [dindimen]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->dinlevel)): ?>
+				  <strong>Level</strong>
+				  [dinlevel]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->dindscrp)): ?>
+				  <strong>Features</strong>
+				  [dindscrp]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->oth1DIMEN) || isset($single_property->oth1LEVEL) || isset($single_property->oth1DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #1</h6> 
+			   <p>
+				  <?php if(isset($single_property->oth1DIMEN)): ?>
+				  <strong>Size</strong>
+				  [oth1DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth1LEVEL)): ?>
+				  <strong>Level</strong>
+				  [oth1LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth1DSCRP)): ?>
+				  <strong>Features</strong>
+				  [oth1DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->oth2DIMEN) || isset($single_property->oth2LEVEL) || isset($single_property->oth2DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #2</h6> 
+			   <p>
+				  <?php if(isset($single_property->oth2DIMEN)): ?>
+				  <strong>Size</strong>
+				  [oth2DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth2LEVEL)): ?>
+				  <strong>Level</strong>
+				  [oth2LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth2DSCRP)): ?>
+				  <strong>Features</strong>
+				  [oth2DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->oth3DIMEN) || isset($single_property->oth3LEVEL) || isset($single_property->oth3DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #3</h6> 
+			   <p>
+				  <?php if(isset($single_property->oth3DIMEN)): ?>
+				  <strong>Size</strong>
+				  [oth3DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth3LEVEL)): ?>
+				  <strong>Level</strong>
+				  [oth3LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth3DSCRP)): ?>
+				  <strong>Features</strong>
+				  [oth3DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->oth4DIMEN) || isset($single_property->oth4LEVEL) || isset($single_property->oth4DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #4</h6> 
+			   <p>
+				  <?php if(isset($single_property->oth4DIMEN)): ?>
+				  <strong>Size</strong>
+				  [oth4DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth4LEVEL)): ?>
+				  <strong>Level</strong>
+				  [oth4LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth4DSCRP)): ?>
+				  <strong>Features</strong>
+				  [oth4DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->oth5DIMEN) || isset($single_property->oth5LEVEL) || isset($single_property->oth5DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #5</h6> 
+			   <p>
+				  <?php if(isset($single_property->oth5DIMEN)): ?>
+				  <strong>Size</strong>
+				  [oth5DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth5LEVEL)): ?>
+				  <strong>Level</strong>
+				  [oth5LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth5DSCRP)): ?>
+				  <strong>Features</strong>
+				  [oth5DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->oth6DIMEN) || isset($single_property->oth6LEVEL) || isset($single_property->oth6DSCRP) ):?>
+			<div class="bt-print__block">
+			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #6</h6> 
+			   <p>
+				  <?php if(isset($single_property->oth6DIMEN)): ?>
+				  <strong>Size</strong>
+				  [oth6DIMEN]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth6LEVEL)): ?>
+				  <strong>Level</strong>
+				  [oth6LEVEL]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->oth6DSCRP)): ?>
+				  <strong>Features</strong>
+				  [oth6DSCRP]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		
+		
 		<div class="bt-print__block">
 		<?php if( $source_details ){
 			echo $source_details;
