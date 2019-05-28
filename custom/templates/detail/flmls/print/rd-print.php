@@ -47,22 +47,22 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
-			<?php if(isset($single_property->norooms)): ?>
+			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[norooms]</div>
 				 <div class="bt-print__meta-label">Total Rooms</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
-				 <div class="bt-print__meta-label">FULL BATHS</div>
+				 <div class="bt-print__meta-label">Full Baths</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->unmapped->BathsThreeQuarter)): ?>
@@ -186,8 +186,6 @@
 			  <strong>Floor</strong>
 			  [flooring]
 			  <?php endif; ?>
-			  <?php /* <strong>Home Owners Association</strong>
-			  No */ ?>
 			  <?php if(isset($single_property->roofmaterial)): ?>
 			  <strong>Roof Material</strong>
 			  [roofmaterial]
@@ -244,18 +242,10 @@
 			  <strong>Waterfront Feet Total</strong>
 			  [unmapped_WaterfrontFeetTotal]
 			  <?php endif; ?>
-			  <?php /* <strong>Lender Owned</strong>
-			  No 
-			  <strong>Sewer</strong>
-			  Private Sewerage */ ?>
 			  <?php if(isset($single_property->unmapped->WaterExtras)): ?>
 			  <strong>Water Extras</strong>
 			  [unmapped_WaterExtras]
 			  <?php endif; ?>
-			  <?php /* <strong>Single Family Type</strong>
-			  Detached 
-			  <strong>Sq Ft Disclosures</strong>
-			  1762 is The First FloorThe inl-aw is 880. Calculated By Matterport Not Guaranteed. */ ?>
 			  <?php if(isset($single_property->unmapped->AdditionalWaterInformation)): ?>
 			  <strong>Additional Water Information</strong>
 			  [unmapped_AdditionalWaterInformation]
@@ -276,8 +266,6 @@
 			  <strong>Vegetation</strong>
 			  [unmapped_Vegetation]
 			  <?php endif; ?>
-			  <?php /* <strong>Utility Connections</strong>
-			  For Electric OvenFor Electric DryerWasher Hookup */ ?>
 			  <?php if(isset($single_property->unmapped->LotSizeSquareFeet)): ?>
 			  <strong>Lot Size Square Feet</strong>
 			  [unmapped_LotSizeSquareFeet]
@@ -290,8 +278,6 @@
 			  <strong>Flood Zone Code</strong>
 			  [unmapped_FloodZoneCode]
 			  <?php endif; ?>
-			  <?php /* <strong>Year Round</strong>
-			  Yes */ ?>
 			  <?php if(isset($single_property->unmapped->BuildingElevatorYN)): ?>
 			  <strong>Building Elevator</strong>
 			  [unmapped_BuildingElevatorYN]
@@ -345,29 +331,10 @@
 			  [zoning]
 			  <?php endif; ?>
 			</p>
-			  <!-- parking information -->
-			<p>     
-			  <?php if(isset($single_property->garagespaces)): ?>
-			  <strong>Garage Spaces</strong>
-			  [garagespaces]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->parkingspaces)): ?>
-			  <strong>Parking Spaces</strong>
-			  [parkingspaces]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->roadtype)): ?>
-			  <strong>Road Type</strong>
-			  [roadtype]
-			  <?php endif; ?>
-		   </p>
 		</div>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association information</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
 		   <p>
-			  <?php /* <strong>Beach Description</strong>
-			  Lake/Pond
-			  <strong>Beach Ownership</strong>
-			  Private */ ?>
 			  <?php if(isset($single_property->unmapped->AssociationFeeFrequency)): ?>
 			  <strong>Association Fee Frequency</strong>
 			  [unmapped_AssociationFeeFrequency]
@@ -376,8 +343,6 @@
 			  <strong>Association Fee</strong>
 			  [unmapped_AssociationFee]
 			  <?php endif; ?>
-			  <?php /* <strong>Color</strong>
-			  Light Grey */ ?>
 			  <?php if(isset($single_property->unmapped->CondoFees)): ?>
 			  <strong>Condo Fees</strong>
 			  [unmapped_CondoFees]
@@ -386,8 +351,6 @@
 			  <strong>Monthly Condo Fee Amount</strong>
 			  [unmapped_MonthlyCondoFeeAmount]
 			  <?php endif; ?>
-			  <?php /* <strong>Exterior Features</strong>
-			  Deck */ ?>
 			  <?php if(isset($single_property->unmapped->CondoFeesTerm)): ?>
 			  <strong>Condo Fees Term</strong>
 			  [unmapped_CondoFeesTerm]
@@ -434,7 +397,26 @@
 			  [utilities]
 			  <?php endif; ?>
 			</p>
-			   <!-- Taxes, Fees -->
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6> 
+			<p>     
+			  <?php if(isset($single_property->garagespaces)): ?>
+			  <strong>Garage Spaces</strong>
+			  [garagespaces]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->parkingspaces)): ?>
+			  <strong>Parking Spaces</strong>
+			  [parkingspaces]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->roadtype)): ?>
+			  <strong>Road Type</strong>
+			  [roadtype]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>
 			<p> 
 			  <?php if(isset($single_property->unmapped->TaxLegalDescription)): ?>
 			   <strong>Tax Legal Description</strong>
@@ -454,6 +436,34 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
+		<?php $roomLevels = $single_property->roomLevels;
+		if (isset($roomLevels)): ?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+			<p>
+			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+				
+					<strong>Room Type</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomType]
+					
+					<?php $dim1 = $roomLevels[$rkey]->dim1; 
+						  $dim2 = $roomLevels[$rkey]->dim2; 
+					?>
+					<?php if( isset($dim1) && isset($dim2)): ?>
+					<strong>Room Size</strong>
+					[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
+					<?php endif; ?>
+					
+					<strong>Room Level</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomLevel]
+					
+					<strong>Floor</strong>
+					[roomLevels_<?php echo $rkey; ?>_floor]
+					
+			<?php endforeach; ?>
+			</p>
+		</div>
+		<?php endif; ?>
 		
 		<div class="bt-print__block">
 		<?php if( $source_details ){

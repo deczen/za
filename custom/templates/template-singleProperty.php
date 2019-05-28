@@ -330,10 +330,11 @@ if( sizeof($_GET)==$excParamCount ){
 															<label class="form__check" for="o-5">
 																<input type="radio" class="at-o" value="apt:DESC" name="o" id="o-5" <?php checked( $o, 'apt:DESC' ) ?>><span>Type / Price Descending</span></label>
 														</li>
+														<?php /*
 														<li>
 															<label class="form__check" for="o-6">
 																<input type="radio" class="at-o" value="alstid:ASC" name="o" id="o-6" <?php checked( $o, 'alstid:ASC' ) ?>><span>Listing Number</span></label>
-														</li>
+														</li> */ ?>
 													</ul>
 												</div>
 											</div>

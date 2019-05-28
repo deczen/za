@@ -52,11 +52,11 @@
 			  <?php /* <td>
 				 <div class="bt-print__meta-val">$170</div>
 				 <div class="bt-print__meta-label">$/SQFT</div>
-			  </td> */ ?>
+			  </td> 
 			  <td>
 				 <div class="bt-print__meta-val">[yearbuilt]</div>
 				 <div class="bt-print__meta-label">Built</div>
-			  </td>
+			  </td> */ ?>
 		   </tr>
 		</table>
 		<div class="bt-print__area__wrap">
@@ -64,6 +64,14 @@
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
+			  </div>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Type:</div>
+				 <div class="bt-print__area-val">[proptype]</div>
+			  </div>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Built:</div>
+				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">County:</div>

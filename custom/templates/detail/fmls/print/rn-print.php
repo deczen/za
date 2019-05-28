@@ -61,16 +61,16 @@
 			<?php endif; ?>
 			<?php if(isset($single_property->nobaths)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nofullbaths]</div>
-				 <div class="bt-print__meta-label">FULL BATHS</div>
+				 <div class="bt-print__meta-val">[nobaths]</div>
+				 <div class="bt-print__meta-label">BATHS</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->unmapped->BathsThreeQuarter)): ?>
+			<?php /*if(isset($single_property->unmapped->BathsThreeQuarter)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[unmapped_BathsThreeQuarter]</div>
 				 <div class="bt-print__meta-label">3/4 Baths</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->nohalfbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nohalfbaths]</div>
@@ -343,40 +343,6 @@
 			  [amenities]
 			  <?php endif; ?>
 			</p>
-			   <!-- Parking Information -->
-			<p>   
-			  <?php if(isset($single_property->parkingfeature)): ?>
-			  <strong>Parking Feature</strong>
-			  [parkingfeature]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CarportGarageTotal)): ?>
-			  <strong>Carport Garage Total</strong>
-			  [unmapped_CarportGarageTotal]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->garagespaces)): ?>
-			  <strong>Garage Spaces</strong>
-			  [garagespaces]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->parkingspaces)): ?>
-			  <strong>Parking Spaces</strong>
-			  [parkingspaces]
-			  <?php endif; ?>
-			</p>
-			   <!-- Schools -->
-			<p>   
-			  <?php if(isset($single_property->gradeschool)): ?>
-			  <strong>Grade School</strong>
-			  [gradeschool]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->middleschool)): ?>
-			  <strong>Middle School</strong>
-			  [middleschool]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->highschool)): ?>
-			  <strong>High School</strong>
-			  [highschool]
-			  <?php endif; ?>
-		   </p>
 		</div>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association information</h6>
@@ -406,21 +372,6 @@
 			  [asscfeeincludes]
 			  <?php endif; ?>
 			</p>
-			   <!-- Taxes, Fees -->
-			<p>    
-			  <?php if(isset($single_property->unmapped->{'Tax ID'})): ?>
-			  <strong>Tax ID</strong>
-			  [unmapped_Tax ID]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->taxyear)): ?>
-			  <strong>Tax Year</strong>
-			  [taxyear]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->taxes)): ?>
-			  <strong>Tax Amount ($)</strong>
-			  [taxes]
-			  <?php endif; ?>
-		   </p>
 		</div>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6>
@@ -460,6 +411,57 @@
 			  <?php if(isset($single_property->energyfeatures)): ?>
 			   <strong>Energy Features</strong>
 			  [energyfeatures]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6> 
+			<p>   
+			  <?php if(isset($single_property->gradeschool)): ?>
+			  <strong>Grade School</strong>
+			  [gradeschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->middleschool)): ?>
+			  <strong>Middle School</strong>
+			  [middleschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->highschool)): ?>
+			  <strong>High School</strong>
+			  [highschool]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
+			<p>   
+			  <?php if(isset($single_property->parkingfeature)): ?>
+			  <strong>Parking Feature</strong>
+			  [parkingfeature]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CarportGarageTotal)): ?>
+			  <strong>Carport Garage Total</strong>
+			  [unmapped_CarportGarageTotal]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->garagespaces)): ?>
+			  <strong>Garage Spaces</strong>
+			  [garagespaces]
+			  <?php endif; ?>
+			</p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>
+			<p>    
+			  <?php if(isset($single_property->unmapped->{'Tax ID'})): ?>
+			  <strong>Tax ID</strong>
+			  [unmapped_Tax ID]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Tax Amount ($)</strong>
+			  [taxes]
 			  <?php endif; ?>
 		   </p>
 		</div>

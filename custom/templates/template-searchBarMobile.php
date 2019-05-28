@@ -39,7 +39,7 @@
 						   <li><label for="o-3"><input type="radio" value="atwns%3AASC" name="o" id="o-3"><span>City</span></label></li>
 						   <li><label for="o-4"><input type="radio" value="lid%3ADESC" name="o" id="o-4"><span>Listing Date</span></label></li>
 						   <li><label for="o-5"><input type="radio" value="apt%3ADESC" name="o" id="o-5"><span>Type / Price Descending</span></label></li>
-						   <li><label for="o-6"><input type="radio" value="alstid%3AASC" name="o" id="o-6"><span>Listing Number</span></label> </li>
+						   <?php /* <li><label for="o-6"><input type="radio" value="alstid%3AASC" name="o" id="o-6"><span>Listing Number</span></label> </li> */ ?>
 						</ul>
 					  </div>
 					</div>

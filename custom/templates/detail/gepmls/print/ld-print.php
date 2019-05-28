@@ -150,6 +150,24 @@
 		</div>
 		<?php endif; ?>
 		
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6>
+		   <p>
+			  <?php if(isset($single_property->gradeschool)): ?>
+			  <strong>Grade School</strong>
+			  [gradeschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->highschool)): ?>
+			  <strong>High School</strong>
+			  [highschool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->middleschool)): ?>
+			  <strong>Middle School</strong>
+			  [middleschool]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) ):?>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>

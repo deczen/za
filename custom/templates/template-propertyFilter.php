@@ -125,7 +125,7 @@ global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareF
 						<option <?php selected( $o, 'atwns:ASC' ) ?> value="atwns:ASC">City</option>
 						<option <?php selected( $o, 'lid:DESC' ) ?> value="lid:DESC">Listing Date</option>
 						<option <?php selected( $o, 'apt:DESC' ) ?> value="apt:DESC">Type / Price Descending</option>
-						<option <?php selected( $o, 'alstid:ASC' ) ?> value="alstid:ASC">Listing Number</option>
+						<?php /* <option <?php selected( $o, 'alstid:ASC' ) ?> value="alstid:ASC">Listing Number</option> */ ?>
 						<?php /* <option value="">Open Home Date Asc</option> */ ?>
 					</select>
 				</div>

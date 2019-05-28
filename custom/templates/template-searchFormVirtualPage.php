@@ -434,7 +434,7 @@ $addressSearch = 1;
 								<option value="atwns:ASC">City</option>
 								<option value="lid:DESC">Listing Date</option>
 								<option value="apt:DESC">Type / Price Descending</option>
-								<option value="alstid:ASC">Listing Number</option>
+								<?php /* <option value="alstid:ASC">Listing Number</option> */ ?>
 								<?php /* <option value="">Open Home Date Asc</option> */ ?>
 							</select>
 						</div>
