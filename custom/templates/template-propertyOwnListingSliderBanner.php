@@ -297,7 +297,7 @@ if( $aloff ){
 													<div class="property">
 														<div class="property-description">
 															<h6>
-																<span class="impress-street"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)? $property->streetname :'-'; ?>  </span>
+																<span class="impress-street"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)?zipperagent_fix_comma($property->streetname):'-'; ?>  </span>
 																<span class="impress-cityname"><?php echo isset($property->lngTOWNSDESCRIPTION)? $property->lngTOWNSDESCRIPTION :'-'; ?></span>,
 																<span class="impress-state"> <?php echo isset($property->provinceState)? $property->provinceState :'-'; ?></span>
 															</h6>

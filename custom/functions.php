@@ -293,7 +293,7 @@ if( ! function_exists('zipperagent_get_address') ){
 			$hide_streetnumber=1;
 		}
 		
-		$streetname = isset($property->streetname)?$property->streetname:'';
+		$streetname = isset($property->streetname)?zipperagent_fix_comma($property->streetname):'';
 		$lngTOWNSDESCRIPTION = isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:'';
 		$provinceState = isset($property->provinceState)?$property->provinceState:'';
 		$zipcode = isset($property->zipcode)?$property->zipcode:'';
@@ -322,7 +322,7 @@ if( ! function_exists('zipperagent_luxury_address') ){
 			$hide_streetnumber=1;
 		}
 		$town_arr=get_towns_array(); // get towns array
-		$streetname = isset($property->streetName)?$property->streetName:'';
+		$streetname = isset($property->streetName)?zipperagent_fix_comma($property->streetName):'';
 		$townCode = isset($property->townCode)?$property->townCode:'';
 		$lngTOWNSDESCRIPTION = isset($town_arr[$townCode])?$town_arr[$townCode]:$townCode;
 		$provinceState = isset($property->stateCode)?$property->stateCode:'';
@@ -3613,6 +3613,18 @@ if( ! function_exists('zipperagent_generate_filter_input') ){
 				echo "<input type='hidden' linked-name='{$key}_{$value}' name='{$key}[]' value='{$value}' />"."\r\n";
 			}
 		}
+	}
+}
+
+if( ! function_exists('zipperagent_fix_comma') ){
+	function zipperagent_fix_comma($value){
+		
+		$value=str_replace(', ',',', $value);
+		$value=str_replace(' , ',',', $value);
+		$value=str_replace(' ,',',', $value);
+		$value=str_replace(',',', ', $value);
+		
+		return $value;
 	}
 }
 

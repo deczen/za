@@ -265,7 +265,7 @@ function zipperagent_panel_additional_settings( $post ) {
 	<input type="text" name="za_agent_login" value="<?php echo $za_agent_login; ?>" /> </label>	</p> */
 }
 
-add_action( 'wpcf7_save_contact_form', 'zipperagent_save_contact_form' );
+add_action( 'wpcf7_save_contact_form', 'zipperagent_save_contact_form', 10, 3 );
 
 function zipperagent_save_contact_form($contact_form, $args, $context){
 	

@@ -182,7 +182,7 @@ if(file_exists($template_path) && $template_name ){
 										<?php echo property_source_info($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' )); ?>
 										<div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 											<h1 class="uk-h2 mt-5 mb-0 listing-address at-prop-addr-txt">
-												<span itemprop="streetAddress"> [streetno] <?php echo isset($single_property->streetname)?$single_property->streetname:'' ?> </span></h1>
+												<span itemprop="streetAddress"> [streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> </span></h1>
 											<div class="bt-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
 												<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 												<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>

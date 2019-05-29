@@ -20,7 +20,7 @@ $contactIds=get_contact_id();
 													$imgsrc=zipperagent_get_idx_logo($single_property->sourceid);
 													?>													
 													<h1 class="uk-h2 mt-5 mb-0 listing-address at-prop-addr-txt">
-														<span itemprop="streetAddress"> [streetno] <?php echo isset($single_property->streetname)?$single_property->streetname:'' ?> </span> <?php if($imgsrc): ?><img src="<?php echo $imgsrc; ?>" alt="[listOfficeName]" /><?php endif; ?></h1>
+														<span itemprop="streetAddress"> [streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> </span> <?php if($imgsrc): ?><img src="<?php echo $imgsrc; ?>" alt="[listOfficeName]" /><?php endif; ?></h1>
 													<div class="bt-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
 														<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 														<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>
