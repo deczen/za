@@ -307,7 +307,6 @@
 			  <strong>Parking Spaces</strong>
 			  [parkingspaces]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->roadtype)): ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
