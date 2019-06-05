@@ -9,7 +9,20 @@ $template_sidebar='';
 $template_vtlink='';
 $is_custom_template=0;
 $property_type = strtoupper($single_property->proptype);
+$property_subtype = isset($single_property->propsubtype)?strtoupper($single_property->propsubtype):'';
 
+//special case
+switch($property_type){
+	case "A":
+			switch($property_subtype){
+				case "CONDOMINIUM":
+						$property_type=$property_subtype;
+					break;
+			}
+		break;
+}
+
+//Template selection
 switch($property_type){
 	case "SF": //Single Family		
 	case "SFR": //Single Family		
@@ -30,6 +43,7 @@ switch($property_type){
 	case "MUL": //Multifamily	
 	case "MUL": //Multifamily	
 	case "MANU": //MAnufactured in Park	
+	case "B": //Multi-family
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -50,6 +64,7 @@ switch($property_type){
 	case "LN": //Land		
 	case "FM": //Farm		
 	case "FR": //Farm		
+	case "C": //Lands&Lots		
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -62,6 +77,7 @@ switch($property_type){
 	case "RENT": //Rental		
 	case "REN": //Rental		
 	case "REL": //Rental		
+	case "E": //Rental		
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -72,6 +88,7 @@ switch($property_type){
 	case "CND": //Condo		
 	case "CND": //Condo		
 	case "ATTSF": //Attached Single Family	
+	case "CONDOMINIUM": //Condo	
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
@@ -84,6 +101,7 @@ switch($property_type){
 	case "COMM": //Commercial		
 	case "CM": //Commercial		
 	case "INC": //Income		
+	case "D": //Commercial		
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';
@@ -105,6 +123,7 @@ switch($property_type){
 	case "RESI": //Residential
 	case "RINC": //Residential
 	case "RLSE": //Residential
+	case "A": //Residential
 		$template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 		$template_features='rd-features.php';
 		$template_print='rd-print.php';
