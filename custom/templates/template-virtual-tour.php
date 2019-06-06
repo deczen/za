@@ -21,7 +21,7 @@
 		
 		var zpiframe = jQuery(this).attr('content-iframe');
 		
-		jQuery('#zpaVirtualShowing .zpa-virtual-tour').html(zpiframe);
+		jQuery('#zpaVirtualShowing .zpa-virtual-tour').html(decodeURIComponent(zpiframe));
 		jQuery('#zpaVirtualShowing').modal('show');
 		
 		// console.log(zpiframe);
