@@ -1,7 +1,7 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 	
 	<li class="cell">
-		<?php if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
+		<?php /* if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
 		<h3 class="bt-listing__headline">Summary Info</h3>
 		<table class="bt-listing__table">
 			<tbody>
@@ -13,7 +13,7 @@
 				<?php endif; ?>				
 			</tbody>
 		</table>
-		<?php endif; ?>
+		<?php endif; */ ?>
 		
 		<?php if( isset($single_property->unmapped->{'Flood Ins Required'}) || isset($single_property->assessedvaluebldg) || isset($single_property->assessedvalueland) || isset($single_property->unmapped->{'Lot Size Source'}) || isset($single_property->unmapped->{'Membership Required'})
 			   || isset($single_property->beachmilesto) || isset($single_property->unmapped->{'Other Assessments'}) || isset($single_property->propsubtype) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->zoning) ):?>

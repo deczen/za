@@ -1,7 +1,7 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 	
 	<li class="cell">
-		<?php if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
+		<?php /* if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
 		<h3 class="bt-listing__headline">Summary Info</h3>
 		<table class="bt-listing__table">
 			<tbody>
@@ -13,7 +13,7 @@
 				<?php endif; ?>				
 			</tbody>
 		</table>
-		<?php endif; ?>
+		<?php endif; */ ?>
 		
 		<?php if( isset($single_property->unmapped->{'Convenient To'}) || isset($single_property->unmapped->{'First Month Required'}) || isset($single_property->forsale) || isset($single_property->unmapped->{'Fuel Type'}) || isset($single_property->unmapped->{'Last Month Required'}) || isset($single_property->leadpaint)
                || isset($single_property->unmapped->{'Lease w/Option to Buy'}) || isset($single_property->unmapped->{'Lot Size Source'}) || isset($single_property->nolots) || isset($single_property->beachmilesto) || isset($single_property->petsallowed) || isset($single_property->propsubtype) 

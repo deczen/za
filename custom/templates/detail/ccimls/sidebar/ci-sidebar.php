@@ -37,7 +37,12 @@
 	</div>
 	<div class="bt-panel__stack__sub">
 		<div class="m-0 bt-listing-table bt-listing__table-break">
-
+			
+			<div class="grid">
+				<div class="cell uk-text-bold">Neighborhood:</div>
+				<div class="cell uk-text-right"> [lngTOWNSDESCRIPTION] </div>
+			</div>
+			
 			<div class="grid">
 				<div class="cell cell-xs-3 uk-text-bold">Type:</div>
 				<div class="cell uk-text-right">[proptype]</div>

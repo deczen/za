@@ -1,7 +1,7 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 	
 	<li class="cell">
-		<?php if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
+		<?php /* if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
 		<h3 class="bt-listing__headline">Summary Info</h3>
 		<table class="bt-listing__table">
 			<tbody>
@@ -13,7 +13,7 @@
 				<?php endif; ?>				
 			</tbody>
 		</table>
-		<?php endif; ?>
+		<?php endif; */ ?>
 		
 		<?php if( isset($single_property->basement) || isset($single_property->flooring) || isset($single_property->norooms) || isset($single_property->complexcomplete) || isset($single_property->condominiumname) || isset($single_property->unmapped->{'Condo Style'}) || isset($single_property->condoassociation) || isset($single_property->unmapped->{'Convenient To'})
 			   || isset($single_property->unmapped->{'Flood Ins Required'}) || isset($single_property->unmapped->{'Fuel Type'}) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->assessedvaluebldg) || isset($single_property->leadpaint) || isset($single_property->location) || isset($single_property->unmapped->{'Lot Size Source'})

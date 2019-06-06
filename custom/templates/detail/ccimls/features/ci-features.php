@@ -1,7 +1,7 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 	
 	<li class="cell">
-		<?php if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
+		<?php /* if( isset($single_property->lngTOWNSDESCRIPTION) ):?>
 		<h3 class="bt-listing__headline">Summary Info</h3>
 		<table class="bt-listing__table">
 			<tbody>
@@ -13,7 +13,7 @@
 				<?php endif; ?>				
 			</tbody>
 		</table>
-		<?php endif; ?>
+		<?php endif; */ ?>
 		
 		<?php if( isset($single_property->basementfeature) || isset($single_property->flooring) || isset($single_property->unmapped->Walls) || isset($single_property->unmapped->Asbestos)
                || isset($single_property->beachownership) || isset($single_property->unmapped->{'Business w/Real Estate'}) || isset($single_property->unmapped->{'Commercial Units'}) || isset($single_property->unmapped->Condo) 

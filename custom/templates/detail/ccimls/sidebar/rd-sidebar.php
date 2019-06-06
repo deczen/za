@@ -42,7 +42,7 @@
 
 			<div class="grid">
 				<div class="cell uk-text-bold">Neighborhood:</div>
-				<div class="cell uk-text-right"> [neighborhood] </div>
+				<div class="cell uk-text-right"> [lngTOWNSDESCRIPTION] </div>
 			</div>
 
 
