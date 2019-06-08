@@ -183,6 +183,73 @@
 					<td class="bt-listing__table__items"><span>[zoning]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->totalassessedvalue)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Total Assessment</td>
+					<td class="bt-listing__table__items"><span>[totalassessedvalue]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->buildingconstruction)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Construction </td>
+					<td class="bt-listing__table__items"><span>[buildingconstruction]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lot Depth'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Depth</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lot Depth]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->parkingfeature)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Parking Description</td>
+					<td class="bt-listing__table__items"><span>[parkingfeature]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->lotdescription)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Topography </td>
+					<td class="bt-listing__table__items"><span>[lotdescription]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Kitchen)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Kitchen</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Kitchen]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->laundryfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Laundry</td>
+					<td class="bt-listing__table__items"><span>[laundryfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->gas)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Gas </td>
+					<td class="bt-listing__table__items"><span>[gas]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lead Base Paint'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lead Paint</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lead Base Paint]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Residential Units'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Residential Units</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Residential Units]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->utilities)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Utilities</td>
+					<td class="bt-listing__table__items"><span>[utilities]</span></td>
+				</tr>
+				<?php endif; ?>
+				
 			</tbody>
 		</table>				
 		<?php endif; ?>

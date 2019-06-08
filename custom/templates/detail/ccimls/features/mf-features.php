@@ -111,7 +111,69 @@
 					<td class="bt-listing__table__label">Zoning</td>
 					<td class="bt-listing__table__items"><span>[zoning]</span></td>
 				</tr>
-				<?php endif; ?>				
+				<?php endif; ?>	
+				<?php if( isset($single_property->unmapped->{'Beach/Lake/Pond'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Beach Lake Pond</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Beach/Lake/Pond]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->parkingspaces)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Parking Spaces</td>
+					<td class="bt-listing__table__items"><span>[parkingspaces]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->unmapped->{'Siding Description'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Siding Description</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Siding Description]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->unmapped->{'Street Description'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Street Description</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Street Description]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->lotdescription)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Topography </td>
+					<td class="bt-listing__table__items"><span>[lotdescription]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->appliances)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Appliances </td>
+					<td class="bt-listing__table__items"><span>[appliances]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->unmapped->{'Convenient To'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Convenient To</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Convenient To]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->location)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Location Description</td>
+					<td class="bt-listing__table__items"><span>[location]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->beachmilesto)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Miles From Beach</td>
+					<td class="bt-listing__table__items"><span>[beachmilesto]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->unmapped->{'Neighborhood Amen'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Neighborhood Amenities</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Neighborhood Amen]</span></td>
+				</tr>
+				<?php endif; ?>	
+				
+				
 			</tbody>
 		</table>				
 		<?php endif; ?>
@@ -363,6 +425,72 @@
 			</tbody>
 		</table>
 		<?php endif; ?>
+		
+		<?php if( isset($single_property->unmapped->{'Unit 1 Info: Bedrooms'}) || isset($single_property->unmapped->{'Unit 1 Features'}) || isset($single_property->unmapped->{'Unit 1 Info: Floor/Level'}) || isset($single_property->unmapped->{'Unit 1 Floor Lvl/Des'}) 
+			   || isset($single_property->unmapped->{'Unit 1 Info: Full Baths'}) || isset($single_property->unmapped->{'Unit 2 Info: Bedrooms'}) || isset($single_property->unmapped->{'Unit 2 Features'}) || isset($single_property->unmapped->{'Unit 2 Floor Lvl/Des'})
+			   || isset($single_property->unmapped->{'Unit 2 Info: Full Baths'}) ):?>
+		
+		<h3 class="bt-listing__headline">Room Informations</h3>
+		<table class="bt-listing__table">
+			<tbody>
+				<?php if( isset($single_property->unmapped->{'Unit 1 Info: Bedrooms'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit1 Bedrooms</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 1 Info: Bedrooms]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 1 Features'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit1 Features</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 1 Features]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 1 Info: Floor/Level'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit1 Floor Level</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 1 Info: Floor/Level]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 1 Floor Lvl/Des'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit1 Floor Level Description</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 1 Floor Lvl/Des]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 1 Info: Full Baths'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit1 Full Baths</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 1 Info: Full Baths]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 2 Info: Bedrooms'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit2 Bedrooms</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 2 Info: Bedrooms]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 2 Features'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit2 Features</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 2 Features]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 2 Floor Lvl/Des'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit2 Floor Level Description</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 2 Floor Lvl/Des]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Unit 2 Info: Full Baths'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Unit2 Full Baths</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Unit 2 Info: Full Baths]</span></td> <!-- not done -->
+				</tr>
+				<?php endif; ?>
+				
+			</tbody>
+		</table>
+		<?php endif; ?>
 	</li>
 
 	<li class="cell">
@@ -434,6 +562,6 @@
 			</tbody>
 		</table>
 		<?php endif; ?>
-	</li>					
+	</li>				
 
 </ul>

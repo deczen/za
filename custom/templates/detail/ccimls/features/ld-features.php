@@ -82,6 +82,61 @@
 					<td class="bt-listing__table__items"><span>[zoning]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->totalassessedvalue) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Total Assessment</td>
+					<td class="bt-listing__table__items"><span>[totalassessedvalue]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Water Access'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Water Access</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Water Access]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Utilities: Water'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Water</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Utilities: Water]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->location) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Location Description</td>
+					<td class="bt-listing__table__items"><span>[location]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Lot #'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Number</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Lot #]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Utilities: Gas'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Gas</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Utilities: Gas]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->electricfeature) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Electric</td>
+					<td class="bt-listing__table__items"><span>[electricfeature]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Convenient To'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Convenient To </td>
+					<td class="bt-listing__table__items"><span>[unmapped_Convenient To]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->cableavailable) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Cable </td>
+					<td class="bt-listing__table__items"><span>[cableavailable]</span></td>
+				</tr>
+				<?php endif; ?>
+				
 			</tbody>
 		</table>				
 		<?php endif; ?>

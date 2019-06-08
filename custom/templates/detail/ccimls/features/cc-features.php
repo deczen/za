@@ -92,7 +92,7 @@
 				<?php endif; ?>	
 				<?php if( isset($single_property->leadpaint)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Lead Pain</td>
+					<td class="bt-listing__table__label">Lead Paint</td>
 					<td class="bt-listing__table__items"><span>[leadpaint]</span></td>
 				</tr>
 				<?php endif; ?>	
@@ -192,7 +192,37 @@
 					<td class="bt-listing__table__items"><span>[zoning]</span></td>
 				</tr>
 				<?php endif; ?>	
-				
+				<?php if( isset($single_property->kitdscrp)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Kitchen Features</td>
+					<td class="bt-listing__table__items"><span>[kitdscrp]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->livdscrp)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Living Room Features</td>
+					<td class="bt-listing__table__items"><span>[livdscrp]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->unmapped->{'Master Bedroom'})): ?>
+				<tr>
+					<td class="bt-listing__table__label">Master Bedroom</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Master Bedroom]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->mbrlevel)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Master Bedroom Level</td>
+					<td class="bt-listing__table__items"><span>[mbrlevel]</span></td>
+				</tr>
+				<?php endif; ?>	
+				<?php if( isset($single_property->interiorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Interior Features</td>
+					<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>	
+								
 			</tbody>
 		</table>				
 		<?php endif; ?>
@@ -283,6 +313,18 @@
 				<tr>
 					<td class="bt-listing__table__label">Waterview Direction</td>
 					<td class="bt-listing__table__items"><span>[waterviewFlag]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->exteriorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Exterior Features</td>
+					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->exterior)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Exterior</td>
+					<td class="bt-listing__table__items"><span>[exterior]</span></td>
 				</tr>
 				<?php endif; ?>
 				

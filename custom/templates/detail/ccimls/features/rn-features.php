@@ -199,6 +199,54 @@
 					<td class="bt-listing__table__items"><span>[norooms]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'Master Bedroom'}) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Master Bedroom</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Master Bedroom]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->mbrlevel) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Master Bedroom Level</td>
+					<td class="bt-listing__table__items"><span>[mbrlevel]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->livdscrp) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Living Room Features</td>
+					<td class="bt-listing__table__items"><span>[livdscrp]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->interiorfeatures) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Interior Features</td>
+					<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->kitdscrp) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Kitchen </td>
+					<td class="bt-listing__table__items"><span>[kitdscrp]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->flooring) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Floors</td>
+					<td class="bt-listing__table__items"><span>[flooring]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->dindscrp) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Dining Room Features</td>
+					<td class="bt-listing__table__items"><span>[dindscrp]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->basementfeature) ): ?>
+				<tr>
+					<td class="bt-listing__table__label">Basement Description</td>
+					<td class="bt-listing__table__items"><span>[basementfeature]</span></td>
+				</tr>
+				<?php endif; ?>
 				
 			</tbody>
 		</table>				
