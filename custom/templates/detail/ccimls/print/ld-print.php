@@ -98,77 +98,143 @@
 		</div>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) ):?>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Land Details</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
-			  <?php if(isset($single_property->cultivationacres)): ?>
-			  <strong>Cultivation Acres</strong>
-			  [cultivationacres]
+			  <?php if(isset($single_property->unmapped->{'Flood Ins Required'})): ?>
+			  <strong>Flood Insurance Required</strong>
+			  [unmapped_Flood Ins Required]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->pastureacres)): ?>
-			  <strong>Pasture Acres</strong>
-			  [pastureacres]
+			  <?php if(isset($single_property->assessedvaluebldg)): ?>
+			  <strong>Improvement Assessments</strong>
+			  [assessedvaluebldg]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->timberacres)): ?>
-			  <strong>Timber Acres</strong>
-			  [timberacres]
+			  <?php if(isset($single_property->assessedvalueland)): ?>
+			  <strong>Land Assessments</strong>
+			  [assessedvalueland]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->ldtype)): ?>
-			  <strong>Land Style</strong>
-			  [ldtype]
+			  <?php if(isset($single_property->unmapped->{'Lot Size Source'})): ?>
+			  <strong>Lot Size Source</strong>
+			  [unmapped_Lot Size Source]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->frontage)): ?>
-			  <strong>Street Frontage</strong>
-			  [frontage]
+			  <?php if(isset($single_property->unmapped->{'Membership Required'})): ?>
+			  <strong>Membership Required</strong>
+			  [unmapped_Membership Required]
 			  <?php endif; ?>
-		   </p>
-		</div>
-		<?php endif; ?>
-		
-		<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Utilities</h6>
-		   <p>
-			  <?php if(isset($single_property->gas)): ?>
+			  <?php if(isset($single_property->beachmilesto)): ?>
+			  <strong>Miles From Beach</strong>
+			  [beachmilesto]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Other Assessments'})): ?>
+			  <strong>Other Assessments</strong>
+			  [unmapped_Other Assessments]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->propsubtype)): ?>
+			  <strong>Property Sub Type</strong>
+			  [propsubtype]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Special Listing Cond'})): ?>
+			  <strong>Special Listing Cond</strong>
+			  [unmapped_Special Listing Cond]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->zoning)): ?>
+			  <strong>Zoning</strong>
+			  [zoning]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->totalassessedvalue)): ?>
+			  <strong>Total Assessment</strong>
+			  [totalassessedvalue]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Water Access'})): ?>
+			  <strong>Water Access</strong>
+			  [unmapped_Water Access]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Utilities: Water'})): ?>
+			  <strong>Water</strong>
+			  [unmapped_Utilities: Water]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->location)): ?>
+			  <strong>Location Description</strong>
+			  [location]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Lot #'})): ?>
+			  <strong>Lot Number</strong>
+			  [unmapped_Lot #]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Utilities: Gas'})): ?>
 			  <strong>Gas</strong>
-			  [gas]
+			  [unmapped_Utilities: Gas]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->electricfeature)): ?>
 			  <strong>Electric</strong>
 			  [electricfeature]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->sewer)): ?>
-			  <strong>Sewer Utilities</strong>
-			  [sewer]
+			  <?php if(isset($single_property->unmapped->{'Convenient To'})): ?>
+			  <strong>Convenient To</strong>
+			  [unmapped_Convenient To]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->water)): ?>
-			  <strong>Water Utilities</strong>
-			  [water]
+			  <?php if(isset($single_property->cableavailable)): ?>
+			  <strong>Cable</strong>
+			  [cableavailable]
 			  <?php endif; ?>
 		   </p>
 		</div>
-		<?php endif; ?>
 		
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) ):?>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Exterior Features</h6>
+		   <p>
+			  <?php if(isset($single_property->beachdescription)): ?>
+			  <strong>Beach Description</strong>
+			  [beachdescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Dock)): ?>
+			  <strong>Dock</strong>
+			  [unmapped_Dock]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->roadtype)): ?>
+			  <strong>Street Description</strong>
+			  [roadtype]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lotdescription)): ?>
+			  <strong>Topography</strong>
+			  [lotdescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Waterview)): ?>
+			  <strong>Water View</strong>
+			  [unmapped_Waterview]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->waterfrontflag)): ?>
+			  <strong>Waterfront</strong>
+			  [waterfrontflag]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes, Fees</h6>
 		   <p>
 			  <?php if(isset($single_property->taxes)): ?>
-			  <strong>Tax Amount ($)</strong>
+			  <strong>Annual Taxes</strong>
 			  [taxes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->beachownership)): ?>
+			  <strong>Beach Ownership</strong>
+			  [beachownership]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Deed Restrictions'})): ?>
+			  <strong>Deed Restrictions</strong>
+			  [unmapped_Deed Restrictions]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->taxyear)): ?>
 			  <strong>Tax Year</strong>
 			  [taxyear]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->zoning)): ?>
-			  <strong>Zoning Code</strong>
-			  [zoning]
+			  <?php if(isset($single_property->assessedvaluebldg)): ?>
+			  <strong>Total Assessments</strong>
+			  [assessedvaluebldg]
 			  <?php endif; ?>
 		   </p>
 		</div>
-		<?php endif; ?>
 		
 		<div class="bt-print__block">
 		<?php if( $source_details ){

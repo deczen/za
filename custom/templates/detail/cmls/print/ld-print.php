@@ -254,6 +254,44 @@
 		</div>
 		<?php endif; ?>
 		
+		<?php if( isset($single_property->HOAManagementName) || isset($single_property->HOAManagementPhone) || isset($single_property->hoafee) ):?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
+		   <p>
+			  <?php if(isset($single_property->HOAManagementName)): ?>
+			  <strong>HOA Management</strong>
+			  [HOAManagementName]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->HOAManagementPhone)): ?>
+			  <strong>HOA Mgmt Phone</strong>
+			  [HOAManagementPhone]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hoafee)): ?>
+			  <strong>HOA Fee</strong>
+			  [hoafee]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		
+		<?php $roomLevels = $single_property->roomLevels;
+		if (isset($roomLevels)): ?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+			<p>
+			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+				
+					<strong>Room Type</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomType]
+					
+					<strong>Room Level</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomLevel]
+					
+			<?php endforeach; ?>
+			</p>
+		</div>
+		<?php endif; ?>
+		
 		<div class="bt-print__block">
 		<?php if( $source_details ){
 			echo $source_details;

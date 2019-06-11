@@ -47,16 +47,22 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
+			<?php if(isset($single_property->norooms)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[norooms]</div>
+				 <div class="bt-print__meta-label">TOTAL ROOMS</div>
+			  </td>
+			<?php endif; ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
-				 <div class="bt-print__meta-label">FULL BATHS</div>
+				 <div class="bt-print__meta-label">Full Baths</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->nohalfbaths)): ?>
@@ -65,28 +71,28 @@
 				 <div class="bt-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
-			  <td>
-				 <div class="bt-print__meta-val">[acre]</div>
-				 <div class="bt-print__meta-label">Acres</div>
-			  </td>
-			<?php endif; ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[squarefeet]</div>
 				 <div class="bt-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
+			<?php if(isset($single_property->acre)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[acre]</div>
+				 <div class="bt-print__meta-label">Acres</div>
+			  </td>
+			<?php endif; ?>
 			  <?php /* <td>
 				 <div class="bt-print__meta-val">$170</div>
 				 <div class="bt-print__meta-label">$/SQFT</div>
 			  </td> */ ?>
-			<?php if(isset($single_property->yearbuilt)): ?>
+			<?php /*if(isset($single_property->yearbuilt)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[yearbuilt]</div>
 				 <div class="bt-print__meta-label">Built</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 		   </tr>
 		</table>
 		<div class="bt-print__area__wrap">
@@ -95,6 +101,18 @@
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->proptype)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Type:</div>
+				 <div class="bt-print__area-val">[proptype]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->yearbuilt)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Built:</div>
+				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
@@ -122,391 +140,273 @@
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
-			  <?php if(isset($single_property->adultcommunity)): ?>
-			  <strong>Adult Community</strong>
-			  [adultcommunity]
+			  <?php if(isset($single_property->basement)): ?>
+			  <strong>Basement</strong>
+			  [basement]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->apodavailable)): ?>
-			  <strong>Apod Available</strong>
-			  [apodavailable]
+			  <?php if(isset($single_property->flooring)): ?>
+			  <strong>Floor</strong>
+			  [flooring]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->amenities)): ?>
-			  <strong>Amenities</strong>
-			  [amenities]
+			  <?php if(isset($single_property->norooms)): ?>
+			  <strong>Total Rooms</strong>
+			  [norooms]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->assessments)): ?>
-			  <strong>Assessments</strong>
-			  [assessments]
+			  <?php if(isset($single_property->complexcomplete)): ?>
+			  <strong>Complex Completed</strong>
+			  [complexcomplete]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->disclosure)): ?>
-			  <strong>Disclosure</strong>
-			  [disclosure]
+			  <?php if(isset($single_property->condominiumname)): ?>
+			  <strong>Complex Name</strong>
+			  [condominiumname]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->electricfeature)): ?>
-			  <strong>Electric Features</strong>
-			  [electricfeature]
+			  <?php if(isset($single_property->unmapped->{'Condo Style'})): ?>
+			  <strong>Condo</strong>
+			  [unmapped_Condo Style]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->exclusions)): ?>
-			  <strong>Exclusions</strong>
-			  [exclusions]
+			  <?php if(isset($single_property->condoassociation)): ?>
+			  <strong>Condo Type</strong>
+			  [condoassociation]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->netoperatinginc)): ?>
-			  <strong>Gross Operating Income</strong>
-			  [netoperatinginc]
+			  <?php if(isset($single_property->unmapped->{'Convenient To'})): ?>
+			  <strong>Convenient To</strong>
+			  [unmapped_Convenient To]
 			  <?php endif; ?>
-			  <?php /* <strong>Home Owners Association</strong>
-			  No */ ?>
+			  <?php if(isset($single_property->unmapped->{'Flood Ins Required'})): ?>
+			  <strong>Flood Insurance Required</strong>
+			  [unmapped_Flood Ins Required]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Fuel Type'})): ?>
+			  <strong>Fuel Type</strong>
+			  [unmapped_Fuel Type]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->assessedvaluebldg)): ?>
+			  <strong>Improvement Assessments</strong>
+			  [assessedvaluebldg]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->leadpaint)): ?>
 			  <strong>Lead Paint</strong>
 			  [leadpaint]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->lease1)): ?>
-			  <strong>Lease Unit1</strong>
-			  [lease1]
+			  <?php if(isset($single_property->location)): ?>
+			  <strong>Location Description</strong>
+			  [location]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->lease2)): ?>
-			  <strong>Lease Unit2</strong>
-			  [lease2]
+			  <?php if(isset($single_property->unmapped->{'Lot Size Source'})): ?>
+			  <strong>Lot Size Source</strong>
+			  [unmapped_Lot Size Source]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->lenderowned)): ?>
-			  <strong>Lender Owned</strong>
-			  [lenderowned]
+			  <?php if(isset($single_property->management)): ?>
+			  <strong>Management</strong>
+			  [management]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->famlevel)): ?>
-			  <strong>Family Room Type</strong>
-			  [famlevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->livlevel)): ?>
-			  <strong>Living Room Type</strong>
-			  [livlevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->dinlevel)): ?>
-			  <strong>Dining Room Type</strong>
-			  [dinlevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->oth1level)): ?>
-			  <strong>Additional Room #1</strong>
-			  [oth1LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->netoperatinginc)): ?>
-			  <strong>Net Operating Income</strong>
-			  [netoperatinginc]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rntdscrp1)): ?>
-			  <strong>Rent Description Unit1</strong>
-			  [rntdscrp1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rent1)): ?>
-			  <strong>Rent Unit1</strong>
-			  [rent1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rent2)): ?>
-			  <strong>Rent Unit2</strong>
-			  [rent2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->cctype)): ?>
-			  <strong>Condo Style</strong>
-			  [cctype]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->sewer)): ?>
-			  <strong>Sewer Utilities</strong>
-			  [sewer]
-			  <?php endif; ?>
-			  <?php /* <strong>Lender Owned</strong>
-			  No 
-			  <strong>Sewer</strong>
-			  Private Sewerage */ ?>
-			  <?php if(isset($single_property->shortsalelenderappreqd)): ?>
-			  <strong>Short Sale Lender App Required</strong>
-			  [shortsalelenderappreqd]
-			  <?php endif; ?>
-			  <?php /* <strong>Single Family Type</strong>
-			  Detached 
-			  <strong>Sq Ft Disclosures</strong>
-			  1762 is The First FloorThe inl-aw is 880. Calculated By Matterport Not Guaranteed. */ ?>
-			  <?php if(isset($single_property->squarefeetsource)): ?>
-			  <strong>Sq Ft Source</strong>
-			  [squarefeetsource]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->taxyear)): ?>
-			  <strong>Tax Year</strong>
-			  [taxyear]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->taxes)): ?>
-			  <strong>Tax Amount ($)</strong>
-			  [taxes]
+			  <?php if(isset($single_property->beachmilesto)): ?>
+			  <strong>Miles From Beach</strong>
+			  [beachmilesto]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->hoafee)): ?>
-			  <strong>Association Fee ($)</strong>
+			  <strong>Monthly Association Fee</strong>
 			  [hoafee]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->asscfeeincludes)): ?>
-			  <strong>Fee Includes</strong>
-			  [asscfeeincludes]
+			  <?php if(isset($single_property->unmapped->{'Neighborhood Amen'})): ?>
+			  <strong>Neighborhood Amen</strong>
+			  [unmapped_Neighborhood Amen]
 			  <?php endif; ?>
-			  <?php /* <strong>Utility Connections</strong>
-			  For Electric OvenFor Electric DryerWasher Hookup */ ?>
+			  <?php if(isset($single_property->unmapped->{'Other Assessments'})): ?>
+			  <strong>Other Assessments</strong>
+			  [unmapped_Other Assessments]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->petsallowed)): ?>
+			  <strong>Pets Allowed</strong>
+			  [petsallowed]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->propsubtype)): ?>
+			  <strong>Property Sub Type</strong>
+			  [propsubtype]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->sewer)): ?>
+			  <strong>Sewer</strong>
+			  [sewer]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Special Listing Cond'})): ?>
+			  <strong>Special Listing Cond</strong>
+			  [unmapped_Special Listing Cond]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'SqFt Source'})): ?>
+			  <strong>Sq Ft Source</strong>
+			  [unmapped_SqFt Source]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->water)): ?>
-			  <strong>Water Utilities</strong>
+			  <strong>Water</strong>
 			  [water]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->yearbuiltdescrp)): ?>
 			  <strong>Year Built Description</strong>
 			  [yearbuiltdescrp]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->yearbuiltsource)): ?>
-			  <strong>Year Built Source</strong>
-			  [yearbuiltsource]
+			  <?php if(isset($single_property->yearround)): ?>
+			  <strong>Year Round</strong>
+			  [yearround]
 			  <?php endif; ?>
-			  <?php /* <strong>Year Round</strong>
-			  Yes */ ?>
 			  <?php if(isset($single_property->zoning)): ?>
 			  <strong>Zoning</strong>
 			  [zoning]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->kitdscrp)): ?>
+			  <strong>Kitchen Features</strong>
+			  [kitdscrp]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->livdscrp)): ?>
+			  <strong>Living Room Features</strong>
+			  [livdscrp]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Master Bedroom'})): ?>
+			  <strong>Master Bedroom</strong>
+			  [unmapped_Master Bedroom]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->mbrlevel)): ?>
+			  <strong>Master Bedroom Level</strong>
+			  [mbrlevel]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
 			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">
 		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Exterior Features</h6>
 		   <p>
-			  <?php /* <strong>Beach Description</strong>
-			  Lake/Pond
-			  <strong>Beach Ownership</strong>
-			  Private */ ?>
-			  <?php if(isset($single_property->beachfrontflag)): ?>
-			  <strong>Beachfront</strong>
-			  [beachfrontflag]
+			  <?php if(isset($single_property->beachdescription)): ?>
+			  <strong>Beach Description</strong>
+			  [beachdescription]
 			  <?php endif; ?>
-			  <?php /* <strong>Color</strong>
-			  Light Grey */ ?>
-			  <?php if(isset($single_property->construction)): ?>
-			  <strong>Construction</strong>
-			  [construction]
+			  <?php if(isset($single_property->waterbodyname)): ?>
+			  <strong>Beach Lake Pondn</strong>
+			  [waterbodyname]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Dock)): ?>
+			  <strong>Dock</strong>
+			  [unmapped_Dock]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->foundation)): ?>
+			  <strong>Foundation</strong>
+			  [foundation]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->asscpool)): ?>
+			  <strong>Pool</strong>
+			  [asscpool]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->roadtype)): ?>
+			  <strong>Street Description</strong>
+			  [roadtype]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lotdescription)): ?>
+			  <strong>Topography</strong>
+			  [lotdescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unitplacement)): ?>
+			  <strong>Unit Placement</strong>
+			  [unitplacement]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Water Access'})): ?>
+			  <strong>Water Access</strong>
+			  [unmapped_Water Access]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Waterview)): ?>
+			  <strong>Water View</strong>
+			  [unmapped_Waterview]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->waterfrontflag)): ?>
+			  <strong>Waterfront</strong>
+			  [waterfrontflag]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->waterfront)): ?>
+			  <strong>Waterfront Description</strong>
+			  [waterfront]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->waterviewFlag)): ?>
+			  <strong>Waterview Direction</strong>
+			  [waterviewFlag]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->exteriorfeatures)): ?>
 			  <strong>Exterior Features</strong>
 			  [exteriorfeatures]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->exterior)): ?>
-			  <strong>Exterior</strong>
+			  <strong>Siding Description</strong>
 			  [exterior]
 			  <?php endif; ?>
-			  <?php /* <strong>Exterior Features</strong>
-			  Deck */ ?>
-			  <?php if(isset($single_property->foundation)): ?>
-			  <strong>Foundation</strong>
-			  [foundation]
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6>
+		   <p>
+			  <?php if(isset($single_property->cooling)): ?>
+			  <strong>Cooling</strong>
+			  [cooling]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->garagespaces)): ?>
-			  <strong>Garage Spaces</strong>
-			  [garagespaces]
+			  <?php if(isset($single_property->heating)): ?>
+			  <strong>Heating</strong>
+			  [heating]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->roadtype)): ?>
-			  <strong>Road Type</strong>
-			  [roadtype]
+			  <?php if(isset($single_property->hotwater)): ?>
+			  <strong>Hot Water</strong>
+			  [hotwater]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->{'Hot Water Source'})): ?>
+			  <strong>Hot Water Source</strong>
+			  [unmapped_Hot Water Source]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes, Fees</h6>
+		   <p>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Annual Taxes</strong>
+			  [taxes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->reqdownassociation)): ?>
+			  <strong>Association</strong>
+			  [reqdownassociation]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->asscfeeincludes)): ?>
+			  <strong>Association Fee Includes</strong>
+			  [asscfeeincludes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->beachownership)): ?>
+			  <strong>Beach Ownership</strong>
+			  [beachownership]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->assessedvaluebldg)): ?>
+			  <strong>Improvement Assessments</strong>
+			  [assessedvaluebldg]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
+		   <p>
 			  <?php if(isset($single_property->parkingfeature)): ?>
-			  <strong>Parking Features</strong>
+			  <strong>Parking Description</strong>
 			  [parkingfeature]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->parkingspaces)): ?>
 			  <strong>Parking Spaces</strong>
 			  [parkingspaces]
 			  <?php endif; ?>
-			  <?php /* <strong>Road Type</strong>
-			  Private */ ?>
-			  <?php if(isset($single_property->roofmaterial)): ?>
-			  <strong>Roof Material</strong>
-			 [roofmaterial]
+			  <?php if(isset($single_property->unmapped->Garage)): ?>
+			  <strong>Garage</strong>
+			  [unmapped_Garage]
 			  <?php endif; ?>
-			  <?php /* <strong>Style</strong>
-			  Ranch
-			  <strong>Water View Features</strong>
-			  Pond
-			  <strong>Waterfront</strong> 
-			  Pond */ ?>
-			  <?php if(isset($single_property->waterviewfeatures)): ?>
-			  <strong>Waterview</strong>
-			  [waterviewfeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->waterfront)): ?>
-			  <strong>Waterfront</strong>
-			  [waterfront]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->waterfrontflag)): ?>
-			  <strong>Waterfront Flag</strong>
-			  [waterfrontflag]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->waterviewflag)): ?>
-			  <strong>Waterview Flag</strong>
-			  [waterviewflag]
-			  <?php endif; ?>
-		   </p>
-		</div>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Interior Features</h6>
-		   <p>
-			  <?php if(isset($single_property->basement)): ?>
-			  <strong>Basement</strong>
-			  [basement]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->laundrylevel)): ?>
-			  <strong>Laundry</strong>
-			  [laundrylevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->petsallowed)): ?>
-			  <strong>Pets Allowed</strong>
-			  [petsallowed]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unitlevel)): ?>
-			  <strong>Unit Level</strong>
-			  [unitlevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->basementfeature)): ?>
-			  <strong>Basement Feature</strong>
-			  [basementfeature]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->mbrlevel)): ?>
-			  <strong>Master Bedroom</strong>
-			  [mbrlevel]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bed2LEVEL)): ?>
-			   <strong>Bedrooms #2</strong>
-			  [bed2LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bed3LEVEL)): ?>
-			   <strong>Bedrooms #3</strong>
-			  [bed3LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bed4LEVEL)): ?>
-			   <strong>Bedrooms #4</strong>
-			  [bed4LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bed5LEVEL)): ?>
-			   <strong>Bedrooms #5</strong>
-			  [bed5LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bth1LEVEL)): ?>
-			   <strong>Bathroom #1</strong>
-			  [bth1LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bth2LEVEL)): ?>
-			   <strong>Bathroom #2</strong>
-			  [bth2LEVEL]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->bth3level)): ?>
-			   <strong>Bathroom #3</strong>
-			  [bth3level]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->cooling)): ?>
-			  <strong>Cooling</strong>
-			  [cooling]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->coolingzones)): ?>
-			  <strong>Cool Zones</strong>
-			  [coolingzones]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->heatzones)): ?>
-			  <strong>Heat Zones</strong>
-			  [heatzones]
-			  <?php endif; ?>
-			  <?php /* <strong>Cooling</strong>
-			  Wall Ac
-			  <strong>Cooling Zones</strong>
-			  0 */ ?>
-			  <?php if(isset($single_property->energyfeatures)): ?>
-			  <strong>Energy Features</strong>
-			  [energyfeatures]
-			  <?php endif; ?>
-			  <?php /* <strong>Family Room Level</strong>
-			  First Floor */ ?>
-			  <?php if(isset($single_property->fireplaces)): ?>
-			  <strong>Fireplaces</strong>
-			  [fireplaces]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->frplcs1)): ?>
-			  <strong>Fireplaces Unit1</strong>
-			  [frplcs1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->frplcs2)): ?>
-			  <strong>Fireplaces Unit2</strong>
-			  [frplcs2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->flooring)): ?>
-			  <strong>Flooring</strong>
-			  [flooring]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->flrs1)): ?>
-			  <strong>Floors Unit1</strong>
-			  [flrs1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->flrs2)): ?>
-			  <strong>Floors Unit2</strong>
-			  [flrs2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->fbths1)): ?>
-			  <strong>Full Baths Unit1</strong>
-			  [fbths1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->fbths2)): ?>
-			  <strong>Full Baths Unit2</strong>
-			  [fbths2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->hbths1)): ?>
-			  <strong>Half Baths Unit1</strong>
-			  [hbths1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->hbths2)): ?>
-			  <strong>Half Baths Unit2</strong>
-			  [hbths2]
-			  <?php endif; ?>
-			  <?php /* <strong>Heat Zones</strong>
-			  2
-			  <strong>Heating</strong>
-			  Hot Water Baseboard */ ?>
-			  <?php if(isset($single_property->hotwater)): ?>
-			  <strong>Hot Water</strong>
-			  [hotwater]
-			  <?php endif; ?>
-			  <?php /* <strong>Insulation Features</strong>
-			  FullFiberglass
-			  <strong>Interior Features</strong>
-			  Cable Available
-			  <strong>Kitchen Level</strong>
-			  First Floor
-			  <strong>Living Room Level</strong>
-			  First Floor
-			  <strong>Master Bath</strong>
-			  No
-			  <strong>Master Bedroom Level</strong>
-			  First Floor */ ?>
-			  <?php if(isset($single_property->levels)): ?>
-			  <strong>Levels</strong>
-			  [levels]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->levels1)): ?>
-			  <strong>Levels Unit1</strong>
-			  [levels1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->levels2)): ?>
-			  <strong>Levels Unit2</strong>
-			  [levels2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->norooms)): ?>
-			  <strong>Rooms</strong>
-			  [norooms]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rms1)): ?>
-			  <strong>Rooms Unit1</strong>
-			  [rms1]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->rms2)): ?>
-			  <strong>Rooms Unit2</strong>
-			  [rms2]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->kitlevel)): ?>
-			  <strong>Kitchen</strong>
-			  [kitlevel]
+			  <?php if(isset($single_property->unmapped->{'Underground Fuel Tank'})): ?>
+			  <strong>Underground Fuel Tank</strong>
+			  [unmapped_Underground Fuel Tank]
 			  <?php endif; ?>
 		   </p>
 		</div>

@@ -47,13 +47,19 @@
 		</ul>
 		<table class="bt-print__meta-blocks">
 		   <tr>
+			<?php if(isset($single_property->norooms)): ?>
+			  <td>
+				 <div class="bt-print__meta-val">[norooms]</div>
+				 <div class="bt-print__meta-label">Total Rooms</div>
+			  </td>
+			<?php endif; ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nobedrooms]</div>
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">FULL BATHS</div>
@@ -81,12 +87,12 @@
 				 <div class="bt-print__meta-val">$170</div>
 				 <div class="bt-print__meta-label">$/SQFT</div>
 			  </td> */ ?>
-			<?php if(isset($single_property->yearbuilt)): ?>
+			<?php /*if(isset($single_property->yearbuilt)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[yearbuilt]</div>
 				 <div class="bt-print__meta-label">Built</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 		   </tr>
 		</table>
 		<div class="bt-print__area__wrap">
@@ -95,6 +101,18 @@
 			  <div class="uk-clearfix">
 				 <div class="bt-print__area-label">Neighborhood:</div>
 				 <div class="bt-print__area-val">[neighborhood]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->proptype)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Type:</div>
+				 <div class="bt-print__area-val">[proptype]</div>
+			  </div>
+			<?php endif; ?>
+			<?php if(isset($single_property->yearbuilt)): ?>
+			  <div class="uk-clearfix">
+				 <div class="bt-print__area-label">Built:</div>
+				 <div class="bt-print__area-val">[yearbuilt]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
