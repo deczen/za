@@ -1591,7 +1591,7 @@ if(file_exists($template_path) && $template_name ){
 	?>
 	
 	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
-	<div id="print-view-column" class="bt-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
+	<div id="print-view-column top-brdr" class="bt-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
 	<?php
 		// $rb = zipperagent_rb();
 		

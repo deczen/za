@@ -59,7 +59,7 @@
 				 <div class="bt-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="bt-print__meta-val">[nofullbaths]</div>
 				 <div class="bt-print__meta-label">FULL BATHS</div>
@@ -180,10 +180,10 @@
 			  <strong>Taxes</strong>
 			  [taxes]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->schooldistrict)): ?>
+			  <?php /*if(isset($single_property->schooldistrict)): ?>
 			  <strong>School District</strong>
 			  [schooldistrict]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">

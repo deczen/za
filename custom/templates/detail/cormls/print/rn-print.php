@@ -536,6 +536,31 @@
 			  [unmapped_Full Baths Level: Full Baths Down2]
 			  <?php endif; ?>
 		   </p>
+		    
+		   <?php $roomLevels = $single_property->roomLevels;
+			if (isset($roomLevels)): ?>
+				<p>
+				<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+					
+						<strong>Room Type</strong>
+						[roomLevels_<?php echo $rkey; ?>_roomType]
+						
+						<strong>Room Level</strong>
+						[roomLevels_<?php echo $rkey; ?>_roomLevel]
+						
+						<?php $dim1 = $roomLevels[$rkey]->dim1; 
+							  $dim2 = $roomLevels[$rkey]->dim2; 
+						?>
+						<?php if( isset($dim1) && isset($dim2)): ?>
+						<strong>Room Dim</strong>
+						[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
+						<?php endif; ?>
+						
+						
+				<?php endforeach; ?>
+				</p>
+			<?php endif; ?>
+		
 		</div>
 		
 		<div class="bt-print__block">

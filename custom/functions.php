@@ -134,95 +134,15 @@ if( ! function_exists('zipperagent_rb') ){
 		global $WORK_ENV;
 		// unset($_SESSION['zipperagent_rb']);
 		if( $WORK_ENV=='DEV' || !isset($_SESSION['zipperagent_rb']) || empty( $_SESSION['zipperagent_rb'] ) || $debug ){
-			include_once ZIPPERAGENTPATH. "/custom/lib/Adoy/ICU/ResourceBundle/autoload.php";
 			
-			$HOME = $_SERVER['DOCUMENT_ROOT'] . '/../..';
-			$defaultPath = $HOME . '/zipperagent/$websitedomain/root.txt';
-			$domainName = str_replace( 'https://', '', get_site_url() );
-			$domainName = str_replace( 'http://', '', $domainName );
-
-			$config = zipperagent_config();
-			$configurationPath = $config['configurationPath'];	
-			$configurationPath = str_replace( 'ZIPPER_AGENT_HOME', $defaultPath, $configurationPath );
-			$arr = explode( '/', $configurationPath );
-			$filename = end($arr);
-			$filenameWithoutExt =  basename($filename, ".txt");
-			for( $i=0; $i<count($arr)-1 ; $i++ ){
-				if( $i==0 )
-					$rootdir= $arr[$i];
-				else
-					$rootdir.= '/'.$arr[$i];
-			}	
-			$rootdir = str_replace( '$HOME', $HOME, $rootdir );
-			$rootdir = str_replace( '$websitedomain', $domainName, $rootdir );
-			$rootdir = str_replace( '//', '/', $rootdir );
-			
-			// echo $rootdir. "<br />";
-			try{
-				$rb = new Adoy\ICU\ResourceBundle\ResourceBundle($filenameWithoutExt, $rootdir, true, new Adoy\ICU\ResourceBundle\Parser(new Adoy\ICU\ResourceBundle\Lexer()));
-			}catch( Exception $e ){
-				return false;
-			}
-			
-			$save_session['web']['subdomain'] = $rb['web']['subdomain'];
-			$save_session['web']['protocol'] = $rb['web']['protocol'];
-			$save_session['web']['authorization']['consumer_key'] = $rb['web']['authorization']['consumer_key'];
-			$save_session['web']['authorization']['access_token'] = $rb['web']['authorization']['access_token'];
-			$save_session['web']['asrc'] = $rb['web']['asrc'];
-			$save_session['web']['aloff'] = $rb['web']['aloff'];
-			$save_session['web']['rnhidestreetno'] = $rb['web']['rnhidestreetno'];
-			$save_session['web']['status_active'] = $rb['web']['status_active'];
-			$save_session['web']['status_sold'] = $rb['web']['status_sold'];
-			$save_session['web']['states'] = $rb['web']['states'];
-			$save_session['web']['signup_optional'] = $rb['web']['signup_optional'];
-			$save_session['web']['map_centre']['lat'] = $rb['web']['map_centre']['lat'];
-			$save_session['web']['map_centre']['lng'] = $rb['web']['map_centre']['lng'];
-			$save_session['web']['sign_up_interval'] = $rb['web']['sign_up_interval'];
-			$save_session['web']['popup_show_time'] = $rb['web']['popup_show_time'];
-			$save_session['web']['openhouse_searchbar'] = $rb['web']['openhouse_searchbar'];
-			$save_session['web']['slider_show_popup_count'] = $rb['web']['slider_show_popup_count'];
-			$save_session['web']['social_share'] = $rb['web']['social_share'];
-			$save_session['web']['default_order'] = $rb['web']['default_order'];
-			$save_session['web']['show_extra_search_feature'] = $rb['web']['show_extra_search_feature'];
-			$save_session['web']['show_price_slider'] = $rb['web']['show_price_slider'];
-			$save_session['web']['popup_visit_counter'] = $rb['web']['popup_visit_counter'];
-			$save_session['web']['show_agent_list'] = $rb['web']['show_agent_list'];
-			$save_session['web']['branded_virtualtour'] = $rb['web']['branded_virtualtour'];
-			$save_session['web']['show_agent_name'] = $rb['web']['show_agent_name'];
-			$save_session['web']['print_logo'] = $rb['web']['print_logo'];
-			$save_session['web']['print_color'] = $rb['web']['print_color'];
-			$save_session['web']['default_proptype'] = $rb['web']['default_proptype'];
-			$save_session['web']['popup_detail_page_only'] = $rb['web']['popup_detail_page_only'];
-			$save_session['web']['distance'] = $rb['web']['distance'];
-			$save_session['web']['company_name'] = $rb['web']['company_name'];
-			
-			$save_session['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
-			$save_session['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
-			$save_session['layout']['detailpage_layout_sf'] = $rb['layout']['detailpage_layout_sf'];
-			$save_session['layout']['detailpage_layout_mf'] = $rb['layout']['detailpage_layout_mf'];
-			$save_session['layout']['detailpage_layout_mh'] = $rb['layout']['detailpage_layout_mh'];
-			$save_session['layout']['detailpage_layout_ld'] = $rb['layout']['detailpage_layout_ld'];
-			$save_session['layout']['detailpage_layout_rn'] = $rb['layout']['detailpage_layout_rn'];
-			$save_session['layout']['detailpage_layout_cc'] = $rb['layout']['detailpage_layout_cc'];
-			$save_session['layout']['detailpage_layout_ci'] = $rb['layout']['detailpage_layout_ci'];
-			$save_session['layout']['detailpage_layout_bu'] = $rb['layout']['detailpage_layout_bu'];
-			$save_session['layout']['detailpage_group'] = $rb['layout']['detailpage_group'];
-			
-			$save_session['google']['apikey'] = $rb['google']['apikey'];
-			$save_session['google']['adwords']['code'] = $rb['google']['adwords']['code'];
-			
-			$save_session['facebook']['appid'] = $rb['facebook']['appid'];
-			$save_session['facebook']['appsecret'] = $rb['facebook']['appsecret'];
-			
-			$save_session['tenant']['timezone'] = $rb['tenant']['timezone'];
-			$save_session['tenant']['mls_timezone'] = $rb['tenant']['mls_timezone'];
-			
-			$save_session['credentials']['username'] = $rb['credentials']['username'];
-			$save_session['credentials']['key'] = $rb['credentials']['key'];
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/root.php";
+			$json=ob_get_clean();
+			$save_session=json_decode($json, TRUE);		
 			
 			$_SESSION['zipperagent_rb'] = $save_session;
 			
-			return $rb;
+			return $save_session;
 		}else{
 			
 			// $_SESSION['zipperagent_rb']['layout']['detailpage_layout']="template-newDetail.php";
@@ -365,11 +285,28 @@ if( ! function_exists('zipperagent_get_default_status') ){
 	}
 }
 
+if( ! function_exists('zipperagent_get_exclude_prop_types') ){
+	function zipperagent_get_exclude_prop_types(){
+		$rb = zipperagent_rb();
+		$field_value = isset($rb['web']['exclude_prop_types'])?$rb['web']['exclude_prop_types']:'';
+		return $field_value;
+	}
+}
+
 if( ! function_exists('zipperagent_slider_limit_popup') ){
 	function zipperagent_slider_limit_popup(){
 		$rb = zipperagent_rb();
 		$field_value = isset($rb['web']['slider_show_popup_count'])?$rb['web']['slider_show_popup_count']:3;
 		return $field_value;
+	}
+}
+
+if( ! function_exists('zipperagent_get_exclude_prop_types_array') ){
+	function zipperagent_get_exclude_prop_types_array(){
+		$exludes_prop_types = zipperagent_get_exclude_prop_types();
+		
+		$arr = explode(',', $exludes_prop_types);
+		return $arr;
 	}
 }
 
@@ -2655,6 +2592,10 @@ if( ! function_exists('get_wp_var_excludes') ){
 			'woocommerce-reset-password-nonce',
 			'woocommerce-edit-address-nonce',
 			'save-account-details-nonce',
+			
+			'customize_changeset_uuid',
+			'customize_messenger_channel',
+			'customize_theme',
 		);
 		
 		return $excludes;

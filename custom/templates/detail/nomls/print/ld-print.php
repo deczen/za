@@ -169,10 +169,6 @@
 			  <strong>Handicap Access</strong>
 			  [handicapaccess]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->electricfeature)): ?>
-			  <strong>Electric Feature</strong>
-			  [electricfeature]
-			  <?php endif; ?>
 		   </p>
 		</div>
 		<?php endif; ?>
@@ -197,7 +193,32 @@
 			  <strong>Water Utilities</strong>
 			  [water]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->aircondition)): ?>
+			  <strong>Air Condition</strong>
+			  [aircondition]
+			  <?php endif; ?>
 		   </p>
+		</div>
+		<?php endif; ?>
+		
+		<?php $roomLevels = $single_property->roomLevels;
+		if (isset($roomLevels)): ?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+			<p>
+			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+				
+					<strong>Room Type</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomType]
+					
+					<strong>Room Level</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomLevel]
+					
+					<strong>Room Size</strong>
+					[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
+					
+			<?php endforeach; ?>
+			</p>
 		</div>
 		<?php endif; ?>
 		

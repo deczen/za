@@ -130,29 +130,48 @@
 		<?php endif; ?>
 		
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Space, #Units, SQ FT</h6>
 		   <p>
-			  <?php if(isset($single_property->mauunits)): ?>
+			  <?php if( isset($single_property->mauunits) || isset($single_property->mafbldgsf)): ?>
 			  <strong>Manufacturing</strong>
-			  [mauunits]
+			  [mauunits] [mafbldgsf]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->ofuunits)): ?>
+			  <?php if( isset($single_property->ofuunits) || isset($single_property->offbldgsf)): ?>
 			  <strong>Office</strong>
-			  [ofuunits]
+			  [ofuunits] [offbldgsf]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->rsuunits)): ?>
+			  <?php if( isset($single_property->rsuunits) || isset($single_property->rsfbldgsf)): ?>
 			  <strong>Residential</strong>
-			  [rsuunits]
+			  [rsuunits] [rsfbldgsf]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->reuunits)): ?>
+			  <?php if( isset($single_property->reuunits) || isset($single_property->refbldgsf)): ?>
 			  <strong>Retail</strong>
-			  [reuunits]
+			  [reuunits] [refbldgsf]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->wauunits)): ?>
+			  <?php if( isset($single_property->wauunits) || isset($single_property->wafbldgsf)): ?>
 			  <strong>Warehouse</strong>
-			  [wauunits]
+			  [wauunits] [wafbldgsf]
 			  <?php endif; ?>
-			  
+			</p>
+		</div>
+		
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
+		   <p>
+			  <?php if(isset($single_property->parkingspaces)): ?>
+			  <strong>Parking Spaces</strong>
+			  [parkingspaces]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->parkingfeature)): ?>
+			  <strong>Parking Features</strong>
+			  [parkingfeature]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Details</h6>
+		   <p>	  
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
@@ -201,10 +220,6 @@
 			  <strong>Sprinklers</strong>
 			  [sprinklers]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->rntdscrp1)): ?>
-			  <strong>Rent Description Unit1</strong>
-			  [rntdscrp1]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->utilities)): ?>
 			  <strong>Utilities</strong>
 			  [utilities]
@@ -225,9 +240,9 @@
 			  <strong>Roof Material</strong>
 			  [roofmaterial]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Fireplace)): ?>
+			  <?php if(isset($single_property->Fireplace)): ?>
 			  <strong>Fire place</strong>
-			  [unmapped_Fireplace]
+			  [Fireplace]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->CarStorage)): ?>
 			  <strong>Car Storage</strong>
@@ -249,25 +264,61 @@
 			  <strong>Handicap Access</strong>
 			  [handicapaccess]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->electricfeature)): ?>
-			  <strong>Electric Feature</strong>
-			  [electricfeature]
-			  <?php endif; ?>
 		   </p>
 		</div>
+		
+		<?php $roomLevels = $single_property->roomLevels;
+		if (isset($roomLevels)): ?>
 		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Details</h6>
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+			<p>
+			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
+				
+					<strong>Room Type</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomType]
+					
+					<strong>Room Level</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomLevel]
+					
+					<strong>Room Size</strong>
+					[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
+					
+			<?php endforeach; ?>
+			</p>
+		</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) || isset($single_property->zonedescription) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
+		<div class="bt-print__block">
+		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes & Considerations</h6>
 		   <p>
-			  <?php if(isset($single_property->parkingspaces)): ?>
-			  <strong>Parking Spaces</strong>
-			  [parkingspaces]
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Tax Amount ($)</strong>
+			  [taxes]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->parkingfeature)): ?>
-			  <strong>Parking Features</strong>
-			  [parkingfeature]
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->zoning)): ?>
+			  <strong>Zoning Code</strong>
+			  [zoning]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->zonedescription)): ?>
+			  <strong>Zoning Description</strong>
+			  [zonedescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hoafee)): ?>
+			  <strong>Association Fee ($)</strong>
+			  [hoafee]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->asscfeeincludes)): ?>
+			  <strong>Fee Includes</strong>
+			  [asscfeeincludes]
 			  <?php endif; ?>
 		   </p>
 		</div>
+		<?php endif; ?>
 		
 		<div class="bt-print__block">
 		<?php if( $source_details ){
