@@ -79,16 +79,16 @@
 					<td class="bt-listing__table__items"><span>[roofmaterial]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->Fireplace)): ?>
+				<?php if( isset($single_property->unmapped->FireplaceYN)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Fire place</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Fireplace]</span></td>
+					<td class="bt-listing__table__items"><span>[unmapped_FireplaceYN]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->CarStorage)): ?>
+				<?php if( isset($single_property->parkingfeature)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Car Storage</td>
-					<td class="bt-listing__table__items"><span>[unmapped_CarStorage]</span></td>
+					<td class="bt-listing__table__items"><span>[parkingfeature]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->LotSize)): ?>
@@ -219,6 +219,10 @@
 							<tr>
 								<td class="bt-listing__table__label">Room Size</td>
 								<td class="bt-listing__table__items"><span><?php //echo $roomLevel->dim1; ?>[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]<?php// echo $roomLevel->dim2; ?></span></td>
+							</tr>
+							<tr>
+								<td class="bt-listing__table__label">Room Description</td>
+								<td class="bt-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_roomDescription]</span></td>
 							</tr>
 						</tbody>
 					</table>

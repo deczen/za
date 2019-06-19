@@ -145,13 +145,13 @@
 			  <strong>Roof Material</strong>
 			  [roofmaterial]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->Fireplace)): ?>
+			  <?php if(isset($single_property->unmapped->FireplaceYN)): ?>
 			  <strong>Fire place</strong>
-			  [unmapped_Fireplace]
+			  [unmapped_FireplaceYN]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CarStorage)): ?>
+			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Car Storage</strong>
-			  [unmapped_CarStorage]
+			  [parkingfeature]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->unmapped->LotSize)): ?>
 			  <strong>Lot Size</strong>
@@ -217,6 +217,8 @@
 					<strong>Room Size</strong>
 					[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]
 					
+					<strong>Room Description</strong>
+					[roomLevels_<?php echo $rkey; ?>_roomDescription]
 			<?php endforeach; ?>
 			</p>
 		</div>
