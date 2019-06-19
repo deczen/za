@@ -124,6 +124,7 @@ switch($property_type){
 	case "RINC": //Residential
 	case "RLSE": //Residential
 	case "A": //Residential
+	case "RESIDENTIAL": //Residential
 		$template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 		$template_features='rd-features.php';
 		$template_print='rd-print.php';

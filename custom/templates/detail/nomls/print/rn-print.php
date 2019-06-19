@@ -244,6 +244,10 @@
 			  <strong>Exterior Features</strong>
 			  [exteriorfeatures]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->construction)): ?>
+			  <strong>Construction</strong>
+			  [construction]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		

@@ -156,10 +156,10 @@
 			  <strong>Basement</strong>
 			  [basement]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->exteriorfeatures)): ?>
+			  <?php /*if(isset($single_property->exteriorfeatures)): ?>
 			  <strong>Exterior Features</strong>
 			  [exteriorfeatures]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->exterior)): ?>
 			  <strong>Exterior</strong>
 			  [exterior]
@@ -227,6 +227,10 @@
 			  <?php if(isset($single_property->exteriorfeatures)): ?>
 			  <strong>Exterior Features</strong>
 			  [exteriorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->construction)): ?>
+			  <strong>Construction</strong>
+			  [construction]
 			  <?php endif; ?>
 		   </p>
 		</div>

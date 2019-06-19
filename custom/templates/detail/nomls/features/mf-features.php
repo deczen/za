@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures ) ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->DwellingType) || isset($single_property->foundation) || isset($single_property->roofmaterial) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->parkingfeature) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures) || isset($single_property->construction) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -17,12 +17,12 @@
 					<td class="bt-listing__table__items"><span>[basement]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->exteriorfeatures)): ?>
+				<?php /*if( isset($single_property->exteriorfeatures)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Exterior Features</td>
 					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
 				</tr>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->fireplaces)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Fireplaces</td>
@@ -125,6 +125,12 @@
 				<tr>
 					<td class="bt-listing__table__label">Exterior Features</td>
 					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->construction)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Construction</td>
+					<td class="bt-listing__table__items"><span>[construction]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /*if( isset($single_property->electricfeature)): ?>
