@@ -220,6 +220,14 @@
 			  <strong>Handicap Access</strong>
 			  [handicapaccess]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->interiorfeatures)): ?>
+			  <strong>Interior Features</strong>
+			  [interiorfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->exteriorfeatures)): ?>
+			  <strong>Exterior Features</strong>
+			  [exteriorfeatures]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		<div class="bt-print__block">

@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) ):?>
+	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures ) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Land Details</h3>
 		<table class="bt-listing__table">
@@ -95,6 +95,18 @@
 				<tr>
 					<td class="bt-listing__table__label">Handicap Access</td>
 					<td class="bt-listing__table__items"><span>[handicapaccess]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->interiorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Interior Features</td>
+					<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->exteriorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Exterior Features</td>
+					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /*if( isset($single_property->electricfeature)): ?>

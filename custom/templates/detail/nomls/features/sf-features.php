@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures)  ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures ) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures ) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -115,6 +115,18 @@
 					<td class="bt-listing__table__items"><span>[handicapaccess]</span></td>
 				</tr>
 				<?php endif; ?>
+				<?php if( isset($single_property->interiorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Interior Features</td>
+					<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->exteriorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Exterior Features</td>
+					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
 				<?php /*if( isset($single_property->electricfeature)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Electric Feature</td>
@@ -126,8 +138,10 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water)  ):?>
+	<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
 	<li class="cell">
+	
+		<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water)  ):?>
 		<h3 class="bt-listing__headline">Cooling, Heating, Utilities</h3>
 		<table class="bt-listing__table">
 
@@ -196,6 +210,34 @@
 				<?php endif; ?>								
 			</tbody>
 		</table>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
+		<h3 class="bt-listing__headline">Parking Information</h3>
+		<table class="bt-listing__table">
+			<tbody>
+				<?php if( isset($single_property->garagespaces)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Garage Spaces</td>
+					<td class="bt-listing__table__items"><span>[garagespaces]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->parkingspaces)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Parking Spaces</td>
+					<td class="bt-listing__table__items"><span>[parkingspaces]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->roadtype)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Road Type </td>
+					<td class="bt-listing__table__items"><span>[roadtype]</span></td>
+				</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+		<?php endif; ?>
+		
 	</li>
 	<?php endif; ?>
 
@@ -231,32 +273,6 @@
 			<?php
 			endif;
 		?>
-		
-		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
-		<h3 class="bt-listing__headline">Parking Information</h3>
-		<table class="bt-listing__table">
-			<tbody>
-				<?php if( isset($single_property->garagespaces)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Garage Spaces</td>
-					<td class="bt-listing__table__items"><span>[garagespaces]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->parkingspaces)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Parking Spaces</td>
-					<td class="bt-listing__table__items"><span>[parkingspaces]</span></td>
-				</tr>
-				<?php endif; ?>
-				<?php if( isset($single_property->roadtype)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Road Type </td>
-					<td class="bt-listing__table__items"><span>[roadtype]</span></td>
-				</tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-		<?php endif; ?>
 		
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
 		<h3 class="bt-listing__headline">Taxes, Fees</h3>

@@ -68,7 +68,7 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities)  ):?>
+	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities)  || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures ) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Details</h3>
 		<table class="bt-listing__table">
@@ -218,6 +218,18 @@
 				<tr>
 					<td class="bt-listing__table__label">Handicap Access</td>
 					<td class="bt-listing__table__items"><span>[handicapaccess]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->interiorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Interior Features</td>
+					<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->exteriorfeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Exterior Features</td>
+					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
