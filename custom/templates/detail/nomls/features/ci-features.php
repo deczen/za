@@ -68,7 +68,7 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities)  || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures ) ):?>
+	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities) || isset($single_property->DwellingType) || isset($single_property->foundation) || isset($single_property->style) || isset($single_property->roofmaterial) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->parkingfeature) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->electricfeature) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures ) || isset($single_property->reqdownassociation) || isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->GreenEnergyEfficient) || isset($single_property->unmapped->HomeWarrantyYN) || isset($single_property->unmapped->Levels) || isset($single_property->propsubtype) || isset($single_property->assocsecurity) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->petsallowed) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->CarportYN) || isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->garageparking) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->pooldescription) || isset($single_property->appliances) || isset($single_property->bldgsqfeet) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->HeatingYN) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Details</h3>
 		<table class="bt-listing__table">
@@ -214,12 +214,6 @@
 					<td class="bt-listing__table__items"><span>[electricfeature]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->handicapaccess)): ?>
-				<tr>
-					<td class="bt-listing__table__label">Handicap Access</td>
-					<td class="bt-listing__table__items"><span>[handicapaccess]</span></td>
-				</tr>
-				<?php endif; ?>
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Interior Features</td>
@@ -230,6 +224,126 @@
 				<tr>
 					<td class="bt-listing__table__label">Exterior Features</td>
 					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->reqdownassociation)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Association YN</td>
+					<td class="bt-listing__table__items"><span>[reqdownassociation]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->CoolingYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Cooling YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_CoolingYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->GreenEnergyEfficient)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Green Energy Efficient</td>
+					<td class="bt-listing__table__items"><span>[unmapped_GreenEnergyEfficient]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->HomeWarrantyYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Home Warranty YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_HomeWarrantyYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Levels)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Levels</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Levels]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->propsubtype)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Propertysubtype</td>
+					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->assocsecurity)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Security Features</td>
+					<td class="bt-listing__table__items"><span>[assocsecurity]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Special Listing Conditions</td>
+					<td class="bt-listing__table__items"><span>[unmapped_SpecialListingConditions]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->petsallowed)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Pets Allowed</td>
+					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->StoriesTotal)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Storiestotal</td>
+					<td class="bt-listing__table__items"><span>[unmapped_StoriesTotal]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->CarportYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Carport YN </td>
+					<td class="bt-listing__table__items"><span>[unmapped_CarportYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Attached Garage YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_AttachedGarageYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->garageparking)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Garage YN </td>
+					<td class="bt-listing__table__items"><span>[garageparking]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Size Dimensions</td>
+					<td class="bt-listing__table__items"><span>[unmapped_LotSizeDimensions]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->PatioAndPorchFeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Patio And Porch Features</td>
+					<td class="bt-listing__table__items"><span>[unmapped_PatioAndPorchFeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->pooldescription)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Pool Features</td>
+					<td class="bt-listing__table__items"><span>[pooldescription]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->appliances)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Appliances</td>
+					<td class="bt-listing__table__items"><span>[appliances]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->bldgsqfeet)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Building Area Total</td>
+					<td class="bt-listing__table__items"><span>[bldgsqfeet]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->FireplaceFeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Fireplace Features</td>
+					<td class="bt-listing__table__items"><span>[unmapped_FireplaceFeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->HeatingYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Heating YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_HeatingYN]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

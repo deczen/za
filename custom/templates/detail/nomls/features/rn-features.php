@@ -1,5 +1,5 @@
 <ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->DwellingType) || isset($single_property->foundation) || isset($single_property->roofmaterial) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->parkingfeature) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures) || isset($single_property->construction) ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->rntype) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundryfeatures) /*|| isset($single_property->petsallowed)*/ || isset($single_property->unitlevel) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->DwellingType) || isset($single_property->foundation) || isset($single_property->style) || isset($single_property->roofmaterial) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->parkingfeature) || isset($single_property->unmapped->LotSize) /*|| isset($single_property->lotdescription)*/ || isset($single_property->greencertified) || isset($single_property->electricfeature) || isset($single_property->handicapaccess) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures) || isset($single_property->construction) || isset($single_property->reqdownassociation) || isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->GreenEnergyEfficient) || isset($single_property->unmapped->HomeWarrantyYN) || isset($single_property->unmapped->Levels) || isset($single_property->propsubtype) || isset($single_property->assocsecurity) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->petsallowed) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->CarportYN) || isset($single_property->utilities) || isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->garageparking) || isset($single_property->lotdescription) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->pooldescription) || isset($single_property->appliances) || isset($single_property->bldgsqfeet) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->HeatingYN) ):?>
 	<li class="cell">
 		<h3 class="bt-listing__headline">Property Features</h3>
 		<table class="bt-listing__table">
@@ -47,12 +47,12 @@
 					<td class="bt-listing__table__items"><span>[laundryfeatures]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
+				<?php /*if( isset($single_property->petsallowed)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Pets Allowed</td>
 					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
 				</tr>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->unitlevel)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Unit Level</td>
@@ -115,12 +115,12 @@
 					<td class="bt-listing__table__items"><span>[unmapped_LotSize]</span></td>
 				</tr>
 				<?php endif; ?>
-				<?php if( isset($single_property->lotdescription)): ?>
+				<?php /*if( isset($single_property->lotdescription)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Lot Desc</td>
 					<td class="bt-listing__table__items"><span>[lotdescription]</span></td>
 				</tr>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->greencertified)): ?>
 				<tr>
 					<td class="bt-listing__table__label">Green Certified</td>
@@ -155,6 +155,138 @@
 				<tr>
 					<td class="bt-listing__table__label">Construction</td>
 					<td class="bt-listing__table__items"><span>[construction]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->reqdownassociation)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Association YN</td>
+					<td class="bt-listing__table__items"><span>[reqdownassociation]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->CoolingYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Cooling YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_CoolingYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->GreenEnergyEfficient)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Green Energy Efficient</td>
+					<td class="bt-listing__table__items"><span>[unmapped_GreenEnergyEfficient]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->HomeWarrantyYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Home Warranty YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_HomeWarrantyYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Levels)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Levels</td>
+					<td class="bt-listing__table__items"><span>[unmapped_Levels]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->propsubtype)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Propertysubtype</td>
+					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->assocsecurity)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Security Features</td>
+					<td class="bt-listing__table__items"><span>[assocsecurity]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Special Listing Conditions</td>
+					<td class="bt-listing__table__items"><span>[unmapped_SpecialListingConditions]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->petsallowed)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Pets Allowed</td>
+					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->StoriesTotal)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Storiestotal</td>
+					<td class="bt-listing__table__items"><span>[unmapped_StoriesTotal]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->CarportYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Carport YN </td>
+					<td class="bt-listing__table__items"><span>[unmapped_CarportYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->utilities)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Utilities</td>
+					<td class="bt-listing__table__items"><span>[utilities]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Attached Garage YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_AttachedGarageYN]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->garageparking)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Garage YN </td>
+					<td class="bt-listing__table__items"><span>[garageparking]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->lotdescription)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Features</td>
+					<td class="bt-listing__table__items"><span>[lotdescription]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Lot Size Dimensions</td>
+					<td class="bt-listing__table__items"><span>[unmapped_LotSizeDimensions]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->PatioAndPorchFeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Patio And Porch Features</td>
+					<td class="bt-listing__table__items"><span>[unmapped_PatioAndPorchFeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->pooldescription)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Pool Features</td>
+					<td class="bt-listing__table__items"><span>[pooldescription]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->appliances)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Appliances</td>
+					<td class="bt-listing__table__items"><span>[appliances]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->bldgsqfeet)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Building Area Total</td>
+					<td class="bt-listing__table__items"><span>[bldgsqfeet]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->FireplaceFeatures)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Fireplace Features</td>
+					<td class="bt-listing__table__items"><span>[unmapped_FireplaceFeatures]</span></td>
+				</tr>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->HeatingYN)): ?>
+				<tr>
+					<td class="bt-listing__table__label">Heating YN</td>
+					<td class="bt-listing__table__items"><span>[unmapped_HeatingYN]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

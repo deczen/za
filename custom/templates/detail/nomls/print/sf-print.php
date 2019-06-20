@@ -208,10 +208,10 @@
 			  <strong>Lot Size</strong>
 			  [unmapped_LotSize]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->lotdescription)): ?>
+			  <?php /*if(isset($single_property->lotdescription)): ?>
 			  <strong>Lot Desc</strong>
 			  [lotdescription]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->greencertified)): ?>
 			  <strong>Green Certified</strong>
 			  [greencertified]
@@ -231,6 +231,94 @@
 			  <?php if(isset($single_property->construction)): ?>
 			  <strong>Construction</strong>
 			  [construction]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->reqdownassociation)): ?>
+			  <strong>Association YN</strong>
+			  [reqdownassociation]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CoolingYN)): ?>
+			  <strong>Cooling YN</strong>
+			  [unmapped_CoolingYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->GreenEnergyEfficient)): ?>
+			  <strong>Green Energy Efficient</strong>
+			  [unmapped_GreenEnergyEfficient]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->HomeWarrantyYN)): ?>
+			  <strong>Home Warranty YN</strong>
+			  [unmapped_HomeWarrantyYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->Levels)): ?>
+			  <strong>Levels</strong>
+			  [unmapped_Levels]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->propsubtype)): ?>
+			  <strong>Propertysubtype</strong>
+			  [propsubtype]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->assocsecurity)): ?>
+			  <strong>Security Features</strong>
+			  [assocsecurity]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->SpecialListingConditions)): ?>
+			  <strong>Special Listing Conditions</strong>
+			  [unmapped_SpecialListingConditions]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->petsallowed)): ?>
+			  <strong>Pets Allowed</strong>
+			  [petsallowed]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->StoriesTotal)): ?>
+			  <strong>Storiestotal</strong>
+			  [unmapped_StoriesTotal]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->CarportYN)): ?>
+			  <strong>Carport YN</strong>
+			  [unmapped_CarportYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->utilities)): ?>
+			  <strong>Utilities</strong>
+			  [utilities]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->AttachedGarageYN)): ?>
+			  <strong>Attached Garage YN</strong>
+			  [unmapped_AttachedGarageYN]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->garageparking)): ?>
+			  <strong>Garage YN</strong>
+			  [garageparking]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->lotdescription)): ?>
+			  <strong>Lot Features</strong>
+			  [lotdescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->LotSizeDimensions)): ?>
+			  <strong>Lot Size Dimensions</strong>
+			  [unmapped_LotSizeDimensions]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->PatioAndPorchFeatures)): ?>
+			  <strong>Patio And Porch Features</strong>
+			  [unmapped_PatioAndPorchFeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->pooldescription)): ?>
+			  <strong>Pool Features</strong>
+			  [pooldescription]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->appliances)): ?>
+			  <strong>Appliances</strong>
+			  [appliances]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->bldgsqfeet)): ?>
+			  <strong>Building Area Total</strong>
+			  [bldgsqfeet]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->FireplaceFeatures)): ?>
+			  <strong>Fireplace Features</strong>
+			  [unmapped_FireplaceFeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->HeatingYN)): ?>
+			  <strong>Heating YN</strong>
+			  [unmapped_HeatingYN]
 			  <?php endif; ?>
 		   </p>
 		</div>

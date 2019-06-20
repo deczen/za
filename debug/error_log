@@ -1,0 +1,13 @@
+[10-Jun-2019 01:57:17 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 65
+[10-Jun-2019 01:57:17 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 66
+[10-Jun-2019 01:57:17 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 77
+[10-Jun-2019 01:57:17 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 77
+[10-Jun-2019 10:31:11 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 65
+[10-Jun-2019 10:31:11 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 66
+[10-Jun-2019 10:31:11 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 77
+[10-Jun-2019 10:31:11 UTC] PHP Notice:  Trying to get property of non-object in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 77
+[17-Jun-2019 10:24:50 UTC] PHP Notice:  Undefined variable: rb in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 145
+[17-Jun-2019 10:24:52 UTC] PHP Notice:  Undefined variable: rb in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 145
+[20-Jun-2019 07:14:51 UTC] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 117
+[20-Jun-2019 07:15:01 UTC] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 117
+[20-Jun-2019 07:15:03 UTC] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 117
