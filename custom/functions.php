@@ -55,7 +55,7 @@ if( ! function_exists('zipperagent_run_curl') ){
 		}
 		$time_elapsed_secs = microtime(true) - $start;
 		
-		$log=new ZipperAgentLog('api.log','functions.php');
+		$log=new ZipperAgentLog('api','functions.php');
 		$log->log_msg("[url= {$url}, time= {$time_elapsed_secs}s]");
 		
 		// echo( $json );
@@ -66,14 +66,14 @@ if( ! function_exists('zipperagent_run_curl') ){
 			|| ! ( $server_output->responseCode >= 200 && $server_output->responseCode <= 299 ) ){
 			if(isset($server_output->errors)){
 				foreach($server_output->errors as $error){
-					$log=new ZipperAgentLog('error.log','functions.php');
+					$log=new ZipperAgentLog('error','functions.php');
 					$log->log_msg("[url= {$url}, status={$server_output->status}, responseCode={$server_output->responseCode}, error_message=\"{$error->errorMessage}\"]");					
 				}
 			}else if(isset($server_output->result)){
-				$log=new ZipperAgentLog('error.log','functions.php');
+				$log=new ZipperAgentLog('error','functions.php');
 				$log->log_msg("[url= {$url}, status={$server_output->status}, responseCode={$server_output->responseCode}, error_message=\"{$server_output->result}\"]");	
 			}else{
-				$log=new ZipperAgentLog('error.log','functions.php');
+				$log=new ZipperAgentLog('error','functions.php');
 				$log->log_msg("[url= {$url}, status={$server_output->status}, responseCode={$server_output->responseCode}, error_message=\"no error message\"]");	
 			}
 		}
@@ -1088,6 +1088,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 						case "listprice":
 						case "squarefeet":
 						case "taxes":
+						case "lotsize":
 								$replaces[]=number_format_i18n( $v, 0 );
 							break;
 						case "status":
@@ -1127,9 +1128,17 @@ if( ! function_exists('zipperagent_property_fields') ){
 				}else if(is_array( $v ) || is_object( $v )){ //level 2,3,4,..
 					foreach($v as $k2 => $v2){
 						
-						if(!is_array($v2) && !is_object($v2)){					
-							$find[]="[{$k}_{$k2}]";
-							$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
+						if(!is_array($v2) && !is_object($v2)){
+							switch($k2){
+								case "SQFTRoofedLiving":
+										$find[]="[{$k}_{$k2}]";
+										$replaces[]=number_format_i18n( $v2, 0 );
+									break;
+								default:
+										$find[]="[{$k}_{$k2}]";
+										$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
+									break;
+							}
 						}else if(is_array($v2)){
 							foreach($v2 as $k3 => $v3){
 								if(!is_array($v3) && !is_object($v3)){

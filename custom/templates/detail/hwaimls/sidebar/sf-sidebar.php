@@ -16,21 +16,21 @@
 				<div class="attr-num">[nofullbaths]</div>
 				<div class="uk-text-small uk-text-truncate">FULL BATHS</div>
 			</li>
-			<li class="baths">
-				<div class="attr-num">[unmapped_BathsThreeQuarter]</div>
-				<div class="uk-text-small uk-text-truncate">3/4 BATHS</div>
-			</li>										
 			<li class="half-baths">
 				<div class="attr-num">[nohalfbaths]</div>
 				<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
-			</li>
-			<li class="sqft ">
-				<div class="attr-num"> [squarefeet] </div>
-				<div class="uk-text-small uk-text-truncate">SQFT</div>
-			</li>
+			</li>										
 			<li class="acres">
 				<div class="attr-num bt-listing__acreage-text">[lotsize]</div>
-				<div class="uk-text-small uk-text-truncate">Land Square Feet</div>
+				<div class="uk-text-small uk-text-truncate">LAND SQ FT</div>
+			</li>
+			<li class="sqft ">
+				<div class="attr-num"> [unmapped_SQFTRoofedLiving] </div>
+				<div class="uk-text-small uk-text-truncate">LIV AREA SQ FT</div>
+			</li>
+			<li class="acres">
+				<div class="attr-num bt-listing__acreage-text">[unmapped_SQFTRoofedOther]</div>
+				<div class="uk-text-small uk-text-truncate">OTHER AREA SQ FT</div>
 			</li>
 
 		</ul>
