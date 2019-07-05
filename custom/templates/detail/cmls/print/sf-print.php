@@ -1,15 +1,15 @@
-<div class="bt-print__wrap">
-	<div class="bt-print__header_top">
-		<div class="bt-print__logo">
+<div class="zy-print__wrap">
+	<div class="zy-print__header_top">
+		<div class="zy-print__logo">
 			<img src="<?php echo $print_logo; ?>">
 		</div>
-		<div class="bt-print__title">
+		<div class="zy-print__title">
 			<h4 class="my-5 uk-text-truncate" style="color: <?php echo $print_color; ?> !important;">
 			   <?php echo zipperagent_get_address($single_property); ?> 
 			</h4>
 		</div>
 	</div>
-	 <div class="bt-print__left">
+	 <div class="zy-print__left">
 		<div class="uk-text-small mb-5">
 		   <?php echo get_permalink(); ?>
 		   <?php // echo $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
@@ -31,7 +31,7 @@
 		<h4 class="my-5 uk-text-truncate">
 		   <?php echo zipperagent_get_address($single_property); ?> 
 		</h4>
-		<ul class="bt-print__meta">
+		<ul class="zy-print__meta">
 			<?php if(isset($single_property->listprice)): ?>
 		   <li>Price: $[realprice]</li>
 			<?php endif; ?>
@@ -45,108 +45,108 @@
 		   <li>[displaySource] #: [id]</li>
 			<?php endif; ?>
 		</ul>
-		<table class="bt-print__meta-blocks">
+		<table class="zy-print__meta-blocks">
 		   <tr>
 			<?php /*if(isset($single_property->norooms)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[norooms]</div>
-				 <div class="bt-print__meta-label">Total Rooms</div>
+				 <div class="zy-print__meta-val">[norooms]</div>
+				 <div class="zy-print__meta-label">Total Rooms</div>
 			  </td>
 			<?php endif;*/ ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nobedrooms]</div>
-				 <div class="bt-print__meta-label">Beds</div>
+				 <div class="zy-print__meta-val">[nobedrooms]</div>
+				 <div class="zy-print__meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nofullbaths]</div>
-				 <div class="bt-print__meta-label">FULL BATHS</div>
+				 <div class="zy-print__meta-val">[nofullbaths]</div>
+				 <div class="zy-print__meta-label">FULL BATHS</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->nohalfbaths)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nohalfbaths]</div>
-				 <div class="bt-print__meta-label">&frac12; Baths</div>
+				 <div class="zy-print__meta-val">[nohalfbaths]</div>
+				 <div class="zy-print__meta-label">&frac12; Baths</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->squarefeet)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[squarefeet]</div>
-				 <div class="bt-print__meta-label">SQFT</div>
+				 <div class="zy-print__meta-val">[squarefeet]</div>
+				 <div class="zy-print__meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->lotsize)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[lotsize]</div>
-				 <div class="bt-print__meta-label">Acres</div>
+				 <div class="zy-print__meta-val">[lotsize]</div>
+				 <div class="zy-print__meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
 			  <?php /* <td>
-				 <div class="bt-print__meta-val">$170</div>
-				 <div class="bt-print__meta-label">$/SQFT</div>
+				 <div class="zy-print__meta-val">$170</div>
+				 <div class="zy-print__meta-label">$/SQFT</div>
 			  </td>  ?>
 			<?php if(isset($single_property->yearbuilt)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[yearbuilt]</div>
-				 <div class="bt-print__meta-label">Built</div>
+				 <div class="zy-print__meta-val">[yearbuilt]</div>
+				 <div class="zy-print__meta-label">Built</div>
 			  </td>
 			<?php endif;*/ ?>
 		   </tr>
 		</table>
-		<div class="bt-print__area__wrap">
-		   <div class="bt-print__area">
+		<div class="zy-print__area__wrap">
+		   <div class="zy-print__area">
 			<?php if(isset($single_property->neighborhood)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Neighborhood:</div>
-				 <div class="bt-print__area-val">[neighborhood]</div>
+				 <div class="zy-print__area-label">Neighborhood:</div>
+				 <div class="zy-print__area-val">[neighborhood]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->proptype)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Type:</div>
-				 <div class="bt-print__area-val">[proptype]</div>
+				 <div class="zy-print__area-label">Type:</div>
+				 <div class="zy-print__area-val">[proptype]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->yearbuilt)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Built:</div>
-				 <div class="bt-print__area-val">[yearbuilt]</div>
+				 <div class="zy-print__area-label">Built:</div>
+				 <div class="zy-print__area-val">[yearbuilt]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">County:</div>
-				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
+				 <div class="zy-print__area-label">County:</div>
+				 <div class="zy-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="zy-print__area-label">Area:</div>
+				 <div class="zy-print__area-val">[lngAREADESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
-		   <div class="bt-print__area">
+		   <div class="zy-print__area">
 		   </div>
 		</div>
 		<?php if(isset($single_property->remarks)): ?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Description</h6>
-		   <div class="bt-print__description">[remarks]</div>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Property Description</h6>
+		   <div class="zy-print__description">[remarks]</div>
 		</div>
 		<?php endif; ?>
 		
 		<?php if(isset($single_property->direction)): ?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Directions</h6>
-		   <div class="bt-print__description">[direction]</div>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Directions</h6>
+		   <div class="zy-print__description">[direction]</div>
 		</div>
 		<?php endif; ?>
 		
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
 			  <?php if(isset($single_property->amenities)): ?>
 			  <strong>Amenities</strong>
@@ -238,8 +238,8 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6>
 		   <p>
 			  <?php if(isset($single_property->cooling)): ?>
 			  <strong>Cooling</strong>
@@ -285,8 +285,8 @@
 		</div>
 		
 		<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Schools</h6>
 		   <p>
 			  <?php if(isset($single_property->gradeschool)): ?>
 			  <strong>Grade School</strong>
@@ -305,8 +305,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->HOAManagementName) || isset($single_property->HOAManagementPhone) || isset($single_property->hoafee) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
 		   <p>
 			  <?php if(isset($single_property->HOAManagementName)): ?>
 			  <strong>HOA Management</strong>
@@ -328,10 +328,10 @@
 		</div>
 		<?php endif; ?>
 		
-		<?php $roomLevels = $single_property->roomLevels;
-		if (isset($roomLevels)): ?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+		<?php $roomLevels = isset($single_property->roomLevels)?$single_property->roomLevels:false;
+		if($roomLevels): ?>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
 			<p>
 			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
 				
@@ -347,8 +347,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
 		   <p>
 			  <?php if(isset($single_property->garagespaces)): ?>
 			  <strong>Garage Spaces</strong>
@@ -367,8 +367,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->mbrdimen) || isset($single_property->mbrlevel) || isset($single_property->mbrdscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Master Bedroom</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Master Bedroom</h6> 
 			   <p>
 				  <?php if(isset($single_property->mbrdimen)): ?>
 				  <strong>Size</strong>
@@ -386,8 +386,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->bed2DIMEN) || isset($single_property->bed2LEVEL) || isset($single_property->bed2DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #2</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #2</h6> 
 			   <p>
 				  <?php if(isset($single_property->bed2DIMEN)): ?>
 				  <strong>Size</strong>
@@ -405,8 +405,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->bed3DIMEN) || isset($single_property->bed3LEVEL) || isset($single_property->bed3DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #3</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #3</h6> 
 			   <p>
 				  <?php if(isset($single_property->bed3DIMEN)): ?>
 				  <strong>Size</strong>
@@ -424,8 +424,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->bed4DIMEN) || isset($single_property->bed4LEVEL) || isset($single_property->bed4DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #4</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #4</h6> 
 			   <p>
 				  <?php if(isset($single_property->bed4DIMEN)): ?>
 				  <strong>Size</strong>
@@ -443,8 +443,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->bed5DIMEN) || isset($single_property->bed5LEVEL) || isset($single_property->bed5DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #5</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bedroom #5</h6> 
 			   <p>
 				  <?php if(isset($single_property->bed5DIMEN)): ?>
 				  <strong>Size</strong>
@@ -463,8 +463,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->bth1dimen) || isset($single_property->bth1LEVEL) || isset($single_property->bth1dscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #1</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #1</h6> 
 			   <p>
 				  <?php if(isset($single_property->bth1dimen)): ?>
 				  <strong>Size</strong>
@@ -482,8 +482,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->bth2dimen) || isset($single_property->bth2LEVEL) || isset($single_property->bth2dscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #2</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #2</h6> 
 			   <p>
 				  <?php if(isset($single_property->bth2dimen)): ?>
 				  <strong>Size</strong>
@@ -501,8 +501,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->bth3dimen) || isset($single_property->bth3level) || isset($single_property->bth3dscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #3</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Bathroom #3</h6> 
 			   <p>
 				  <?php if(isset($single_property->bth3dimen)): ?>
 				  <strong>Size</strong>
@@ -521,8 +521,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->kitdimen) || isset($single_property->kitlevel) || isset($single_property->kitdscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Kitchen</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Kitchen</h6> 
 			   <p>
 				  <?php if(isset($single_property->kitdimen)): ?>
 				  <strong>Size</strong>
@@ -540,8 +540,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->famdimen) || isset($single_property->famlevel) || isset($single_property->famdscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Family Room</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Family Room</h6> 
 			   <p>
 				  <?php if(isset($single_property->famdimen)): ?>
 				  <strong>Size</strong>
@@ -559,8 +559,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->livdimen) || isset($single_property->livlevel) || isset($single_property->livdscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Living Room</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Living Room</h6> 
 			   <p>
 				  <?php if(isset($single_property->livdimen)): ?>
 				  <strong>Size</strong>
@@ -578,8 +578,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->dindimen) || isset($single_property->dinlevel) || isset($single_property->dindscrp) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Dining Room</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Dining Room</h6> 
 			   <p>
 				  <?php if(isset($single_property->dindimen)): ?>
 				  <strong>Size</strong>
@@ -598,8 +598,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->oth1DIMEN) || isset($single_property->oth1LEVEL) || isset($single_property->oth1DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #1</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #1</h6> 
 			   <p>
 				  <?php if(isset($single_property->oth1DIMEN)): ?>
 				  <strong>Size</strong>
@@ -617,8 +617,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->oth2DIMEN) || isset($single_property->oth2LEVEL) || isset($single_property->oth2DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #2</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #2</h6> 
 			   <p>
 				  <?php if(isset($single_property->oth2DIMEN)): ?>
 				  <strong>Size</strong>
@@ -636,8 +636,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->oth3DIMEN) || isset($single_property->oth3LEVEL) || isset($single_property->oth3DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #3</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #3</h6> 
 			   <p>
 				  <?php if(isset($single_property->oth3DIMEN)): ?>
 				  <strong>Size</strong>
@@ -655,8 +655,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->oth4DIMEN) || isset($single_property->oth4LEVEL) || isset($single_property->oth4DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #4</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #4</h6> 
 			   <p>
 				  <?php if(isset($single_property->oth4DIMEN)): ?>
 				  <strong>Size</strong>
@@ -674,8 +674,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->oth5DIMEN) || isset($single_property->oth5LEVEL) || isset($single_property->oth5DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #5</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #5</h6> 
 			   <p>
 				  <?php if(isset($single_property->oth5DIMEN)): ?>
 				  <strong>Size</strong>
@@ -693,8 +693,8 @@
 			</div>
 		<?php endif; ?>
 		<?php if( isset($single_property->oth6DIMEN) || isset($single_property->oth6LEVEL) || isset($single_property->oth6DSCRP) ):?>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #6</h6> 
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Additional Room #6</h6> 
 			   <p>
 				  <?php if(isset($single_property->oth6DIMEN)): ?>
 				  <strong>Size</strong>
@@ -712,7 +712,7 @@
 			</div>
 		<?php endif; ?>
 		
-		<div class="bt-print__block">
+		<div class="zy-print__block">
 		<?php if( $source_details ){
 			echo $source_details;
 		}else{
@@ -720,20 +720,20 @@
 		} ?>
 		</div>
 	 </div>
-	 <div class="bt-print__right">
+	 <div class="zy-print__right">
 		<div class="uk-text-small mb-5">&nbsp;</div>
-		<div class="bt-print__media-list">
+		<div class="zy-print__media-list">
 			<?php if ( isset($img[1]) ) echo "<img src='$img[1]' />";?>
 			<?php if ( isset($img[2]) ) echo "<img src='$img[2]' />";?>
 			<?php if ( isset($img[3]) ) echo "<img src='$img[3]' />";?>
-			<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="bt-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
+			<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="zy-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
 		</div>
 		<?php if( $agent ): ?>
-		<div class="bt-print__agent">
-		   <div class="bt-cell-align bt-cell-align--small">
+		<div class="zy-print__agent">
+		   <div class="zy-cell-align zy-cell-align--small">
 			  <?php  if( isset( $agent->imageURL ) ): ?>
 			  <div>
-				 <img class="bt-image__no-mw bt-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
+				 <img class="zy-image__no-mw zy-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
 			  </div>
 			  <?php endif; ?>
 			  <div class="pl-10">

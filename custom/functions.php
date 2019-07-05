@@ -1078,7 +1078,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 		
 		$replaces=array();
 		$find=array();
-		if( sizeof($single_property) ){
+		if(is_object($single_property) || is_array($single_property)){
 			foreach( $single_property as $k=>$v ){
 				if( ! is_array( $v ) && !is_object( $v ) ){ //level 1
 					
@@ -1129,15 +1129,20 @@ if( ! function_exists('zipperagent_property_fields') ){
 					foreach($v as $k2 => $v2){
 						
 						if(!is_array($v2) && !is_object($v2)){
-							switch($k2){
-								case "SQFTRoofedLiving":
-										$find[]="[{$k}_{$k2}]";
-										$replaces[]=number_format_i18n( $v2, 0 );
-									break;
-								default:
-										$find[]="[{$k}_{$k2}]";
-										$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
-									break;
+							if(is_numeric($k2)){
+								$find[]="[{$k}_{$k2}]";
+								$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
+							}else{
+								switch($k2){
+									case "SQFTRoofedLiving":
+											$find[]="[{$k}_{$k2}]";
+											$replaces[]=number_format_i18n( (int)$v2, 0 );
+										break;
+									default:
+											$find[]="[{$k}_{$k2}]";
+											$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
+										break;
+								}
 							}
 						}else if(is_array($v2)){
 							foreach($v2 as $k3 => $v3){
@@ -1517,8 +1522,8 @@ if( ! function_exists('zipperagent_get_map_centre') ){
 		$default_lat='42.114524';
 		$default_lng='-72.014008';
 		
-		$za_lat=!empty($rb['web']['map_centre']['lat'])?$rb['web']['map_centre']['lat']:$default_lat;
-		$za_lng=!empty($rb['web']['map_centre']['lng'])?$rb['web']['map_centre']['lng']:$default_lng;
+		$za_lat=isset($rb['web']['map_centre']['lat'])&&!empty($rb['web']['map_centre']['lat'])?$rb['web']['map_centre']['lat']:$default_lat;
+		$za_lng=isset($rb['web']['map_centre']['lng'])&&!empty($rb['web']['map_centre']['lng'])?$rb['web']['map_centre']['lng']:$default_lng;
 		
 		return array('za_lat'=>$za_lat, 'za_lng'=>$za_lng);
 	}
@@ -1692,10 +1697,10 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						$text.= ' '. "<strong>$listOfficeName</strong>";
 					}		
 					
-					if(file_exists($source['logo_path'])){
+					if(isset($source['logo_path']) && file_exists($source['logo_path'])){
 						$text.='<br />' . '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
 						
-						if($source['copyrightUrl']){
+						if(isset($source['copyrightUrl']) && $source['copyrightUrl']){
 							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
 						}
 					}
@@ -3061,7 +3066,7 @@ if( ! function_exists('showSignUpPopup') ){
 	 * using sign up interval
 	 */
 		$rb = zipperagent_rb();
-		$interval = $rb['web']['sign_up_interval'];
+		$interval = isset($rb['web']['sign_up_interval'])?$rb['web']['sign_up_interval']:0;
 		$status=0;
 		
 		if($interval==0){
@@ -3102,7 +3107,7 @@ if( ! function_exists('SignUpPopupTime') ){
 			return 0; //if sign up is mandatory and already triggered before, show popup immediately
 		
 		$rb = zipperagent_rb();
-		$seconds = $rb['web']['popup_show_time'];
+		$seconds = isset($rb['web']['popup_show_time'])?$rb['web']['popup_show_time']:'';
 		
 		if(empty($seconds))
 			$seconds=120; //default is 120 seconds
@@ -3115,10 +3120,7 @@ if( ! function_exists('SignUpPopupVisitCounter') ){
 	function SignUpPopupVisitCounter(){
 				
 		$rb = zipperagent_rb();
-		$counter = $rb['web']['popup_visit_counter'];
-		
-		if(!$counter)
-			$counter=0;
+		$counter = isset($rb['web']['popup_visit_counter'])?$rb['web']['popup_visit_counter']:0;
 		
 		return $counter;
 	}
@@ -3128,7 +3130,7 @@ if( ! function_exists('is_social_share_enabled') ){
 	function is_social_share_enabled(){
 				
 		$rb = zipperagent_rb();
-		$enabled = $rb['web']['social_share'];
+		$enabled = isset($rb['web']['social_share'])?$rb['web']['social_share']:'';
 		
 		$enabled=$enabled?true:false;
 		
@@ -3139,7 +3141,7 @@ if( ! function_exists('is_social_share_enabled') ){
 if( ! function_exists('is_great_school_enabled') ){
 	function is_great_school_enabled(){
 				
-		return 1;
+		return 0;
 	}
 }
 
@@ -3147,7 +3149,7 @@ if( ! function_exists('is_show_agent_list') ){
 	function is_show_agent_list(){
 				
 		$rb = zipperagent_rb();
-		$enabled = $rb['web']['show_agent_list'];
+		$enabled = isset($rb['web']['show_agent_list'])?$rb['web']['show_agent_list']:'';
 		
 		$enabled=$enabled?true:false;
 		
@@ -3159,7 +3161,7 @@ if( ! function_exists('is_branded_virtualtour') ){
 	function is_branded_virtualtour(){
 				
 		$rb = zipperagent_rb();
-		$enabled = $rb['web']['branded_virtualtour'];
+		$enabled = isset($rb['web']['branded_virtualtour'])?$rb['web']['branded_virtualtour']:'';
 		
 		$enabled=$enabled?true:false;
 		
@@ -3184,7 +3186,7 @@ if( ! function_exists('is_show_agent_name') ){
 	function is_show_agent_name(){
 				
 		$rb = zipperagent_rb();
-		$enabled = $rb['web']['show_agent_name'];
+		$enabled = isset($rb['web']['show_agent_name'])?$rb['web']['show_agent_name']:'';
 		
 		$enabled=$enabled?true:false;
 		
@@ -3819,8 +3821,8 @@ if( ! function_exists('auto_trigger_button_script') ){
 						break;
 					case "save_favorite":
 							echo "
-								var contactId = jQuery('.bt-listing__favorite-button').attr('contactid');
-								var isLogin = jQuery('.bt-listing__favorite-button').attr('isLogin');
+								var contactId = jQuery('.zy-listing__favorite-button').attr('contactid');
+								var isLogin = jQuery('.zy-listing__favorite-button').attr('isLogin');
 								
 								save_favorite( contactId, '', isLogin );";
 						break;

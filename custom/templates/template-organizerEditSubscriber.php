@@ -108,7 +108,7 @@ $userdata = $userdata[0]; //get first index record
 		*/ ?>
 		<div class="mb-10"> <!--row-->
 				
-				<section class="bt-content-wrapper px--safe">
+				<section class="zy-content-wrapper px--safe">
 					<div class="za-container">
 						<div class="grid grid--gutters">
 							<div class="cell cell-lg-3 cell-md-12 cell-sm-12 cell-xs-12">
@@ -139,28 +139,28 @@ $userdata = $userdata[0]; //get first index record
 										<ul class="uk-list" id="zpa-edit-subscribe-tabs">
 											<li class="link-list__item at-main-menu__account <?php if($_GET['menu']=='') echo 'active'; ?>">
 												<a href="#za-edit-subscriber" class="py-10 link-list__target" data-toggle="tab">
-													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
 													<div class="uk-text-truncate">Profile</div>
 												</a>
 											</li>
 											<li class="link-list__item at-main-menu__favs <?php if($_GET['menu']=='my-favorite') echo 'active'; ?>">
 												<a href="#za-saved-listing-list" class="py-10 link-list__target" data-toggle="tab">
-													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
 													<div class="uk-text-truncate">My Favorites (<?php echo $count; ?>)</div>
 												</a>
 											</li>
 											<li class="link-list__item at-main-menu__notification <?php if($_GET['menu']=='my-search') echo 'active'; ?>">
 												<a href="#za-saved-search-list" class="py-10 link-list__target" data-toggle="tab">
-													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
 													<div class="uk-text-truncate">My Saved Searches (<?php echo $dataCount; ?>)</div>
 												</a>
 											</li>
 											<li class="link-list__item at-main-menu__logout">
 												<a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
-													<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
 													<div class="uk-text-truncate">Logout</div>
 												</a>

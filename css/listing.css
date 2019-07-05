@@ -226,9 +226,9 @@
 .list-downloads a:hover{
 	color:#fff;
 }
-.list-sidebar .bt-panel{box-shadow:none; border:1px solid #000;}
-.list-sidebar .bt-listing__agent__info__category--agent{background-color:#880000; color: #fff;}
-.list-sidebar .bt-listing__agent__info{line-height:1.5;}
+.list-sidebar .zy-panel{box-shadow:none; border:1px solid #000;}
+.list-sidebar .zy-listing__agent__info__category--agent{background-color:#880000; color: #fff;}
+.list-sidebar .zy-listing__agent__info{line-height:1.5;}
 .list-sidebar .agent-widget{margin-bottom:30px;}
 .gallery-item {
     margin: 0 !important;

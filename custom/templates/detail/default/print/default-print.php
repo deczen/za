@@ -1,5 +1,5 @@
-<div class="bt-print__wrap">
-	<div class="bt-print__left">
+<div class="zy-print__wrap">
+	<div class="zy-print__left">
 		<div class="uk-text-small mb-5">
 		   <?php echo get_permalink(); ?>
 		   <?php // echo $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
@@ -21,76 +21,76 @@
 		<h4 class="my-5 uk-text-truncate">
 		   <?php echo zipperagent_get_address($single_property); ?> 
 		</h4>
-		<ul class="bt-print__meta">
+		<ul class="zy-print__meta">
 		   <li>Price: $[realprice]</li>
 		   <li>Status: [status]</li>
 		   <li>Updated: [syncAge] min ago</li>
 		   <li>[displaySource] #: [id]</li>
 		</ul>
-		<table class="bt-print__meta-blocks">
+		<table class="zy-print__meta-blocks">
 		   <tr>
 			  <td>
-				 <div class="bt-print__meta-val">[nobedrooms]</div>
-				 <div class="bt-print__meta-label">Beds</div>
+				 <div class="zy-print__meta-val">[nobedrooms]</div>
+				 <div class="zy-print__meta-label">Beds</div>
 			  </td>
 			  <td>
-				 <div class="bt-print__meta-val">[nobaths]</div>
-				 <div class="bt-print__meta-label">Baths</div>
+				 <div class="zy-print__meta-val">[nobaths]</div>
+				 <div class="zy-print__meta-label">Baths</div>
 			  </td>
 			  <td>
-				 <div class="bt-print__meta-val">[nohalfbaths]</div>
-				 <div class="bt-print__meta-label">&frac12; Baths</div>
+				 <div class="zy-print__meta-val">[nohalfbaths]</div>
+				 <div class="zy-print__meta-label">&frac12; Baths</div>
 			  </td>
 			  <td>
-				 <div class="bt-print__meta-val">[acre]</div>
-				 <div class="bt-print__meta-label">Acres</div>
+				 <div class="zy-print__meta-val">[acre]</div>
+				 <div class="zy-print__meta-label">Acres</div>
 			  </td>
 			  <td>
-				 <div class="bt-print__meta-val">[squarefeet]</div>
-				 <div class="bt-print__meta-label">SQFT</div>
+				 <div class="zy-print__meta-val">[squarefeet]</div>
+				 <div class="zy-print__meta-label">SQFT</div>
 			  </td>
 			  <?php /* <td>
-				 <div class="bt-print__meta-val">$170</div>
-				 <div class="bt-print__meta-label">$/SQFT</div>
+				 <div class="zy-print__meta-val">$170</div>
+				 <div class="zy-print__meta-label">$/SQFT</div>
 			  </td> 
 			  <td>
-				 <div class="bt-print__meta-val">[yearbuilt]</div>
-				 <div class="bt-print__meta-label">Built</div>
+				 <div class="zy-print__meta-val">[yearbuilt]</div>
+				 <div class="zy-print__meta-label">Built</div>
 			  </td> */ ?>
 		   </tr>
 		</table>
-		<div class="bt-print__area__wrap">
-		   <div class="bt-print__area">
+		<div class="zy-print__area__wrap">
+		   <div class="zy-print__area">
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Neighborhood:</div>
-				 <div class="bt-print__area-val">[neighborhood]</div>
+				 <div class="zy-print__area-label">Neighborhood:</div>
+				 <div class="zy-print__area-val">[neighborhood]</div>
 			  </div>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Type:</div>
-				 <div class="bt-print__area-val">[proptype]</div>
+				 <div class="zy-print__area-label">Type:</div>
+				 <div class="zy-print__area-val">[proptype]</div>
 			  </div>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Built:</div>
-				 <div class="bt-print__area-val">[yearbuilt]</div>
+				 <div class="zy-print__area-label">Built:</div>
+				 <div class="zy-print__area-val">[yearbuilt]</div>
 			  </div>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">County:</div>
-				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
+				 <div class="zy-print__area-label">County:</div>
+				 <div class="zy-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="zy-print__area-label">Area:</div>
+				 <div class="zy-print__area-val">[lngAREADESCRIPTION]</div>
 			  </div>
 		   </div>
-		   <div class="bt-print__area">
+		   <div class="zy-print__area">
 		   </div>
 		</div>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header">Property Description</h6>
-		   <div class="bt-print__description">[remarks]</div>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header">Property Description</h6>
+		   <div class="zy-print__description">[remarks]</div>
 		</div>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header">Exterior Features</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header">Exterior Features</h6>
 		   <p>
 			  <?php /* <strong>Beach Description</strong>
 			  Lake/Pond
@@ -154,8 +154,8 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header">Interior Features</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header">Interior Features</h6>
 		   <p>
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
@@ -269,8 +269,8 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header">Property Features</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header">Property Features</h6>
 		   <p>
 			  <?php if(isset($single_property->adultcommunity)): ?>
 			  <strong>Adult Community</strong>
@@ -390,7 +390,7 @@
 			  <?php endif; ?>
 		   </p>
 		</div>
-		<div class="bt-print__block">
+		<div class="zy-print__block">
 		<?php if( $source_details ){
 			echo $source_details;
 		}else{
@@ -398,20 +398,20 @@
 		} ?>
 		</div>
 	 </div>
-	 <div class="bt-print__right">
+	 <div class="zy-print__right">
 		<div class="uk-text-small mb-5">&nbsp;</div>
-		<div class="bt-print__media-list">
+		<div class="zy-print__media-list">
 			<?php if ( isset($img[1]) ) echo "<img src='$img[1]' />";?>
 			<?php if ( isset($img[2]) ) echo "<img src='$img[2]' />";?>
 			<?php if ( isset($img[3]) ) echo "<img src='$img[3]' />";?>
-			<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="bt-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
+			<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="zy-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
 		</div>
 		<?php if( $agent ): ?>
-		<div class="bt-print__agent">
-		   <div class="bt-cell-align bt-cell-align--small">
+		<div class="zy-print__agent">
+		   <div class="zy-cell-align zy-cell-align--small">
 			  <?php  if( isset( $agent->imageURL ) ): ?>
 			  <div>
-				 <img class="bt-image__no-mw bt-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
+				 <img class="zy-image__no-mw zy-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
 			  </div>
 			  <?php endif; ?>
 			  <div class="pl-10">
@@ -430,7 +430,7 @@
 		</div>
 		<?php endif; ?>
 		<?php /* 
-		<div class="bt-print__office">
+		<div class="zy-print__office">
 		   <img src="https://bt-wpstatic.freetls.fastly.net/wp-content/blogs.dir/3244/files/2017/08/Web-Top-Left-Logo-new.jpg">
 		   <address>
 			  <div class="mt-5">RE/MAX Patriot Realty</div>
@@ -438,7 +438,7 @@
 			  <div>Leominster MA, 01453</div>
 		   </address>
 		</div>
-		<div class="bt-print__block">
+		<div class="zy-print__block">
 		   <font size="2">Listing courtesy of some text.</font>
 		</div> */ ?>
 	</div>

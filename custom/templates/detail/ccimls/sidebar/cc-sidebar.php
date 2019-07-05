@@ -1,13 +1,13 @@
-<div class="mb-15 p-0 bt-panel uk-panel uk-panel-box">
-	<div class="bt-panel__stack__sub bt-panel--small uk-text-center">
+<div class="mb-15 p-0 zy-panel uk-panel uk-panel-box">
+	<div class="zy-panel__stack__sub zy-panel--small uk-text-center">
 		<div class="">
 
 			<strong>$[realprice]</strong>
 
 		</div>
 	</div>
-	<div class="bt-panel__stack__sub">
-		<ul class="bt-listing__feature-grid" style="margin-bottom:0">
+	<div class="zy-panel__stack__sub">
+		<ul class="zy-listing__feature-grid" style="margin-bottom:0">
 			<li class="rooms">
 				<div class="attr-num">[norooms]</div>
 				<div class="uk-text-small uk-text-truncate">TOTAL ROOMS</div>
@@ -29,14 +29,14 @@
 				<div class="uk-text-small uk-text-truncate">SQFT</div>
 			</li>
 			<li class="acres">
-				<div class="attr-num bt-listing__acreage-text">[acre]</div>
+				<div class="attr-num zy-listing__acreage-text">[acre]</div>
 				<div class="uk-text-small uk-text-truncate">ACRES</div>
 			</li>
 
 		</ul>
 	</div>
-	<div class="bt-panel__stack__sub">
-		<div class="m-0 bt-listing-table bt-listing__table-break">
+	<div class="zy-panel__stack__sub">
+		<div class="m-0 zy-listing-table zy-listing__table-break">
 
 
 

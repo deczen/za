@@ -264,8 +264,12 @@ class zipperAgentRequestor {
 					$single_property = $this->single_property;					
 					$property_cache  = $this->property_cache;					
 					ob_start();	
-					include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
-					include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";
+					if(!isset($single_property->id) && !isset($property_cache->id)){
+						echo "<h2>Property Not Found!</h2>";
+					}else{
+						include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
+						include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";
+					}
 					$html=ob_get_clean();					
 				break;
 				

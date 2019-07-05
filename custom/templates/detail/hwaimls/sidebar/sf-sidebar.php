@@ -1,13 +1,13 @@
-<div class="mb-15 p-0 bt-panel uk-panel uk-panel-box">
-	<div class="bt-panel__stack__sub bt-panel--small uk-text-center">
+<div class="mb-15 p-0 zy-panel uk-panel uk-panel-box">
+	<div class="zy-panel__stack__sub zy-panel--small uk-text-center">
 		<div class="">
 
 			<strong>$[realprice]</strong>
 
 		</div>
 	</div>
-	<div class="bt-panel__stack__sub">
-		<ul class="bt-listing__feature-grid" style="margin-bottom:0">
+	<div class="zy-panel__stack__sub">
+		<ul class="zy-listing__feature-grid" style="margin-bottom:0">
 			<li class="rooms">
 				<div class="attr-num">[nobedrooms]</div>
 				<div class="uk-text-small uk-text-truncate">BEDS</div>
@@ -21,7 +21,7 @@
 				<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
 			</li>										
 			<li class="acres">
-				<div class="attr-num bt-listing__acreage-text">[lotsize]</div>
+				<div class="attr-num zy-listing__acreage-text">[lotsize]</div>
 				<div class="uk-text-small uk-text-truncate">LAND SQ FT</div>
 			</li>
 			<li class="sqft ">
@@ -29,14 +29,14 @@
 				<div class="uk-text-small uk-text-truncate">LIV AREA SQ FT</div>
 			</li>
 			<li class="acres">
-				<div class="attr-num bt-listing__acreage-text">[unmapped_SQFTRoofedOther]</div>
+				<div class="attr-num zy-listing__acreage-text">[unmapped_SQFTRoofedOther]</div>
 				<div class="uk-text-small uk-text-truncate">OTHER AREA SQ FT</div>
 			</li>
 
 		</ul>
 	</div>
-	<div class="bt-panel__stack__sub">
-		<div class="m-0 bt-listing-table bt-listing__table-break">
+	<div class="zy-panel__stack__sub">
+		<div class="m-0 zy-listing-table zy-listing__table-break">
 
 
 

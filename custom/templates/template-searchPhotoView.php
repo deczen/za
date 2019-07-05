@@ -39,9 +39,9 @@ if( $list ): ?>
 	<div id="to_<?php echo $property->listno ?>" class="grid grid--gutters">
 		<div class="cell cell-xs-12 cell-lg-8 uk-position-relative">
 			<div class="mb-10">
-				<h1 class="uk-h2 mb-5 listing-address" itemprop="address" itemtype="http://schema.org/PostalAddress"><a class="bt-text-default view_full_details" href="<?php echo $single_url; ?>"><span itemprop="streetAddress"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)? zipperagent_fix_comma( $property->streetname ) :'-'; ?></span></a><div class="uk-text-muted bt-text-reset"><span itemprop="addressLocality"><!-- react-text: 1375 --><?php echo isset($property->lngTOWNSDESCRIPTION)? $property->lngTOWNSDESCRIPTION :'-'; ?><!-- /react-text --><!-- react-text: 1376 -->,&nbsp;<!-- /react-text --></span><span itemprop="addressRegion"><!-- react-text: 1378 --><?php echo isset($property->provinceState)? $property->provinceState :'-'; ?><!-- /react-text --><!-- react-text: 1379 -->&nbsp;<!-- /react-text --></span><span itemprop="postalCode"><!-- react-text: 1381 --><?php echo isset($property->zipcode)? $property->zipcode :'-'; ?><!-- /react-text --><!-- react-text: 1382 -->&nbsp;<!-- /react-text --></span></div></h1>
+				<h1 class="uk-h2 mb-5 listing-address" itemprop="address" itemtype="http://schema.org/PostalAddress"><a class="zy-text-default view_full_details" href="<?php echo $single_url; ?>"><span itemprop="streetAddress"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)? zipperagent_fix_comma( $property->streetname ) :'-'; ?></span></a><div class="uk-text-muted zy-text-reset"><span itemprop="addressLocality"><!-- react-text: 1375 --><?php echo isset($property->lngTOWNSDESCRIPTION)? $property->lngTOWNSDESCRIPTION :'-'; ?><!-- /react-text --><!-- react-text: 1376 -->,&nbsp;<!-- /react-text --></span><span itemprop="addressRegion"><!-- react-text: 1378 --><?php echo isset($property->provinceState)? $property->provinceState :'-'; ?><!-- /react-text --><!-- react-text: 1379 -->&nbsp;<!-- /react-text --></span><span itemprop="postalCode"><!-- react-text: 1381 --><?php echo isset($property->zipcode)? $property->zipcode :'-'; ?><!-- /react-text --><!-- react-text: 1382 -->&nbsp;<!-- /react-text --></span></div></h1>
 				<div class="grid grid-xs--full grid-md--thirds grid-lg--halves">
-					<div class="cell"><i class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?> bt-sash py-5 px-10 bt-listing-single__sash"><?php echo isset($property->status)? zipperagent_get_status_name( $property->status ) :'-'; ?></i></div>
+					<div class="cell"><i class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?> zy-sash py-5 px-10 zy-listing-single__sash"><?php echo isset($property->status)? zipperagent_get_status_name( $property->status ) :'-'; ?></i></div>
 				</div>
 			</div>
 			<div class="uk-position-relative text-xs--center">
@@ -103,8 +103,8 @@ if( $list ): ?>
 			</div>
 		</div>
 		<div class="cell">
-			<div class="mb-15 p-0 bt-panel">
-				<div class="bt-panel__stack__sub bt-panel--small uk-text-center">
+			<div class="mb-15 p-0 zy-panel">
+				<div class="zy-panel__stack__sub zy-panel--small uk-text-center">
 					<div class="uk-h1 uk-text-primary">
 						<!-- react-text: 1395 -->$
 						<!-- /react-text -->
@@ -113,14 +113,14 @@ if( $list ): ?>
 						
 					</div>
 				</div>
-				<div class="bt-panel__stack__sub">
-					<ul class="bt-listing__feature-grid" style="margin-bottom:0">
+				<div class="zy-panel__stack__sub">
+					<ul class="zy-listing__feature-grid" style="margin-bottom:0">
 						<li class="beds">
 							<div class="attr-num"><?php echo isset($property->nobedrooms) ? $property->nobedrooms:'-'; ?></div>
 							<div class="uk-text-small uk-text-truncate">BEDS</div>
 						</li>
 						<li class="acres">
-							<div class="attr-num bt-listing__acreage-text"><?php echo isset($property->acre) ? $property->acre:'-'; ?></div>
+							<div class="attr-num zy-listing__acreage-text"><?php echo isset($property->acre) ? $property->acre:'-'; ?></div>
 							<div class="uk text-small uk-text-truncate">ACRES</div>
 						</li>
 						<li class="baths">
@@ -147,8 +147,8 @@ if( $list ): ?>
 						</li>
 					</ul>
 				</div>
-				<div class="bt-panel__stack__sub">
-					<div class="m-0 bt-listing-table bt-listing__table-break">
+				<div class="zy-panel__stack__sub">
+					<div class="m-0 zy-listing-table zy-listing__table-break">
 						<div class="grid px-5">
 							<div class="cell uk-text-bold">
 								<!-- react-text: 1423 -->Neighborhood:
@@ -348,6 +348,7 @@ jQuery(document).ready(function ($) {
 			'vars': vars,
 			'page': '<?php echo $page; ?>',
 			'num': '<?php echo $num; ?>',
+			'maxlist': '<?php echo $maxtotal; ?>',
 			'actual_link': '<?php echo $actual_link; ?>',
 		};
 		

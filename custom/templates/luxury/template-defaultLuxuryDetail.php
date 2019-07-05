@@ -8,19 +8,19 @@ $properties = $single_luxury->properties;
 	<div id="zpa-main-container">
 		<article class="listing-detail listing-wrapper js-listing-detail">
 			<div class="uk-sticky-placeholder" style="margin: 0px;">
-				<header class="bt-listing__header js-listing__header uk-active" data-uk-sticky="{media: 768}">
+				<header class="zy-listing__header js-listing__header uk-active" data-uk-sticky="{media: 768}">
 					<div class="grid--wrapper uk-position-relative">
-						<a class="bt-back-to-search js-back-to-search" href="javascript:history.back()"><i class="bt-icon fa fa-chevron-left" aria-hidden="true"></i></a>
-						<div class="grid grid--noWrap bt-header__inner">
+						<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true"></i></a>
+						<div class="grid grid--noWrap zy-header__inner">
 							<div class="cell">
 								<div class="grid grid--gutters">
 									<div class="cell cell-md-12 cell-lg-12 cell-xs-12">
-										<div class="bt-listing__header-grid">
+										<div class="zy-listing__header-grid">
 
 											<div class="mb-0">
 												<h1 class="uk-h2 mt-5 mb-0 listing-address at-prop-addr-txt">
 													<span> <?php echo $single_luxury->name; ?> </span></h1>
-												<div class="bt-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
+												<div class="zy-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
 													<span><?php echo zipperagent_luxury_address($single_luxury); ?></span>
 												</div>
 											</div>
@@ -209,7 +209,7 @@ $properties = $single_luxury->properties;
 						<div class="description">
 
 
-							<h3 class="bt-listing__headline mt-15 at-desc-header">Description</h3>
+							<h3 class="zy-listing__headline mt-15 at-desc-header">Description</h3>
 							<p class="at-desc-body"><?php echo isset($single_luxury->description) ? $single_luxury->description : 'no description.'; ?></p>
 
 
@@ -217,7 +217,7 @@ $properties = $single_luxury->properties;
 					</aside>
 					
 					<aside class="my-15">
-						<h3 class="bt-listing__headline">Properties</h3>
+						<h3 class="zy-listing__headline">Properties</h3>
 						<?php zipperagent_luxury_table($single_luxury); ?>
 					</aside>			
 				</section>

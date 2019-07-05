@@ -3,253 +3,253 @@
 	<li class="cell">
 	
 		<?php if( isset($single_property->unitno) || isset($single_property->lot) || isset($single_property->nobaths) ||isset($single_property->specialassessments) || isset($single_property->kitdscrp) || isset($single_property->unmapped->BuildingLevel) || isset($single_property->unmapped->DistressedProperty) || isset($single_property->unmapped->{'Located on Floor'}) || isset($single_property->unmapped->Levels) || isset($single_property->style) /* || isset($single_property->vacant) || isset($single_property->buildingconstruction) */ || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->{'Basement: Basement Y/N'}) || isset($single_property->basementfeature) || isset($single_property->schooldistrict) || isset($single_property->amenities) || isset($single_property->exterior) || isset($single_property->exteriorunitfeatures) || isset($single_property->appliances) || isset($single_property->exteriorfeatures) /*|| isset($single_property->unmapped->{'Manufactured Housing Y/N'})*/ /*|| isset($single_property->unmapped->{'Cumulative DOM'})*/ /*|| isset($single_property->unmapped->{'Dir Neg w/Sell Perm'}) || isset($single_property->unmapped->{'Tenant Occupied'})*/ || isset($single_property->unmapped->{'Lot Size (Side)'}) /*|| isset($single_property->unmapped->{'Mid/High Rise'})*/ || isset($single_property->unmapped->{'Built Prior to 1978'}) || isset($single_property->unmapped->{'Documented SqFt Source'}) || isset($single_property->unmapped->TransactionType) || isset($single_property->unmapped->{'Lot Characteristics'}) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->unmapped->Windows) || isset($single_property->unmapped->{'SqFt ATFLS'}) || isset($single_property->unmapped->{'Price Per Acre'}) || isset($single_property->unmapped->{'Multiple Parcels'}) || isset($single_property->propsubtype) ):?>
-		<h3 class="bt-listing__headline">Property Features</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Property Features</h3>
+		<table class="zy-listing__table">
 
 			<tbody>
 				<?php if( isset($single_property->propsubtype)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Property Sub Type</td>
-					<td class="bt-listing__table__items"><span>[propsubtype]</span></td>
+					<td class="zy-listing__table__label">Property Sub Type</td>
+					<td class="zy-listing__table__items"><span>[propsubtype]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->lot)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Lot Size Source</td>
-					<td class="bt-listing__table__items"><span>[lot]</span></td>
+					<td class="zy-listing__table__label">Lot Size Source</td>
+					<td class="zy-listing__table__items"><span>[lot]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->nobaths)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Baths Total</td>
-					<td class="bt-listing__table__items"><span>[nobaths]</span></td>
+					<td class="zy-listing__table__label">Baths Total</td>
+					<td class="zy-listing__table__items"><span>[nobaths]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->kitdscrp)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Kitchen Features</td>
-					<td class="bt-listing__table__items"><span>[kitdscrp]</span></td>
+					<td class="zy-listing__table__label">Kitchen Features</td>
+					<td class="zy-listing__table__items"><span>[kitdscrp]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->specialassessments)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Assessments</td>
-					<td class="bt-listing__table__items"><span>[specialassessments]</span></td> 
+					<td class="zy-listing__table__label">Assessments</td>
+					<td class="zy-listing__table__items"><span>[specialassessments]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->BuildingLevel)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Building Level</td>
-					<td class="bt-listing__table__items"><span>[unmapped_BuildingLevel]</span></td> 
+					<td class="zy-listing__table__label">Building Level</td>
+					<td class="zy-listing__table__items"><span>[unmapped_BuildingLevel]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->DistressedProperty)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Distressed Property</td>
-					<td class="bt-listing__table__items"><span>[unmapped_DistressedProperty]</span></td> 
+					<td class="zy-listing__table__label">Distressed Property</td>
+					<td class="zy-listing__table__items"><span>[unmapped_DistressedProperty]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unitno)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Unit No.</td>
-					<td class="bt-listing__table__items"><span>[unitno]</span></td>
+					<td class="zy-listing__table__label">Unit No.</td>
+					<td class="zy-listing__table__items"><span>[unitno]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Located on Floor'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Located on Floor</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Located on Floor]</span></td>
+					<td class="zy-listing__table__label">Located on Floor</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Located on Floor]</span></td>
 				</tr>
 				<?php endif; ?>
 
 				<?php if( isset($single_property->unmapped->Levels)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Levels</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Levels]</span></td>
+					<td class="zy-listing__table__label">Levels</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Levels]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->style)): ?>
 				<tr>
-					<td class="bt-listing__table__label">House Style</td>
-					<td class="bt-listing__table__items"><span>[style]</span></td>
+					<td class="zy-listing__table__label">House Style</td>
+					<td class="zy-listing__table__items"><span>[style]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /* if( isset($single_property->vacant)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Vacant</td>
-					<td class="bt-listing__table__items"><span>[vacant]</span></td>
+					<td class="zy-listing__table__label">Vacant</td>
+					<td class="zy-listing__table__items"><span>[vacant]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->buildingconstruction)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Building Construction</td>
-					<td class="bt-listing__table__items"><span>[buildingconstruction]</span></td>
+					<td class="zy-listing__table__label">Building Construction</td>
+					<td class="zy-listing__table__items"><span>[buildingconstruction]</span></td>
 				</tr>
 				<?php endif; */ ?>
 				<?php if( isset($single_property->construction)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Construction</td>
-					<td class="bt-listing__table__items"><span>[construction]</span></td>
+					<td class="zy-listing__table__label">Construction</td>
+					<td class="zy-listing__table__items"><span>[construction]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->foundation)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Foundation</td>
-					<td class="bt-listing__table__items"><span>[foundation]</span></td>
+					<td class="zy-listing__table__label">Foundation</td>
+					<td class="zy-listing__table__items"><span>[foundation]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Basement: Basement Y/N'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Basement</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Basement: Basement Y/N]</span></td>
+					<td class="zy-listing__table__label">Basement</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Basement: Basement Y/N]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->basementfeature)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Basement Feature</td>
-					<td class="bt-listing__table__items"><span>[basementfeature]</span></td>
+					<td class="zy-listing__table__label">Basement Feature</td>
+					<td class="zy-listing__table__items"><span>[basementfeature]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->schooldistrict)): ?>
 				<tr>
-					<td class="bt-listing__table__label">School District</td>
-					<td class="bt-listing__table__items"><span>[schooldistrict]</span></td>
+					<td class="zy-listing__table__label">School District</td>
+					<td class="zy-listing__table__items"><span>[schooldistrict]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->amenities)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Amenities</td>
-					<td class="bt-listing__table__items"><span>[amenities]</span></td>
+					<td class="zy-listing__table__label">Amenities</td>
+					<td class="zy-listing__table__items"><span>[amenities]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->exterior)): ?>
 				<tr>
 					<?php if( $single_property->exterior == 'Brick,Wood Siding'): ?>
-					<td class="bt-listing__table__label">Siding</td>
+					<td class="zy-listing__table__label">Siding</td>
 					<?php else: ?>
-					<td class="bt-listing__table__label">Exterior Features</td>
+					<td class="zy-listing__table__label">Exterior Features</td>
 					<?php endif; ?>
-					<td class="bt-listing__table__items"><span>[exterior]</span></td>
+					<td class="zy-listing__table__items"><span>[exterior]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->exteriorunitfeatures)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Exterior Unit Features</td>
-					<td class="bt-listing__table__items"><span>[exteriorunitfeatures]</span></td>
+					<td class="zy-listing__table__label">Exterior Unit Features</td>
+					<td class="zy-listing__table__items"><span>[exteriorunitfeatures]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->appliances)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Appliance</td>
-					<td class="bt-listing__table__items"><span>[appliances]</span></td>
+					<td class="zy-listing__table__label">Appliance</td>
+					<td class="zy-listing__table__items"><span>[appliances]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->exteriorfeatures)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Exterior Features</td>
-					<td class="bt-listing__table__items"><span>[exteriorfeatures]</span></td>
+					<td class="zy-listing__table__label">Exterior Features</td>
+					<td class="zy-listing__table__items"><span>[exteriorfeatures]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /* if( isset($single_property->unmapped->{'Manufactured Housing Y/N'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Manufactured Housing</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Manufactured Housing Y/N]</span></td>
+					<td class="zy-listing__table__label">Manufactured Housing</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Manufactured Housing Y/N]</span></td>
 				</tr>
 				<?php endif; */ ?>
 				<?php /*if( isset($single_property->unmapped->{'Cumulative DOM'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Cumulative DOM</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Cumulative DOM]</span></td>
+					<td class="zy-listing__table__label">Cumulative DOM</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Cumulative DOM]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /* if( isset($single_property->unmapped->{'Dir Neg w/Sell Perm'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Dir Neg w/Sell Perm</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Dir Neg w/Sell Perm]</span></td>
+					<td class="zy-listing__table__label">Dir Neg w/Sell Perm</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Dir Neg w/Sell Perm]</span></td>
 				</tr>
 				<?php endif; */ ?>
 				<?php /* if( isset($single_property->unmapped->{'Tenant Occupied'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Tenant Occupied</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Tenant Occupied]</span></td>
+					<td class="zy-listing__table__label">Tenant Occupied</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Tenant Occupied]</span></td>
 				</tr>
 				<?php endif; */ ?>
 				<?php if( isset($single_property->unmapped->{'Lot Size (Side)'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Lot Size (Side)</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Lot Size (Side)]</span></td>
+					<td class="zy-listing__table__label">Lot Size (Side)</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Lot Size (Side)]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php /* if( isset($single_property->unmapped->{'Mid/High Rise'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Mid/High Rise</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Mid/High Rise]</span></td>
+					<td class="zy-listing__table__label">Mid/High Rise</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Mid/High Rise]</span></td>
 				</tr>
 				<?php endif; */ ?>
 				<?php if( isset($single_property->unmapped->{'Built Prior to 1978'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Built Prior to 1978</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Built Prior to 1978]</span></td>
+					<td class="zy-listing__table__label">Built Prior to 1978</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Built Prior to 1978]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Documented SqFt Source'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Sq. Ft Source</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Documented SqFt Source]</span></td>
+					<td class="zy-listing__table__label">Sq. Ft Source</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Documented SqFt Source]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->TransactionType)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Transaction Type</td>
-					<td class="bt-listing__table__items"><span>[unmapped_TransactionType]</span></td>
+					<td class="zy-listing__table__label">Transaction Type</td>
+					<td class="zy-listing__table__items"><span>[unmapped_TransactionType]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Lot Characteristics'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Lot Description</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Lot Characteristics]</span></td>
+					<td class="zy-listing__table__label">Lot Description</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Lot Characteristics]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->zoning)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Zoning</td>
-					<td class="bt-listing__table__items"><span>[zoning]</span></td>
+					<td class="zy-listing__table__label">Zoning</td>
+					<td class="zy-listing__table__items"><span>[zoning]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->petsallowed)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Pets Allowed</td>
-					<td class="bt-listing__table__items"><span>[petsallowed]</span></td>
+					<td class="zy-listing__table__label">Pets Allowed</td>
+					<td class="zy-listing__table__items"><span>[petsallowed]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->Windows)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Windows</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Windows]</span></td>
+					<td class="zy-listing__table__label">Windows</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Windows]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'SqFt ATFLS'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Finished Total</td>
-					<td class="bt-listing__table__items"><span>[unmapped_SqFt ATFLS]</span></td>
+					<td class="zy-listing__table__label">Finished Total</td>
+					<td class="zy-listing__table__items"><span>[unmapped_SqFt ATFLS]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Price Per Acre'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Price Per Acre</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Price Per Acre]</span></td>
+					<td class="zy-listing__table__label">Price Per Acre</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Price Per Acre]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Multiple Parcels'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Mulitple Parcels</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Multiple Parcels]</span></td>
+					<td class="zy-listing__table__label">Mulitple Parcels</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Multiple Parcels]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->utilities)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Utilities</td>
-					<td class="bt-listing__table__items"><span>[utilities]</span></td>
+					<td class="zy-listing__table__label">Utilities</td>
+					<td class="zy-listing__table__items"><span>[utilities]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -258,38 +258,38 @@
 		
 		<?php if( isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->{'Fireplace Features'}) || isset($single_property->unmapped->Rooms) || isset($single_property->interiorfeatures) || isset($single_property->unmapped->{'Interior Flooring'}) ): ?>
 		
-		<h3 class="bt-listing__headline">Interior Features</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Interior Features</h3>
+		<table class="zy-listing__table">
 
 			<tbody>
 				<?php if( isset($single_property->unmapped->Fireplace)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Fireplace</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Fireplace]</span></td>
+					<td class="zy-listing__table__label">Fireplace</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Fireplace]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Fireplace Features'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Fireplace Features</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Fireplace Features]</span></td>
+					<td class="zy-listing__table__label">Fireplace Features</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Fireplace Features]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->Rooms)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Rooms</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Rooms]</span></td>
+					<td class="zy-listing__table__label">Rooms</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Rooms]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Interior Features</td>
-					<td class="bt-listing__table__items"><span>[interiorfeatures]</span></td>
+					<td class="zy-listing__table__label">Interior Features</td>
+					<td class="zy-listing__table__items"><span>[interiorfeatures]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Interior Flooring'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Flooring</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Interior Flooring]</span></td>
+					<td class="zy-listing__table__label">Flooring</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Interior Flooring]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -303,32 +303,32 @@
 	<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->feeinterval) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
 	<li class="cell">
 		<?php if( isset($single_property->heating) || isset($single_property->aircondition) || isset($single_property->cooling) || isset($single_property->utilities) ):?>
-		<h3 class="bt-listing__headline">Cooling, Heating, Utilities</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Cooling, Heating, Utilities</h3>
+		<table class="zy-listing__table">
 
 			<tbody>
 				<?php if( isset($single_property->heating)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Heating</td>
-					<td class="bt-listing__table__items"><span>[heating]</span></td>
+					<td class="zy-listing__table__label">Heating</td>
+					<td class="zy-listing__table__items"><span>[heating]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->aircondition)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Air Condition</td>
-					<td class="bt-listing__table__items"><span>[aircondition]</span></td>
+					<td class="zy-listing__table__label">Air Condition</td>
+					<td class="zy-listing__table__items"><span>[aircondition]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->cooling)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Cooling</td>
-					<td class="bt-listing__table__items"><span>[cooling]</span></td>
+					<td class="zy-listing__table__label">Cooling</td>
+					<td class="zy-listing__table__items"><span>[cooling]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->utilities)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Utilities</td>
-					<td class="bt-listing__table__items"><span>[utilities]</span></td>
+					<td class="zy-listing__table__label">Utilities</td>
+					<td class="zy-listing__table__items"><span>[utilities]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -337,25 +337,25 @@
 		
 		<?php /*
 		<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->middleschool) ):?>
-		<h3 class="bt-listing__headline">Schools</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Schools</h3>
+		<table class="zy-listing__table">
 			<tbody>
 				<?php if( isset($single_property->gradeschool)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Grade School</td>
-					<td class="bt-listing__table__items"><span>[gradeschool]</span></td>
+					<td class="zy-listing__table__label">Grade School</td>
+					<td class="zy-listing__table__items"><span>[gradeschool]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->highschool)): ?>
 				<tr>
-					<td class="bt-listing__table__label">High School</td>
-					<td class="bt-listing__table__items"><span>[highschool]</span></td>
+					<td class="zy-listing__table__label">High School</td>
+					<td class="zy-listing__table__items"><span>[highschool]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->middleschool)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Middle School</td>
-					<td class="bt-listing__table__items"><span>[middleschool]</span></td>
+					<td class="zy-listing__table__label">Middle School</td>
+					<td class="zy-listing__table__items"><span>[middleschool]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -364,43 +364,43 @@
 		*/ ?>
 		
 		<?php if( isset($single_property->feeinterval) || isset($single_property->reqdownassociation) || isset($single_property->condoassociation) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'}) ):?>
-		<h3 class="bt-listing__headline">Association Information</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Association Information</h3>
+		<table class="zy-listing__table">
 			<tbody>
 				<?php if( isset($single_property->reqdownassociation)): ?>
 				<tr>
-					<td class="bt-listing__table__label">HOA Fee</td>
-					<td class="bt-listing__table__items"><span>[reqdownassociation]</span></td>
+					<td class="zy-listing__table__label">HOA Fee</td>
+					<td class="zy-listing__table__items"><span>[reqdownassociation]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->condoassociation)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Condo Association</td>
-					<td class="bt-listing__table__items"><span>[condoassociation]</span></td>
+					<td class="zy-listing__table__label">Condo Association</td>
+					<td class="zy-listing__table__items"><span>[condoassociation]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->hoafee)): ?>
 				<tr>
-					<td class="bt-listing__table__label">HOA Fee</td>
-					<td class="bt-listing__table__items"><span>[hoafee]</span></td>
+					<td class="zy-listing__table__label">HOA Fee</td>
+					<td class="zy-listing__table__items"><span>[hoafee]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->asscfeeincludes)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Assc Fee Includes</td>
-					<td class="bt-listing__table__items"><span>[asscfeeincludes]</span></td>
+					<td class="zy-listing__table__label">Assc Fee Includes</td>
+					<td class="zy-listing__table__items"><span>[asscfeeincludes]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'HOA/COA Info: HOA/COA Contact Name'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">HOA/COA Info: HOA/COA Contact Name</td>
-					<td class="bt-listing__table__items"><span>[unmapped_HOA/COA Info: HOA/COA Contact Name]</span></td>
+					<td class="zy-listing__table__label">HOA/COA Info: HOA/COA Contact Name</td>
+					<td class="zy-listing__table__items"><span>[unmapped_HOA/COA Info: HOA/COA Contact Name]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->feeinterval)): ?>
 				<tr>
-					<td class="bt-listing__table__label">HOA Fee Frequency</td>
-					<td class="bt-listing__table__items"><span>[feeinterval]</span></td>
+					<td class="zy-listing__table__label">HOA Fee Frequency</td>
+					<td class="zy-listing__table__items"><span>[feeinterval]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -411,146 +411,146 @@
 	<?php endif; ?>
 
 	<li class="cell">
-		<?php $roomLevels = $single_property->roomLevels; ?>
+		<?php $roomLevels = isset($single_property->roomLevels)?$single_property->roomLevels:false; ?>
 		<?php if( isset($roomLevels) ||  isset($single_property->Rooms) || isset($single_property->unmapped->{'Great Room Level'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down2'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'}) ):?>
 		
-			<h3 class="bt-listing__headline">Room Information</h3>
+			<h3 class="zy-listing__headline">Room Information</h3>
 			
 			<?php if( isset($single_property->Rooms) || isset($single_property->norooms) || isset($single_property->totalrooms) || isset($single_property->unmapped->{'Great Room Level'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds Down2'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP1'}) || isset($single_property->unmapped->{'Bedroom Level: Beds UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'}) || isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'}) || isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'}) ):?>
-			<table class="bt-listing__table">
+			<table class="zy-listing__table">
 				<tbody>
 					<?php if( isset($single_property->norooms)): ?>
 					<tr>
-						<td class="bt-listing__table__label">Room Count</td>
-						<td class="bt-listing__table__items"><span>[norooms]</span></td>
+						<td class="zy-listing__table__label">Room Count</td>
+						<td class="zy-listing__table__items"><span>[norooms]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->totalrooms)): ?>
 					<tr>
-						<td class="bt-listing__table__label">Rooms Total</td>
-						<td class="bt-listing__table__items"><span>[totalrooms]</span></td>
+						<td class="zy-listing__table__label">Rooms Total</td>
+						<td class="zy-listing__table__items"><span>[totalrooms]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->Rooms)): ?>
 					<tr>
-						<td class="bt-listing__table__label">Rooms</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Rooms]</span></td>
+						<td class="zy-listing__table__label">Rooms</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Rooms]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Great Room Level'}) && $single_property->unmapped->{'Great Room Level'} !== 0): ?>
 					<tr>
-						<td class="bt-listing__table__label">Great Rooms (Entry Level)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Great Room Level]</span></td>
+						<td class="zy-listing__table__label">Great Rooms (Entry Level)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Great Room Level]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds Down1'}) && $single_property->unmapped->{'Bedroom Level: Beds Down1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedrooms (Lower Level1)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds Down1]</span></td>
+						<td class="zy-listing__table__label">Bedrooms (Lower Level1)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Bedroom Level: Beds Down1]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds Down2'}) && $single_property->unmapped->{'Bedroom Level: Beds Down2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedrooms (Lower Level2)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds Down2]</span></td>
+						<td class="zy-listing__table__label">Bedrooms (Lower Level2)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Bedroom Level: Beds Down2]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds UP1'}) && $single_property->unmapped->{'Bedroom Level: Beds UP1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedrooms (Upper Level1)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds UP1]</span></td>
+						<td class="zy-listing__table__label">Bedrooms (Upper Level1)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Bedroom Level: Beds UP1]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Bedroom Level: Beds UP2'}) && $single_property->unmapped->{'Bedroom Level: Beds UP2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Bedrooms (Upper Level2)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Bedroom Level: Beds UP2]</span></td>
+						<td class="zy-listing__table__label">Bedrooms (Upper Level2)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Bedroom Level: Beds UP2]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full B Entry Level'}) && $single_property->unmapped->{'Full Baths Level: Full B Entry Level'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths (Entry Level)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full B Entry Level]</span></td>
+						<td class="zy-listing__table__label">Full Baths (Entry Level)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Full Baths Level: Full B Entry Level]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half B Entry Level'}) && $single_property->unmapped->{'Half Baths Level: Half B Entry Level'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths (Entry Level)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half B Entry Level]</span></td>
+						<td class="zy-listing__table__label">Half Baths (Entry Level)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Half Baths Level: Half B Entry Level]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Bath Down2'}) && $single_property->unmapped->{'Half Baths Level: Half Bath Down2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths (Lower Level2)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Bath Down2]</span></td>
+						<td class="zy-listing__table__label">Half Baths (Lower Level2)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Half Baths Level: Half Bath Down2]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Bath Down1'}) && $single_property->unmapped->{'Half Baths Level: Half Bath Down1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths (Lower Level1)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Bath Down1]</span></td>
+						<td class="zy-listing__table__label">Half Baths (Lower Level1)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Half Baths Level: Half Bath Down1]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths Down1'}) && $single_property->unmapped->{'Full Baths Level: Full Baths Down1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths (Lower Level1)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths Down1]</span></td>
+						<td class="zy-listing__table__label">Full Baths (Lower Level1)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths Down1]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Baths UP2'}) && $single_property->unmapped->{'Half Baths Level: Half Baths UP2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths (Upper Level2)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Baths UP2]</span></td>
+						<td class="zy-listing__table__label">Half Baths (Upper Level2)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Half Baths Level: Half Baths UP2]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Half Baths Level: Half Baths UP1'}) && $single_property->unmapped->{'Half Baths Level: Half Baths UP1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Half Baths (Upper Level1)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Half Baths Level: Half Baths UP1]</span></td>
+						<td class="zy-listing__table__label">Half Baths (Upper Level1)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Half Baths Level: Half Baths UP1]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths UP2'}) && $single_property->unmapped->{'Full Baths Level: Full Baths UP2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths (Upper Level2)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths UP2]</span></td>
+						<td class="zy-listing__table__label">Full Baths (Upper Level2)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths UP2]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths UP1'}) && $single_property->unmapped->{'Full Baths Level: Full Baths UP1'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths (Upper Level1)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths UP1]</span></td>
+						<td class="zy-listing__table__label">Full Baths (Upper Level1)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths UP1]</span></td>
 					</tr>
 					<?php endif; ?>
 					<?php if( isset($single_property->unmapped->{'Full Baths Level: Full Baths Down2'}) && $single_property->unmapped->{'Full Baths Level: Full Baths Down2'} > 0 ): ?>
 					<tr>
-						<td class="bt-listing__table__label">Full Baths (Lower Level2)</td>
-						<td class="bt-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths Down2]</span></td>
+						<td class="zy-listing__table__label">Full Baths (Lower Level2)</td>
+						<td class="zy-listing__table__items"><span>[unmapped_Full Baths Level: Full Baths Down2]</span></td>
 					</tr>
 					<?php endif; ?>
 				</tbody>
 			</table>
 			<?php endif; ?>
 		
-			<?php if (isset($roomLevels)): ?>
+			<?php if($roomLevels): ?>
 				
 				<?php foreach($roomLevels as $rkey => $roomLevel): ?>
-					<table class="bt-listing__table">
+					<table class="zy-listing__table">
 						<tbody>
 							<tr>
-								<td class="bt-listing__table__label">Room Type</td>
-								<td class="bt-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_roomType]</span></td>
+								<td class="zy-listing__table__label">Room Type</td>
+								<td class="zy-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_roomType]</span></td>
 							</tr>
 							<tr>
-								<td class="bt-listing__table__label">Room Level</td>
-								<td class="bt-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_roomLevel]</span></td>
+								<td class="zy-listing__table__label">Room Level</td>
+								<td class="zy-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_roomLevel]</span></td>
 							</tr>
 							<?php $dim1 = $roomLevels[$rkey]->dim1; 
 								  $dim2 = $roomLevels[$rkey]->dim2; 
 							?>
 							<?php if( isset($dim1) && isset($dim2)): ?>
 							<tr>
-								<td class="bt-listing__table__label">Room Dim</td>
-								<td class="bt-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]</span></td>
+								<td class="zy-listing__table__label">Room Dim</td>
+								<td class="zy-listing__table__items"><span>[roomLevels_<?php echo $rkey; ?>_dim1] x [roomLevels_<?php echo $rkey; ?>_dim2]</span></td>
 							</tr>
 							<?php endif; ?>
 						</tbody>
@@ -562,25 +562,25 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->parkingfeature) || isset($single_property->garagespaces) || isset($single_property->garageparking) ):?>
-		<h3 class="bt-listing__headline">Parking Information</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Parking Information</h3>
+		<table class="zy-listing__table">
 			<tbody>
 				<?php if( isset($single_property->parkingfeature)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Parking Feature</td>
-					<td class="bt-listing__table__items"><span>[parkingfeature]</span></td>
+					<td class="zy-listing__table__label">Parking Feature</td>
+					<td class="zy-listing__table__items"><span>[parkingfeature]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->garagespaces)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Garage Spaces</td>
-					<td class="bt-listing__table__items"><span>[garagespaces]</span></td>
+					<td class="zy-listing__table__label">Garage Spaces</td>
+					<td class="zy-listing__table__items"><span>[garagespaces]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->garageparking)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Garage Parking</td>
-					<td class="bt-listing__table__items"><span>[garageparking]</span></td>
+					<td class="zy-listing__table__label">Garage Parking</td>
+					<td class="zy-listing__table__items"><span>[garageparking]</span></td>
 				</tr>
 				<?php endif; ?>
 			</tbody>
@@ -588,43 +588,43 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->unmapped->specialassessments) || isset($single_property->unmapped->LegalDescription) || isset($single_property->taxyear) || isset($single_property->taxes) ):?>
-		<h3 class="bt-listing__headline">Taxes, Fees</h3>
-		<table class="bt-listing__table">
+		<h3 class="zy-listing__headline">Taxes, Fees</h3>
+		<table class="zy-listing__table">
 			<tbody>
 				<?php if( isset($single_property->unmapped->LegalDescription)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Legal Description</td>
-					<td class="bt-listing__table__items"><span>[unmapped_LegalDescription]</span></td>
+					<td class="zy-listing__table__label">Legal Description</td>
+					<td class="zy-listing__table__items"><span>[unmapped_LegalDescription]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->taxyear)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Tax Year</td>
-					<td class="bt-listing__table__items"><span>[taxyear]</span></td>
+					<td class="zy-listing__table__label">Tax Year</td>
+					<td class="zy-listing__table__items"><span>[taxyear]</span></td>
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->taxes)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Taxes</td>
-					<td class="bt-listing__table__items"><span>[taxes]</span></td> 
+					<td class="zy-listing__table__label">Taxes</td>
+					<td class="zy-listing__table__items"><span>[taxes]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php if( isset($single_property->specialassessments)): ?>
 				<tr>
-					<td class="bt-listing__table__label">Assessments</td>
-					<td class="bt-listing__table__items"><span>[specialassessments]</span></td> 
+					<td class="zy-listing__table__label">Assessments</td>
+					<td class="zy-listing__table__items"><span>[specialassessments]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php /*if( isset($single_property->unmapped->{'Tax District'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Tax District</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Tax District]</span></td> 
+					<td class="zy-listing__table__label">Tax District</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Tax District]</span></td> 
 				</tr>
 				<?php endif; ?>
 				<?php /*if( isset($single_property->unmapped->{'Tax Abatement'})): ?>
 				<tr>
-					<td class="bt-listing__table__label">Tax Abatement</td>
-					<td class="bt-listing__table__items"><span>[unmapped_Tax Abatement]</span></td> 
+					<td class="zy-listing__table__label">Tax Abatement</td>
+					<td class="zy-listing__table__items"><span>[unmapped_Tax Abatement]</span></td> 
 				</tr>
 				<?php endif;*/ ?>
 			</tbody>

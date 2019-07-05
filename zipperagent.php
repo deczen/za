@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zipperagent
 Description: Adds MLS / IDX property search and listings to your site. Includes search and listing pages, widgets and shortcodes.
-Version: 2.0.0.6
+Version: 2.0.0.7
 Author: Decz
 License: GPL
 */
@@ -11,7 +11,7 @@ License: GPL
 $GLOBALS['WORK_ENV'] = 'PROD';
 // $GLOBALS['WORK_ENV'] = 'DEV';
 
-define( 'ZIPPERAGENT_VERSION', '20190702.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
+define( 'ZIPPERAGENT_VERSION', '20190705.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
 define( 'ZIPPERAGENTPATH', dirname( __FILE__ ) );
 define( 'ZIPPERAGENTURL', plugins_url( '/', __FILE__ ) );
 
@@ -101,6 +101,7 @@ if(is_admin()) {
 add_action("init", array($shortcodeDispatcher, "initialize"));
 
 //widgets
+/*
 if($displayRules->isPropertiesGalleryEnabled()) {
 	add_action("widgets_init", create_function("", "return register_widget('zipperAgentPropertiesGallery');"));
 }
@@ -139,7 +140,7 @@ if($displayRules->isHotsheetListWidgetEnabled()) {
 }
 if($displayRules->isEmailSignupWidgetEnabled()) {
 	add_action("widgets_init", create_function("", "return register_widget('zipperAgentEmailSignupFormWidget');"));
-}
+} */
 
 //AJAX request handling
 add_action("wp_ajax_nopriv_za_more_info_request", array($ajaxHandler, "requestMoreInfo"));

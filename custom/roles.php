@@ -150,7 +150,7 @@ function user_restriction_setting_display(){
 function wpse_hide_special_pages($query) {
 
     // Make sure we're in the admin and it's the main query
-    if ( !is_admin() && !is_main_query() ) {
+    if ( !is_admin() && !$query->is_main_query() ) {
         return;
     }
 

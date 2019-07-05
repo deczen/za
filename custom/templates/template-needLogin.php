@@ -404,7 +404,7 @@ $rb = zipperagent_rb();
 						jQuery('.login-url').attr('href', response['myaccounturl']);
 						jQuery('.login-url').addClass('myaccount-url').removeClass('login-url');
 						<?php
-						$adwords_code = $rb['google']['adwords']['code'];	
+						$adwords_code = isset($rb['google']['adwords']['code'])?$rb['google']['adwords']['code']:'';	
 						if($adwords_code)
 							echo 'gtag_report_conversion();'."\r\n";
 						?>

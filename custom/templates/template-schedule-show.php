@@ -6,7 +6,7 @@ $searchId = isset($_GET['searchId'])?$_GET['searchId']:'';
 if(zp_using_criteria()){	
 	$criteriaBase64 = isset($_GET['criteria'])?$_GET['criteria']:'';
 }else{
-	$criteriaBase64 = $_SESSION['criteriaBase64'];	
+	$criteriaBase64 = isset($_SESSION['criteriaBase64'])?$_SESSION['criteriaBase64']:'';	
 }
 $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)):array();
 ?>

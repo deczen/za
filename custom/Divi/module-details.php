@@ -29,7 +29,7 @@ class ET_Builder_Module_Za_Details extends ET_Builder_Module {
         );
 		
 		
-		self::$agent_options = $agent_options;
+		// self::$agent_options = $agent_options;
 		
         $this->options_toggles = array(
             'general' => array(

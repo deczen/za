@@ -946,6 +946,7 @@ else: ?>
 			'vars': vars,
 			'page': '<?php echo $page; ?>',
 			'num': '<?php echo $num; ?>',
+			'maxlist': '<?php echo $maxtotal; ?>',
 			'actual_link': '<?php echo $actual_link; ?>',
 		};
 		

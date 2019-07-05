@@ -11,8 +11,8 @@ if($assignedTo){
 }
 else if( isset( $single_property->listagent ) || isset( $single_property->saleagent ) ){
 	$mlsid = isset($single_property->saleagent) ? $single_property->saleagent : '';
-	if($mlsid)
-		$agent = zipperagent_get_agent($mlsid);
+	
+	$agent = $mlsid?zipperagent_get_agent($mlsid):false;
 	
 	if(!$agent){
 		$mlsid = isset($single_property->listagent) ? $single_property->listagent : '';
@@ -28,7 +28,7 @@ else if( isset( $single_property->listagent ) || isset( $single_property->saleag
 if(zp_using_criteria()){	
 	$criteriaBase64 = isset($_GET['criteria'])?$_GET['criteria']:'';
 }else{
-	$criteriaBase64 = $_SESSION['criteriaBase64'];	
+	$criteriaBase64 = isset($_SESSION['criteriaBase64'])?$_SESSION['criteriaBase64']:'';		
 }
 $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)):array();
 ?>

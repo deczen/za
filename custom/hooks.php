@@ -358,13 +358,19 @@ function prop_result_and_pagination(){
 		$vars = $_REQUEST['vars'];
 		$page = $_REQUEST['page'];
 		$num = $_REQUEST['num'];
+		$maxtotal = $_REQUEST['maxlist'];
 		$actual_link = $_REQUEST['actual_link'];
 		
 		$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
 		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+
+		if( $maxtotal > 0 && $count > $maxtotal ){ //limit total pages by max total
+			$count = $maxtotal;
+		}
 		
 		$result['result']=1;
 		$result['html_count']=zipperagent_list_total($count);
+		
 		$result['html_pagination']=zipperagent_pagination($page, $num, $count, $actual_link);
 		
 		echo json_encode($result);
@@ -1582,7 +1588,7 @@ add_action( 'wp_footer', 'zipperagent_adword_scripts', 11);
 
 function zipperagent_adword_scripts(){
 	$rb = zipperagent_rb();
-	$adwords_code = $rb['google']['adwords']['code'];
+	$adwords_code = isset($rb['google']['adwords']['code'])?$rb['google']['adwords']['code']:'';
 	
 	if(!$adwords_code)
 		return;

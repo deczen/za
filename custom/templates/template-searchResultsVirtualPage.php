@@ -59,42 +59,42 @@ unset($alstid); */
 	<div class="zpa-listing-detail">
 	
 		<?php if( $top_search_enabled ): ?>
-		<div class="bt-listing-search__wrapper js-filter-bar">
+		<div class="zy-listing-search__wrapper js-filter-bar">
 			<div class="grid grid--gutters grid--center">
 				<div class="cell">
 					<div>
-						<div class="bt-filter-bar">
+						<div class="zy-filter-bar">
 							<form action="" id="zpa-search-filter-form" class="js-search">
-								<div class="row btn-toolbar bt-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
-									<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 bt-search__query-wrapper">
-										<div class="bt-search__query-inner">
-											<div class="cell bt-off-canvas__ballerbox-wrapper width-1-1">
-												<div class="bt-search__query-wrapper">
-													<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete bt-search__query" placeholder="Enter City / County / Zip" name="location[]">
+								<div class="row btn-toolbar zy-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
+									<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 zy-search__query-wrapper">
+										<div class="zy-search__query-inner">
+											<div class="cell zy-off-canvas__ballerbox-wrapper width-1-1">
+												<div class="zy-search__query-wrapper">
+													<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Enter City / County / Zip" name="location[]">
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12 col-lg-6 btn-group bt-search__options-wrapper" role="group" aria-label="Properties Search Filters">
+									<div class="col-md-12 col-lg-6 btn-group zy-search__options-wrapper" role="group" aria-label="Properties Search Filters">
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-price-trigger bt-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-price-trigger zy-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
 												<!-- react-text: 42 -->Price&nbsp;
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right">
+												<div class="zy-ccomp__content__inner">
 													<div class="grid grid--gutters grid-xs--halves">
 														<div class="cell">
 															<div>
-																<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox bt-off-canvas__price-range-input input-number" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
+																<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox zy-off-canvas__price-range-input input-number" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
 																<div><span id="minListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Min Price</span></div>
 															</div>
 														</div>
 														<div class="cell">
 															<div>
-																<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox bt-off-canvas__price-range-input input-number" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
+																<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox zy-off-canvas__price-range-input input-number" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
 																<div><span id="maxListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Max Price</span></div>
 															</div>
 														</div>
@@ -103,14 +103,14 @@ unset($alstid); */
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Status
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<li>
 															<label class="form__check" for="status-0">
@@ -126,14 +126,14 @@ unset($alstid); */
 										</div>
 										
 										<?php /*
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Type
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<?php
 															$propTypeFields = get_property_type();
@@ -159,14 +159,14 @@ unset($alstid); */
 											</div>
 										</div> */ ?>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Type
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<?php
 															$propTypeFields = get_property_type();
@@ -200,16 +200,16 @@ unset($alstid); */
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-minbeds-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-minbeds-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
 												<!-- react-text: 54 -->Beds
 												
 												<!-- react-text: 55 -->
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<li>
 															<label class="form__check" for="bedrooms-0">
@@ -240,15 +240,15 @@ unset($alstid); */
 											</div>
 										</div>									
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-minbaths-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
 												<!-- react-text: 61 -->Baths
 												
 												<!-- react-text: 62 -->
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-											</button><div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+											</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<li>
 															<label class="form__check" for="bathCount-0">
@@ -279,15 +279,15 @@ unset($alstid); */
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-minbaths-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
 												<!-- react-text: 61 -->Order By
 												
 												<!-- react-text: 62 -->
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-											</button><div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+											</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 																										
 													<ul class="uk-list uk-list-space m-0">
 														<li>

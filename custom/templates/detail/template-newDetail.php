@@ -4,14 +4,14 @@ $contactIds=get_contact_id();
 <div id="zipperagent-content">
 	<article class="listing-detail listing-wrapper js-listing-detail " itemtype="http://schema.org/Residence">
 		<div class="uk-sticky-placeholder" style="margin: 0px;">
-			<header class="bt-listing__header js-listing__header uk-active" data-uk-sticky="{media: 768}">
+			<header class="zy-listing__header js-listing__header uk-active" data-uk-sticky="{media: 768}">
 				<div class="grid--wrapper uk-position-relative">
-					<a class="bt-back-to-search js-back-to-search" href="javascript:history.back()"><i class="bt-icon fa fa-chevron-left" aria-hidden="true"></i></a>
-					<div class="grid grid--noWrap bt-header__inner">
+					<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true"></i></a>
+					<div class="grid grid--noWrap zy-header__inner">
 						<div class="cell">
 							<div class="grid grid--gutters">
 								<div class="cell cell-md-7 cell-lg-8 cell-xs-12">									
-									<div class="bt-listing__header-grid">
+									<div class="zy-listing__header-grid">
 										<?php echo property_source_info($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' )); ?>
 <div class="mb-0" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 											<!-- <div class="grid grid--gutters"> -->
@@ -21,7 +21,7 @@ $contactIds=get_contact_id();
 													?>													
 													<h1 class="uk-h2 mt-5 mb-0 listing-address at-prop-addr-txt">
 														<span itemprop="streetAddress"> [streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> </span> <?php if($imgsrc): ?><img src="<?php echo $imgsrc; ?>" alt="[listOfficeName]" /><?php endif; ?></h1>
-													<div class="bt-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
+													<div class="zy-listing__locations-list uk-text-muted my-0 at-city-state-zip-txt">
 														<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 														<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>
 														<span itemprop="postalCode"> <?php echo isset($single_property->zipcode)?$single_property->zipcode:'' ?> </span>
@@ -40,7 +40,7 @@ $contactIds=get_contact_id();
 										</div>
 										<ul class="aux-info uk-text-small uk-text-uppercase mt-5">
 
-											<li class="bt-price__base uk-text-bold green">
+											<li class="zy-price__base uk-text-bold green">
 												<span>$[realprice]</span>
 											</li>
 											<?php if( isset($single_property->dayssincelisting) && !empty($single_property->dayssincelisting) ): ?>
@@ -62,7 +62,7 @@ $contactIds=get_contact_id();
 
 										<div class="grid grid-xs--full grid-md--halves grid-xl--thirds my-5">
 											<div class="cell">
-												<i class="bt-sash py-5 px-10 zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?> bt-listing-single__sash undercontract">[status]</i>
+												<i class="zy-sash py-5 px-10 zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?> zy-listing-single__sash undercontract">[status]</i>
 											</div>
 											<?php if( isset($single_property->syncTime) ){ ?>
 											<div class="update-info">
@@ -77,35 +77,35 @@ $contactIds=get_contact_id();
 
 									</div>
 								</div>
-								<div class="bt-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
+								<div class="zy-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
 									<div class="grid grid-xs--full py-15">
 										<div class="cell">
-											<button style="width:100%" class="<?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn bt-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button> 	
+											<button style="width:100%" class="<?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button> 	
 										</div>
 										<div class="cell top-action-buttons btn-group mt-10 " role="group" aria-label="Share options and option to view property on a map">
 											
 											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
-												<span class="bt-icon--stack">
-													<i class="bt-icon bt-icon--larger fa fa-info" aria-hidden="true"></i>
+												<span class="zy-icon--stack">
+													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
 											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
-												<span class="bt-icon--stack">
-													<i class="bt-icon bt-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
+												<span class="zy-icon--stack">
+													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
 											</button>
 										</div>
 										<!-- end .top-action-buttons -->
 									</div>
 								</div>
-								<!-- end .bt-listing__header-cta -->
+								<!-- end .zy-listing__header-cta -->
 							</div>
 							<!-- end .grid -->
 						</div>
 					</div>
-					<div class="js-details-fav__container bt-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
-						<button class="bt-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
-							<i class="bt-icon fa fa-heart" aria-hidden="true"></i>
+					<div class="js-details-fav__container zy-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
+						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+							<i class="zy-icon fa fa-heart" aria-hidden="true"></i>
 						</button>
 					</div>
 				</div>
@@ -117,10 +117,11 @@ $contactIds=get_contact_id();
 			<section class="mt-15 listing-content">
 				<div id="listing-top-wrapper" class="grid grid--gutters">
 					<div id="gallery-column" class="cell cell-xs-12 cell-lg-8 mb-15">
-						
-						<?php if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ): ?>
 											
-						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">						
+						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
+						
+						<?php if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ): ?>		
+						
 						<div class="row">
 							<div class="col-xs-12 zpa-property-photo">
 								<div class="owl-carousel-container">
@@ -279,7 +280,7 @@ $contactIds=get_contact_id();
 						<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>						
 						<aside class="my-15">
 							<div class="uk-hidden-small uk-hidden-medium">
-							<h3 class="bt-listing__headline mt-15 at-desc-header">Open House</h3>
+							<h3 class="zy-listing__headline mt-15 at-desc-header">Open House</h3>
 							<?php
 							foreach($single_property->openHouses as $openHouse){
 												
@@ -323,16 +324,16 @@ $contactIds=get_contact_id();
 						<?php endif; ?>
 						
 						<?php if(isset($single_property->vtlink)): ?>
-						<div class="bt-listing__virtual-tour">
+						<div class="zy-listing__virtual-tour">
 						
 							<?php if(is_array($single_property->vtlink)): ?>
 							<?php foreach( $single_property->vtlink as $virtual_index => $virtual_tour_url ): ?>
 						
-							<a target="_blank" href="<?php echo $virtual_tour_url ?>" class="bt-listing__virtual-tour__link js-vtour">
+							<a target="_blank" href="<?php echo $virtual_tour_url ?>" class="zy-listing__virtual-tour__link js-vtour">
 							  <div class="uk-float-left">
 								<i class="fa fa-camera"></i>
 							  </div>
-							  <div class="uk-float-right bt-listing__virtual-tour__text">
+							  <div class="uk-float-right zy-listing__virtual-tour__text">
 								Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?>
 							  </div>
 							</a>
@@ -345,7 +346,7 @@ $contactIds=get_contact_id();
 							<div class="uk-hidden-small uk-hidden-medium">
 
 
-								<h3 class="bt-listing__headline mt-15 at-desc-header">Description</h3>
+								<h3 class="zy-listing__headline mt-15 at-desc-header">Description</h3>
 								<p class="at-desc-body">[remarks]</p>
 
 
@@ -353,8 +354,8 @@ $contactIds=get_contact_id();
 						</aside>
 					</div>
 					<div id="props-column" class="cell">
-						<div class="mb-15 p-0 bt-panel uk-panel uk-panel-box">
-							<div class="bt-panel__stack__sub bt-panel--small uk-text-center">
+						<div class="mb-15 p-0 zy-panel uk-panel uk-panel-box">
+							<div class="zy-panel__stack__sub zy-panel--small uk-text-center">
 								<div class="">
 
 									<strong>$[realprice]</strong>
@@ -362,15 +363,15 @@ $contactIds=get_contact_id();
 								</div>
 
 							</div>
-							<div class="bt-panel__stack__sub">
-								<ul class="bt-listing__feature-grid" style="margin-bottom:0">
+							<div class="zy-panel__stack__sub">
+								<ul class="zy-listing__feature-grid" style="margin-bottom:0">
 									<li class="beds">
 										<div class="attr-num">[nobedrooms]</div>
 										<div class="uk-text-small uk-text-truncate">BEDS</div>
 									</li>
 									<li class="acres">
 
-										<div class="attr-num bt-listing__acreage-text">[acre]</div>
+										<div class="attr-num zy-listing__acreage-text">[acre]</div>
 
 										<div class="uk-text-small uk-text-truncate">ACRES</div>
 									</li>
@@ -396,8 +397,8 @@ $contactIds=get_contact_id();
 
 								</ul>
 							</div>
-							<div class="bt-panel__stack__sub">
-								<div class="m-0 bt-listing-table bt-listing__table-break">
+							<div class="zy-panel__stack__sub">
+								<div class="m-0 zy-listing-table zy-listing__table-break">
 
 
 
@@ -438,11 +439,11 @@ $contactIds=get_contact_id();
 							</div>
 						</div>							
 						
-						<div class="mb-15 p-0 bt-panel school-rating" <?php if(is_great_school_enabled() || (is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng))): ?>style="display:none;"<?php endif; ?>>
-							<div class="bt-panel--small">
-								<h3 class="bt-listing__headline uk-text-center m-0">School Ratings &amp; Info</h3>
+						<div class="mb-15 p-0 zy-panel school-rating" <?php if(is_great_school_enabled() || (is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng))): ?>style="display:none;"<?php endif; ?>>
+							<div class="zy-panel--small">
+								<h3 class="zy-listing__headline uk-text-center m-0">School Ratings &amp; Info</h3>
 							</div>
-							<div class="bt-panel--small">
+							<div class="zy-panel--small">
 								<a role="button" href="//www.greatschools.org/search/nearbySearch.page?gradeLevels=&amp;distance=15&amp;zipCode=[zipcode]&amp;redirectUrl=%2F" class="js-listing-schoolsBtn btn-primary width-1-1" target="_blank" rel="nofollow">Visit GreatSchools.org</a>
 							</div>
 						</div> 
@@ -451,7 +452,7 @@ $contactIds=get_contact_id();
 							<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>						
 							<div class="uk-hidden-large uk-hidden-xlarge" style="width:100%;">
 
-								<h3 class="bt-listing__headline mt-15">Open House</h3>									
+								<h3 class="zy-listing__headline mt-15">Open House</h3>									
 								<?php
 								foreach($single_property->openHouses as $openHouse){									
 													
@@ -494,7 +495,7 @@ $contactIds=get_contact_id();
 							<?php endif; ?>
 							<div class="uk-hidden-large uk-hidden-xlarge">
 
-								<h3 class="bt-listing__headline mt-15">Description</h3>
+								<h3 class="zy-listing__headline mt-15">Description</h3>
 								<p class="at-description">[remarks]</p>
 
 							</div>
@@ -506,24 +507,24 @@ $contactIds=get_contact_id();
 							<?php
 							// echo "<pre>"; print_r( $agent ); echo "</pre>";
 							if( $agent ): ?>
-							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
+							<div class="cell zy-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
 									<div class="">
-										<div class="bt-panel uk-panel uk-panel-box">
+										<div class="zy-panel uk-panel uk-panel-box">
 											<div itemtype="http://schema.org/Person" itemscope="">
 												<div class="grid grid--gutters grid--flexCells">
-													<div class="bt-listing__agent_image cell cell-xs-4">
+													<div class="zy-listing__agent_image cell cell-xs-4">
 														<img class="agent-avatar__img width-1-1" alt="<?php echo isset( $agent->userName )?$agent->userName:''; ?>" src="<?php echo isset( $agent->imageURL )?$agent->imageURL:''; ?>" itemprop="image" title="<?php echo isset( $agent->userName )?$agent->userName:''; ?>">
 														
 													</div>
 													<div class="cell cell-xs-8">
 														<div class="grid grid-xs--full width-1-1">
 															<div class="cell">
-																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Sales &amp; Leasing Agent </div>
-																<div class="bt-listing__agent__info">
-																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $agent->userName )?$agent->userName:''; ?></span></div>
-																	<?php if(isset( $agent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phone )?$agent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $agent->phone )?$agent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
+																<div class="font-12 cell zy-listing__agent__info__category zy-listing__agent__info__category--agent">Sales &amp; Leasing Agent </div>
+																<div class="zy-listing__agent__info">
+																	<div class="zy-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $agent->userName )?$agent->userName:''; ?></span></div>
+																	<?php if(isset( $agent->phone )): ?><div class="uk-text-truncate-child zy-listing__agent__info__phone"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phone )?$agent->phone:''; ?>"><span class="zy-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $agent->phone )?$agent->phone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child zy-listing__agent__info__email"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><span class="zy-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
@@ -544,24 +545,24 @@ $contactIds=get_contact_id();
 						
 						<?php if( isset($single_property->listingAgent) ): ?>
 						<div class="grid mb-15">
-							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
+							<div class="cell zy-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
 									<div class="">
-										<div class="bt-panel uk-panel uk-panel-box">
+										<div class="zy-panel uk-panel uk-panel-box">
 											<div itemtype="http://schema.org/Person" itemscope="">
 												<div class="grid grid--gutters grid--flexCells">
-													<div class="bt-listing__agent_image cell cell-xs-4">
+													<div class="zy-listing__agent_image cell cell-xs-4">
 														<img class="agent-avatar__img width-1-1" alt="<?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?>" src="<?php echo isset( $single_property->listingAgent->imageURL )?$single_property->listingAgent->imageURL:''; ?>" itemprop="image" title="<?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?>">
 														
 													</div>
 													<div class="cell cell-xs-8">
 														<div class="grid grid-xs--full width-1-1">
 															<div class="cell">
-																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Listing Agent </div>
-																<div class="bt-listing__agent__info">
-																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->listingAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->listingAgent->phone )?$single_property->listingAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->listingAgent->phone )?$single_property->listingAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->listingAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?></span></a></div><?php endif; ?>
+																<div class="font-12 cell zy-listing__agent__info__category zy-listing__agent__info__category--agent">Listing Agent </div>
+																<div class="zy-listing__agent__info">
+																	<div class="zy-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?></span></div>
+																	<?php if(isset( $single_property->listingAgent->phone )): ?><div class="uk-text-truncate-child zy-listing__agent__info__phone"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->listingAgent->phone )?$single_property->listingAgent->phone:''; ?>"><span class="zy-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->listingAgent->phone )?$single_property->listingAgent->phone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->listingAgent->email )): ?><div class="uk-text-truncate-child zy-listing__agent__info__email"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?>"><span class="zy-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->listingAgent->email )?$single_property->listingAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
@@ -582,24 +583,24 @@ $contactIds=get_contact_id();
 						
 						<?php if( isset($single_property->coListingAgent) ): ?>
 						<div class="grid mb-15">
-							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
+							<div class="cell zy-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
 									<div class="">
-										<div class="bt-panel uk-panel uk-panel-box">
+										<div class="zy-panel uk-panel uk-panel-box">
 											<div itemtype="http://schema.org/Person" itemscope="">
 												<div class="grid grid--gutters grid--flexCells">
-													<div class="bt-listing__agent_image cell cell-xs-4">
+													<div class="zy-listing__agent_image cell cell-xs-4">
 														<img class="agent-avatar__img width-1-1" alt="<?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?>" src="<?php echo isset( $single_property->coListingAgent->imageURL )?$single_property->coListingAgent->imageURL:''; ?>" itemprop="image" title="<?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?>">
 														
 													</div>
 													<div class="cell cell-xs-8">
 														<div class="grid grid-xs--full width-1-1">
 															<div class="cell">
-																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Co-Listing Agent </div>
-																<div class="bt-listing__agent__info">
-																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->coListingAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->coListingAgent->phone )?$single_property->coListingAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->coListingAgent->phone )?$single_property->coListingAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->coListingAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?></span></a></div><?php endif; ?>
+																<div class="font-12 cell zy-listing__agent__info__category zy-listing__agent__info__category--agent">Co-Listing Agent </div>
+																<div class="zy-listing__agent__info">
+																	<div class="zy-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?></span></div>
+																	<?php if(isset( $single_property->coListingAgent->phone )): ?><div class="uk-text-truncate-child zy-listing__agent__info__phone"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->coListingAgent->phone )?$single_property->coListingAgent->phone:''; ?>"><span class="zy-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->coListingAgent->phone )?$single_property->coListingAgent->phone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->coListingAgent->email )): ?><div class="uk-text-truncate-child zy-listing__agent__info__email"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?>"><span class="zy-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->coListingAgent->email )?$single_property->coListingAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
@@ -620,24 +621,24 @@ $contactIds=get_contact_id();
 						
 						<?php if( isset($single_property->salesAgent) ): ?>
 						<div class="grid mb-15">
-							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
+							<div class="cell zy-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
 									<div class="">
-										<div class="bt-panel uk-panel uk-panel-box">
+										<div class="zy-panel uk-panel uk-panel-box">
 											<div itemtype="http://schema.org/Person" itemscope="">
 												<div class="grid grid--gutters grid--flexCells">
-													<div class="bt-listing__agent_image cell cell-xs-4">
+													<div class="zy-listing__agent_image cell cell-xs-4">
 														<img class="agent-avatar__img width-1-1" alt="<?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?>" src="<?php echo isset( $single_property->salesAgent->imageURL )?$single_property->salesAgent->imageURL:''; ?>" itemprop="image" title="<?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?>">
 														
 													</div>
 													<div class="cell cell-xs-8">
 														<div class="grid grid-xs--full width-1-1">
 															<div class="cell">
-																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Sales Agent </div>
-																<div class="bt-listing__agent__info">
-																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->salesAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->salesAgent->phone )?$single_property->salesAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->salesAgent->phone )?$single_property->salesAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->salesAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?></span></a></div><?php endif; ?>
+																<div class="font-12 cell zy-listing__agent__info__category zy-listing__agent__info__category--agent">Sales Agent </div>
+																<div class="zy-listing__agent__info">
+																	<div class="zy-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?></span></div>
+																	<?php if(isset( $single_property->salesAgent->phone )): ?><div class="uk-text-truncate-child zy-listing__agent__info__phone"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->salesAgent->phone )?$single_property->salesAgent->phone:''; ?>"><span class="zy-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->salesAgent->phone )?$single_property->salesAgent->phone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->salesAgent->email )): ?><div class="uk-text-truncate-child zy-listing__agent__info__email"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?>"><span class="zy-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->salesAgent->email )?$single_property->salesAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
@@ -658,24 +659,24 @@ $contactIds=get_contact_id();
 						
 						<?php if( isset($single_property->coSalesAgent) ): ?>
 						<div class="grid">
-							<div class="cell bt-listing__agent--card jsx-listing-details-rep-tags">
+							<div class="cell zy-listing__agent--card jsx-listing-details-rep-tags">
 								<div data-reactroot="" class="">
 									<div class="">
-										<div class="bt-panel uk-panel uk-panel-box">
+										<div class="zy-panel uk-panel uk-panel-box">
 											<div itemtype="http://schema.org/Person" itemscope="">
 												<div class="grid grid--gutters grid--flexCells">
-													<div class="bt-listing__agent_image cell cell-xs-4">
+													<div class="zy-listing__agent_image cell cell-xs-4">
 														<img class="agent-avatar__img width-1-1" alt="<?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?>" src="<?php echo isset( $single_property->coSalesAgent->imageURL )?$single_property->coSalesAgent->imageURL:''; ?>" itemprop="image" title="<?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?>">
 														
 													</div>
 													<div class="cell cell-xs-8">
 														<div class="grid grid-xs--full width-1-1">
 															<div class="cell">
-																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Co-Sales Agent </div>
-																<div class="bt-listing__agent__info">
-																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?></span></div>
-																	<?php if(isset( $single_property->coSalesAgent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->coSalesAgent->phone )?$single_property->coSalesAgent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->coSalesAgent->phone )?$single_property->coSalesAgent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $single_property->coSalesAgent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?></span></a></div><?php endif; ?>
+																<div class="font-12 cell zy-listing__agent__info__category zy-listing__agent__info__category--agent">Co-Sales Agent </div>
+																<div class="zy-listing__agent__info">
+																	<div class="zy-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?></span></div>
+																	<?php if(isset( $single_property->coSalesAgent->phone )): ?><div class="uk-text-truncate-child zy-listing__agent__info__phone"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="tel:<?php echo isset( $single_property->coSalesAgent->phone )?$single_property->coSalesAgent->phone:''; ?>"><span class="zy-listing__agent__info_phone__type"><!-- react-text: 20 -->Office<!-- react-text: 21 -->: </span><span itemprop="telephone"><?php echo isset( $single_property->coSalesAgent->phone )?$single_property->coSalesAgent->phone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $single_property->coSalesAgent->email )): ?><div class="uk-text-truncate-child zy-listing__agent__info__email"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="mailto:<?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?>"><span class="zy-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $single_property->coSalesAgent->email )?$single_property->coSalesAgent->email:''; ?></span></a></div><?php endif; ?>
 																</div>
 															</div>
 															<div class="cell cell--bottom mt-auto">
@@ -701,86 +702,86 @@ $contactIds=get_contact_id();
 					<ul class="grid grid--gutters grid-xs--full grid-lg--thirds">
 
 						<li class="cell">
-							<h3 class="bt-listing__headline">Exterior Features</h3>
-							<table class="bt-listing__table">
+							<h3 class="zy-listing__headline">Exterior Features</h3>
+							<table class="zy-listing__table">
 
 								<tbody>
 									<tr>
-										<td class="bt-listing__table__label">Beachfront</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Beachfront</td>
+										<td class="zy-listing__table__items">
 											<span>[beachfrontflag]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Construction</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Construction</td>
+										<td class="zy-listing__table__items">
 											<span>[construction]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Exterior</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Exterior</td>
+										<td class="zy-listing__table__items">
 											<span>[exterior]</span>
 										</td>
 									</tr>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Foundation</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Foundation</td>
+										<td class="zy-listing__table__items">
 											<span>[foundation]</span>
 										</td>
 									</tr> */ ?>
 
 									<tr>
-										<td class="bt-listing__table__label">Garage Spaces</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Garage Spaces</td>
+										<td class="zy-listing__table__items">
 											<span>[garagespaces]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Lot Description</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Lot Description</td>
+										<td class="zy-listing__table__items">
 											<span>[roadtype]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Parking Features</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Parking Features</td>
+										<td class="zy-listing__table__items">
 											<span>[parkingfeature]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Parking Spaces</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Parking Spaces</td>
+										<td class="zy-listing__table__items">
 											<span>[parkingspaces]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Roof Material</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Roof Material</td>
+										<td class="zy-listing__table__items">
 											<span>[roofmaterial]</span>
 										</td>
 									</tr>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Waterfront Flag</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Waterfront Flag</td>
+										<td class="zy-listing__table__items">
 											<span>[waterfrontflag]</span>
 										</td>
 									</tr> */ ?>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Waterview Flag</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Waterview Flag</td>
+										<td class="zy-listing__table__items">
 											<span>[waterviewflag]</span>
 										</td>
 									</tr> */ ?>
@@ -791,160 +792,160 @@ $contactIds=get_contact_id();
 
 
 						<li class="cell">
-							<h3 class="bt-listing__headline">Interior Features</h3>
-							<table class="bt-listing__table">
+							<h3 class="zy-listing__headline">Interior Features</h3>
+							<table class="zy-listing__table">
 
 								<tbody>
 									<tr>
-										<td class="bt-listing__table__label">Basement</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Basement</td>
+										<td class="zy-listing__table__items">
 											<span>[basement]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Basement Features</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Basement Features</td>
+										<td class="zy-listing__table__items">
 											<span>[basementfeature]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Bedrooms Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Bedrooms Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[bed1LEVEL]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Bedrooms Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Bedrooms Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[bed2LEVEL]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Energy Features</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Energy Features</td>
+										<td class="zy-listing__table__items">
 											<span>[energyfeatures]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Fireplaces</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Fireplaces</td>
+										<td class="zy-listing__table__items">
 											<span>[fireplaces]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Fireplaces Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Fireplaces Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[frplcs1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Fireplaces Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Fireplaces Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[frplcs2]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Flooring</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Flooring</td>
+										<td class="zy-listing__table__items">
 											<span>[flooring]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Floors Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Floors Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[flrs1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Floors Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Floors Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[flrs2]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Full Baths Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Full Baths Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[fbths1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Full Baths Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Full Baths Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[fbths2]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Half Baths Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Half Baths Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[hbths1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Half Baths Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Half Baths Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[hbths2]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Hot Water</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Hot Water</td>
+										<td class="zy-listing__table__items">
 											<span>[hotwater]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Levels</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Levels</td>
+										<td class="zy-listing__table__items">
 											<span>[levels]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Levels Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Levels Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[levels1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Levels Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Levels Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[levels2]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Rooms</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Rooms</td>
+										<td class="zy-listing__table__items">
 											<span>[norooms]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Rooms Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Rooms Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[rms1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Rooms Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Rooms Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[rms2]</span>
 										</td>
 									</tr>
@@ -955,187 +956,187 @@ $contactIds=get_contact_id();
 
 
 						<li class="cell">
-							<h3 class="bt-listing__headline">Property Features</h3>
-							<table class="bt-listing__table">
+							<h3 class="zy-listing__headline">Property Features</h3>
+							<table class="zy-listing__table">
 
 								<tbody>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Adult Community</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Adult Community</td>
+										<td class="zy-listing__table__items">
 											<span>[adultcommunity]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Apod Available</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Apod Available</td>
+										<td class="zy-listing__table__items">
 											<span>[apodavailable]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Assessments</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Assessments</td>
+										<td class="zy-listing__table__items">
 											<span>[assessments]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Disclosure</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Disclosure</td>
+										<td class="zy-listing__table__items">
 											<span>[disclosure]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Electric Features</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Electric Features</td>
+										<td class="zy-listing__table__items">
 											<span>[electricfeature]</span>
 										</td>
 									</tr> */ ?>
 
 									<tr>
-										<td class="bt-listing__table__label">Exclusions</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Exclusions</td>
+										<td class="zy-listing__table__items">
 											<span>[exclusions]</span>
 										</td>
 									</tr>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Gross Operating Income</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Gross Operating Income</td>
+										<td class="zy-listing__table__items">
 											<span>[netoperatinginc]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Lead Paint</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Lead Paint</td>
+										<td class="zy-listing__table__items">
 											<span>[leadpaint]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Lease Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Lease Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[lease1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Lease Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Lease Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[lease2]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Lender Owned</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Lender Owned</td>
+										<td class="zy-listing__table__items">
 											<span>[lenderowned]</span>
 										</td>
 									</tr> */ ?>
 
 									<tr>
-										<td class="bt-listing__table__label">Multifamily Type</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Multifamily Type</td>
+										<td class="zy-listing__table__items">
 											<span>[famlevel]</span>
 										</td>
 									</tr>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Net Operating Income</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Net Operating Income</td>
+										<td class="zy-listing__table__items">
 											<span>[netoperatinginc]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Rent Description Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Rent Description Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[rntdscrp1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Rent Unit1</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Rent Unit1</td>
+										<td class="zy-listing__table__items">
 											<span>[rent1]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Rent Unit2</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Rent Unit2</td>
+										<td class="zy-listing__table__items">
 											<span>[rent2]</span>
 										</td>
 									</tr> */ ?>
 
 									<tr>
-										<td class="bt-listing__table__label">Sewer</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Sewer</td>
+										<td class="zy-listing__table__items">
 											<span>[sewer]</span>
 										</td>
 									</tr>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Short Sale Lender App Required</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Short Sale Lender App Required</td>
+										<td class="zy-listing__table__items">
 											<span>[shortsalelenderappreqd]</span>
 										</td>
 									</tr> */ ?>
 
 									<tr>
-										<td class="bt-listing__table__label">Sq Ft Source</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Sq Ft Source</td>
+										<td class="zy-listing__table__items">
 											<span>[squarefeetsource]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Tax Year</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Tax Year</td>
+										<td class="zy-listing__table__items">
 											<span>[taxyear]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Taxes</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Taxes</td>
+										<td class="zy-listing__table__items">
 											<span>[taxes]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Water</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Water</td>
+										<td class="zy-listing__table__items">
 											<span>[water]</span>
 										</td>
 									</tr>
 									
 									<?php /*
 									<tr>
-										<td class="bt-listing__table__label">Year Built Description</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Year Built Description</td>
+										<td class="zy-listing__table__items">
 											<span>[yearbuiltdescrp]</span>
 										</td>
 									</tr>
 
 									<tr>
-										<td class="bt-listing__table__label">Year Built Source</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Year Built Source</td>
+										<td class="zy-listing__table__items">
 											<span>[yearbuiltsource]</span>
 										</td>
 									</tr> */ ?>
 
 									<tr>
-										<td class="bt-listing__table__label">Zoning</td>
-										<td class="bt-listing__table__items">
+										<td class="zy-listing__table__label">Zoning</td>
+										<td class="zy-listing__table__items">
 											<span>[zoning]</span>
 										</td>
 									</tr>
@@ -1162,40 +1163,40 @@ $contactIds=get_contact_id();
 				
 				<?php if( isset($single_luxury) && isset($single_luxury->id) ): ?>
 				<aside class="my-15">
-					<h3 class="bt-listing__headline">Properties</h3>
+					<h3 class="zy-listing__headline">Properties</h3>
 					<?php zipperagent_luxury_table($single_luxury); ?>
 				</aside>			
 				<?php endif; ?>
 				
 				<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
-				<aside class="bt-widget greatschool-widget">
-					<div class="bt-listing__map-container">
+				<aside class="zy-widget greatschool-widget">
+					<div class="zy-listing__map-container">
 						<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo $single_property->lat; ?>&lon=<?php echo $single_property->lng; ?>&cityName=<?php echo isset($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address($single_property) ); ?>&width=auto&height=368&zoom=13" width="1180" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>
 					</div>
 				</aside>
 				<?php endif; ?>
 				
 				<?php if( isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
-				<aside class="bt-widget js-map-column">
-					<div class="bt-listing__map-container">
+				<aside class="zy-widget js-map-column">
+					<div class="zy-listing__map-container">
 						<ul id="map-sections" class="uk-switcher">
 							<li class="uk-active" aria-hidden="false">
 								<div id="map" style="height:300px"></div>
 								<!-- Direction Results -->
-								<div class="bt-listing__directions-results uk-clearfix uk-hidden js-listing__directions-results"></div>
+								<div class="zy-listing__directions-results uk-clearfix uk-hidden js-listing__directions-results"></div>
 							</li>
 							<li aria-hidden="true">
-								<div class="bt-border-pad">
-									<div class="bt-listing__map-object">
+								<div class="zy-border-pad">
+									<div class="zy-listing__map-object">
 										<div class="gmap js-listing__streetview-map" data-address="512 Hyde Park Ave  02131" data-lat="42.2829" data-lng="-71.11872">
-											<img src="https://bt-wpstatic.freetls.fastly.net/wp-content/themes/wp-base-theme/assets/media/build/street_view_na.png" alt="Street View Not Available" class="uk-hidden js-streetview-na">
+											<img src="<?php echo ZIPPERAGENTURL . "images/no-street-view.png"; ?>" alt="Street View Not Available" class="uk-hidden js-streetview-na">
 										</div>
 									</div>
 								</div>
 							</li>
 							<li aria-hidden="true">
-								<div class="bt-border-pad">
-									<div class="bt-listing__map-object">
+								<div class="zy-border-pad">
+									<div class="zy-listing__map-object">
 										<div class="gmap js-listing__birdview-map"></div>
 									</div>
 								</div>
@@ -1206,13 +1207,13 @@ $contactIds=get_contact_id();
 				<?php endif; ?>
 				
 				<?php if( $agent ): ?>
-				<aside class="bt-widget jsx-listing-details-contact-form">
+				<aside class="zy-widget jsx-listing-details-contact-form">
 					<div data-reactroot="" class="js-listing-contact-agent-widget">
 						<div class="grid grid--gutters grid--justifyCenter grid-xs--full">
 							<div class="cell cell-lg-8">
-								<div class="bt-panel uk-panel uk-panel-box overflow-show">
-									<div class="bt-listing__agent__contact-widget__form">
-										<h3 class="bt-listing__headline">Ask Agent a Question</h3>
+								<div class="zy-panel uk-panel uk-panel-box overflow-show">
+									<div class="zy-listing__agent__contact-widget__form">
+										<h3 class="zy-listing__headline">Ask Agent a Question</h3>
 										<div id="ask-a-question-form" class="jsx-listing-details-contact-form">
 											<div>
 												<form id="zpa-modal-contact-agent-form">
@@ -1296,23 +1297,23 @@ $contactIds=get_contact_id();
 								</div>
 							</div>
 							<div class="cell cell-lg-4 cell-md-6">
-								<div class="bt-listing__agent__contact-widget__card bt-panel uk-panel uk-panel-box">
+								<div class="zy-listing__agent__contact-widget__card zy-panel uk-panel uk-panel-box">
 									<div class="grid grid--gutters grid-xs--full ">
 										<div class="bt__agent-lender__card cell">
 											<div itemtype="http://schema.org/Person" itemscope="">
 												<div class="grid grid--gutters grid--flexCells">
-													<div class="bt-listing__agent_image cell cell-xs-4">
+													<div class="zy-listing__agent_image cell cell-xs-4">
 														<img class="agent-avatar__img width-1-1" alt="<?php echo isset( $agent->userName )?$agent->userName:''; ?>" src="<?php echo isset( $agent->imageURL )?$agent->imageURL:''; ?>" itemprop="image" title="<?php echo isset( $agent->userName )?$agent->userName:''; ?>">
 														
 													</div>
 													<div class="cell cell-xs-8">
 														<div class="grid grid-xs--full width-1-1">
 															<div class="cell">
-																<div class="font-12 cell bt-listing__agent__info__category bt-listing__agent__info__category--agent">Sales &amp; Leasing Agent </div>
-																<div class="bt-listing__agent__info">
-																	<div class="bt-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $agent->userName )?$agent->userName:''; ?></span></div>
-																	<?php if(isset( $agent->phone )): ?><div class="uk-text-truncate-child bt-listing__agent__info__phone"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phone )?$agent->phone:''; ?>"><span class="bt-listing__agent__info_phone__type"><!-- react-text: 79 -->Office<!-- react-text: 80 -->: </span><span itemprop="telephone"><?php echo isset( $agent->phone )?$agent->phone:''; ?></span></a></div><?php endif; ?>
-																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child bt-listing__agent__info__email"><a class="width-1-1 js-call-agent bt-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><span class="bt-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
+																<div class="font-12 cell zy-listing__agent__info__category zy-listing__agent__info__category--agent">Sales &amp; Leasing Agent </div>
+																<div class="zy-listing__agent__info">
+																	<div class="zy-listing__agent__info__name uk-h4" itemprop="name"><span><?php echo isset( $agent->userName )?$agent->userName:''; ?></span></div>
+																	<?php if(isset( $agent->phone )): ?><div class="uk-text-truncate-child zy-listing__agent__info__phone"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="tel:<?php echo isset( $agent->phone )?$agent->phone:''; ?>"><span class="zy-listing__agent__info_phone__type"><!-- react-text: 79 -->Office<!-- react-text: 80 -->: </span><span itemprop="telephone"><?php echo isset( $agent->phone )?$agent->phone:''; ?></span></a></div><?php endif; ?>
+																	<?php if(isset( $agent->email )): ?><div class="uk-text-truncate-child zy-listing__agent__info__email"><a class="width-1-1 js-call-agent zy-listing__agent__call-agent" href="mailto:<?php echo isset( $agent->email )?$agent->email:''; ?>"><span class="zy-listing__agent__info_email__type"><!-- react-text: 79 -->Email<!-- react-text: 80 -->: </span><span itemprop="email"><?php echo isset( $agent->email )?$agent->email:''; ?></span></a></div><?php endif; ?>
 																	
 																</div>
 															</div>
@@ -1332,9 +1333,9 @@ $contactIds=get_contact_id();
 				<?php /*
 				<div class="mortgage-calculator grid grid--gutters">
 				   <div class="cell cell-xs-12 cell-lg-8">
-					  <div class="bt-widget bt-panel uk-panel uk-panel-box overflow-show">
-						 <h3 class="bt-listing__headline">Monthly Payment Calculator</h3>
-						 <div class="bt-widget jsx-mortgage-calc-form">
+					  <div class="zy-widget zy-panel uk-panel uk-panel-box overflow-show">
+						 <h3 class="zy-listing__headline">Monthly Payment Calculator</h3>
+						 <div class="zy-widget jsx-mortgage-calc-form">
 							<form data-reactroot="">
 							   <div class="grid grid--gutters grid-xs--full grid-md--halves">
 								  <div class="cell">
@@ -1468,9 +1469,9 @@ $contactIds=get_contact_id();
 	</article>
 	
 	<!-- print view -->
-	<div class="bt-print-view js-print-view">
-	  <div class="bt-print__wrap">
-		 <div class="bt-print__left">
+	<div class="zy-print-view js-print-view">
+	  <div class="zy-print__wrap">
+		 <div class="zy-print__left">
 			<div class="uk-text-small mb-5">
 			   <?php echo get_permalink(); ?>
 			   <?php // echo $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
@@ -1492,68 +1493,68 @@ $contactIds=get_contact_id();
 			<h4 class="my-5 uk-text-truncate">
 			   <?php echo zipperagent_get_address($single_property); ?> 
 			</h4>
-			<ul class="bt-print__meta">
+			<ul class="zy-print__meta">
 			   <li>Price: $[realprice]</li>
 			   <li>Status: [status]</li>
 			   <li>Updated: [syncAge] min ago</li>
 			   <li>[displaySource] #: [id]</li>
 			</ul>
-			<table class="bt-print__meta-blocks">
+			<table class="zy-print__meta-blocks">
 			   <tr>
 				  <td>
-					 <div class="bt-print__meta-val">[nobedrooms]</div>
-					 <div class="bt-print__meta-label">Beds</div>
+					 <div class="zy-print__meta-val">[nobedrooms]</div>
+					 <div class="zy-print__meta-label">Beds</div>
 				  </td>
 				  <td>
-					 <div class="bt-print__meta-val">[nobaths]</div>
-					 <div class="bt-print__meta-label">Baths</div>
+					 <div class="zy-print__meta-val">[nobaths]</div>
+					 <div class="zy-print__meta-label">Baths</div>
 				  </td>
 				  <td>
-					 <div class="bt-print__meta-val">[nohalfbaths]</div>
-					 <div class="bt-print__meta-label">&frac12; Baths</div>
+					 <div class="zy-print__meta-val">[nohalfbaths]</div>
+					 <div class="zy-print__meta-label">&frac12; Baths</div>
 				  </td>
 				  <td>
-					 <div class="bt-print__meta-val">[acre]</div>
-					 <div class="bt-print__meta-label">Acres</div>
+					 <div class="zy-print__meta-val">[acre]</div>
+					 <div class="zy-print__meta-label">Acres</div>
 				  </td>
 				  <td>
-					 <div class="bt-print__meta-val">[squarefeet]</div>
-					 <div class="bt-print__meta-label">SQFT</div>
+					 <div class="zy-print__meta-val">[squarefeet]</div>
+					 <div class="zy-print__meta-label">SQFT</div>
 				  </td>
 				  <?php /* <td>
-					 <div class="bt-print__meta-val">$170</div>
-					 <div class="bt-print__meta-label">$/SQFT</div>
+					 <div class="zy-print__meta-val">$170</div>
+					 <div class="zy-print__meta-label">$/SQFT</div>
 				  </td> */ ?>
 				  <td>
-					 <div class="bt-print__meta-val">[yearbuilt]</div>
-					 <div class="bt-print__meta-label">Built</div>
+					 <div class="zy-print__meta-val">[yearbuilt]</div>
+					 <div class="zy-print__meta-label">Built</div>
 				  </td>
 			   </tr>
 			</table>
-			<div class="bt-print__area__wrap">
-			   <div class="bt-print__area">
+			<div class="zy-print__area__wrap">
+			   <div class="zy-print__area">
 				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">Neighborhood:</div>
-					 <div class="bt-print__area-val">[neighborhood]</div>
+					 <div class="zy-print__area-label">Neighborhood:</div>
+					 <div class="zy-print__area-val">[neighborhood]</div>
 				  </div>
 				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">County:</div>
-					 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
+					 <div class="zy-print__area-label">County:</div>
+					 <div class="zy-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 				  </div>
 				  <div class="uk-clearfix">
-					 <div class="bt-print__area-label">Area:</div>
-					 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+					 <div class="zy-print__area-label">Area:</div>
+					 <div class="zy-print__area-val">[lngAREADESCRIPTION]</div>
 				  </div>
 			   </div>
-			   <div class="bt-print__area">
+			   <div class="zy-print__area">
 			   </div>
 			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Description</h6>
-			   <div class="bt-print__description">[remarks]</div>
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header">Property Description</h6>
+			   <div class="zy-print__description">[remarks]</div>
 			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Exterior Features</h6>
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header">Exterior Features</h6>
 			   <p>
 				  <?php /* <strong>Beach Description</strong>
 				  Lake/Pond
@@ -1617,8 +1618,8 @@ $contactIds=get_contact_id();
 				  <?php endif; ?>
 			   </p>
 			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Interior Features</h6>
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header">Interior Features</h6>
 			   <p>
 				  <?php if(isset($single_property->basement)): ?>
 				  <strong>Basement</strong>
@@ -1732,8 +1733,8 @@ $contactIds=get_contact_id();
 				  <?php endif; ?>
 			   </p>
 			</div>
-			<div class="bt-print__block">
-			   <h6 class="bt-print__header">Property Features</h6>
+			<div class="zy-print__block">
+			   <h6 class="zy-print__header">Property Features</h6>
 			   <p>
 				  <?php if(isset($single_property->adultcommunity)): ?>
 				  <strong>Adult Community</strong>
@@ -1853,7 +1854,7 @@ $contactIds=get_contact_id();
 				  <?php endif; ?>
 			   </p>
 			</div>
-			<div class="bt-print__block">
+			<div class="zy-print__block">
 			<?php if( $source_details ){
 				echo $source_details;
 			}else{
@@ -1861,20 +1862,20 @@ $contactIds=get_contact_id();
 			} ?>
 			</div>
 		 </div>
-		 <div class="bt-print__right">
+		 <div class="zy-print__right">
 			<div class="uk-text-small mb-5">&nbsp;</div>
-			<div class="bt-print__media-list">
+			<div class="zy-print__media-list">
 				<?php if ( isset($img[1]) ) echo "<img src='$img[1]' />";?>
 				<?php if ( isset($img[2]) ) echo "<img src='$img[2]' />";?>
 				<?php if ( isset($img[3]) ) echo "<img src='$img[3]' />";?>
-				<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="bt-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
+				<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="zy-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
 			</div>
 			<?php if( $agent ): ?>
-			<div class="bt-print__agent">
-			   <div class="bt-cell-align bt-cell-align--small">
+			<div class="zy-print__agent">
+			   <div class="zy-cell-align zy-cell-align--small">
 				  <?php  if( isset( $agent->imageURL ) ): ?>
 				  <div>
-					 <img class="bt-image__no-mw bt-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
+					 <img class="zy-image__no-mw zy-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
 				  </div>
 				  <?php endif; ?>
 				  <div class="pl-10">
@@ -1893,7 +1894,7 @@ $contactIds=get_contact_id();
 			</div>
 			<?php endif; ?>
 			<?php /* 
-			<div class="bt-print__office">
+			<div class="zy-print__office">
 			   <img src="https://bt-wpstatic.freetls.fastly.net/wp-content/blogs.dir/3244/files/2017/08/Web-Top-Left-Logo-new.jpg">
 			   <address>
 				  <div class="mt-5">RE/MAX Patriot Realty</div>
@@ -1901,7 +1902,7 @@ $contactIds=get_contact_id();
 				  <div>Leominster MA, 01453</div>
 			   </address>
 			</div>
-			<div class="bt-print__block">
+			<div class="zy-print__block">
 			   <font size="2">Listing courtesy of some text.</font>
 			</div> */ ?>
 		 </div>

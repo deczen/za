@@ -36,7 +36,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			$this->property_cache = $property_cache;
 			$this->single_property = $single_property;
 						
-			if($_GET['debug']){
+			if(isset($_GET['debug']) && $_GET['debug']){
 				if($single_property){
 					echo "<pre>"; print_r( $single_property ); echo "</pre>";
 				}
@@ -62,7 +62,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 		$property = $this->property_cache ? $this->property_cache : $this->single_property;
 		
 		if( $property )
-			$default = zipperagent_get_address( $property);
+			$default = isset($property->id) ? zipperagent_get_address( $property) : 'Not Found';
 		else
 			$default = $this->getText(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TITLE_DETAIL, "Property Title");
 		/* end modified */
@@ -113,12 +113,12 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				isset($property->photoList[0]) ? $property->photoList[0]->imgurl : ZIPPERAGENTURL . "images/no-photo.jpg",
 				'1024',
 				'768',
-				zipperagent_get_address($property),
-				zipperagent_field_value('lngTOWNSDESCRIPTION',$property->lngTOWNSDESCRIPTION, $property->proptype),
+				isset($property->id) ? zipperagent_get_address($property) : 'Not Found',
+				isset($property->id) ? zipperagent_field_value('lngTOWNSDESCRIPTION',$property->lngTOWNSDESCRIPTION, $property->proptype) : '',
 				
-				zipperagent_property_url( $property->id, zipperagent_get_address($property) ),
+				isset($property->id) ? zipperagent_property_url( $property->id, zipperagent_get_address($property) ) : '',
 				zipperagent_company_name().', '.$this->getTitle(),
-				$property->remarks,
+				isset($property->id) ? $property->remarks : '',
 				isset($rb['facebook']['appid'])?$rb['facebook']['appid']:'',
 			);
 			

@@ -1,27 +1,27 @@
-<div class="mb-15 p-0 bt-panel uk-panel uk-panel-box">
-	<div class="bt-panel__stack__sub bt-panel--small uk-text-center">
+<div class="mb-15 p-0 zy-panel uk-panel uk-panel-box">
+	<div class="zy-panel__stack__sub zy-panel--small uk-text-center">
 		<div class="">
 			<strong>$[realprice]</strong>
 		</div>
 		
 		<?php /*
 		<button type="button" class="js-mortgage-modal btn-small mt-5 uk-text-success" title="Payment Calculator">
-			<svg class="bt-icon bt-icon--larger">
+			<svg class="zy-icon zy-icon--larger">
 				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-calculator"></use>
 			</svg>
 			<span class="js-mortgage">$2,887/mo.</span>
 		</button> */ ?>
 
 	</div>
-	<div class="bt-panel__stack__sub">
-		<ul class="bt-listing__feature-grid" style="margin-bottom:0">
+	<div class="zy-panel__stack__sub">
+		<ul class="zy-listing__feature-grid" style="margin-bottom:0">
 			<li class="beds">
 				<div class="attr-num">[nobedrooms]</div>
 				<div class="uk-text-small uk-text-truncate">BEDS</div>
 			</li>
 			<li class="acres">
 
-				<div class="attr-num bt-listing__acreage-text">[acre]</div>
+				<div class="attr-num zy-listing__acreage-text">[acre]</div>
 
 				<div class="uk-text-small uk-text-truncate">ACRES</div>
 			</li>
@@ -50,8 +50,8 @@
 
 		</ul>
 	</div>
-	<div class="bt-panel__stack__sub">
-		<div class="m-0 bt-listing-table bt-listing__table-break">
+	<div class="zy-panel__stack__sub">
+		<div class="m-0 zy-listing-table zy-listing__table-break">
 		
 			<div class="grid">
 				<div class="cell uk-text-bold">Neighborhood:</div>

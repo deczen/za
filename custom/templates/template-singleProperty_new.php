@@ -34,7 +34,7 @@ $searchId = isset($_GET['searchid'])?$_GET['searchid']:'';
 if(zp_using_criteria()){	
 	$criteriaBase64 = isset($_GET['criteria'])?$_GET['criteria']:'';
 }else{
-	$criteriaBase64 = $_SESSION['criteriaBase64'];	
+	$criteriaBase64 = isset($_SESSION['criteriaBase64'])?$_SESSION['criteriaBase64']:'';
 }
 $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)):array();
 // echo '<pre>'; print_r($single_property); echo '</pre>';
@@ -92,60 +92,60 @@ if( sizeof($_GET)==$excParamCount ){
 	<div class="zpa-listing-detail">	
 	
 	<?php /*	
-		<div class="bt-listing-search__wrapper js-filter-bar hideonprint" style="margin-bottom:0;">
+		<div class="zy-listing-search__wrapper js-filter-bar hideonprint" style="margin-bottom:0;">
 			<div class="grid grid--gutters grid--center">
 				<div class="cell">
 					<div>
-						<div class="bt-filter-bar">
+						<div class="zy-filter-bar">
 							<form action="" id="zpa-search-filter-form" class="js-search">
-								<div class="row btn-toolbar bt-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
-									<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 bt-search__query-wrapper">
-										<div class="bt-search__query-inner">
+								<div class="row btn-toolbar zy-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
+									<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 zy-search__query-wrapper">
+										<div class="zy-search__query-inner">
 											<?php /*
-											<div class="bt-search-type__wrapper">
-												<div class="bt-ccomp bt-ccomp__dropdown">
-													<button class="bt-ccomp__trigger at-searchby-trigger" type="button">
+											<div class="zy-search-type__wrapper">
+												<div class="zy-ccomp zy-ccomp__dropdown">
+													<button class="zy-ccomp__trigger at-searchby-trigger" type="button">
 														<!-- react-text: 23 -->Search By
 														
-														<svg class="bt-icon bt-icon--smaller">
+														<svg class="zy-icon zy-icon--smaller">
 															<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-arrow-down"></use>
 														</svg>
 													</button><span></span></div>
 											</div> * ?>
-											<div class="cell bt-off-canvas__ballerbox-wrapper width-1-1">
-												<?php /* <div class="bt-off-canvas__ballerbox-search-icon">
-													<svg class="bt-icon bt-icon--larger">
+											<div class="cell zy-off-canvas__ballerbox-wrapper width-1-1">
+												<?php /* <div class="zy-off-canvas__ballerbox-search-icon">
+													<svg class="zy-icon zy-icon--larger">
 														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-search"></use>
 													</svg>
 												</div> * ?>
-												<div class="bt-search__query-wrapper">
-													<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete bt-search__query" placeholder="Enter City / County / Zip" name="location[]">
+												<div class="zy-search__query-wrapper">
+													<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Enter City / County / Zip" name="location[]">
 												</div>
 												<?php /* 
-												<div class="bt-off-canvas__ballerbox-nearby"><a class="bt-nearby-link at-nearby-button"><span><svg class="bt-icon bt-icon--larger"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-search-nearby"></use></svg></span></a></div> * ?>
+												<div class="zy-off-canvas__ballerbox-nearby"><a class="zy-nearby-link at-nearby-button"><span><svg class="zy-icon zy-icon--larger"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-search-nearby"></use></svg></span></a></div> * ?>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12 col-lg-6 btn-group bt-search__options-wrapper" role="group" aria-label="Properties Search Filters">
+									<div class="col-md-12 col-lg-6 btn-group zy-search__options-wrapper" role="group" aria-label="Properties Search Filters">
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-price-trigger bt-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-price-trigger zy-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
 												<!-- react-text: 42 -->Price&nbsp;
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right">
+												<div class="zy-ccomp__content__inner">
 													<div class="grid grid--gutters grid-xs--halves">
 														<div class="cell">
 															<div>
-																<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox bt-off-canvas__price-range-input" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
+																<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox zy-off-canvas__price-range-input" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
 																<div><span id="minListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Min Price</span></div>
 															</div>
 														</div>
 														<div class="cell">
 															<div>
-																<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox bt-off-canvas__price-range-input" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
+																<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox zy-off-canvas__price-range-input" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
 																<div><span id="maxListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Max Price</span></div>
 															</div>
 														</div>
@@ -154,14 +154,14 @@ if( sizeof($_GET)==$excParamCount ){
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Status
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<li>
 															<label class="form__check" for="status-0">
@@ -176,14 +176,14 @@ if( sizeof($_GET)==$excParamCount ){
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-type-menu-trigger bt-filter__button btn-primary" type="button" data-toggle="dropdown" >
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Type
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<?php
 															$propTypeFields = get_property_type();
@@ -205,16 +205,16 @@ if( sizeof($_GET)==$excParamCount ){
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-minbeds-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-minbeds-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
 												<!-- react-text: 54 -->Beds
 												
 												<!-- react-text: 55 -->
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
 											</button>
-											<div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<li>
 															<label class="form__check" for="bedrooms-0">
@@ -245,15 +245,15 @@ if( sizeof($_GET)==$excParamCount ){
 											</div>
 										</div>									
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-minbaths-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
 												<!-- react-text: 61 -->Baths
 												
 												<!-- react-text: 62 -->
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-											</button><div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+											</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
 														<li>
 															<label class="form__check" for="bathCount-0">
@@ -284,15 +284,15 @@ if( sizeof($_GET)==$excParamCount ){
 											</div>
 										</div>
 										
-										<div class="bt-ccomp bt-ccomp__dropdown dropdown">
-											<button class="dropdown-toggle bt-ccomp__trigger at-minbaths-trigger bt-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+										<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+											<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
 												<!-- react-text: 61 -->Order By
 												
 												<!-- react-text: 62 -->
 												
-												<i class="bt-icon bt-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-											</button><div class="dropdown-menu dropdown-menu-right bt-react-dropdown__content bt-dropdown--right bt-dropdown--small">
-												<div class="bt-ccomp__content__inner">
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+											</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+												<div class="zy-ccomp__content__inner">
 													
 													<ul class="uk-list uk-list-space m-0">
 														<li>
@@ -330,11 +330,11 @@ if( sizeof($_GET)==$excParamCount ){
 										</div>
 										
 										<?php /*
-										<div class="bt-ccomp bt-ccomp__dropdown bt-ccomp--full-width">
-											<button class="bt-filter__button bt-more__trigger btn-primary" type="button">
+										<div class="zy-ccomp zy-ccomp__dropdown zy-ccomp--full-width">
+											<button class="zy-filter__button zy-more__trigger btn-primary" type="button">
 												<!-- react-text: 68 -->More
 												
-												<svg class="bt-icon bt-icon--smaller">
+												<svg class="zy-icon zy-icon--smaller">
 													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bicon-plus"></use>
 												</svg>
 											</button><span></span></div> * ?>
@@ -355,15 +355,15 @@ if( sizeof($_GET)==$excParamCount ){
 						</div>
 					</div>
 					<?php /*
-					<div class="bt-search-filter-area mt-15 js-search-filter-area">
+					<div class="zy-search-filter-area mt-15 js-search-filter-area">
 						<div class="grid grid--gutters grid--noWrap grid--justifyBetween grid--center">
-							<div class="cell pr-5 bt-save-search__wrapper">
-								<div class="bt-search-tags__container">
-									<ul class="bt-search-tags"></ul>
+							<div class="cell pr-5 zy-save-search__wrapper">
+								<div class="zy-search-tags__container">
+									<ul class="zy-search-tags"></ul>
 								</div>
 								<!-- react-empty: 77 -->
 							</div>
-							<div id="results-set-interactions" class="cell pl-10 bt-view-options__wrapper"></div>
+							<div id="results-set-interactions" class="cell pl-10 zy-view-options__wrapper"></div>
 						</div>
 					</div> * ?>
 				</div>
@@ -431,7 +431,7 @@ if( sizeof($_GET)==$excParamCount ){
 	
 	<?php endif; ?>
 	<script>
-		jQuery('body').on('click', '.bt-listing__favorite-container:not(.favorited) .bt-listing__favorite-button:not(.needLogin)', function(e){
+		jQuery('body').on('click', '.zy-listing__favorite-container:not(.favorited) .zy-listing__favorite-button:not(.needLogin)', function(e){
 			var contactId = jQuery(this).attr('contactid');
 			var searchId = jQuery(this).attr('searchid');
 			var isLogin = jQuery(this).attr('isLogin');
@@ -472,7 +472,7 @@ if( sizeof($_GET)==$excParamCount ){
 					// console.log(response);
 					if( response['result'] ){
 						// alert('success');
-						jQuery('.bt-listing__favorite-container').addClass('favorited');
+						jQuery('.zy-listing__favorite-container').addClass('favorited');
 						
 						//set topbar count
 						jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
@@ -491,7 +491,7 @@ if( sizeof($_GET)==$excParamCount ){
 			var crit={
 				<?php
 				$saved_crit=array();
-				if(!$crit){
+				if(isset($crit) && !$crit){
 					$search=array(
 						'asrc'=>$rb['web']['asrc'],
 						'aloff'=>$rb['web']['aloff'],
@@ -506,7 +506,7 @@ if( sizeof($_GET)==$excParamCount ){
 					);	
 					
 					$saved_crit= $search;
-				}else{
+				}else if(isset($crit)){
 					$temp = explode(';', $crit);
 					foreach( $temp as $val ){
 						if( empty($val) )
@@ -671,7 +671,7 @@ if( sizeof($_GET)==$excParamCount ){
 		
 	</script>
 	<script>
-		jQuery(document).on('click', '.bt-listing-search__wrapper .dropdown-menu, #omnibar-wrap .dropdown-menu', function (e) {
+		jQuery(document).on('click', '.zy-listing-search__wrapper .dropdown-menu, #omnibar-wrap .dropdown-menu', function (e) {
 		  e.stopPropagation();
 		});
 	</script>

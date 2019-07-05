@@ -46,7 +46,7 @@ $userdata = $userdata[0]; //get first index record
     <div>
 		<div class="row mb-10">
 				
-			<section class="bt-content-wrapper px--safe">
+			<section class="zy-content-wrapper px--safe">
 				<div class="za-container">
 					<div class="grid grid--gutters">
 						<div class="cell cell-lg-3 cell-md-12 cell-sm-12 cell-xs-12">
@@ -77,28 +77,28 @@ $userdata = $userdata[0]; //get first index record
 									<ul class="uk-list">
 										<li class="link-list__item at-main-menu__account">
 											<a href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>" class="py-10 link-list__target">
-												<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">Profile</div>
 											</a>
 										</li>
 										<li class="link-list__item at-main-menu__favs">
 											<a href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>" class="py-10 link-list__target link-list__target--active">
-												<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">My Favorites</div>
 											</a>
 										</li>
 										<li class="link-list__item at-main-menu__notification">
 											<a href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>" class="py-10 link-list__target">
-												<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">My Saved Searches</div>
 											</a>
 										</li>
 										<li class="link-list__item at-main-menu__logout">
 											<a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
-												<!--<svg class="bt-icon bt-icon--larger link-list__icon">
+												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">Logout</div>
 											</a>

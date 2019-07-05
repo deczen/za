@@ -1,15 +1,15 @@
-<div class="bt-print__wrap">
-	<div class="bt-print__header_top">
-		<div class="bt-print__logo">
+<div class="zy-print__wrap">
+	<div class="zy-print__header_top">
+		<div class="zy-print__logo">
 			<img src="<?php echo $print_logo; ?>">
 		</div>
-		<div class="bt-print__title">
+		<div class="zy-print__title">
 			<h4 class="my-5 uk-text-truncate" style="color: <?php echo $print_color; ?> !important;">
 			   <?php echo zipperagent_get_address($single_property); ?> 
 			</h4>
 		</div>
 	</div>
-	 <div class="bt-print__left">
+	 <div class="zy-print__left">
 		<div class="uk-text-small mb-5">
 		   <?php echo get_permalink(); ?>
 		   <?php // echo $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
@@ -31,7 +31,7 @@
 		<h4 class="my-5 uk-text-truncate">
 		   <?php echo zipperagent_get_address($single_property); ?> 
 		</h4>
-		<ul class="bt-print__meta">
+		<ul class="zy-print__meta">
 			<?php if(isset($single_property->listprice)): ?>
 		   <li>Price: $[realprice]</li>
 			<?php endif; ?>
@@ -45,69 +45,69 @@
 		   <li>[displaySource] #: [id]</li>
 			<?php endif; ?>
 		</ul>
-		<table class="bt-print__meta-blocks">
+		<table class="zy-print__meta-blocks">
 		   <tr>
 			<?php if(isset($single_property->acre)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[acre]</div>
-				 <div class="bt-print__meta-label">Acres</div>
+				 <div class="zy-print__meta-val">[acre]</div>
+				 <div class="zy-print__meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
 			<?php if(isset($single_property->nolots)): ?>
 			  <td>
-				 <div class="bt-print__meta-val">[nolots]</div>
-				 <div class="bt-print__meta-label">APPROVED LOTS</div>
+				 <div class="zy-print__meta-val">[nolots]</div>
+				 <div class="zy-print__meta-label">APPROVED LOTS</div>
 			  </td>
 			<?php endif; ?>
 		   </tr>
 		</table>
-		<div class="bt-print__area__wrap">
-		   <div class="bt-print__area">
+		<div class="zy-print__area__wrap">
+		   <div class="zy-print__area">
 			<?php if(isset($single_property->neighborhood)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Neighborhood:</div>
-				 <div class="bt-print__area-val">[neighborhood]</div>
+				 <div class="zy-print__area-label">Neighborhood:</div>
+				 <div class="zy-print__area-val">[neighborhood]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->proptype)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Type:</div>
-				 <div class="bt-print__area-val">[proptype]</div>
+				 <div class="zy-print__area-label">Type:</div>
+				 <div class="zy-print__area-val">[proptype]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngCOUNTYDESCRIPTION)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">County:</div>
-				 <div class="bt-print__area-val">[lngCOUNTYDESCRIPTION]</div>
+				 <div class="zy-print__area-label">County:</div>
+				 <div class="zy-print__area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->lngAREADESCRIPTION)): ?>
 			  <div class="uk-clearfix">
-				 <div class="bt-print__area-label">Area:</div>
-				 <div class="bt-print__area-val">[lngAREADESCRIPTION]</div>
+				 <div class="zy-print__area-label">Area:</div>
+				 <div class="zy-print__area-val">[lngAREADESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>
-		   <div class="bt-print__area">
+		   <div class="zy-print__area">
 		   </div>
 		</div>
 		<?php if(isset($single_property->remarks)): ?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Description</h6>
-		   <div class="bt-print__description">[remarks]</div>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Description</h6>
+		   <div class="zy-print__description">[remarks]</div>
 		</div>
 		<?php endif; ?>
 		
 		<?php if(isset($single_property->direction)): ?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Directions</h6>
-		   <div class="bt-print__description">[direction]</div>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Directions</h6>
+		   <div class="zy-print__description">[direction]</div>
 		</div>
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Land Details</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Land Details</h6>
 		   <p>
 			  <?php if(isset($single_property->cultivationacres)): ?>
 			  <strong>Cultivation Acres</strong>
@@ -182,8 +182,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Utilities</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Utilities</h6>
 		   <p>
 			  <?php if(isset($single_property->gas)): ?>
 			  <strong>Gas</strong>
@@ -209,10 +209,10 @@
 		</div>
 		<?php endif; ?>
 		
-		<?php $roomLevels = $single_property->roomLevels;
-		if (isset($roomLevels)): ?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
+		<?php $roomLevels = isset($single_property->roomLevels)?$single_property->roomLevels:false;
+		if($roomLevels): ?>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Room Information</h6>
 			<p>
 			<?php foreach($roomLevels as $rkey => $roomLevel): ?>
 				
@@ -233,8 +233,8 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) ):?>
-		<div class="bt-print__block">
-		   <h6 class="bt-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>
+		<div class="zy-print__block">
+		   <h6 class="zy-print__header" style="color: <?php echo $print_color; ?> !important;">Taxes</h6>
 		   <p>
 			  <?php if(isset($single_property->taxes)): ?>
 			  <strong>Tax Amount ($)</strong>
@@ -252,7 +252,7 @@
 		</div>
 		<?php endif; ?>
 		
-		<div class="bt-print__block">
+		<div class="zy-print__block">
 		<?php if( $source_details ){
 			echo $source_details;
 		}else{
@@ -260,20 +260,20 @@
 		} ?>
 		</div>
 	 </div>
-	 <div class="bt-print__right">
+	 <div class="zy-print__right">
 		<div class="uk-text-small mb-5">&nbsp;</div>
-		<div class="bt-print__media-list">
+		<div class="zy-print__media-list">
 			<?php if ( isset($img[1]) ) echo "<img src='$img[1]' />";?>
 			<?php if ( isset($img[2]) ) echo "<img src='$img[2]' />";?>
 			<?php if ( isset($img[3]) ) echo "<img src='$img[3]' />";?>
-			<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="bt-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
+			<?php if ( isset($single_property->lat) && isset($single_property->lng) ): ?><img class="zy-print__google-map" src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x200&maptype=roadmap&markers=color:red%7C%7C<?php echo $single_property->lat; ?>,<?php echo $single_property->lng; ?>&style=feature:water|saturation:43|lightness:-11|hue:0x0088ff&style=feature:road|element:geometry.fill|hue:0xff0000|saturation:-100|lightness:99&style=feature:road|element:geometry.stroke|color:0x808080|lightness:54&style=feature:landscape.man_made|element:geometry.fill|color:0xece2d9&style=feature:poi.park|element:geometry.fill|color:0xccdca1&style=feature:road|element:labels.text.fill|color:0x767676&style=feature:road|element:labels.text.stroke|color:0xffffff&style=feature:poi|visibility:off&style=feature:landscape.natural|element:geometry.fill|visibility:on|color:0xb8cb93&style=feature:poi.park|visibility:on&style=feature:poi.sports_complex|visibility:on&style=feature:poi.medical|visibility:on&style=feature:poi.business|visibility:simplified&key=<?php echo za_google_api_key(); ?>"><?php endif; ?>
 		</div>
 		<?php if( $agent ): ?>
-		<div class="bt-print__agent">
-		   <div class="bt-cell-align bt-cell-align--small">
+		<div class="zy-print__agent">
+		   <div class="zy-cell-align zy-cell-align--small">
 			  <?php  if( isset( $agent->imageURL ) ): ?>
 			  <div>
-				 <img class="bt-image__no-mw bt-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
+				 <img class="zy-image__no-mw zy-print__agent-img" src="<?php echo $agent->imageURL; ?>" />
 			  </div>
 			  <?php endif; ?>
 			  <div class="pl-10">
