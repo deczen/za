@@ -388,7 +388,7 @@ $userdata = $userdata[0]; //get first index record
 															$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
 															$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
 															$menu = '';
-															if ($_GET['menu']!=='my-favorite'){
+															if (isset($_GET['menu']) && $_GET['menu'] !=='my-favorite'){
 
 																$menu = '&menu=my-favorite';
 															

@@ -1,6 +1,7 @@
 #omnibar-tools .input-column{}
 #omnibar-tools #zpa-selected-filter{height:auto !important;}
 #omnibar-tools .input-column .search-by{display:inline-block;width: 106px;border:1px solid #ddd;/* height: 42px; */position: absolute;margin-top: 3px;border-radius:3px 0 0 3px;}
+#omnibar-tools .input-column .search-by button:active{box-shadow: none;}
 #omnibar-tools .input-column .search-by input[type="radio"]{pointer-events:none;}
 #omnibar-tools .input-column .search-by a{color:inherit;}
 #omnibar-tools .input-column .field-wrap{display:inline-block;width: 100%;padding-left: 106px;background: #fff;}
@@ -29,7 +30,7 @@
     border-radius: 2px;
     text-align: left;
     z-index: 902;
-    margin-top: 10px;
+    margin-top: 13px;
     right: 0 !important;
 	z-index: 999;
 }
@@ -109,27 +110,31 @@
 #omnibar-tools .input-column .school,
 #omnibar-tools .input-column .listid{padding: 2px 6px;}
 #omnibar-tools .input-column .town{margin-bottom: 0;}
-#omnibar-tools .input-column .field-wrap .field-section input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #a4a4a4;
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #a4a4a4 !important;
+  font-weight: normal !important;
 }
-#omnibar-tools .input-column .field-wrap .field-section input::-moz-placeholder { /* Firefox 19+ */
-  color: #a4a4a4;
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section input::-moz-placeholder { /* Firefox 19+ */
+  color: #a4a4a4 !important;
+  font-weight: normal !important;
 }
-#omnibar-tools .input-column .field-wrap .field-section input:-ms-input-placeholder { /* IE 10+ */
-  color: #a4a4a4;
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section input:-ms-input-placeholder { /* IE 10+ */
+  color: #a4a4a4 !important;
+  font-weight: normal !important;
 }
-#omnibar-tools .input-column .field-wrap .field-section input:-moz-placeholder { /* Firefox 18- */
-  color: #a4a4a4;
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section input:-moz-placeholder { /* Firefox 18- */
+  color: #a4a4a4 !important;
+  font-weight: normal !important;
 }
-}
+
 #omnibar-tools .ms-res-item-grouped .name.area{padding-left: 0;}
 #omnibar-tools .mobile-omnimbar{display: none;}
 #omnibar-tools #zpa-mobile-all-input{height:auto;}
 
 #omnibar-tools .propstatus li{display: inline-block;}
-#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu{min-width: 500px;max-height: 70vh;overflow-y: auto;overflow-x: hidden;padding-bottom: 30px !important;}
-#omnibar-tools .filter .two-field-wrap select{display: inline-block; width: 47.5%;background-size: 18px;}
-#omnibar-tools .filter .two-field-wrap span{width: 3.4%;display: inline-block;text-align: center;}
+#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu{min-width: 500px;max-height: 70vh;overflow-y: auto;overflow-x: hidden;padding: 10px 10px 30px !important;margin-top: 13px;}
+#omnibar-tools .filter .two-field-wrap select{display: inline-block; width: 47%;background-size: 18px;}
+#omnibar-tools .filter .two-field-wrap span{width: 4.3%;display: inline-block;text-align: center;}
 #omnibar-tools .filter select{background-size: 18px;}
 #omnibar-tools .filter .one-field-wrap select{width: 100% !important;background-size: 18px;}
 #omnibar-tools .popular-features h3{font-size: 14px !important;border-top: none;}
@@ -150,8 +155,12 @@
 #omnibar-tools .filter .dropdown-menu li:hover label{color: #000 !important;}
 
 #omnibar-tools #mobile-filter, #omnibar-tools #rsult{width:100%; border:0; min-height:42px; border-radius:3px !important;}
-#omnibar-tools #dropdownMenuButton{border-radius: 0 !important;/* height: inherit; */}
+#omnibar-tools .desktop-omnibar #dropdownMenuButton{border-radius: 0 !important;/* height: inherit; */}
 #omnibar-tools .search-wrap.search-type .ms-sel-ctn input{width:100% !important;}
+#omnibar-tools .desktop-omnibar .filter .propstyles ul.dropdown-menu,
+#omnibar-tools .desktop-omnibar .filter .propwaterfront ul.dropdown-menu,
+#omnibar-tools .desktop-omnibar .filter .propexterior ul.dropdown-menu,
+#omnibar-tools .desktop-omnibar .filter .propview ul.dropdown-menu{max-height:180px;overflow-y: auto;}
 
 @media(max-width: 1024px){#omnibar-tools .dropdown-toggle:after{display: none;}}
 @media(max-width: 980px){
@@ -205,12 +214,35 @@
 #omnibar-tools .desktop-omnibar .dropdown-menu li:hover{background-color: #c0c0c0;color: #fff;}
 #omnibar-tools .desktop-omnibar .dropdown-menu li:hover a{color: #fff;}
 #omnibar-tools .desktop-omnibar .dropdown-menu li:hover label{color: #fff;}
-#omnibar-tools .desktop-omnibar .listprice .dropdown-menu input{width: 100px;}
+#omnibar-tools .desktop-omnibar .listprice .dropdown-menu input{width: 110px;}
 #zpa-main-container #omnibar-tools .ms-res-ctn.dropdown-menu{padding: 0 !important;margin-top: 0;width: 100% !important;}
 #zpa-main-container #omnibar-tools .ms-res-ctn.dropdown-menu:before{display: none;}
 
-#omnibar-tools .desktop-omnibar .dropdown .dropdown-menu{left: auto !important;padding: 10px !important;}
+#omnibar-tools .desktop-omnibar .dropdown .dropdown-menu{left: auto !important;padding: 10px 0 0 !important;}
 #omnibar-tools .desktop-omnibar .dropdown.type .dropdown-menu{min-width: 320px;}
-#omnibar-tools .desktop-omnibar .dropdown.listprice .dropdown-menu{min-width: 250px;}
+#omnibar-tools .desktop-omnibar .dropdown.listprice .dropdown-menu{min-width: 250px;padding: 10px !important;}
 #omnibar-tools .desktop-omnibar .dropdown.sort .dropdown-menu{min-width: 200px;}
 #omnibar-tools .desktop-omnibar .dropdown.more .dropdown-menu{min-width: 900px;}
+
+#omnibar-tools .mobile-omnimbar .btn-primary{border: 1px solid #999;border-radius: 3px;}
+#omnibar-tools .mobile-omnimbar .main-mobile-filter button{border-radius: 0;}
+#omnibar-tools .mobile-omnimbar .bathcount li,
+#omnibar-tools .mobile-omnimbar .bedrooms li{padding-right: 10px;}
+#omnibar-tools .mobile-omnimbar .two-field-wrap .cell{display: inline-block;width: 46%;}
+#omnibar-tools .mobile-omnimbar .two-field-wrap .cell.cell-xs-1{width:8%;display: inline-block;text-align: center;}
+#omnibar-tools .mobile-omnimbar select{width: 100% !important;background-size: 18px;}
+#omnibar-tools .mobile-omnimbar button#mobile-filter{width: 100%;}
+#omnibar-tools .mobile-omnimbar button#dropdownMenuButton{color: #4a4a4a !important;}
+#omnibar-tools .mobile-omnimbar #zpa-view-selected-filter .ms-sel-ctn{padding-left: 0;}
+#omnibar-tools .mobile-omnimbar #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item{margin: 2px 3px;}
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.addr,
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.listid{padding-left: 5px;padding-top: 3px;}
+#omnibar-tools .desktop-omnibar .filter .cq-dropdown button{
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	background-image:url('data:image/svg+xml; charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2025%2035%22%20preserveAspectRatio%3D%22xMaxYMid%22%3E%3Ctitle%3E043-Arrow%3C%2Ftitle%3E%3Cpath%20fill%3D%22%234A4A4A%22%20d%3D%22M15.4%2015.5l-3-6-3%206h3.5zM9.4%2019.5l3%206%203-6h-3.5z%22%2F%3E%3C%2Fsvg%3E') !important;
+	background-repeat:no-repeat;
+	background-position:100% 50%;
+	text-transform:none;
+	background-size: 18px !important;
+}

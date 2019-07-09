@@ -74,6 +74,11 @@
 
 .zy_main .full-details-disclaimer{margin-bottom:10px;}
 
+@media only screen and (max-width: 1200px){
+	.zy_address-style{text-align: center;}
+	.zy_price-mls .zy-detail-tool{max-width: 375px;margin: auto;}
+	.zy_price-mls .zy-detail-tool .btn_wrap {width: 100px !important;}
+}
 @media only screen and (max-width: 767px){
 	.zy-margin{margin-top:60px;}
 	.zy_mob{width:50%;}
@@ -83,4 +88,7 @@
 	.zy-features-grid > li{float:none;width:100%;}
 	.zy_prop-details span{padding-left:10px !important;}
 	#zpa-main-container .zy_main .zy_share-property-wrap.open>.dropdown-menu{left: -99px !important;}
+}
+@media only screen and (max-width: 400px){
+	.zy_price-mls .zy-detail-tool .btn_wrap {width: 25% !important;}
 }

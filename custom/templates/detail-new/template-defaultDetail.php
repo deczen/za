@@ -188,7 +188,7 @@ if(file_exists($template_path) && $template_name ){
 	<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">
 		<article class="container-fluid">
 			<div class="row zyapp_main-style">
-				<div class="zy_header-style col-lg-4 col-sm-12 col-md-5 col-xl-4 zy_nopadding">
+				<div class="zy_header-style col-lg-4 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
 					<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 						<h1>
 							<p class="zy_address-style"><span itemprop="streetAddress"><?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php if(isset($single_property->streetno)): ?>#<?php endif; ?>[streetno]</span></p>
@@ -201,15 +201,15 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
-				<div class="zy_price-mls col-lg-4 col-sm-12 col-md-6 col-xl-4 zy_nopadding">
+				<div class="zy_price-mls col-lg-4 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
 					<div class="row">
-						<div class="col-lg-6 col-sm-6 col-md-6 col zy_nopadding">
+						<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">
 							<h2>
 								<p class="zy_price-style"><?php echo zipperagent_currency(); ?>[realprice]</p>
 								<p class="zy_label-style">Price</p>
 							</h2>
 						</div>
-						<div class="col-lg-6 col-sm-6 col-md-6 col zy_nopadding">
+						<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">
 							<h2>
 								<p class="zy_price-style">[listno]</p>
 								<p class="zy_label-style">[displaySource]#</p>
@@ -220,30 +220,30 @@ if(file_exists($template_path) && $template_name ){
 				
 				<div class="zy_price-mls col-lg-4 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
 					<div class="row">
-						<div class="col-lg-3 col-sm-6 col-md-5 zy_nopadding <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?>">
+						<div class="col-lg-3 col-sm-12 col-md-12 zy_nopadding <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?>">
 							<h2>
 								<p class="zy_price-style">[status]</p>
 								<p class="zy_label-style">Status</p>
 							</h2>
 						</div>
-						<div class="col-lg-8 col-sm-6 col-md-6 zy_nopadding">
+						<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
 							<div class="row">
-								<div class="btn_wrap zy_save-property-wrap col-xs-3">
+								<div class="btn_wrap zy_save-property-wrap col-xs-3 zy_nopadding">
 									<button class="zy_save-property <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
 									<span>Save</span>
 								</div>
 								
-								<div class="btn_wrap zy_schedule-showing-wrap col-xs-3">
+								<div class="btn_wrap zy_schedule-showing-wrap col-xs-3 zy_nopadding">
 									<button class="zy_schedule-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>
 									<span>Request Showing</span>
 								</div>
 								
-								<div class="btn_wrap zy_request-showing-wrap col-xs-3">
+								<div class="btn_wrap zy_request-showing-wrap col-xs-3 zy_nopadding">
 									<button class="zy_request-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>
 									<span>Request info</span>
 								</div>
 								
-								<div class="btn_wrap zy_share-property-wrap col-xs-3">
+								<div class="btn_wrap zy_share-property-wrap col-xs-3 zy_nopadding">
 									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>
 									<span>Share</span>
 									
@@ -568,7 +568,7 @@ if(file_exists($template_path) && $template_name ){
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFirstName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a></span>
+								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 							</li>
 						<?php endif; ?>
 						
@@ -583,7 +583,7 @@ if(file_exists($template_path) && $template_name ){
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a></span>
+								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 							</li>
 						<?php endif; ?>
 						
@@ -600,7 +600,7 @@ if(file_exists($template_path) && $template_name ){
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a></span>
+								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 							</li>
 						<?php endif; ?>
 						
@@ -615,7 +615,7 @@ if(file_exists($template_path) && $template_name ){
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a></span>
+								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 							</li>
 						<?php endif; ?>	
 						
@@ -808,9 +808,9 @@ if(file_exists($template_path) && $template_name ){
 			
 		</article>
 	</section>
-	<!-- print view -->
+	<!-- print views -->
 	<?php
-	/*
+	
 		$rb = zipperagent_rb();
 		
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
@@ -820,7 +820,7 @@ if(file_exists($template_path) && $template_name ){
 	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
 	<div id="print-view-column top-brdr" class="zy-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
 	<?php
-		/* incldue print template *
+		/* incldue print template */
 		if(file_exists($template_print_path) && $template_print){
 			include $template_print_path;
 		}else{
@@ -830,5 +830,5 @@ if(file_exists($template_path) && $template_name ){
 	</div>
 	<?php 
 	if(isset($is_doing_ajax) && $is_doing_ajax) $print_section = ob_get_clean(); //end save print section
-	*/ ?>
+	?>
 </div>

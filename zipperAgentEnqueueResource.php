@@ -50,6 +50,8 @@ class zipperAgentEnqueueResource {
 			if(zipperagent_detailpage_group()=='mlspin'){
 				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single-new.css');
 				$this->enqueueStyle('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
+				$this->enqueueStyle('account-css', zipperagent_url(false) . 'css/account.css');
+				$this->enqueueStyle('print-new-css', zipperagent_url(false) . 'css/print-new.css');
 			}
 			else{
 				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single.css');

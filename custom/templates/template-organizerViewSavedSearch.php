@@ -74,4 +74,8 @@ if( isset($result['id']) ){
 
 // echo "<pre>"; print_r( $requests ); echo "</pre>";
 
-include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
+if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin'){
+	include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
+}else{
+	include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
+}
