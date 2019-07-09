@@ -146,11 +146,16 @@ switch($property_type){
 /* Generate custom template */
 $groupname = zipperagent_detailpage_group();
 
-$group_dir_default='/default';
-$template_features_default = 'default-features.php';
-$template_print_default	   = 'default-print.php';
-$template_sidebar_default  = 'default-sidebar.php';
-$template_vtlink_default   = 'default-vtlink.php';
+// $group_dir_default='/default';
+// $template_features_default = 'default-features.php';
+// $template_print_default	   = 'default-print.php';
+// $template_sidebar_default  = 'default-sidebar.php';
+// $template_vtlink_default   = 'default-vtlink.php';
+$group_dir_default='/mlspin';
+$template_features_default = 'sf-features.php';
+$template_print_default	   = 'sf-print.php';
+$template_sidebar_default  = 'sf-sidebar.php';
+$template_vtlink_default   = 'sf-vtlink.php';
 
 if($groupname == 'old_mlspin'){
 	$group_dir = $group_dir_default;

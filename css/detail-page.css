@@ -62,7 +62,7 @@
 .zy_share-property-wrap .dropdown-menu ul li span{display:inline;}
 .zy_share-property-wrap .dropdown-menu ul li:hover{background-color: #999;}
 .zy_share-property-wrap .dropdown-menu ul li:hover a{color: #fff !important;}
-.listing-contact-submit{margin-top:10px !important;}
+.zy_main .listing-contact-submit{margin-top:10px !important;}
 
 .zy-features-grid{display:block; border-top:1px solid #ddd; clear:both;}
 .zy-features-grid > li{width: 33.33%;float:left;display: list-item; padding-left:20px; margin-bottom:20px;}
@@ -73,6 +73,7 @@
 .zy-features-grid .zy-sub-list li:before{content:"-";position: absolute;left: 20px;}
 
 .zy_main .full-details-disclaimer{margin-bottom:10px;}
+.zy_main .full-details-disclaimer img{max-height: 23px;}
 
 @media only screen and (max-width: 1200px){
 	.zy_address-style{text-align: center;}
