@@ -108,7 +108,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 </div>
 <script>
 	
-	jQuery('body').on('click', '.request-info-btn:not(.needLogin)', function(e){
+	jQuery('body').on('click', '.request-info-btn:not(.needLogin), .zy_request-showing:not(.needLogin)', function(e){
 		jQuery('#zpaMoreInfo').modal('show');
 	});
 	

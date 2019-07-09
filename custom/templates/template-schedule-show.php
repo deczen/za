@@ -309,7 +309,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 		// $datepicker.pikaday('show').pikaday('nextMonth');
 	});	
 	
-	jQuery('body').on('click', '.schedule-showing-btn:not(.needLogin)', function(e){
+	jQuery('body').on('click', '.schedule-showing-btn:not(.needLogin), .zy_schedule-showing:not(.needLogin)', function(e){
 		jQuery('#zpaScheduleShowing').modal('show');
 	});
 	

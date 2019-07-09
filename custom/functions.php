@@ -3550,7 +3550,18 @@ if( ! function_exists('zp_get_credentials') ){
 
 if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
+		
+		if(zipperagent_detailpage_group()=='mlspin'){
+			zipperagent_omnibar_new($requests);
+			return;
+		}
 		include ZIPPERAGENTPATH. "/custom/templates/template-searchBar.php";
+	}
+}
+
+if( ! function_exists('zipperagent_omnibar_new') ){
+	function zipperagent_omnibar_new($requests=array()){
+		include ZIPPERAGENTPATH. "/custom/templates/template-searchBar-new.php";
 	}
 }
 

@@ -14,7 +14,12 @@ $args = array ( 'name' => $listing, 'post_type'=>'page', 'posts_per_page'=> 1, '
 $listing = get_posts( $args );
 if( $listing ){
 	foreach( $listing as $page ){
-		echo $page->post_content;
+		if(zipperagent_detailpage_group()=='mlspin'){			
+			echo "<div class='zy-margin'>". $page->post_content ."</div>";
+		}else{			
+			echo $page->post_content;
+		}
+		
 		// do_action( 'zipperagent_single_content', $page->post_content );
 		// echo apply_filters( 'the_content', $page->post_content );
 	}
@@ -24,7 +29,9 @@ if( $listing ){
 	ob_start();
 	if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
-	}else{		
+	}else if(zipperagent_detailpage_group()=='mlspin'){		
+		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
+	}else{
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty.php";
 	}
 	$html=ob_get_clean();

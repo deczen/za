@@ -186,7 +186,7 @@
     font-size: 13px !important;
     float: right;
 }
-#omnibar-wrap .dropdown-toggle{position: relative;width: 100%;}
+#omnibar-wrap .dropdown-toggle{position: relative;width: 100%;height: 100%;border-radius: 0;}
 #omnibar-wrap .dropdown-toggle:after{
     content: '';
     position: absolute;

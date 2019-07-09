@@ -11,9 +11,11 @@ function display_single_property(){
 	$requests=$_REQUEST;
 	
 	ob_start();	
-	if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
+	if(zipperagent_detailpage_group()=='mlspin'){		
+		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
+	}else if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
-	}else{		
+	}else{
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty.php";
 	}
 	$html=ob_get_clean();

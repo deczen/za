@@ -439,7 +439,10 @@ function display_property_detail(){
 		$is_doing_ajax=1;
 		
 		ob_start();
-		include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
+		if(zipperagent_detailpage_group()=='mlspin')			
+			include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail-new.php';
+		else
+			include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
 		ob_clean(); //clear buffer
 		
 		$htmls['header_section']=$header_section;
@@ -1293,7 +1296,7 @@ function zipperagent_template( $content ){
 		ob_start();				
 		include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";			
 		if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
-			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1)
+			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin')
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 			else
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";

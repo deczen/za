@@ -2,28 +2,28 @@
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 ?>
-<div id="omnibar-wrap">
+<div id="omnibar-tools">
 	<div class="desktop-omnibar">
 		<style>
-			#omnibar-wrap .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
+			#omnibar-tools .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
 		</style>
 		<div class="row">
-			<div class="input-column col-sm-6">
+			<div class="input-column col-sm-8">
 				<div class="search-by dropdown">
 				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Search By
+					Search
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<ul>
-						<li><a id="all" href="#">All Categories</a></li>
-						<li><a id="addr" href="#">Address</a></li>
-						<li><a id="area" href="#">Area</a></li>
-						<li><a id="town" href="#">City / Town</a></li>
-						<li><a id="county" href="#">County</a></li>
-						<li><a id="listid" href="#">MLS #ID</a></li>
-						<!-- <li><a id="school" href="#">School</a></li> -->
-						<!-- <li><a id="school2" href="#">School</a></li> -->
-						<li><a id="zip" href="#">Zip Code</a></li>
+						<li><a id="all" href="#"><input type="radio" name="search_category" checked /> All Categories</a></li>
+						<li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li>
+						<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
+						<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
+						<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
+						<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
+						<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
+						<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
+						<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
 					</ul>
 				  </div>
 				</div>
@@ -64,21 +64,22 @@ $excludes = get_new_filter_excludes();
 					</div>
 				</div>
 				<script>
-					jQuery('body').on('click', '#omnibar-wrap .search-by .dropdown-menu a', function(){
+					jQuery('body').on('click', '#omnibar-tools .search-by .dropdown-menu a', function(){
 						var id = jQuery(this).attr('id');
 						var targetClass = id;
 						jQuery(this).parents('.input-column').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
 						jQuery(this).parents('.input-column').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
+						jQuery(this).find('input').attr('checked', true);
 						
-						jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
+						// jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
 						return false;
 					});
 					jQuery('body').on('click', '.btn-show-result', function(){
-						jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown0
+						// jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown0
 					});
 				</script>
 			</div>
-			<div class="filter-column col-sm-6">
+			<div class="filter-column col-sm-4">
 				<form>
 					<div class="dropdown-group">
 						<div class="dropdown listprice">
@@ -128,37 +129,6 @@ $excludes = get_new_filter_excludes();
 							</div>
 						  </div>
 						</div>
-						<div class="dropdown type">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Type
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<div class="row">
-								<div class="proptype col-xs-6">
-									<h3>Property Type</h3>
-									<ul class="propertytype">
-										<?php
-										$propTypeFields = get_property_type();
-										foreach( $propTypeFields as $fieldCode=>$fieldName ){
-											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propertytype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
-										}
-										$propSubTypeFields = get_property_sub_type();
-										foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
-											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
-										}
-										?>
-									</ul>									
-								</div>
-								<div class="propstatus col-xs-6">
-									<h3>Listing Status</h3>
-									<ul class="status">
-										<li><label for="active"><input id="active" name="status" type="radio" value="" checked /> Active</label></li>
-										<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
-									</ul>
-								</div>
-							</div>
-						  </div>
-						</div>
 						<div class="dropdown beds">
 						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Beds
@@ -189,31 +159,95 @@ $excludes = get_new_filter_excludes();
 							</ul>
 						  </div>
 						</div>
-						<div class="dropdown sort">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							 Sort
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<ul class="o">
-							   <li><label for="o-0"><input type="radio" value="apmin%3ADESC" name="o" id="o-0"><span>Price (High to Low)</span></label> </li>
-							   <li><label for="o-1"><input type="radio" value="apmin%3AASC" name="o" id="o-1"><span>Price (Low to High)</span></label></li>
-							   <li><label for="o-2"><input type="radio" value="asts%3AASC" name="o" id="o-2"><span>Status</span></label></li>
-							   <li><label for="o-3"><input type="radio" value="atwns%3AASC" name="o" id="o-3"><span>City</span></label></li>
-							   <li><label for="o-4"><input type="radio" value="lid%3ADESC" name="o" id="o-4"><span>Listing Date</span></label></li>
-							   <li><label for="o-5"><input type="radio" value="apt%3ADESC" name="o" id="o-5"><span>Type / Price Descending</span></label></li>
-							   <?php /* <li><label for="o-6"><input type="radio" value="alstid%3AASC" name="o" id="o-6"><span>Listing Number</span></label> </li> */ ?>
-							</ul>
-						  </div>
-						</div>
-						<div class="dropdown more">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							 More +
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<div class="fewer show">
-								<div class="row-fields row">
-									<div class="square-footage col-xs-4">
-										<span class="field-label">Square Footage</span>
+						<div class="dropdown filter">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							 Filter
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div class="row">
+									<div class="propstatus col-xs-12">
+										<h3>Status</h3>
+										<ul class="status">
+											<li><label for="active"><input id="active" name="status" type="radio" value="" checked /> Active</label></li>
+											<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
+										</ul>										
+									</div>
+									<div class="col-xs-12">
+										<div class="row">
+											<div class="proptype col-xs-6">
+												<h3>Property Type</h3>
+												<?php /* <select class="propertytype" name="propertytype[]" multiple="multiple">
+
+													<?php
+													$propTypeFields = get_property_type();
+													foreach( $propTypeFields as $fieldCode=>$fieldName ){
+														echo '<option id="'.$fieldCode.'" value="'. $fieldCode .'" /> '. $fieldName .'</option>';											
+													}
+													$propSubTypeFields = get_property_sub_type();
+													foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+														echo '<option id="'.$fieldCode.'" value="'. $fieldCode .'" /> '. $fieldName .'</option>';											
+													}
+													?>
+													
+												</select> */ ?>
+												<div class="dropdown cq-dropdown">
+													<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+													<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+														<?php
+														$propTypeFields = get_property_type();
+														$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
+														// $propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+														
+														//generate proptype options
+														foreach( $propTypeFields as $fieldCode=>$fieldName ){
+															// echo $propDefaultOption . " == " . $fieldCode. "<br>";
+															// if(in_array($fieldCode, $propDefaultOption))
+																// $checked="checked";
+															// else
+																$checked="";
+																
+															if($propTypeOption){
+																if(in_array($fieldCode, $propTypeOption)){
+																	echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+																	echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertytype[]\" value='{$fieldCode}' $checked> {$fieldName} </label></li>";
+																}
+															}else{									
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertytype[]\" value='{$fieldCode}' $checked> {$fieldName} </label></li>";
+															}										
+														}
+														
+														$propSubTypeFields = get_property_sub_type();
+														
+														//generate propsubtype options
+														foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+															
+															if(in_array($fieldCode, $propDefaultOption))
+																$checked="checked";
+															else
+																$checked="";
+																
+															echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propsubtype[]\" value='{$fieldCode}' $checked> {$fieldName} </label></li>";																		
+														}
+														?>
+													</ul>
+												</div>
+											</div>
+											<div class="sortby col-xs-6">
+												<h3>Sort By</h3>
+												<select name="o">
+													<option id="o-0" value="apmin%3ADESC">Price (High to Low)</option>
+													<option id="o-1" value="apmin%3AASC">Price (Low to High)<</option>
+													<option id="o-2" value="asts%3AASC">Status</option>
+													<option id="o-3" value="atwns%3AASC">City</option>
+													<option id="o-4" value="lid%3ADESC">Listing Date</option>
+													<option id="o-5" value="apt%3ADESC">Type / Price Descending</option>
+													<?php //<option id="o-6" value="alstid%3AASC">Listing Number</option> ?>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="square-footage col-xs-12">
+										<h3>Square Footage</h3>
 										<div class="two-field-wrap">
 											<select id="searchSqftMin" name="minsqft">
 												<option value="">Any</option>
@@ -278,8 +312,8 @@ $excludes = get_new_filter_excludes();
 											</select>
 										</div>
 									</div>
-									<div class="days-on-site col-xs-4">
-										<span class="field-label"># Days On Site </span>
+									<div class="days-on-site col-xs-12">
+										<h3># Days On Site </h3>
 										<div class="one-field-wrap">
 											<select id="maxdayslisted" name="maxdayslisted">
 												<option value="">Any</option>
@@ -294,8 +328,8 @@ $excludes = get_new_filter_excludes();
 											</select>
 										</div>
 									</div>
-									<div class="acres col-xs-4">
-										<span class="field-label">Acres</span>
+									<div class="acres col-xs-12">
+										<h3>Acres</h3>
 										<div class="two-field-wrap">
 											<select id="searchAcresMin" name="minacres">
 												<option value="">Any</option>
@@ -344,10 +378,8 @@ $excludes = get_new_filter_excludes();
 											</select>
 										</div>
 									</div>
-								</div>
-								<div class="row-fields row">
-									<div class="garage-spaces col-xs-4">		
-										<span class="field-label">Garage Spaces</span>
+									<div class="garage-spaces col-xs-12">		
+										<h3>Garage Spaces</h3>
 										<div class="two-field-wrap">
 											<select id="searchGaragesMin" name="mingarages">
 												<option value="">Any</option>
@@ -370,8 +402,8 @@ $excludes = get_new_filter_excludes();
 											</select>
 										</div>
 									</div>
-									<div class="stories col-xs-4">
-										<span class="field-label">Stories</span>
+									<div class="stories col-xs-12">
+										<h3>Stories</h3>
 										<div class="two-field-wrap">
 											<select id="searchStoriesMin" name="minstories">
 												<option value="">Any</option>
@@ -394,89 +426,131 @@ $excludes = get_new_filter_excludes();
 											</select>
 										</div>
 									</div>
-									<div class="col-xs-4">
-									</div>
-								</div>
-								<div class="bottom-fields row">
 									<div class="popular-features col-xs-12">
 										<h3>Popular Features</h3>
-										<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>
+										<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>&nbsp;
+										<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openHomesOnlyYn" value="true" /> Open House</label>
+									</div>
+									<div class="col-xs-12">
+										<div class="row">
+											<div class="col-sm-6">
+												<?php
+												$fields = get_references_field('STYLE');
+												if($fields): ?>
+												<div class="propstyles">
+													<h3>Styles</h3>
+													<?php /* <select name="astle[]" multiple="multiple">
+														<?php										
+														foreach($fields as $field){
+															echo '<option id="'. $field->longDescription .'" name="astle[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</option>';
+														}
+														?>
+													</select> */ ?>
+													<div class="dropdown cq-dropdown">
+														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+															<?php
+															foreach( $fields as $field ){
+																
+																$checked="";
+																	
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"astle[]\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+															}
+															?>
+														</ul>
+													</div>
+												</div>
+												<?php endif; ?>
+												
+												<?php
+												$fields = get_references_field('EXTERIORFEATURES');
+												if($fields): ?>
+												<div class="propexterior">
+													<h3>Exterior Features</h3>
+													<?php /* <select name="aextf[]" multiple="multiple">
+														<?php										
+														foreach($fields as $field){
+															echo '<option id="'. $field->longDescription .'" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</option>';
+														}
+														?>
+													</select> */ ?>
+													<div class="dropdown cq-dropdown">
+														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+															<?php
+															foreach( $fields as $field ){
+																
+																$checked="";
+																	
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"aextf[]\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+															}
+															?>
+														</ul>
+													</div>
+												</div>
+												<?php endif; ?>
+											</div>
+											<div class="col-sm-6">
+												<?php
+												$fields = get_references_field('WATERFRONT');
+												if($fields): ?>
+												<div class="propwaterfront">
+													<h3>Water Front</h3>
+													<?php /* <select name="awtrf[]" multiple="multiple">
+														<?php										
+														foreach($fields as $field){
+															echo '<option id="'. $field->longDescription .'" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</option>';
+														}
+														?>
+													</select> */ ?>
+													<div class="dropdown cq-dropdown">
+														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+															<?php
+															foreach( $fields as $field ){
+																
+																$checked="";
+																	
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"awtrf[]\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+															}
+															?>
+														</ul>
+													</div>
+												</div>
+												<?php endif; ?>
+												
+												<?php
+												$fields = get_references_field('WATERVIEWFEATURES');
+												if($fields): ?>
+												<div class="propview">
+													<h3>View</h3>
+													<?php /* <select name="awvf[]" multiple="multiple">
+														<?php										
+														foreach($fields as $field){
+															echo '<option id="'. $field->longDescription .'" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</option>';
+														}
+														?>
+													</select> */ ?>
+													<div class="dropdown cq-dropdown">
+														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+															<?php
+															foreach( $fields as $field ){
+																
+																$checked="";
+																	
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"awvf[]\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+															}
+															?>
+														</ul>
+													</div>													
+												</div>
+												<?php endif; ?>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="more hide">
-							
-								<?php
-								$fields = get_references_field('STYLE');
-								if($fields): ?>
-								<div class="checkbox-wrap">
-									<h3>Styles</h3>
-									<div class="checkbox-row row">
-										<?php										
-										foreach($fields as $field){
-											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="astle[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-										}
-										?>
-									</div>
-								</div>
-								<?php endif; ?>
-								
-								<?php
-								$fields = get_references_field('EXTERIORFEATURES');
-								if($fields): ?>
-								<div class="checkbox-wrap">
-									<h3>Exterior Features</h3>
-									<div class="checkbox-row row">
-										<?php										
-										foreach($fields as $field){
-											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="aextf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-										}
-										?>
-									</div>
-								</div>
-								<?php endif; ?>
-								
-								<?php
-								$fields = get_references_field('WATERFRONT');
-								if($fields): ?>
-								<div class="checkbox-wrap">
-									<h3>Water Front</h3>
-									<div class="checkbox-row row">
-										<?php										
-										foreach($fields as $field){
-											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-										}
-										?>
-									</div>
-								</div>
-								<?php endif; ?>
-								
-								<?php
-								$fields = get_references_field('WATERVIEWFEATURES');
-								if($fields): ?>
-								<div class="checkbox-wrap">
-									<h3>View</h3>
-									<div class="checkbox-row row">
-										<?php										
-										foreach($fields as $field){
-											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awvf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
-										}
-										?>
-									</div>
-								</div>
-								<?php endif; ?>
-							</div>
-							<div class="action">
-								<div class="row">		
-									<div class="col-xs-6">
-										<a class="btn-more btn btn-primary"><span class="label-fewer hide">Fewer Options</span><span class="label-more show">More Options</span></a>
-									</div>
-									<div class="col-xs-6">
-										<a class="btn-show-result btn btn-primary">Show Result</a>
-									</div>	
-								</div>
-							</div>
-						  </div>
 						</div>
 					</div>
 				</form>
@@ -484,7 +558,7 @@ $excludes = get_new_filter_excludes();
 		</div>
 	</div>
 	<div class="mobile-omnimbar">
-		<?php include "template-searchBarMobile-new.php"; ?>
+		<?php include "template-searchBarMobile.php"; ?>
 	</div>
 	<div id="zpa-view-selected-filter">
 		<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
@@ -509,22 +583,22 @@ $excludes = get_new_filter_excludes();
 				jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+ linked_name +'"]').remove();
 				
 				//remove from search bar		
-				jQuery('#omnibar-wrap .filter-column input[type=text][name="'+name+'"]').val('');
-				jQuery('#omnibar-wrap .filter-column select[name="'+name+'"]').val('');
+				jQuery('#omnibar-tools .filter-column input[type=text][name="'+name+'"]').val('');
+				jQuery('#omnibar-tools .filter-column select[name="'+name+'"]').val('');
 				if(value)
-					jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+					jQuery('#omnibar-tools .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
 				else
-					jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
-				jQuery('#omnibar-wrap .filter-column input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+					jQuery('#omnibar-tools .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#omnibar-tools .filter-column input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
 				
 				//remove from mobile search bar		
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=text][name="'+name+'"]').val('');
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap select[name="'+name+'"]').val('');
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=text][name="'+name+'"]').val('');
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap select[name="'+name+'"]').val('');
 				if(value)
-					jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+					jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
 				else
-					jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);			
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+					jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);			
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
 			}
 			
 			window.addFormField = function(name, value, linked_name){
@@ -743,6 +817,12 @@ $excludes = get_new_filter_excludes();
 					zipperagent_generate_filter_label($key, $value);
 			}
 			?>
+			
+			jQuery('#omnibar-tools select.propertytype').fSelect();
+			jQuery('#omnibar-tools .propstyles select').fSelect();
+			jQuery('#omnibar-tools .propexterior select').fSelect();
+			jQuery('#omnibar-tools .propwaterfront select').fSelect();
+			jQuery('#omnibar-tools .propview select').fSelect();
 		});
 	</script>
 	
@@ -1102,7 +1182,7 @@ $excludes = get_new_filter_excludes();
 				jQuery('#zpa-search-filter-form').submit();
 			});
 			
-			jQuery('body').on( 'change', '#omnibar-wrap #listid', function(){
+			jQuery('body').on( 'change', '#omnibar-tools #listid', function(){
 				<?php /* 
 				var values=jQuery(this).val().split(',');
 				var name='alstid[]';
@@ -1129,8 +1209,8 @@ $excludes = get_new_filter_excludes();
 		});
 	</script>	
 	<script>
-		jQuery('body').on( 'change', '#omnibar-wrap .filter-column input, #omnibar-wrap .filter-column select,'+
-									 '#omnibar-wrap .mobile-omnimbar .field-wrap input, #omnibar-wrap .mobile-omnimbar .field-wrap select', function(){
+		jQuery('body').on( 'change', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select,'+
+									 '#omnibar-tools .mobile-omnimbar .field-wrap input, #omnibar-tools .mobile-omnimbar .field-wrap select', function(){
 										 
 			var name = jQuery(this).attr('name').toLowerCase();
 			var value = jQuery(this).val();
@@ -1168,8 +1248,8 @@ $excludes = get_new_filter_excludes();
 			jQuery('#zpa-search-filter-form').submit();
 		});
 		
-		jQuery('body').on( 'click', '#omnibar-wrap .filter-column .select-min-price a,'+
-									'#omnibar-wrap .mobile-omnimbar .select-min-price a', function(){
+		jQuery('body').on( 'click', '#omnibar-tools .filter-column .select-min-price a,'+
+									'#omnibar-tools .mobile-omnimbar .select-min-price a', function(){
 			var name='minlistprice';
 			var linked_name=name;
 			var value=jQuery(this).attr('value');
@@ -1182,8 +1262,8 @@ $excludes = get_new_filter_excludes();
 			
 			return false;
 		});
-		jQuery('body').on( 'click', '#omnibar-wrap .filter-column .select-max-price a,'+
-									'#omnibar-wrap .mobile-omnimbar .select-max-price a', function(){
+		jQuery('body').on( 'click', '#omnibar-tools .filter-column .select-max-price a,'+
+									'#omnibar-tools .mobile-omnimbar .select-max-price a', function(){
 										
 			var name='maxlistprice';
 			var linked_name=name;
@@ -1209,16 +1289,16 @@ $excludes = get_new_filter_excludes();
 				value = value.replace(':', "%3A");
 				
 				//desktop search bar
-				jQuery('#omnibar-wrap .filter-column input[type=text][name="'+name+'"]').val(value);
-				jQuery('#omnibar-wrap .filter-column select[name="'+name+'"]').val(value);
-				jQuery('#omnibar-wrap .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
-				jQuery('#omnibar-wrap .filter-column input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#omnibar-tools .filter-column input[type=text][name="'+name+'"]').val(value);
+				jQuery('#omnibar-tools .filter-column select[name="'+name+'"]').val(value);
+				jQuery('#omnibar-tools .filter-column input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#omnibar-tools .filter-column input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", true);
 				
 				//mobile search bar
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=text][name="'+name+'"]').val(value);
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap select[name="'+name+'"]').val(value);
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
-				jQuery('#omnibar-wrap .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=text][name="'+name+'"]').val(value);
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap select[name="'+name+'"]').val(value);
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", true);
 			});
 		});
 	</script>
@@ -1441,35 +1521,6 @@ $excludes = get_new_filter_excludes();
 	  });
     </script>
 	<script>
-		jQuery('body').on('click', '.dropdown.more .btn-more', function(){
-			
-			if(jQuery(this).parents('.dropdown.more').find('.fewer').hasClass('hide')){
-				jQuery(this).parents('.dropdown.more').find('.fewer').removeClass('hide').addClass('show');
-			}else{
-				jQuery(this).parents('.dropdown.more').find('.fewer').removeClass('show').addClass('hide');
-			}
-			
-			if(jQuery(this).parents('.dropdown.more').find('.more').hasClass('hide')){
-				jQuery(this).parents('.dropdown.more').find('.more').removeClass('hide').addClass('show');
-			}else{
-				jQuery(this).parents('.dropdown.more').find('.more').removeClass('show').addClass('hide');
-			}
-			
-			if(jQuery(this).find('.label-fewer').hasClass('hide')){
-				jQuery(this).find('.label-fewer').removeClass('hide').addClass('show');			
-			}else{
-				jQuery(this).find('.label-fewer').removeClass('show').addClass('hide');
-			}
-			
-			if(jQuery(this).find('.label-more').hasClass('hide')){
-				jQuery(this).find('.label-more').removeClass('hide').addClass('show');				
-			}else{
-				jQuery(this).find('.label-more').removeClass('show').addClass('hide');				
-			}			
-			return false;
-		});
-	</script>
-	<script>
 		function addCommas(nStr)
 		{
 			nStr += '';
@@ -1496,6 +1547,24 @@ $excludes = get_new_filter_excludes();
 			
 			$('.input-number').val(function(index, value) {
 				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
+		});
+	</script>
+	<script>
+		jQuery(document).ready(function($){
+			$('.cq-dropdown .dropdown-toggle').on('click', function(){
+				var cq = $(this).parents('.cq-dropdown');
+				if(cq.hasClass('open')){
+					cq.removeClass('open');
+				}else{					
+					cq.addClass('open');
+				}
+			});
+			$(document).click(function(){
+			  $(".cq-dropdown").removeClass('open');
+			});
+			$(".cq-dropdown .dropdown-menu").click(function(e){
+			  e.stopPropagation();
 			});
 		});
 	</script>

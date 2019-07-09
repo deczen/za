@@ -46,7 +46,14 @@ class zipperAgentEnqueueResource {
 			/* Start modification by Decz */
 			$this->enqueueStyle('za-bundle-css', zipperagent_url(false) . 'css/bundle.css');
 			$this->enqueueStyle('view-css', zipperagent_url(false) . 'css/view.css');
-			$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single.css');
+			$this->enqueueStyle('omnibar-css', zipperagent_url(false) . 'css/omnibar.css');
+			if(zipperagent_detailpage_group()=='mlspin'){
+				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single-new.css');
+				$this->enqueueStyle('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
+			}
+			else{
+				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single.css');
+			}
 			// $this->enqueueStyle('account-css', zipperagent_url(false) . 'css/my-account.css');
 			// $this->enqueueStyle('listing-css', zipperagent_url(false) . 'css/listing.css');
 			$this->enqueueStyle('landingpage-css', zipperagent_url(false) . 'css/landingpage.css');
@@ -57,6 +64,7 @@ class zipperAgentEnqueueResource {
 			$this->enqueueStyle('social-share', zipperagent_url(false) . 'css/social-share.css');
 			$this->enqueueStyle('property-print', zipperagent_url(false) . 'css/print.css');
 			$this->enqueueStyle('dropdownCheckboxes', zipperagent_url(false) . 'css/dropdownCheckboxes.min.css');
+			$this->enqueueStyle('fSelect-css', zipperagent_url(false) . 'css/fSelect.css');
 			
 			if( wp_get_theme() !== "Conall" ){
 				$this->enqueueStyle('owl-carousel-css', zipperagent_url(false) . 'css/owl.carousel.min.css');
@@ -91,6 +99,7 @@ class zipperAgentEnqueueResource {
 			$this->enqueueScript('pikaday-js', zipperagent_url(false) . 'js/pikaday.js');
 			$this->enqueueScript('pikaday-jquery', zipperagent_url(false) . 'js/pikaday.jquery.js');
 			$this->enqueueScript('dropdownCheckboxes', zipperagent_url(false) . 'js/dropdownCheckboxes.min.js');
+			$this->enqueueScript('fSelect-js', zipperagent_url(false) . 'js/fSelect.js');
 			
 			if( wp_get_theme() !== "Conall" ){
 				$this->enqueueScript('owl-carousel-js', zipperagent_url(false) . 'js/owl.carousel.min.js');
