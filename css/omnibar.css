@@ -30,12 +30,12 @@
     border-radius: 2px;
     text-align: left;
     z-index: 902;
-    margin-top: 13px;
+    margin-top: 7px;
     right: 0 !important;
 	z-index: 999;
 }
 #omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown{position:relative;width:100% !important; text-align:left;}
-#omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown button{text-align:left;padding-left:5px;-webkit-appearance: none;-moz-appearance: none; background-image: url(data:image/svg+xml; charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.o…4%2015.5l-3-6-3%206h3.5zM9.4%2019.5l3%206%203-6h-3.5z%22%2F%3E%3C%2Fsvg%3E); background-repeat: no-repeat;background-position: 100% 50%;text-transform: none;}
+#omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown button{text-align:left;padding:5px;-webkit-appearance: none;-moz-appearance: none; background-image: url(data:image/svg+xml; charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.o…4%2015.5l-3-6-3%206h3.5zM9.4%2019.5l3%206%203-6h-3.5z%22%2F%3E%3C%2Fsvg%3E); background-repeat: no-repeat;background-position: 100% 50%;text-transform: none;min-height: 35px;}
 #omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown button .caret{display:none;}
 #omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown > .dropdown-menu{
 	width: 100%;
@@ -91,10 +91,10 @@
 #omnibar-tools input[type="radio"]:checked{-webkit-appearance: radio;}
 #omnibar-tools select:hover{cursor:pointer;}
 #omnibar-tools .dropdown-toggle{position: relative;width: 100%;}
-#omnibar-tools .dropdown-group > .dropdown > .dropdown-toggle:after{
+#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown > .dropdown-toggle:after{
     content: '';
     position: absolute;
-    top: 13px;
+    top: 15px;
     right: 10px;
     width: 5px;
     height: 5px;
@@ -132,7 +132,7 @@
 #omnibar-tools #zpa-mobile-all-input{height:auto;}
 
 #omnibar-tools .propstatus li{display: inline-block;}
-#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu{min-width: 500px;max-height: 70vh;overflow-y: auto;overflow-x: hidden;padding: 10px 10px 30px !important;margin-top: 13px;}
+#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu{min-width: 500px;max-height: 70vh;overflow-y: auto;overflow-x: hidden;padding: 10px 10px 30px !important;margin-top: 7px;}
 #omnibar-tools .filter .two-field-wrap select{display: inline-block; width: 47%;background-size: 18px;}
 #omnibar-tools .filter .two-field-wrap span{width: 4.3%;display: inline-block;text-align: center;}
 #omnibar-tools .filter select{background-size: 18px;}
@@ -141,7 +141,7 @@
 #omnibar-tools .dropdown-group{text-align: right;}
 #omnibar-tools .filter select,
 #omnibar-tools .two-field-wrap select,
-#omnibar-tools .one-field-wrap select{height: 35px;}
+#omnibar-tools .one-field-wrap select{height: 35px;padding: 5px;width: 100%;}
 #omnibar-tools .filter .fs-label{padding: 10px 5px;}
 #omnibar-tools .filter .fs-wrap.multiple{width: 100%;}
 #omnibar-tools #zpa-view-selected-filter .ms-sel-ctn{padding-left: 106px;}
@@ -161,6 +161,17 @@
 #omnibar-tools .desktop-omnibar .filter .propwaterfront ul.dropdown-menu,
 #omnibar-tools .desktop-omnibar .filter .propexterior ul.dropdown-menu,
 #omnibar-tools .desktop-omnibar .filter .propview ul.dropdown-menu{max-height:180px;overflow-y: auto;}
+#omnibar-tools .desktop-omnibar .search-by #dropdownMenuButton:after{
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 5px;
+    height: 5px;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    transform: rotate(45deg);
+}
 
 @media(max-width: 1024px){#omnibar-tools .dropdown-toggle:after{display: none;}}
 @media(max-width: 980px){
@@ -237,6 +248,7 @@
 #omnibar-tools .mobile-omnimbar #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item{margin: 2px 3px;}
 #omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.addr,
 #omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.listid{padding-left: 5px;padding-top: 3px;}
+#omnibar-tools .desktop-omnibar .filter .dropdown-menu select,
 #omnibar-tools .desktop-omnibar .filter .cq-dropdown button{
 	-webkit-appearance:none;
 	-moz-appearance:none;

@@ -227,7 +227,7 @@ if(file_exists($template_path) && $template_name ){
 					<div class="row">
 						<div class="col-lg-3 col-sm-12 col-md-12 zy_nopadding <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?>">
 							<h2>
-								<p class="zy_price-style">[status]</p>
+								<p class="zy_price-style zy_status-style zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?>">[status]</p>
 								<p class="zy_label-style">Status</p>
 							</h2>
 						</div>
