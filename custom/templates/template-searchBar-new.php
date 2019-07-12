@@ -221,10 +221,10 @@ $excludes = get_new_filter_excludes();
 														//generate propsubtype options
 														foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
 															
-															if(in_array($fieldCode, $propDefaultOption))
-																$checked="checked";
-															else
-																$checked="";
+															// if(in_array($fieldCode, $propDefaultOption))
+																// $checked="checked";
+															// else
+																// $checked="";
 																
 															echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propsubtype[]\" value='{$fieldCode}' $checked> {$fieldName} </label></li>";																		
 														}

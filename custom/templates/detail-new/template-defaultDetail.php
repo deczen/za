@@ -11,6 +11,10 @@ $is_custom_template=0;
 $property_type = isset($single_property->proptype)?strtoupper($single_property->proptype):'';
 $property_subtype = isset($single_property->propsubtype)?strtoupper($single_property->propsubtype):'';
 
+if(isset($_GET['custom_proptype'])){
+	$property_type = $_GET['custom_proptype'];
+}
+
 //special case
 switch($property_type){
 	case "A":

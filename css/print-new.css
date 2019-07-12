@@ -17,6 +17,7 @@
 	body.za-detail-page .uk-sticky-placeholder {
 		display: none!important
 	}
+	body.za-detail-page .zy-print-block img{max-width: 100px;display: inline-block;}
 	body.za-detail-page .zy-print-view {
 		display: block;
 		width: 100%;

@@ -47,7 +47,7 @@ class zipperAgentEnqueueResource {
 			$this->enqueueStyle('za-bundle-css', zipperagent_url(false) . 'css/bundle.css');
 			$this->enqueueStyle('view-css', zipperagent_url(false) . 'css/view.css');
 			$this->enqueueStyle('omnibar-css', zipperagent_url(false) . 'css/omnibar.css');
-			if(zipperagent_detailpage_group()=='mlspin'){
+			if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
 				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single-new.css');
 				$this->enqueueStyle('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
 				$this->enqueueStyle('account-css', zipperagent_url(false) . 'css/account.css');

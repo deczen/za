@@ -11,7 +11,7 @@ function display_single_property(){
 	$requests=$_REQUEST;
 	
 	ob_start();	
-	if(zipperagent_detailpage_group()=='mlspin'){		
+	if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
 	}else if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";

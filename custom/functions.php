@@ -2238,6 +2238,15 @@ if( ! function_exists('is_open_house_search_enabled') ){
 	}
 }
 
+if( ! function_exists('is_zipperagent_new_detail_page') ){
+	function is_zipperagent_new_detail_page(){
+		
+		$enabled=1;
+			
+		return $enabled;
+	}
+}
+
 if( ! function_exists('zipperagent_is_favorite') ){
 	function zipperagent_is_favorite($listingId){
 		$checked=false;
@@ -2612,6 +2621,10 @@ if( ! function_exists('get_wp_var_excludes') ){
 			'customize_theme',
 		);
 		
+		//for template testing purpose
+		$exclude[]='groupname';
+		$exclude[]='custom_proptype';
+		
 		return $excludes;
 	}
 }
@@ -2833,6 +2846,10 @@ if( ! function_exists('zipperagent_detailpage_group') ){
 	function zipperagent_detailpage_group(){
 		$rb = zipperagent_rb();		
 		$detailpage_group = isset($rb['layout']['detailpage_group'])?$rb['layout']['detailpage_group']:'';
+		
+		if(isset($_GET['groupname'])){
+			$detailpage_group = $_GET['groupname'];
+		}
 		
 		return $detailpage_group ? $detailpage_group : 'mlspin';
 	}
@@ -3551,7 +3568,7 @@ if( ! function_exists('zp_get_credentials') ){
 if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
 		
-		if(zipperagent_detailpage_group()=='mlspin'){
+		if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
 			zipperagent_omnibar_new($requests);
 			return;
 		}

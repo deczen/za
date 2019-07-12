@@ -14,7 +14,7 @@ $args = array ( 'name' => $listing, 'post_type'=>'page', 'posts_per_page'=> 1, '
 $listing = get_posts( $args );
 if( $listing ){
 	foreach( $listing as $page ){
-		if(zipperagent_detailpage_group()=='mlspin'){			
+		if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){			
 			echo "<div class='zy-margin'>". $page->post_content ."</div>";
 		}else{			
 			echo $page->post_content;
@@ -27,10 +27,10 @@ if( $listing ){
 }else{
 	
 	ob_start();
-	if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
-		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
-	}else if(zipperagent_detailpage_group()=='mlspin'){		
+	if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
+	}else if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
+		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
 	}else{
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty.php";
 	}

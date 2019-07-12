@@ -72,6 +72,10 @@ if(isset($_GET['debug']))
 	$excParamCount++;
 if(isset($_GET['newsearchbar']))
 	$excParamCount++;
+if(isset($_GET['groupname']))
+	$excParamCount++;
+if(isset($_GET['custom_proptype']))
+	$excParamCount++;
 	
 	
 if( sizeof($_GET)==$excParamCount ){
