@@ -8,7 +8,7 @@
 #omnibar-tools .input-column .field-wrap .field-section .ms-ctn{border:0 !important;box-shadow:none;padding-top: 7px;padding-bottom: 7px;height:auto;}
 #omnibar-tools .input-column .field-wrap .field-section{/*border:1px solid #ddd;*/min-height: 42px;height: auto;border-radius: 0 3px 3px 0;}
 
-
+#omnibar-tools .pc-filter-column > form > .dropdown-group > .dropdown{margin-right:5px !important;}
 #omnibar-tools .filter-column .dropdown-group .dropdown{display:inline-block;/*float: right;*/width: 19%;}
 #omnibar-tools .filter-column .dropdown-group .dropdown .btn{background: rgba(0,0,0,0);border-radius:0 !important;/* border-right: 1px solid #777; */width:100%;color: #000;min-width:80px;}
 #omnibar-tools .filter-column .dropdown-group .dropdown .btn:active{box-shadow: none;}

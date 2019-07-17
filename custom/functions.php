@@ -2948,6 +2948,33 @@ if( ! function_exists('zipperagent_signup_optional') ){
 	}
 }
 
+if( ! function_exists('zipperagent_signup_optional_exception') ){
+	function zipperagent_signup_optional_exception(){
+		$rb = zipperagent_rb();		
+		$signup_optional_exception = isset($rb['web']['signup_optional_exception'])?$rb['web']['signup_optional_exception']:0;
+		
+		return $signup_optional_exception;
+	}
+}
+
+if( ! function_exists('zipperagent_is_close_popup_enabled') ){
+	function zipperagent_is_close_popup_enabled(){
+		
+		$signup_optional = zipperagent_signup_optional();
+		$signup_optional_exception = zipperagent_signup_optional_exception();
+		
+		// $_SESSION['popup_is_closed']=0; //reset purpose only
+		
+		if( !$signup_optional && $signup_optional_exception && $_SESSION['popup_is_closed']
+			&& $signup_optional_exception <= (int) $_SESSION['popup_is_closed'] ){
+			
+			return false;
+		}
+		
+		return true;
+	}
+}
+
 if( ! function_exists('zipperagent_currency') ){
 	function zipperagent_currency(){
 		$curr="$";

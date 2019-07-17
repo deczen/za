@@ -15,21 +15,21 @@ $excludes = get_new_filter_excludes();
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<ul>
-						<li><a id="all" href="#">All Categories</a></li>
-						<li><a id="addr" href="#">Address</a></li>
-						<li><a id="area" href="#">Area</a></li>
-						<li><a id="town" href="#">City / Town</a></li>
-						<li><a id="county" href="#">County</a></li>
-						<li><a id="listid" href="#">MLS #ID</a></li>
-						<!-- <li><a id="school" href="#">School</a></li> -->
-						<!-- <li><a id="school2" href="#">School</a></li> -->
-						<li><a id="zip" href="#">Zip Code</a></li>
+						<li><a id="all" href="#"><input type="radio" name="search_category" checked /> All Categories</a></li>
+						<li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li>
+						<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
+						<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
+						<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
+						<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
+						<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
+						<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
+						<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
 					</ul>
 				  </div>
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any address, area, city, county, MLS# or zip code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any area, city, county, MLS# or zip code"  name="location[]"/>
 					</div>
 					<div class="field-section addr hide">
 						<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
@@ -69,8 +69,9 @@ $excludes = get_new_filter_excludes();
 						var targetClass = id;
 						jQuery(this).parents('.input-column').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
 						jQuery(this).parents('.input-column').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
+						jQuery(this).find('input').attr('checked', true);
 						
-						jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
+						// jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
 						return false;
 					});
 					jQuery('body').on('click', '.btn-show-result', function(){

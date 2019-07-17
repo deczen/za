@@ -171,6 +171,24 @@ function set_popup_triggered(){
 	}
 }
 
+add_action( 'wp_ajax_close_popup', 'set_popup_closed' );
+add_action( 'wp_ajax_nopriv_close_popup', 'set_popup_closed' );
+
+function set_popup_closed(){
+	if ( isset($_REQUEST) ) {
+		
+		$popup_is_closed = (int) isset($_SESSION['popup_is_closed'])?$_SESSION['popup_is_closed']:0;
+		$popup_is_closed++;
+		$_SESSION['popup_is_closed']=$popup_is_closed; //popup is already triggered
+		
+		$return['result']=1;
+		
+		echo json_encode($return);
+         
+        die();
+	}
+}
+
 add_action( 'wp_ajax_regist_user', 'regist_user' );
 add_action( 'wp_ajax_nopriv_regist_user', 'regist_user' );
 

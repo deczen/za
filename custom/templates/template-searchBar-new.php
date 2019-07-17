@@ -29,7 +29,7 @@ $excludes = get_new_filter_excludes();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any address, area, city, county, MLS# or zip code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any area, city, county, MLS# or zip code"  name="location[]"/>
 					</div>
 					<div class="field-section addr hide">
 						<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
@@ -79,7 +79,7 @@ $excludes = get_new_filter_excludes();
 					});
 				</script>
 			</div>
-			<div class="filter-column col-sm-4">
+			<div class="filter-column pc-filter-column col-sm-4">
 				<form>
 					<div class="dropdown-group">
 						<div class="dropdown listprice">
@@ -429,7 +429,7 @@ $excludes = get_new_filter_excludes();
 									<div class="popular-features col-xs-12">
 										<h3>Popular Features</h3>
 										<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>&nbsp;
-										<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openHomesOnlyYn" value="true" /> Open House</label>
+										<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openhomesonlyyn" value="true" /> Open House</label>
 									</div>
 									<div class="col-xs-12">
 										<div class="row">
@@ -558,7 +558,7 @@ $excludes = get_new_filter_excludes();
 		</div>
 	</div>
 	<div class="mobile-omnimbar">
-		<?php include "template-searchBarMobile.php"; ?>
+		<?php include "template-searchBarMobile-new.php"; ?>
 	</div>
 	<div id="zpa-view-selected-filter">
 		<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">

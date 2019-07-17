@@ -1,6 +1,7 @@
 #zpa-main-container .close{height: 30px !important;}
 #zipperagent-content{ min-height:400px;}
-.zy-margin{padding: 20px 15px 40px;overflow:hidden;}
+/* .zy-margin{padding: 20px 15px 40px;overflow:hidden;} */
+.zy-margin{padding: 20px 0 40px;overflow:hidden;}
 /* .zy_main{margin-left:-15px; margin-right:-15px; padding-right:0 !important;} */
 .zy-main h1{font-family:inherit;font-size:inherit;}
 .zy-main button{}

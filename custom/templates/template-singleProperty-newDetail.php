@@ -575,10 +575,10 @@ if( sizeof($_GET)==$excParamCount ){
 				success: function( response ) {
 					if( response ){
 						// jQuery( '#zipperagent-content' ).replaceWith( response['html'] );						
-						jQuery( '#header-column' ).html( response['header_section'] );						
-						jQuery( '#description-column' ).html( response['description_section'] );						
-						jQuery( '#props-column' ).html( response['sidebar_section'] );
-						jQuery( '#detail-column' ).html( response['bottom_section'] );
+						jQuery( '#zy_header-section' ).html( response['header_section'] );						
+						jQuery( '#zy_description-section' ).html( response['description_section'] );						
+						jQuery( '#zy_sidebar' ).html( response['sidebar_section'] );
+						jQuery( '#zy_bottom-section' ).html( response['bottom_section'] );
 						jQuery( '#print-view-column' ).html( response['print_section'] );
 						<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
 						initMap();

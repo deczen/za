@@ -6,12 +6,12 @@ $rb = zipperagent_rb();
   <?php /* <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#regusterUserModal">Open Modal</button> */ ?>
 
 	<!-- Modal -->
-	<div id="needLoginModal" class="modal in hideonprint" <?php if(!zipperagent_signup_optional()): ?>data-backdrop="static" data-keyboard="false"<?php endif; ?> aria-hidden="false" style="display:none">
+	<div id="needLoginModal" class="modal in hideonprint" <?php if(!zipperagent_is_close_popup_enabled()): ?>data-backdrop="static" data-keyboard="false"<?php endif; ?> aria-hidden="false" style="display:none">
 		<div class="modal-dialog social-login">
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="modal-title">User Registration</div>
-					<button type="button" class="close" <?php if(!zipperagent_signup_optional()): ?>style="display:none"<?php endif; ?> data-dismiss="modal"> &#215; </button>
+					<button type="button" <?php if(zipperagent_signup_optional_exception()): ?>onClick="set_popup_is_closed()"<?php endif; ?> class="close" <?php if(!zipperagent_is_close_popup_enabled()): ?>style="display:none"<?php endif; ?> data-dismiss="modal"> &#215; </button>
 				</div>
 				<div class="modal-body">
 					<div id="content" data-zpa-remote-submit="true" data-zpa-remote-submit-bound="true">						
@@ -618,6 +618,25 @@ $rb = zipperagent_rb();
 		function set_popup_is_triggered(){
 			var data = {
 				action: 'trigger_popup',               
+			};
+			
+			jQuery.ajax({
+				type: 'POST',
+				dataType : 'json',
+				url: zipperagent.ajaxurl,
+				data: data,
+				success: function( response ) {    
+					if( response['result'] ){
+						
+					}
+				}
+			});
+		}
+	</script>
+	<script>
+		function set_popup_is_closed(){
+			var data = {
+				action: 'close_popup',               
 			};
 			
 			jQuery.ajax({

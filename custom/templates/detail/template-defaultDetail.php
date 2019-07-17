@@ -1592,10 +1592,9 @@ if(file_exists($template_path) && $template_name ){
 		
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
 		$print_color = isset($rb['web']['print_color'])?$rb['web']['print_color']:'';
-	?>
-	
-	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
+	?>	
 	<div id="print-view-column top-brdr" class="zy-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
+	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
 	<?php
 		// $rb = zipperagent_rb();
 		
@@ -1611,8 +1610,8 @@ if(file_exists($template_path) && $template_name ){
 			include $template_print_path_default;
 		}
 	?>
-	</div>
 	<?php 
 	if(isset($is_doing_ajax) && $is_doing_ajax) $print_section = ob_get_clean(); //end save print section
 	?>
+	</div>
 </div>

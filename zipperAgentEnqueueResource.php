@@ -55,6 +55,7 @@ class zipperAgentEnqueueResource {
 			}
 			else{
 				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single.css');
+				$this->enqueueStyle('property-print', zipperagent_url(false) . 'css/print.css');
 			}
 			// $this->enqueueStyle('account-css', zipperagent_url(false) . 'css/my-account.css');
 			// $this->enqueueStyle('listing-css', zipperagent_url(false) . 'css/listing.css');
@@ -64,7 +65,7 @@ class zipperAgentEnqueueResource {
 			$this->enqueueStyle('autocomplete-css', zipperagent_url(false) . 'css/autocomplete.css');
 			$this->enqueueStyle('pikaday-css', zipperagent_url(false) . 'css/pikaday.css');
 			$this->enqueueStyle('social-share', zipperagent_url(false) . 'css/social-share.css');
-			$this->enqueueStyle('property-print', zipperagent_url(false) . 'css/print.css');
+			// $this->enqueueStyle('property-print', zipperagent_url(false) . 'css/print.css');
 			$this->enqueueStyle('dropdownCheckboxes', zipperagent_url(false) . 'css/dropdownCheckboxes.min.css');
 			$this->enqueueStyle('fSelect-css', zipperagent_url(false) . 'css/fSelect.css');
 			

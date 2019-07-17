@@ -218,6 +218,7 @@
 					<div class="sub-menu col-xs-12">
 						<div class="popular-features">
 							<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>
+							<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openhomesonlyyn" value="true" /> Open House</label>
 						</div>
 						<div class="fewer show">
 							<div class="row-fields row">
