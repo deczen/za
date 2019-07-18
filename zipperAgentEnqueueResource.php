@@ -45,15 +45,17 @@ class zipperAgentEnqueueResource {
 		}else{
 			/* Start modification by Decz */
 			$this->enqueueStyle('za-bundle-css', zipperagent_url(false) . 'css/bundle.css');
-			$this->enqueueStyle('view-css', zipperagent_url(false) . 'css/view.css');
-			$this->enqueueStyle('omnibar-css', zipperagent_url(false) . 'css/omnibar.css');
 			if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
+				$this->enqueueStyle('view-css', zipperagent_url(false) . 'css/view-new.css');
+				$this->enqueueStyle('omnibar-css', zipperagent_url(false) . 'css/omnibar.css');
 				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single-new.css');
 				$this->enqueueStyle('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
 				$this->enqueueStyle('account-css', zipperagent_url(false) . 'css/account.css');
 				$this->enqueueStyle('print-new-css', zipperagent_url(false) . 'css/print-new.css');
 			}
 			else{
+				
+				$this->enqueueStyle('view-css', zipperagent_url(false) . 'css/view.css');
 				$this->enqueueStyle('single-css', zipperagent_url(false) . 'css/single.css');
 				$this->enqueueStyle('property-print', zipperagent_url(false) . 'css/print.css');
 			}
