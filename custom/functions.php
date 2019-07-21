@@ -2631,7 +2631,7 @@ if( ! function_exists('get_wp_var_excludes') ){
 
 if( ! function_exists('get_short_excludes') ){
 	function get_short_excludes(){
-		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid','newsearchbar','is_shortcode');
+		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid','newsearchbar','is_shortcode','search_category');
 		$excludes=array_merge($excludes,get_wp_var_excludes());
 		return $excludes;
 	}
@@ -2651,7 +2651,7 @@ if( ! function_exists('get_long_excludes') ){
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
-					'fbclid','newsearchbar','school',
+					'fbclid','newsearchbar','school','search_category',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2669,7 +2669,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
-			'lat','lng',
+			'lat','lng','search_category',
 		);
 		
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2686,7 +2686,7 @@ if( ! function_exists('get_old_filter_excludes') ){
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
-					'location_option','criteria','afteraction','listingparams','fbclid',
+					'location_option','criteria','afteraction','listingparams','fbclid','search_category',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2967,6 +2967,9 @@ if( ! function_exists('zipperagent_is_close_popup_enabled') ){
 		
 		if( !$signup_optional && $signup_optional_exception && $_SESSION['popup_is_closed']
 			&& $signup_optional_exception <= (int) $_SESSION['popup_is_closed'] ){
+			
+			return false;
+		}else if(!$signup_optional && !$signup_optional_exception ){
 			
 			return false;
 		}

@@ -766,6 +766,12 @@ if(file_exists($template_path) && $template_name ){
 				</div>
 				<?php endif; ?>
 				
+				<div class="row zy-widget">
+					<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">
+						<?php include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-mortgage-calculator.php'; ?>
+					</div>
+				</div>
+				
 				<?php if( $agent ): ?>
 				<div class="row zy-widget">
 					<div id="ask-a-question-form" class="col-xs-12 col-md-12 col-lg-8">

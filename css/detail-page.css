@@ -77,6 +77,76 @@
 .zy_main .full-details-disclaimer{margin-bottom:10px;}
 .zy_main .full-details-disclaimer img{max-height: 23px;}
 
+/* Mortgage Calculator Style */
+#zy_mortgage-calculator{padding-top: 20px;}
+#zy_mortgage-calculator .irs .irs-min,
+#zy_mortgage-calculator .irs .irs-max,
+#zy_mortgage-calculator .irs .irs-single{display: none;}
+
+#zy_mortgage-calculator .irs .irs-line,
+#zy_mortgage-calculator .irs .irs-bar,
+#zy_mortgage-calculator .irs .irs-bar-edge,
+#zy_mortgage-calculator .irs .irs-line-mid,
+#zy_mortgage-calculator .irs .irs-line-left,
+#zy_mortgage-calculator .irs .irs-line-right{height: 3px;}
+#zy_mortgage-calculator .irs .irs-line-left,
+#zy_mortgage-calculator .irs .irs-line-right{background-position: unset;}
+#zy_mortgage-calculator .irs .irs-line-mid{/*width: 100%;left:0;*/}
+#zy_mortgage-calculator .irs .irs-bar{left: 0 !important;}
+
+
+#zy_mortgage-calculator .irs .irs-slider{
+	background-image: none;
+	background-color: #ffffff;
+	border: 1px solid #20b426;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	top: 14px;
+	box-shadow: 0px 0px 5px #20b426;
+}
+#zy_mortgage-calculator input[type='text']{width: 100%;padding: 10px;}
+#zy_mortgage-calculator select{width:100%; line-height:2.2; border-radius:4px; height:41px;}
+#zy_mortgage-calculator .row-group{margin-bottom:10px;}
+#zy_mortgage-calculator .col-2-group{position: relative;}
+#zy_mortgage-calculator .col-2-group input:nth-child(2){position: absolute;top: 0;max-width: 80px;right: 0;border-radius: 0px 4px 4px 0px !important;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail{padding-top: 10px;padding-bottom: 10px;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-principal,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-hoadues,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-property,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-insurance,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-mortgage{line-height: 25px; padding-left: 20px;position: relative;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-price{float: right;font-weight: 700;}
+#zy_mortgage-calculator .zy-mortgage-calculator #zy-mortgage-interest{font-size: 16px;}
+#zy_mortgage-calculator .zy-mortgage-calculator #zy-mortgage-total{font-size: 20px; font-weight: 700;}
+
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-principal:before,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-hoadues:before,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-property:before,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-insurance:before,
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-mortgage:before{
+	content: '';
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 0;
+	border-radius: 20px;
+	top: 7px;
+}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-principal:before{background-color: #59E0D0;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-hoadues:before{background-color: #E69C8A;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-property:before{background-color: #77A2D0;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-insurance:before{background-color: #FADD77;}
+#zy_mortgage-calculator .zy-mortgage-calculator .mg-detail .mg-mortgage:before{background-color: #B0A0D8;}
+#zy_mortgage-calculator .zy_mortgage-bar{height: 10px;display: flex;flex-flow: row nowrap;margin: 10px 0;border-radius: 5px;overflow: hidden;}
+#zy_mortgage-calculator .zy_mortgage-bar .mortgage-color{display: inline-block;height: 100%;}
+#zy_mortgage-calculator .zy_mortgage-bar #principal-color{background-color: #59e0d0;}
+#zy_mortgage-calculator .zy_mortgage-bar #property-color{background-color: #77a2d0;}
+#zy_mortgage-calculator .zy_mortgage-bar #hoadues-color{background-color: #e69c8a;}
+#zy_mortgage-calculator .zy_mortgage-bar #insurance-color{background-color: #fadd77;}
+#zy_mortgage-calculator .zy_mortgage-bar #mortgage-color{background-color: #B0A0D8;}
+
+
 @media only screen and (max-width: 1200px){
 	.zy_address-style{text-align: center;}
 	.zy_price-mls .zy-detail-tool{max-width: 375px;margin: auto;}

@@ -11,7 +11,7 @@ $rb = zipperagent_rb();
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="modal-title">User Registration</div>
-					<button type="button" <?php if(zipperagent_signup_optional_exception()): ?>onClick="set_popup_is_closed()"<?php endif; ?> class="close" <?php if(!zipperagent_is_close_popup_enabled()): ?>style="display:none"<?php endif; ?> data-dismiss="modal"> &#215; </button>
+					<button type="button" <?php if(zipperagent_signup_optional_exception()): ?>onClick="set_popup_is_closed();"<?php endif; ?> class="close" <?php if(!zipperagent_is_close_popup_enabled()): ?>style="display:none"<?php endif; ?> data-dismiss="modal"> &#215; </button>
 				</div>
 				<div class="modal-body">
 					<div id="content" data-zpa-remote-submit="true" data-zpa-remote-submit-bound="true">						

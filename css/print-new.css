@@ -1,10 +1,15 @@
 .zy-print-view {
 	display: none;
 }
+.printonly{
+	display: none !important;
+}
 @media print {
 	body header,
 	body footer,
 	body #top-header,
+	body .edgtf-top-bar,
+	body .hideonprint,
 	body #footer,
 	body #top,
 	body .zy-header__mobile,
@@ -16,6 +21,9 @@
 	body .zy-margin #zipperagent-content .hideonprint,
 	body .uk-sticky-placeholder {
 		display: none!important;
+	}
+	body .printonly{
+		display: block !important;
 	}
 	body .zy-print-view .zy-print-block img{max-width: 100px;display: inline-block;}
 	body .zy-print-view {
