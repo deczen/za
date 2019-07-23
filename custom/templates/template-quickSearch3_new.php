@@ -45,7 +45,8 @@ $maxListPrice		= $requests['maxlistprice'];
 										</div>
 										<div class="field-wrap">
 											<div class="field-section all">
-												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any area, city, county, MLS# or zip code"  name="location[]"/>
+												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any area, city, county, MLS# or zip code"  name=""/>
+												<div style="display:none;" class="input-fields"></div>
 											</div>
 											<div class="field-section addr hide">
 												<input type="text" id="zpa-area-address" class="form-control" placeholder="Type any address" />
@@ -67,7 +68,8 @@ $maxListPrice		= $requests['maxlistprice'];
 												<input id="zpa-county-input" class="form-control" placeholder="Type any county"  name="location[]"/>
 											</div>
 											<div class="field-section listid hide">
-												<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/>
+												<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name=""/>
+												<div style="display:none;" class="input-fields"></div>
 											</div>
 											<div class="field-section school hide">
 												<input type="text" id="zpa-school" class="form-control" placeholder="Type any address" />
@@ -570,7 +572,56 @@ $maxListPrice		= $requests['maxlistprice'];
 					return '<div class="name">' + data.name + '</div>';
 				},				
 			});		
+			
+			$(ms_all).on('selectionchange', function(e,m){		
+				var values = this.getValue();
+				var value, check, name, add;
+				var fields = $('.field-wrap .field-section.all .input-fields');
+				
+				fields.html(''); //clear all fields
+				for(i=0; i<values.length; i++){
+					
+					check=0;
+					value  = values[i];
+					name = 'location[]';
+					
+					if (value.toLowerCase().indexOf("aars_") >= 0){ //town
+						check=1;
+					}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area
+						check=1;
+					}else if (value.toLowerCase().indexOf("acnty_") >= 0){ //county
+						check=1;
+					}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
+						check=1;
+					}
+					
+					if(!check){
+						name = 'alstid[]';
+					}		
 
+					add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
+					fields.append(add);
+				}
+			});
+			
+			jQuery('body').on( 'change', '.field-wrap .field-section.listid #listid', function(){
+				 
+				var values=jQuery.unique(jQuery(this).val().split(','));
+				var name='alstid[]';
+				var value, add;
+				var fields = $('.field-wrap .field-section.listid .input-fields');
+				
+				fields.html(''); //clear all fields
+				for(i=0; i<values.length; i++){		
+					value=jQuery.trim(values[i]);
+					
+					if(!value) continue;
+					
+					add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
+					fields.append(add);
+				};
+			});
+			
 			jQuery(ms_school).on('keyup', function(event){
 				
 				event.preventDefault();
@@ -602,6 +653,320 @@ $maxListPrice		= $requests['maxlistprice'];
 						}
 					});
 				}, 500);
+			});
+			
+			/* auto select dropdown function (ms_all) */
+			var ms_all__rawValue='';
+			var ms_all__afterDelete=0;
+			var ms_all__recentSelected=[];
+			var ms_all__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_all).on('keyup', function(){
+				ms_all__rawValue = ms_all.getRawValue();
+				ms_all__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_all).on('focus', function(c){
+				ms_all__recentSelected = ms_all.getValue();
+				ms_all__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_all).on('blur', function(c, e){
+				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_all__currentSelected = ms_all.getValue();
+				
+				// console.log(ms_all__recentSelected);
+				// console.log(ms_all__currentSelected);
+				// console.log('ms_all__rawValue: ' + ms_all__rawValue);
+				// console.log('ms_all__afterDelete: ' + ms_all__afterDelete);
+				
+				// if( ms_all__rawValue!="" && ms_all__currentSelected.length && ! ms_all__afterDelete && (ms_all__recentSelected.length == ms_all__currentSelected.length || !ms_all__recentSelected.length) ){
+				if( ms_all__rawValue!="" && ! ms_all__afterDelete && ms_all__recentSelected.length == ms_all__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_all.setValue([firstData.code]);
+					}else{
+						var custom = ms_all__rawValue;
+						var push =  new Array(custom);
+						ms_all.setValue(push);
+					}
+					
+					ms_all__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_all).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_all__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_all.setValue([firstData.code]);
+						}else{
+							var custom = ms_all__rawValue;
+							var push =  new Array(custom);
+							ms_all.setValue(push);
+						}
+					}
+					
+					ms_all.collapse();
+				}
+			});
+			
+			//set after delete state
+			$(ms_all).on('selectionchange', function(e,m,r){
+				if(r.length==ms_all__recentSelected.length && r.length==ms_all__currentSelected.length){
+					ms_all__afterDelete=1;
+				}else{
+					ms_all__afterDelete=0;
+				}
+			});
+			
+			/* auto select dropdown function (ms_town) */
+			var ms_town__rawValue='';
+			var ms_town__afterDelete=0;
+			var ms_town__recentSelected=[];
+			var ms_town__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_town).on('keyup', function(){
+				ms_town__rawValue = ms_town.getRawValue();
+				ms_town__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_town).on('focus', function(c){
+				ms_town__recentSelected = ms_town.getValue();
+				ms_town__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_town).on('blur', function(c, e){
+				var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_town__currentSelected = ms_town.getValue();
+				
+				if( ms_town__rawValue!="" && ! ms_town__afterDelete && ms_town__recentSelected.length == ms_town__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_town.setValue([firstData.code]);
+					}
+					
+					ms_town__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_town).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_town__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_town.setValue([firstData.code]);
+						}
+					}
+					
+					ms_town.collapse();
+				}
+			});
+			
+			//set after delete state
+			$(ms_town).on('selectionchange', function(e,m,r){
+				if(r.length==ms_town__recentSelected.length && r.length==ms_town__currentSelected.length){
+					ms_town__afterDelete=1;
+				}else{
+					ms_town__afterDelete=0;
+				}
+			});
+			
+			/* auto select dropdown function (ms_area) */
+			var ms_area__rawValue='';
+			var ms_area__afterDelete=0;
+			var ms_area__recentSelected=[];
+			var ms_area__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_area).on('keyup', function(){
+				ms_area__rawValue = ms_area.getRawValue();
+				ms_area__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_area).on('focus', function(c){
+				ms_area__recentSelected = ms_area.getValue();
+				ms_area__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_area).on('blur', function(c, e){
+				var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_area__currentSelected = ms_area.getValue();
+				
+				if( ms_area__rawValue!="" && ! ms_area__afterDelete && ms_area__recentSelected.length == ms_area__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_area.setValue([firstData.code]);
+					}
+					
+					ms_area__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_area).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_area__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_area.setValue([firstData.code]);
+						}
+					}
+					
+					ms_area.collapse();
+				}
+			});
+			
+			//set after delete state
+			$(ms_area).on('selectionchange', function(e,m,r){
+				if(r.length==ms_area__recentSelected.length && r.length==ms_area__currentSelected.length){
+					ms_area__afterDelete=1;
+				}else{
+					ms_area__afterDelete=0;
+				}
+			});
+			
+			/* auto select dropdown function (ms_county) */
+			var ms_county__rawValue='';
+			var ms_county__afterDelete=0;
+			var ms_county__recentSelected=[];
+			var ms_county__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_county).on('keyup', function(){
+				ms_county__rawValue = ms_county.getRawValue();
+				ms_county__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_county).on('focus', function(c){
+				ms_county__recentSelected = ms_county.getValue();
+				ms_county__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_county).on('blur', function(c, e){
+				var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_county__currentSelected = ms_county.getValue();
+				
+				if( ms_county__rawValue!="" && ! ms_county__afterDelete && ms_county__recentSelected.length == ms_county__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_county.setValue([firstData.code]);
+					}
+					
+					ms_county__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_county).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_county__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_county.setValue([firstData.code]);
+						}
+					}
+					
+					ms_county.collapse();
+				}
+			});
+			
+			//set after delete state
+			$(ms_county).on('selectionchange', function(e,m,r){
+				if(r.length==ms_county__recentSelected.length && r.length==ms_county__currentSelected.length){
+					ms_county__afterDelete=1;
+				}else{
+					ms_county__afterDelete=0;
+				}
+			});
+			
+			/* auto select dropdown function (ms_zip) */
+			var ms_zip__rawValue='';
+			var ms_zip__afterDelete=0;
+			var ms_zip__recentSelected=[];
+			var ms_zip__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_zip).on('keyup', function(){
+				ms_zip__rawValue = ms_zip.getRawValue();
+				ms_zip__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_zip).on('focus', function(c){
+				ms_zip__recentSelected = ms_zip.getValue();
+				ms_zip__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_zip).on('blur', function(c, e){
+				var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_zip__currentSelected = ms_zip.getValue();
+				
+				if( ms_zip__rawValue!="" && ! ms_zip__afterDelete && ms_zip__recentSelected.length == ms_zip__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_zip.setValue([firstData.code]);
+					}
+					
+					ms_zip__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_zip).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_zip__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_zip.setValue([firstData.code]);
+						}
+					}
+					
+					ms_zip.collapse();
+				}
+			});
+			
+			//set after delete state
+			$(ms_zip).on('selectionchange', function(e,m,r){
+				if(r.length==ms_zip__recentSelected.length && r.length==ms_zip__currentSelected.length){
+					ms_zip__afterDelete=1;
+				}else{
+					ms_zip__afterDelete=0;
+				}
 			});
 		});
 	</script>		

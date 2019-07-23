@@ -3652,6 +3652,9 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 			$values=$value;
 			foreach($values as $value){		
 				
+				if(empty($value))
+					continue;
+				
 				switch($key){
 					case "location":
 							$arr=explode('_', $value);
