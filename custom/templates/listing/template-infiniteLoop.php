@@ -16,7 +16,11 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 			<div class="col-xs-4"> No Properties Found </div>
 		<?php
 		}else if( $showResults ){ ?>
-			<div class="col-xs-4"> <?php echo number_format_i18n($count,0); ?> Result(s)</div>
+			<?php if( ! $is_ajax_count ): ?>
+			<div class="col-xs-4 prop-total"><?php echo zipperagent_list_total($count); ?></div>
+			<?php else: ?>
+			<div class="col-xs-4 prop-total"></div>
+			<? endif; ?>
 		<?php } ?>
 		
 		<div class="col-xs-8">			

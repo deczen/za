@@ -402,82 +402,17 @@ if( sizeof($_GET)==$excParamCount ){
 		});
 	</script>
 	
-	<?php // global_magicsuggest_script($location); ?>
-	
 	<script>
 		jQuery(document).ready(function(){
-			<?php /* //old search bar script, has to disabled
-	
-			<?php if( !empty( $location ) || is_array( $location ) ): ?>
-			var changeCount=0;
-			jQuery(jQuery('#zpa-area-input').magicSuggest()).on(
-			  'selectionchange', function(e, cb, s){
-				 changeCount++; 
-				 if(changeCount>0){
-					jQuery('#zpa-search-filter-form').submit();
-				 }
-			  }
-			);
-			<?php else: ?>
-			jQuery(jQuery('#zpa-area-input').magicSuggest()).on(
-			  'selectionchange', function(e, cb, s){
-				 jQuery('#zpa-search-filter-form').submit();
-			  }
-			);
-			<?php endif; ?>
 			
-			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input:not([type=checkbox]), #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea', function(e){
-			// jQuery('#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea').on( 'change', function(){
-				// jQuery(this).closest(".dropdown-toggle").dropdown("toggle"); //close dropdown
-				// jQuery(this).closest(".dropdown-menu").toggle(100); //close dropdown
-				
-				jQuery('#zpa-search-filter-form').submit();
-				// jQuery(this).closest(".dropdown-menu").dropdown("toggle"); //close dropdown
-				jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
-				
-				var field=jQuery(this);
-				var value=field.val();
-				var name=field.attr('name');	
-				if(name.substr(name.length - 2)=='[]'){
-					name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
-					onFilterChange( filterLabel(name,value), name); 
-				}else{
-					onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
-				}
-			});
-			
-			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input[type=checkbox]', function(){
-				jQuery('#zpa-search-filter-form').submit();
-				jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
-				var field=jQuery(this);
-				var value=field.val();
-				var name=field.attr('name');	
-				var label=field.attr('label');
-				
-				if(field.prop("checked") == false){
-				   if(name.substr(name.length - 2)=='[]'){
-						name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
-						removeFilterField(label, name);
-					}else{
-						removeFilterField(label, name);
-					}	
-				}else{	
-					if(name.substr(name.length - 2)=='[]'){
-						name=name.toLowerCase().substring(0, name.length-2)+'_'+value;
-						onFilterChange( filterLabel(name,value), name); 
-					}else{
-						onFilterChange( filterLabel(name,value), name.toLowerCase()); //add field to filter
-					}
-				}
-			});
-			// jQuery("#zpa-search-filter-form .dropdown .dropdown-toggle").click(function(){
-				// e.stopPropagation();
-				// jQuery(this).closest(".dropdown-menu").hide();
-				// jQuery(this).parent().find(".dropdown-menu").toggle(100);
-			// });
-			*/ ?>
+			var xhr;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
+				
+				if(xhr && xhr.readyState != 4){
+					xhr.abort();
+				}
+				
 				var $form = jQuery(this); //wrap this in jQuery
 				var data = jQuery(this).serialize();
 				var request = jQuery(this).serializeArray();				
@@ -493,7 +428,7 @@ if( sizeof($_GET)==$excParamCount ){
 				jQuery( '#zipperagent-content' ).html( loading );
 				
 				console.time('generate list');
-				jQuery.ajax({
+				xhr = jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
 					url: zipperagent.ajaxurl,

@@ -161,6 +161,25 @@
 #omnibar-tools .desktop-omnibar .filter .propwaterfront ul.dropdown-menu,
 #omnibar-tools .desktop-omnibar .filter .propexterior ul.dropdown-menu,
 #omnibar-tools .desktop-omnibar .filter .propview ul.dropdown-menu{max-height:180px;overflow-y: auto;}
+#omnibar-tools .desktop-omnibar .filter .propstyles ul.dropdown-menu li,
+#omnibar-tools .desktop-omnibar .filter .propwaterfront ul.dropdown-menu li,
+#omnibar-tools .desktop-omnibar .filter .propexterior ul.dropdown-menu li,
+#omnibar-tools .desktop-omnibar .filter .propview ul.dropdown-menu li,
+#omnibar-tools .desktop-omnibar .filter .proptype ul.dropdown-menu li{width: 100%;}
+#omnibar-tools .desktop-omnibar .filter .propstyles ul.dropdown-menu li label,
+#omnibar-tools .desktop-omnibar .filter .propwaterfront ul.dropdown-menu li label,
+#omnibar-tools .desktop-omnibar .filter .propexterior ul.dropdown-menu li label,
+#omnibar-tools .desktop-omnibar .filter .propview ul.dropdown-menu li label,
+#omnibar-tools .desktop-omnibar .filter .proptype ul.dropdown-menu li label{padding-left: 25px;position:relative;}
+#omnibar-tools .desktop-omnibar .filter .propstyles ul.dropdown-menu li label input[type='checkbox'],
+#omnibar-tools .desktop-omnibar .filter .propwaterfront ul.dropdown-menu li label input[type='checkbox'],
+#omnibar-tools .desktop-omnibar .filter .propexterior ul.dropdown-menu li label input[type='checkbox'],
+#omnibar-tools .desktop-omnibar .filter .propview ul.dropdown-menu li label input[type='checkbox'],
+#omnibar-tools .desktop-omnibar .filter .proptype ul.dropdown-menu li label input[type='checkbox']{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
 #omnibar-tools .desktop-omnibar .search-by #dropdownMenuButton:after{
     content: '';
     position: absolute;

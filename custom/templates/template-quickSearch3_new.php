@@ -45,7 +45,9 @@ $maxListPrice		= $requests['maxlistprice'];
 										</div>
 										<div class="field-wrap">
 											<div class="field-section all">
-												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any area, city, county, MLS# or zip code"  name=""/>
+												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any address, area, city, county, MLS# or zip code"  name=""/>
+												<input id="zpa-all-input-address" type="hidden" value="" />
+												<input id="zpa-all-input-address-values" type="hidden" value="" />
 												<div style="display:none;" class="input-fields"></div>
 											</div>
 											<div class="field-section addr hide">
@@ -573,34 +575,62 @@ $maxListPrice		= $requests['maxlistprice'];
 				},				
 			});		
 			
+			/* magicSuggest actions */
+			
 			$(ms_all).on('selectionchange', function(e,m){		
 				var values = this.getValue();
 				var value, check, name, add;
 				var fields = $('.field-wrap .field-section.all .input-fields');
 				
 				fields.html(''); //clear all fields
+				clearGoogleAddressFields(); //clear address fields
+				
 				for(i=0; i<values.length; i++){
 					
-					check=0;
+					is_location=0;
+					is_address=0;
+					is_mls=0;
+					is_add=0;
 					value  = values[i];
-					name = 'location[]';
 					
-					if (value.toLowerCase().indexOf("aars_") >= 0){ //town
-						check=1;
+					if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
+						is_location=1;
 					}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area
-						check=1;
+						is_location=1;
 					}else if (value.toLowerCase().indexOf("acnty_") >= 0){ //county
-						check=1;
+						is_location=1;
 					}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
-						check=1;
+						is_location=1;
+					}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
+						is_address=1;
+					}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
+						is_mls=1;
 					}
 					
-					if(!check){
+					if(is_location){							
+						name = 'location[]';
+						is_add=1;
+					}else if(is_address){
+						name = '';
+						is_add=0;
+					}else if(is_mls){
 						name = 'alstid[]';
-					}		
-
-					add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
-					fields.append(add);
+						value = value.replace('alstid_','');
+						is_add=1;
+					}
+					
+					if(is_add){
+						add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
+						fields.append(add);
+					}else if(is_address){
+						var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
+						if(saved_address){
+							$.each(saved_address, function(key, value) {
+								jQuery('.field-section.addr #'+ key).val(value);
+								jQuery('.field-section.addr #'+ key).prop('disabled',false);
+							});
+						}
+					}
 				}
 			});
 			
@@ -655,8 +685,45 @@ $maxListPrice		= $requests['maxlistprice'];
 				}, 500);
 			});
 			
-			/* auto select dropdown function (ms_all) */
+			/* Combine ms_all and google autocomplete */
 			var ms_all__rawValue='';
+			var ms_all__google_autocomplete;
+			
+			//select value on enter key pressed
+			$(ms_all).on('keydown', function(e,m,v){
+				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+				var magicSuggest_option_exists = data.length;
+				var google_option_exists = $('body .pac-container.pac-logo').html();
+				
+				if(magicSuggest_option_exists){
+					ms_all__google_autocomplete=0;
+					jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
+				}else if(google_option_exists && ms_all__rawValue.length > 2){
+					ms_all__google_autocomplete=1;
+					jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' );
+				}else{
+					ms_all__google_autocomplete=0;
+					jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
+				}
+			});
+			
+			function clearGoogleAddressFields(){
+				jQuery('#zpa-all-input-address').val('');
+				jQuery('.field-section.addr #street_number').val('');
+				jQuery('.field-section.addr #street_number').prop('disabled',true);
+				jQuery('.field-section.addr #route').val('');
+				jQuery('.field-section.addr #route').prop('disabled',true);
+				jQuery('.field-section.addr #locality').val('');
+				jQuery('.field-section.addr #locality').prop('disabled',true);
+				jQuery('.field-section.addr #administrative_area_level_1').val('');
+				jQuery('.field-section.addr #administrative_area_level_1').prop('disabled',true);
+				jQuery('.field-section.addr #country').val('');
+				jQuery('.field-section.addr #country').prop('disabled',true);
+				jQuery('.field-section.addr #postal_code').val('');
+				jQuery('.field-section.addr #postal_code').prop('disabled',true);
+			}
+			
+			/* auto select dropdown function (ms_all) */
 			var ms_all__afterDelete=0;
 			var ms_all__recentSelected=[];
 			var ms_all__currentSelected=[];
@@ -689,10 +756,23 @@ $maxListPrice		= $requests['maxlistprice'];
 					if(data.length){
 						firstData=JSON.parse(data[0].dataset.json);
 						ms_all.setValue([firstData.code]);
-					}else{
-						var custom = ms_all__rawValue;
-						var push =  new Array(custom);
-						ms_all.setValue(push);
+					}else if(!ms_all__google_autocomplete){
+						var val = ms_all__rawValue;
+						var prefix = 'alstid_';
+						var code = prefix + val;							
+						var label = 'MLS#' + val;
+						
+						var push = {group:'Mls', name: label, code: code, type: 'mls' };
+						ms_all.setValue([push]);
+					}else if(ms_all__google_autocomplete){
+						var val = $('#zpa-all-input-address').val();
+						var prefix = 'addr_';
+						var code = prefix + 'selected_address';							
+						var label = val;
+						
+						// var push = {id:name, name: label};
+						var push = {group:'Address', name: label, code: code, type: 'address' };
+						ms_all.setValue([push]);
 					}
 					
 					ms_all__afterDelete=0;
@@ -709,10 +789,23 @@ $maxListPrice		= $requests['maxlistprice'];
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all.setValue([firstData.code]);
-						}else{
-							var custom = ms_all__rawValue;
-							var push =  new Array(custom);
-							ms_all.setValue(push);
+						}else if(!ms_all__google_autocomplete){
+							var val = ms_all__rawValue;
+							var prefix = 'alstid_';
+							var code = prefix + val;							
+							var label = 'MLS#' + val;
+							
+							var push = {group:'Mls', name: label, code: code, type: 'mls' };
+							ms_all.setValue([push]);
+						}else if(ms_all__google_autocomplete){
+							var val = $('#zpa-all-input-address').val();
+							var prefix = 'addr_';
+							var code = prefix + 'selected_address';							
+							var label = val;
+							
+							// var push = {id:name, name: label};
+							var push = {group:'Address', name: label, code: code, type: 'address' };
+							ms_all.setValue([push]);
 						}
 					}
 					
@@ -969,7 +1062,121 @@ $maxListPrice		= $requests['maxlistprice'];
 				}
 			});
 		});
-	</script>		
+	</script>
+	<script>  
+	  <?php
+	  $rb = zipperagent_rb();
+	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
+	  $states=array_map('trim', explode(',', $states));
+	  $states=implode(' | ',$states);
+	  ?>
+	  // This example displays an address form, using the autocomplete feature
+	  // of the Google Places API to help users fill in the information.
+
+	  // This example requires the Places library. Include the libraries=places
+	  // parameter when you first load the API. For example:
+	  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+	  jQuery(document).ready(function(){
+		  var placeSearch, autocomplete;
+		  var componentForm = {
+			street_number: 'short_name',
+			route: 'long_name',
+			locality: 'long_name',
+			administrative_area_level_1: 'short_name',
+			// country: 'short_name',
+			postal_code: 'short_name'
+		  };
+		  // var input = document.getElementById('zpa-all-input');
+		  var input = document.querySelector('#zpa-all-input input');
+
+		  function initAutocomplete() {
+			var options = {
+				types: ['geocode'],  // or '(cities)' if that's what you want?
+				componentRestrictions: {country: ["us","ca","in"]},
+			};
+			// Create the autocomplete object, restricting the search to geographical
+			// location types.
+			autocomplete = new google.maps.places.Autocomplete(
+				/** @type {!HTMLInputElement} */(input), options);
+
+			// When the user selects an address from the dropdown, populate the address
+			// fields in the form.
+			autocomplete.addListener('place_changed', fillInAddress);
+		  }
+
+		  function fillInAddress() {
+			
+			var saved_values={};
+			  
+			// Get the place details from the autocomplete object.
+			var place = autocomplete.getPlace();
+			
+			for (var component in componentForm) {
+			  document.getElementById(component).value = '';
+			  document.getElementById(component).disabled = false;
+			}
+
+			// Get each component of the address from the place details
+			// and fill the corresponding field on the form.
+			for (var i = 0; i < place.address_components.length; i++) {
+			  var addressType = place.address_components[i].types[0];
+			  if (componentForm[addressType]) {
+				var val = place.address_components[i][componentForm[addressType]];
+				var field = jQuery('#'+addressType);
+				var key = addressType;
+				document.getElementById(addressType).value = val;
+				// saved_values.push({key:val});
+				saved_values[addressType]=val;
+			  }
+			}
+			var json = JSON.stringify(saved_values);
+			jQuery('#zpa-all-input-address-values').val(json);
+			jQuery('#zpa-all-input-address').val(place.formatted_address);
+		  }
+
+		  // Bias the autocomplete object to the user's geographical location,
+		  // as supplied by the browser's 'navigator.geolocation' object.
+		  function geolocate() {
+			if (navigator.geolocation) {
+			  navigator.geolocation.getCurrentPosition(function(position) {
+				var geolocation = {
+				  lat: position.coords.latitude,
+				  lng: position.coords.longitude
+				};
+				var circle = new google.maps.Circle({
+				  center: geolocation,
+				  radius: position.coords.accuracy
+				});
+				autocomplete.setBounds(circle.getBounds());
+				
+				console.log(circle.getBounds());
+			  });
+			}
+		  }
+		  
+		  jQuery('#zpa-all-input input').on('focus', function(){
+			  geolocate();
+		  });
+		  
+		  initAutocomplete();
+		  <?php  /* if($states): ?>
+		  jQuery(input).on('input',function(){
+			var str = input.value;
+			var prefix = '<?php echo $states; ?> | ';
+			if(str.indexOf(prefix) == 0) {
+				// console.log(input.value);
+			} else {
+				if (prefix.indexOf(str) >= 0) {
+					input.value = prefix;
+				} else {
+					input.value = prefix+str;
+				}
+			}
+
+		  }); 
+		  <?php endif; */ ?>
+	  });
+	</script>
 	<script>  
 	  <?php
 	  $rb = zipperagent_rb();

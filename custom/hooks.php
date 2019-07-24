@@ -945,7 +945,7 @@ function load_more_properties(){
 		global $requests, $is_ajax, $is_view_save_search, $actual_link;
 		global $contactId;
 		global $o, $location, $address, $advStNo, $advStName, $advTownNm, $advStates, $advCounties, $advStZip, $boundaryWKT, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet,
-			   $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $daysfromnow, $openHomesMode, $openHomesOnlyYn, $maxDaysListed, $featuredOnlyYn, $hasVirtualTour, $withImage, $dateRange, $year, $alagt, $aloff, $showPagination, $showResults, $crit;
+			   $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $startTime, $endTime, $daysfromnow, $openHomesMode, $openHomesOnlyYn, $maxDaysListed, $featuredOnlyYn, $hasVirtualTour, $withImage, $dateRange, $year, $alagt, $aloff, $showPagination, $showResults, $crit;
 		global $infiniteajax;
 		
 		$query_args=array();
@@ -971,7 +971,7 @@ function load_more_properties(){
 		$advCounties 		= ( isset($requests['advcounties'])?$requests['advcounties']:'' );
 		$advStZip 			= str_replace( ' ', '', ( isset($requests['advstzip'])?$requests['advstzip']:'' ) );
 		$boundaryWKT 		= ( isset($requests['boundarywkt'])?$requests['boundarywkt']:'' );
-		$propertyType 		= ( isset($requests['propertytype'])?urldecode($requests['propertytype']):'' );
+		$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
 		$propSubType 		= ( isset($requests['propsubtype'])?(!is_array($requests['propsubtype'])?array($requests['propsubtype']):$requests['propsubtype']):array() );
 		$status 			= ( isset($requests['status'])?$requests['status']:'' );
 		$minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:'' );
@@ -1007,9 +1007,7 @@ function load_more_properties(){
 		$distance 			= ( isset($requests['distance'])?$requests['distance']:zipperagent_distance() );
 		$lat 				= ( isset($requests['lat'])?$requests['lat']:'' );
 		$lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
-			
-		//default status
-		$status = empty($status)?zipperagent_active_status():$status;
+
 
 		/**
 		 * PREPARATION
@@ -1021,6 +1019,31 @@ function load_more_properties(){
 		else
 			$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		
+		/* set count variable */
+		$is_ajax_count=0;
+
+		/* default status */
+		$status = empty($status)?zipperagent_active_status():$status;
+
+		/* set column number */
+		$default_column=3;
+		$column = empty($column)?$default_column:$column;
+		$column = $column > 4 || $column < 1 ? $default_column : $column;
+		switch( $column ){
+			case 4:
+					$columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
+				break;
+			case 1:
+					$columns_code = 'col-lg-12 col-sm-12 col-md-12 col-xs-12';
+				break;
+			case 2:
+					$columns_code = 'col-lg-6 col-sm-6 col-md-6 col-xs-12';
+				break;
+			case 3:
+			default:
+					$columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
+				break;
+		}
 
 		/* get town list */
 		$locqry=array();
@@ -1075,7 +1098,7 @@ function load_more_properties(){
 			
 		}else if($boundaryWKT){
 			// preg_match( '/POLYGON \(\((.*?)\)\)/', $boundaryWKT, $match );
-			preg_match( '/POLYGON \(\((.*?)\)\)/', $boundaryWKT, $match );
+			preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode($boundaryWKT), $match );
 			$coor_string = isset($match[1])?'('.$match[1].')':'';
 			preg_match_all( "/\(([^)]+)\)/", $coor_string, $match );
 			// $polygons = array_map('trim', explode( ',', $match[1] ));
@@ -1183,13 +1206,38 @@ function load_more_properties(){
 			else
 			$endDate = date( 'm/d/Y', strtotime ( $current_date . ' + '. $daytoadd .' days' ) );
 			
+			$search=array(
+				'asrc'=>$rb['web']['asrc'],
+				// 'aloff'=>$rb['web']['aloff'],
+				'abeds'=>$bedrooms,
+				'abths'=>$bathCount,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
+				'asts'=>$status,
+				'apmin'=>za_correct_money_format($minListPrice),
+				'apmax'=>za_correct_money_format($maxListPrice),
+				'aacr'=>$lotAcres,
+			);
+			
+			$search= array_merge($search, $locqry, $advSearch);
+			
 			$vars=array(
+				'crit'=>proces_crit($search),
 				'startDate'=>$startDate,
 				'endDate'=>$endDate,
 				'sidx'=>$index,
 				'ps'=>$num,
 				'o'=>$o,
 			);
+			
+			if($startTime){
+				$vars['startTime']=$startTime;
+			}
+			if($endTime){
+				$vars['endTime']=$endTime;
+			}	
+			if( $crit )
+				$vars['crit'] = $crit;
 			
 			$result = zipperagent_run_curl( "/api/mls/getopenhouses", $vars);
 			
@@ -1204,7 +1252,8 @@ function load_more_properties(){
 				// 'aloff'=>$rb['web']['aloff'],
 				'abeds'=>$bedrooms,
 				'abths'=>$bathCount,
-				'apt'=>$propertyType,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
 				'asts'=>$status,
 				'apmin'=>za_correct_money_format($minListPrice),
 				'apmax'=>za_correct_money_format($maxListPrice),
@@ -1228,9 +1277,6 @@ function load_more_properties(){
 			
 			if( $crit )
 				$vars['crit'] = $crit;
-			
-			// if( $crit )
-				// $vars['crit'] = $crit;
 			
 			$result = zipperagent_run_curl( "/api/mls/within", $vars );
 			$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
@@ -1284,7 +1330,8 @@ function load_more_properties(){
 				// 'aloff'=>$rb['web']['aloff'],
 				'abeds'=>$bedrooms,
 				'abths'=>$bathCount,
-				'apt'=>$propertyType,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
 				'asts'=>$status,
 				'apmin'=>za_correct_money_format($minListPrice),
 				'apmax'=>za_correct_money_format($maxListPrice),
@@ -1320,6 +1367,7 @@ function load_more_properties(){
 			}
 			$list=isset($result['filteredList'])?$result['filteredList']:$result;
 			
+			$is_ajax_count=1;
 		}
 
 		$enable_filter= $coords || $openHomesMode == "true" ? false : true;

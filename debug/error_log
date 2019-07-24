@@ -104,3 +104,17 @@
 [05-Jul-2019 05:07:44 UTC] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/themes/Divi/includes/builder/functions.php on line 6044
 [05-Jul-2019 05:07:44 UTC] PHP Deprecated:  The each() function is deprecated. This message will be suppressed on further calls in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/js_composer/include/classes/core/class-vc-mapper.php on line 111
 [17-Jul-2019 02:59:38 UTC] PHP Deprecated:  Function create_function() is deprecated in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/themes/conall/framework/modules/widgets/sticky-sidebar/sticky-sidebar.php on line 20
+[24-Jul-2019 10:25:24 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_LRANGEEX got T_TERM (=>) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:30
+Stack trace:
+#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_LRANGEEX')
+#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(278): Adoy\ICU\ResourceBundle\Parser->match(258)
+#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
+#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
+#4 /home/blpcfvhi/publ in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 30
+[24-Jul-2019 10:26:08 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_LRANGEEX got T_TERM (=>) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:30
+Stack trace:
+#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_LRANGEEX')
+#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(278): Adoy\ICU\ResourceBundle\Parser->match(258)
+#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
+#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
+#4 /home/blpcfvhi/publ in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 30

@@ -324,7 +324,14 @@ if(get_query_var('page')){
 				jQuery('#zpa-search-filter-form').submit();
 			});
 			
+			var xhr;
+			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
+				
+				if(xhr && xhr.readyState != 4){
+					xhr.abort();
+				}
+				
 				var $form = jQuery(this); //wrap this in jQuery
 				var data = jQuery(this).serialize();
 				var request = jQuery(this).serializeArray();
@@ -339,7 +346,7 @@ if(get_query_var('page')){
 				jQuery( '#zipperagent-content' ).html( loading );
 				
 				console.time('generate list');
-				jQuery.ajax({
+				xhr = jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
 					url: zipperagent.ajaxurl,
