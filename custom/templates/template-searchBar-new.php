@@ -166,6 +166,7 @@ $excludes = get_new_filter_excludes();
 							 Filter
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div class="wrap-filter">
 								<div class="row">
 									<div class="propstatus col-xs-12">
 										<h3>Status</h3>
@@ -551,6 +552,7 @@ $excludes = get_new_filter_excludes();
 											</div>
 										</div>
 									</div>
+								</div>
 								</div>
 							</div>
 						</div>

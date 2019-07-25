@@ -5,6 +5,7 @@
 	display: none !important;
 }
 @media print {
+	body .edgtf-container-inner{width: 100% !important;}
 	body header,
 	body footer,
 	body #top-header,
@@ -19,12 +20,14 @@
 	body .zy-widget,
 	body .zy-margin #omnibar-tools,
 	body .zy-margin #zipperagent-content .hideonprint,
-	body .uk-sticky-placeholder {
+	body .uk-sticky-placeholder,
+	body #edgtf-back-to-top {
 		display: none!important;
 	}
 	body .printonly{
 		display: block !important;
 	}
+	body .zy-margin{padding-top: 0 !important;}
 	body .zy-print-view .zy-print-block img{max-width: 100px;display: inline-block;}
 	body .zy-print-view {
 		display: block !important;

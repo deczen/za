@@ -1,5 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures)  ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->construction) || isset($single_property->unmapped->ConstructionType) || isset($single_property->unmapped->ConstructionStatus) || isset($single_property->foundation) || isset($single_property->parkingfeature) || isset($single_property->unmapped->Driveway) || isset($single_property->equiplistavail) || isset($single_property->termsfeature) || isset($single_property->interiorfeatures) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Porch) || isset($single_property->roofmaterial) || isset($single_property->unmapped->DoorsWindows) || isset($single_property->unmapped->LotDimension) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<table class="zy-listing__table">
@@ -20,9 +20,9 @@
 				<?php if( isset($single_property->flooring)): ?>
 				<li>Floor: [flooring]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>House Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->waterviewfeatures)): ?>
 				<li>Waterview: [waterviewfeatures]</li>
 				<?php endif; ?>

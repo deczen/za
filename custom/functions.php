@@ -2948,6 +2948,15 @@ if( ! function_exists('zipperagent_signup_optional') ){
 	}
 }
 
+if( ! function_exists('zipperagent_signup_optional_time') ){
+	function zipperagent_signup_optional_time(){
+		$rb = zipperagent_rb();		
+		$signup_optional_time = isset($rb['web']['signup_optional_time'])?$rb['web']['signup_optional_time']:0;
+		
+		return $signup_optional_time;
+	}
+}
+
 if( ! function_exists('zipperagent_signup_optional_exception') ){
 	function zipperagent_signup_optional_exception(){
 		$rb = zipperagent_rb();		
@@ -3085,7 +3094,7 @@ if( ! function_exists('showSignUpPopup') ){
 	 * Check is popup is mandatory or not
 	 */
 	
-	if( !zipperagent_signup_optional() && $_SESSION['popup_is_triggered'] == 1)
+	if( !zipperagent_signup_optional() && isset($_SESSION['popup_is_triggered']) && $_SESSION['popup_is_triggered'] == 1)
 		return 1;
 	
 	/*
@@ -3150,8 +3159,10 @@ if( ! function_exists('showSignUpPopup') ){
 if( ! function_exists('SignUpPopupTime') ){
 	function SignUpPopupTime(){
 		
-		if( !zipperagent_signup_optional() && $_SESSION['popup_is_triggered'] == 1)
-			return 0; //if sign up is mandatory and already triggered before, show popup immediately
+		if( !zipperagent_signup_optional() && isset($_SESSION['popup_is_triggered']) && $_SESSION['popup_is_triggered'] == 1){
+			$seconds = zipperagent_signup_optional_time();
+			return $seconds; //if sign up is mandatory and already triggered before, show popup immediately
+		}
 		
 		$rb = zipperagent_rb();
 		$seconds = isset($rb['web']['popup_show_time'])?$rb['web']['popup_show_time']:'';
@@ -3625,6 +3636,30 @@ if( ! function_exists('zipperagent_generate_filter_input') ){
 		}
 	}
 }
+
+if( ! function_exists('zipperagent_mortgage_calculator') ){
+	function zipperagent_mortgage_calculator($args){
+		global $requests;
+				
+		$defaults = array(
+			'default_homeprice' => 1000000,
+			'default_downpayment_percent' => 20,
+			'default_taxes_percent' => 0.98,
+			'default_hoadues' => 0,
+			'default_mortgage_insurance_percent' => 0.75,
+			'default_homeowners_insurance_percent' => 0.4,
+			'default_interestrate' => 3.77,
+			'default_loan_type' => '30yrs',
+		);
+		
+		$args = wp_parse_args( $args, $defaults );
+		
+		$requests = $args;
+		
+		include ZIPPERAGENTPATH. "/custom/templates/template-shortcode-mortgage-new.php";
+	}
+}
+
 
 if( ! function_exists('zipperagent_fix_comma') ){
 	function zipperagent_fix_comma($value){

@@ -1,15 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) 
-		   || isset($single_property->frontage) || isset($single_property->DwellingType) || isset($single_property->foundation) || isset($single_property->style)
-		   || isset($single_property->roofmaterial) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->parkingfeature) 
-		   || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess) 
-		   || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures)
-		   || isset($single_property->reqdownassociation) || isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->GreenEnergyEfficient) 
-		   || isset($single_property->unmapped->HomeWarrantyYN) || isset($single_property->unmapped->Levels) || isset($single_property->propsubtype) || isset($single_property->assocsecurity) 
-		   || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->petsallowed) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->CarportYN)
-		   || isset($single_property->utilities) || isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->garageparking) || isset($single_property->lotdescription) 
-		   || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->pooldescription) || isset($single_property->appliances) 
-		   || isset($single_property->bldgsqfeet) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->HeatingYN)):?>
+	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) || isset($single_property->DwellingType) || isset($single_property->foundation) /*|| isset($single_property->style)*/ || isset($single_property->roofmaterial) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->parkingfeature) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess) || isset($single_property->interiorfeatures ) || isset($single_property->exteriorfeatures) || isset($single_property->reqdownassociation) || isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->GreenEnergyEfficient) || isset($single_property->unmapped->HomeWarrantyYN) || isset($single_property->unmapped->Levels) || isset($single_property->propsubtype) || isset($single_property->assocsecurity) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->petsallowed) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->CarportYN) || isset($single_property->utilities) || isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->garageparking) || isset($single_property->lotdescription) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->pooldescription) || isset($single_property->appliances) || isset($single_property->bldgsqfeet) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->HeatingYN)):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
@@ -38,9 +28,9 @@
 				<?php if( isset($single_property->foundation)): ?>
 				<li>Foundation: [foundation]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->roofmaterial)): ?>
 				<li>Roof Material: [roofmaterial]</li>
 				<?php endif; ?>

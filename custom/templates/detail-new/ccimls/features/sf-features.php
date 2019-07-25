@@ -54,7 +54,7 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->beachdescription) || isset($single_property->waterbodyname) || isset($single_property->unmapped->Dock) || isset($single_property->unmapped->{'Dock Description'}) || isset($single_property->exteriorfeatures) || isset($single_property->foundation) || isset($single_property->unmapped->Garage) || isset($single_property->garageparking) || isset($single_property->parkingfeature) || isset($single_property->asscpool) || isset($single_property->pooldescription) || isset($single_property->roofmaterial) || isset($single_property->exterior) || isset($single_property->roadtype) || isset($single_property->style) || isset($single_property->lotdescription) || isset($single_property->unmapped->Waterview) || isset($single_property->waterfrontflag) || isset($single_property->waterfront) ): ?>
+	<?php if( isset($single_property->beachdescription) || isset($single_property->waterbodyname) || isset($single_property->unmapped->Dock) || isset($single_property->unmapped->{'Dock Description'}) || isset($single_property->exteriorfeatures) || isset($single_property->foundation) || isset($single_property->unmapped->Garage) || isset($single_property->garageparking) || isset($single_property->parkingfeature) || isset($single_property->asscpool) || isset($single_property->pooldescription) || isset($single_property->roofmaterial) || isset($single_property->exterior) || isset($single_property->roadtype) /*|| isset($single_property->style)*/ || isset($single_property->lotdescription) || isset($single_property->unmapped->Waterview) || isset($single_property->waterfrontflag) || isset($single_property->waterfront) ): ?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Exterior Features</h3>
 		<ul class="zy-sub-list">
@@ -101,9 +101,9 @@
 				<?php if( isset($single_property->roadtype)): ?>
 				<li>Street Description: [roadtype]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->lotdescription)): ?>
 				<li>Topography: [lotdescription]</li>
 				<?php endif; ?>

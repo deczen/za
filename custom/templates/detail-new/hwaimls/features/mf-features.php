@@ -1,13 +1,13 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->style) || isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->unmapped->Topography) || isset($single_property->location) || isset($single_property->flooring) || isset($single_property->unmapped->Inclusions) || isset($single_property->unmapped->StoriesType) || isset($single_property->unmapped->SecurityFeatures) || isset($single_property->parkingfeature) || isset($single_property->unmapped->CondoParkingUnit) || isset($single_property->unmapped->OccupantType) || isset($single_property->unmapped->FloodZone) || isset($single_property->unmapped->View) || isset($single_property->unmapped->PropertyFrontage) || isset($single_property->unmapped->FloorNumber) || isset($single_property->elevator) || isset($single_property->amenities) || isset($single_property->sitecondition) || isset($single_property->zoning) ):?>
+	<?php if( /*isset($single_property->style) ||*/ isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->unmapped->Topography) || isset($single_property->location) || isset($single_property->flooring) || isset($single_property->unmapped->Inclusions) || isset($single_property->unmapped->StoriesType) || isset($single_property->unmapped->SecurityFeatures) || isset($single_property->parkingfeature) || isset($single_property->unmapped->CondoParkingUnit) || isset($single_property->unmapped->OccupantType) || isset($single_property->unmapped->FloodZone) || isset($single_property->unmapped->View) || isset($single_property->unmapped->PropertyFrontage) || isset($single_property->unmapped->FloorNumber) || isset($single_property->elevator) || isset($single_property->amenities) || isset($single_property->sitecondition) || isset($single_property->zoning) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
 
 			
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->construction)): ?>
 				<li>Construction: [construction]</li>
 				<?php endif; ?>

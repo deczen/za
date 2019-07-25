@@ -1,5 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures)  ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures)  ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -21,9 +21,9 @@
 			<?php if( isset($single_property->flooring)): ?>
 			<li>Floor: [flooring]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->style)): ?>
+			<?php /*if( isset($single_property->style)): ?>
 			<li>Home Style: [style]</li>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if( isset($single_property->interiorfeatures)): ?>
 			<li>Interior Features: [interiorfeatures]</li>
 			<?php endif; ?>

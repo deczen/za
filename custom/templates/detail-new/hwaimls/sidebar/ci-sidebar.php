@@ -1,3 +1,4 @@
+<?php if(isset($single_property->style)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Style</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[style]</span></li><?php endif; ?>
 <?php if(isset($single_property->nounits)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Units</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[nounits]</span></li><?php endif; ?>
 <?php if(isset($single_property->nostories)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Stories</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[nostories]</span></li><?php endif; ?>
 <?php if(isset($single_property->nobuildings)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Buildings</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[nobuildings]</span></li><?php endif; ?>

@@ -72,11 +72,11 @@
 	
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) || isset($single_property->style) || isset($single_property->garageparking) || isset($single_property->parkingspaces) || isset($single_property->taxes) || isset($single_property->homeownassociation) || isset($single_property->hoafee) ):?>
+	<?php if( isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) /*|| isset($single_property->style)*/ || isset($single_property->garageparking) || isset($single_property->parkingspaces) || isset($single_property->taxes) || isset($single_property->homeownassociation) || isset($single_property->hoafee) ):?>
 	
 	<li class="cell">
 		
-		<?php if( isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) || isset($single_property->style) ):?>
+		<?php if( isset($single_property->unmapped->driveway) || isset($single_property->exterior) || isset($single_property->exteriorfeatures) || isset($single_property->frontage) || isset($single_property->landdesc) || isset($single_property->unmapped->dimback) || isset($single_property->unmapped->dimside) || isset($single_property->lotdescription) || isset($single_property->roofmaterial) || isset($single_property->unmapped->storage) /*|| isset($single_property->style)*/ ):?>
 		
 		<h3 class="zy-feature-title">Exterior Features</h3>
 		<ul class="zy-sub-list">
@@ -112,9 +112,9 @@
 				<?php if( isset($single_property->unmapped->storage)): ?>
 				<li>Storage: [unmapped_storage]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 			
 		</ul>
 		<?php endif; ?>

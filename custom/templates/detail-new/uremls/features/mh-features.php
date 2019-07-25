@@ -1,8 +1,8 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures) || isset($single_property->facingdirection) || isset($single_property->landdesc) || isset($single_property->zoning) || isset($single_property->schooldistrict) || isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->termsfeature) || isset($single_property->interiorfeatures) || isset($single_property->fireplaces) ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures) || isset($single_property->facingdirection) || isset($single_property->landdesc) || isset($single_property->zoning) || isset($single_property->schooldistrict) || isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->termsfeature) || isset($single_property->interiorfeatures) || isset($single_property->fireplaces) ):?>
 	<li class="cell">
 	
-		<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->flooring) || isset($single_property->style) || isset($single_property->waterviewfeatures) || isset($single_property->facingdirection) || isset($single_property->landdesc) || isset($single_property->zoning) || isset($single_property->schooldistrict) || isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->termsfeature) ):?>
+		<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures) || isset($single_property->facingdirection) || isset($single_property->landdesc) || isset($single_property->zoning) || isset($single_property->schooldistrict) || isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->termsfeature) ):?>
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
 
@@ -22,9 +22,9 @@
 				<?php if( isset($single_property->flooring)): ?>
 				<li>Floor: [flooring]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Home Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<li>Interior Features: [interiorfeatures]</li>
 				<?php endif; ?>

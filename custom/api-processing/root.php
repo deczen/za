@@ -93,6 +93,7 @@
 	if(isset($rb['web']['company_name']))  					$data['web']['company_name'] = $rb['web']['company_name'];
 	if(isset($rb['web']['exclude_prop_types']))  			$data['web']['exclude_prop_types'] = $rb['web']['exclude_prop_types'];
 	if(isset($rb['web']['signup_optional_exception']))  	$data['web']['signup_optional_exception'] = $rb['web']['signup_optional_exception'];
+	if(isset($rb['web']['signup_optional_time']))  				$data['web']['signup_optional_time'] = $rb['web']['signup_optional_time'];
 	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];

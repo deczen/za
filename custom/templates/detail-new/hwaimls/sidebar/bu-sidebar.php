@@ -1,3 +1,4 @@
+<?php if(isset($single_property->style)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Style</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[style]</span></li><?php endif; ?>
 <?php if(isset($single_property->squarefeet)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">SqFt</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[squarefeet]</span></li><?php endif; ?>
 <?php if(isset($single_property->lotsize)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Land Square Feet</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[lotsize]</span></li><?php endif; ?>
 <?php if(isset($single_property->location)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Location</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[location]</span></li><?php endif; ?>

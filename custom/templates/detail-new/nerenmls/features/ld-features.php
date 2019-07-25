@@ -1,5 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) ):?>
+	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) || isset($single_property->DwellingType) || isset($single_property->foundation) /*|| isset($single_property->style)*/ || isset($single_property->roofmaterial) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->CarStorage) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
@@ -28,9 +28,9 @@
 				<?php if( isset($single_property->foundation)): ?>
 				<li>Foundation: [foundation]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->roofmaterial)): ?>
 				<li>Roof Material: [roofmaterial]</li>
 				<?php endif; ?>

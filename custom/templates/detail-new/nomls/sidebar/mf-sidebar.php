@@ -1,3 +1,4 @@
+<?php if(isset($single_property->style)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">House Style</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[style]</span></li><?php endif; ?>
 <?php if(isset($single_property->totalrooms)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Total Units</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[totalrooms]</span></li><?php endif; ?>
 <?php if(isset($single_property->nobedrooms)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Beds</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[nobedrooms]</span></li><?php endif; ?>
 <?php if(isset($single_property->nofullbaths)): ?><li><label class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">Full Baths</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding">[nofullbaths]</span></li><?php endif; ?>

@@ -44,6 +44,8 @@
 }
 #omnibar-tools .dropdown-menu .more{max-height: 300px;overflow-y: auto;overflow-x: hidden;}
 #omnibar-tools .dropdown-menu .checkbox-wrap .checkbox-row{width: 870px;}
+#omnibar-tools .desktop-omnibar .search-by.dropdown > .dropdown-menu{margin-top: 7px}
+#omnibar-tools .desktop-omnibar .search-by.dropdown > .dropdown-menu:before,
 #omnibar-tools .dropdown-group > .dropdown > .dropdown-menu:before{
     content: '';
     width: 8px;
@@ -132,7 +134,8 @@
 #omnibar-tools #zpa-mobile-all-input{height:auto;}
 
 #omnibar-tools .propstatus li{display: inline-block;}
-#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu{min-width: 500px;max-height: 70vh;overflow-y: auto;overflow-x: hidden;padding: 10px 10px 30px !important;margin-top: 7px;}
+#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu{margin-top: 7px;padding: 0 !important;}
+#omnibar-tools .desktop-omnibar .dropdown-group > .dropdown.filter > .dropdown-menu .wrap-filter{min-width: 500px;max-height: 70vh;overflow-y: auto;overflow-x: hidden;padding: 10px 10px 30px !important;}
 #omnibar-tools .filter .two-field-wrap select{display: inline-block; width: 47%;background-size: 18px;}
 #omnibar-tools .filter .two-field-wrap span{width: 4.3%;display: inline-block;text-align: center;}
 #omnibar-tools .filter select{background-size: 18px;}

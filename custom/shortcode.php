@@ -306,8 +306,26 @@ function display_mortgage_calculator($atts){
 	
 	$requests = $atts;
 	
+	$args=array();
+	
+	if(isset($atts['home_price']))					$args['default_homeprice'] = $requests['home_price'];
+	if(isset($atts['down_payment_percentage']))		$args['default_downpayment_percent'] = $requests['down_payment_percentage'];
+	if(isset($atts['tax_percentage']))				$args['default_taxes_percent'] = $requests['tax_percentage'];
+	if(isset($atts['interest_rate_percentage']))	$args['default_interestrate'] = $requests['interest_rate_percentage'];
+	if(isset($atts['loan_type']))					$args['default_loan_type'] = $requests['loan_type'];
+	
 	ob_start();	
-	include ZIPPERAGENTPATH . "/custom/templates/template-shortcode-mortgage.php";
+	if(is_zipperagent_new_detail_page()){
+		
+		echo '<div id="zpa-main-container" class="zpa-container">';
+		echo '<div class="row">';
+		echo '<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-12">';
+		zipperagent_mortgage_calculator($args);
+		echo '</div></div></div>';
+		
+	}else{	
+		include ZIPPERAGENTPATH . "/custom/templates/template-shortcode-mortgage.php";
+	}
 	$html=ob_get_clean();
 	
 	return $html;

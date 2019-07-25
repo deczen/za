@@ -1,5 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) ):?>
+	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) || isset($single_property->construction) || isset($single_property->unmapped->ConstructionType) || isset($single_property->unmapped->ConstructionStatus) || isset($single_property->foundation) || isset($single_property->parkingfeature) || isset($single_property->unmapped->Driveway) || isset($single_property->equiplistavail) || isset($single_property->termsfeature) || isset($single_property->interiorfeatures) || isset($single_property->exteriorfeatures) || isset($single_property->unmapped->Porch) || isset($single_property->roofmaterial) || isset($single_property->unmapped->DoorsWindows) || isset($single_property->unmapped->LotDimension) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">

@@ -1,5 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->cctype) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundrylevel) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront)  ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->cctype) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundrylevel) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->DwellingType) || isset($single_property->foundation) /*|| isset($single_property->style)*/ || isset($single_property->roofmaterial) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->CarStorage) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess)  ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -46,9 +46,9 @@
 				<?php if( isset($single_property->foundation)): ?>
 				<li>Foundation: [foundation]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->style)): ?>
+				<?php /*if( isset($single_property->style)): ?>
 				<li>Style: [style]</li>
-				<?php endif; ?>
+				<?php endif;*/ ?>
 				<?php if( isset($single_property->roofmaterial)): ?>
 				<li>Roof Material: [roofmaterial]</li>
 				<?php endif; ?>

@@ -47,6 +47,12 @@
 		</ul>
 		<table class="zy-print-meta-blocks">
 		   <tr>
+			<?php if(isset($single_property->style)): ?>
+			  <td>
+				 <div class="zy-print-meta-val">[style]</div>
+				 <div class="zy-print-meta-label">Style</div>
+			  </td>
+			<?php endif; ?>
 			<?php if(isset($single_property->norooms)): ?>
 			  <td>
 				 <div class="zy-print-meta-val">[norooms]</div>
@@ -257,10 +263,10 @@
 			  <strong>Street Description</strong>
 			  [roadtype]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->style)): ?>
+			  <?php /*if(isset($single_property->style)): ?>
 			  <strong>Style</strong>
 			  [style]
-			  <?php endif; ?>
+			  <?php endif;*/ ?>
 			  <?php if(isset($single_property->lotdescription)): ?>
 			  <strong>Topography</strong>
 			  [lotdescription]

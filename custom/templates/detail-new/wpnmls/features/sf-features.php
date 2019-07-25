@@ -1,11 +1,11 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->style) || isset($single_property->yearbuilt) || isset($single_property->parkingspaces) || isset($single_property->parkingfeature) || isset($single_property->shortsalelenderappreqd) || isset($single_property->unmapped->Foreclosure) || isset($single_property->water) || isset($single_property->sewer) || isset($single_property->asscfeeincludes) || isset($single_property->taxes) ):?>
+	<?php if( /*isset($single_property->style) ||*/ isset($single_property->yearbuilt) || isset($single_property->parkingspaces) || isset($single_property->parkingfeature) || isset($single_property->shortsalelenderappreqd) || isset($single_property->unmapped->Foreclosure) || isset($single_property->water) || isset($single_property->sewer) || isset($single_property->asscfeeincludes) || isset($single_property->taxes) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">General Information</h3>
 		<ul class="zy-sub-list">
-			<?php if( isset($single_property->style)): ?>
+			<?php /*if( isset($single_property->style)): ?>
 			<li>Style: [style]</li>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if( isset($single_property->yearbuilt)): ?>
 			<li>Year Built: [yearbuilt]</li>
 			<?php endif; ?>
@@ -37,7 +37,7 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->construction) || isset($single_property->yearbuiltdescrp) || isset($single_property->acre) || isset($single_property->lotsize) || isset($single_property->style) ):?>
+	<?php if( isset($single_property->construction) || isset($single_property->yearbuiltdescrp) || isset($single_property->acre) || isset($single_property->lotsize) /*|| isset($single_property->style)*/ ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Exterior Information</h3>
 		<ul class="zy-sub-list">
@@ -53,9 +53,9 @@
 			<?php if( isset($single_property->lotsize)): ?>
 			<li>Lot Dimensions: [lotsize]</li>
 			<?php endif; ?>		
-			<?php if( isset($single_property->style)): ?>
+			<?php /*if( isset($single_property->style)): ?>
 			<li>Style: [style]</li>
-			<?php endif; ?>	
+			<?php endif;*/ ?>	
 		</ul>
 	</li>
 	<?php endif; ?>
