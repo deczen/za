@@ -1196,11 +1196,11 @@ $excludes = get_new_filter_excludes();
 								
 				this.removeFromSelection(this.getSelection(), true);
 				
+				clearGoogleAddressFields();
+				
 				if(is_add){
 					addFilterLabel(name, value, linked_name, label);
 					addFormField(name,value,linked_name);
-					
-					clearGoogleAddressFields();
 				}else if(is_address){
 					var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
 					if(saved_address){
