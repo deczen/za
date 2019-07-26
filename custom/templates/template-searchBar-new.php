@@ -74,6 +74,9 @@ $excludes = get_new_filter_excludes();
 						jQuery(this).find('input').attr('checked', true);
 						
 						// jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
+						
+						jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' ); //force google autocomplete dropdown visible
+						
 						return false;
 					});
 					jQuery('body').on('click', '.btn-show-result', function(){
@@ -1162,7 +1165,6 @@ $excludes = get_new_filter_excludes();
 						label = data[i].name;
 					}
 				}
-				console.log(values);
 				if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area
@@ -1197,6 +1199,8 @@ $excludes = get_new_filter_excludes();
 				if(is_add){
 					addFilterLabel(name, value, linked_name, label);
 					addFormField(name,value,linked_name);
+					
+					clearGoogleAddressFields();
 				}else if(is_address){
 					var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
 					if(saved_address){
@@ -1322,40 +1326,176 @@ $excludes = get_new_filter_excludes();
 			/* Combine ms_all and google autocomplete */
 			var ms_all__rawValue='';
 			var ms_all__google_autocomplete;
+			var google_autocomplete_selected=0;
 			
 			//select value on enter key pressed
 			$(ms_all).on('keydown', function(e,m,v){
 				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
 				var magicSuggest_option_exists = data.length;
-				var google_option_exists = $('body .pac-container.pac-logo').html();
+				var google_option_exists = $('body .pac-container.pac-logo').html().length;
 				
 				if(magicSuggest_option_exists){
 					ms_all__google_autocomplete=0;
 					jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
-				}else if(google_option_exists && ms_all__rawValue.length > 2){
+				}else if(google_option_exists && ms_all__rawValue.length >= 2){
 					ms_all__google_autocomplete=1;
 					jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' );
 				}else{
 					ms_all__google_autocomplete=0;
 					jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
 				}
+				
+				$('#zpa-all-input-address').val('');
 			});
 			
 			function clearGoogleAddressFields(){
-				jQuery('#zpa-all-input-address').val('');
-				jQuery('.field-section.addr #street_number').val('');
-				jQuery('.field-section.addr #street_number').prop('disabled',true);
-				jQuery('.field-section.addr #route').val('');
-				jQuery('.field-section.addr #route').prop('disabled',true);
-				jQuery('.field-section.addr #locality').val('');
-				jQuery('.field-section.addr #locality').prop('disabled',true);
-				jQuery('.field-section.addr #administrative_area_level_1').val('');
-				jQuery('.field-section.addr #administrative_area_level_1').prop('disabled',true);
-				jQuery('.field-section.addr #country').val('');
-				jQuery('.field-section.addr #country').prop('disabled',true);
-				jQuery('.field-section.addr #postal_code').val('');
-				jQuery('.field-section.addr #postal_code').prop('disabled',true);
+				jQuery('#zpa-all-input-address').val('');						
+				removeLabel('advstno', 'advstno', '');
+				removeLabel('advstname', 'advstname', '');
+				removeLabel('advtownnm', 'advtownnm', '');
+				removeLabel('advstates', 'advstates', '');
+				removeLabel('advcounties', 'advcounties', '');
+				removeLabel('advstzip', 'advstzip', '');
 			}
+			
+			<?php
+			$rb = zipperagent_rb();
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			$states=array_map('trim', explode(',', $states));
+			$states=implode(' | ',$states);
+			?>
+			
+			var placeSearch, autocomplete;
+			var componentForm = {
+				street_number: 'short_name',
+				route: 'long_name',
+				locality: 'long_name',
+				administrative_area_level_1: 'short_name',
+				// country: 'short_name',
+				postal_code: 'short_name'
+			};
+			// var input = document.getElementById('zpa-all-input');
+			var input = document.querySelector('#zpa-all-input input');
+
+			(function pacSelectFirst(inp){
+				// store the original event binding function
+				var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
+
+				function addEventListenerWrapper(type, listener) {
+					// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+					// and then trigger the original listener.
+
+					if (type == "keydown") {
+						var orig_listener = listener;
+						listener = function (event) {
+							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+							if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+								orig_listener.apply(inp, [simulated_downarrow]);													
+								
+								if(ms_all__google_autocomplete)
+									google_autocomplete_selected=1;
+							}
+
+							orig_listener.apply(inp, [event]);
+						};
+					}
+
+					// add the modified listener
+					_addEventListener.apply(inp, [type, listener]);
+				}
+
+				if (inp.addEventListener)
+				inp.addEventListener = addEventListenerWrapper;
+				else if (inp.attachEvent)
+				inp.attachEvent = addEventListenerWrapper;
+
+			})(input);
+
+			function initAutocomplete() {
+				var options = {
+					types: ['geocode'],  // or '(cities)' if that's what you want?
+					componentRestrictions: {country: ["us","ca","in"]},
+				};
+				// Create the autocomplete object, restricting the search to geographical
+				// location types.
+				autocomplete = new google.maps.places.Autocomplete(
+				/** @type {!HTMLInputElement} */(input), options);
+
+				// When the user selects an address from the dropdown, populate the address
+				// fields in the form.
+				autocomplete.addListener('place_changed', fillInAddress);
+			}
+
+			function fillInAddress() {
+
+				var saved_values={};
+
+				// Get the place details from the autocomplete object.
+				var place = autocomplete.getPlace();
+
+				if(!place.address_components)
+				return;
+
+				for (var component in componentForm) {
+					document.getElementById(component).value = '';
+					document.getElementById(component).disabled = false;
+				}
+
+				// Get each component of the address from the place details
+				// and fill the corresponding field on the form.
+				for (var i = 0; i < place.address_components.length; i++) {
+					var addressType = place.address_components[i].types[0];
+					if (componentForm[addressType]) {
+						var val = place.address_components[i][componentForm[addressType]];
+						var field = jQuery('#'+addressType);
+						var key = addressType;
+						document.getElementById(addressType).value = val;
+						// saved_values.push({key:val});
+						saved_values[addressType]=val;
+					}
+				}
+				var json = JSON.stringify(saved_values);
+				jQuery('#zpa-all-input-address-values').val(json);
+				jQuery('#zpa-all-input-address').val(place.formatted_address);
+				
+				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+				
+				if(!data.length){
+					
+					var val = place.formatted_address;
+					var prefix = 'addr_';
+					var code = prefix + 'selected_address';							
+					var label = val;	
+					var push = {group:'Address', name: label, code: code, type: 'address' };
+					if(val){
+						ms_all.setValue([push]);
+					}
+				}
+			}
+
+			initAutocomplete();
+			
+			<?php if($states): ?>
+			jQuery(input).on('input',function(){				
+				if(ms_all__google_autocomplete){
+					var str = input.value;
+					var prefix = '<?php echo $states; ?> | ';
+					
+					if(str.indexOf(prefix) == 0) {
+						// console.log(input.value);
+					} else if( str + ' ' === prefix ){
+						input.value = "";
+					}else {
+						if (prefix.indexOf(str) >= 0) {
+							input.value = prefix;
+						} else {
+							input.value = prefix+str;
+						}
+					}
+				}
+			});
+			<?php endif; ?>
 			
 			/* auto select dropdown function (ms_all) */
 			var ms_all__afterDelete=0;
@@ -1385,12 +1525,11 @@ $excludes = get_new_filter_excludes();
 				// console.log('ms_all__rawValue: ' + ms_all__rawValue);
 				// console.log('ms_all__afterDelete: ' + ms_all__afterDelete);
 				
-				// if( ms_all__rawValue!="" && ms_all__currentSelected.length && ! ms_all__afterDelete && (ms_all__recentSelected.length == ms_all__currentSelected.length || !ms_all__recentSelected.length) ){
-				if( ms_all__rawValue!="" && ! ms_all__afterDelete && ms_all__recentSelected.length == ms_all__currentSelected.length ){
+				if( ms_all__rawValue!="" && ! ms_all__afterDelete ){
 					if(data.length){
 						firstData=JSON.parse(data[0].dataset.json);
 						ms_all.setValue([firstData.code]);
-					}else if(!ms_all__google_autocomplete){
+					}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
 						var val = ms_all__rawValue;
 						var prefix = 'alstid_';
 						var code = prefix + val;							
@@ -1398,18 +1537,11 @@ $excludes = get_new_filter_excludes();
 						
 						var push = {group:'Mls', name: label, code: code, type: 'mls' };
 						ms_all.setValue([push]);
-					}else if(ms_all__google_autocomplete){
-						var val = $('#zpa-all-input-address').val();
-						var prefix = 'addr_';
-						var code = prefix + 'selected_address';							
-						var label = val;
-						
-						// var push = {id:name, name: label};
-						var push = {group:'Address', name: label, code: code, type: 'address' };
-						ms_all.setValue([push]);
 					}
 					
 					ms_all__afterDelete=0;
+					
+					$('#zpa-all-input input').focus();
 				}
 			});
 			
@@ -1423,7 +1555,7 @@ $excludes = get_new_filter_excludes();
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all.setValue([firstData.code]);
-						}else if(!ms_all__google_autocomplete){
+						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
 							var val = ms_all__rawValue;
 							var prefix = 'alstid_';
 							var code = prefix + val;							
@@ -1431,24 +1563,51 @@ $excludes = get_new_filter_excludes();
 							
 							var push = {group:'Mls', name: label, code: code, type: 'mls' };
 							ms_all.setValue([push]);
-						}else if(ms_all__google_autocomplete){
-							var val = $('#zpa-all-input-address').val();
-							var prefix = 'addr_';
-							var code = prefix + 'selected_address';							
-							var label = val;
-							
-							// var push = {id:name, name: label};
-							var push = {group:'Address', name: label, code: code, type: 'address' };
-							ms_all.setValue([push]);
 						}
 					}
 					
 					ms_all.collapse();
+					
+					$('#zpa-all-input input').focus();
+				}
+			});
+			
+			//select value on tab key pressed
+			$('#zpa-all-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_all__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_all.setValue([firstData.code]);
+						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+							var val = ms_all__rawValue;
+							var prefix = 'alstid_';
+							var code = prefix + val;							
+							var label = 'MLS#' + val;
+							var push = {group:'Mls', name: label, code: code, type: 'mls' };
+							ms_all.setValue([push]);
+						}
+					}
+					
+					ms_all.empty();
+					$('#zpa-all-input input').focus();
+					
+					ms_all.collapse();
+					
+					e.preventDefault();
 				}
 			});
 			
 			//set after delete state
 			$(ms_all).on('selectionchange', function(e,m,r){
+				
+				ms_all.empty();
+				ms_all__rawValue="";
+				google_autocomplete_selected=0;
+				
 				if(r.length==ms_all__recentSelected.length && r.length==ms_all__currentSelected.length){
 					ms_all__afterDelete=1;
 				}else{
@@ -1507,8 +1666,34 @@ $excludes = get_new_filter_excludes();
 				}
 			});
 			
+			//select value on tab key pressed
+			$('#zpa-town-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_town__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_town.setValue([firstData.code]);
+						}
+					}
+					
+					ms_town.empty();
+					$('#zpa-town-input input').focus();
+					
+					ms_town.collapse();
+					
+					e.preventDefault();
+				}
+			});
+			
 			//set after delete state
 			$(ms_town).on('selectionchange', function(e,m,r){
+				
+				ms_town.empty();
+				ms_town__rawValue="";
+				
 				if(r.length==ms_town__recentSelected.length && r.length==ms_town__currentSelected.length){
 					ms_town__afterDelete=1;
 				}else{
@@ -1567,8 +1752,34 @@ $excludes = get_new_filter_excludes();
 				}
 			});
 			
+			//select value on tab key pressed
+			$('#zpa-areas-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_area__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_area.setValue([firstData.code]);
+						}
+					}
+					
+					ms_area.empty();
+					$('#zpa-areas-input input').focus();
+					
+					ms_area.collapse();
+					
+					e.preventDefault();
+				}
+			});
+			
 			//set after delete state
 			$(ms_area).on('selectionchange', function(e,m,r){
+				
+				ms_area.empty();
+				ms_area__rawValue="";
+				
 				if(r.length==ms_area__recentSelected.length && r.length==ms_area__currentSelected.length){
 					ms_area__afterDelete=1;
 				}else{
@@ -1627,8 +1838,34 @@ $excludes = get_new_filter_excludes();
 				}
 			});
 			
+			//select value on tab key pressed
+			$('#zpa-county-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_county__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_county.setValue([firstData.code]);
+						}
+					}
+					
+					ms_county.empty();
+					$('#zpa-county-input input').focus();
+					
+					ms_county.collapse();
+					
+					e.preventDefault();
+				}
+			});
+			
 			//set after delete state
 			$(ms_county).on('selectionchange', function(e,m,r){
+				
+				ms_county.empty();
+				ms_county__rawValue="";
+				
 				if(r.length==ms_county__recentSelected.length && r.length==ms_county__currentSelected.length){
 					ms_county__afterDelete=1;
 				}else{
@@ -1687,8 +1924,34 @@ $excludes = get_new_filter_excludes();
 				}
 			});
 			
+			//select value on tab key pressed
+			$('#zpa-zipcode-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_zip__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_zip.setValue([firstData.code]);
+						}
+					}
+					
+					ms_zip.empty();
+					$('#zpa-zipcode-input input').focus();
+					
+					ms_zip.collapse();
+					
+					e.preventDefault();
+				}
+			});
+			
 			//set after delete state
 			$(ms_zip).on('selectionchange', function(e,m,r){
+				
+				ms_zip.empty();
+				ms_zip__rawValue="";
+				
 				if(r.length==ms_zip__recentSelected.length && r.length==ms_zip__currentSelected.length){
 					ms_zip__afterDelete=1;
 				}else{
@@ -1799,126 +2062,6 @@ $excludes = get_new_filter_excludes();
 	  $states=array_map('trim', explode(',', $states));
 	  $states=implode(' | ',$states);
 	  ?>
-	  // This example displays an address form, using the autocomplete feature
-	  // of the Google Places API to help users fill in the information.
-
-	  // This example requires the Places library. Include the libraries=places
-	  // parameter when you first load the API. For example:
-	  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-	  jQuery(document).ready(function(){
-		  var placeSearch, autocomplete;
-		  var componentForm = {
-			street_number: 'short_name',
-			route: 'long_name',
-			locality: 'long_name',
-			administrative_area_level_1: 'short_name',
-			// country: 'short_name',
-			postal_code: 'short_name'
-		  };
-		  // var input = document.getElementById('zpa-all-input');
-		  var input = document.querySelector('#zpa-all-input input');
-
-		  function initAutocomplete() {
-			var options = {
-				types: ['geocode'],  // or '(cities)' if that's what you want?
-				componentRestrictions: {country: ["us","ca","in"]},
-			};
-			// Create the autocomplete object, restricting the search to geographical
-			// location types.
-			autocomplete = new google.maps.places.Autocomplete(
-				/** @type {!HTMLInputElement} */(input), options);
-
-			// When the user selects an address from the dropdown, populate the address
-			// fields in the form.
-			autocomplete.addListener('place_changed', fillInAddress);
-		  }
-
-		  function fillInAddress() {
-			
-			var saved_values={};
-			  
-			// Get the place details from the autocomplete object.
-			var place = autocomplete.getPlace();
-			
-			for (var component in componentForm) {
-			  document.getElementById(component).value = '';
-			  document.getElementById(component).disabled = false;
-			}
-
-			// Get each component of the address from the place details
-			// and fill the corresponding field on the form.
-			for (var i = 0; i < place.address_components.length; i++) {
-			  var addressType = place.address_components[i].types[0];
-			  if (componentForm[addressType]) {
-				var val = place.address_components[i][componentForm[addressType]];
-				var field = jQuery('#'+addressType);
-				var key = addressType;
-				document.getElementById(addressType).value = val;
-				// saved_values.push({key:val});
-				saved_values[addressType]=val;
-			  }
-			}
-			var json = JSON.stringify(saved_values);
-			jQuery('#zpa-all-input-address-values').val(json);
-			jQuery('#zpa-all-input-address').val(place.formatted_address);
-		  }
-
-		  // Bias the autocomplete object to the user's geographical location,
-		  // as supplied by the browser's 'navigator.geolocation' object.
-		  function geolocate() {
-			if (navigator.geolocation) {
-			  navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation = {
-				  lat: position.coords.latitude,
-				  lng: position.coords.longitude
-				};
-				var circle = new google.maps.Circle({
-				  center: geolocation,
-				  radius: position.coords.accuracy
-				});
-				autocomplete.setBounds(circle.getBounds());
-				
-				console.log(circle.getBounds());
-			  });
-			}
-		  }
-		  
-		  jQuery('#zpa-all-input input').on('focus', function(){
-			  geolocate();
-		  });
-		  
-		  initAutocomplete();
-		  <?php  /* if($states): ?>
-		  jQuery(input).on('input',function(){
-			var str = input.value;
-			var prefix = '<?php echo $states; ?> | ';
-			if(str.indexOf(prefix) == 0) {
-				// console.log(input.value);
-			} else {
-				if (prefix.indexOf(str) >= 0) {
-					input.value = prefix;
-				} else {
-					input.value = prefix+str;
-				}
-			}
-
-		  }); 
-		  <?php endif; */ ?>
-	  });
-	</script>
-	<script>  
-	  <?php
-	  $rb = zipperagent_rb();
-	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
-	  $states=array_map('trim', explode(',', $states));
-	  $states=implode(' | ',$states);
-	  ?>
-      // This example displays an address form, using the autocomplete feature
-      // of the Google Places API to help users fill in the information.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 	  jQuery(document).ready(function(){
 		  var placeSearch, autocomplete;
 		  var componentForm = {
@@ -1930,6 +2073,41 @@ $excludes = get_new_filter_excludes();
 			postal_code: 'short_name'
 		  };
 		  var input = document.getElementById('zpa-area-address');
+		  
+		  (function pacSelectFirst(inp){
+			// store the original event binding function
+			var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
+
+			function addEventListenerWrapper(type, listener) {
+				// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+				// and then trigger the original listener.
+
+				if (type == "keydown") {
+					var orig_listener = listener;
+					listener = function (event) {
+						var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+						if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+							var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+							orig_listener.apply(inp, [simulated_downarrow]);													
+							
+							if(ms_all__google_autocomplete)
+								google_autocomplete_selected=1;
+						}
+
+						orig_listener.apply(inp, [event]);
+					};
+				}
+
+				// add the modified listener
+				_addEventListener.apply(inp, [type, listener]);
+			}
+
+			if (inp.addEventListener)
+			inp.addEventListener = addEventListenerWrapper;
+			else if (inp.attachEvent)
+			inp.attachEvent = addEventListenerWrapper;
+
+		  })(input);
 
 		  function initAutocomplete() {
 			var options = {
@@ -2042,7 +2220,42 @@ $excludes = get_new_filter_excludes();
 			postal_code: 'short_name'
 		  };
 		  var input = document.getElementById('zpa-school');
+		  
+		   (function pacSelectFirst(inp){
+			// store the original event binding function
+			var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
 
+			function addEventListenerWrapper(type, listener) {
+				// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+				// and then trigger the original listener.
+
+				if (type == "keydown") {
+					var orig_listener = listener;
+					listener = function (event) {
+						var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+						if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+							var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+							orig_listener.apply(inp, [simulated_downarrow]);													
+							
+							if(ms_all__google_autocomplete)
+								google_autocomplete_selected=1;
+						}
+
+						orig_listener.apply(inp, [event]);
+					};
+				}
+
+				// add the modified listener
+				_addEventListener.apply(inp, [type, listener]);
+			}
+
+			if (inp.addEventListener)
+			inp.addEventListener = addEventListenerWrapper;
+			else if (inp.attachEvent)
+			inp.attachEvent = addEventListenerWrapper;
+
+		  })(input);
+		  
 		  function initAutocomplete() {
 			var options = {
 				types: ['establishment'],  // or '(cities)' if that's what you want?
