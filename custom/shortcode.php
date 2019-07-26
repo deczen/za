@@ -302,17 +302,17 @@ function display_mortgage_calculator($atts){
 		'interest_rate_percentage' => '',
 		'tax_percentage' => '',
 		'loan_type' => '',
-	), $atts, 'quick_search6' );
+	), $atts, 'mortgage_calculator' );
 	
 	$requests = $atts;
 	
 	$args=array();
 	
-	if(isset($atts['home_price']))					$args['default_homeprice'] = $requests['home_price'];
-	if(isset($atts['down_payment_percentage']))		$args['default_downpayment_percent'] = $requests['down_payment_percentage'];
-	if(isset($atts['tax_percentage']))				$args['default_taxes_percent'] = $requests['tax_percentage'];
-	if(isset($atts['interest_rate_percentage']))	$args['default_interestrate'] = $requests['interest_rate_percentage'];
-	if(isset($atts['loan_type']))					$args['default_loan_type'] = $requests['loan_type'];
+	if(!empty($atts['home_price']))					$args['default_homeprice'] = $requests['home_price'];
+	if(!empty($atts['down_payment_percentage']))	$args['default_downpayment_percent'] = $requests['down_payment_percentage'];
+	if(!empty($atts['tax_percentage']))				$args['default_taxes_percent'] = $requests['tax_percentage'];
+	if(!empty($atts['interest_rate_percentage']))	$args['default_interestrate'] = $requests['interest_rate_percentage'];
+	if(!empty($atts['loan_type']))					$args['default_loan_type'] = $requests['loan_type'];
 	
 	ob_start();	
 	if(is_zipperagent_new_detail_page()){
