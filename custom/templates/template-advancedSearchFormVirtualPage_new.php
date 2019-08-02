@@ -286,6 +286,49 @@ global $requests;
 									<div class="col-xs-12">
 										<div id="panel">
 										  <div id="color-palette" style="display:none"></div>
+										  <div class="pull-left" id="div-maps">
+											<?php $get_map_centre = zipperagent_get_map_centre(); ?>
+											<ul class="map-lists">
+												<?php if( (!empty($get_map_centre['za_lat_2']) && !empty($get_map_centre['za_lng_2'])) 
+													|| (!empty($get_map_centre['za_lat_3']) && !empty($get_map_centre['za_lng_3'])) 
+													|| (!empty($get_map_centre['za_lat_4']) && !empty($get_map_centre['za_lng_4'])) 
+													|| (!empty($get_map_centre['za_lat_5']) && !empty($get_map_centre['za_lng_5'])) 
+													|| (!empty($get_map_centre['za_lat_6']) && !empty($get_map_centre['za_lng_6'])) 
+													|| (!empty($get_map_centre['za_lat_7']) && !empty($get_map_centre['za_lng_7'])) 
+													|| (!empty($get_map_centre['za_lat_8']) && !empty($get_map_centre['za_lng_8'])) 
+													|| (!empty($get_map_centre['za_lat_9']) && !empty($get_map_centre['za_lng_9'])) 
+													|| (!empty($get_map_centre['za_lat_10']) && !empty($get_map_centre['za_lng_10'])) ): ?>
+													<li class="map-item map-item-1"><?php echo $get_map_centre['za_label']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_2']) && !empty($get_map_centre['za_lng_2'])): ?>
+													<li class="map-item map-item-2"><?php echo $get_map_centre['za_label_2']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_3']) && !empty($get_map_centre['za_lng_3'])): ?>	
+													<li class="map-item map-item-3"><?php echo $get_map_centre['za_label_3']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_4']) && !empty($get_map_centre['za_lng_4'])): ?>
+													<li class="map-item map-item-4"><?php echo $get_map_centre['za_label_4']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_5']) && !empty($get_map_centre['za_lng_5'])): ?>
+													<li class="map-item map-item-5"><?php echo $get_map_centre['za_label_5']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_6']) && !empty($get_map_centre['za_lng_6'])): ?>
+													<li class="map-item map-item-6"><?php echo $get_map_centre['za_label_6']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_7']) && !empty($get_map_centre['za_lng_7'])): ?>
+													<li class="map-item map-item-7"><?php echo $get_map_centre['za_label_7']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_8']) && !empty($get_map_centre['za_lng_8'])): ?>
+													<li class="map-item map-item-8"><?php echo $get_map_centre['za_label_8']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_9']) && !empty($get_map_centre['za_lng_9'])): ?>
+													<li class="map-item map-item-9"><?php echo $get_map_centre['za_label_9']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_10']) && !empty($get_map_centre['za_lng_10'])): ?>
+													<li class="map-item map-item-10"><?php echo $get_map_centre['za_label_10']; ?></li>
+												<?php endif; ?>
+											</ul>
+										  </div>
 										  <div class="pull-right">
 											<button id="delete-button">Delete Selected Shape</button>
 										  </div>
@@ -632,6 +675,7 @@ global $requests;
 		
 		jQuery(function(){
 			
+			<?php extract(zipperagent_get_map_centre()); ?>
 			var filter = jQuery('fieldset div.filter');
 			var house=jQuery('#zpa-house-condo-search-fields');
 			var land=jQuery('#zpa-lots-land-search-fields');
@@ -684,8 +728,63 @@ global $requests;
 				enabledFields(map, true);
 				filter.addClass('hide');
 				
-				initialize(); // show map
+				initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>'); // show map
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery('#div-maps .map-item-1').addClass('map-active');
 			});
+			
+			//SELECT MAPS
+			jQuery('#div-maps .map-item-1').click(function(){
+				initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-2').click(function(){
+				initialize('<?php echo $za_lat_2; ?>', '<?php echo $za_lng_2; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-3').click(function(){
+				initialize('<?php echo $za_lat_3; ?>', '<?php echo $za_lng_3; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-4').click(function(){
+				initialize('<?php echo $za_lat_4; ?>', '<?php echo $za_lng_4; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-5').click(function(){
+				initialize('<?php echo $za_lat_5; ?>', '<?php echo $za_lng_5; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-6').click(function(){
+				initialize('<?php echo $za_lat_6; ?>', '<?php echo $za_lng_6; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-7').click(function(){
+				initialize('<?php echo $za_lat_7; ?>', '<?php echo $za_lng_7; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-8').click(function(){
+				initialize('<?php echo $za_lat_8; ?>', '<?php echo $za_lng_8; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-9').click(function(){
+				initialize('<?php echo $za_lat_9; ?>', '<?php echo $za_lng_9; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			jQuery('#div-maps .map-item-10').click(function(){
+				initialize('<?php echo $za_lat_10; ?>', '<?php echo $za_lng_10; ?>');
+				jQuery('#div-maps .map-item').removeClass('map-active');
+				jQuery(this).addClass('map-active');
+			});
+			
 			jQuery("#zpa-address-tab").on("show.bs.tab", function() {
 				
 				jQuery("#zpa-boundary").attr("disabled", true);
@@ -977,11 +1076,11 @@ global $requests;
          selectColor(colors[0]);
        }
 
-      function initialize() {
-		<?php extract(zipperagent_get_map_centre()); ?>
+      function initialize(za_lat, za_lng) {
+		
 		var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 9,
-          center: new google.maps.LatLng('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>'),
+          center: new google.maps.LatLng(za_lat, za_lng),
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           disableDefaultUI: true,
 		  streetViewControl: true,

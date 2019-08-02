@@ -73,6 +73,36 @@
 	if(isset($rb['web']['signup_optional']))  				$data['web']['signup_optional'] = $rb['web']['signup_optional'];
 	if(isset($rb['web']['map_centre']['lat']))  			$data['web']['map_centre']['lat'] = $rb['web']['map_centre']['lat'];
 	if(isset($rb['web']['map_centre']['lng']))  			$data['web']['map_centre']['lng'] = $rb['web']['map_centre']['lng'];
+	if(isset($rb['web']['map_centre']['label']))  			$data['web']['map_centre']['label'] = $rb['web']['map_centre']['label'];
+	
+	if(isset($rb['web']['map_centre_2']['lat']))  			$data['web']['map_centre_2']['lat'] = $rb['web']['map_centre_2']['lat'];
+	if(isset($rb['web']['map_centre_2']['lng']))  			$data['web']['map_centre_2']['lng'] = $rb['web']['map_centre_2']['lng'];
+	if(isset($rb['web']['map_centre_2']['label']))  		$data['web']['map_centre_2']['label'] = $rb['web']['map_centre_2']['label'];
+	if(isset($rb['web']['map_centre_3']['lat']))  			$data['web']['map_centre_3']['lat'] = $rb['web']['map_centre_3']['lat'];
+	if(isset($rb['web']['map_centre_3']['lng']))  			$data['web']['map_centre_3']['lng'] = $rb['web']['map_centre_3']['lng'];
+	if(isset($rb['web']['map_centre_3']['label']))  		$data['web']['map_centre_3']['label'] = $rb['web']['map_centre_3']['label'];
+	if(isset($rb['web']['map_centre_4']['lat']))  			$data['web']['map_centre_4']['lat'] = $rb['web']['map_centre_4']['lat'];
+	if(isset($rb['web']['map_centre_4']['lng']))  			$data['web']['map_centre_4']['lng'] = $rb['web']['map_centre_4']['lng'];
+	if(isset($rb['web']['map_centre_4']['label']))  		$data['web']['map_centre_4']['label'] = $rb['web']['map_centre_4']['label'];
+	if(isset($rb['web']['map_centre_5']['lat']))  			$data['web']['map_centre_5']['lat'] = $rb['web']['map_centre_5']['lat'];
+	if(isset($rb['web']['map_centre_5']['lng']))  			$data['web']['map_centre_5']['lng'] = $rb['web']['map_centre_5']['lng'];
+	if(isset($rb['web']['map_centre_5']['label']))  		$data['web']['map_centre_5']['label'] = $rb['web']['map_centre_5']['label'];
+	if(isset($rb['web']['map_centre_6']['lat']))  			$data['web']['map_centre_6']['lat'] = $rb['web']['map_centre_6']['lat'];
+	if(isset($rb['web']['map_centre_6']['lng']))  			$data['web']['map_centre_6']['lng'] = $rb['web']['map_centre_6']['lng'];
+	if(isset($rb['web']['map_centre_6']['label']))  		$data['web']['map_centre_6']['label'] = $rb['web']['map_centre_6']['label'];
+	if(isset($rb['web']['map_centre_7']['lat']))  			$data['web']['map_centre_7']['lat'] = $rb['web']['map_centre_7']['lat'];
+	if(isset($rb['web']['map_centre_7']['lng']))  			$data['web']['map_centre_7']['lng'] = $rb['web']['map_centre_7']['lng'];
+	if(isset($rb['web']['map_centre_7']['label']))  		$data['web']['map_centre_7']['label'] = $rb['web']['map_centre_7']['label'];
+	if(isset($rb['web']['map_centre_8']['lat']))  			$data['web']['map_centre_8']['lat'] = $rb['web']['map_centre_8']['lat'];
+	if(isset($rb['web']['map_centre_8']['lng']))  			$data['web']['map_centre_8']['lng'] = $rb['web']['map_centre_8']['lng'];
+	if(isset($rb['web']['map_centre_8']['label']))  		$data['web']['map_centre_8']['label'] = $rb['web']['map_centre_8']['label'];
+	if(isset($rb['web']['map_centre_9']['lat']))  			$data['web']['map_centre_9']['lat'] = $rb['web']['map_centre_9']['lat'];
+	if(isset($rb['web']['map_centre_9']['lng']))  			$data['web']['map_centre_9']['lng'] = $rb['web']['map_centre_9']['lng'];
+	if(isset($rb['web']['map_centre_9']['label']))  		$data['web']['map_centre_9']['label'] = $rb['web']['map_centre_9']['label'];
+	if(isset($rb['web']['map_centre_10']['lat']))  			$data['web']['map_centre_10']['lat'] = $rb['web']['map_centre_10']['lat'];
+	if(isset($rb['web']['map_centre_10']['lng']))  			$data['web']['map_centre_10']['lng'] = $rb['web']['map_centre_10']['lng'];
+	if(isset($rb['web']['map_centre_10']['label']))  		$data['web']['map_centre_10']['label'] = $rb['web']['map_centre_10']['label'];
+	
 	if(isset($rb['web']['sign_up_interval']))  				$data['web']['sign_up_interval'] = $rb['web']['sign_up_interval'];
 	if(isset($rb['web']['popup_show_time']))  				$data['web']['popup_show_time'] = $rb['web']['popup_show_time'];
 	if(isset($rb['web']['openhouse_searchbar']))  			$data['web']['openhouse_searchbar'] = $rb['web']['openhouse_searchbar'];
@@ -118,6 +148,7 @@
 	
 	if(isset($rb['credentials']['username'])) 				$data['credentials']['username'] = $rb['credentials']['username'];
 	if(isset($rb['credentials']['key'])) 					$data['credentials']['key'] = $rb['credentials']['key'];
+
 	
 	echo json_encode( $data );
 	/** CONTENT END **/

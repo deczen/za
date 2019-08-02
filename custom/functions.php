@@ -92,13 +92,15 @@ if( ! function_exists('zipperagent_run_curl') ){
 
 if( ! function_exists('zipperagent_save_session_result') ){
 	function zipperagent_save_session_result($index, $result){
-		$_SESSION[$index]=(array) $result;
+		
+		zipperagent_set_session($index, (array) $result);
 	}
 }
 
 if( ! function_exists('zipperagent_get_session_result') ){
 	function zipperagent_get_session_result($index){
-		return isset($_SESSION[$index]) ? $_SESSION[$index] : '';
+		
+		return zipperagent_get_session($index);
 	}
 }
 
@@ -892,16 +894,16 @@ if( ! function_exists('userContactLogin') ){
 
 if( ! function_exists('userContactLoggout') ){
 	function userContactLoggout(){
+		//remove sessions
 		unset($_SESSION['userMail']);
 		unset($_SESSION['userRemember']);
 		unset($_SESSION['contactId']);
 		unset($_SESSION['userdata']);
-		unset($_COOKIE['userMail']);
-		unset($_COOKIE['userRemember']);
-		unset($_COOKIE['contactId']);
-		setcookie('userMail', null, -1, '/');
-		setcookie('userRemember', null, -1, '/');
-		setcookie('contactId', null, -1, '/');
+		
+		//remove cookies
+		zipperagent_remove_cookie('userMail');
+		zipperagent_remove_cookie('userRemember');
+		zipperagent_remove_cookie('contactId');
 	}
 }
 
@@ -1525,7 +1527,38 @@ if( ! function_exists('zipperagent_get_map_centre') ){
 		$za_lat=isset($rb['web']['map_centre']['lat'])&&!empty($rb['web']['map_centre']['lat'])?$rb['web']['map_centre']['lat']:$default_lat;
 		$za_lng=isset($rb['web']['map_centre']['lng'])&&!empty($rb['web']['map_centre']['lng'])?$rb['web']['map_centre']['lng']:$default_lng;
 		
-		return array('za_lat'=>$za_lat, 'za_lng'=>$za_lng);
+		$za_lat_2=isset($rb['web']['map_centre_2']['lat'])&&!empty($rb['web']['map_centre_2']['lng'])?$rb['web']['map_centre_2']['lat']:'';
+		$za_lng_2=isset($rb['web']['map_centre_2']['lng'])&&!empty($rb['web']['map_centre_2']['lng'])?$rb['web']['map_centre_2']['lng']:'';
+		$za_lat_3=isset($rb['web']['map_centre_3']['lat'])&&!empty($rb['web']['map_centre_3']['lat'])?$rb['web']['map_centre_3']['lat']:'';
+		$za_lng_3=isset($rb['web']['map_centre_3']['lng'])&&!empty($rb['web']['map_centre_3']['lng'])?$rb['web']['map_centre_3']['lng']:'';
+		$za_lat_4=isset($rb['web']['map_centre_4']['lat'])&&!empty($rb['web']['map_centre_4']['lat'])?$rb['web']['map_centre_4']['lat']:'';
+		$za_lng_4=isset($rb['web']['map_centre_4']['lng'])&&!empty($rb['web']['map_centre_4']['lng'])?$rb['web']['map_centre_4']['lng']:'';
+		$za_lat_5=isset($rb['web']['map_centre_5']['lat'])&&!empty($rb['web']['map_centre_5']['lat'])?$rb['web']['map_centre_5']['lat']:'';
+		$za_lng_5=isset($rb['web']['map_centre_5']['lng'])&&!empty($rb['web']['map_centre_5']['lng'])?$rb['web']['map_centre_5']['lng']:'';
+		$za_lat_6=isset($rb['web']['map_centre_6']['lat'])&&!empty($rb['web']['map_centre_6']['lat'])?$rb['web']['map_centre_6']['lat']:'';
+		$za_lng_6=isset($rb['web']['map_centre_6']['lng'])&&!empty($rb['web']['map_centre_6']['lng'])?$rb['web']['map_centre_6']['lng']:'';
+		$za_lat_7=isset($rb['web']['map_centre_7']['lat'])&&!empty($rb['web']['map_centre_7']['lat'])?$rb['web']['map_centre_7']['lat']:'';
+		$za_lng_7=isset($rb['web']['map_centre_7']['lng'])&&!empty($rb['web']['map_centre_7']['lng'])?$rb['web']['map_centre_7']['lng']:'';
+		$za_lat_8=isset($rb['web']['map_centre_8']['lat'])&&!empty($rb['web']['map_centre_8']['lat'])?$rb['web']['map_centre_8']['lat']:'';
+		$za_lng_8=isset($rb['web']['map_centre_8']['lng'])&&!empty($rb['web']['map_centre_8']['lng'])?$rb['web']['map_centre_8']['lng']:'';
+		$za_lat_9=isset($rb['web']['map_centre_9']['lat'])&&!empty($rb['web']['map_centre_9']['lat'])?$rb['web']['map_centre_9']['lat']:'';
+		$za_lng_9=isset($rb['web']['map_centre_9']['lng'])&&!empty($rb['web']['map_centre_9']['lng'])?$rb['web']['map_centre_9']['lng']:'';
+		$za_lat_10=isset($rb['web']['map_centre_10']['lat'])&&!empty($rb['web']['map_centre_10']['lat'])?$rb['web']['map_centre_10']['lat']:'';
+		$za_lng_10=isset($rb['web']['map_centre_10']['lng'])&&!empty($rb['web']['map_centre_10']['lng'])?$rb['web']['map_centre_10']['lng']:'';
+		
+		$za_label=isset($rb['web']['map_centre']['label'])&&!empty($rb['web']['map_centre']['label'])?$rb['web']['map_centre']['label']:'MAP 1';
+		$za_label_2=isset($rb['web']['map_centre_2']['label'])&&!empty($rb['web']['map_centre_2']['label'])?$rb['web']['map_centre_2']['label']:'MAP 2';
+		$za_label_3=isset($rb['web']['map_centre_3']['label'])&&!empty($rb['web']['map_centre_3']['label'])?$rb['web']['map_centre_3']['label']:'MAP 3';
+		$za_label_4=isset($rb['web']['map_centre_4']['label'])&&!empty($rb['web']['map_centre_4']['label'])?$rb['web']['map_centre_4']['label']:'MAP 4';
+		$za_label_5=isset($rb['web']['map_centre_5']['label'])&&!empty($rb['web']['map_centre_5']['label'])?$rb['web']['map_centre_5']['label']:'MAP 5';
+		$za_label_6=isset($rb['web']['map_centre_6']['label'])&&!empty($rb['web']['map_centre_6']['label'])?$rb['web']['map_centre_6']['label']:'MAP 6';
+		$za_label_7=isset($rb['web']['map_centre_7']['label'])&&!empty($rb['web']['map_centre_7']['label'])?$rb['web']['map_centre_7']['label']:'MAP 7';
+		$za_label_8=isset($rb['web']['map_centre_8']['label'])&&!empty($rb['web']['map_centre_8']['label'])?$rb['web']['map_centre_8']['label']:'MAP 8';
+		$za_label_9=isset($rb['web']['map_centre_9']['label'])&&!empty($rb['web']['map_centre_9']['label'])?$rb['web']['map_centre_9']['label']:'MAP 9';
+		$za_label_10=isset($rb['web']['map_centre_10']['label'])&&!empty($rb['web']['map_centre_10']['label'])?$rb['web']['map_centre_10']['label']:'MAP 10';
+		
+		// return array('za_lat'=>$za_lat, 'za_lng'=>$za_lng);
+		return array('za_lat'=>$za_lat, 'za_lng'=>$za_lng, 'za_lat_2'=>$za_lat_2, 'za_lng_2'=>$za_lng_2, 'za_lat_3'=>$za_lat_3, 'za_lng_3'=>$za_lng_3, 'za_lat_4'=>$za_lat_4, 'za_lng_4'=>$za_lng_4, 'za_lat_5'=>$za_lat_5, 'za_lng_5'=>$za_lng_5, 'za_lat_6'=>$za_lat_6, 'za_lng_6'=>$za_lng_6, 'za_lat_7'=>$za_lat_7, 'za_lng_7'=>$za_lng_7, 'za_lat_8'=>$za_lat_8, 'za_lng_8'=>$za_lng_8, 'za_lat_9'=>$za_lat_9, 'za_lng_9'=>$za_lng_9, 'za_lat_10'=>$za_lat_10, 'za_lng_10'=>$za_lng_10, 'za_label'=>$za_label, 'za_label_2'=>$za_label_2, 'za_label_3'=>$za_label_3, 'za_label_4'=>$za_label_4, 'za_label_5'=>$za_label_5, 'za_label_6'=>$za_label_6, 'za_label_7'=>$za_label_7, 'za_label_8'=>$za_label_8, 'za_label_9'=>$za_label_9, 'za_label_10'=>$za_label_10);
 	}
 }
 
@@ -3002,7 +3035,13 @@ if( ! function_exists('zipperagent_set_cookie') ){
 			$time=time() + (86400 * 30);  // 86400 = 1 day
 		}
 		
-		setcookie($name, base64_encode(serialize($value)), $time, "/");
+		$subfolder=defined('SUBDOMAIN_INSTALL') && ! SUBDOMAIN_INSTALL && function_exists('get_blog_details') ? get_blog_details() : false;
+		
+		if(!$subfolder){
+			setcookie($name, base64_encode(serialize($value)), $time, "/");
+		}else{
+			setcookie($name, base64_encode(serialize($value)), $time, $subfolder->path);
+		}
 		
 		return $value;
 	}
@@ -3021,6 +3060,70 @@ if( ! function_exists('zipperagent_get_cookie') ){
 		}
 		
 		return $value;
+	}
+}
+
+if( ! function_exists('zipperagent_remove_cookie') ){
+	function zipperagent_remove_cookie($name){		
+		
+		unset($_COOKIE[$name]);
+		
+		$subfolder=defined('SUBDOMAIN_INSTALL') && ! SUBDOMAIN_INSTALL && function_exists('get_blog_details') ? get_blog_details() : false;
+		
+		if(!$subfolder){
+			setcookie($name, null, -1, '/');
+		}else{
+			setcookie($name, null, -1, $subfolder->path);
+		}
+	}
+}
+
+if( ! function_exists('zipperagent_set_session') ){
+	function zipperagent_set_session($name, $value=''){
+		
+		$master_key='zipperagent';
+			
+		$site_url = str_replace( 'https://','',site_url() );
+		$site_url = str_replace( 'http://','',$site_url );
+		
+		$_SESSION[$master_key][$site_url][$name]=$value;
+		
+		
+		
+		return isset($_SESSION[$master_key][$blogurl][$name]);
+	}
+}
+
+if( ! function_exists('zipperagent_get_session') ){
+	function zipperagent_get_session($name){
+		
+		$master_key='zipperagent';
+			
+		$site_url = str_replace( 'https://','',site_url() );
+		$site_url = str_replace( 'http://','',$site_url );
+		
+		$value = false;
+		
+		if(isset($_SESSION[$master_key][$site_url][$name])){
+			$value=$_SESSION[$master_key][$site_url][$name];
+		}
+		
+		return $value;
+	}
+}
+
+if( ! function_exists('zipperagent_remove_session') ){
+	function zipperagent_remove_session($name){
+		$master_key='zipperagent';
+			
+		$site_url = str_replace( 'https://','',site_url() );
+		$site_url = str_replace( 'http://','',$site_url );
+		
+		$value = false;
+		
+		if(isset($_SESSION[$master_key][$site_url][$name])){
+			unset($_SESSION[$master_key][$site_url][$name]);
+		}		
 	}
 }
 
@@ -4074,7 +4177,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 					function addEventListenerWrapper(type, listener) {
 						// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
 						// and then trigger the original listener.
-
+						
 						if (type == "keydown") {
 							var orig_listener = listener;
 							listener = function (event) {
@@ -4089,7 +4192,24 @@ if( ! function_exists('global_new_omnibar_script') ){
 
 								orig_listener.apply(inp, [event]);
 							};
-						}
+							
+						} /* else if (type == "blur") {
+							var orig_listener = listener;
+							listener = function (event) {
+								var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+								if (!suggestion_selected) {
+									var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+									orig_listener.apply(inp, [simulated_downarrow]);													
+									
+									if(ms_all__google_autocomplete)
+										google_autocomplete_selected=1;
+								}
+
+								orig_listener.apply(inp, [event]);
+							};
+							
+							console.log("xxx: " + type);
+						} */
 
 						// add the modified listener
 						_addEventListener.apply(inp, [type, listener]);
@@ -4101,6 +4221,31 @@ if( ! function_exists('global_new_omnibar_script') ){
 					inp.attachEvent = addEventListenerWrapper;
 
 				})(input);
+				
+				//// Ensuring that only Google Maps adresses are inputted
+				function selectFirstAddress (input) {
+					// google.maps.event.trigger(autocomplete, 'keydown', {keyCode:40});
+					// google.maps.event.trigger(autocomplete, 'keydown', {keyCode:13});
+					google.maps.event.trigger(input, 'focus', {});
+					google.maps.event.trigger(input, 'keydown', {
+						keyCode: 13
+					});
+					
+					if(ms_all__google_autocomplete)
+						google_autocomplete_selected=1;
+				}
+
+				// Select first address on focusout
+				$('body').on('blur', '#zpa-all-input input', function() {
+					// selectFirstAddress(this);
+				});
+
+				// Select first address on enter in input
+				$('body').on('keydown', '#zpa-all-input input', function(e) {
+					if (e.keyCode == 13) {
+						// selectFirstAddress(this);
+					}
+				});
 
 				function initAutocomplete() {
 					var options = {
@@ -4115,6 +4260,16 @@ if( ! function_exists('global_new_omnibar_script') ){
 					// When the user selects an address from the dropdown, populate the address
 					// fields in the form.
 					autocomplete.addListener('place_changed', fillInAddress);
+					
+					/* google.maps.event.addDomListener(input, 'blur', function () {
+						var value = input.value;
+						console.log(value);
+						$('#zpa-all-input input').val(value);
+						google.maps.event.trigger(autocomplete, 'focus');
+						google.maps.event.trigger(autocomplete, 'keydown', {
+							keyCode: 13
+						});
+					}) */
 				}
 
 				function fillInAddress() {
@@ -4162,6 +4317,8 @@ if( ! function_exists('global_new_omnibar_script') ){
 							ms_all.setValue([push]);
 						}
 					}
+					
+					google_autocomplete_selected=0;
 				}
 
 				initAutocomplete();
@@ -4243,10 +4400,11 @@ if( ! function_exists('global_new_omnibar_script') ){
 						var firstData = '';
 						
 						if( ms_all__rawValue!=""){
+							
 							if(data.length){
 								firstData=JSON.parse(data[0].dataset.json);
 								ms_all.setValue([firstData.code]);
-							}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+							}else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
 								var val = ms_all__rawValue;
 								var prefix = 'alstid_';
 								var code = prefix + val;							
@@ -4296,7 +4454,6 @@ if( ! function_exists('global_new_omnibar_script') ){
 					
 					ms_all.empty();
 					ms_all__rawValue="";
-					google_autocomplete_selected=0;
 					
 					if(r.length==ms_all__recentSelected.length && r.length==ms_all__currentSelected.length){
 						ms_all__afterDelete=1;

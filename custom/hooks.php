@@ -1802,6 +1802,110 @@ function zipperagent_detail_page_popup(){
 	<?php
 }
 
+add_action( 'wp_footer', 'zipperagent_detail_page_navigation', 11);
+
+function zipperagent_detail_page_navigation(){
+	global $is_detail_page, $single_property;
+	
+	if(!$is_detail_page) //show on detailpage only ?
+		return;
+	?>
+	<div id="za_prop-navigation" class="hideonprint">
+	<?php
+	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
+	$saved_props = isset($saved_results['filteredList'])?$saved_results['filteredList']:false;
+	if($saved_props): 
+		
+		$prop_exists=0;
+		foreach($saved_props as $prop_index=>$prop){
+			if($prop->id == $single_property->id){
+				$prop_exists=1;
+				$prev_prop = isset($saved_props[$prop_index - 1]->id)?$saved_props[$prop_index - 1]:false;
+				$next_prop = isset($saved_props[$prop_index + 1]->id)?$saved_props[$prop_index + 1]:false;
+				break;
+			}
+		}
+		
+		if($prop_exists): ?>
+			
+			<?php if($prev_prop): ?>
+			<div class="zy_prop-nav-box zy_prop-nav-previous">
+				<?php
+				
+				$query_args=array();
+				$fulladdress = zipperagent_get_address($prev_prop);
+				$price=(in_array($prev_prop->status, explode(',',zipperagent_sold_status()))?(isset($prev_prop->saleprice)?$prev_prop->saleprice:$prev_prop->listprice):$prev_prop->listprice);					
+				$formatted_price = zipperagent_currency() . number_format_i18n( $price, 0 );
+				$prop_img = isset($prev_prop->photoList[0])? str_replace('http://','//',$prev_prop->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg";
+				
+				if(!empty($searchId)){
+					$query_args['searchId']= $searchId;
+				}
+				if(zp_using_criteria() && isset($requests['criteria'])){
+					$query_args['criteria']= $requests['criteria'];
+				}
+				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+					$query_args['newsearchbar']= 1;
+				}
+				$single_url = add_query_arg( $query_args, zipperagent_property_url( $prev_prop->id, $fulladdress ) );
+				?>
+				
+				<div class="zy_nav-left_wrap">
+					<div class="zy_nav_thumb" style="background-image: url('<?php echo $prop_img; ?>');">
+					</div>
+					<span class="zy_nav_address"><?php echo $fulladdress; ?></span>
+					<span class="zy_nav_price"><?php echo $formatted_price; ?></span>
+					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
+				</div>
+				<div class="zy_nav-right-wrap">
+					<i class="fa fa-angle-left" aria-hidden="true"></i>						
+					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
+				</div>
+			</div>
+			<?php endif; ?>
+			
+			<?php if($next_prop): ?>
+			<div class="zy_prop-nav-box zy_prop-nav-next">
+				<?php
+				
+				$query_args=array();
+				$fulladdress = zipperagent_get_address($next_prop);
+				$price=(in_array($next_prop->status, explode(',',zipperagent_sold_status()))?(isset($next_prop->saleprice)?$next_prop->saleprice:$next_prop->listprice):$next_prop->listprice);					
+				$formatted_price = zipperagent_currency() . number_format_i18n( $price, 0 );
+				$prop_img = isset($next_prop->photoList[0])? str_replace('http://','//',$next_prop->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg";
+				
+				if(!empty($searchId)){
+					$query_args['searchId']= $searchId;
+				}
+				if(zp_using_criteria() && isset($requests['criteria'])){
+					$query_args['criteria']= $requests['criteria'];
+				}
+				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+					$query_args['newsearchbar']= 1;
+				}
+				$single_url = add_query_arg( $query_args, zipperagent_property_url( $next_prop->id, $fulladdress ) );
+				?>
+				
+				<div class="zy_nav-left_wrap">
+					<div class="zy_nav_thumb" style="background-image: url('<?php echo $prop_img; ?>');">
+					</div>
+					<span class="zy_nav_address"><?php echo $fulladdress; ?></span>
+					<span class="zy_nav_price"><?php echo $formatted_price; ?></span>
+					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
+				</div>
+				<div class="zy_nav-right-wrap">
+					<i class="fa fa-angle-right" aria-hidden="true"></i>						
+					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
+				</div>
+			</div>
+			<?php endif; ?>
+		
+		<?php endif; ?>
+	<?php endif; ?>
+	</div>
+	<?php
+}
+
 add_action( 'wp_footer', 'zipperagent_adword_scripts', 11);
 
 function zipperagent_adword_scripts(){

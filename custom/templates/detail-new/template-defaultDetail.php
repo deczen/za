@@ -190,6 +190,7 @@ if(file_exists($template_path) && $template_name ){
 }	
 
 /* if there is no template, run default template */
+
 ?>
 <?php /* <link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/bootstrap.min.css'; ?>">	*/ ?>
 
@@ -200,7 +201,7 @@ if(file_exists($template_path) && $template_name ){
 				
 				<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save header section ?>
 				
-				<div class="zy_header-style col-lg-4 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
+				<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">
 					<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 						<h1>
 							<p class="zy_address-style"><span itemprop="streetAddress"><?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php if(isset($single_property->streetno)): ?>#<?php endif; ?>[streetno]</span></p>
@@ -230,9 +231,9 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
-				<div class="zy_price-mls col-lg-4 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
+				<div class="zy_price-mls col-lg-5 col-sm-12 col-md-12 col-xl-5 zy_nopadding">
 					<div class="row">
-						<div class="col-lg-3 col-sm-12 col-md-12 zy_nopadding">
+						<div class="col-lg-3 col-sm-12 col-md-12">
 							<h2>
 								<p class="zy_price-style zy_status-style zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?>">[status]</p>
 								<p class="zy_label-style">Status</p>
@@ -240,22 +241,22 @@ if(file_exists($template_path) && $template_name ){
 						</div>
 						<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
 							<div class="row">
-								<div class="btn_wrap zy_save-property-wrap col-xs-3 zy_nopadding">
+								<div class="btn_wrap zy_save-property-wrap col-xs-3">
 									<button class="zy_save-property <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
 									<span>Save</span>
 								</div>
 								
-								<div class="btn_wrap zy_schedule-showing-wrap col-xs-3 zy_nopadding">
+								<div class="btn_wrap zy_schedule-showing-wrap col-xs-3">
 									<button class="zy_schedule-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>
 									<span>Request Showing</span>
 								</div>
 								
-								<div class="btn_wrap zy_request-showing-wrap col-xs-3 zy_nopadding">
+								<div class="btn_wrap zy_request-showing-wrap col-xs-3">
 									<button class="zy_request-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>
 									<span>Request info</span>
 								</div>
 								
-								<div class="btn_wrap zy_share-property-wrap col-xs-3 zy_nopadding">
+								<div class="btn_wrap zy_share-property-wrap col-xs-3">
 									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>
 									<span>Share</span>
 									
@@ -313,7 +314,7 @@ if(file_exists($template_path) && $template_name ){
 			
 			<div class="row zy_highlight-section">
 				<div class="col-lg-8 col-sm-12 col-md-12 col-xl-8"> 
-					<div id="gallery-column">
+					<div id="gallery-column" style="display: block !important;">
 						
 						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
 						
@@ -322,14 +323,20 @@ if(file_exists($template_path) && $template_name ){
 						<div class="row">
 							<div class="col-xs-12 zpa-property-photo">
 								<div class="owl-carousel-container">
+									
 									<div class="top-head-carousel-wrapper">
+										<div class="zy-full-lightbox">
+											<a href="#gallery-column" class="btn btn-primary btn-zy-lightbox">
+												<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>
+											</a>
+										</div>
 										<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 												$i=0;
 												foreach ($single_property->photoList as $pic ){ ?>
 													<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
-														<div style="background-image: url('<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1024&h=768&n={$i}" ?>')" class="owl-slide"><img class="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1024&h=768&n={$i}" ?>" /></div>
+														<div style="background-image: url('<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1600&h=1024&n={$i}" ?>')" class="owl-slide"><img class="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1600&h=1024&n={$i}" ?>" /></div>
 													<?php else: ?>
 														<div style="background-image: url('<?php echo $pic->imgurl; ?>')" class="owl-slide"><img class="" src="<?php echo $pic->imgurl; ?>" /></div>
 													<?php endif; ?>
@@ -390,14 +397,15 @@ if(file_exists($template_path) && $template_name ){
 									slideSpeed: 1e3,
 									pagination: !1,
 									responsiveRefreshRate: 200,
+									smartSpeed: 800,
 									paginationSpeed: 400,
 									rewindSpeed: 500,
 									items: 1,
 									dots: !1,
 									autoplay: $topHeadCarousel.hasClass("carousel-autoplay"),
 									autoplayTimeout: 3500,
-									animateOut: "fadeOut",
-									animateIn: "fadeIn",
+									// animateOut: "fadeOut",
+									// animateIn: "fadeIn",
 									onDragged: function(el) {
 										console.log(el), $carouselController.find(".owl-item.selected").removeClass("selected"), center(el.item.index, visibleItemCount), $carouselController.find(".owl-item:nth-child(" + (el.item.index + 1) + ")").addClass("selected")
 									}
@@ -421,7 +429,11 @@ if(file_exists($template_path) && $template_name ){
 									},
 									pagination: !1,
 									dots: !1,
-									nav: false,
+									nav: true,
+									merge:true,
+									slideBy: 5,
+									smartSpeed: 200,
+									navText:['<i class="icon-left-arrow"></i>', '<i class="icon-right-arrow"></i>'],
 									autoplay: $carouselController.hasClass("carousel-autoplay"),
 									autoplayTimeout: 3500,
 									responsiveRefreshRate: 100,
@@ -470,7 +482,75 @@ if(file_exists($template_path) && $template_name ){
 									}
 								});
 								<?php endif; ?>
-							})(jQuery)
+								
+							})(jQuery);
+							
+							jQuery(document).ready(function() {
+								jQuery('.zy-full-lightbox .btn-zy-lightbox').magnificPopup({
+									type: 'inline',
+									preloader: false,
+									// modal: true,
+									closeOnBgClick: true,
+									enableEscapeKey: true,
+									callbacks: {
+										open: function(e) {
+											var $topHeadCarousel = jQuery('.owl-carousel.top-head-carousel').data('owl.carousel');
+											var $carouselController = jQuery('.owl-carousel.carousel-controller').data('owl.carousel');
+											$topHeadCarousel.onResize();
+											$carouselController.onResize();
+											// var $topHeadCarousel = jQuery(".top-head-carousel"),
+												// $carouselController = jQuery(".carousel-controller");
+											// var owlCar = jQuery('.mfp-content .owl-carousel.top-head-carousel');
+											// $topHeadCarousel.trigger('refresh.owl.carousel');
+											// $carouselController.trigger('refresh.owl.carousel');
+											// console.log('text to show in console if popup is open');
+										},
+										close: function(){
+											var $topHeadCarousel = jQuery('.owl-carousel.top-head-carousel').data('owl.carousel');
+											var $carouselController = jQuery('.owl-carousel.carousel-controller').data('owl.carousel');
+											$topHeadCarousel.onResize();
+											$carouselController.onResize();
+										}
+									}
+								});
+							});	
+						</script>
+						
+						<?php /*
+						if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
+							$i=0;
+							echo '<div id="za-popup-gallery-0" style="display:none;">';
+							foreach ($single_property->photoList as $pic ){ ?>
+								<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
+									<a href="<?php echo '//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1024&h=768&n={$i}' ?>") title=''>Image-<?php echo $i; ?></a>
+								<?php else: ?>
+										<a href="<?php echo $pic->imgurl; ?>">Image-<?php echo $i; ?></a>
+								<?php endif; ?>
+							<?php 
+							$i++;
+							}
+							echo '</div>';
+						} */?>
+											
+						<script>
+							// jQuery(document).ready(function() {
+								// jQuery('.zy-full-lightbox .btn-zy-lightbox').click(function(e){
+									// e.preventDefault();
+									// var gallery = jQuery(this).attr('href');
+									// jQuery(gallery).magnificPopup({
+										// delegate: 'a',
+										// type: 'image',
+										// gallery: {
+											// enabled: true,
+											// navigateByImgClick: true,
+										// }
+									// }).magnificPopup('open');
+								// });
+								// jQuery(document).on('click', '.popup-modal-dismiss', function (e) {
+									// e.preventDefault();
+									// jQuery.magnificPopup.close();
+								// });
+							// });
 						</script>
 						<?php endif; ?>
 					</div>
@@ -641,64 +721,6 @@ if(file_exists($template_path) && $template_name ){
 				</div>
 				
 			</div>
-				
-			<!--
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_prop-fetaures">
-					<ul class="zy_prop-highlight">
-						<h2 class="row">Property Features</h1>
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">Sub Type</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">Single Family</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Lot Size Source</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">Assessor's Data</span>
-						</li>
-						
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">Baths Total</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">3</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Kitchen Features</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">Island, Pantry</span>
-						</li>
-						
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">Assessments</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">-</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Distressed Property</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">None</span>
-						</li>
-						
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">Levels</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">2 Story</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Construction</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">Brick</span>
-						</li>
-						
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">School District</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">CENT</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Exterior Unit Features</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">Cable TV, Fence, Patio, Porch</span>
-						</li>
-						
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">Appliance</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">Cooktop, Dishwasher, Dryer, Garbage Disposal, Microwave, Wall Oven, Washer</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Transaction Type</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">Sale</span>
-						</li>
-						
-						<li class="row">
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_nopadding zy_mob">Zoning</label> 
-							<span class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col zy_nopadding zy_mob">Residential</span>
-							<label class="col-lg-2 col-sm-6 col-md-2 col-xl-2 col zy_right-padding zy_mob">Utilities</label> 
-							<span class="col-lg-3 col-sm-6 col-md-4 col-xl-4 col zy_nopadding zy_mob">220 Volt Outlet, City Water, Natural Gas, Sanitary Sewer</span>
-						</li>
-						
-					</ul>
-				</div>
-			</div> -->
 			
 			<div id="zy_bottom-section">
 				
@@ -841,6 +863,7 @@ if(file_exists($template_path) && $template_name ){
 			</div>
 			
 		</article>
+		
 	</section>
 	<!-- print views -->
 	<?php
@@ -865,3 +888,10 @@ if(file_exists($template_path) && $template_name ){
 	?>
 	</div>
 </div>
+
+<?php
+
+// if(isset($_GET['debug'])){
+	// session_start();
+	// echo '<pre>'; print_r($_SESSION); echo '</pre>';
+// }

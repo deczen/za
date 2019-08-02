@@ -1555,7 +1555,7 @@ $excludes = get_new_filter_excludes();
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all.setValue([firstData.code]);
-						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
 							var val = ms_all__rawValue;
 							var prefix = 'alstid_';
 							var code = prefix + val;							

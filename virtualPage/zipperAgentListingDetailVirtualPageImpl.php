@@ -46,6 +46,8 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				// echo "<pre>"; print_r($_SESSION); echo "</pre>";
 				// echo "<pre>"; print_r($lastest_cache); echo "</pre>";
 			}
+			
+			// echo "<pre>"; print_r(zipperagent_get_session('/api/mls/advSearchWoCnt')); echo "</pre>"; 
 		}
 	}
 	/* end modified */
@@ -118,7 +120,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				
 				isset($property->id) ? zipperagent_property_url( $property->id, zipperagent_get_address($property) ) : '',
 				zipperagent_company_name().', '.$this->getTitle(),
-				isset($property->id) ? $property->remarks : '',
+				isset($property->id) ? ( isset( $property->remarks ) ? $property->remarks : '' ) : '',
 				isset($rb['facebook']['appid'])?$rb['facebook']['appid']:'',
 			);
 			

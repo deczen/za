@@ -118,3 +118,6 @@ Stack trace:
 #2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
 #3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
 #4 /home/blpcfvhi/publ in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 30
+[02-Aug-2019 09:14:51 UTC] PHP Notice:  Undefined variable: blogurl in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 3093
+[02-Aug-2019 11:39:54 UTC] PHP Notice:  Undefined variable: blogurl in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 3093
+[02-Aug-2019 11:39:58 UTC] PHP Notice:  Undefined variable: blogurl in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/functions.php on line 3093
