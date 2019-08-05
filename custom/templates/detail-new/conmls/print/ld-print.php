@@ -144,7 +144,7 @@
 			  [unmapped_AtticYN]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basementfeature)): ?>
-			  <strong>Fasement Feature</strong>
+			  <strong>Basement Feature</strong>
 			  [basementfeature]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->interiorfeatures)): ?>
@@ -290,7 +290,7 @@
 		   </p>
 		</div>
 		
-		<?php if( isset($single_property->unmapped->HeatFuelType) || isset($single_property->utilities) ):?>
+		<?php if( isset($single_property->unmapped->HeatFuelType) || isset($single_property->utilities) || isset($single_property->heating) || isset($single_property->cooling) || isset($single_property->fireplaces) ):?>
 			<div class="zy-print-block">
 			   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Cooling, Heating, Utilities</h6> 
 			   <p>
@@ -301,6 +301,38 @@
 				  <?php if(isset($single_property->utilities)): ?>
 				  <strong>Level</strong>
 				  [utilities]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->heating)): ?>
+				  <strong>Heating</strong>
+				  [heating]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->cooling)): ?>
+				  <strong>Cooling</strong>
+				  [cooling]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->fireplaces)): ?>
+				  <strong>Fireplaces</strong>
+				  [fireplaces]
+				  <?php endif; ?>
+			   </p>
+			</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->unmapped->Middle_JrHighSchool) ):?>
+			<div class="zy-print-block">
+			   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">School Information</h6> 
+			   <p>
+				  <?php if(isset($single_property->gradeschool)): ?>
+				  <strong>Grade School</strong>
+				  [gradeschool]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->highschool)): ?>
+				  <strong>Highschool</strong>
+				  [highschool]
+				  <?php endif; ?>
+				  <?php if(isset($single_property->unmapped->Middle_JrHighSchool)): ?>
+				  <strong>Middle & Jr High School</strong>
+				  [unmapped_Middle_JrHighSchool]
 				  <?php endif; ?>
 			   </p>
 			</div>
@@ -322,13 +354,21 @@
 		</div>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->unmapped->PropertyTax) || isset($single_property->hoafee) || isset($single_property->feeinterval) ):?>
+		<?php if( isset($single_property->unmapped->PropertyTax) || isset($single_property->taxyear) || isset($single_property->unmapped->TaxYearUpdatedDT) || isset($single_property->hoafee) || isset($single_property->feeinterval) ):?>
 		<div class="zy-print-block">
 		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Taxes, Fees</h6>
 		   <p>
 			  <?php if(isset($single_property->unmapped->PropertyTax)): ?>
 			  <strong>Property Tax</strong>
 			  [unmapped_PropertyTax]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->unmapped->TaxYearUpdatedDT)): ?>
+			  <strong>Tax Period</strong>
+			  [unmapped_TaxYearUpdatedDT]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->hoafee)): ?>
 			  <strong>Hoa Fee Amount</strong>

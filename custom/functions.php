@@ -3090,7 +3090,7 @@ if( ! function_exists('zipperagent_set_session') ){
 		
 		
 		
-		return isset($_SESSION[$master_key][$blogurl][$name]);
+		return isset($_SESSION[$master_key][$site_url][$name]);
 	}
 }
 

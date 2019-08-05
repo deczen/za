@@ -35,7 +35,7 @@
 					<li>Attic Yn: [unmapped_AtticYN]</li>
 					<?php endif; ?>
 					<?php if( isset($single_property->basementfeature)): ?>
-					<li>Fasement Feature: [basementfeature]</li>
+					<li>Basement Feature: [basementfeature]</li>
 					<?php endif; ?>
 					<?php if( isset($single_property->interiorfeatures)): ?>
 					<li>Interior Features: [interiorfeatures]</li>

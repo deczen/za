@@ -197,6 +197,16 @@
 	color: #fff;
 }
 
+#zy-gallery-slide-proptype .top-head-carousel-wrapper .owl-slide{background-image: none !important;background-color: rgba(0,0,0,0) !important;height: auto;position: absolute;top: 50%;width: 100%;left: 50%;transform: translate(-50%, -50%);}
+#zy-gallery-slide-proptype .owl-carousel-container .carousel-controller-wrapper{background-color: rgba(0,0,0,0);}
+#zy-gallery-slide-proptype .top-head-carousel-wrapper .owl-slide img{opacity: 1 !important;height: 100% !important;max-height: 100% !important;vertical-align: middle;width: auto !important;}
+#zy-gallery-slide-proptype .modal-dialog{max-width: unset;width: 100%;padding: 10px 0;}
+#zy-gallery-slide-proptype .top-head-carousel-wrapper .owl-item{height: calc(100vh - 140px);}
+#zy-gallery-slide-proptype .modal-dialog .modal-content{background: rgba(0,0,0,0);box-shadow: none;border: none;}
+#zy-gallery-slide-proptype .modal-dialog .modal-header{background: rgba(0,0,0,0);}
+#zy-gallery-slide-proptype.modal{background: rgba(11, 11, 9, 0.8);padding: 0;}
+#zy-gallery-slide-proptype.modal .modal-header .close{top: 30px;opacity: 0.8;color: #fff;}
+
 /* navigation */
 #za_prop-navigation{position:absolute; width:0; height: 0; z-index: 1000}
 #za_prop-navigation .zy_prop-nav-box{position:fixed; top: 28%; background-color:#fff; opacity:0.5; width:auto; min-width:45px; -moz-box-shadow: 0px 5px 10px 3px #c8c8c8; -webkit-box-shadow: 0px 5px 10px 3px #c8c8c8; box-shadow: 0px 5px 10px 3px #c8c8c8; }
@@ -233,8 +243,12 @@
 	.zy-features-grid > li{float:none;width:100%;}
 	.zy_prop-details span{padding-left:10px !important;}
 	#zpa-main-container .zy_main .zy_share-property-wrap.open>.dropdown-menu{left: -99px !important;}
-	.mfp-wrap .mfp-content #gallery-column .owl-carousel .owl-item img{width: 100% !important; height: auto !important;}
 	#za_prop-navigation{display:none;}
+	#zy-gallery-slide-proptype .owl-carousel .owl-item img{width: 100% !important;height: auto !important;max-height: 100% !important;}
+	#zy-gallery-slide-proptype .owl-carousel-container .top-head-carousel-wrapper .left-nav,
+	#zy-gallery-slide-proptype .owl-carousel-container .top-head-carousel-wrapper .right-nav{/* opacity: 1 !important; */}
+	#zy-gallery-slide-proptype .carousel-controller-wrapper{display:none;}
+	#zy-gallery-slide-proptype .top-head-carousel-wrapper .owl-item{height: calc(100vh - 70px);}
 }
 @media only screen and (max-width: 400px){
 	.zy_price-mls .zy-detail-tool .btn_wrap {width: 25% !important;}

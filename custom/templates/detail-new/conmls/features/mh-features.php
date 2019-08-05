@@ -33,7 +33,7 @@
 				<li>Attic Yn: [unmapped_AtticYN]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->basementfeature)): ?>
-				<li>Fasement Feature: [basementfeature]</li>
+				<li>Basement Feature: [basementfeature]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<li>Interior Features: [interiorfeatures]</li>
@@ -145,8 +145,10 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->unmapped->HeatFuelType) || isset($single_property->utilities)  ):?>
+	<?php if( isset($single_property->unmapped->HeatFuelType) || isset($single_property->utilities) || isset($single_property->heating) || isset($single_property->cooling) || isset($single_property->fireplaces) || isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->unmapped->Middle_JrHighSchool) ):?>
 	<li class="cell">
+	
+		<?php if( isset($single_property->unmapped->HeatFuelType) || isset($single_property->utilities) || isset($single_property->heating) || isset($single_property->cooling) || isset($single_property->fireplaces)  ):?>
 		<h3 class="zy-feature-title">Cooling, Heating, Utilities</h3>
 		<ul class="zy-sub-list">
 
@@ -156,9 +158,37 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->utilities)): ?>
 				<li>Utilities Available: [utilities]</li>
+				<?php endif; ?>	
+				<?php if( isset($single_property->heating)): ?>
+				<li>Heating: [heating]</li>
+				<?php endif; ?>		
+				<?php if( isset($single_property->cooling)): ?>
+				<li>Cooling: [cooling]</li>
+				<?php endif; ?>		
+				<?php if( isset($single_property->fireplaces)): ?>
+				<li>Fireplaces: [fireplaces]</li>
 				<?php endif; ?>						
 			
 		</ul>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->gradeschool) || isset($single_property->highschool) || isset($single_property->unmapped->Middle_JrHighSchool) ):?>
+		<h3 class="zy-feature-title">School Information</h3>
+		<ul class="zy-sub-list">
+
+				<?php if( isset($single_property->gradeschool)): ?>
+				<li>Grade School : [gradeschool]</li>
+				<?php endif; ?>	
+				<?php if( isset($single_property->highschool)): ?>
+				<li>Highschool: [highschool]</li>
+				<?php endif; ?>		
+				<?php if( isset($single_property->unmapped->Middle_JrHighSchool)): ?>
+				<li>Middle & Jr High School: [unmapped_Middle_JrHighSchool]</li>
+				<?php endif; ?>				
+			
+		</ul>
+		<?php endif; ?>
+		
 	</li>
 	<?php endif; ?>
 
@@ -177,12 +207,18 @@
 		</ul>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->unmapped_PropertyTax) || isset($single_property->hoafee) || isset($single_property->feeinterval) ):?>
+		<?php if( isset($single_property->unmapped->PropertyTax) || isset($single_property->taxyear) || isset($single_property->unmapped->TaxYearUpdatedDT) || isset($single_property->hoafee) || isset($single_property->feeinterval) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			
 				<?php if( isset($single_property->unmapped->PropertyTax)): ?> 
 				<li>Property Tax: [unmapped_PropertyTax]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->taxyear)): ?>
+				<li>Tax Year: [taxyear]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxYearUpdatedDT)): ?>
+				<li>Tax Period: [unmapped_TaxYearUpdatedDT]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->hoafee)): ?>
 				<li>Hoa Fee Amount: [hoafee]</li>

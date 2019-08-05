@@ -326,7 +326,7 @@ if(file_exists($template_path) && $template_name ){
 									
 									<div class="top-head-carousel-wrapper">
 										<div class="zy-full-lightbox">
-											<a href="#gallery-column" class="btn btn-primary btn-zy-lightbox">
+											<a class="btn btn-primary btn-zy-lightbox">
 												<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>
 											</a>
 										</div>
@@ -370,6 +370,63 @@ if(file_exists($template_path) && $template_name ){
 									</div>
 								</div>
 							</div>
+							
+							
+							<div id="zy-gallery-slide-proptype"  class="col-xs-12 modal in" style="display: none;">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"> &#215; </button>
+										</div>
+										<div class="modal-body">
+											<div class="owl-carousel-container">
+												
+												<div class="top-head-carousel-wrapper">
+													<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+														<?php
+														if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
+															$i=0;
+															foreach ($single_property->photoList as $pic ){ ?>
+																<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
+																	<div style="background-image: url('<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1600&h=1024&n={$i}" ?>')" class="owl-slide"><img class="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1600&h=1024&n={$i}" ?>" /></div>
+																<?php else: ?>
+																	<div style="background-image: url('<?php echo $pic->imgurl; ?>')" class="owl-slide"><img class="" src="<?php echo $pic->imgurl; ?>" /></div>
+																<?php endif; ?>
+															<?php 
+															$i++;
+															}
+														} ?>
+													</div>
+													<div class="left-nav"><i class="icon-left-arrow"></i>
+													</div>
+													<div class="right-nav"><i class="icon-right-arrow"></i>
+													</div>
+												</div>
+												<div class="carousel-controller-wrapper">
+													<div class="owl-carousel carousel-controller">
+														<?php
+														if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
+															$i=0;
+															foreach ($single_property->photoList as $pic ){ ?>
+																<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
+																	<div style="background-image: url('<?php echo "//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=150&h=150&n={$i}" ?>')" class="item"></div>
+																<?php else: ?>
+																	<div style="background-image: url('<?php echo $pic->imgurl; ?>')" class="item"></div>
+																<?php endif; ?>
+																<?php 
+															$i++;
+															}
+														}
+														?>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
 						</div>
 						<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 						<script>
@@ -484,7 +541,7 @@ if(file_exists($template_path) && $template_name ){
 								<?php endif; ?>
 								
 							})(jQuery);
-							
+							/*
 							jQuery(document).ready(function() {
 								jQuery('.zy-full-lightbox .btn-zy-lightbox').magnificPopup({
 									type: 'inline',
@@ -514,6 +571,96 @@ if(file_exists($template_path) && $template_name ){
 									}
 								});
 							});	
+							*/
+							
+							jQuery('body').on('click', '.zy-full-lightbox .btn-zy-lightbox', function(e){
+								jQuery('#zy-gallery-slide-proptype').modal('show');
+								jQuery('#gallery-column .zpa-property-photo').hide();
+							});
+							
+							jQuery('#zy-gallery-slide-proptype .modal-header .close').click(function(){
+								
+								jQuery('#gallery-column .zpa-property-photo').show();
+							});
+							/*
+							(function($){
+								function setThumbnailAsASelected(number) {
+									$carouselController.find(".owl-item.selected").removeClass("selected"), $carouselController.find(".owl-item:nth-of-type(" + (number + 1) + ")").addClass("selected")
+								}
+
+								function changeSlide(isLeftDirection) {
+									var pickedItemNumber = void 0,
+										oldItemIndex = $topHeadCarousel.find(".owl-item.active").index(),
+										itemCount = $topHeadCarousel.find(".owl-stage .owl-item").length;
+									oldItemIndex >= itemCount - 1 && !isLeftDirection ? $topHeadCarousel.trigger("to.owl.carousel", 0) : 0 == oldItemIndex && isLeftDirection ? $topHeadCarousel.trigger("to.owl.carousel", itemCount - 1) : $topHeadCarousel.trigger(isLeftDirection ? "prev.owl.carousel" : "next.owl.carousel"), pickedItemNumber = $topHeadCarousel.find(".owl-item.active").index(), setThumbnailAsASelected(pickedItemNumber), center(pickedItemNumber, visibleItemCount)
+								}
+
+								function center(number, itemInPage) {
+									$carouselController.trigger("to.owl.carousel", number - parseInt(itemInPage / 2))
+								}
+								var $topHeadCarousel = $(".top-head-carousel-2"),
+									$carouselController = $(".carousel-controller-2"),
+									visibleItemCount = 0,
+									itemTotalCount = 0;
+								$topHeadCarousel.owlCarousel({
+									singleItem: !0,
+									slideSpeed: 1e3,
+									pagination: !1,
+									responsiveRefreshRate: 200,
+									smartSpeed: 800,
+									paginationSpeed: 400,
+									rewindSpeed: 500,
+									items: 1,
+									dots: !1,
+									autoplay: $topHeadCarousel.hasClass("carousel-autoplay"),
+									autoplayTimeout: 3500,
+									// animateOut: "fadeOut",
+									// animateIn: "fadeIn",
+									onDragged: function(el) {
+										console.log(el), $carouselController.find(".owl-item.selected").removeClass("selected"), center(el.item.index, visibleItemCount), $carouselController.find(".owl-item:nth-child(" + (el.item.index + 1) + ")").addClass("selected")
+									}
+								}), $(".left-nav").click(function() {
+									return changeSlide(!0)
+								}), $(".right-nav").click(function() {
+									return changeSlide(!1)
+								}), $carouselController.owlCarousel({
+									items: 11,
+									responsiveClass: !0,
+									responsive: {
+										0: {
+											items: 5
+										},
+										600: {
+											items: 7
+										},
+										1e3: {
+											items: 11
+										}
+									},
+									pagination: !1,
+									dots: !1,
+									nav: true,
+									merge:true,
+									slideBy: 5,
+									smartSpeed: 200,
+									navText:['<i class="icon-left-arrow"></i>', '<i class="icon-right-arrow"></i>'],
+									autoplay: $carouselController.hasClass("carousel-autoplay"),
+									autoplayTimeout: 3500,
+									responsiveRefreshRate: 100,
+									onInitialized: function(el) {
+										visibleItemCount = el.page.size, itemTotalCount = el.item.count, $(el.target).find(".owl-item").eq(0).addClass("selected")
+									},
+									onResize: function(el) {
+										visibleItemCount = el.page.size
+									}
+								}), $carouselController.on("click", ".owl-item", function(e) {
+									var clickedItemNumber = $(this).index();
+									setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
+								});
+								
+								
+							})(jQuery);
+							*/
 						</script>
 						
 						<?php /*

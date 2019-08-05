@@ -186,7 +186,7 @@
 				  [unmapped_AtticYN]
 				  <?php endif; ?>
 				  <?php if(isset($single_property->basementfeature)): ?>
-				  <strong>Fasement Feature</strong>
+				  <strong>Basement Feature</strong>
 				  [basementfeature]
 				  <?php endif; ?>
 				  <?php if(isset($single_property->interiorfeatures)): ?>
