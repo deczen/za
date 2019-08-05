@@ -1767,24 +1767,6 @@ function zipperagent_global_popup_variable(){
 	global $zpa_show_login_popup;
 }
 
-add_action( 'wp_footer', 'zipperagent_login_popup', 11);
-
-function zipperagent_login_popup(){
-	global $zpa_show_login_popup, $is_detail_page, $single_property;
-	
-	if( ! is_home() && ! is_front_page() && !$zpa_show_login_popup) // show only on homepage and zipperagent page
-		return;
-	
-	if(!$is_detail_page && is_popup_detail_page_only()) //show on detailpage only ?
-		return;
-	
-	?>
-	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
-	<?php include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
-	</div>
-	<?php
-}
-
 add_action( 'wp_footer', 'zipperagent_detail_page_popup', 11);
 
 function zipperagent_detail_page_popup(){
@@ -2208,6 +2190,24 @@ function zipperagent_detail_page_lightbox_gallery(){
 	</div>
 	<?php
 	endif;
+}
+
+add_action( 'wp_footer', 'zipperagent_login_popup', 11);
+
+function zipperagent_login_popup(){
+	global $zpa_show_login_popup, $is_detail_page, $single_property;
+	
+	if( ! is_home() && ! is_front_page() && !$zpa_show_login_popup) // show only on homepage and zipperagent page
+		return;
+	
+	if(!$is_detail_page && is_popup_detail_page_only()) //show on detailpage only ?
+		return;
+	
+	?>
+	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
+	<?php include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
+	</div>
+	<?php
 }
 
 add_action( 'wp_footer', 'zipperagent_adword_scripts', 11);
