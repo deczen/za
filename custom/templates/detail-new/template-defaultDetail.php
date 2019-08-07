@@ -26,6 +26,124 @@ switch($property_type){
 		break;
 }
 
+if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMMLS' || $single_property->sourceid == 'FMXMLS' || $single_property->sourceid == 'GFKMLS' || $single_property->sourceid == 'MWMMLS' ){
+	
+	switch($property_type){
+		case "A":
+				$property_type='RESIDENTIAL';
+			break;
+	}
+	
+	if($single_property->sourceid == 'BMMLS'){
+		
+		switch($property_type){
+			case "A":
+					$property_type='RESIDENTIAL';
+				break;
+			case "B":
+					$property_type='LAND';
+				break;
+			case "C":
+					$property_type='COMMERCIAL';
+				break;
+		}
+
+	}else if($single_property->sourceid == 'FGMMLS'){
+		
+		switch($property_type){
+			case "A":
+					$property_type='RESIDENTIAL';
+				break;
+			case "I":
+					$property_type='MULTYFAMILY';
+				break;
+			case "J":
+					$property_type='LAND';
+				break;
+			case "K":
+					$property_type='COMMERCIAL';
+				break;
+		}
+		
+	}else if($single_property->sourceid == 'FMXMLS'){
+		
+		switch($property_type){
+			case "A":
+					$property_type='COMMERCIAL';
+				break;
+			case "B":
+					$property_type='COMMERCIAL';
+				break;
+		}
+		
+	}else if($single_property->sourceid == 'GFKMLS'){
+		
+		switch($property_type){
+			case "A":
+					$property_type='RESIDENTIAL';
+				break;
+			case "B":
+					$property_type='MULTYFAMILY';
+				break;
+			case "C":
+					$property_type='LAND';
+				break;
+			case "D":
+					$property_type='COMMERCIAL';
+				break;
+			case "F":
+					$property_type='MOBILEHOMES';
+				break;
+			case "G":
+					$property_type='BUSINESS';
+				break;
+			case "H":
+					$property_type='COMMERCIAL';
+				break;
+			case "RES":
+					$property_type='RES';
+				break;
+			case "LN":
+					$property_type='LAND';
+				break;
+			case "COM":
+					$property_type='COM';
+				break;
+			case "CL":
+					$property_type='COMMERCIAL';
+				break;
+			case "MF":
+					$property_type='MF';
+				break;
+			case "REL":
+					$property_type='RESIDENTIAL';
+				break;
+		}
+		
+	}else if($single_property->sourceid == 'MWMMLS'){
+		
+		switch($property_type){
+			case "A":
+					$property_type='RESIDENTIAL';
+				break;
+			case "B":
+					$property_type='MULTYFAMILY';
+				break;
+			case "C":
+					$property_type='FARM';
+				break;
+			case "D":
+					$property_type='LAND';
+				break;
+			case "E":
+					$property_type='COMMERCIAL';
+				break;
+		}
+		
+	}
+	
+}
+
 //Template selection
 switch($property_type){
 	case "SF": //Single Family		
@@ -48,6 +166,7 @@ switch($property_type){
 	case "MUL": //Multifamily	
 	case "MANU": //MAnufactured in Park	
 	case "B": //Multi-family
+	case "MULTYFAMILY": //Multi-family
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -55,6 +174,7 @@ switch($property_type){
 		$template_vtlink='mf-vtlink.php';
 		break;
 	case "MH": //Mobile Home	
+	case "MOBILEHOMES": //Mobile Home	
 		$template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
 		$template_features='mh-features.php';
 		$template_print='mh-print.php';
@@ -107,6 +227,7 @@ switch($property_type){
 	case "CM": //Commercial		
 	case "INC": //Income		
 	case "D": //Commercial		
+	case "COMMERCIAL": //Commercial		
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';
@@ -119,6 +240,7 @@ switch($property_type){
 	case "BOP": //Business Opportunity		
 	case "IND": //Industri		
 	case "BUSI": //Business		
+	case "BUSINESS": //Business		
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';
@@ -204,7 +326,7 @@ if(file_exists($template_path) && $template_name ){
 				<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">
 					<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 						<h1>
-							<p class="zy_address-style"><span itemprop="streetAddress"><?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php if(isset($single_property->streetno)): ?>#<?php endif; ?>[streetno]</span></p>
+							<p class="zy_address-style"><span itemprop="streetAddress">[streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?></span></p>
 							<p class="zy_subaddress-style">
 								<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 								<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>
