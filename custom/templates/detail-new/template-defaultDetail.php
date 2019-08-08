@@ -28,11 +28,11 @@ switch($property_type){
 
 if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMMLS' || $single_property->sourceid == 'FMXMLS' || $single_property->sourceid == 'GFKMLS' || $single_property->sourceid == 'MWMMLS' ){
 	
-	switch($property_type){
-		case "A":
-				$property_type='RESIDENTIAL';
-			break;
-	}
+	// switch($property_type){
+		// case "A":
+				// $property_type='RESIDENTIAL';
+			// break;
+	// }
 	
 	if($single_property->sourceid == 'BMMLS'){
 		

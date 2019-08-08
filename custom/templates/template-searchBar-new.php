@@ -1,8 +1,14 @@
 <?php
+global $is_detail_page;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 ?>
 <div id="omnibar-tools">
+	<?php if($is_detail_page): ?>
+	<div class="omnibar-btn-back">
+		<a onclick="window.history.back();"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
+	</div>
+	<?php endif; ?>
 	<div class="desktop-omnibar">
 		<style>
 			#omnibar-tools .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
@@ -1389,7 +1395,7 @@ $excludes = get_new_filter_excludes();
 						var orig_listener = listener;
 						listener = function (event) {
 							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
-							if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+							if (event.which == 9 || event.which == 13 && !suggestion_selected && ms_all__rawValue) {
 								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
 								orig_listener.apply(inp, [simulated_downarrow]);													
 								

@@ -1833,11 +1833,15 @@ function zipperagent_detail_page_navigation(){
 				?>
 				
 				<div class="zy_nav-left_wrap">
-					<div class="zy_nav_thumb" style="background-image: url('<?php echo $prop_img; ?>');">
+					<a href="<?php echo $single_url; ?>">
+						<div class="zy_nav_thumb" style="background-image: url('<?php echo $prop_img; ?>');">
+						</div>
+					</a>
+					<div class="zy_nav_detail">
+						<span class="zy_nav_address"><?php echo $fulladdress; ?></span>
+						<span class="zy_nav_price"><?php echo $formatted_price; ?></span>
+						<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
 					</div>
-					<span class="zy_nav_address"><?php echo $fulladdress; ?></span>
-					<span class="zy_nav_price"><?php echo $formatted_price; ?></span>
-					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
 				</div>
 				<div class="zy_nav-right-wrap">
 					<i class="fa fa-angle-left" aria-hidden="true"></i>						
@@ -1869,11 +1873,15 @@ function zipperagent_detail_page_navigation(){
 				?>
 				
 				<div class="zy_nav-left_wrap">
-					<div class="zy_nav_thumb" style="background-image: url('<?php echo $prop_img; ?>');">
+					<a href="<?php echo $single_url; ?>">
+						<div class="zy_nav_thumb" style="background-image: url('<?php echo $prop_img; ?>');">
+						</div>
+					</a>
+					<div class="zy_nav_detail">
+						<span class="zy_nav_address"><?php echo $fulladdress; ?></span>
+						<span class="zy_nav_price"><?php echo $formatted_price; ?></span>
+						<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
 					</div>
-					<span class="zy_nav_address"><?php echo $fulladdress; ?></span>
-					<span class="zy_nav_price"><?php echo $formatted_price; ?></span>
-					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
 				</div>
 				<div class="zy_nav-right-wrap">
 					<i class="fa fa-angle-right" aria-hidden="true"></i>						

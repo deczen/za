@@ -4182,7 +4182,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 							var orig_listener = listener;
 							listener = function (event) {
 								var suggestion_selected = jQuery(".pac-item-selected").length > 0;
-								if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+								if (event.which == 9 || event.which == 13 && !suggestion_selected && ms_all__rawValue) {
 									var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
 									orig_listener.apply(inp, [simulated_downarrow]);													
 									
