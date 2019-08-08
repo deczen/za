@@ -4,7 +4,10 @@ $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 ?>
 <div id="omnibar-tools">
-	<?php if($is_detail_page): ?>
+	<?php
+	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
+	?>
+	<?php if($is_detail_page && $saved_results): ?>
 	<div class="omnibar-btn-back">
 		<a onclick="window.history.back();"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
 	</div>
