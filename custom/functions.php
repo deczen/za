@@ -93,7 +93,12 @@ if( ! function_exists('zipperagent_run_curl') ){
 if( ! function_exists('zipperagent_save_session_result') ){
 	function zipperagent_save_session_result($index, $result){
 		
+		global $requests;
+		
+		$actual_link = isset($requests['actual_link'])?$requests['actual_link']: (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		
 		zipperagent_set_session($index, (array) $result);
+		zipperagent_set_session($index . '_url', $actual_link);
 	}
 }
 

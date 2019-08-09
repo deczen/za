@@ -488,19 +488,19 @@ function mortgage_calculator_count(){
 		
 		ob_start();
 		?>	
-		<?php if((int)$price_interest): ?>
+		<?php if((float)$price_interest): ?>
 		<div class="mortgage-color" id="principal-color" style="width: <?php echo $bar_interest; ?>%;"></div>
 		<?php endif; ?>
-		<?php if((int)$price_taxes): ?>
+		<?php if((float)$price_taxes): ?>
 		<div class="mortgage-color" id="property-color" style="width: <?php echo $bar_tax; ?>%;"></div>
 		<?php endif; ?>
-		<?php if((int)$price_hoa_dues): ?>
+		<?php if((float)$price_hoa_dues): ?>
 		<div class="mortgage-color" id="hoadues-color" style="width: <?php echo $bar_hoadues; ?>%;"></div>
 		<?php endif; ?>
-		<?php if((int)$price_homeowners): ?>
+		<?php if((float)$price_homeowners): ?>
 		<div class="mortgage-color" id="insurance-color" style="width: <?php echo $bar_homeowners; ?>%;"></div>
 		<?php endif; ?>
-		<?php if((int)$price_mortgage): ?>
+		<?php if((float)$price_mortgage): ?>
 		<div class="mortgage-color" id="mortgage-color" style="width: <?php echo $bar_mortgage; ?>%;"></div>
 		<?php endif; ?>
 		<?php
@@ -509,27 +509,27 @@ function mortgage_calculator_count(){
 		ob_start();
 		?>		
 		<div class="row">
-			<?php if((int)$price_interest): ?>
+			<?php if((float)$price_interest): ?>
 			<div class="col-xs-12 col-sm-6  mb-6">
 				<div class="mg-principal">Principal and Interest<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_interest, 0 ) ?></span></div>
 			</div>
 			<?php endif; ?>
-			<?php if((int)$price_taxes): ?>
+			<?php if((float)$price_taxes): ?>
 			<div class="col-xs-12 col-sm-6  mb-6">
 				<div class="mg-property">Property Taxes<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_taxes, 0 ) ?></span></div>
 			</div>
 			<?php endif; ?>
-			<?php if((int)$price_hoa_dues): ?>
+			<?php if((float)$price_hoa_dues): ?>
 			<div class="col-xs-12 col-sm-6  mb-6">
 				<div class="mg-hoadues">HOA Dues<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_hoa_dues, 0 ) ?></span></div>
 			</div>
 			<?php endif; ?>
-			<?php if((int)$price_homeowners): ?>
+			<?php if((float)$price_homeowners): ?>
 			<div class="col-xs-12 col-sm-6  mb-6">
 				<div class="mg-insurance">Homeowners' Insurance<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_homeowners, 0 ) ?></span></div>
 			</div>
 			<?php endif; ?>
-			<?php if((int)$price_mortgage): ?>
+			<?php if((float)$price_mortgage): ?>
 			<div class="col-xs-12 col-sm-6  mb-6">
 				<div class="mg-mortgage">Mortgage Insurance<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_mortgage, 0 ) ?></span></div>
 			</div>

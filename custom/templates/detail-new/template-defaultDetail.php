@@ -69,7 +69,7 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 		
 		switch($property_type){
 			case "A":
-					$property_type='COMMERCIAL';
+					$property_type='RESIDENTIAL';
 				break;
 			case "B":
 					$property_type='COMMERCIAL';
@@ -116,7 +116,7 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 					$property_type='MF';
 				break;
 			case "REL":
-					$property_type='RESIDENTIAL';
+					$property_type='RESI';
 				break;
 		}
 		
@@ -155,6 +155,7 @@ switch($property_type){
 	case "CL": //CommonInterest CL
 	case "BF": //ResidentialProperty BF
 	case "COF": //OFFICE
+	case "RESIDENTIAL": //Residential
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -251,7 +252,6 @@ switch($property_type){
 	case "RINC": //Residential
 	case "RLSE": //Residential
 	case "A": //Residential
-	case "RESIDENTIAL": //Residential
 		$template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 		$template_features='rd-features.php';
 		$template_print='rd-print.php';
