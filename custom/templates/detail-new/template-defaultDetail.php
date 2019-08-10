@@ -27,13 +27,7 @@ switch($property_type){
 }
 
 if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMMLS' || $single_property->sourceid == 'FMXMLS' || $single_property->sourceid == 'GFKMLS' || $single_property->sourceid == 'MWMMLS' ){
-	
-	// switch($property_type){
-		// case "A":
-				// $property_type='RESIDENTIAL';
-			// break;
-	// }
-	
+		
 	if($single_property->sourceid == 'BMMLS'){
 		
 		switch($property_type){
@@ -271,6 +265,7 @@ switch($property_type){
 
 /* Generate custom template */
 $groupname = zipperagent_detailpage_group();
+$sourceid = strtolower($single_property->sourceid);
 
 // $group_dir_default='/default';
 // $template_features_default = 'default-features.php';
@@ -298,6 +293,13 @@ $template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $gro
 $template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/print/'. $template_print;
 $template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/sidebar/'. $template_sidebar;
 $template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/vtlink/'. $template_vtlink;
+
+//check subfolder
+$template_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/'. $sourceid .'/'. $template_name)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/'. $sourceid .'/'. $template_name:$template_path;
+$template_features_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid. '/features/'. $template_features)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid. '/features/'. $template_features:$template_features_path;
+$template_print_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid. '/print/'. $template_print)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid. '/print/'. $template_print:$template_print_path;
+$template_sidebar_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid .'/sidebar/'.$template_sidebar)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid .'/sidebar/'.$template_sidebar:$template_sidebar_path;
+$template_vtlink_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid .'/vtlink/'. $template_vtlink)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid .'/vtlink/'. $template_vtlink:$template_vtlink_path;
 
 //default template
 $template_features_path_default = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir_default .'/features/'. $template_features_default;
