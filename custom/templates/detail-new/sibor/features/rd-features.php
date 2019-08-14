@@ -11,7 +11,7 @@
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<li>Interior Features: [interiorfeatures]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->lotdescription)): ?> 
+				<?php if( isset($single_property->lotdescription)): ?>
 				<li>Lot Description: [lotdescription]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->lotsize)): ?>
