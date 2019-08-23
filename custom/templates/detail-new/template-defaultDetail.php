@@ -632,12 +632,15 @@ if(file_exists($template_path) && $template_name ){
 					</ul>
 					
 					<ul class="zy_agent-info">
+						<?php $user_default = zipperagent_url() . 'images/user-default.png'; ?>
+						
 						<?php if( isset($single_property->listingAgent) ): 
 						$agentFullName = isset( $single_property->listingAgent->userName ) ? explode( ' ',  $single_property->listingAgent->userName ) : '';
 						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
-						$agentImage = isset( $single_property->listingAgent->imageURL )? $single_property->listingAgent->imageURL : '';
+						$agentImage = isset( $single_property->listingAgent->imageURL )? $single_property->listingAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->listingAgent->phoneMobile )? $single_property->listingAgent->phoneMobile : ( isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '');
 						$agentEmail = isset( $single_property->listingAgent->email )? $single_property->listingAgent->email : '';
+						
 						?>
 							<li>Listing Agent</li>
 							<li>
@@ -667,7 +670,7 @@ if(file_exists($template_path) && $template_name ){
 						<?php if( isset($single_property->salesAgent) ):
 						$agentFullName = isset( $single_property->salesAgent->userName ) ? explode( ' ',  $single_property->salesAgent->userName ) : '';
 						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
-						$agentImage = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
+						$agentImage = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : $user_default);
 						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
 						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
 						?>

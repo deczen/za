@@ -400,6 +400,7 @@ function prop_result_and_pagination(){
 add_action( 'wp_ajax_mortgage_calculator_count', 'mortgage_calculator_count' );
 add_action( 'wp_ajax_nopriv_mortgage_calculator_count', 'mortgage_calculator_count' );
 
+/*
 function mortgage_calculator_count(){
 	
 	if ( isset($_REQUEST) ) {
@@ -453,6 +454,171 @@ function mortgage_calculator_count(){
 		if($insurancepercent){
 			
 			$price_mortgage = ($homeprice / 12 * $insurancepercent / 100) - ($price_downpayment * $insurancepercent / 100);
+			$price_mortgage = $price_mortgage < 0 ? 0 : $price_mortgage;
+			$total_price+=$price_mortgage;
+			
+			$mortgage_enabled=1;
+			$numbercount++;
+		}
+		
+		$total_price = $total_price < 0 ? 0 : $total_price; //cannot less than zero
+		
+		switch($loantype){
+			case "30yrs":
+					$loan_text='30 Year Fixed';
+				break;
+			case "15yrs":
+					$loan_text='15 Year Fixed';
+				break;
+			case "5-1arm":
+					$loan_text='5/1 ARM';
+				break;
+		}
+		
+		$interest_text=number_format_i18n( $interestrate, 3 );
+		
+		$result['mortgage_total']= zipperagent_currency() . number_format_i18n( $total_price, 0 ). ' per month';
+		$result['mortgage_interest']="{$loan_text}, {$interest_text}% Interest";
+		
+		$total_bar = $price_interest + $price_taxes + $price_hoa_dues + $price_homeowners + $price_mortgage;
+		$bar_interest = $price_interest / $total_bar * 100;
+		$bar_tax = $price_taxes / $total_bar * 100;
+		$bar_hoadues = $price_hoa_dues / $total_bar * 100;
+		$bar_homeowners = $price_homeowners / $total_bar * 100;
+		$bar_mortgage = $price_mortgage / $total_bar * 100;
+		
+		ob_start();
+		?>	
+		<?php if((float)$price_interest): ?>
+		<div class="mortgage-color" id="principal-color" style="width: <?php echo $bar_interest; ?>%;"></div>
+		<?php endif; ?>
+		<?php if((float)$price_taxes): ?>
+		<div class="mortgage-color" id="property-color" style="width: <?php echo $bar_tax; ?>%;"></div>
+		<?php endif; ?>
+		<?php if((float)$price_hoa_dues): ?>
+		<div class="mortgage-color" id="hoadues-color" style="width: <?php echo $bar_hoadues; ?>%;"></div>
+		<?php endif; ?>
+		<?php if((float)$price_homeowners): ?>
+		<div class="mortgage-color" id="insurance-color" style="width: <?php echo $bar_homeowners; ?>%;"></div>
+		<?php endif; ?>
+		<?php if((float)$price_mortgage): ?>
+		<div class="mortgage-color" id="mortgage-color" style="width: <?php echo $bar_mortgage; ?>%;"></div>
+		<?php endif; ?>
+		<?php
+		$result['mortgage_bar']=ob_get_clean();	
+		
+		ob_start();
+		?>		
+		<div class="row">
+			<?php if((float)$price_interest): ?>
+			<div class="col-xs-12 col-sm-6  mb-6">
+				<div class="mg-principal">Principal and Interest<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_interest, 0 ) ?></span></div>
+			</div>
+			<?php endif; ?>
+			<?php if((float)$price_taxes): ?>
+			<div class="col-xs-12 col-sm-6  mb-6">
+				<div class="mg-property">Property Taxes<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_taxes, 0 ) ?></span></div>
+			</div>
+			<?php endif; ?>
+			<?php if((float)$price_hoa_dues): ?>
+			<div class="col-xs-12 col-sm-6  mb-6">
+				<div class="mg-hoadues">HOA Dues<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_hoa_dues, 0 ) ?></span></div>
+			</div>
+			<?php endif; ?>
+			<?php if((float)$price_homeowners): ?>
+			<div class="col-xs-12 col-sm-6  mb-6">
+				<div class="mg-insurance">Homeowners' Insurance<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_homeowners, 0 ) ?></span></div>
+			</div>
+			<?php endif; ?>
+			<?php if((float)$price_mortgage): ?>
+			<div class="col-xs-12 col-sm-6  mb-6">
+				<div class="mg-mortgage">Mortgage Insurance<span class="mg-price"><?php echo zipperagent_currency() . number_format_i18n( $price_mortgage, 0 ) ?></span></div>
+			</div>
+			<?php endif; ?>
+		</div>
+		<?php
+		$result['mortgage_detail']=ob_get_clean();
+		
+		$result['result']=1;
+		
+		echo json_encode($result);
+         
+        die();
+    }
+}
+*/
+function mortgage_calculator_count(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		extract($_REQUEST);
+				
+		$numbercount=0;
+		$interest_enabled=0; $tax_enabled=0; $hoadues_enabled=0; $homeowners_enabled=0; $mortgage_enabled=0;
+		$total_price=0;
+			
+		$price_downpayment = $homeprice * $downpaymentpercent / 100;
+		$price_downpayment_montly = ( $homeprice * $downpaymentpercent / 100 ) / 12;
+		
+		switch($loantype){
+			case "30yrs":
+					$loan_year=30;
+				break;
+			case "15yrs":
+					$loan_year=15;
+				break;
+			case "5-1arm":
+					$loan_year=5;
+				break;
+		}
+		
+		$P = $homeprice - $price_downpayment;
+		$R = $interestrate / 1200;
+		$N = $loan_year * 12;
+		// $EMI = ( $P * $R *  pow( 1 + $R, $N ) ) / ( pow( 1 + $R, $N ) - 1 );
+		
+		// echo "$homeprice - $price_downpayment;";
+		// echo "( $P * $R *  pow( 1 + $R, $N ) ) / ( pow( 1 + $R, $N ) - 1 );";
+		
+		if($interestrate){
+			
+			$price_interest = ( $P * $R *  pow( 1 + $R, $N ) ) / ( pow( 1 + $R, $N ) - 1 );
+			$price_interest = $price_interest < 0 ? 0 : $price_interest;
+			$total_price+=$price_interest;
+			
+			$interest_enabled=1;
+			$numbercount++;
+		}
+		if($taxespercent){
+			
+			$price_taxes = $homeprice / 12 * $taxespercent / 100;
+			$price_taxes = $price_taxes < 0 ? 0 : $price_taxes;
+			$total_price+=$price_taxes;
+			
+			$tax_enabled=1;
+			$numbercount++;
+		}
+		if($hoadues){
+			$hoadues = str_replace( "$", "", $hoadues);
+			$price_hoa_dues = (int) $hoadues;
+			$price_hoa_dues = $price_hoa_dues < 0 ? 0 : $price_hoa_dues;
+			$total_price+=$price_hoa_dues;
+			
+			$hoadues_enabled=1;
+			$numbercount++;
+		}
+		if($homeownerspercent){
+			
+			$price_homeowners = $homeprice / 12 * $homeownerspercent / 100;
+			$price_homeowners = $price_homeowners < 0 ? 0 : $price_homeowners;
+			$total_price+=$price_homeowners;
+			
+			$homeowners_enabled=1;
+			$numbercount++;
+		}
+		if($insurancepercent){
+			
+			$price_mortgage = ($homeprice / 12 * $insurancepercent / 100) - ($price_downpayment_montly * $insurancepercent / 100);
 			$price_mortgage = $price_mortgage < 0 ? 0 : $price_mortgage;
 			$total_price+=$price_mortgage;
 			

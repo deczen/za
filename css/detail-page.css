@@ -49,7 +49,7 @@
 .zy_agent-info p, .zy_agent-info a{padding:0 !important; margin:0 !important;}
 .zy_agent-info li{list-style:none;margin-top:20px;}
 .zy_agent-pic{border-radius:50%;max-width:100px;max-height:100px;}
-.zy_agent-email{display:block;}
+.zy_agent-email{display:block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .zy_agent-phone{margin-bottom:0;}
 
 .zy_prop-fetaures{margin-top:30px;}

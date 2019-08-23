@@ -173,7 +173,7 @@
 			  [interiorfeatures]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->lotdescription)): ?>
-			  <strong>Lot Description</strong>
+			  <strong>Lot Dimension</strong>
 			  [lotdescription]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->lotsize)): ?>
@@ -256,10 +256,6 @@
 			  <strong>Number Of Rooms</strong>
 			  [norooms]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->block)): ?>
-			  <strong>Block</strong>
-			  [block]
-			  <?php endif; ?>
 			  <?php if(isset($single_property->tenantexpanses)): ?>
 			  <strong>Tenant Expanses</strong>
 			  [tenantexpanses]
@@ -273,7 +269,7 @@
 			  [rentprice]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->secdeposit)): ?>
-			  <strong>Security Deposite</strong>
+			  <strong>Security Deposit</strong>
 			  [secdeposit]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->smokingallowed)): ?>
@@ -283,10 +279,6 @@
 			  <?php if(isset($single_property->gas)): ?>
 			  <strong>Gas</strong>
 			  [gas]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->listno)): ?>
-			  <strong>List No</strong>
-			  [listno]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->dayssincelisting)): ?>
 			  <strong>Days Since Listing</strong>
@@ -299,6 +291,26 @@
 			  <?php if(isset($single_property->sitecondition)): ?>
 			  <strong>Site Condition</strong>
 			  [sitecondition]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->exterior)): ?>
+			  <strong>Exterior</strong>
+			  [exterior]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->GF20140818190447585531000000)): ?>
+			  <strong>Siding</strong>
+			  [GF20140818190447585531000000]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->nostories)): ?>
+			  <strong>Stories</strong>
+			  [nostories]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->kitdscrp)): ?>
+			  <strong>Kitchen Description</strong>
+			  [kitdscrp]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->basement)): ?>
+			  <strong>Basement</strong>
+			  [basement]
 			  <?php endif; ?>
 		   </p>
 		</div>
@@ -326,16 +338,48 @@
 			  <strong>Heat Units</strong>
 			  [heatunits]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->heating)): ?>
+			  <strong>Heating</strong>
+			  [heating]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->GF20140818190041937135000000)): ?>
+			  <strong>Heat System</strong>
+			  [GF20140818190041937135000000]
+			  <?php endif; ?>
 		   </p>
 		</div>
 		
-		<?php if( isset($single_property->parkingfeature) ):?>
+		<?php if( isset($single_property->parkingfeature) || isset($single_property->garagespaces) ):?>
 		<div class="zy-print-block">
 		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
 		   <p>
 			  <?php if(isset($single_property->parkingfeature)): ?>
 			  <strong>Parking Feature</strong>
 			  [parkingfeature]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->garagespaces)): ?>
+			  <strong>Garages</strong>
+			  [garagespaces]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->taxes) || isset($single_property->hoafee) || isset($single_property->feeinterval) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Taxes, Fees</h6>
+		   <p>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Property Tax</strong>
+			  [taxes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hoafee)): ?>
+			  <strong>Hoa Fee Amount</strong>
+			  [hoafee]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->feeinterval)): ?>
+			  <strong>Hoa Fee Frequency</strong>
+			  [feeinterval]
 			  <?php endif; ?>
 		   </p>
 		</div>

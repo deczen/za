@@ -32,6 +32,11 @@ if( ! function_exists('zipperagent_run_curl') ){
 			$headers[]='Content-length: '. strlen(json_encode($vars));
 		}
 		
+		$ipaddress = get_ipaddress();
+		if($ipaddress){
+			$headers[]='X-Forwarded-For: '. $ipaddress;
+		}
+		
 		// return run_api( $url, $post, $headers, $vars );
 		$start = microtime(true);	
 		try{
@@ -87,6 +92,30 @@ if( ! function_exists('zipperagent_run_curl') ){
 		zipperagent_save_session_result($index, $result);
 		
 		return (array) $result;
+	}
+}
+
+if (!function_exists('get_ipaddress')){
+	
+	function get_ipaddress(){
+		
+		$ipaddress = '';
+		if (isset($_SERVER['HTTP_CLIENT_IP']))
+			$ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+		else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+			$ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		else if(isset($_SERVER['HTTP_X_FORWARDED']))
+			$ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+		else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+			$ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+		else if(isset($_SERVER['HTTP_FORWARDED']))
+			$ipaddress = $_SERVER['HTTP_FORWARDED'];
+		else if(isset($_SERVER['REMOTE_ADDR']))
+			$ipaddress = $_SERVER['REMOTE_ADDR'];
+		
+		// $ipaddress = '192.165.0.0';
+		return $ipaddress;
+		
 	}
 }
 
