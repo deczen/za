@@ -2736,7 +2736,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
-			'lat','lng','search_category',
+			'lat','lng','search_category','map_zoom',
 		);
 		
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -5704,6 +5704,29 @@ if( ! function_exists('zipperagent_search_filter') ){
 			});
 			</script>
 		</div>
+		<?php
+	}
+}
+
+if( ! function_exists('zipperagent_search_filter_new') ){
+	function zipperagent_search_filter_new(){
+		global $requests;
+		?>
+		<div id="zpa-view-selected-filter">
+			<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
+				<div class="ms-sel-ctn">
+				</div>
+			</div>
+		</div>
+		<form id="zpa-search-filter-form" action="" class="form-inline zpa-quick-search-form">
+		<?php
+			foreach($requests as $key=>$value){
+				if(!in_array($key,get_wp_var_excludes())){
+					zipperagent_generate_filter_input($key, $value);
+				}
+			}
+		?>
+		</form>
 		<?php
 	}
 }

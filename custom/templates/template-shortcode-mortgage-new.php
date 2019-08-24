@@ -99,10 +99,11 @@ $formatted_interestrate = $default_interestrate. '%';
 	</div>
 </div>
 
+<?php /*
 <script>
 
 	// jQuery(document).ready(function(){
-		/*
+
 		var $homeprice = jQuery("#zy-mortgage-homeprice");
 		var homeprice_min = 50000,
 			homeprice_max = 2000000;
@@ -170,9 +171,10 @@ $formatted_interestrate = $default_interestrate. '%';
 	
 			
 		};
-	 */
+
 	// });
-</script>
+</script> */ ?>
+
 <script>		
 	function mortgage_format(number){
 		number = !jQuery.isNumeric(number) ? number.replace(/[^0-9\.]/g,'') : number;
@@ -216,7 +218,7 @@ $formatted_interestrate = $default_interestrate. '%';
 		if(adj_val < 0) adj_val = 0; //min 0
 		if(adj_val > 100) adj_val = 100; //max 100
 		
-		jQuery(this).val(parseFloat(adj_val));
+		jQuery(this).val(adj_val);
 	});
 	jQuery('#zy_mortgage-calculator .percent-format').focusin(function(){
 		var formatted_percent_in = jQuery(this).val();
