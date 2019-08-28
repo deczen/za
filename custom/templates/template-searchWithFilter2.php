@@ -388,7 +388,7 @@ if(get_query_var('page')){
 						//echo '<pre>'; print_r($markers); echo '</pre>';
 						
 						if($markers):
-							echo '<div class="proptype-markers col-lg-12 col-md-12"><ul>';
+							echo '<div class="proptype-markers col-lg-12 col-md-12 hide"><ul>';
 							foreach($markers as $key => $value){
 								
 								$proptype = zipperagent_property_type( $key );
@@ -560,6 +560,7 @@ if(get_query_var('page')){
 					if( response['html'] ){
 						jQuery( '.loading-wrap' ).hide();
 						jQuery( '#zipperagent-content' ).html( response['html'] );
+						jQuery( '.proptype-markers' ).removeClass('hide');
 					}
 					console.timeEnd('generate list');
 				},
@@ -709,6 +710,7 @@ if(get_query_var('page')){
 				jQuery( '.loading-wrap' ).show();
 				jQuery( '#map' ).hide();
 				jQuery( '#zipperagent-content' ).html( '' );
+				jQuery( '.proptype-markers' ).addClass('hide');
 				
 				console.time('generate list');
 				xhr = jQuery.ajax({
@@ -721,6 +723,7 @@ if(get_query_var('page')){
 							jQuery( '.loading-wrap' ).hide();
 							jQuery( '#map' ).show();
 							jQuery( '#zipperagent-content' ).html( response['html'] );
+							jQuery( '.proptype-markers' ).removeClass('hide');
 						}
 						console.timeEnd('generate list');
 					},

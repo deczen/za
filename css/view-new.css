@@ -454,7 +454,7 @@
 }
 .zy-listing-search__wrapper {
 	margin-bottom: 30px;
-	float: left;
+	/* float: left; */
 	width: 100%
 }
 .zy-ccomp .zy-ccomp__content {
