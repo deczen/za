@@ -1090,3 +1090,11 @@
 @media(max-width: 540px){
 	#photos .main-slider .owl-nav .carousel-control i{top: 42%;}
 }
+
+/* Map Legend */
+.proptype-markers .proptype-marker{display: inline-block; margin-right: 10px;}
+.proptype-markers .proptype-marker img{max-height: 18px; width: auto;}
+.proptype-markers .proptype-marker span{padding-left: 3px;font-size: 13px;}
+@media(max-width:767px){
+	.proptype-markers{display:none;}
+}

@@ -383,7 +383,22 @@ if(get_query_var('page')){
 						<div class="loading-wrap">
 							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
 						</div>
+						<?php
+						$markers = zipperagent_get_map_markers();
+						//echo '<pre>'; print_r($markers); echo '</pre>';
 						
+						if($markers):
+							echo '<div class="proptype-markers col-lg-12 col-md-12"><ul>';
+							foreach($markers as $key => $value){
+								
+								$proptype = zipperagent_property_type( $key );
+								
+								echo '<li class="proptype-marker"><img src="' . $value . '" alt=" ' . $proptype . '" title=""><span>' . $proptype . '</span></li>';
+							}
+							echo '</ul></div>';
+							
+						endif;
+						?>
 						<div id="map" class="col-lg-5 col-md-6 ml-auto">
 							<div id="map_wrapper">
 								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
