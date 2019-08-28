@@ -26,18 +26,22 @@ switch($property_type){
 		break;
 }
 
+//custom case for bmmls-fgmmls-fmxmls-gfkmls-mwmmls
 if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMMLS' || $single_property->sourceid == 'FMXMLS' || $single_property->sourceid == 'GFKMLS' || $single_property->sourceid == 'MWMMLS' ){
 		
 	if($single_property->sourceid == 'BMMLS'){
 		
 		switch($property_type){
-			case "A":
+			// case "A": changed to RES
+			case "RES":
 					$property_type='RESIDENTIAL';
 				break;
-			case "B":
+			// case "B": changed to LND
+			case "LND":
 					$property_type='LAND';
 				break;
-			case "C":
+			// case "C": changed to CIS
+			case "CIS":
 					$property_type='COMMERCIAL';
 				break;
 		}
@@ -45,16 +49,20 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 	}else if($single_property->sourceid == 'FGMMLS'){
 		
 		switch($property_type){
-			case "A":
+			// case "A": changed to RES
+			case "RES":
 					$property_type='RESIDENTIAL';
 				break;
-			case "I":
+			// case "I": changed to MUL
+			case "MUL":
 					$property_type='MULTYFAMILY';
 				break;
-			case "J":
+			// case "J": changed to LND
+			case "LND":
 					$property_type='LAND';
 				break;
-			case "K":
+			// case "K": changed to CIS
+			case "CIS":
 					$property_type='COMMERCIAL';
 				break;
 		}
@@ -62,10 +70,12 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 	}else if($single_property->sourceid == 'FMXMLS'){
 		
 		switch($property_type){
-			case "A":
+			// case "A": changed to CIS
+			case "CIS":
 					$property_type='RESIDENTIAL';
 				break;
-			case "B":
+			// case "B": changed to CIL
+			case "CIL":
 					$property_type='COMMERCIAL';
 				break;
 		}
@@ -73,25 +83,32 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 	}else if($single_property->sourceid == 'GFKMLS'){
 		
 		switch($property_type){
-			case "A":
+			// case "A": changed to RES
+			case "RES":
 					$property_type='RESIDENTIAL';
 				break;
-			case "B":
+			// case "B": changed to MUL
+			case "MUL":
 					$property_type='MULTYFAMILY';
 				break;
-			case "C":
+			// case "C": changed to LND
+			case "LND":
 					$property_type='LAND';
 				break;
-			case "D":
+			// case "D": changed to CIL
+			case "CIL":
 					$property_type='COMMERCIAL';
 				break;
-			case "F":
+			// case "F": changed to MOB
+			case "MOB":
 					$property_type='MOBILEHOMES';
 				break;
-			case "G":
+			// case "G": changed to BUS
+			case "BUS":
 					$property_type='BUSINESS';
 				break;
-			case "H":
+			// case "H": changed to CIS
+			case "CIS":
 					$property_type='COMMERCIAL';
 				break;
 			case "RES":
@@ -117,19 +134,24 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 	}else if($single_property->sourceid == 'MWMMLS'){
 		
 		switch($property_type){
-			case "A":
+			// case "A": changed to RES
+			case "RES":
 					$property_type='RESIDENTIAL';
 				break;
-			case "B":
+			// case "B": changed to MUL
+			case "MUL":
 					$property_type='MULTYFAMILY';
 				break;
-			case "C":
+			// case "C": changed to FRM
+			case "FRM":
 					$property_type='FARM';
 				break;
-			case "D":
+			// case "D": LND
+			case "LND":
 					$property_type='LAND';
 				break;
-			case "E":
+			// case "E": CIS
+			case "CIS":
 					$property_type='COMMERCIAL';
 				break;
 		}
