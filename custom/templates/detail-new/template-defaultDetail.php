@@ -635,8 +635,9 @@ if(file_exists($template_path) && $template_name ){
 						<?php $user_default = zipperagent_url() . 'images/user-default.png'; ?>
 						
 						<?php if( isset($single_property->listingAgent) ): 
-						$agentFullName = isset( $single_property->listingAgent->userName ) ? explode( ' ',  $single_property->listingAgent->userName ) : '';
-						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentFullName = isset( $single_property->listingAgent->userName ) ? $single_property->listingAgent->userName : '';
+						$agentFullNameArr = explode( ' ',  $agentFullName );
+						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentImage = isset( $single_property->listingAgent->imageURL )? $single_property->listingAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->listingAgent->phoneMobile )? $single_property->listingAgent->phoneMobile : ( isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '');
 						$agentEmail = isset( $single_property->listingAgent->email )? $single_property->listingAgent->email : '';
@@ -645,7 +646,7 @@ if(file_exists($template_path) && $template_name ){
 							<li>Listing Agent</li>
 							<li>
 								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
-								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFirstName; ?></h3>
+								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
@@ -653,8 +654,9 @@ if(file_exists($template_path) && $template_name ){
 						<?php endif; ?>
 						
 						<?php if( isset($single_property->coListingAgent) ):
-						$agentFullName = isset( $single_property->coListingAgent->userName ) ? explode( ' ',  $single_property->coListingAgent->userName ) : '';
-						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentFullName = isset( $single_property->coListingAgent->userName ) ? $single_property->coListingAgent->userName : '';
+						$agentFullNameArr = explode( ' ',  $agentFullName );
+						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentPhone = isset( $single_property->coListingAgent->phoneMobile )? $single_property->coListingAgent->phoneMobile : ( isset($single_property->coListingAgent->phoneOffice) ? $single_property->coListingAgent->phoneOffice : '');
 						?>
 							<li>Listing Agent</li>
@@ -668,8 +670,9 @@ if(file_exists($template_path) && $template_name ){
 						<?php endif; ?>
 						
 						<?php if( isset($single_property->salesAgent) ):
-						$agentFullName = isset( $single_property->salesAgent->userName ) ? explode( ' ',  $single_property->salesAgent->userName ) : '';
-						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentFullName = isset( $single_property->salesAgent->userName ) ? $single_property->salesAgent->userName : '';
+						$agentFullNameArr = explode( ' ',  $agentFullName );
+						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentImage = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : $user_default);
 						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
 						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
@@ -685,8 +688,9 @@ if(file_exists($template_path) && $template_name ){
 						<?php endif; ?>
 						
 						<?php if( isset($single_property->coSalesAgent) ):
-						$agentFullName = isset( $single_property->coSalesAgent->userName ) ? explode( ' ',  $single_property->coSalesAgent->userName ) : '';
-						$agentFirstName =  $agentFullName ? $agentFullName[0] : '';
+						$agentFullName = isset( $single_property->coSalesAgent->userName ) ? $single_property->coSalesAgent->userName : '';
+						$agentFullNameArr = explode( ' ',  $agentFullName );
+						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentPhone = isset( $single_property->coSalesAgent->phoneMobile )? $single_property->coSalesAgent->phoneMobile : ( isset($single_property->coSalesAgent->phoneOffice) ? $single_property->coSalesAgent->phoneOffice : '');
 						?>
 							<li>Listing Agent</li>

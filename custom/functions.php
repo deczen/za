@@ -1596,6 +1596,17 @@ if( ! function_exists('zipperagent_get_map_centre') ){
 	}
 }
 
+if( ! function_exists('zipperagent_get_map_markers') ){
+	function zipperagent_get_map_markers(){
+		
+		$rb = zipperagent_rb();
+		
+		$markers = isset($rb['web']['map_markers']) ? $rb['web']['map_markers'] : array();
+		
+		return $markers;
+	}
+}
+
 if( ! function_exists('zipperagent_source_details') ){
 	function zipperagent_source_details(){
 		

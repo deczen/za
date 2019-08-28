@@ -16,10 +16,14 @@
 #zpa-top-searh-bar .btn-primary{background:none;border:none;color: #000;}
 #zpa-top-searh-bar .btn-primary:hover,#zpa-top-searh-bar .btn-primary:focus, #zpa-top-searh-bar .open .btn-primary{background:none !important;color: #000;}
 
-#map .zpa-marker{padding:5px; border-radius:5px; box-shadow:0px 3px 10px; }
-#map .zpa-marker:hover{background:#800 !important; color: #fff; box-shadow:0px 3px 10px #000; font-weight:bold;}
+#map .zpa-marker:not(.zpa-image-marker){padding:5px; border-radius:5px; box-shadow:0px 3px 10px; }
+#map .zpa-marker:not(.zpa-image-marker):hover{background:#800 !important; color: #fff; box-shadow:0px 3px 10px #000; font-weight:bold;}
 #map .zpa-marker .short-info{text-transform:uppercase; font-size: 12px; top: -28px; left:-65px; position:absolute; min-width:100px; height:auto; box-shadow:0px 3px 10px #4a4a4a; background:#4a4a4a; color: #fff; font-weight:bold; padding:5px; display:none;}
 #map .zpa-marker:hover .short-info{display:block;}
+
+#map .zpa-image-marker{background:none !important;}
+#map .zpa-image-marker .short-price-marker{text-align:center; display:block; font-weight:bold;}
+#map .zpa-image-marker .short-price-marker img{display:block;max-height:40px;width:auto;margin: 0 auto;}
 
 #omnibar-wrap .input-column{}
 #omnibar-wrap #zpa-selected-filter{height:auto !important;}

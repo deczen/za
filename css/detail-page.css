@@ -241,7 +241,7 @@
 @media only screen and (max-width: 1200px){
 	.zy_address-style{text-align: center;}
 	.zy_price-mls .zy-detail-tool{max-width: 375px;margin: auto;}
-	.zy_price-mls .zy-detail-tool .btn_wrap {width: 100px !important;}
+	/* .zy_price-mls .zy-detail-tool .btn_wrap {width: 100px !important;} */
 	.zy_price-style.zy_status-style{padding: 5px 20px !important;width: fit-content;margin: auto !important;min-width: 100px;}
 	#gallery-column .zy-full-lightbox #zy-icon-arrowsExpand_16x16{opacity: 1;}
 }
@@ -253,6 +253,7 @@
 	.zy_address-style{text-align:center;}
 	.zy-features-grid > li{float:none;width:100%;}
 	.zy_prop-details span{padding-left:10px !important;}
+	.zy_price-mls .zy-detail-tool.zy_nopadding{ padding-left: 15px !important;  padding-right: 15px !important;}
 	#zpa-main-container .zy_main .zy_share-property-wrap.open>.dropdown-menu{left: -99px !important;}
 	#za_prop-navigation{display:none;}
 	#zy-gallery-slide-proptype .owl-carousel .owl-item img{width: 100% !important;height: auto !important;max-height: 100% !important;}

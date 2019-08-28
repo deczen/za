@@ -570,14 +570,15 @@ else: ?>
 				$lat = $property->lat;
 				$lng = $property->lng;
 				$listingId = $property->id;
-				$beds = $property->nobedrooms;
-				$bath = $property->nobaths;
+				$beds = isset($property->nobedrooms)?$property->nobedrooms:'-';
+				$bath = isset($property->nobaths)?$property->nobaths:'-';
 				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 				$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
 				$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
+				$proptype = $property->proptype;
 				
 				
-				echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$longprice}','{$shortprice}','{$beds}','{$bath}',{$index}],"."\r\n";
+				echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$longprice}','{$shortprice}','{$beds}','{$bath}',{$index},'{$proptype}'],"."\r\n";
 				
 				$index++;
 			}
@@ -603,9 +604,9 @@ else: ?>
 				$fulladdress = zipperagent_get_address($property);
 				$lat = $property->lat;
 				$lng = $property->lng;
-				$beds = $property->nobedrooms;
-				$bath = $property->nobaths;
-				$sqft = $property->squarefeet;
+				$beds = isset($property->nobedrooms)?$property->nobedrooms:'-';
+				$bath = isset($property->nobaths)?$property->nobaths:'-';
+				$sqft = isset($property->squarefeet)?$property->squarefeet:'-';
 				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 				$price = zipperagent_currency() . number_format_i18n( $price, 0 );
 				if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )
@@ -675,6 +676,7 @@ else: ?>
 					bedrooms: markers[i][6],
 					bath: markers[i][7],
 					index: markers[i][8],
+					proptype: markers[i][9],
 				}
 			);
 			
@@ -850,6 +852,7 @@ else: ?>
 		var bedrooms = this.args.bedrooms;
 		var bath = this.args.bath;
 		var index = this.args.index;
+		var proptype = this.args.proptype;
 		
 		if (!div) {
 		
@@ -868,8 +871,38 @@ else: ?>
 				div.dataset.marker_id = self.args.marker_id;
 			}
 			
+			<?php /*
 			div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span></div>" +
-							"<span class=\"short-price\">"+ shortprice +"</span>";
+							"<span class=\"short-price\">"+ shortprice +"</span>"; */ ?>
+							
+			div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span></div>";
+							
+			<?php
+			$markers = zipperagent_get_map_markers();
+			
+			if($markers){ ?>
+				
+				switch(proptype){				
+					<?php
+					foreach( $markers as $ptype => $marker_url ){ ?>
+						
+						case "<?php echo $ptype; ?>":
+								div.className = 'zpa-marker zpa-image-marker';
+								div.innerHTML += "<span class=\"short-price-marker\">"+ shortprice +"<img src=\"<?php echo $marker_url; ?>\" /></span>";
+							break;
+					<?php
+					} ?>
+						default:
+								div.innerHTML += "<span class=\"short-price\">"+ shortprice +"</span>";
+							break;
+				}
+			<?php	
+			}else{ ?>
+			div.innerHTML += "<span class=\"short-price\">"+ shortprice +"</span>";
+			<?php
+			}
+			?>
+							
 							
 			// div.innerHTML ='<div class="marker" data-marker_id="123" style="position: absolute; cursor: pointer; width: 20px; height: 20px; background: blue; left: -9.65656px; top: -20.4536px;"></div>');
 			// console.log(div);

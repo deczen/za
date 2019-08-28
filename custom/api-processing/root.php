@@ -2,6 +2,8 @@
 	if( ! defined('ABSPATH') )
 		return;
 	
+	// include "../../../../../wp-load.php";
+	
 	$domainName = str_replace( 'https://', '', get_site_url() );
 	$domainName = str_replace( 'http://', '', $domainName );
 	
@@ -59,6 +61,12 @@
 	}catch( Exception $e ){
 		$rb = array();
 	}
+	
+	$iterator = $rb->getIterator();
+	$rb = $iterator->getArrayCopy(); //replace old $rb
+			
+	// echo "<pre>"; print_r($array); echo "</pre>";
+	// die();
 	
 	if(isset($rb['web']['subdomain']))  					$data['web']['subdomain'] = $rb['web']['subdomain'];
 	if(isset($rb['web']['protocol']))  						$data['web']['protocol'] = $rb['web']['protocol'];
@@ -123,7 +131,8 @@
 	if(isset($rb['web']['company_name']))  					$data['web']['company_name'] = $rb['web']['company_name'];
 	if(isset($rb['web']['exclude_prop_types']))  			$data['web']['exclude_prop_types'] = $rb['web']['exclude_prop_types'];
 	if(isset($rb['web']['signup_optional_exception']))  	$data['web']['signup_optional_exception'] = $rb['web']['signup_optional_exception'];
-	if(isset($rb['web']['signup_optional_time']))  				$data['web']['signup_optional_time'] = $rb['web']['signup_optional_time'];
+	if(isset($rb['web']['signup_optional_time']))  			$data['web']['signup_optional_time'] = $rb['web']['signup_optional_time'];
+	if(isset($rb['web']['map_markers']))  					$data['web']['map_markers'] = $rb['web']['map_markers'];
 	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
