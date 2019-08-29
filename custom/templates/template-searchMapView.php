@@ -306,7 +306,7 @@ if( $list ): ?>
 	<div class="clearfix"></div>
 		<?php if( ! $is_ajax_count ): ?>
 		<div class="col-md-12 pagination-wrap prop-pagination">
-			<div class="col-xs-6">			
+			<div class="col-xs-12">			
 				<?php echo zipperagent_pagination($page, $num, $count, $actual_link); ?>
 			</div>
 		</div>

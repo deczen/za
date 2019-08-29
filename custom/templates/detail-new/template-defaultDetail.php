@@ -24,6 +24,13 @@ switch($property_type){
 					break;
 			}
 		break;
+	case "E":
+			switch($property_subtype){
+				case "Commercial":
+						$property_type='COMMERCIAL';
+					break;
+			}
+		break;
 }
 
 //custom case for bmmls-fgmmls-fmxmls-gfkmls-mwmmls

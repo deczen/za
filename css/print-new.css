@@ -149,6 +149,7 @@
 	body .zy-print-view .zy-print-area-wrap>*+* {
 		margin-left: 10%;
 	}
+	body .zy-print-view .zy-print-area .uk-clearfix{display: block;width: 100%;float: left;}
 	body .zy-print-view .zy-print-area-label {
 		overflow: hidden;
 		text-overflow: ellipsis;

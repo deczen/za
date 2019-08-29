@@ -1,6 +1,11 @@
 <?php
 global $requests;
 
+if(isset($_REQUEST['boundaryWKT'])){
+	$toUrl = add_query_arg( $_REQUEST, zipperagent_page_url( 'search-results' ));
+	
+	wp_safe_redirect($toUrl);
+}
 ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
     <div>

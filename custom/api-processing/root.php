@@ -62,9 +62,10 @@
 		$rb = array();
 	}
 	
-	$iterator = $rb->getIterator();
-	$rb = $iterator->getArrayCopy(); //replace old $rb
-			
+	if($rb){
+		$iterator = $rb->getIterator();
+		$rb = $iterator->getArrayCopy(); //replace old $rb
+	}		
 	// echo "<pre>"; print_r($array); echo "</pre>";
 	// die();
 	
