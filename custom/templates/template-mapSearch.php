@@ -1,11 +1,23 @@
 <?php
 global $requests;
 
-if(isset($_REQUEST['boundaryWKT'])){
-	$toUrl = add_query_arg( $_REQUEST, zipperagent_page_url( 'search-results' ));
-	
-	wp_safe_redirect($toUrl);
-}
+
+echo "<pre>"; print_r($requests); echo "</pre>";
+
+//redirect this page directly
+$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+$parameters['propertyType']=$propDefaultOption;
+$parameters['minListPrice']='';
+$parameters['maxListPrice']='';
+$parameters['bedrooms']='';
+$parameters['bathCount']='';
+$parameters['boundaryWKT']='';	
+$parameters['o']='lid:DESC';
+
+$toUrl = add_query_arg( $parameters, zipperagent_page_url( 'search-results' ));
+
+wp_safe_redirect($toUrl);
+// end redirect code
 ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
     <div>
