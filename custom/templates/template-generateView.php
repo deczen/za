@@ -360,6 +360,8 @@ if( $openHomesMode ){ // open houses mode
 		$list=isset($result['filteredList'])?$result['filteredList']:$result;
 	}
 	
+	$is_ajax_count=1;
+	
 }else{ //if( $featuredOnlyYn=="true" || $status=='SLD' ){ //featured mode
 	
 	$rb = zipperagent_rb();

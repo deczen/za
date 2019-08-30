@@ -148,7 +148,8 @@
 #omnibar-tools .filter .fs-label{padding: 10px 5px;}
 #omnibar-tools .filter .fs-wrap.multiple{width: 100%;}
 #omnibar-tools #zpa-view-selected-filter .ms-sel-ctn{padding-left: 106px;}
-#omnibar-tools #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item{border-radius: 15px;padding: 5px 7px 5px 12px;}
+#omnibar-tools #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item,
+#zpa-top-searh-bar #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item{border-radius: 15px;padding: 5px 7px 5px 12px;}
 #omnibar-tools .desktop-omnibar{border-bottom: 1px solid #ddd;padding-bottom:5px;}
 #omnibar-tools .fs-arrow{
     border-width: 3px;

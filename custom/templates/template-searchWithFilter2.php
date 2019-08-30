@@ -1,6 +1,6 @@
 <?php
 global $type, $requests;
-global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o;
+global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o, $showResults;
 global $zpa_show_login_popup;
 
 $zpa_show_login_popup=1;
@@ -15,8 +15,8 @@ $location 			= ( isset($requests['location'])?$requests['location']:'' );
 $propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
 $propSubType 		= ( isset($requests['propsubtype'])?(!is_array($requests['propsubtype'])?array($requests['propsubtype']):$requests['propsubtype']):array() );
 $status 			= ( isset($requests['status'])?$requests['status']:'' );
-$minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:500 );
-$maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:10000000 );
+$minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:'' );
+$maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:'' );
 $squareFeet			= ( isset($requests['squarefeet'])?$requests['squarefeet']:'' );
 $bedrooms 			= ( isset($requests['bedrooms'])?$requests['bedrooms']:'' );
 $bathCount 			= ( isset($requests['bathcount'])?$requests['bathcount']:'' );
@@ -25,6 +25,7 @@ $minDate 			= ( isset($requests['mindate'])?$requests['mindate']:'' );
 $maxDate 			= ( isset($requests['maxdate'])?$requests['maxdate']:'' );
 $o 					= ( isset($requests['o'])?$requests['o']:'' );
 $priceRange			= zipperagent_price_format( $minListPrice ) . ' - ' . zipperagent_price_format( $maxListPrice );
+$showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 
 $excludes = get_short_excludes();
 
@@ -49,277 +50,242 @@ if(get_query_var('page')){
 									<div class="cell">
 										<div>
 											<div class="zy-filter-bar">
-												<form action="" id="zpa-search-filter-form" class="js-search">
-													<div class="row btn-toolbar zy-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
-														<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 zy-search__query-wrapper">
-															<div class="zy-search__query-inner">
-																<div class="cell zy-off-canvas__ballerbox-wrapper width-1-1">
-																	<div class="zy-search__query-wrapper">
-																		<input type="text" id="zpa-area-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Enter City / County / Zip" name="location[]">
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-12 col-lg-6 btn-group zy-search__options-wrapper" role="group" aria-label="Properties Search Filters">
-															
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-price-trigger zy-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
-																	<!-- react-text: 42 -->Price&nbsp;
+												<div class="row btn-toolbar zy-filter-bar__components" role="toolbar" aria-label="Properties Search Toolbar">
+													<div class="col-md-12 col-lg-6 input-group uk-flex-item-1 zy-search__query-wrapper">
+														<div class="zy-search__query-inner">
+															<div class="cell zy-off-canvas__ballerbox-wrapper width-1-1">
+																<div class="zy-search__query-wrapper">
+																	<input type="text" id="zpa-all-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Type any address, area, city, county, MLS# or zip code" name="location[]">
 																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button>
-																<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right">
-																	<div class="zy-ccomp__content__inner">
-																		<div class="grid grid--gutters grid-xs--halves">
-																			<div class="cell">
-																				<div>
-																					<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox zy-off-canvas__price-range-input input-number" value="<?php echo $minListPrice; ?>" name="minListPrice" title="Please enter a Min Price">
-																					<div><span id="minListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Min Price</span></div>
-																				</div>
-																			</div>
-																			<div class="cell">
-																				<div>
-																					<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox zy-off-canvas__price-range-input input-number" value="<?php echo $maxListPrice; ?>" name="maxListPrice" title="Please enter a Max Price">
-																					<div><span id="maxListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Max Price</span></div>
-																				</div>
-																			</div>
-																		</div>													
-																	</div>
-																</div>
-															</div>
-															
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
-																	<!-- react-text: 48 -->Status
+																	<input id="zpa-all-input-address" type="hidden" value="" />
+																	<input id="zpa-all-input-address-values" type="hidden" value="" />
 																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button>
-																<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
-																	<div class="zy-ccomp__content__inner">
-																		<ul class="uk-list uk-list-space m-0">
-																			<li>
-																				<label class="form__check" for="status-0">
-																					<input type="radio" class="at-status" value="" name="status" id="status-0" <?php checked( $status, '' ) ?>><span>Active</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="status-1">
-																					<input type="radio" class="at-status" value="<?php echo zipperagent_sold_status(); ?>" name="status" id="status-1" <?php checked( $status, zipperagent_sold_status() ) ?>><span>Sold</span></label>
-																			</li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															
-															<?php /*
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
-																	<!-- react-text: 48 -->Type
-																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button>
-																<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
-																	<div class="zy-ccomp__content__inner">
-																		<ul class="uk-list uk-list-space m-0">
-																			<?php
-																				$propTypeFields = get_property_type();
-																				$propTypeNum=0;
-																				$excludePropTypeFields=array();
-																				foreach( $propTypeFields as $fieldCode=>$fieldName ){
-																					echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='radio' class='at-propertyType' value='{$fieldCode}' name='propertyType' id='propertyType-{$propTypeNum}' ". checked( $propertyType, $fieldCode, false ) ."><span>{$fieldName}</span></label></li>"."\r\n";
-																					$propTypeNum++;
-																					
-																					$excludePropTypeFields[]=$fieldCode;
-																				}
-																			?>
-																			
-																			<?php														
-																			if( !empty($propertyType) && ! in_array( $propertyType, $excludePropTypeFields ) ){
-																				if( $propertyType=="none" )
-																					$propertyType=""; //avoid result zero
-																				echo '<input style="display:none" type="radio" value="'. $propertyType .'" name="propertyType" checked />';
-																			}														
-																			?>
-																		</ul>
-																	</div>
-																</div>
-															</div> */ ?>
-															
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
-																	<!-- react-text: 48 -->Type
-																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button>
-																<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
-																	<div class="zy-ccomp__content__inner">
-																		<ul class="uk-list uk-list-space m-0">
-																			<?php
-																				$propTypeFields = get_property_type();
-																				$propTypeNum=0;
-																				$excludePropTypeFields=array();
-																				foreach( $propTypeFields as $fieldCode=>$fieldName ){
-																					$checked='';
-																					if(in_array($fieldCode,$propertyType))
-																						$checked='checked';
-																					
-																					echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertyType[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
-																					$propTypeNum++;
-																					
-																					$excludePropTypeFields[]=$fieldCode;
-																				}
-																			?>
-																			<?php
-																				$propSubTypeFields = get_property_sub_type();
-																				$propTypeNum=0;
-																				foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
-																					$checked='';
-																					if(in_array($fieldCode,$propSubType))
-																						$checked='checked';
-																					
-																					echo "<li><label class='form__check' for='propSubType-{$propTypeNum}'><input type='checkbox' class='at-propSubType' value='{$fieldCode}' label='{$fieldName}' name='propSubType[]' id='propSubType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
-																					$propTypeNum++;
-																				}
-																			?>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-minbeds-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
-																	<!-- react-text: 54 -->Beds
-																	
-																	<!-- react-text: 55 -->
-																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button>
-																<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
-																	<div class="zy-ccomp__content__inner">
-																		<ul class="uk-list uk-list-space m-0">
-																			<li>
-																				<label class="form__check" for="bedrooms-0">
-																					<input type="radio" class="at-bedrooms" value="" name="bedrooms" id="bedrooms-0" <?php checked( $bedrooms, '' ) ?>><span>Any</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bedrooms-1">
-																					<input type="radio" class="at-bedrooms" value="1" name="bedrooms" id="bedrooms-1" <?php checked( $bedrooms, '1' ) ?>><span>1+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bedrooms-2">
-																					<input type="radio" class="at-bedrooms" value="2" name="bedrooms" id="bedrooms-2" <?php checked( $bedrooms, '2' ) ?>><span>2+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bedrooms-3">
-																					<input type="radio" class="at-bedrooms" value="3" name="bedrooms" id="bedrooms-3" <?php checked( $bedrooms, '3' ) ?>><span>3+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bedrooms-4">
-																					<input type="radio" class="at-bedrooms" value="4" name="bedrooms" id="bedrooms-4" <?php checked( $bedrooms, '4' ) ?>><span>4+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bedrooms-5">
-																					<input type="radio" class="at-bedrooms" value="5" name="bedrooms" id="bedrooms-5" <?php checked( $bedrooms, '5' ) ?>><span>5+</span></label>
-																			</li>
-																		</ul>
-																	</div>
-																</div>
-															</div>									
-															
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
-																	<!-- react-text: 61 -->Baths
-																	
-																	<!-- react-text: 62 -->
-																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
-																	<div class="zy-ccomp__content__inner">
-																		<ul class="uk-list uk-list-space m-0">
-																			<li>
-																				<label class="form__check" for="bathCount-0">
-																					<input type="radio" class="at-bathCount" value="" name="bathCount" id="bathCount-0" <?php checked( $bathCount, '' ) ?>><span>Any</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bathCount-1">
-																					<input type="radio" class="at-bathCount" value="1" name="bathCount" id="bathCount-1" <?php checked( $bathCount, '1' ) ?>><span>1+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bathCount-2">
-																					<input type="radio" class="at-bathCount" value="2" name="bathCount" id="bathCount-2" <?php checked( $bathCount, '2' ) ?>><span>2+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bathCount-3">
-																					<input type="radio" class="at-bathCount" value="3" name="bathCount" id="bathCount-3" <?php checked( $bathCount, '3' ) ?>><span>3+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bathCount-4">
-																					<input type="radio" class="at-bathCount" value="4" name="bathCount" id="bathCount-4" <?php checked( $bathCount, '4' ) ?>><span>4+</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="bathCount-5">
-																					<input type="radio" class="at-bathCount" value="5" name="bathCount" id="bathCount-5" <?php checked( $bathCount, '5' ) ?>><span>5+</span></label>
-																			</li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															
-															<div class="zy-ccomp zy-ccomp__dropdown dropdown">
-																<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
-																	<!-- react-text: 61 -->Order By
-																	
-																	<!-- react-text: 62 -->
-																	
-																	<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
-																</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
-																	<div class="zy-ccomp__content__inner">
-																															
-																		<ul class="uk-list uk-list-space m-0">
-																			<li>
-																				<label class="form__check" for="o-0">
-																					<input type="radio" class="at-o" value="apmin:DESC" name="o" id="o-0" <?php checked( $o, 'apmin:DESC' ) ?>><span>Price (High to Low)</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="o-1">
-																					<input type="radio" class="at-o" value="apmin:ASC" name="o" id="o-1" <?php checked( $o, 'apmin:ASC' ) ?>><span>Price (Low to High)</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="o-2">
-																					<input type="radio" class="at-o" value="asts:ASC" name="o" id="o-2" <?php checked( $o, 'asts:ASC' ) ?>><span>Status</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="o-3">
-																					<input type="radio" class="at-o" value="atwns:ASC" name="o" id="o-3" <?php checked( $o, 'atwns:ASC' ) ?>><span>City</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="o-4">
-																					<input type="radio" class="at-o" value="lid:DESC" name="o" id="o-4" <?php checked( $o, 'lid:DESC' ) ?>><span>Listing Date</span></label>
-																			</li>
-																			<li>
-																				<label class="form__check" for="o-5">
-																					<input type="radio" class="at-o" value="apt:DESC" name="o" id="o-5" <?php checked( $o, 'apt:DESC' ) ?>><span>Type / Price Descending</span></label>
-																			</li>
-																			<?php /* 
-																			<li>
-																				<label class="form__check" for="o-6">
-																					<input type="radio" class="at-o" value="alstid:ASC" name="o" id="o-6" <?php checked( $o, 'alstid:ASC' ) ?>><span>Listing Number</span></label>
-																			</li> */ ?>
-																		</ul>
-																	</div>
+																	<input type="hidden" id="street_number" name="advStNo" disabled="true" />
+																	<input type="hidden" id="route" name="advStName" disabled="true" />
+																	<input type="hidden" id="locality" name="advTownNm" disabled="true" />
+																	<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
+																	<input type="hidden" id="country" name="advCounties" disabled="true" />
+																	<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
 																</div>
 															</div>
 														</div>
 													</div>
-													<?php
-													if( isset($requests) && sizeof($requests) ){
-														foreach( $requests as $key=>$val ){
-															if( ! in_array(strtolower($key), $excludes) ){
-																echo "<input type='hidden' name='{$key}' value='{$val}' />"."\r\n";
-															}
-														}
-													}
-													?>
-												</form>
+													<div class="col-md-12 col-lg-6 btn-group zy-search__options-wrapper" role="group" aria-label="Properties Search Filters">
+														
+														<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+															<button class="dropdown-toggle zy-ccomp__trigger at-price-trigger zy-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
+																<!-- react-text: 42 -->Price&nbsp;
+																
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right">
+																<div class="zy-ccomp__content__inner">
+																	<div class="grid grid--gutters grid-xs--halves">
+																		<div class="cell">
+																			<div>
+																				<input type="text" id="minListPrice--ballerbox" class="at-minListPrice--ballerbox zy-off-canvas__price-range-input input-number" value="<?php echo $minListPrice; ?>" name="minlistprice" title="Please enter a Min Price">
+																				<div><span id="minListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Min Price</span></div>
+																			</div>
+																		</div>
+																		<div class="cell">
+																			<div>
+																				<input type="text" id="maxListPrice--ballerbox" class="at-maxListPrice--ballerbox zy-off-canvas__price-range-input input-number" value="<?php echo $maxListPrice; ?>" name="maxlistprice" title="Please enter a Max Price">
+																				<div><span id="maxListPrice--ballerboxHelper" class="uk-text-small uk-text-muted">Max Price</span></div>
+																			</div>
+																		</div>
+																	</div>													
+																</div>
+															</div>
+														</div>
+														
+														<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+															<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
+																<!-- react-text: 48 -->Status
+																
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+																<div class="zy-ccomp__content__inner">
+																	<ul class="uk-list uk-list-space m-0">
+																		<li>
+																			<label class="form__check" for="status-0">
+																				<input type="radio" class="at-status" value="" name="status" id="status-0" <?php checked( $status, '' ) ?>><span>Active</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="status-1">
+																				<input type="radio" class="at-status" value="<?php echo zipperagent_sold_status(); ?>" name="status" id="status-1" <?php checked( $status, zipperagent_sold_status() ) ?>><span>Sold</span></label>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+														
+														<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+															<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
+																<!-- react-text: 48 -->Type
+																
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+																<div class="zy-ccomp__content__inner">
+																	<ul class="uk-list uk-list-space m-0">
+																		<?php
+																			$propTypeFields = get_property_type();
+																			$propTypeNum=0;
+																			$excludePropTypeFields=array();
+																			foreach( $propTypeFields as $fieldCode=>$fieldName ){
+																				$checked='';
+																				if(in_array($fieldCode,$propertyType))
+																					$checked='checked';
+																				
+																				echo "<li><label class='form__check' for='propertyType-{$propTypeNum}'><input type='checkbox' class='at-propertyType' value='{$fieldCode}' label='{$fieldName}' name='propertytype[]' id='propertyType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
+																				$propTypeNum++;
+																				
+																				$excludePropTypeFields[]=$fieldCode;
+																			}
+																		?>
+																		<?php
+																			$propSubTypeFields = get_property_sub_type();
+																			$propTypeNum=0;
+																			foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+																				$checked='';
+																				if(in_array($fieldCode,$propSubType))
+																					$checked='checked';
+																				
+																				echo "<li><label class='form__check' for='propSubType-{$propTypeNum}'><input type='checkbox' class='at-propSubType' value='{$fieldCode}' label='{$fieldName}' name='propsubtype[]' id='propSubType-{$propTypeNum}' ". $checked ."><span>{$fieldName}</span></label></li>"."\r\n";
+																				$propTypeNum++;
+																			}
+																		?>
+																	</ul>
+																</div>
+															</div>
+														</div>
+														
+														<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+															<button class="dropdown-toggle zy-ccomp__trigger at-minbeds-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+																<!-- react-text: 54 -->Beds
+																
+																<!-- react-text: 55 -->
+																
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+																<div class="zy-ccomp__content__inner">
+																	<ul class="uk-list uk-list-space m-0">
+																		<li>
+																			<label class="form__check" for="bedrooms-0">
+																				<input type="radio" class="at-bedrooms" value="" name="bedrooms" id="bedrooms-0" <?php checked( $bedrooms, '' ) ?>><span>Any</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bedrooms-1">
+																				<input type="radio" class="at-bedrooms" value="1" name="bedrooms" id="bedrooms-1" <?php checked( $bedrooms, '1' ) ?>><span>1+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bedrooms-2">
+																				<input type="radio" class="at-bedrooms" value="2" name="bedrooms" id="bedrooms-2" <?php checked( $bedrooms, '2' ) ?>><span>2+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bedrooms-3">
+																				<input type="radio" class="at-bedrooms" value="3" name="bedrooms" id="bedrooms-3" <?php checked( $bedrooms, '3' ) ?>><span>3+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bedrooms-4">
+																				<input type="radio" class="at-bedrooms" value="4" name="bedrooms" id="bedrooms-4" <?php checked( $bedrooms, '4' ) ?>><span>4+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bedrooms-5">
+																				<input type="radio" class="at-bedrooms" value="5" name="bedrooms" id="bedrooms-5" <?php checked( $bedrooms, '5' ) ?>><span>5+</span></label>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>									
+														
+														<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+															<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+																<!-- react-text: 61 -->Baths
+																
+																<!-- react-text: 62 -->
+																
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+															</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+																<div class="zy-ccomp__content__inner">
+																	<ul class="uk-list uk-list-space m-0">
+																		<li>
+																			<label class="form__check" for="bathCount-0">
+																				<input type="radio" class="at-bathCount" value="" name="bathcount" id="bathCount-0" <?php checked( $bathCount, '' ) ?>><span>Any</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bathCount-1">
+																				<input type="radio" class="at-bathCount" value="1" name="bathcount" id="bathCount-1" <?php checked( $bathCount, '1' ) ?>><span>1+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bathCount-2">
+																				<input type="radio" class="at-bathCount" value="2" name="bathcount" id="bathCount-2" <?php checked( $bathCount, '2' ) ?>><span>2+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bathCount-3">
+																				<input type="radio" class="at-bathCount" value="3" name="bathcount" id="bathCount-3" <?php checked( $bathCount, '3' ) ?>><span>3+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bathCount-4">
+																				<input type="radio" class="at-bathCount" value="4" name="bathcount" id="bathCount-4" <?php checked( $bathCount, '4' ) ?>><span>4+</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="bathCount-5">
+																				<input type="radio" class="at-bathCount" value="5" name="bathcount" id="bathCount-5" <?php checked( $bathCount, '5' ) ?>><span>5+</span></label>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+														
+														<div class="zy-ccomp zy-ccomp__dropdown dropdown">
+															<button class="dropdown-toggle zy-ccomp__trigger at-minbaths-trigger zy-filter__button js-search-beds btn-primary" type="button" data-toggle="dropdown">
+																<!-- react-text: 61 -->Order By
+																
+																<!-- react-text: 62 -->
+																
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+															</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
+																<div class="zy-ccomp__content__inner">
+																														
+																	<ul class="uk-list uk-list-space m-0">
+																		<li>
+																			<label class="form__check" for="o-0">
+																				<input type="radio" class="at-o" value="apmin:DESC" name="o" id="o-0" <?php checked( $o, 'apmin:DESC' ) ?>><span>Price (High to Low)</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="o-1">
+																				<input type="radio" class="at-o" value="apmin:ASC" name="o" id="o-1" <?php checked( $o, 'apmin:ASC' ) ?>><span>Price (Low to High)</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="o-2">
+																				<input type="radio" class="at-o" value="asts:ASC" name="o" id="o-2" <?php checked( $o, 'asts:ASC' ) ?>><span>Status</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="o-3">
+																				<input type="radio" class="at-o" value="atwns:ASC" name="o" id="o-3" <?php checked( $o, 'atwns:ASC' ) ?>><span>City</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="o-4">
+																				<input type="radio" class="at-o" value="lid:DESC" name="o" id="o-4" <?php checked( $o, 'lid:DESC' ) ?>><span>Listing Date</span></label>
+																		</li>
+																		<li>
+																			<label class="form__check" for="o-5">
+																				<input type="radio" class="at-o" value="apt:DESC" name="o" id="o-5" <?php checked( $o, 'apt:DESC' ) ?>><span>Type / Price Descending</span></label>
+																		</li>
+																		<?php /* 
+																		<li>
+																			<label class="form__check" for="o-6">
+																				<input type="radio" class="at-o" value="alstid:ASC" name="o" id="o-6" <?php checked( $o, 'alstid:ASC' ) ?>><span>Listing Number</span></label>
+																		</li> */ ?>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 												
 												<?php /* if( is_price_slider_enabled() ): ?>
 												<div id="zpa-price-slider">
@@ -371,7 +337,10 @@ if(get_query_var('page')){
 												</script>
 												<?php endif; ?>
 												
-												<?php zipperagent_search_filter(); */ ?>
+												 */ ?>
+											</div>
+											<div id="zy-filter-tag">
+												<?php zipperagent_search_filter_new(); ?>
 											</div>
 										</div>
 									</div>
@@ -383,6 +352,7 @@ if(get_query_var('page')){
 						<div class="loading-wrap">
 							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
 						</div>
+						
 						<?php
 						$markers = zipperagent_get_map_markers();
 						//echo '<pre>'; print_r($markers); echo '</pre>';
@@ -399,125 +369,27 @@ if(get_query_var('page')){
 							
 						endif;
 						?>
+						
+						<div class="property-results mb-10 mt-25 hide">
+						<?php
+						if( $showResults ){ ?>
+							<div class="col-xs-12 prop-total">&nbsp;</div>
+						<?php } ?>
+						</div>
+						
 						<div id="map" class="col-lg-5 col-md-6 ml-auto">
 							<div id="map_wrapper">
 								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
 							</div>
 						</div>
+						
 						<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">
-							<?php /*
-							<div id="filter-wrap">							
-								<form id="zpa-search-filter-form" class="form-inline" action="" method="GET" target="_self" novalidate="novalidate">
-									<fieldset>
-										<div class="row mt-25 filter field-wrap">
-											<div class="col-xs-12 col-sm-6 field-input exception">
-												<input id="zpa-area-input" class="zpa-area-input form-control" placeholder="<?php echo (empty($requests['location_option'])) ? "Enter City / County / Zip" : "Select Location"; ?>"  name="location[]"/>
-												<?php /* <input class="zpa-area-input-hidden" name="" type="hidden"> * ?>
-											</div>	
-											<div class="col-xs-6 col-sm-3 field-input"> 
-												<select id="zpa-status-fields" name="status" class="form-control zpa-chosen-select-width">
-													<option <?php selected( $status, 'none' ) ?> value="">status</option>                     
-													<option <?php selected( $status, '' ) ?> value="">Active</option>                     
-													<option <?php selected( $status, zipperagent_sold_status() ) ?> value="<?php echo zipperagent_sold_status(); ?>">Sold</option>
-												</select>
-											</div>											
-											<div class="col-xs-6 col-sm-3 field-input">
-												<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple">
-													<?php
-													$propTypeFields = get_property_type();
-													$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
-												
-													foreach( $propTypeFields as $fieldCode=>$fieldName ){
-														if(in_array($fieldCode, $propDefaultOption) || in_array($fieldCode, $propertyType))
-															$selected="selected";
-														else
-															$selected="";
-														
-														echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";									
-													}
-													?>
-												</select>									
-											</div>
-										</div>
-										
-										<div class="row mt-25 zpa-home-search-fields filter field-wrap">											
-											<div class="col-xs-6 col-sm-3 field-input">
-												<input id="zpa-sqft-homes" name="squareFeet" placeholder="Min. SqFt." type="text" class="form-control zpa-search-form-input" value="<?php echo $squareFeet ?>">
-											</div>
-											<div class="col-xs-6 col-sm-3 field-input">
-												<select id="zpa-select-bedrooms-homes" name="bedrooms" class="form-control zpa-chosen-select-width">
-													<option <?php selected( $bedrooms, '' ) ?> value="0">Beds</option>
-													<option <?php selected( $bedrooms, '1' ) ?> value="1">1+</option>
-													<option <?php selected( $bedrooms, '2' ) ?> value="2">2+</option>
-													<option <?php selected( $bedrooms, '3' ) ?> value="3">3+</option>
-													<option <?php selected( $bedrooms, '4' ) ?> value="4">4+</option>
-													<option <?php selected( $bedrooms, '5' ) ?> value="5">5+</option>
-												</select>
-											</div>
-											<div class="col-xs-6 col-sm-3 field-input">
-												<select id="zpa-select-baths-homes" name="bathCount" class="form-control zpa-chosen-select-width">
-													<option <?php selected( $bathCount, '' ) ?> value="0">Baths</option>
-													<option <?php selected( $bathCount, '1' ) ?> value="1">1+</option>
-													<option <?php selected( $bathCount, '2' ) ?> value="2">2+</option>
-													<option <?php selected( $bathCount, '3' ) ?> value="3">3+</option>
-													<option <?php selected( $bathCount, '4' ) ?> value="4">4+</option>
-													<option <?php selected( $bathCount, '5' ) ?> value="5">5+</option>
-												</select>
-											</div>
-											<div class="col-xs-6 col-sm-3 field-input">
-												<select id="zpa-select-order-by" name="o" class="form-control zpa-chosen-select-width">
-													<option <?php selected( $o, '' ) ?> value="">Sort by </option>
-													<option <?php selected( $o, 'apmin:DESC' ) ?> value="apmin:DESC">Price (High to Low)</option>
-													<option <?php selected( $o, 'apmin:ASC' ) ?> value="apmin:ASC">Price (Low to High)</option>
-													<option <?php selected( $o, 'asts:ASC' ) ?> value="asts:ASC">Status</option>
-													<option <?php selected( $o, 'atwns:ASC' ) ?> value="atwns:ASC">City</option>
-													<option <?php selected( $o, 'lid:DESC' ) ?> value="lid:DESC">Listing Date</option>
-													<option <?php selected( $o, 'apt:DESC' ) ?> value="apt:DESC">Type / Price Descending</option>
-													<option <?php selected( $o, 'alstid:ASC' ) ?> value="alstid:ASC">Listing Number</option>
-													<?php /* <option value="">Open Home Date Asc</option> * ?>
-												</select>
-											</div>
-										</div>
-										
-										<div class="row field-wrap">	
-											<div class="col-xs-12 mt-15 col-sm-12 field-input">
-												<?php /* <div><label>Price Range:</label>&nbsp;<span id="price-amount-show"><?php echo $priceRange ?></span></div> * ?>
-												<div><label>Price Range:</label>&nbsp;
-													$<input id="zpa-minprice-homes" name="minListPrice" type="number" value="<?php echo $minListPrice ?>"> 
-													- 
-													$<input id="zpa-maxprice-homes" name="maxListPrice" type="number" value="<?php echo $maxListPrice ?>"> 
-												</div>
-												<input type="hidden" id="price-slider-range" />
-											</div>
-										</div>												
-									</fieldset>
-									
-									<?php /* <input id="zpa-minprice-homes" name="minListPrice" type="hidden" value="<?php echo $minListPrice ?>">
-									<input id="zpa-maxprice-homes" name="maxListPrice" type="hidden" value="<?php echo $maxListPrice ?>"> * ?> 
-									<input type="hidden" name="action" value="properties_view" />
-									<input type="hidden" name="view_type" value="<?php echo $type ?>" />
-									<?php
-									if( isset($requests) && sizeof($requests) ){
-										foreach( $requests as $key=>$val ){
-											if( ! in_array(strtolower($key), $excludes) ){
-												echo "<input type='hidden' name='{$key}' value='{$val}' />"."\r\n";
-											}
-										}
-									}
-									?>
-								</form>
-							</div>
-							
-							*/ ?>
 							<div id="zipperagent-content" class="row"></div>
 						</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>				
 			</div>
-
-			<?php // include "template-registerUser.php"; ?>
-			<?php // include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
 
 		</div>	
 	
@@ -560,7 +432,7 @@ if(get_query_var('page')){
 					if( response['html'] ){
 						jQuery( '.loading-wrap' ).hide();
 						jQuery( '#zipperagent-content' ).html( response['html'] );
-						jQuery( '.proptype-markers' ).removeClass('hide');
+						jQuery( '.proptype-markers, .property-results' ).removeClass('hide');
 					}
 					console.timeEnd('generate list');
 				},
@@ -571,117 +443,436 @@ if(get_query_var('page')){
 		});
 	</script>
 	<script>
-	/*
-		function addCommas(nStr)
-		{
-			nStr += '';
-			x = nStr.split('.');
-			x1 = x[0];
-			x2 = x.length > 1 ? '.' + x[1] : '';
-			var rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				x1 = x1.replace(rgx, '$1' + ',' + '$2');
-			}
-			return x1 + x2;
-		}
-		
-		var $range = jQuery("#price-slider-range");
-		
-		$range.ionRangeSlider({
-			type: "double",
-			grid: false,
-			step: 10000,
-			min: 500,
-			max: 10000000,
-			from: '<?php echo $minListPrice ?>',
-			to: '<?php echo $maxListPrice ?>',
-			prefix: "$",
-			onChange: function(data){
-				jQuery( "#price-amount-show" ).html( "<?php echo zipperagent_currency() ?>" + addCommas(data.from) + " - <?php echo zipperagent_currency() ?>" + addCommas(data.to) );
-				jQuery( "#zpa-minprice-homes" ).val(data.from);
-				jQuery( "#zpa-maxprice-homes" ).val(data.to);
-			},
-			onFinish: function(data){
-				setTimeout(function(){			
-					jQuery('#zpa-search-filter-form').submit();
-				}, 1000);				
-			},
-		});
-		
-		var instance = $range.data("ionRangeSlider");
-
-		jQuery('#zpa-minprice-homes').on("change keyup", function () {
-			var val = jQuery(this).prop("value");
+		jQuery(document).ready(function($) {
+						
+			<?php 
+			$data = get_autocomplete_data();
 			
-			instance.update({
-				from: val
-			});
-		});
-		
-		jQuery('#zpa-maxprice-homes').on("change keyup", function () {
-			var val = jQuery(this).prop("value");
+			$towns = isset($data->towns)?$data->towns:array();
+			$areas = isset($data->areas)?$data->areas:array();
+			$counties = isset($data->counties)?$data->counties:array();
+			$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
+			?>
 			
-			instance.update({
-				to: val
+			var towns = <?php echo json_encode($towns); ?>;
+			var areas = <?php echo json_encode($areas); ?>;
+			var counties = <?php echo json_encode($counties); ?>;
+			var zipcodes = <?php echo json_encode($zipcodes); ?>;
+			var all = $.merge(towns, areas);
+				all = $.merge(all, counties);
+				all = $.merge(all, zipcodes);
+			
+			var ms_all = $('#zpa-all-input').magicSuggest({
+				
+				data: all,
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + data.name + '</div>';
+				},				
 			});
-		});
-	
-		jQuery(document).ready(function() {
-			//allow only number input
-			jQuery("#zpa-minprice-homes, #zpa-maxprice-homes").keydown(function (e) {
-				// Allow: backspace, delete, tab, escape, enter and .
-				if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-					 // Allow: Ctrl/cmd+A
-					(e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-					 // Allow: Ctrl/cmd+C
-					(e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-					 // Allow: Ctrl/cmd+X
-					(e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-					 // Allow: home, end, left, right
-					(e.keyCode >= 35 && e.keyCode <= 39)) {
-						 // let it happen, don't do anything
-						 return;
+			
+			$(ms_all).on('selectionchange', function(e,m){		
+				var values = this.getValue();
+				var value  = values[0];
+				var data   = this.getData();
+				var label  = '';
+				var name, linked_name;
+				var is_add, is_location, is_address, is_mls = 0;
+								
+				for(i=0; i<data.length; i++){
+					if(data[i].code==value){
+						label = data[i].name;
+					}
 				}
-				// Ensure that it is a number and stop the keypress
-				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("acnty_") >= 0){ //county
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
+					is_address=1;
+				}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
+					is_mls=1;
+				}
+				
+				if(is_location){							
+					name = 'location[]';
+					linked_name = 'location_'+value;
+					is_add=1;
+				}else if(is_address){
+					name = '';
+					is_add=0;
+				}else if(is_mls){
+					name = 'alstid[]';
+					linked_name = value;
+					value = value.replace('alstid_','');
+					// linked_name = 'alstid_'+value;
+					is_add=1;
+				}
+								
+				this.removeFromSelection(this.getSelection(), true);
+				
+				clearGoogleAddressFields();
+				
+				if(is_add){
+					addFilterLabel(name, value, linked_name, label);
+					addFormField(name,value,linked_name);
+				}else if(is_address){
+					var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
+					if(saved_address){
+						$.each(saved_address, function(key, value) {
+							jQuery('.field-section.addr #'+ key).val(value);
+							jQuery('.field-section.addr #'+ key).prop('disabled',false);
+							label="";
+							
+							switch(key){
+								case "street_number":
+										name="advStNo";
+										linked_name="";
+									break;
+								case "route":
+										name="advStName";
+										linked_name="";
+									break;
+								case "locality":
+										name="advTownNm";
+										linked_name="";
+									break;
+								case "administrative_area_level_1":
+										name="advStates";
+										linked_name="";
+									break;
+								case "country":
+										name="advCounties";
+										linked_name="";
+									break;
+								case "postal_code":
+										name="advStZip";
+										linked_name="";
+									break;
+							}
+							name=name.toLowerCase();
+							linked_name=name;
+							
+							addFilterLabel(name, value, linked_name, label);
+							addFormField(name,value,linked_name);
+						});
+					}
+				}
+				
+				jQuery('#zpa-search-filter-form').submit();
+			});
+			
+			/* Combine ms_all and google autocomplete */
+			var ms_all__rawValue='';
+			var ms_all__google_autocomplete;
+			var google_autocomplete_selected=0;
+			
+			//select value on enter key pressed
+			$(ms_all).on('keydown', function(e,m,v){
+				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+				var magicSuggest_option_exists = data.length;
+				var google_option_exists = $('body .pac-container.pac-logo').html().length;
+				
+				if(magicSuggest_option_exists){
+					ms_all__google_autocomplete=0;
+					jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
+				}else if(google_option_exists && ms_all__rawValue.length >= 2){
+					ms_all__google_autocomplete=1;
+					jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' );
+				}else{
+					ms_all__google_autocomplete=0;
+					jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
+				}
+				
+				$('#zpa-all-input-address').val('');
+			});
+			
+			function clearGoogleAddressFields(){
+				jQuery('#zpa-all-input-address').val('');						
+				removeLabel('advstno', 'advstno', '');
+				removeLabel('advstname', 'advstname', '');
+				removeLabel('advtownnm', 'advtownnm', '');
+				removeLabel('advstates', 'advstates', '');
+				removeLabel('advcounties', 'advcounties', '');
+				removeLabel('advstzip', 'advstzip', '');
+			}
+			
+			<?php
+			$rb = zipperagent_rb();
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			$states=array_map('trim', explode(',', $states));
+			$states=implode(' | ',$states);
+			?>
+			
+			var placeSearch, autocomplete;
+			var componentForm = {
+				street_number: 'short_name',
+				route: 'long_name',
+				locality: 'long_name',
+				administrative_area_level_1: 'short_name',
+				// country: 'short_name',
+				postal_code: 'short_name'
+			};
+			// var input = document.getElementById('zpa-all-input');
+			var input = document.querySelector('#zpa-all-input input');
+
+			(function pacSelectFirst(inp){
+				// store the original event binding function
+				var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
+
+				function addEventListenerWrapper(type, listener) {
+					// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+					// and then trigger the original listener.
+
+					if (type == "keydown") {
+						var orig_listener = listener;
+						listener = function (event) {
+							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+							if (event.which == 9 || event.which == 13 && !suggestion_selected && ms_all__rawValue) {
+								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+								orig_listener.apply(inp, [simulated_downarrow]);													
+								
+								if(ms_all__google_autocomplete)
+									google_autocomplete_selected=1;
+							}
+
+							orig_listener.apply(inp, [event]);
+						};
+					}
+
+					// add the modified listener
+					_addEventListener.apply(inp, [type, listener]);
+				}
+
+				if (inp.addEventListener)
+				inp.addEventListener = addEventListenerWrapper;
+				else if (inp.attachEvent)
+				inp.attachEvent = addEventListenerWrapper;
+
+			})(input);
+
+			function initAutocomplete() {
+				var options = {
+					types: ['geocode'],  // or '(cities)' if that's what you want?
+					componentRestrictions: {country: ["us","ca","in"]},
+				};
+				// Create the autocomplete object, restricting the search to geographical
+				// location types.
+				autocomplete = new google.maps.places.Autocomplete(
+				/** @type {!HTMLInputElement} */(input), options);
+
+				// When the user selects an address from the dropdown, populate the address
+				// fields in the form.
+				autocomplete.addListener('place_changed', fillInAddress);
+			}
+
+			function fillInAddress() {
+
+				var saved_values={};
+
+				// Get the place details from the autocomplete object.
+				var place = autocomplete.getPlace();
+
+				if(!place.address_components)
+				return;
+
+				for (var component in componentForm) {
+					document.getElementById(component).value = '';
+					document.getElementById(component).disabled = false;
+				}
+
+				// Get each component of the address from the place details
+				// and fill the corresponding field on the form.
+				for (var i = 0; i < place.address_components.length; i++) {
+					var addressType = place.address_components[i].types[0];
+					if (componentForm[addressType]) {
+						var val = place.address_components[i][componentForm[addressType]];
+						var field = jQuery('#'+addressType);
+						var key = addressType;
+						document.getElementById(addressType).value = val;
+						// saved_values.push({key:val});
+						saved_values[addressType]=val;
+					}
+				}
+				var json = JSON.stringify(saved_values);
+				jQuery('#zpa-all-input-address-values').val(json);
+				jQuery('#zpa-all-input-address').val(place.formatted_address);
+				
+				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+				
+				if(!data.length){
+					
+					var val = place.formatted_address;
+					var prefix = 'addr_';
+					var code = prefix + 'selected_address';							
+					var label = val;	
+					var push = {group:'Address', name: label, code: code, type: 'address' };
+					if(val){
+						ms_all.setValue([push]);
+					}
+				}
+			}
+
+			initAutocomplete();
+			
+			<?php if($states): ?>
+			jQuery(input).on('input',function(){				
+				if(ms_all__google_autocomplete){
+					var str = input.value;
+					var prefix = '<?php echo $states; ?> | ';
+					
+					if(str.indexOf(prefix) == 0) {
+						// console.log(input.value);
+					} else if( str + ' ' === prefix ){
+						input.value = "";
+					}else {
+						if (prefix.indexOf(str) >= 0) {
+							input.value = prefix;
+						} else {
+							input.value = prefix+str;
+						}
+					}
+				}
+			});
+			<?php endif; ?>
+			
+			/* auto select dropdown function (ms_all) */
+			var ms_all__afterDelete=0;
+			var ms_all__recentSelected=[];
+			var ms_all__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_all).on('keyup', function(){
+				ms_all__rawValue = ms_all.getRawValue();
+				ms_all__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_all).on('focus', function(c){
+				ms_all__recentSelected = ms_all.getValue();
+				ms_all__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_all).on('blur', function(c, e){
+				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_all__currentSelected = ms_all.getValue();
+				
+				// console.log(ms_all__recentSelected);
+				// console.log(ms_all__currentSelected);
+				// console.log('ms_all__rawValue: ' + ms_all__rawValue);
+				// console.log('ms_all__afterDelete: ' + ms_all__afterDelete);
+				
+				if( ms_all__rawValue!="" && ! ms_all__afterDelete ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_all.setValue([firstData.code]);
+					}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+						var val = ms_all__rawValue;
+						var prefix = 'alstid_';
+						var code = prefix + val;							
+						var label = 'MLS#' + val;
+						
+						var push = {group:'Mls', name: label, code: code, type: 'mls' };
+						ms_all.setValue([push]);
+					}
+					
+					ms_all__afterDelete=0;
+					
+					$('#zpa-all-input input').focus();
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_all).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_all__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_all.setValue([firstData.code]);
+						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
+							var val = ms_all__rawValue;
+							var prefix = 'alstid_';
+							var code = prefix + val;							
+							var label = 'MLS#' + val;
+							
+							var push = {group:'Mls', name: label, code: code, type: 'mls' };
+							ms_all.setValue([push]);
+						}
+					}
+					
+					ms_all.collapse();
+					
+					$('#zpa-all-input input').focus();
+				}
+			});
+			
+			//select value on tab key pressed
+			$('#zpa-all-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_all__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_all.setValue([firstData.code]);
+						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+							var val = ms_all__rawValue;
+							var prefix = 'alstid_';
+							var code = prefix + val;							
+							var label = 'MLS#' + val;
+							var push = {group:'Mls', name: label, code: code, type: 'mls' };
+							ms_all.setValue([push]);
+						}
+					}
+					
+					ms_all.empty();
+					$('#zpa-all-input input').focus();
+					
+					ms_all.collapse();
+					
 					e.preventDefault();
 				}
 			});
+			
+			//set after delete state
+			$(ms_all).on('selectionchange', function(e,m,r){
+				
+				ms_all.empty();
+				ms_all__rawValue="";
+				google_autocomplete_selected=0;
+				
+				if(r.length==ms_all__recentSelected.length && r.length==ms_all__currentSelected.length){
+					ms_all__afterDelete=1;
+				}else{
+					ms_all__afterDelete=0;
+				}
+			});
 		});
-	*/	
 	</script>
-	
-	<?php if(empty($requests['location_option'])): ?>
-		<?php global_magicsuggest_script($location); ?>
-	<?php else: ?>
-		<?php global_magicsuggest_script($location, $requests); ?>
-	<?php endif; ?>
 	<script>
 		jQuery(document).ready(function(){
-			
-			<?php if( !empty( $location ) || is_array( $location ) ): ?>
-			var changeCount=0;
-			jQuery(jQuery('#zpa-area-input').magicSuggest()).on(
-			  'selectionchange', function(e, cb, s){
-				 changeCount++; 
-				 if(changeCount>0){
-					jQuery('#zpa-search-filter-form').submit();
-				 }
-			  }
-			);
-			<?php else: ?>
-			jQuery(jQuery('#zpa-area-input').magicSuggest()).on(
-			  'selectionchange', function(e, cb, s){
-				 jQuery('#zpa-search-filter-form').submit();
-			  }
-			);
-			<?php endif; ?>
-			
-			jQuery('body').on('change', '#zpa-search-filter-form .btn-group input:not([type=checkbox]), #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea, #zpa-search-filter-form .btn-group input[type=checkbox]', function(e){
-			// jQuery('#zpa-search-filter-form .btn-group input, #zpa-search-filter-form .btn-group select, #zpa-search-filter-form .btn-group textarea').on( 'change', function(){
-			// jQuery('#zpa-search-filter-form .field-input:not(.exception) input, #zpa-search-filter-form .field-input select, #zpa-search-filter-form .field-input textarea').on( 'change', function(){
-				jQuery('#zpa-search-filter-form').submit();
-			});
 			
 			var xhr;
 			
@@ -710,7 +901,8 @@ if(get_query_var('page')){
 				jQuery( '.loading-wrap' ).show();
 				jQuery( '#map' ).hide();
 				jQuery( '#zipperagent-content' ).html( '' );
-				jQuery( '.proptype-markers' ).addClass('hide');
+				jQuery( '.proptype-markers, .property-results, .property-results' ).addClass('hide');
+				jQuery( '.property-results .prop-total' ).html('&nbsp;');
 				
 				console.time('generate list');
 				xhr = jQuery.ajax({
@@ -723,7 +915,7 @@ if(get_query_var('page')){
 							jQuery( '.loading-wrap' ).hide();
 							jQuery( '#map' ).show();
 							jQuery( '#zipperagent-content' ).html( response['html'] );
-							jQuery( '.proptype-markers' ).removeClass('hide');
+							jQuery( '.proptype-markers, .property-results' ).removeClass('hide');
 						}
 						console.timeEnd('generate list');
 					},
@@ -736,53 +928,6 @@ if(get_query_var('page')){
 			});
 		});
 		
-	</script>
-	<?php /*
-	<script>
-		// Material Select Initialization
-		jQuery(document).ready(function($) {
-		  $('.multiselect').multiselect({
-			// buttonWidth : '160px',
-			includeSelectAllOption : true,
-			nonSelectedText: 'Property Type',
-			numberDisplayed: 1,
-			buttonClass: 'form-control',
-		  });
-		});
-	</script> */ ?>
-	
-	<script>
-		jQuery(document).ready(function($) {
-			
-			jQuery('.item-toggle').click(function(){
-				
-				// jQuery('.detail-toggle').hide();
-				// jQuery(this).parent().find('.detail-toggle').toggle();
-				jQuery(this).parent().find('.detail-toggle').toggle();
-				
-			});
-			jQuery('.detail-toggle .btn-group').click(function(){
-				
-				jQuery(this).parent().find('select').toggle().focus();
-				
-			});
-			
-			// jQuery('.detail-toggle select').change(function(event){
-				
-				// jQuery(this).parent().hide();
-			// });
-			
-			// jQuery('.detail-toggle #zpa-select-property-type').change(function(event){
-				// event.stopPropagation();
-			// });
-			
-			jQuery(document).click(function(event){
-				jQuery('.detail-toggle').hide();
-			});
-			jQuery('.item-mn').click(function(event) {
-			  event.stopPropagation();
-			});
-		});
 	</script>
 	<script>
 		jQuery(document).on('click', '#zpa-main-container .dropdown-menu', function (e) {
@@ -805,6 +950,287 @@ if(get_query_var('page')){
 			$('.input-number').val(function(index, value) {
 				return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			});
+		});
+	</script>
+	<script>
+		jQuery(document).ready(function(){
+			
+			window.removeLabel = function(linked_name, name, value){
+				
+				jQuery('#zpa-search-filter-form input[linked-name="'+linked_name+'"]').remove();
+				jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+ linked_name +'"]').remove();
+				
+				//remove from search bar		
+				jQuery('#zpa-top-searh-bar .btn-group input[type=text][name="'+name+'"]').val('');
+				jQuery('#zpa-top-searh-bar .btn-group select[name="'+name+'"]').val('');
+				if(value)
+					jQuery('#zpa-top-searh-bar .btn-group input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+				else
+					jQuery('#zpa-top-searh-bar .btn-group input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);
+				jQuery('#zpa-top-searh-bar .btn-group input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+			}
+			
+			window.addFormField = function(name, value, linked_name){
+				var field = jQuery('#zpa-search-filter-form input[linked-name="'+ linked_name +'"]');
+				
+				add='<input type="hidden" linked-name="'+linked_name+'" name="'+name+'" value="'+value+'">';
+				
+				if(!field.length){
+					jQuery('#zpa-search-filter-form').append(add);
+				}else{
+					jQuery(field).replaceWith(add);
+				}				
+			}
+			
+			window.addFilterLabel = function(name, value, linked_name, label){
+				var newLabel=label;
+				var currency='<?php echo zipperagent_currency(); ?>';
+				
+				if(!newLabel){
+					switch(linked_name){
+						case "maxlistprice":
+							newLabel = 'up to '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
+							break;
+						case "minlistprice":
+							newLabel = 'over '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
+							break;
+						case "bedrooms":
+							newLabel = value + ' + Beds';	
+							break;
+						case "bathcount":
+							newLabel = value + ' + Bath';	
+							break;
+						case "squarefeet":
+							newLabel = value + ' sqft';	
+							break;
+						<?php
+						$propTypeFields = get_property_type();
+						foreach($propTypeFields as $key => $val){
+						echo "\r\n" .
+						'case "propertytype_'.$key.'":'."\r\n" .
+							"newLabel = '{$val}'"."\r\n" .
+							'break;'."\r\n";
+						} ?>
+						<?php
+						$propSubTypeFields = get_property_sub_type();
+						foreach($propSubTypeFields as $key => $val){
+						echo "\r\n" .
+						'case "propsubtype_'.$key.'":'."\r\n" .
+							"newLabel = '{$val}'"."\r\n" .
+							'break;'."\r\n";
+						} ?>
+						<?php
+						$fields = get_references_field('STYLE');
+						foreach($fields as $field){
+						echo "\r\n" .
+						'case "astle_'.$field->shortDescription.'":'."\r\n" .
+							"newLabel = '{$field->longDescription}'"."\r\n" .
+							'break;'."\r\n";
+						}
+						?>
+						<?php
+						$fields = get_references_field('EXTERIORFEATURES');
+						foreach($fields as $field){
+						echo "\r\n" .
+						'case "aextf_'.$field->shortDescription.'":'."\r\n" .
+							"newLabel = '{$field->longDescription}'"."\r\n" .
+							'break;'."\r\n";
+						}
+						?>
+						<?php
+						$fields = get_references_field('WATERFRONT');
+						foreach($fields as $field){
+						echo "\r\n" .
+						'case "awtrf_'.$field->shortDescription.'":'."\r\n" .
+							"newLabel = '{$field->longDescription}'"."\r\n" .
+							'break;'."\r\n";
+						}
+						?>
+						<?php
+						$fields = get_references_field('WATERVIEWFEATURES');
+						foreach($fields as $field){
+						echo "\r\n" .
+						'case "awvf_'.$field->shortDescription.'":'."\r\n" .
+							"newLabel = '{$field->longDescription}'"."\r\n" .
+							'break;'."\r\n";
+						}
+						?>
+						case "yearbuilt":
+							newLabel = 'year ' + value;	
+							break;
+						case "maxdayslisted":
+							newLabel = 'max ' + value + ' days listed';
+							break;
+						case "withimage":
+							newLabel = 'has photos';	
+							break;
+						case "featuredonlyyn":
+							newLabel = 'featured';	
+							break;
+						case "openhomesonlyyn":
+							newLabel = 'open houses only';	
+							break;
+						case "hasvirtualtour":
+							newLabel = 'has virtual tour';	
+							break;
+						case "listinapage":
+							newLabel = value + ' results per page';	
+							break;
+						case "o":
+							switch(value){
+								case "apmin:DESC":
+									vall = 'price (high to low)';
+								break;
+								case "apmin:ASC":
+									vall = 'price (low to high)';
+								break;
+								case "asts:ASC":
+									vall = 'status';
+								break;
+								case "atwns:ASC":
+									vall = 'city';
+								break;
+								case "lid:DESC":
+									vall = 'listing date';
+								break;
+								case "apt:DESC":
+									vall = 'type/price descending';
+								break;
+								case "alstid:ASC":
+									vall = 'listing number';
+								break;
+								default:
+									vall = value;
+								break;
+							}
+							
+							// newLabel = 'order by ' + vall; //disable order label
+							newLabel='';
+							break;
+						case "advstno":
+							newLabel = 'street number ' + value;	
+							break;
+						case "advstname":
+						case "advtownnm":
+						case "advstates":
+						case "advcounties":
+							newLabel = value;	
+							break;
+						case "advstzip":
+							newLabel = 'zipcode ' + value;	
+							break;
+						case "apold":
+							newLabel = 'Pool Description';	
+							break;
+						case "altand":
+							newLabel = 'Lot Description ' + value;	
+							break;
+						case "school":
+							newLabel = value;	
+							break;
+						default:
+							switch(name){
+								case "alstid":
+								case "alstid[]":
+									newLabel = 'MLS#' + value;	
+									break;
+								default:										
+									newLabel = linked_name.toLowerCase()+' '+value;
+									break;
+							}
+							break;
+					}
+				}
+				
+				if(!newLabel)
+					return;
+				
+				if(jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').length){
+					var replace='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
+					jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').replaceWith(replace);
+				}else{
+					var add='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
+					jQuery('#zpa-selected-filter .ms-sel-ctn').append(add);						
+				}
+			}
+			
+			function shortenmoney(num){
+				var digits=0;
+				var si = [
+					{ value: 1, symbol: "" },
+					{ value: 1E3, symbol: "k" },
+					{ value: 1E6, symbol: "M" },
+					{ value: 1E9, symbol: "G" },
+					{ value: 1E12, symbol: "T" },
+					{ value: 1E15, symbol: "P" },
+					{ value: 1E18, symbol: "E" }
+				  ];
+				  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+				  var i;
+				  for (i = si.length - 1; i > 0; i--) {
+					if (num >= si[i].value) {
+					  break;
+					}
+				  }
+				  return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+			}
+			
+			jQuery('body').on('click', '#zpa-selected-filter .ms-sel-ctn .ms-sel-item', function(){
+				name = jQuery(this).attr('real-name');
+				linked_name = jQuery(this).attr('attribute-name');
+				value = jQuery(this).attr('attribute-value');
+				
+				removeLabel(linked_name, name, value);		
+				
+				jQuery('#zpa-search-filter-form').submit();
+			});
+			
+			<?php
+			// echo "<pre>"; print_r($requests); echo "</pre>";
+			foreach($requests as $key=>$value){	
+				if(!in_array($key, get_new_filter_excludes()))
+					zipperagent_generate_filter_label($key, $value);
+			}
+			?>
+		});
+	</script>
+	<script>
+		jQuery('body').on('change', '#zpa-top-searh-bar .btn-group input:not([type=checkbox]), #zpa-top-searh-bar .btn-group select, #zpa-top-searh-bar .btn-group textarea, #zpa-top-searh-bar .btn-group input[type=checkbox]', function(e){
+										 
+			var name = jQuery(this).attr('name').toLowerCase();
+			var value = jQuery(this).val();
+			var is_array = name.substr(name.length - 2) == '[]';
+			var linked_name='';
+			var type = jQuery(this).attr('type');
+			
+			if(is_array){				
+				linked_name=name.substr(0, name.length - 2) +'_'+value;
+			}else{
+				linked_name=name;
+			}
+			
+			switch(type){
+				case "checkbox":
+						var checked = jQuery(this).prop('checked');
+						if(!checked){
+							removeLabel(linked_name, name, value);
+						}else{
+							addFilterLabel(name, value, linked_name, '');
+							addFormField(name,value,linked_name);							
+						}
+					break;
+				case "text":
+				default:	
+						if(!value){
+							removeLabel(linked_name, name, value);
+						}else{
+							addFilterLabel(name, value, linked_name, '');
+							addFormField(name,value,linked_name);							
+						}	
+					break;
+					
+			}
+			jQuery('#zpa-search-filter-form').submit();
 		});
 	</script>
 </div>

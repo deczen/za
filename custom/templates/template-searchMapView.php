@@ -994,6 +994,7 @@ else: ?>
 				if( response['result'] ){
 					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
 					jQuery('.zpa-listing-search-results .prop-pagination').html(response['html_pagination']);
+					jQuery( '.property-results .prop-total' ).removeClass('hide');
 				}
 				
 				console.timeEnd('generate list count/pagination');
