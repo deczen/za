@@ -2,7 +2,7 @@
 global $requests;
 
 
-echo "<pre>"; print_r($requests); echo "</pre>";
+// echo "<pre>"; print_r($requests); echo "</pre>";
 
 //redirect this page directly
 $propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
@@ -16,7 +16,7 @@ $parameters['o']='lid:DESC';
 
 $toUrl = add_query_arg( $parameters, zipperagent_page_url( 'search-results' ));
 
-wp_safe_redirect($toUrl);
+// wp_safe_redirect($toUrl);
 // end redirect code
 ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
@@ -385,7 +385,9 @@ wp_safe_redirect($toUrl);
         buildColorPalette();
       }
       // google.maps.event.addDomListener(window, 'load', initialize);
-	  
+	 </script>
+	 
+	 <script>
 	  jQuery(document).ready(function(){
 		  
 		<?php extract(zipperagent_get_map_centre()); ?>
