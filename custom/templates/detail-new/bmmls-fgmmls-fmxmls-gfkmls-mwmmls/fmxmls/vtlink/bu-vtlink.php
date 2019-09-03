@@ -67,10 +67,10 @@
 	<?php endforeach; ?>
 	<?php endif; ?>
 	
-<?php elseif(isset($single_property->tourUrls)): ?>
+<?php elseif(isset($single_property->vtlink)): ?>
 	
-	<?php if(is_array($single_property->tourUrls)): ?>
-	<?php foreach( $single_property->tourUrls as $virtual_index => $virtual_tour_url ): ?>
+	<?php if(is_array($single_property->vtlink)): ?>
+	<?php foreach( $single_property->vtlink as $virtual_index => $virtual_tour_url ): ?>
 	<?php
 	
 	$virtual_tour_url=str_replace('http://','//',$virtual_tour_url);

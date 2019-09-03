@@ -16,7 +16,7 @@ $parameters['o']='lid:DESC';
 
 $toUrl = add_query_arg( $parameters, zipperagent_page_url( 'search-results' ));
 
-// wp_safe_redirect($toUrl);
+wp_safe_redirect($toUrl);
 // end redirect code
 ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
