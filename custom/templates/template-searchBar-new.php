@@ -2396,4 +2396,9 @@ $excludes = get_new_filter_excludes();
 			});
 		});
 	</script>
+	<script>
+		jQuery(document).on('click', '#zpa-main-container #omnibar-tools .dropdown-menu', function (e) {
+		  e.stopPropagation();
+		});
+	</script>
 </div>

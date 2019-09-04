@@ -17,7 +17,14 @@
 .zy_address-style{margin-bottom: 0 !important;padding-bottom: 0 !important;font-size: 20px;line-height: 1.5em;font-weight: 500;font-style: normal;}
 .zy_address-style h1{padding:0 !important;margin:0 !important;/* font-weight: 500; */}
 .zy_subaddress-style{margin-bottom:0;font-size: 14px;line-height: 1.33em;font-weight: 400;font-style: normal;}
-.zy_price-style{margin-bottom: 0 !important;padding-bottom: 0 !important;font-size: 20px;line-height: 1.5em;font-weight: 500;font-style: normal;text-align:center;}
+.zy_price-style, .zy_mlsno{margin-bottom: 0 !important;padding-bottom: 0 !important;font-size: 20px;line-height: 1.5em;font-weight: 500;font-style: normal;text-align:center;}
+.zy_mlsno{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+    margin: 0 auto !important;
+}
 .zy_price-style.zy_status-style{text-transform: uppercase;font-size: 14px;padding: 5px !important;}
 .zy_price-mls h2{padding:0 !important; margin:0 !important;}
 .zy_label-style{margin-bottom:0;font-size: 12px;line-height: 1.33em;font-weight: 400;font-style: normal;text-align:center;}
@@ -38,6 +45,7 @@
 .zy_prop-details li{list-style:none;border-bottom:1px solid #ddd;padding-bottom:2px;margin-bottom:2px;vertical-align:middle;padding-top:2px;display: flex;}
 .zy_prop-details li label{font-weight:400;margin:0;}
 .zy_prop-details li span{font-weight:600;font-size:15px;}
+.zy_prop-details label{cursor:initial;}
 
 .zy_vitural-tour{margin-top:30px;}
 .zy_vitural-tour a{text-transform:uppercase;color:#800!important;font-weight:600;font-size:40px;position:relative;display: inline-block;}

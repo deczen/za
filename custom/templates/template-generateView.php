@@ -3,7 +3,7 @@
  * GLOBAL VARIABLES
  * @ declare global variables
  */	   
-global $requests, $is_ajax, $actual_link, $type, $list, $maplist, $enable_filter, $search;
+global $requests, $is_ajax, $actual_link, $type, $list, $maplist, $enable_filter, $search, $markers, $infoWindows;
 global $searchId;
 global $o, $location, $address, $advStNo, $advStName, $advTownNm, $advStates, $advCounties, $advStZip, $boundaryWKT, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet,
 	   $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $openHomesMode, $openHomesOnlyYn, $maxDaysListed, $featuredOnlyYn, $hasVirtualTour, $withImage, $dateRange, $year, $alagt, $aloff, $showPagination, $showResults, $crit;
@@ -276,7 +276,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $crit )
 		$vars['crit'] = $crit;
 	
-	if($type=='map'){
+	if($type=='map' || $type='marker'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -333,7 +333,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $crit )
 		$vars['crit'] = $crit;
 	
-	if($type=='map'){
+	if($type=='map' || $type='marker'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -399,7 +399,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $contactIds )
 		$vars['contactId'] = implode(',',$contactIds);
 	
-	if($type=='map'){
+	if($type=='map' || $type='marker'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -461,6 +461,68 @@ switch( $type ){
 			ob_start();
 			include ZIPPERAGENTPATH . "/custom/templates/template-searchPhotoViewSidebar.php";
 			$sidebar = ob_get_clean();
+		break;
+	case "marker":
+			$i=0;
+			$markers=array();
+			foreach($maplist as $property){
+				
+				$fulladdress = zipperagent_get_address($property);
+				$lat = $property->lat;
+				$lng = $property->lng;
+				$listingId = $property->id;
+				$beds = isset($property->nobedrooms)?$property->nobedrooms:'-';
+				$bath = isset($property->nobaths)?$property->nobaths:'-';
+				$sqft = isset($property->squarefeet)?$property->squarefeet:'-';
+				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
+				$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
+				$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
+				$proptype = $property->proptype;
+				if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )
+					$src = "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=100&h=100&n=0";
+				else
+					$src = str_replace('http://','//',$property->photoList[0]->imgurl);
+				
+				$saved_crit=$search;
+				$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
+				if(!empty($searchId)){
+					$query_args['searchId']= $searchId;
+				}
+				if(zp_using_criteria() && !empty($critBase64)){
+					$query_args['criteria']= $critBase64;
+				}
+				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+					$query_args['newsearchbar']= 1;
+				}
+				$single_url = str_replace( '/wp-admin/admin-ajax.php?=', '', add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) ) );
+				$is_login=getCurrentUserContactLogin() ? 1:0;
+				$is_active=zipperagent_is_favorite($property->id)?"active":"";
+				$searchId='';
+				$str_contactIds=implode(',',$contactIds);
+				
+				$markers[$i][] = str_replace( "'", "\'", $fulladdress );
+				$markers[$i][] = $lat;
+				$markers[$i][] = $lng;
+				$markers[$i][] = $listingId;
+				$markers[$i][] = $longprice;
+				$markers[$i][] = $shortprice;
+				$markers[$i][] = $beds;
+				$markers[$i][] = $bath;
+				$markers[$i][] = $i;
+				$markers[$i][] = $proptype;
+				
+				$infoWindows[$i][]="<div class=\"info_content\">
+										<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"{$src}\" /></div>
+										<div class=\"content\">		
+											<a href=\"{$single_url}\"><strong>". str_replace( "'", "\'", $fulladdress )  ."</strong></a>
+											<p class=\"price\">{$price}</p>
+											<p class=\"favorite\"><a class=\"listing-{$property->id} save-favorite-btn {$is_active}\" isLogin=\"{$is_login}\" listingId=\"{$property->id}\" searchId=\"{$searchId}\" contactId=\"{$str_contactIds}\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>
+											<p class=\"info\">{$beds} BEDS | {$bath} BATH | {$sqft} SQFT</p>
+										</div>
+									</div>";
+				
+				$i++;
+			}
 		break;
 	case "gallery":
 	default:

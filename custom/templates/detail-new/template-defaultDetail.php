@@ -377,7 +377,7 @@ if(file_exists($template_path) && $template_name ){
 						</div>
 						<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">
 							<h2>
-								<p class="zy_price-style">[listno]</p>
+								<p class="zy_mlsno">[listno]</p>
 								<p class="zy_label-style">[displaySource]#</p>
 							</h2>
 						</div>

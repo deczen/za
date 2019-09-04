@@ -1102,3 +1102,5 @@
 @media(max-width:767px){
 	.proptype-markers{display:none;}
 }
+
+#zy_map-explore #zpa-view-selected-filter{min-height: 53px;}

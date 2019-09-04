@@ -736,6 +736,30 @@ function display_properties_view(){
     }
 }
 
+add_action( 'wp_ajax_generate_map_markers', 'get_map_markers' );
+add_action( 'wp_ajax_nopriv_generate_map_markers', 'get_map_markers' );
+
+function get_map_markers(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		global $requests, $is_ajax, $type;
+		global $markers, $infoWindows;
+		
+		$requests = $_REQUEST;
+		$is_ajax = 1;
+		$type='marker';
+		
+		include ZIPPERAGENTPATH . "/custom/templates/template-generateView.php";
+		$result['markers']=$markers;
+		$result['infoWindowContent']=$infoWindows;
+		
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
 add_action( 'wp_ajax_property_detail', 'display_property_detail' );
 add_action( 'wp_ajax_nopriv_property_detail', 'display_property_detail' );
 

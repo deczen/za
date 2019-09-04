@@ -2697,6 +2697,11 @@ if( ! function_exists('get_wp_var_excludes') ){
 			'customize_changeset_uuid',
 			'customize_messenger_channel',
 			'customize_theme',
+			
+			'location_option',
+			'property_type_option',
+			'property_type_default',
+			'map_zoom',
 		);
 		
 		//for template testing purpose

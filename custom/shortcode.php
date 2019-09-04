@@ -728,6 +728,31 @@ function getMapSearch($atts){
 	return $html;	
 }
 
+add_shortcode( 'za_map_explore', 'getMapExplore' );
+function getMapExplore($atts){
+	
+	global $requests;
+	
+	$atts = shortcode_atts( array(
+		'location_option' => '',
+		'property_type_option' => '',
+		'property_type_default' => '',
+		'o' => '',
+		'newsearchbar' => '',
+		'minlistprice' => '',
+		'maxlistprice' => '',
+		'map_zoom' => 9,
+	), $atts, 'za_map_search' );
+	
+	$requests = $atts;
+		
+	ob_start();	
+	include ZIPPERAGENTPATH . "/custom/templates/template-mapExplore.php";	
+	$html=ob_get_clean();
+	
+	return $html;	
+}
+
 function getOrganizerLogin(){
 		
 	ob_start();	
