@@ -894,7 +894,7 @@ global $requests;
 	  $rb = zipperagent_rb();
 	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 	  $states=array_map('trim', explode(',', $states));
-	  $states=implode(' | ',$states);
+	  $states=sizeof($states)===1?implode(' | ',$states):'';
 	  ?>
       // This example displays an address form, using the autocomplete feature
       // of the Google Places API to help users fill in the information.

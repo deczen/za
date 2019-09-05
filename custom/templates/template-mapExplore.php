@@ -1,10 +1,9 @@
 <?php
-global $requests;
+global $requests, $is_ajax_count;
 
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 extract(zipperagent_get_map_centre());
-
 ?>
 <div id="zpa-main-container" class="zpa-container">
 	
@@ -27,6 +26,14 @@ extract(zipperagent_get_map_centre());
 			
 		endif;
 		?>
+		
+		<div class="property-results mb-10 mt-25">
+		<?php
+		if( $showResults ){ ?>
+			<div class="prop-total">&nbsp;</div>
+		<?php } ?>
+		</div>
+		
 		<div id="map">
 			<div id="map_wrapper">								
 				<div id="color-palette" style="display:none"></div>
@@ -358,7 +365,14 @@ extract(zipperagent_get_map_centre());
 					data: request,
 					success: function( response ) {         
 						if( response['markers'] ){
+							var vars = response['vars'];
+							var page = response['page'];
+							var num = response['num'];
+							var maxtotal = response['maxtotal'];
+							var actual_link = response['actual_link'];
+							
 							setMarkers(map, response['markers'], response['infoWindowContent']);
+							totalPropertiesCount(vars, page, num, maxtotal, actual_link)
 						}
 						console.timeEnd('generate map');
 					},
@@ -367,7 +381,42 @@ extract(zipperagent_get_map_centre());
 					}
 				});
 				event.preventDefault();
-			});			
+			});	
+
+			<?php if($is_ajax_count): ?>
+			function totalPropertiesCount(vars, page, num, maxtotal, actual_link){
+								
+				var data = {
+					action: 'prop_result_and_pagination',
+					'vars': vars,
+					'page': page,
+					'num': num,
+					'maxlist': maxtotal,
+					'actual_link': actual_link,
+					'type': 'withinbox',
+				};
+				
+				console.time('generate list count/pagination');
+				jQuery.ajax({
+					type: 'POST',
+					dataType : 'json',
+					url: zipperagent.ajaxurl,
+					data: data,
+					success: function( response ) {    
+					
+						if( response['result'] ){
+							jQuery( '.property-results .prop-total').html(response['html_count']);
+						}
+						
+						console.timeEnd('generate list count/pagination');
+					},
+					error: function(){
+						console.timeEnd('generate list count/pagination');
+					}
+				});
+			}
+			<?php endif; ?>			
 		});
 	</script>
+	
 </div>

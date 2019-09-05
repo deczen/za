@@ -4205,7 +4205,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 				$rb = zipperagent_rb();
 				$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 				$states=array_map('trim', explode(',', $states));
-				$states=implode(' | ',$states);
+				$states=sizeof($states)===1?implode(' | ',$states):'';
 				?>
 				
 				var placeSearch, autocomplete;
@@ -4862,7 +4862,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 		  $rb = zipperagent_rb();
 		  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 		  $states=array_map('trim', explode(',', $states));
-		  $states=implode(' | ',$states);
+		  $states=sizeof($states)===1?implode(' | ',$states):'';
 		  ?>
 		  jQuery(document).ready(function(){
 			  var placeSearch, autocomplete;
@@ -5280,7 +5280,7 @@ if( ! function_exists('auto_trigger_button_script') ){
 						break;
 					case "save_property":
 							echo "
-								var contactId = jQuery('.save-property-btn').attr('contactid');
+								var contactId = jQuery('.save-property-btn, .zy_save-property').attr('contactid');
 								save_property( contactId, '');";
 						break;
 					case "save_search":

@@ -731,7 +731,7 @@ function getMapSearch($atts){
 add_shortcode( 'za_map_explore', 'getMapExplore' );
 function getMapExplore($atts){
 	
-	global $requests;
+	global $requests, $is_ajax_count, $showResults;
 	
 	$atts = shortcode_atts( array(
 		'location_option' => '',
@@ -742,10 +742,13 @@ function getMapExplore($atts){
 		'minlistprice' => '',
 		'maxlistprice' => '',
 		'map_zoom' => 9,
+		'result' => 1,
 	), $atts, 'za_map_search' );
-	
 	$requests = $atts;
-		
+	$is_ajax_count = 1;
+	
+	$showResults = $requests['result'];
+	
 	ob_start();	
 	include ZIPPERAGENTPATH . "/custom/templates/template-mapExplore.php";	
 	$html=ob_get_clean();

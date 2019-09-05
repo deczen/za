@@ -378,9 +378,23 @@ function prop_result_and_pagination(){
 		$num = $_REQUEST['num'];
 		$maxtotal = $_REQUEST['maxlist'];
 		$actual_link = $_REQUEST['actual_link'];
+		$type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
 		
-		$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
-		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+		if(isset($vars['coords'])){
+			
+			if($type=='withinbox')
+				$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $vars, 0, '', true );
+			else
+				$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $vars, 0, '', true );
+			
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+		}else if(isset($vars['distance'])){
+			$resultCount = zipperagent_run_curl( "/api/mls/distanceOnlyCnt", $vars, 0, '', true );
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+		}else{
+			$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );			
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+		}
 
 		if( $maxtotal > 0 && $count > $maxtotal ){ //limit total pages by max total
 			$count = $maxtotal;
@@ -753,6 +767,11 @@ function get_map_markers(){
 		include ZIPPERAGENTPATH . "/custom/templates/template-generateView.php";
 		$result['markers']=$markers;
 		$result['infoWindowContent']=$infoWindows;
+		$result['vars']=$vars;
+		$result['page']=$page;
+		$result['num']=$num;
+		$result['maxtotal']=$maxtotal;
+		$result['actual_link']=$actual_link;
 		
 		echo json_encode($result);
          

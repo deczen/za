@@ -1373,7 +1373,7 @@ $excludes = get_new_filter_excludes();
 			$rb = zipperagent_rb();
 			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 			$states=array_map('trim', explode(',', $states));
-			$states=implode(' | ',$states);
+			$states=sizeof($states)===1?implode(' | ',$states):'';
 			?>
 			
 			var placeSearch, autocomplete;
@@ -2071,7 +2071,7 @@ $excludes = get_new_filter_excludes();
 	  $rb = zipperagent_rb();
 	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 	  $states=array_map('trim', explode(',', $states));
-	  $states=implode(' | ',$states);
+	  $states=sizeof($states)===1?implode(' | ',$states):'';
 	  ?>
 	  jQuery(document).ready(function(){
 		  var placeSearch, autocomplete;

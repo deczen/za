@@ -340,7 +340,12 @@ if( $openHomesMode ){ // open houses mode
 		$mapindex=$mapindex<0?0:$mapindex;
 		$mapvars['sidx']=$mapindex;
 		$mapvars['ps']=$maplimit;
-		$mapresult = zipperagent_run_curl( "/api/mls/within", $mapvars );
+		
+		if($type=='map')
+			$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+		else if($type='marker')
+			$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+	
 		$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
 				
 		//get properties from maplist
@@ -353,7 +358,16 @@ if( $openHomesMode ){ // open houses mode
 				$list[]=$maplist[$i];
 		}
 		
-		$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult);
+		if(!$is_ajax && $type=='map'){
+			$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+		}else if(!$is_ajax && $type=='marker'){
+			$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+		}else{		
+			$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
+		}
+		
 	}else{
 		$result = zipperagent_run_curl( "/api/mls/within", $vars );
 		$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);

@@ -34,11 +34,17 @@
 .zy_main .btn_wrap{text-align:center;padding:0;line-height: 1.2;}
 .zy_main .btn_wrap span{font-size:12px;display:block; margin-top:5px;}
 .zy_main .btn_wrap button{width:100%;}
-.zy_schedule-showing, .zy_request-showing, .zy_share-property{border:1px solid #ddd;color:#000;font-size:20px;padding:8px;margin:0;text-align:center;background-color:#fff;line-height:0;}
-.zy_schedule-showing:hover, .zy_request-showing:hover, .zy_share-property:hover{background-color:#ddd;}
-.zy_save-property{border:1px solid #ddd;color:#000;font-size:20px;padding:8px;margin:0;text-align:center;background-color:#fff;line-height:0;}
-.zy_save-property:hover, .zy_save-property.favorited{background-color:#F44336;color:#fff;}
-.zy_save-property .active{background-color:#F44336;color:#fff;}
+.zy_main .col-btn{float:left; width:20%; padding-left:15px; padding-right:15px;}
+.zy_schedule-showing, .zy_request-showing, .zy_share-property, .zy_save-property, .zy_save-favorite{border:1px solid #ddd;color:#000; background-color:#fff; font-size:20px;padding:8px;margin:0;text-align:center;line-height:0;}
+.zy_schedule-showing{background-color:#d539b6; color:#fff;border:none;}
+.zy_request-showing{background-color: #f1be48; color:#fff;border:none;}
+.zy_share-property{background-color:#47a9c4; color:#fff;border:none;}
+.zy_save-property{background-color:#228848 ; color:#fff;border:none;}
+.zy_save-favorite{background-color:#a2d6ca; color:#fff;border:none;}
+
+.zy_schedule-showing:hover, .zy_request-showing:hover, .zy_share-property:hover, .zy_save-property:hover{background-color:#ddd;}
+.zy_save-favorite:hover, .zy_save-favorite.favorited{background-color:#F44336;color:#fff;}
+.zy_save-favorite .active{background-color:#F44336;color:#fff;}
 
 .zy_highlight-section{margin-top:20px;}
 .zy_prop-details{margin:0;padding:0;}
@@ -272,5 +278,5 @@
 	#omnibar-tools .omnibar-btn-back{display: none;}
 }
 @media only screen and (max-width: 400px){
-	.zy_price-mls .zy-detail-tool .btn_wrap {width: 25% !important;}
+	/* .zy_price-mls .zy-detail-tool .btn_wrap {width: 25% !important;} */
 }

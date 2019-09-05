@@ -157,14 +157,14 @@ if( sizeof($_GET)==$excParamCount ){
 	
 	<?php endif; ?>
 	<script>
-		jQuery('body').on('click', '.zy_save-property:not(.needLogin):not(.favorited)', function(e){
+		jQuery('body').on('click', '.zy_save-favorite:not(.needLogin):not(.favorited)', function(e){
 			var contactId = jQuery(this).attr('contactid');
 			var searchId = jQuery(this).attr('searchid');
 			var isLogin = jQuery(this).attr('isLogin');
 			
 			save_favorite( contactId, searchId, isLogin );			
 		});
-		jQuery('body').on('click', '.save-property-btn:not(.needLogin)', function(e){
+		jQuery('body').on('click', '.zy_save-property:not(.needLogin)', function(e){
 			var contactId = jQuery(this).attr('contactid');
 			var searchId = jQuery(this).attr('searchid');
 			save_property( contactId, searchId );			
@@ -198,7 +198,7 @@ if( sizeof($_GET)==$excParamCount ){
 					// console.log(response);
 					if( response['result'] ){
 						// alert('success');
-						jQuery('.zy_save-property').addClass('favorited');
+						jQuery('.zy_save-favorite').addClass('favorited');
 						
 						//set topbar count
 						jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
@@ -309,8 +309,8 @@ if( sizeof($_GET)==$excParamCount ){
 					// console.log(response);
 					if( response['result'] ){
 						// alert('success');
-						jQuery('.save-property-btn').find('.text').html('Saved');
-						jQuery('.save-property-btn').prop("disabled",true);
+						jQuery('.zy_save-property').find('.text').html('Saved');
+						jQuery('.zy_save-property').prop("disabled",true);
 					}else{
 						// alert( 'Submit failed!' );
 					}

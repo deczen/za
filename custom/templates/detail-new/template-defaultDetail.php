@@ -393,23 +393,28 @@ if(file_exists($template_path) && $template_name ){
 							</h2>
 						</div>
 						<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
-							<div class="row">
-								<div class="btn_wrap zy_save-property-wrap col-xs-3">
-									<button class="zy_save-property <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
+							<div class="row">								
+								<div class="btn_wrap zy_save-favorite-wrap col-btn">
+									<button class="zy_save-favorite <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
+									<span>Favorite</span>
+								</div>
+								
+								<div class="btn_wrap zy_save-property-wrap col-btn">
+									<button class="zy_save-property <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-floppy-o fa-fw"></i></button>
 									<span>Save</span>
 								</div>
 								
-								<div class="btn_wrap zy_schedule-showing-wrap col-xs-3">
+								<div class="btn_wrap zy_schedule-showing-wrap col-btn">
 									<button class="zy_schedule-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>
 									<span>Request Showing</span>
 								</div>
 								
-								<div class="btn_wrap zy_request-showing-wrap col-xs-3">
+								<div class="btn_wrap zy_request-showing-wrap col-btn">
 									<button class="zy_request-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>
 									<span>Request info</span>
 								</div>
 								
-								<div class="btn_wrap zy_share-property-wrap col-xs-3">
+								<div class="btn_wrap zy_share-property-wrap col-btn">
 									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>
 									<span>Share</span>
 									

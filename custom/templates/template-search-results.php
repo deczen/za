@@ -385,9 +385,15 @@ if( $openHomesMode ){ // open houses mode
 	// $crit="crit=acnty:LINC,CATA,GASTON;asts:ACT,UCS,CS;apt:SFR,CND;alotd:WTRVIEW,WTRFRNT;awbn:Lake Norman";
 	// $xxx="?o=alstp:ASC&distance=402.336&lat=0.00000&lng=0.00000&sidx=0&ps=20";
 	
-	$result = zipperagent_run_curl( "/api/mls/distance", $vars );
-	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+	$result = zipperagent_run_curl( "/api/mls/distanceWoCnt", $vars );	
 	$list=isset($result['filteredList'])?$result['filteredList']:$result;
+	
+	if(!$is_ajax){
+		$resultCount = zipperagent_run_curl( "/api/mls/distanceOnlyCnt", $vars, 0, '', true );
+		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+	}else{		
+		$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+	}
 	
 }else{ //if( $featuredOnlyYn=="true" || $status=='SLD' ){ //featured mode
 	
