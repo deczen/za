@@ -3669,10 +3669,8 @@ if( ! function_exists('za_get_default_proptype') ){
 		);
 			
 		$rb = zipperagent_rb();
-			
-		$default_proptype = isset($rb['web']['default_proptype'])?$rb['web']['default_proptype']:'';
-		
-		$default_proptype = !$default_proptype ? $default_value : explode(',',$default_proptype);
+					
+		$default_proptype = isset($rb['web']['default_proptype']) ? explode(',',$rb['web']['default_proptype']) : $default_value;
 		
 		return $default_proptype;
 	}
