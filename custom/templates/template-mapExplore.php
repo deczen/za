@@ -133,7 +133,7 @@ extract(zipperagent_get_map_centre());
 								
 				//update polygon input value	
 				google.maps.event.addListener(map, 'bounds_changed', function() {
-					updateBoundaryWkt();
+					updateCoords();
 				});
 				
 				setTimeout( function() {				  
@@ -141,15 +141,18 @@ extract(zipperagent_get_map_centre());
 				}, 1000);
 			}
 			
-			function updateBoundaryWkt(){				
+			function updateCoords(){				
 				var NECorner = map.getBounds().getNorthEast();
 				var SWCorner = map.getBounds().getSouthWest();
 				var NWCorner = new google.maps.LatLng(NECorner.lat(), SWCorner.lng());
 				var SECorner = new google.maps.LatLng(SWCorner.lat(), NECorner.lng());
-				
-				boundarywkt= "POLYGON (("+ NECorner.lat() +", "+ NECorner.lng() +"),("+ SECorner.lat() +", "+ SECorner.lng() +"),("+ SWCorner.lat() +", "+ SWCorner.lng() +"),("+ NWCorner.lat() +", "+ NWCorner.lng() +"))";
+				<?php /*
+				var boundarywkt= "POLYGON (("+ NECorner.lat() +", "+ NECorner.lng() +"),("+ SECorner.lat() +", "+ SECorner.lng() +"),("+ SWCorner.lat() +", "+ SWCorner.lng() +"),("+ NWCorner.lat() +", "+ NWCorner.lng() +"))";
 				var name ='boundarywkt';
-				var value=boundarywkt;
+				var value=boundarywkt; */ ?>
+				var coords= NECorner.lng() +":"+ NECorner.lat() +","+ SWCorner.lng() +":"+ SWCorner.lat();
+				var name ='coords';
+				var value=coords;
 				addFormField(name,value,'');
 			}
 			
@@ -300,7 +303,7 @@ extract(zipperagent_get_map_centre());
 				{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 				
 				//update polygon input value
-				updateBoundaryWkt();
+				updateCoords();
 			}
 			
 			function CenterControl(controlDiv, map) {

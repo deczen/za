@@ -164,6 +164,8 @@ if( $location ){
 	$added_polygons[]=$added_polygons[0];
 	$coords=implode(',',$added_polygons );
 	// $coords="-71.057083:42.361145,-71.057083:41,-70:41,-70:42,-71.057083:42.361145";
+}else if(isset($requests['coords'])){
+	$coords = $requests['coords'];
 }
 
 /* get advanced search */

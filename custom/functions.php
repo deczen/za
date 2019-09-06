@@ -2734,7 +2734,7 @@ if( ! function_exists('get_long_excludes') ){
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
-					'fbclid','newsearchbar','school','search_category',
+					'fbclid','newsearchbar','school','search_category','coords',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());

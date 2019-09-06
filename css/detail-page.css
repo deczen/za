@@ -276,6 +276,7 @@
 	#zy-gallery-slide-proptype .carousel-controller-wrapper{display:none;}
 	#zy-gallery-slide-proptype .top-head-carousel-wrapper .owl-item{height: calc(100vh - 70px);}
 	#omnibar-tools .omnibar-btn-back{display: none;}
+	.zy_main .btn_wrap span{display:none;}
 }
 @media only screen and (max-width: 400px){
 	/* .zy_price-mls .zy-detail-tool .btn_wrap {width: 25% !important;} */

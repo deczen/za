@@ -367,7 +367,7 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
-				<div class="zy_price-mls col-lg-4 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
+				<div class="zy_price-mls col-lg-3 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
 					<div class="row">
 						<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">
 							<h2>
@@ -384,7 +384,7 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
-				<div class="zy_price-mls col-lg-5 col-sm-12 col-md-12 col-xl-5 zy_nopadding">
+				<div class="zy_price-mls col-lg-6 col-sm-12 col-md-12 col-xl-5 zy_nopadding">
 					<div class="row">
 						<div class="col-lg-3 col-sm-12 col-md-12">
 							<h2>
@@ -417,7 +417,9 @@ if(file_exists($template_path) && $template_name ){
 								<div class="btn_wrap zy_share-property-wrap col-btn">
 									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>
 									<span>Share</span>
-									
+									<?php
+									$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+									?>
 									<div class="dropdown-menu" aria-labelledby="dropdownShare">
 										<ul class="menu-list">
 											<li>
@@ -429,26 +431,26 @@ if(file_exists($template_path) && $template_name ){
 											</li>
 											<?php /*
 											<li>
-												<a class="share-item" href="https://pinterest.com/pin/create/button/?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+												<a class="share-item" href="https://pinterest.com/pin/create/button/?url=<?php echo $actual_link; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
 													<i class="zy-icon zy-icon--larger fa fa-pinterest" aria-hidden="true"></i>
 													<span>Share on Pinterest</span>
 												</a>
 											</li>
 											<li>
-												<a class="share-item" href="https://plus.google.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+												<a class="share-item" href="https://plus.google.com/share?url=<?php echo $actual_link; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
 													<i class="zy-icon zy-icon--larger fa fa-google-plus" aria-hidden="true"></i>
 													<span>Share on Google+</span>
 												</a>
 											</li> */ ?>
 											<li>
-												<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'facebook-share-dialog', 'width=626,height=436'); return false;">
+												<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $actual_link; ?>" target="_blank" onclick="window.open(this.href, 'facebook-share-dialog', 'width=626,height=436'); return false;">
 													<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i>
 													<span>Share on Facebook</span>
 												</a>
 											</li>
 											<?php /*
 											<li>
-												<a class="share-item" href="https://twitter.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=626,height=436'); return false;">
+												<a class="share-item" href="https://twitter.com/share?url=<?php echo $actual_link; ?>" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=626,height=436'); return false;">
 													<i class="zy-icon zy-icon--larger fa fa-twitter" aria-hidden="true"></i>
 													<span>Share on Twitter</span>
 												</a>
