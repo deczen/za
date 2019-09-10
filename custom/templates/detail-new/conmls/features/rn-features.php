@@ -217,9 +217,9 @@
 				<?php if( isset($single_property->taxyear)): ?>
 				<li>Tax Year: [taxyear]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->TaxYearUpdatedDT)): ?>
+				<?php /* if( isset($single_property->unmapped->TaxYearUpdatedDT)): ?>
 				<li>Tax Period: [unmapped_TaxYearUpdatedDT]</li>
-				<?php endif; ?>
+				<?php endif; */ ?>
 				<?php if( isset($single_property->hoafee)): ?>
 				<li>Hoa Fee Amount: [hoafee]</li>
 				<?php endif; ?>

@@ -528,8 +528,9 @@ if( $enable_filter ):
 
 ?>
 <script>
-	jQuery(document).on('click', '#saveSearchButton:not(.needLogin)', function(){
+	// jQuery(document).on('click', '#saveSearchButton:not(.needLogin)', function(){
 	// jQuery('.zpa-listing-search-results').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
+	jQuery('#zipperagent-content').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
 		var contactId=jQuery(this).attr('contactId');
 		var isLogin=jQuery(this).attr('isLogin');
 		<?php if($is_view_save_search): ?>

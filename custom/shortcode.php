@@ -301,6 +301,7 @@ function display_mortgage_calculator($atts){
 		'down_payment_percentage' => '',
 		'interest_rate_percentage' => '',
 		'tax_percentage' => '',
+		'tax_ammount' => '',
 		'loan_type' => '',
 	), $atts, 'mortgage_calculator' );
 	

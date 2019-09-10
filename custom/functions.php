@@ -3796,6 +3796,7 @@ if( ! function_exists('zipperagent_mortgage_calculator') ){
 			'default_homeprice' => 1000000,
 			'default_downpayment_percent' => 20,
 			'default_taxes_percent' => 0.98,
+			'default_taxes_ammount' => '',
 			'default_hoadues' => 0,
 			'default_mortgage_insurance_percent' => 0.75,
 			'default_homeowners_insurance_percent' => 0.4,
