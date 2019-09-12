@@ -1,5 +1,6 @@
 <?php
 $contactIds=get_contact_id();
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <div id="zipperagent-content">
 	<article class="listing-detail listing-wrapper js-listing-detail " itemtype="http://schema.org/Residence">
@@ -1285,6 +1286,7 @@ $contactIds=get_contact_id();
 													</div>
 													<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 													<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
+													<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 													<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
 													<input type="hidden" name="action" value="regist_user" >
 													<?php else: ?>

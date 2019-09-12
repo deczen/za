@@ -1408,7 +1408,7 @@ if( ! function_exists('zipperagent_save_property') ){
 			$vars['interest']=5;
 		}
 		
-		if( sizeof($crit) && !$searchId ){
+		if( is_array($crit) && sizeof($crit) && !$searchId ){
 			// $vars['crit']=proces_crit($crit); "save with crit criteria" is disabled
 		}
 		

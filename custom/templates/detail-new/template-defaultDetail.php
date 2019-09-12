@@ -1,5 +1,6 @@
 <?php
 $contactIds=get_contact_id();
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 /* Process the template */	
 $template_name='';
@@ -417,9 +418,6 @@ if(file_exists($template_path) && $template_name ){
 								<div class="btn_wrap zy_share-property-wrap col-btn">
 									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>
 									<span>Share</span>
-									<?php
-									$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-									?>
 									<div class="dropdown-menu" aria-labelledby="dropdownShare">
 										<ul class="menu-list">
 											<li>
@@ -490,7 +488,8 @@ if(file_exists($template_path) && $template_name ){
 												<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>
 											</a>
 										</div>
-										<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+										<?php /* <div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
+										<div class="owl-carousel top-head-carousel">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 												$i=0;
@@ -869,6 +868,7 @@ if(file_exists($template_path) && $template_name ){
 							</div>
 							<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 							<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
+							<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 							<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
 							<input type="hidden" name="action" value="regist_user" >
 							<?php else: ?>

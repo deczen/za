@@ -25,6 +25,7 @@ if( getCurrentUserContactLogin() ){
 
 $contactIds=get_contact_id();
 $rb = zipperagent_rb();	
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <div id="zpa-main-container" class="zpa-container zpa-color-scheme-gray zpa-account-login" style="display: inline;" data-zpa-client-id="">
 	<div class="zpa-social-signup">
@@ -206,6 +207,7 @@ $rb = zipperagent_rb();
 							<div class="form-group">
 								<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds); ?>" />
 								<input type="hidden" name="action" value="regist_user" >
+								<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 								<button type="submit" class="btn btn-primary btn-block">Sign Up</button>
 							</div>
 						</div>

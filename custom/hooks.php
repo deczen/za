@@ -202,6 +202,7 @@ function regist_user(){
 		$agent = $_REQUEST['agent'];
 		$propertyAlerts = isset($_REQUEST['propertyAlerts'])?"true":"false";;
 		$note = $_REQUEST['note'];
+		$url = urlencode($_REQUEST['actual_link']);
 		$alertType = $_REQUEST['alertType'] ? $_REQUEST['alertType'] : 'NONE';
 		
 		//force ID cannot be empty
@@ -228,6 +229,7 @@ function regist_user(){
 			'propertyAlerts'=>($propertyAlerts),			
 			'notes'=>($note),
 			'alertType'=>$alertType,
+			'url'=>$url,
 		);
 		
 		if($agent && is_show_agent_list()){
@@ -2126,7 +2128,8 @@ function zipperagent_detail_page_lightbox_gallery(){
 							<div class="owl-carousel-container">
 								
 								<div class="top-head-carousel-wrapper">
-									<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+									<?php /* <div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
+									<div class="owl-carousel top-head-carousel">
 										<?php
 										if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 											$i=0;

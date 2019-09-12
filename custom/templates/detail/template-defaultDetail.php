@@ -10,6 +10,7 @@ $template_vtlink='';
 $is_custom_template=0;
 $property_type = isset($single_property->proptype)?strtoupper($single_property->proptype):'';
 $property_subtype = isset($single_property->propsubtype)?strtoupper($single_property->propsubtype):'';
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 //special case
 switch($property_type){
@@ -1252,6 +1253,7 @@ if(file_exists($template_path) && $template_name ){
 														</div>
 														<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 														<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
+														<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 														<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
 														<input type="hidden" name="action" value="regist_user" >
 														<?php else: ?>

@@ -303,6 +303,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$phone = sanitize_text_field( $_REQUEST['phone'] );
 		$subject = sanitize_text_field( $_REQUEST['your-subject'] );
 		$message = sanitize_textarea_field( $_REQUEST['your-message'] );
+		$url = urlencode( $_REQUEST['current-url'] );
 		
 		$vars=array(
 			// 'id'=>implode(',',$contactIds), //disabled
@@ -312,6 +313,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 			'phone'=>($phone),					
 			'subject'=>($subject),			
 			'notes'=>($message),			
+			'url'=>($url),			
 		);
         $result = zipperagent_register_user( $vars );
 		

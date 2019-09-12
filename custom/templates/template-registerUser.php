@@ -1,5 +1,6 @@
 <?php
 $contactIds=get_contact_id();
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 ?>
 <div class="za-container">
@@ -85,6 +86,7 @@ $contactIds=get_contact_id();
 									</div>
 									<input type="hidden" name="contactId" value="<?php echo implode(',',$contactId); ?>" />
 									<input type="hidden" name="action" value="regist_user" >
+									<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 									<button type="submit" class="btn btn-primary mt-10 zpa-save-listing-create-submit">Sign up</button>
 									<div> </div>
 								</form>

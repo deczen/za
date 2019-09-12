@@ -164,7 +164,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 								<?php endif; ?>											
 							</div>
 							<div class="row mb-5 fs-12 mt-10">
-								<div class="<?php echo $column==4 ? "col-xs-6" : "col-xs-8"; ?>">
+								<div class="<?php echo $column==4 ? "col-xs-7 nopaddingright" : "col-xs-8"; ?>">
 									<div class="zpa-grid-result-additional-info">
 										<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
 											<?php
@@ -175,7 +175,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 										</div>
 									</div>
 								</div>
-								<div class="<?php echo $column==4 ? "col-xs-6" : "col-xs-4"; ?>">
+								<div class="<?php echo $column==4 ? "col-xs-5 nopaddingleft" : "col-xs-4"; ?>">
 									<span class="zpa-on-site pull-right"> <?php if(isset($property->dayssincelisting)): ?><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo isset($property->dayssincelisting)?$property->dayssincelisting:'-'; ?> Day(s) <?php endif; ?> </span>
 								</div>
 							</div>

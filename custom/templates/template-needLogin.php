@@ -1,6 +1,7 @@
 <?php
 $contactIds = get_contact_id();
 $rb = zipperagent_rb();	
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <div class="za-container">
   <?php /* <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#regusterUserModal">Open Modal</button> */ ?>
@@ -161,6 +162,7 @@ $rb = zipperagent_rb();
 												</div>
 												<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 												<input type="hidden" name="action" value="regist_user" >
+												<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 												<input type="hidden" name="afterAction" value="" >										
 												<input type="hidden" name="listingId" value="" >										
 												<input type="hidden" name="searchId" value="" >										

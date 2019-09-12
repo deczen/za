@@ -97,6 +97,7 @@ class ET_Builder_Module_Za_Contact extends ET_Builder_Module {
 		$use_za_address = $this->shortcode_atts['use_za_address'];
 		$contact_title = get_the_title($za_contact);
         $module_class = ET_Builder_Element::add_module_order_class('', $function_name);
+		$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		
 		$agent = zipperagent_get_agent_by('login', $za_agent);
 		$agent_login = ( isset($agent->login)?$agent->login:'' );
@@ -129,6 +130,7 @@ class ET_Builder_Module_Za_Contact extends ET_Builder_Module {
 				<p><input type="submit" value="Send" class=""></p>		
 				<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds); ?>" />
 				<input type="hidden" name="agent" value="<?php echo $agent_login; ?>" />
+				<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
 				<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
 				<input type="hidden" name="action" value="regist_user" >
 				<?php else: ?>

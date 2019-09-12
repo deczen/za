@@ -53,8 +53,10 @@ $list=isset($result['filteredList'])?$result['filteredList']:$result;
 //save favorites cache
 $contactIds_key = implode('_',$contactIds);
 $option_key_listid = $contactIds_key . '_favorite_listingIds';
+$favorite_listingIds=array();
 foreach($list as $property){
-	$favorite_listingIds[]['listingId']=$property->listing->id;
+	if(isset($property->listing->id))
+		$favorite_listingIds[]['listingId']=$property->listing->id;
 }
 update_option( $option_key_listid, $favorite_listingIds );
 // $saved_favorites = get_option($option_key_listid);
