@@ -4,6 +4,11 @@ global $requests, $is_ajax_count;
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 extract(zipperagent_get_map_centre());
+
+if($requests['lat'] && $requests['lng']){
+	$za_lat = $requests['lat'];
+	$za_lng = $requests['lng'];
+}
 ?>
 <div id="zpa-main-container" class="zpa-container">
 	

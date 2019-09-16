@@ -745,6 +745,8 @@ function getMapExplore($atts){
 		'maxlistprice' => '',
 		'map_zoom' => 9,
 		'result' => 1,
+		'lat' => '',
+		'lng' => '',
 	), $atts, 'za_map_search' );
 	$requests = $atts;
 	$is_ajax_count = 1;
