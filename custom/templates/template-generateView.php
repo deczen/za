@@ -278,7 +278,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $crit )
 		$vars['crit'] = $crit;
 	
-	if($type=='map' || $type='marker'){
+	if($type=='map' || $type=='marker'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -335,7 +335,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $crit )
 		$vars['crit'] = $crit;
 	
-	if($type=='map' || $type='marker'){
+	if($type=='map' || $type=='marker'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -345,7 +345,7 @@ if( $openHomesMode ){ // open houses mode
 		
 		if($type=='map')
 			$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
-		else if($type='marker')
+		else if($type=='marker')
 			$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
 	
 		$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
@@ -415,7 +415,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $contactIds )
 		$vars['contactId'] = implode(',',$contactIds);
 	
-	if($type=='map' || $type='marker'){
+	if($type=='map' || $type=='marker'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
