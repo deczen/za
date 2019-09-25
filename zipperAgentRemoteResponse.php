@@ -213,14 +213,17 @@ class zipperAgentRemoteResponse {
 	 * @param unknown_type $from
 	 */
 	private function convertItemValues($fromValue) {
-		if(zipperAgentDisplayRules::getInstance()->hasItemInSearchFormData()) {
+		/*if(zipperAgentDisplayRules::getInstance()->hasItemInSearchFormData()) {
 			$result = array();
 			foreach($fromValue->item as $element) {
 				$result[] = $element;
 			}
 		} else {
 			$result = $fromValue;
-		}
+		}*/
+		
+		$result = $fromValue;
+		
 		return $result;
 	}
 	

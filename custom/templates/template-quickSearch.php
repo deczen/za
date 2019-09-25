@@ -4,7 +4,11 @@ global $requests;
 $minListPrice 		= $requests['minlistprice'];
 $maxListPrice		= $requests['maxlistprice'];
 
-?><div id="zpa-main-container" class="zpa-container " style="display: inline;">
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/ion.rangeSlider.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/ion.rangeSlider.min.js'; ?>"></script>
+<div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
         <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
             <fieldset>

@@ -28,6 +28,8 @@ class zipperAgentOrganizerLogoutVirtualPageImpl extends zipperAgentAbstractPrope
 	}
 	
 	public function getContent() {
+		global $ZaRemoteResponse;
+		
 		/**
 		 * For responsive layout we need to kill the session for subscriber on java servers
 		 * Where as for legacy layout we need to kill session stored locally on wordpress servers
@@ -41,6 +43,7 @@ class zipperAgentOrganizerLogoutVirtualPageImpl extends zipperAgentAbstractPrope
 			
 			/* Modified by Decz */
 			$this->remoteResponse = $this->remoteRequest->remoteGetSpecialRequest('organizerLogout');
+			$ZaRemoteResponse = $this->remoteResponse;
 			/* end modified codes */
 		}
 	}

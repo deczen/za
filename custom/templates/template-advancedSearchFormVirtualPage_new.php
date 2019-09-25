@@ -2,6 +2,11 @@
 global $requests;
 // $addressSearch=1;
 ?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div>
 		<?php

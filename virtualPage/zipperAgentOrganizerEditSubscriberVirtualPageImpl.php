@@ -27,6 +27,8 @@ class zipperAgentOrganizerEditSubscriberVirtualPageImpl extends zipperAgentAbstr
 	}	
 	
 	public function getContent() {
+		global $ZaRemoteResponse;
+		
 		$this->remoteRequest
 			->addParameters($_REQUEST)
 			->addParameter("requestType", "property-organizer-edit-subscriber")
@@ -35,6 +37,7 @@ class zipperAgentOrganizerEditSubscriberVirtualPageImpl extends zipperAgentAbstr
 		
 		/* Modified by Decz */
 		$this->remoteResponse = $this->remoteRequest->remoteGetSpecialRequest('organizerEditSubscriber');
+		$ZaRemoteResponse = $this->remoteResponse;
 		/* end modified codes */
 	}
 	

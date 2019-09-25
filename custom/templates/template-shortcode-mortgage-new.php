@@ -23,7 +23,7 @@ $formatted_homeowners_insurance_percent = $default_homeowners_insurance_percent 
 $formatted_homeowners_insurance = zipperagent_currency() . round($default_homeowners_insurance, 2);
 $formatted_interestrate = $default_interestrate. '%';
 ?>
-
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/detail-page.css'; ?>">
 <div class="zy-mortgage-calculator">
 	<h3>Payment Calculator</h3>
 	<div class="zy-mortgage-title">

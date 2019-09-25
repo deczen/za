@@ -208,6 +208,8 @@ class zipperAgentRequestor {
 		
 		global $requests, $type, $zpa_show_login_popup;
 		
+		$css=$js=null;
+		
 		//show popup on all zipperagent pages
 		$zpa_show_login_popup=1;
 		
@@ -270,7 +272,21 @@ class zipperAgentRequestor {
 						include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
 						include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";
 					}
-					$html=ob_get_clean();					
+					$html=ob_get_clean();
+					
+					if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
+						$temp=array();
+						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single-new.css');
+						$temp[]=new ZA_Css_Object('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
+						$temp[]=new ZA_Css_Object('print-new-css', zipperagent_url(false) . 'css/print-new.css');
+						$css = (object)$temp;
+
+					}else{
+						$temp=array();
+						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single.css');
+						$temp[]=new ZA_Css_Object('property-print', zipperagent_url(false) . 'css/print.css');
+						$css = (object) $temp;
+					}
 				break;
 				
 			case "luxuryDetail":			
@@ -280,19 +296,37 @@ class zipperAgentRequestor {
 					ob_start();		
 					include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
 					include ZIPPERAGENTPATH . "/custom/templates/template-customLuxuryDetail.php";
-					$html=ob_get_clean();					
+					$html=ob_get_clean();
+
+					if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
+						$temp=array();
+						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single-new.css');
+						$temp[]=new ZA_Css_Object('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
+						// $temp[]=new ZA_Css_Object('print-new-css', zipperagent_url(false) . 'css/print-new.css');
+						$css = (object)$temp;
+
+					}else{
+						$temp=array();
+						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single.css');
+						// $temp[]=new ZA_Css_Object('property-print', zipperagent_url(false) . 'css/print.css');
+						$css = (object) $temp;
+					}
 				break;
 				
 			case "OrganizerLoginForm":
 					ob_start();
 					include ZIPPERAGENTPATH . "/custom/templates/template-organizerLoginForm.php";
-					$html=ob_get_clean();					
+					$html=ob_get_clean();	
+
+					$temp=array();
+					$temp[]=new ZA_Css_Object('view-css', zipperagent_url(false) . 'css/view-new.css');
+					$css = (object) $temp;						
 				break;
 				
 			case "organizerEditSubscriber":
 					ob_start();
 					include ZIPPERAGENTPATH . "/custom/templates/template-organizerEditSubscriber.php";
-					$html=ob_get_clean();					
+					$html=ob_get_clean();	
 				break;
 				
 			case "organizerViewSavedSearchList":
@@ -333,7 +367,11 @@ class zipperAgentRequestor {
 			case "organizerLogout":
 					ob_start();
 					include ZIPPERAGENTPATH . "/custom/templates/template-organizerLogout.php";
-					$html=ob_get_clean();					
+					$html=ob_get_clean();	
+
+					$temp=array();
+					$temp[]=new ZA_Css_Object('view-css', zipperagent_url(false) . 'css/view-new.css');
+					$css = (object) $temp;					
 				break;
 				
 			case "mapSearch":
@@ -370,7 +408,7 @@ class zipperAgentRequestor {
 			'searchContext' => true,
 			'listingInfo' => (object) array( 0=> '' ),
 			'title' => 'Property Search',
-			'css' => (object) array(
+			/* 'css' => (object) array(
 					'item' => (object) array(												
 							'name' => 'za-bundle-css',
 							'url' => 'http://www.idxhome.com/service/resources/dist/wordpress/bundle.css'
@@ -381,10 +419,16 @@ class zipperAgentRequestor {
 									'name' => 'za-bundle-js',
 									'url' => 'http://www.idxhome.com/service/resources/dist/wordpress/bundle.js'
 								)
-							),
+							), */
 			'sitemap' => (object) array( 0=> '' ),
 
 		);
+		
+		if($css)
+			$responseBodyObject->css = $css;
+		
+		if($js)
+			$responseBodyObject->javascript = $js;
 		
 		$this->remoteResponse = new zipperAgentRemoteResponse($responseBodyObject);
 		
@@ -527,4 +571,28 @@ class zipperAgentRequestor {
 		return $result;
 	}
 	
+}
+
+class ZA_Css_Object{
+	
+	public $name;
+	public $url;
+	
+	public function __construct($name, $url){
+		$this->name=$name;
+		$this->url=$url;
+	}
+}
+
+class ZA_Js_Object{
+	
+	public $name;
+	public $url;
+	public $in_footer;
+	
+	public function __construct($name, $url, $in_footer){
+		$this->name=$name;
+		$this->url=$url;
+		$this->in_footer=$in_footer;
+	}
 }

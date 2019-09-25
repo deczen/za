@@ -86,7 +86,7 @@
 	}
 ?>
 <!-- <link type="text/css" rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/bootstrap.css"; ?>" /> -->
-<link type="text/css" rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/listing.css"; ?>" />
+<!-- <link type="text/css" rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/listing.css"; ?>" /> -->
 <!-- <script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/bootstrap.js"; ?>"></script> -->
 <header class="slider-header span-page">
 	

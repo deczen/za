@@ -33,7 +33,7 @@ add_action( 'admin_footer', 'za_divi_builder_scripts' );
 function za_divi_builder_scripts(){
 	global $post;
 	
-	if(!isset($post->post_type) && $post->post_type!='zipperagent-lp')
+	if(!isset($post->post_type) || isset($post->post_type) && $post->post_type!='zipperagent-lp')
 		return;
 	
 	?>

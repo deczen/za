@@ -49,8 +49,14 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			
 			// echo "<pre>"; print_r(zipperagent_get_session('/api/mls/advSearchWoCnt')); echo "</pre>"; 
 		}
+		
+		add_action( '', array($this, 'enqueue'));
 	}
 	/* end modified */
+	
+	private function enqueue(){
+		
+	}
 	
 	public function getTitle() {
 		$default = null;
@@ -149,6 +155,8 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 	}
 	
 	public function getContent() {
+		global $ZaRemoteResponse;
+		
 		$listingNumber = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 		$boardId = zipperAgentUtility::getInstance()->getQueryVar("boardId");
 		$this->remoteRequest
@@ -164,6 +172,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 		/* Modified by Decz */
 		$this->remoteRequest->setSingleProperty($this->single_property, $this->property_cache);
 		$this->remoteResponse = $this->remoteRequest->remoteGetSpecialRequest('listingDetail');
+		$ZaRemoteResponse = $this->remoteResponse;
 		/* end modified codes */
 	}
 	

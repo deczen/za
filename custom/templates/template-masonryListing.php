@@ -1,5 +1,5 @@
 <?php
-global $requests;
+global $requests, $is_ajax;
 
 $rb = zipperagent_rb();
 
@@ -151,12 +151,14 @@ if( $aloff )
 if( isset($requests['alstid']) )
 	$requests['alstid']=str_replace(' ','', $requests['alstid']);
 
-foreach( $requests as $key=>$val ){
-	if( ! in_array( strtolower($key), $excludes ) ){
-		if(is_array($val)){
-			$advSearch[$key]=implode(',',$val);
-		}else{			
-			$advSearch[$key]=($val);
+if(is_array($requests)){
+	foreach( $requests as $key=>$val ){
+		if( ! in_array( strtolower($key), $excludes ) ){
+			if(is_array($val)){
+				$advSearch[$key]=implode(',',$val);
+			}else{			
+				$advSearch[$key]=($val);
+			}
 		}
 	}
 }

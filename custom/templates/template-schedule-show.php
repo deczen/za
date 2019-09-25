@@ -11,6 +11,9 @@ if(zp_using_criteria()){
 $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)):array();
 ?>
 <div class="za-container">
+	<?php /* <link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
+	<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+	<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script> */ ?>
 	<div id="zpaScheduleShowing" class="modal in" aria-hidden="false" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -294,6 +297,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 		// });
 	}); */ ?>
 	
+	<?php /*
 	jQuery(document).ready(function($) {
 		var $datepicker = $('.datepicker').pikaday({
 			format: 'MMM D, YYYY',
@@ -307,7 +311,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 		});
 		// chain a few methods for the first datepicker, jQuery style!
 		// $datepicker.pikaday('show').pikaday('nextMonth');
-	});	
+	});	*/ ?>
 	
 	jQuery('body').on('click', '.schedule-showing-btn:not(.needLogin), .zy_schedule-showing:not(.needLogin)', function(e){
 		jQuery('#zpaScheduleShowing').modal('show');

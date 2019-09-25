@@ -3,6 +3,7 @@ $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVE
 $current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $current_url = esc_url_raw($current_url); //encode it
 ?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/social-share.css'; ?>">
 <div class="af_contact_social hideonprint">
    <ul>
       <li class="share-title">SHARE THIS:</li>

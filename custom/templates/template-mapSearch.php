@@ -19,6 +19,8 @@ $toUrl = add_query_arg( $parameters, zipperagent_page_url( 'search-results' ));
 wp_safe_redirect($toUrl);
 // end redirect code
 ?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
     <div>
         <form id="zpa-main-search-form" class="form-inline" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" target="_self" novalidate="novalidate">

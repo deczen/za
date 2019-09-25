@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/single.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/ion.rangeSlider.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/ion.rangeSlider.min.js'; ?>"></script>
 <div id="cs-raw-content" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" >
 	<h4 class="mtn">Estimated Sales Price: $<span id="za-estimated">50000</span></h4>
 	<div class="row">
@@ -23,13 +27,13 @@
 		step: 10000,
 		prefix: "$",
 		from: 100000,
-		// to: '<?php echo $maxListPrice ?>',
+		<?php /* // to: '<?php echo $maxListPrice ?>',
 		// onChange: function(data){
 			// jQuery( "#za-estimated" ).html(data.from);
 		// },
 		// onFinish: function(data){
 			// jQuery('#zpa-search-filter-form').submit();
-		// },
+		// }, */ ?>
 	});
 </script>
 

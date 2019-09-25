@@ -3,6 +3,7 @@ global $is_detail_page;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 ?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/omnibar.css'; ?>">
 <div id="omnibar-tools">
 	<?php
 	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
@@ -841,11 +842,11 @@ $excludes = get_new_filter_excludes();
 			}
 			?>
 			
-			jQuery('#omnibar-tools select.propertytype').fSelect();
-			jQuery('#omnibar-tools .propstyles select').fSelect();
-			jQuery('#omnibar-tools .propexterior select').fSelect();
-			jQuery('#omnibar-tools .propwaterfront select').fSelect();
-			jQuery('#omnibar-tools .propview select').fSelect();
+			// jQuery('#omnibar-tools select.propertytype').fSelect();
+			// jQuery('#omnibar-tools .propstyles select').fSelect();
+			// jQuery('#omnibar-tools .propexterior select').fSelect();
+			// jQuery('#omnibar-tools .propwaterfront select').fSelect();
+			// jQuery('#omnibar-tools .propview select').fSelect();
 		});
 	</script>
 	

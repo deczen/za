@@ -16,6 +16,8 @@ class zipperAgentOrganizerLoginFormVirtualPageImpl extends zipperAgentAbstractPr
 	}	
 	
 	public function getContent() {
+		global $ZaRemoteResponse;
+		
 		$utility = zipperAgentUtility::getInstance();
 		$subscriberId = $utility->getRequestVar("subscriberId");
 		if(!empty($subscriberId)) {
@@ -37,6 +39,7 @@ class zipperAgentOrganizerLoginFormVirtualPageImpl extends zipperAgentAbstractPr
 		
 		/* Modified by Decz */
 		$this->remoteResponse = $this->remoteRequest->remoteGetSpecialRequest('OrganizerLoginForm');
+		$ZaRemoteResponse = $this->remoteResponse;
 		/* end modified codes */
 	}
 	

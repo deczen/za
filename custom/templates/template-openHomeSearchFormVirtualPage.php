@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="105016">
     <form id="zpa-main-search-form" class="form-inline" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" novalidate="novalidate">
         <fieldset>

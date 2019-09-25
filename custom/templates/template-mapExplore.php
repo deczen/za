@@ -10,6 +10,7 @@ if($requests['lat'] && $requests['lng']){
 	$za_lng = $requests['lng'];
 }
 ?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/view-new.css'; ?>">
 <div id="zpa-main-container" class="zpa-container">
 	
 	<div id="zy_map-explore">

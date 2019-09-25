@@ -1,6 +1,10 @@
 <?php
 global $requests;
-?><div id="zpa-main-container" class="zpa-container " style="display: inline;">
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
+<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
+<div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
         <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
             <fieldset>
