@@ -3008,8 +3008,10 @@ if( ! function_exists('zipperagent_get_favorites_count') ){
 			update_option( $option_key, $dataCount );			
 			
 			//save favorites cache
+			$favorite_listingIds=array();
 			foreach($list as $property){
-				$favorite_listingIds[]['listingId']=$property->listing->id;
+				if(isset($roperty->listing->id))
+					$favorite_listingIds[]['listingId']=$property->listing->id;
 			}
 			update_option( $option_key_listid, $favorite_listingIds );
 		

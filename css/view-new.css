@@ -490,7 +490,9 @@
 	padding-top: 6px;
 	padding-bottom: 0;
 }
-
+#zpa-top-searh-bar #zpa-all-input input[type=text]{
+	margin-top:5px;
+}
 #zpa-top-searh-bar #zpa-all-input.ms-ctn .ms-sel-ctn input {
 	width: 100%;
 }

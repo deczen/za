@@ -5,6 +5,13 @@
 	display: none !important;
 }
 @media print {
+	.zy-margin .container, .et_pb_row, .et_pb_slider .et_pb_container, 
+	.zy-margin .et_pb_fullwidth_section .et_pb_title_container, 
+	.zy-margin .et_pb_fullwidth_section .et_pb_title_featured_container, 
+	.zy-margin .et_pb_fullwidth_header:not(.et_pb_fullscreen) .et_pb_fullwidth_header_container{
+		max-width: 100% !important;
+		width: 100% !important;
+	}
 	body .edgtf-container-inner{width: 100% !important;}
 	body header,
 	body footer,
