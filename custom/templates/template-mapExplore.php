@@ -160,6 +160,9 @@ if($requests['lat'] && $requests['lng']){
 				var name ='coords';
 				var value=coords;
 				addFormField(name,value,'');
+				
+				//show refresh button
+				jQuery('.za-refresh-map').removeClass('hide');
 			}
 			
 			function CustomMarker(latlng, map, args) {
@@ -334,6 +337,7 @@ if($requests['lat'] && $requests['lng']){
 				controlText.style.lineHeight = '38px';
 				controlText.style.paddingLeft = '5px';
 				controlText.style.paddingRight = '5px';
+				controlText.className = "za-refresh-map";
 				controlText.innerHTML = 'Refresh Result';
 				controlUI.appendChild(controlText);
 
@@ -390,6 +394,9 @@ if($requests['lat'] && $requests['lng']){
 					}
 				});
 				event.preventDefault();
+				
+				//hide refresh button
+				jQuery('.za-refresh-map').addClass('hide');
 			});	
 
 			<?php if($is_ajax_count): ?>

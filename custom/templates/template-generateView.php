@@ -335,7 +335,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $crit )
 		$vars['crit'] = $crit;
 	
-	if($type=='map' || $type=='marker'){
+	if($type=='map'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -364,6 +364,41 @@ if( $openHomesMode ){ // open houses mode
 			$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
 			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
 		}else if(!$is_ajax && $type=='marker'){
+			$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+		}else{		
+			$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
+		}
+		
+	}else if($type=='marker'){
+		
+		$loop=5;
+		$maplist=array();
+		$mapindex=$index;
+		$maplimit=100;
+		$mapvars=$vars;
+		$maplisttemp=array();
+		for($i=0; $i<$loop; $i++){
+			if($i>0 && empty($maplisttemp))
+				break;
+			
+			$mapindex+=($maplimit-1);
+			$mapvars['sidx']=$mapindex;
+			$mapvars['ps']=$maplimit;
+			
+			if($type=='map')
+				$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+			else if($type=='marker')
+				$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+		
+			$maplisttemp=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+			$maplist=array_merge($maplist, $maplisttemp);
+		}
+		
+		/* if(!$is_ajax && $type=='map'){
+			$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0; */
+		if(!$is_ajax && $type=='marker'){
 			$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
 			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
 		}else{		
