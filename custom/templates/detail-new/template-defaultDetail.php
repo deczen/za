@@ -1,6 +1,7 @@
 <?php
 $contactIds=get_contact_id();
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:$actual_link; // fix on ajax request
 
 /* Process the template */	
 $template_name='';

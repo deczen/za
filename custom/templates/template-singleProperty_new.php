@@ -81,6 +81,8 @@ if( sizeof($_GET)==$excParamCount ){
 }else{
 	$is_search_apply=0;
 }
+
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <script type="text/javascript">jQuery(document).on("ready",function(){jQuery(".zpa-share-btn-print").on("click",function(){window.print()})});</script>
 <?php
@@ -462,7 +464,7 @@ if( sizeof($_GET)==$excParamCount ){
 						}
 					}
 				}
-				$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+				
 				echo "'actual_link': '{$actual_link}',"."\r\n";
 				?>                  
 			};
@@ -493,7 +495,8 @@ if( sizeof($_GET)==$excParamCount ){
 			var data = {
 				action: 'property_detail',
 				listingId: '<?php echo zipperAgentUtility::getInstance()->getQueryVar("listingNumber"); ?>',                 
-				searchId: '<?php echo $searchId; ?>',                 
+				searchId: '<?php echo $searchId; ?>',  
+				actual_link: '<?php echo $actual_link; ?>',
 			};
 			
 			console.time('generate detail');

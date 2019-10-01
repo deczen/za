@@ -11,6 +11,7 @@ $is_custom_template=0;
 $property_type = isset($single_property->proptype)?strtoupper($single_property->proptype):'';
 $property_subtype = isset($single_property->propsubtype)?strtoupper($single_property->propsubtype):'';
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:$actual_link; // fix on ajax request
 
 //special case
 switch($property_type){
