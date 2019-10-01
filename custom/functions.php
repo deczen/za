@@ -1092,6 +1092,32 @@ if( ! function_exists('get_single_property') ){
 	}
 }
 
+if( ! function_exists('get_single_property_micro') ){
+	function get_single_property_micro( $listingId, $contactIds='', $searchId='' ){
+		
+		$single_property = array();
+		
+		if(!empty($listingId)){
+			$args=array(
+				'id'=>$listingId,
+				// 'listingId'=>$listingId,
+				'contactId'=>$contactIds,
+				// 'searchId'=>$searchId,
+			);
+			
+			$url="/api/mls/anongetMicro";
+			$result = zipperagent_run_curl($url, $args);
+			// $result = zipperagent_run_curl($url);
+			// echo "<pre>"; print_r($result); echo "</pre>";
+			//force array to object
+			$result = is_array( $result ) ? (object) $result : $result;
+			$single_property = $result;
+		}
+		
+		return $single_property;
+	}
+}
+
 if( ! function_exists('get_single_luxury') ){
 	function get_single_luxury( $luxuryId ){
 		
@@ -5322,6 +5348,18 @@ if( ! function_exists('auto_trigger_button_script') ){
 			});
 		</script>
 		<?php
+	}
+}
+
+if( ! function_exists('is_facebook_bot') ){
+	function is_facebook_bot(){
+		if( strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||          
+			strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false ) {
+			// it is probably Facebook's bot
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 

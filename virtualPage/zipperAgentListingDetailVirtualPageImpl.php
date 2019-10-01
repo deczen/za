@@ -28,6 +28,10 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				}
 			}
 			
+			// if(! $property_cache){
+				// $property_cache=get_single_property_micro( $listingId, implode(',',$contactIds), $searchId );
+			// }
+			
 			$single_property=false;
 			if(! $property_cache){
 				$single_property=get_single_property( $listingId, implode(',',$contactIds), $searchId );	

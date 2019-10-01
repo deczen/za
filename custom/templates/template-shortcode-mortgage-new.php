@@ -365,7 +365,7 @@ $formatted_interestrate = $default_interestrate. '%';
 			interestrate: parseFloat(jQuery('#mortgage-interest-rate').val()),			
 			loantype: jQuery('#mortgage-loan-type').val(),			
 		};
-		
+		<?php if(!is_facebook_bot()): ?>
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',
@@ -381,6 +381,7 @@ $formatted_interestrate = $default_interestrate. '%';
 				}
 			}
 		});
+		<?php endif; ?>
 	}
 	
 	jQuery(document).ready(function(){

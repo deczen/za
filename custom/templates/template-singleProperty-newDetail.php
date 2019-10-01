@@ -492,7 +492,7 @@ if( sizeof($_GET)==$excParamCount ){
 		});
 	</script>
 	<?php endif; ?>
-	<?php if($property_cache): ?>
+	<?php if($property_cache && !is_facebook_bot()): ?>
 	<script>
 		jQuery(document).ready(function(){
 			var data = {

@@ -16,6 +16,20 @@ if($requests['lat'] && $requests['lng']){
 	<div id="zy_map-explore">
 		<?php zipperagent_omnibar($requests); ?>
 		
+		<div class="property-results mb-10">
+		<?php
+		if( $showResults ){ ?>
+			<div class="prop-total">&nbsp;</div>
+		<?php } ?>
+		</div>
+		
+		<div id="map">
+			<div id="map_wrapper" class="map-explore">								
+				<div id="color-palette" style="display:none"></div>
+				<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
+			</div>
+		</div>
+		
 		<?php
 		$markers = zipperagent_get_map_markers();
 		//echo '<pre>'; print_r($markers); echo '</pre>';
@@ -32,20 +46,6 @@ if($requests['lat'] && $requests['lng']){
 			
 		endif;
 		?>
-		
-		<div class="property-results mb-10 mt-25">
-		<?php
-		if( $showResults ){ ?>
-			<div class="prop-total">&nbsp;</div>
-		<?php } ?>
-		</div>
-		
-		<div id="map">
-			<div id="map_wrapper">								
-				<div id="color-palette" style="display:none"></div>
-				<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
-			</div>
-		</div>
 		
 	</div>
 	<script>
@@ -320,24 +320,25 @@ if($requests['lat'] && $requests['lng']){
 				// Set CSS for the control border.
 				var controlUI = document.createElement('div');
 				controlUI.style.backgroundColor = '#fff';
-				controlUI.style.border = '2px solid #fff';
-				controlUI.style.borderRadius = '3px';
+				controlUI.style.border = '1px solid #eee';
+				controlUI.style.borderRadius = '5px';
 				controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
 				controlUI.style.cursor = 'pointer';
+				controlUI.style.marginTop = '10px';
 				controlUI.style.marginBottom = '22px';
 				controlUI.style.textAlign = 'center';
 				controlUI.title = 'Click to recenter the map';
+				controlUI.className = "za-refresh-map";
 				controlDiv.appendChild(controlUI);
 
 				// Set CSS for the control interior.
 				var controlText = document.createElement('div');
-				controlText.style.color = 'rgb(25,25,25)';
-				controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+				// controlText.style.color = 'rgb(25,25,25)';
+				// controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
 				controlText.style.fontSize = '16px';
 				controlText.style.lineHeight = '38px';
 				controlText.style.paddingLeft = '5px';
 				controlText.style.paddingRight = '5px';
-				controlText.className = "za-refresh-map";
 				controlText.innerHTML = 'Refresh Result';
 				controlUI.appendChild(controlText);
 

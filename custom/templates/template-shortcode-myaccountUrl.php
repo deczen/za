@@ -26,6 +26,7 @@ if( ! getCurrentUserContactLogin()){
 	echo "</ul></li></ul>";
 }
 ?>
+<?php if(!is_facebook_bot()): ?>
 <script>
 	jQuery(document).ready(function($){
 		
@@ -55,6 +56,7 @@ if( ! getCurrentUserContactLogin()){
 		});
 	});
 </script>
+<?php endif; ?>
 <style>
 .nav-myaccount{float: right;}
 .nav-myaccount .myaccount-url{padding-bottom: 10px;}
