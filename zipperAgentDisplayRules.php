@@ -33,7 +33,8 @@ class zipperAgentDisplayRules {
 	}
 	
 	public function isResponsive() {
-		$result = false;
+		//$result = false;
+		$result = true; //always responsive, to fix facebook meta does not works. Modidfied by decz
 		if($this->getLayoutType() === zipperAgentConstants::OPTION_LAYOUT_TYPE_RESPONSIVE) {
 			$result = true;
 		}

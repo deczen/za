@@ -264,13 +264,13 @@ if($requests['lat'] && $requests['lng']){
 			// Sets the map on all markers in the array.
 			// function deleteMarkers() {
 			window.deleteMarkers=function(){
-				for (var i = 0; i < saved_markers.length; i++) {
+				<?php /* for (var i = 0; i < saved_markers.length; i++) {
 					// saved_markers[i].remove();
 					
 					// console.log(saved_markers[i]);
 					saved_markers[i].setMap(null);					
 					// console.log(saved_markers[i]);
-				}
+				} */ ?>
 				saved_markers = [];
 			}
 			
@@ -281,11 +281,15 @@ if($requests['lat'] && $requests['lng']){
 				// Display multiple markers on a map		
 				var marker, i;
 				
-				infoWindowContent = infoWindows;
+				// infoWindowContent = infoWindows;
+				jQuery.each( infoWindows, function( key, value ) {
+				  infoWindowContent[key]=value;
+				});
 				
 				// Loop through our array of markers & place each one on the map  
 				for( i = 0; i < markers.length; i++ ) {
-										
+					
+					index = markers[i][8];					
 					var position = new google.maps.LatLng(markers[i][1], markers[i][2]);		
 					
 					bounds.extend(position);
@@ -299,12 +303,13 @@ if($requests['lat'] && $requests['lng']){
 							shortprice: markers[i][5],
 							bedrooms: markers[i][6],
 							bath: markers[i][7],
-							index: markers[i][8],
+							index: index,
 							proptype: markers[i][9],
 						}
 					);
 					
-					saved_markers.push(marker);       
+					// saved_markers.push(marker);    
+					saved_markers[index]=marker;				
 				}			
 				
 				//map clustering

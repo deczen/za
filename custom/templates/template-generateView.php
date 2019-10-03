@@ -516,7 +516,11 @@ switch( $type ){
 	case "marker":
 			$i=0;
 			$markers=array();
+			$uniqid=uniqid();
 			foreach($maplist as $property){
+				
+				// $index=$uniqid.'_'.$i;
+				$index=$property->id;
 				
 				$fulladdress = zipperagent_get_address($property);
 				$lat = $property->lat;
@@ -559,10 +563,10 @@ switch( $type ){
 				$markers[$i][] = $shortprice;
 				$markers[$i][] = $beds;
 				$markers[$i][] = $bath;
-				$markers[$i][] = $i;
+				$markers[$i][] = $index;
 				$markers[$i][] = $proptype;
 				
-				$infoWindows[$i][]="<div class=\"info_content\">
+				$infoWindows[$index][]="<div class=\"info_content\">
 										<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"{$src}\" /></div>
 										<div class=\"content\">		
 											<a href=\"{$single_url}\"><strong>". str_replace( "'", "\'", $fulladdress )  ."</strong></a>

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zipperagent
 Description: Adds MLS / IDX property search and listings to your site. Includes search and listing pages, widgets and shortcodes.
-Version: 2.0.0.56
+Version: 2.0.0.57
 Author: Decz
 License: GPL
 */
@@ -13,7 +13,7 @@ $GLOBALS['WORK_ENV'] = 'PROD';
 
 $GLOBALS['ZaRemoteResponse'] = array();
 
-define( 'ZIPPERAGENT_VERSION', '20191003.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
+define( 'ZIPPERAGENT_VERSION', '20191003.2' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
 define( 'ZIPPERAGENTPATH', dirname( __FILE__ ) );
 define( 'ZIPPERAGENTURL', plugins_url( '/', __FILE__ ) );
 
@@ -85,7 +85,7 @@ if(is_admin()) {
 	add_action("setup_theme", array($installer, "upgrade"));
 	add_action("wp_enqueue_scripts", array($enqueueResource, "enqueue"));
 	add_action("wp_head", array($enqueueResource, "inline_style"));
-	add_action("wp_head", array($enqueueResource, "getMetaTags"), -100);
+	add_action("wp_head", array($enqueueResource, "getMetaTags"), -100); //not working in barbara site
 	add_action("wp_head", array($enqueueResource, "getHeader"));
 	add_action("wp_footer", array($enqueueResource, "getFooter"));
 	// add_filter("page_template", array($virtualPageDispatcher, "getPageTemplate"));

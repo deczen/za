@@ -51,16 +51,11 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				// echo "<pre>"; print_r($lastest_cache); echo "</pre>";
 			}
 			
-			// echo "<pre>"; print_r(zipperagent_get_session('/api/mls/advSearchWoCnt')); echo "</pre>"; 
+			// echo "<pre>"; print_r(zipperagent_get_session('/api/mls/advSearchWoCnt')); echo "</pre>";
+			// add_action("wp_head", array($this, "getMetaTags"), -100);
 		}
-		
-		add_action( '', array($this, 'enqueue'));
 	}
 	/* end modified */
-	
-	private function enqueue(){
-		
-	}
 	
 	public function getTitle() {
 		$default = null;
@@ -137,6 +132,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			$metaTags = str_replace($find, $replace, $metaTags);
 		}
 		
+		// echo $metaTags;
 		return $metaTags;
 	}
 	
