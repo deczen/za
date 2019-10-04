@@ -131,7 +131,8 @@ $contactIds=get_contact_id();
 								<div class="zpa-listing-open-home-text-grid">
 									<?php
 									
-									$mlstz = zipperagent_mls_timezone();
+									$sourceid=isset($property->sourceid)?$property->sourceid:'';
+									$mlstz = zipperagent_mls_timezone($sourceid);
 									$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 									$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
 									$startDateOnly = $dt->format('Y-m-d');
@@ -176,7 +177,8 @@ $contactIds=get_contact_id();
 								<div class="zpa-listing-open-home-text-grid">
 									<?php
 									
-									$mlstz = zipperagent_mls_timezone();
+									$sourceid=isset($property->sourceid)?$property->sourceid:'';
+									$mlstz = zipperagent_mls_timezone($sourceid);
 									$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 									$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
 									$startDateOnly = $dt->format('Y-m-d');

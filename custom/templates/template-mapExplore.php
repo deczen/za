@@ -112,7 +112,8 @@ if($requests['lat'] && $requests['lng']){
 			var infoWindow = new google.maps.InfoWindow({
 				disableAutoPan: true,
 			});
-			var infoWindowContent = [];			
+			var infoWindowContent = [];
+			var loop=0;
 
 			function initialize(za_lat, za_lng) {
 				var mapOptions = {
@@ -349,6 +350,7 @@ if($requests['lat'] && $requests['lng']){
 
 				// Setup the click event listeners: simply set the map to Chicago.
 				controlUI.addEventListener('click', function() {
+					loop=0;
 					jQuery('#zpa-search-filter-form').submit();
 				});
 
@@ -358,6 +360,9 @@ if($requests['lat'] && $requests['lng']){
 			
 			//ajax call
 			var xhr;
+			
+			var looplimit = 5;
+			var listlimit = 100;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				
@@ -389,9 +394,18 @@ if($requests['lat'] && $requests['lng']){
 							var num = response['num'];
 							var maxtotal = response['maxtotal'];
 							var actual_link = response['actual_link'];
+							var next_index = response['next_index'];
 							
 							setMarkers(map, response['markers'], response['infoWindowContent']);
-							totalPropertiesCount(vars, page, num, maxtotal, actual_link)
+							
+							loop++;
+							
+							if(loop <= (looplimit - 1) && response['markers'].length == listlimit){
+								vars.sidx=next_index;
+								search_loop(vars);
+							}else{								
+								totalPropertiesCount(vars, page, num, maxtotal, actual_link)
+							}
 						}
 						console.timeEnd('generate map');
 					},
@@ -404,6 +418,61 @@ if($requests['lat'] && $requests['lng']){
 				//hide refresh button
 				jQuery('.za-refresh-map').addClass('hide');
 			});	
+			
+			//ajax call
+			var xhr_loop;
+			
+			function search_loop(vars){
+				
+				if(xhr_loop && xhr_loop.readyState != 4){
+					xhr_loop.abort();
+				}
+				
+				var request={};
+				
+				request['action']="generate_map_markers_loop";				
+				request['coords']=vars.coords;
+				request['crit']=vars.crit;
+				request['o']=vars.o;
+				request['ps']=vars.ps;
+				request['sidx']=vars.sidx;
+								
+				console.time('generate map loop');
+				xhr = jQuery.ajax({
+					type: 'POST',
+					dataType : 'json',
+					url: zipperagent.ajaxurl,
+					data: request,
+					success: function( response ) {         
+						if( response['markers'] ){
+							var vars = response['vars'];
+							var page = response['page'];
+							var num = response['num'];
+							var maxtotal = response['maxtotal'];
+							var actual_link = response['actual_link'];
+							var next_index = response['next_index'];
+							
+							setMarkers(map, response['markers'], response['infoWindowContent']);
+							
+							loop++;
+							
+							if(loop <= (looplimit - 1) && response['markers'].length == listlimit){
+								vars.sidx=next_index;
+								search_loop(vars);
+							}else{								
+								totalPropertiesCount(vars, page, num, maxtotal, actual_link)
+							}
+						}
+						console.timeEnd('generate map loop');
+					},
+					error: function(){
+						console.timeEnd('generate map loop');
+					}
+				});
+				
+				//hide refresh button
+				jQuery('.za-refresh-map').addClass('hide');
+			}
 
 			<?php if($is_ajax_count): ?>
 			function totalPropertiesCount(vars, page, num, maxtotal, actual_link){

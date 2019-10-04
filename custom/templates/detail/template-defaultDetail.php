@@ -687,7 +687,8 @@ if(file_exists($template_path) && $template_name ){
 							<?php
 							foreach($single_property->openHouses as $openHouse){
 												
-								$mlstz = zipperagent_mls_timezone();
+								$sourceid=isset($single_property->sourceid)?$single_property->sourceid:'';
+								$mlstz = zipperagent_mls_timezone($sourceid);
 								$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 								$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
 								$startDateOnly = $dt->format('Y-m-d');
@@ -806,8 +807,9 @@ if(file_exists($template_path) && $template_name ){
 								<h3 class="zy-listing__headline mt-15">Open House</h3>									
 								<?php
 								foreach($single_property->openHouses as $openHouse){
-													
-									$mlstz = zipperagent_mls_timezone();
+									
+									$sourceid=isset($single_property->sourceid)?$single_property->sourceid:'';
+									$mlstz = zipperagent_mls_timezone($sourceid);
 									$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 									$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
 									$startDateOnly = $dt->format('Y-m-d');

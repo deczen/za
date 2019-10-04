@@ -760,7 +760,7 @@ function get_map_markers(){
 	if ( isset($_REQUEST) ) {
 		
 		global $requests, $is_ajax, $type;
-		global $markers, $infoWindows;
+		global $markers, $infoWindows, $NextMapIndex;
 		
 		$requests = $_REQUEST;
 		$is_ajax = 1;
@@ -769,11 +769,55 @@ function get_map_markers(){
 		include ZIPPERAGENTPATH . "/custom/templates/template-generateView.php";
 		$result['markers']=$markers;
 		$result['infoWindowContent']=$infoWindows;
-		$result['vars']=$vars;
+		$result['next_index']=$NextMapIndex;
+		$result['vars']=$mapvars;
 		$result['page']=$page;
 		$result['num']=$num;
 		$result['maxtotal']=$maxtotal;
 		$result['actual_link']=$actual_link;
+		
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
+add_action( 'wp_ajax_generate_map_markers_loop', 'get_map_markers_loop' );
+add_action( 'wp_ajax_nopriv_generate_map_markers_loop', 'get_map_markers_loop' );
+
+function get_map_markers_loop(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		global $markers, $infoWindows, $NextMapIndex;
+		
+		$maplimit=100;
+		
+		$mapindex=$_REQUEST['sidx'];
+		
+		$mapvars['coords']=$_REQUEST['coords'];
+		$mapvars['crit']=$_REQUEST['crit'];
+		$mapvars['o']=$_REQUEST['o'];
+		$mapvars['ps']=$_REQUEST['ps'];
+		$mapvars['sidx']=$_REQUEST['sidx'];
+		
+		
+		$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+		$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+		
+		$mapindex+=($maplimit-1);
+		$NextMapIndex = $mapindex;
+		$args = zipperagent_generate_result_markers($maplist);
+		extract($args);
+		
+		$result['markers']=$markers;
+		$result['infoWindowContent']=$infoWindows;
+		$result['next_index']=$NextMapIndex;
+		$result['vars']=$mapvars;
+		$result['page']='';
+		$result['num']='';
+		$result['maxtotal']='';
+		$result['actual_link']='';
 		
 		echo json_encode($result);
          
