@@ -648,7 +648,22 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				data: data,
 				success: function( response ) {    
 					if( response['result'] ){
+						<?php
+						$signup_optional_exception = zipperagent_signup_optional_exception();
 						
+						if($signup_optional_exception):
+						?>
+						var limit = parseInt('<?php echo $signup_optional_exception; ?>');
+						var popup_close_count = response['result'];
+						
+						if(popup_close_count>= limit){
+							jQuery('#needLoginModal button.close').hide();
+							jQuery('#needLoginModal').attr( 'data-backdrop', 'static' );
+							jQuery('#needLoginModal').attr( 'data-keyboard', 'false' );
+							jQuery('#needLoginModal').data('bs.modal').options.backdrop = 'static';
+							jQuery('#needLoginModal').data('bs.modal').options.keyboard = 'false';
+						}
+						<?php endif; ?>
 					}
 				}
 			});

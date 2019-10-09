@@ -181,7 +181,7 @@ function set_popup_closed(){
 		$popup_is_closed++;
 		$_SESSION['popup_is_closed']=$popup_is_closed; //popup is already triggered
 		
-		$return['result']=1;
+		$return['result']=$popup_is_closed;
 		
 		echo json_encode($return);
          
