@@ -28,8 +28,13 @@
 	body .zy-margin #omnibar-tools,
 	body .zy-margin #zipperagent-content .hideonprint,
 	body .uk-sticky-placeholder,
-	body #edgtf-back-to-top {
+	body #edgtf-back-to-top,
+	body .grecaptcha-badge {
 		display: none!important;
+	}
+	body .zy-print-google-map{
+		/* disable map on print */
+		display: none!important; 
 	}
 	body .printonly{
 		display: block !important;
@@ -191,5 +196,7 @@
 	body .zy-print-view .zy-print-media-list img {
 		max-height: 175px;
 	}
+	body .zy-print-agent h6{padding-bottom:0;margin-bottom:0;}
+	body .uk-list li{margin-bottom:0;padding-bottom:0;line-height:1.4;}
 	body.modal-open{overflow: unset !important;max-height: unset !important}
 }
