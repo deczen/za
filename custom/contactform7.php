@@ -53,7 +53,7 @@ function cf7_auto_populate($atts){
 							},
 						success: function( response ) { 
 							// console.log(response);
-							if( response['userdata']!="" ){
+							if( response['userdata']!="" && response['userdata'] != null){
 								var userdata = response['userdata'];
 								// console.log(userdata);
 								
@@ -303,7 +303,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$phone = sanitize_text_field( $_REQUEST['phone'] );
 		$subject = sanitize_text_field( $_REQUEST['your-subject'] );
 		$message = sanitize_textarea_field( $_REQUEST['your-message'] );
-		$url = urlencode( $_REQUEST['current-url'] );
+		$url = isset($_REQUEST['current-url']) ? urlencode( $_REQUEST['current-url'] ) : '';
 		
 		$vars=array(
 			// 'id'=>implode(',',$contactIds), //disabled

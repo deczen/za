@@ -68,7 +68,10 @@ function display_search_property($atts){
 	if( isset($requests['ajax']) && $requests['ajax']==0 ){
 		include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
 	}else{
-		include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
+		if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page())
+			include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
+		else
+			include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
 	}
 	$html=ob_get_clean();
 	
@@ -553,7 +556,7 @@ function display_masonry_listing($atts){
 		$requests['location']=explode(',',$requests['location']);
 	}
 	
-	$requests['is_shortcode']=1;
+	// $requests['is_shortcode']=1;
 	$is_shortcode=1;
 	
 	//save all http request to $request

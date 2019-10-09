@@ -23,14 +23,14 @@ class zipperAgentEnqueueResource {
 		global $post, $ZaRemoteResponse;
 		
 		wp_enqueue_script("jquery");
-		wp_enqueue_script("jquery-ui-core");
-		wp_enqueue_script("jquery-ui-tabs");
-		wp_enqueue_script("jquery-ui-dialog");
-		wp_enqueue_script("jquery-ui-datepicker");
-		wp_enqueue_script("jquery-ui-autocomplete", "", array("jquery-ui-widget", "jquery-ui-position"), "1.8.6");
+		// wp_enqueue_script("jquery-ui-core");
+		// wp_enqueue_script("jquery-ui-tabs");
+		// wp_enqueue_script("jquery-ui-dialog");
+		// wp_enqueue_script("jquery-ui-datepicker");
+		// wp_enqueue_script("jquery-ui-autocomplete", "", array("jquery-ui-widget", "jquery-ui-position"), "1.8.6");
 		
-		$localize = array('townurl'=> ZIPPERAGENTURL . 'custom/api-processing/towns.php');
-		wp_localize_script('jquery','zipperagent',$localize);
+		// $localize = array('townurl'=> ZIPPERAGENTURL . 'custom/api-processing/towns.php');
+		// wp_localize_script('jquery','zipperagent',$localize);
 		
 		/*
 		$remoteRequest = new zipperAgentRequestor();
@@ -71,7 +71,8 @@ class zipperAgentEnqueueResource {
 		if( isset($post->post_type) && $post->post_type == 'zipperagent-listing' )	
 			$this->enqueueStyle('listing-css', zipperagent_url(false) . 'css/listing.css');
 		
-		if( isset($post->post_type) && $post->post_type == 'zipperagent-lp' )
+		$_lp_listid = get_post_meta($post->ID, '_lp_listid', true); //is landing page?
+		if( isset($post->post_type) && $post->post_type == 'zipperagent-lp' || $_lp_listid )
 			$this->enqueueStyle('landingpage-css', zipperagent_url(false) . 'css/landingpage.css');
 		
 		// $this->enqueueStyle('owl-animate-css', zipperagent_url(false) . 'css/animate.css');
@@ -101,7 +102,8 @@ class zipperAgentEnqueueResource {
 		
 		/* Start modification by Decz */
 		// $this->enqueueScript('jquery-ui-slider');
-		$this->enqueueScript('za-bundle-js', zipperagent_url(false) . 'js/bundle.js', true);
+		// $this->enqueueScript('za-bundle-js', zipperagent_url(false) . 'js/bundle.js', true);
+		$this->enqueueScript('za-bundle-js', zipperagent_url(false) . 'js/bootstrap.js', true);
 		if(method_exists($remoteResponse,'hasJs') && $remoteResponse->hasJs()) {
 			foreach($remoteResponse->getJs() as $js) {
 				$handle = $js->name;

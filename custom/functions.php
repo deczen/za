@@ -1845,7 +1845,7 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					if(file_exists($source['logo_path'])){
 						$text.= '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
 						
-						if($source['copyrightUrl']){
+						if(isset($source['copyrightUrl']) && $source['copyrightUrl']){
 							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
 						}
 					}

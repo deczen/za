@@ -160,8 +160,9 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 		return false;
 	});
 </script>
+<?php /*
 <script>
 	jQuery(document).ready(function () {
 		jQuery('#zpa-more-info-request-form').validate();
 	});
-</script>
+</script> */ ?>
