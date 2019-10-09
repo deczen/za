@@ -169,7 +169,13 @@ if(!$single_property){
 			<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
 			var count=<?php echo $_SESSION['za_image_clicked'] ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 			var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
+			var preventDouble=0;
 			$topHeadCarousel.on('changed.owl.carousel', function(event) {
+				
+				if(preventDouble){
+					preventDouble=0;
+					return;
+				}
 				
 				count++;								
 				ajax_image_count(count);		
@@ -198,6 +204,8 @@ if(!$single_property){
 						}
 					});
 				}
+				
+				preventDouble=1;
 			});
 			<?php endif; ?>
 		})(jQuery)

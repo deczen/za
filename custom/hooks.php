@@ -2172,8 +2172,8 @@ function zipperagent_detail_page_lightbox_gallery(){
 							<div class="owl-carousel-container">
 								
 								<div class="top-head-carousel-wrapper">
-									<?php /* <div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
-									<div class="owl-carousel top-head-carousel">
+									<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+									<?php /* <div class="owl-carousel top-head-carousel"> */ ?>
 										<?php
 										if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 											$i=0;
@@ -2297,9 +2297,15 @@ function zipperagent_detail_page_lightbox_gallery(){
 				<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
 				var count=<?php echo isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 				var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
+				var preventDouble=0;
 				$topHeadCarousel.on('changed.owl.carousel', function(event) {
 					
-					count++;								
+					if(preventDouble){
+						preventDouble=0;
+						return;
+					}
+					
+					count++;			
 					ajax_image_count(count);		
 					if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
 						jQuery('#needLoginModal').modal('show');
@@ -2326,6 +2332,8 @@ function zipperagent_detail_page_lightbox_gallery(){
 							}
 						});
 					}
+					
+					preventDouble=1;
 				});
 				<?php endif; ?>
 				

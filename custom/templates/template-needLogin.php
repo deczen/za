@@ -189,7 +189,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	</div>
 		
 	<script>
-		jQuery('body').on('click', '.needLogin', function(e){
+		jQuery('body').on('click', 'button.needLogin, input.n, a.needLogin', function(e){
 			var after_action = jQuery(this).attr('afterAction');
 			var listingId = jQuery(this).attr('listingId');
 			var searchId = jQuery(this).attr('searchId');

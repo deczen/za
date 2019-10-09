@@ -3167,7 +3167,7 @@ if( ! function_exists('zipperagent_is_close_popup_enabled') ){
 		
 		// $_SESSION['popup_is_closed']=0; //reset purpose only
 		
-		if( !$signup_optional && $signup_optional_exception && $_SESSION['popup_is_closed']
+		if( !$signup_optional && $signup_optional_exception && isset($_SESSION['popup_is_closed']) && $_SESSION['popup_is_closed']
 			&& $signup_optional_exception <= (int) $_SESSION['popup_is_closed'] ){
 			
 			return false;
