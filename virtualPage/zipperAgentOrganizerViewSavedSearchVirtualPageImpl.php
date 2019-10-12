@@ -26,7 +26,7 @@ class zipperAgentOrganizerViewSavedSearchVirtualPageImpl extends zipperAgentAbst
 	}
 	
 	public function getContent() {
-		zipperAgentStateManager::getInstance()->setLastSearchUrl();
+		// zipperAgentStateManager::getInstance()->setLastSearchUrl(); //disabled by decz
 		$searchProfileId = zipperAgentUtility::getInstance()->getQueryVar("searchProfileId");
 		$this->remoteRequest
 			->addParameters($_REQUEST)

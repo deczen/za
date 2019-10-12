@@ -17,12 +17,13 @@ class zipperAgentLuxuryDetailsVirtualPageImpl extends zipperAgentAbstractVirtual
 			
 			$this->single_luxury = $single_luxury;
 		}
+		/*
 		if( $listingNumber!='detail' ){
 			
 			$single_property=get_single_property( $listingNumber );
 			
 			$this->single_property = $single_property;
-		}
+		}*/
 	}
 	/* end modified */
 	

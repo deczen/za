@@ -169,11 +169,11 @@ class zipperAgentAdminPageConfig extends zipperAgentAdminAbstractPage {
 			$urlFactory->getMapSearchFormUrl(),
 			$urlFactory->getListingsAdvancedSearchFormUrl(),
 			$urlFactory->getListingDetailUrl(),
-			$urlFactory->getListingSoldDetailUrl(),
-			$urlFactory->getFeaturedSearchResultsUrl(),
-			$urlFactory->getHotSheetListingReportUrl(),
-			$urlFactory->getHotSheetOpenHomeReportUrl(),
-			$urlFactory->getHotSheetMarketReportUrl(),
+			// $urlFactory->getListingSoldDetailUrl(), //disabled by decz
+			// $urlFactory->getFeaturedSearchResultsUrl(), //disabled by decz
+			// $urlFactory->getHotSheetListingReportUrl(), //disabled by decz
+			// $urlFactory->getHotSheetOpenHomeReportUrl(), //disabled by decz
+			// $urlFactory->getHotSheetMarketReportUrl(), //disabled by decz
 			//$urlFactory->getHotsheetListUrl(), //this is an intentional duplicate
 			$urlFactory->getOrganizerLoginUrl(),
 			$urlFactory->getOrganizerLogoutUrl(),
@@ -183,23 +183,23 @@ class zipperAgentAdminPageConfig extends zipperAgentAdminAbstractPage {
 			$urlFactory->getOrganizerDeleteSavedSearchSubmitUrl(),
 			$urlFactory->getOrganizerViewSavedSearchUrl(),
 			$urlFactory->getOrganizerViewSavedSearchListUrl(),
-			$urlFactory->getOrganizerResendConfirmationEmailUrl(),
-			$urlFactory->getOrganizerActivateSubscriberUrl(),
-			$urlFactory->getOrganizerSendSubscriberPasswordUrl(),
+			// $urlFactory->getOrganizerResendConfirmationEmailUrl(), //disabled by decz
+			// $urlFactory->getOrganizerActivateSubscriberUrl(), //disabled by decz
+			// $urlFactory->getOrganizerSendSubscriberPasswordUrl(), //disabled by decz
 			$urlFactory->getOrganizerViewSavedListingListUrl(),
 			$urlFactory->getOrganizerDeleteSavedListingUrl(),
-			$urlFactory->getOrganizerEmailUpdatesConfirmationUrl(),
-			$urlFactory->getOrganizerHelpUrl(),
+			// $urlFactory->getOrganizerEmailUpdatesConfirmationUrl(), //disabled by decz
+			// $urlFactory->getOrganizerHelpUrl(), //disabled by decz
 			$urlFactory->getOrganizerEditSubscriberUrl(),
-			$urlFactory->getContactFormUrl(),
-			$urlFactory->getValuationFormUrl(),
-			$urlFactory->getOpenHomeSearchFormUrl(),
-			$urlFactory->getSoldFeaturedListingUrl(),
-			$urlFactory->getSupplementalListingUrl(),
-			$urlFactory->getOfficeListUrl(),
-			$urlFactory->getOfficeDetailUrl(),
-			$urlFactory->getAgentListUrl(),
-			$urlFactory->getAgentDetailUrl(),
+			// $urlFactory->getContactFormUrl(), //disabled by decz
+			// $urlFactory->getValuationFormUrl(), //disabled by decz
+			// $urlFactory->getOpenHomeSearchFormUrl(), //disabled by decz
+			// $urlFactory->getSoldFeaturedListingUrl(), //disabled by decz
+			// $urlFactory->getSupplementalListingUrl(), //disabled by decz
+			// $urlFactory->getOfficeListUrl(), //disabled by decz
+			// $urlFactory->getOfficeDetailUrl(), //disabled by decz
+			// $urlFactory->getAgentListUrl(), //disabled by decz
+			// $urlFactory->getAgentDetailUrl(), //disabled by decz
 		);
 		$duplicateUrls = array_unique(array_diff_assoc($urls, array_unique($urls)));
 		if(!empty($duplicateUrls)) {

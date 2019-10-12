@@ -59,7 +59,8 @@ if( ! function_exists('zipperagent_run_curl') ){
 			print_r( $e );
 		}
 		$time_elapsed_secs = microtime(true) - $start;
-		
+				
+		include_once ZIPPERAGENTPATH . "/custom/log.php";
 		$log=new ZipperAgentLog('api','functions.php');
 		$log->log_msg("[url= {$url}, time= {$time_elapsed_secs}s]");
 		
@@ -2235,6 +2236,34 @@ if( ! function_exists('populate_zipcodes') ){
 	}
 }
 
+if( ! function_exists('populate_tenant_favorites') ){
+	function populate_tenant_favorites(){
+		
+		$result = zipperagent_run_curl('/api/mls/tenantFavorites', array(), 0, '', 1);
+		// $json='{"status":"SUCCESS","result":[{"id":"371eab26-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"BOXB","value":"Boxborough"},{"id":"371ff436-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"CLIN","value":"Clinton"},{"id":"37204058-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"FTCH","value":"Fitchburg"},{"id":"37209616-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"HRVD","value":"Harvard"},{"id":"3720d234-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"HDSN","value":"Hudson"},{"id":"372d7f84-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"LCAS","value":"Lancaster"},{"id":"372e0bac-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"LMNS","value":"Leominster"},{"id":"372e4bf8-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"LUNE","value":"Lunenburg"},{"id":"372e8a0a-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"SHRL","value":"Shirley"},{"id":"372efb02-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"STER","value":"Sterling"},{"id":"372f3626-ea76-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"STOW","value":"Stow"},{"id":"383aa1be-ea75-11e9-a3b8-0767f288d17f","version":0,"sourceId":"0","field":"TOWN","code":"BLTN","value":"Bolton"}],"responseCode":200,"editable":false,"deletable":false,"forbidden":false,"returnedCount":0}';
+		// $result = (array) json_decode($json);
+		
+		// echo "<pre>"; print_r($result); echo "</pre>";
+		$tenants = isset($result['result']) && sizeof($result['result'])?$result['result']:array();
+		
+		$arr=array();
+		
+		foreach( $tenants as $tenant ){
+			
+			$name = $tenant->value;
+			$code = 'atwns_'.$tenant->code;
+			$arr[]=array(
+				'group'=>'Town',
+				'name'=>$name,
+				'code'=>$code,
+				'type'=>'town',
+			);
+		}
+		
+		return $arr;
+	}
+}
+
 if( ! function_exists('populate_schools') ){
 	function populate_schools($t,$limit=100){
 		
@@ -2312,12 +2341,14 @@ if( ! function_exists('zipperagent_populate_autocomplete_data') ){
 		$areas = populate_areas_with_option($meta);
 		$counties = populate_counties_with_option($meta);
 		$zipcodes = populate_zipcodes();
+		$tenants = populate_tenant_favorites();
 		
 		$data= array(
 			'towns' => $towns,
 			'areas' => $areas,
 			'counties' => $counties,
 			'zipcodes' => $zipcodes,
+			'tenants' => $tenants,
 		);
 		
 		return $data;
@@ -4022,6 +4053,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 				$areas = isset($data->areas)?$data->areas:array();
 				$counties = isset($data->counties)?$data->counties:array();
 				$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
+				$tenants = isset($data->tenants)?$data->tenants:array();
 				?>
 				
 				var towns = <?php echo json_encode($towns); ?>;
@@ -4031,10 +4063,12 @@ if( ! function_exists('global_new_omnibar_script') ){
 				var all = $.merge(towns, areas);
 					all = $.merge(all, counties);
 					all = $.merge(all, zipcodes);
+					
+				var tenants = <?php echo json_encode($tenants); ?>;
 				
 				var ms_town = $('#zpa-town-input').magicSuggest({
 					
-					data: towns,
+					data: tenants ? tenants : towns,
 					valueField: 'code',
 					displayField: 'name',
 					hideTrigger: true,
@@ -4055,7 +4089,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 				
 				var ms_area = $('#zpa-areas-input').magicSuggest({
 					
-					data: areas,
+					data: tenants ? tenants : areas,
 					valueField: 'code',
 					displayField: 'name',
 					hideTrigger: true,
@@ -4118,7 +4152,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 				
 				var ms_all = $('#zpa-all-input').magicSuggest({
 					
-					data: all,
+					data: tenants ? tenants : all,
 					valueField: 'code',
 					displayField: 'name',
 					hideTrigger: true,
@@ -4512,12 +4546,19 @@ if( ! function_exists('global_new_omnibar_script') ){
 				$(ms_all).on('keyup', function(){
 					ms_all__rawValue = ms_all.getRawValue();
 					ms_all__afterDelete=0;
+					
+					//set data on 
+					if(ms_all__rawValue.length===1)
+						ms_all.setData(all);
 				});
 				
 				//get current selected value
 				$(ms_all).on('focus', function(c){
 					ms_all__recentSelected = ms_all.getValue();
 					ms_all__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_all.expand();
 				});
 				
 				//select value on blur / mouse leave
@@ -4550,6 +4591,9 @@ if( ! function_exists('global_new_omnibar_script') ){
 						
 						$('#zpa-all-input input').focus();
 					}
+					
+					//reset data to tenants
+					if(tenants) ms_all.setData(tenants);
 				});
 				
 				//select value on enter key pressed
@@ -4631,12 +4675,19 @@ if( ! function_exists('global_new_omnibar_script') ){
 				$(ms_town).on('keyup', function(){
 					ms_town__rawValue = ms_town.getRawValue();
 					ms_town__afterDelete=0;
+					
+					//set data on 
+					if(ms_town__rawValue.length===1)
+						ms_town.setData(towns);
 				});
 				
 				//get current selected value
 				$(ms_town).on('focus', function(c){
 					ms_town__recentSelected = ms_town.getValue();
 					ms_town__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_town.expand();
 				});
 				
 				//select value on blur / mouse leave
@@ -4653,6 +4704,9 @@ if( ! function_exists('global_new_omnibar_script') ){
 						
 						ms_town__afterDelete=0;
 					}
+					
+					//reset data to tenants
+					if(tenants) ms_town.setData(tenants);
 				});
 				
 				//select value on enter key pressed
@@ -4717,12 +4771,19 @@ if( ! function_exists('global_new_omnibar_script') ){
 				$(ms_area).on('keyup', function(){
 					ms_area__rawValue = ms_area.getRawValue();
 					ms_area__afterDelete=0;
+					
+					//set data on 
+					if(ms_area__rawValue.length===1)
+						ms_area.setData(areas);
 				});
 				
 				//get current selected value
 				$(ms_area).on('focus', function(c){
 					ms_area__recentSelected = ms_area.getValue();
 					ms_area__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_area.expand();
 				});
 				
 				//select value on blur / mouse leave
@@ -4739,6 +4800,9 @@ if( ! function_exists('global_new_omnibar_script') ){
 						
 						ms_area__afterDelete=0;
 					}
+					
+					//reset data to tenants
+					if(tenants) ms_area.setData(tenants);
 				});
 				
 				//select value on enter key pressed

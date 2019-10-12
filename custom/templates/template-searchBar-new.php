@@ -862,6 +862,7 @@ $excludes = get_new_filter_excludes();
 			$areas = isset($data->areas)?$data->areas:array();
 			$counties = isset($data->counties)?$data->counties:array();
 			$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
+			$tenants = isset($data->tenants)?$data->tenants:array();
 			?>
 			
 			var towns = <?php echo json_encode($towns); ?>;
@@ -871,10 +872,12 @@ $excludes = get_new_filter_excludes();
 			var all = $.merge(towns, areas);
 				all = $.merge(all, counties);
 				all = $.merge(all, zipcodes);
+				
+			var tenants = <?php echo json_encode($tenants); ?>;
 			
 			var ms_town = $('#zpa-town-input').magicSuggest({
 				
-				data: towns,
+				data: tenants ? tenants : towns,
 				valueField: 'code',
 				displayField: 'name',
 				hideTrigger: true,
@@ -895,7 +898,7 @@ $excludes = get_new_filter_excludes();
 			
 			var ms_area = $('#zpa-areas-input').magicSuggest({
 				
-				data: areas,
+				data: tenants ? tenants : areas,
 				valueField: 'code',
 				displayField: 'name',
 				hideTrigger: true,
@@ -958,7 +961,7 @@ $excludes = get_new_filter_excludes();
 			
 			var ms_all = $('#zpa-all-input').magicSuggest({
 				
-				data: all,
+				data: tenants ? tenants : all,
 				valueField: 'code',
 				displayField: 'name',
 				hideTrigger: true,
@@ -1518,12 +1521,19 @@ $excludes = get_new_filter_excludes();
 			$(ms_all).on('keyup', function(){
 				ms_all__rawValue = ms_all.getRawValue();
 				ms_all__afterDelete=0;
+				
+				//set data on 
+				if(ms_all__rawValue.length===1)
+					ms_all.setData(all);
 			});
 			
 			//get current selected value
 			$(ms_all).on('focus', function(c){
 				ms_all__recentSelected = ms_all.getValue();
 				ms_all__afterDelete=1;
+				
+				//auto open dropdown
+				if(tenants) ms_all.expand();
 			});
 			
 			//select value on blur / mouse leave
@@ -1555,6 +1565,9 @@ $excludes = get_new_filter_excludes();
 					
 					$('#zpa-all-input input').focus();
 				}
+				
+				//reset data to tenants
+				if(tenants) ms_all.setData(tenants);
 			});
 			
 			//select value on enter key pressed
@@ -1637,12 +1650,19 @@ $excludes = get_new_filter_excludes();
 			$(ms_town).on('keyup', function(){
 				ms_town__rawValue = ms_town.getRawValue();
 				ms_town__afterDelete=0;
+				
+				//set data on 
+				if(ms_town__rawValue.length===1)
+					ms_town.setData(towns);
 			});
 			
 			//get current selected value
 			$(ms_town).on('focus', function(c){
 				ms_town__recentSelected = ms_town.getValue();
 				ms_town__afterDelete=1;
+				
+				//auto open dropdown
+				if(tenants) ms_town.expand();
 			});
 			
 			//select value on blur / mouse leave
@@ -1659,6 +1679,9 @@ $excludes = get_new_filter_excludes();
 					
 					ms_town__afterDelete=0;
 				}
+				
+				//reset data to tenants
+				if(tenants) ms_town.setData(tenants);
 			});
 			
 			//select value on enter key pressed
@@ -1723,12 +1746,19 @@ $excludes = get_new_filter_excludes();
 			$(ms_area).on('keyup', function(){
 				ms_area__rawValue = ms_area.getRawValue();
 				ms_area__afterDelete=0;
+				
+				//set data on 
+				if(ms_area__rawValue.length===1)
+					ms_area.setData(areas);
 			});
 			
 			//get current selected value
 			$(ms_area).on('focus', function(c){
 				ms_area__recentSelected = ms_area.getValue();
 				ms_area__afterDelete=1;
+				
+				//auto open dropdown
+				if(tenants) ms_area.expand();
 			});
 			
 			//select value on blur / mouse leave
@@ -1745,6 +1775,9 @@ $excludes = get_new_filter_excludes();
 					
 					ms_area__afterDelete=0;
 				}
+				
+				//reset data to tenants
+				if(tenants) ms_area.setData(tenants);
 			});
 			
 			//select value on enter key pressed

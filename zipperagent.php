@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zipperagent
 Description: Adds MLS / IDX property search and listings to your site. Includes search and listing pages, widgets and shortcodes.
-Version: 2.0.0.62
+Version: 2.0.0.63
 Author: Decz
 License: GPL
 */
@@ -13,7 +13,7 @@ $GLOBALS['WORK_ENV'] = 'PROD';
 
 $GLOBALS['ZaRemoteResponse'] = array();
 
-define( 'ZIPPERAGENT_VERSION', '20191010.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
+define( 'ZIPPERAGENT_VERSION', '20191012.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
 define( 'ZIPPERAGENTPATH', dirname( __FILE__ ) );
 define( 'ZIPPERAGENTURL', plugins_url( '/', __FILE__ ) );
 
@@ -38,18 +38,19 @@ function zipperagent_clear_caches() {
 register_activation_hook( __FILE__, 'zipperagent_clear_caches' );
 
 /* end custom codes */
-
 $autoloader = zipperAgentAutoloader::getInstance();
+
+$shortcodes = Zipperagent_Shortcodes::getInstance();
 $installer = zipperAgentInstaller::getInstance();
 $rewriteRules = zipperAgentRewriteRules::getInstance();
 $admin = zipperAgentAdmin::getInstance();
-$shortcodeSelector = zipperAgentShortcodeSelector::getInstance();
-$shortcodeDispatcher = zipperAgentShortcodeDispatcher::getInstance();
-$stateManager = zipperAgentStateManager::getInstance();
+// $shortcodeSelector = zipperAgentShortcodeSelector::getInstance();
+// $shortcodeDispatcher = zipperAgentShortcodeDispatcher::getInstance();
+// $stateManager = zipperAgentStateManager::getInstance();
 $enqueueResource = zipperAgentEnqueueResource::getInstance();
 $virtualPageDispatcher = zipperAgentVirtualPageDispatcher::getInstance();
 $displayRules = zipperAgentDisplayRules::getInstance();
-$ajaxHandler = zipperAgentAjaxHandler::getInstance();
+// $ajaxHandler = zipperAgentAjaxHandler::getInstance();
 
 //Runs when plugin is activated
 register_activation_hook(__FILE__, array($installer, "install"));
@@ -73,7 +74,7 @@ if(is_admin()) {
 	add_action("admin_init", array($admin, "registerSettings"));
 	//Adds functionality to the text editor for pages and posts
 	//Add buttons to text editor and initialize short codes
-	add_action("admin_init", array($shortcodeSelector, "addButtons"));
+	// add_action("admin_init", array($shortcodeSelector, "addButtons"));
 	//add error check
 	add_action("admin_notices", array($admin, "checkError"));
 } else {
@@ -101,7 +102,7 @@ if(is_admin()) {
 }
 
 //shortcode
-add_action("init", array($shortcodeDispatcher, "initialize"));
+// add_action("init", array($shortcodeDispatcher, "initialize"));
 
 //widgets
 /*
@@ -146,6 +147,7 @@ if($displayRules->isEmailSignupWidgetEnabled()) {
 } */
 
 //AJAX request handling
+/*
 add_action("wp_ajax_nopriv_za_more_info_request", array($ajaxHandler, "requestMoreInfo"));
 add_action("wp_ajax_nopriv_za_schedule_showing", array($ajaxHandler, "scheduleShowing"));
 add_action("wp_ajax_nopriv_za_save_property", array($ajaxHandler, "saveProperty"));
@@ -186,6 +188,7 @@ add_action("wp_ajax_za_tiny_mce_shortcode_dialog", array($shortcodeSelector, "ge
 add_action("wp_ajax_za_advanced_search_multi_selects", array($ajaxHandler, "advancedSearchMultiSelects")); //@deprecated
 add_action("wp_ajax_za_advanced_search_fields", array($ajaxHandler, "getAdvancedSearchFormFields")); //@deprecated
 add_action("wp_ajax_za_area_autocomplete", array($ajaxHandler, "getAutocompleteMatches")); //@deprecated
+*/
 
 //Disable canonical urls, because we use a single page to display all results and WordPress creates a single canonical url for all of the virtual urls like the detail page and featured results.
 remove_action("wp_head", "rel_canonical");

@@ -77,13 +77,13 @@ class zipperAgentVirtualPageFactory {
 				$virtualPage = new zipperAgentListingDetailVirtualPageImpl();
 				break;
 			case self::LISTING_SOLD_DETAIL:
-				$virtualPage = new zipperAgentListingSoldDetailVirtualPageImpl();
+				// $virtualPage = new zipperAgentListingSoldDetailVirtualPageImpl(); //disabled by decz
 				break;
 			case self::LUXURY_DETAIL:
 				$virtualPage = new zipperAgentLuxuryDetailsVirtualPageImpl();
 				break;
 			case self::FEATURED_SEARCH:
-				$virtualPage = new zipperAgentFeaturedSearchVirtualPageImpl();
+				// $virtualPage = new zipperAgentFeaturedSearchVirtualPageImpl(); //disabled by decz
 				break;
 			case self::LISTING_ADVANCED_SEARCH_FORM:
 				$virtualPage = new zipperAgentAdvancedSearchFormVirtualPageImpl();
@@ -95,16 +95,16 @@ class zipperAgentVirtualPageFactory {
 				$virtualPage = new zipperAgentMapSearchVirtualPageImpl();
 				break;
 			case self::HOT_SHEET_LISTING_REPORT:
-				$virtualPage = new zipperAgentHotSheetListingReportVirtualPageImpl();
+				// $virtualPage = new zipperAgentHotSheetListingReportVirtualPageImpl(); //disabled by decz
 				break;
 			case self::HOT_SHEET_OPEN_HOME_REPORT:
-				$virtualPage = new zipperAgentHotsheetOpenHomeReportVirtualPageImpl();
+				// $virtualPage = new zipperAgentHotsheetOpenHomeReportVirtualPageImpl(); //disabled by decz
 				break;
 			case self::HOT_SHEET_MARKET_REPORT:
-				$virtualPage = new zipperAgentHotsheetMarketReportVirtualPageImpl();
+				// $virtualPage = new zipperAgentHotsheetMarketReportVirtualPageImpl(); //disabled by decz
 				break;
 			case self::HOT_SHEET_LIST:
-				$virtualPage = new zipperAgentHotsheetListVirtualPageImpl();
+				// $virtualPage = new zipperAgentHotsheetListVirtualPageImpl(); //disabled by decz
 				break;
 			case self::ORGANIZER_LOGIN:
 				$virtualPage = new zipperAgentOrganizerLoginFormVirtualPageImpl();
@@ -116,7 +116,7 @@ class zipperAgentVirtualPageFactory {
 				$virtualPage = new zipperAgentOrganizerEditSavedSearchFormVirtualPageImpl();
 				break;
 			case self::ORGANIZER_EMAIL_UPDATES_CONFIRMATION:
-				$virtualPage = new zipperAgentOrganizerEmailUpdatesConfirmationVirtualPageImpl();
+				// $virtualPage = new zipperAgentOrganizerEmailUpdatesConfirmationVirtualPageImpl(); //disabled by decz
 				break;
 			case self::ORGANIZER_EDIT_SAVED_SEARCH_SUBMIT:
 				$virtualPage = new zipperAgentOrganizerEditSavedSearchVirtualPageImpl();
@@ -137,46 +137,46 @@ class zipperAgentVirtualPageFactory {
 				$virtualPage = new zipperAgentOrganizerDeleteSavedListingVirtualPageImpl();
 				break;
 			case self::ORGANIZER_ACTIVATE_SUBSCRIBER:
-				$virtualPage = new zipperAgentOrganizerActivateSubscriberVirtualPageImpl();
+				// $virtualPage = new zipperAgentOrganizerActivateSubscriberVirtualPageImpl(); //disabled by decz
 				break;
 			case self::ORGANIZER_RESEND_CONFIRMATION_EMAIL:
-				$virtualPage = new zipperAgentOrganizerResendConfirmationVirtualPageImpl();
+				// $virtualPage = new zipperAgentOrganizerResendConfirmationVirtualPageImpl(); //disabled by decz
 				break;
 			case self::ORGANIZER_SEND_SUBSCRIBER_PASSWORD:
-				$virtualPage = new zipperAgentOrganizerSendSubscriberPasswordVirtualPageImpl();
+				// $virtualPage = new zipperAgentOrganizerSendSubscriberPasswordVirtualPageImpl(); //disabled by decz
 				break;
 			case self::ORGANIZER_HELP:
-				$virtualPage = new zipperAgentOrganizerHelpVirtualPageImpl();
+				// $virtualPage = new zipperAgentOrganizerHelpVirtualPageImpl(); //disabled by decz
 				break;
 			case self::ORGANIZER_EDIT_SUBSCRIBER:
 				$virtualPage = new zipperAgentOrganizerEditSubscriberVirtualPageImpl();
 				break;
 			case self::CONTACT_FORM:
-				$virtualPage = new zipperAgentContactFormVirtualPageImpl();
+				// $virtualPage = new zipperAgentContactFormVirtualPageImpl(); //disabled by decz
 				break;
 			case self::VALUATION_FORM:
-				$virtualPage = new zipperAgentValuationFormVirtualPageImpl();
+				// $virtualPage = new zipperAgentValuationFormVirtualPageImpl(); //disabled by decz
 				break;
 			case self::OPEN_HOME_SEARCH_FORM:
-				$virtualPage = new zipperAgentOpenHomeSearchFormVirtualPageImpl();
+				// $virtualPage = new zipperAgentOpenHomeSearchFormVirtualPageImpl(); //disabled by decz
 				break;
 			case self::SUPPLEMENTAL_LISTING:
-				$virtualPage = new zipperAgentSupplementalListingVirtualPageImpl();
+				// $virtualPage = new zipperAgentSupplementalListingVirtualPageImpl(); //disabled by decz
 				break;
 			case self::SOLD_FEATURED_LISTING:
-				$virtualPage = new zipperAgentSoldFeaturedListingVirtualPageImpl();
+				// $virtualPage = new zipperAgentSoldFeaturedListingVirtualPageImpl(); //disabled by decz
 				break;
 			case self::OFFICE_LIST:
-				$virtualPage = new zipperAgentOfficeListVirtualPageImpl();
+				// $virtualPage = new zipperAgentOfficeListVirtualPageImpl(); //disabled by decz
 				break;
 			case self::OFFICE_DETAIL:
-				$virtualPage = new zipperAgentOfficeDetailVirtualPageImpl();
+				// $virtualPage = new zipperAgentOfficeDetailVirtualPageImpl(); //disabled by decz
 				break;
 			case self::AGENT_LIST:
-				$virtualPage = new zipperAgentAgentListVirtualPageImpl();
+				// $virtualPage = new zipperAgentAgentListVirtualPageImpl(); //disabled by decz
 				break;
 			case self::AGENT_DETAIL:
-				$virtualPage = new zipperAgentAgentDetailVirtualPageImpl();
+				// $virtualPage = new zipperAgentAgentDetailVirtualPageImpl(); //disabled by decz
 				break;
 			case self::AGENT_OR_OFFICE_LISTINGS:
 				$virtualPage = new zipperAgentAgentOrOfficeListingsVirtualPageImpl();

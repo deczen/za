@@ -170,13 +170,13 @@ class zipperAgentAdmin {
 		//compatibility check shows on all dashboard pages
 		register_setting(zipperAgentConstants::OPTION_GROUP_COMPATIBILITY_CHECK, zipperAgentConstants::COMPATIBILITY_CHECK_ENABLED);
 		//admin pages
-		zipperAgentAdminActivate::getInstance()->registerSettings();
+		// zipperAgentAdminActivate::getInstance()->registerSettings(); //disabled by decz
 		zipperAgentAdminPageConfig::getInstance()->registerSettings();
 		zipperAgentAdminConfiguration::getInstance()->registerSettings();
-		zipperAgentAdminBio::getInstance()->registerSettings();
-		zipperAgentAdminSocial::getInstance()->registerSettings();
-		zipperAgentAdminEmail::getInstance()->registerSettings();
-		zipperAgentAdminSeoCityLinks::getInstance()->registerSettings();
+		// zipperAgentAdminBio::getInstance()->registerSettings(); //disabled by decz
+		// zipperAgentAdminSocial::getInstance()->registerSettings(); //disabled by decz
+		// zipperAgentAdminEmail::getInstance()->registerSettings(); //disabled by decz
+		// zipperAgentAdminSeoCityLinks::getInstance()->registerSettings(); //disabled by decz
 	}
 	
 	public function addScripts() {
@@ -277,10 +277,10 @@ class zipperAgentAdmin {
 		$listingsSearchResultsUrl = urlencode($urlFactory->getListingsSearchResultsUrl(true));
 		$listingsSearchFormUrl = urlencode($urlFactory->getListingsSearchFormUrl(true));
 		$listingDetailUrl = urlencode($urlFactory->getListingDetailUrl(true));
-		$featuredSearchResultsUrl = urlencode($urlFactory->getFeaturedSearchResultsUrl(true));
-		$hotSheetListingReportUrl = urlencode($urlFactory->getHotSheetListingReportUrl(true));
-		$hotSheetOpenHomeReportUrl = urlencode($urlFactory->getHotSheetOpenHomeReportUrl(true));
-		$hotSheetMarketReportUrl = urlencode($urlFactory->getHotSheetMarketReportUrl(true));
+		// $featuredSearchResultsUrl = urlencode($urlFactory->getFeaturedSearchResultsUrl(true)); //disabled by decz
+		// $hotSheetListingReportUrl = urlencode($urlFactory->getHotSheetListingReportUrl(true)); //disabled by decz
+		// $hotSheetOpenHomeReportUrl = urlencode($urlFactory->getHotSheetOpenHomeReportUrl(true)); //disabled by decz
+		// $hotSheetMarketReportUrl = urlencode($urlFactory->getHotSheetMarketReportUrl(true)); //disabled by decz
 		$organizerLoginUrl = urlencode($urlFactory->getOrganizerLoginUrl(true));
 		$organizerLogoutUrl = urlencode($urlFactory->getOrganizerLogoutUrl(true));
 		$organizerLoginSubmitUrl = urlencode($urlFactory->getOrganizerLoginSubmitUrl(true));
@@ -291,22 +291,22 @@ class zipperAgentAdmin {
 		$organizerViewSavedSearchListUrl = urlencode($urlFactory->getOrganizerViewSavedSearchListUrl(true));
 		$organizerViewSavedListingListUrl = urlencode($urlFactory->getOrganizerViewSavedListingListUrl(true));
 		$organizerDeleteSavedListingUrl = urlencode($urlFactory->getOrganizerDeleteSavedListingUrl(true));
-		$organizerResendConfirmationEmailUrl = urlencode($urlFactory->getOrganizerResendConfirmationEmailUrl(true));
-		$organizerActivateSubscriberUrl = urlencode($urlFactory->getOrganizerActivateSubscriberUrl(true));
-		$organizerSendSubscriberPasswordUrl = urlencode($urlFactory->getOrganizerSendSubscriberPasswordUrl(true));
+		// $organizerResendConfirmationEmailUrl = urlencode($urlFactory->getOrganizerResendConfirmationEmailUrl(true)); //disabled by decz
+		// $organizerActivateSubscriberUrl = urlencode($urlFactory->getOrganizerActivateSubscriberUrl(true)); //disabled by decz
+		// $organizerSendSubscriberPasswordUrl = urlencode($urlFactory->getOrganizerSendSubscriberPasswordUrl(true)); //disabled by decz
 		$listingsAdvancedSearchFormUrl = urlencode($urlFactory->getListingsAdvancedSearchFormUrl(true));
-		$organizerHelpUrl = urlencode($urlFactory->getOrganizerHelpUrl(true));
+		// $organizerHelpUrl = urlencode($urlFactory->getOrganizerHelpUrl(true)); //disabled by decz
 		$organizerEditSubscriberUrl = urlencode($urlFactory->getOrganizerEditSubscriberUrl(true));
-		$contactFormUrl = urlencode($urlFactory->getContactFormUrl(true));
-		$valuationFormUrl = urlencode($urlFactory->getValuationFormUrl(true));
-		$listingSoldDetailUrl = urlencode($urlFactory->getListingSoldDetailUrl(true));
-		$openHomeSearchFormUrl = urlencode($urlFactory->getOpenHomeSearchFormUrl(true));
-		$soldFeaturedListingUrl = urlencode($urlFactory->getSoldFeaturedListingUrl(true));
-		$supplementalListingUrl = urlencode($urlFactory->getSupplementalListingUrl(true));
-		$officeListUrl = urlencode($urlFactory->getOfficeListUrl(true));
-		$officeDetailUrl = urlencode($urlFactory->getOfficeDetailUrl(true));
-		$agentBioListUrl = urlencode($urlFactory->getAgentListUrl(true));
-		$agentBioDetailUrl = urlencode($urlFactory->getAgentDetailUrl(true));
+		// $contactFormUrl = urlencode($urlFactory->getContactFormUrl(true)); //disabled by decz
+		// $valuationFormUrl = urlencode($urlFactory->getValuationFormUrl(true)); //disabled by decz
+		// $listingSoldDetailUrl = urlencode($urlFactory->getListingSoldDetailUrl(true)); //disabled by decz
+		// $openHomeSearchFormUrl = urlencode($urlFactory->getOpenHomeSearchFormUrl(true)); //disabled by decz
+		// $soldFeaturedListingUrl = urlencode($urlFactory->getSoldFeaturedListingUrl(true)); //disabled by decz
+		// $supplementalListingUrl = urlencode($urlFactory->getSupplementalListingUrl(true)); //disabled by decz
+		// $officeListUrl = urlencode($urlFactory->getOfficeListUrl(true)); //disabled by decz
+		// $officeDetailUrl = urlencode($urlFactory->getOfficeDetailUrl(true)); //disabled by decz
+		// $agentBioListUrl = urlencode($urlFactory->getAgentListUrl(true)); //disabled by decz
+		// $agentBioDetailUrl = urlencode($urlFactory->getAgentDetailUrl(true)); //disabled by decz
 		$mapSearchUrl = urlencode($urlFactory->getMapSearchFormUrl(true));
 		$cssOverride = urlencode(get_option(zipperAgentConstants::CSS_OVERRIDE_OPTION, null));
 		$layoutType = urlencode($this->displayRules->getLayoutType());

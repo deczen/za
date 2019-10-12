@@ -165,8 +165,8 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			->addParameter("bid", $boardId)
 			->addParameter("requestType", "listing-detail")
 		;
-		$previousAndNextInformation = $this->getPreviousAndNextInformation($boardId, $listingNumber);
-		$this->remoteRequest->addParameters($previousAndNextInformation);
+		// $previousAndNextInformation = $this->getPreviousAndNextInformation($boardId, $listingNumber); //disabled by decz
+		// $this->remoteRequest->addParameters($previousAndNextInformation); //disabled by decz
 		// $this->remoteResponse = $this->remoteRequest->remoteGetRequest();
 		
 		/* Modified by Decz */
@@ -181,12 +181,12 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 	 */
 	public function getBody() {
 		$body = $this->remoteResponse->getBody();
-		$previousSearchLink = $this->getPreviousSearchLink();
+		/* $previousSearchLink = $this->getPreviousSearchLink();
 		if(strpos($body, "<!-- INSERT RETURN TO RESULTS LINK HERE -->") !== false) {
 			$body = str_replace("<!-- INSERT RETURN TO RESULTS LINK HERE -->", $previousSearchLink, $body);
 		} else {
 			$body = $previousSearchLink . "<br /><br />" . $body;
-		}
+		} */ //disabled by decz
 		return $body;
 	}
 	

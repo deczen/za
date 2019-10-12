@@ -16,10 +16,10 @@ class zipperAgentRequestor {
 	/* end modified */
 	
 	public function __construct() {
-		$this->logger = zipperAgentLogger::getInstance();
+		// $this->logger = zipperAgentLogger::getInstance(); //disabled by decz
 		$this->displayRules = zipperAgentDisplayRules::getInstance();
-		$this->utility = zipperAgentUtility::getInstance();
-		$this->stateManager = zipperAgentStateManager::getInstance();
+		$this->utility = zipperAgentUtility::getInstance(); //disabled by decz
+		// $this->stateManager = zipperAgentStateManager::getInstance(); //disabled by decz
 	}
 	
 	public function remoteGetRequest() {
@@ -103,7 +103,7 @@ class zipperAgentRequestor {
 		}
 		
 		$response = null;
-		if($this->isCacheable()) {
+		/* if($this->isCacheable()) {
 			$response = zipperAgentCacheUtility::getInstance()->getItem($requestUrl);
 		}
 		
@@ -117,7 +117,7 @@ class zipperAgentRequestor {
 			if(!is_wp_error($response) && $this->isCacheable() && $response["response"]["code"] < 400) {
 				zipperAgentCacheUtility::getInstance()->updateItem($requestUrl, $response, $this->getCacheExpiration());
 			}
-		}
+		} */ //disabled by decz
 		
 		if(!is_wp_error($response)) {
 			$responseBody = wp_remote_retrieve_body($response);

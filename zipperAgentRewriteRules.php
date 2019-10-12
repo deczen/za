@@ -116,42 +116,42 @@ class zipperAgentRewriteRules {
 			zipperAgentVirtualPageFactory::LISTING_ADVANCED_SEARCH_FORM,
 			$matchRulePrefix . $urlFactory->getListingsAdvancedSearchFormUrl(false)
 		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::OFFICE_LIST,
-			$matchRulePrefix . $urlFactory->getOfficeListUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::OFFICE_DETAIL,
-			$matchRulePrefix . $urlFactory->getOfficeDetailUrl(false) . "/{officeName}/{officeId}"
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::AGENT_LIST,
-			$matchRulePrefix . $urlFactory->getAgentListUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::AGENT_DETAIL,
-			$matchRulePrefix . $urlFactory->getAgentDetailUrl(false) . "/{agentName}/{agentId}"
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::CONTACT_FORM,
-			$matchRulePrefix . $urlFactory->getContactFormUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::VALUATION_FORM,
-			$matchRulePrefix . $urlFactory->getValuationFormUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::OPEN_HOME_SEARCH_FORM,
-			$matchRulePrefix . $urlFactory->getOpenHomeSearchFormUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::SOLD_FEATURED_LISTING,
-			$matchRulePrefix . $urlFactory->getSoldFeaturedListingUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::SUPPLEMENTAL_LISTING,
-			$matchRulePrefix . $urlFactory->getSupplementalListingUrl(false)
-		);
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::OFFICE_LIST,
+			// $matchRulePrefix . $urlFactory->getOfficeListUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::OFFICE_DETAIL,
+			// $matchRulePrefix . $urlFactory->getOfficeDetailUrl(false) . "/{officeName}/{officeId}"
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::AGENT_LIST,
+			// $matchRulePrefix . $urlFactory->getAgentListUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::AGENT_DETAIL,
+			// $matchRulePrefix . $urlFactory->getAgentDetailUrl(false) . "/{agentName}/{agentId}"
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::CONTACT_FORM,
+			// $matchRulePrefix . $urlFactory->getContactFormUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::VALUATION_FORM,
+			// $matchRulePrefix . $urlFactory->getValuationFormUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::OPEN_HOME_SEARCH_FORM,
+			// $matchRulePrefix . $urlFactory->getOpenHomeSearchFormUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::SOLD_FEATURED_LISTING,
+			// $matchRulePrefix . $urlFactory->getSoldFeaturedListingUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::SUPPLEMENTAL_LISTING,
+			// $matchRulePrefix . $urlFactory->getSupplementalListingUrl(false)
+		// ); //disabled by decz
 		$this->addRule(
 			zipperAgentVirtualPageFactory::LISTING_SEARCH_FORM,
 			$matchRulePrefix . $urlFactory->getListingsSearchFormUrl(false)
@@ -180,14 +180,14 @@ class zipperAgentRewriteRules {
 			zipperAgentVirtualPageFactory::ORGANIZER_EDIT_SAVED_SEARCH_SUBMIT,
 			$matchRulePrefix . $urlFactory->getOrganizerEditSavedSearchSubmitUrl(false)
 		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::ORGANIZER_EMAIL_UPDATES_CONFIRMATION,
-			$matchRulePrefix . $urlFactory->getOrganizerEmailUpdatesConfirmationUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::ORGANIZER_HELP,
-			$matchRulePrefix . $urlFactory->getOrganizerHelpUrl(false)
-		);
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::ORGANIZER_EMAIL_UPDATES_CONFIRMATION,
+			// $matchRulePrefix . $urlFactory->getOrganizerEmailUpdatesConfirmationUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::ORGANIZER_HELP,
+			// $matchRulePrefix . $urlFactory->getOrganizerHelpUrl(false)
+		// ); //disabled by decz
 		$this->addRule(
 			zipperAgentVirtualPageFactory::ORGANIZER_EDIT_SUBSCRIBER,
 			$matchRulePrefix . $urlFactory->getOrganizerEditSubscriberUrl(false)
@@ -212,38 +212,38 @@ class zipperAgentRewriteRules {
 			zipperAgentVirtualPageFactory::ORGANIZER_VIEW_SAVED_LISTING_LIST,
 			$matchRulePrefix . $urlFactory->getOrganizerViewSavedListingListUrl(false)
 		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::ORGANIZER_RESEND_CONFIRMATION_EMAIL,
-			$matchRulePrefix . $urlFactory->getOrganizerResendConfirmationEmailUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::ORGANIZER_ACTIVATE_SUBSCRIBER,
-			$matchRulePrefix . $urlFactory->getOrganizerActivateSubscriberUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::ORGANIZER_SEND_SUBSCRIBER_PASSWORD,
-			$matchRulePrefix . $urlFactory->getOrganizerSendSubscriberPasswordUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::HOT_SHEET_LISTING_REPORT,
-			$matchRulePrefix . $urlFactory->getHotSheetListingReportUrl(false) . "/{savedSearchName}/{savedSearchId}"
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::HOT_SHEET_OPEN_HOME_REPORT,
-			$matchRulePrefix . $urlFactory->getHotSheetOpenHomeReportUrl(false) . "/{savedSearchName}/{savedSearchId}"
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::HOT_SHEET_MARKET_REPORT,
-			$matchRulePrefix . $urlFactory->getHotSheetMarketReportUrl(false) . "/{savedSearchName}/{savedSearchId}"
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::HOT_SHEET_LIST,
-			$matchRulePrefix . $urlFactory->getHotsheetListUrl(false)
-		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::LISTING_SOLD_DETAIL,
-			$matchRulePrefix . $urlFactory->getListingSoldDetailUrl(false) . "/{listingAddress}/{listingNumber}/{boardId}"
-		);
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::ORGANIZER_RESEND_CONFIRMATION_EMAIL,
+			// $matchRulePrefix . $urlFactory->getOrganizerResendConfirmationEmailUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::ORGANIZER_ACTIVATE_SUBSCRIBER,
+			// $matchRulePrefix . $urlFactory->getOrganizerActivateSubscriberUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::ORGANIZER_SEND_SUBSCRIBER_PASSWORD,
+			// $matchRulePrefix . $urlFactory->getOrganizerSendSubscriberPasswordUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::HOT_SHEET_LISTING_REPORT,
+			// $matchRulePrefix . $urlFactory->getHotSheetListingReportUrl(false) . "/{savedSearchName}/{savedSearchId}"
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::HOT_SHEET_OPEN_HOME_REPORT,
+			// $matchRulePrefix . $urlFactory->getHotSheetOpenHomeReportUrl(false) . "/{savedSearchName}/{savedSearchId}"
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::HOT_SHEET_MARKET_REPORT,
+			// $matchRulePrefix . $urlFactory->getHotSheetMarketReportUrl(false) . "/{savedSearchName}/{savedSearchId}"
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::HOT_SHEET_LIST,
+			// $matchRulePrefix . $urlFactory->getHotsheetListUrl(false)
+		// ); //disabled by decz
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::LISTING_SOLD_DETAIL,
+			// $matchRulePrefix . $urlFactory->getListingSoldDetailUrl(false) . "/{listingAddress}/{listingNumber}/{boardId}"
+		// ); //disabled by decz
 		$this->addRule(
 			zipperAgentVirtualPageFactory::LISTING_DETAIL,
 			/* $matchRulePrefix . $urlFactory->getListingDetailUrl(false) . "/{listingAddress}/{listingNumber}/{boardId}" */
@@ -262,17 +262,17 @@ class zipperAgentRewriteRules {
 			zipperAgentVirtualPageFactory::LISTING_SEARCH_RESULTS,
 			$matchRulePrefix . $urlFactory->getListingsSearchResultsUrl(false)
 		);
-		$this->addRule(
-			zipperAgentVirtualPageFactory::FEATURED_SEARCH,
-			$matchRulePrefix . $urlFactory->getFeaturedSearchResultsUrl(false)
-		);
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::FEATURED_SEARCH,
+			// $matchRulePrefix . $urlFactory->getFeaturedSearchResultsUrl(false)
+		// ); //disabled by decz
 		/**
 		 * @deprecated used only in fixed width
 		 */
-		$this->addRule(
-			zipperAgentVirtualPageFactory::HOT_SHEET_LISTING_REPORT,
-			$matchRulePrefix . $urlFactory->getHotSheetListingReportUrl(false) . "/{savedSearchId}"
-		);
+		// $this->addRule(
+			// zipperAgentVirtualPageFactory::HOT_SHEET_LISTING_REPORT,
+			// $matchRulePrefix . $urlFactory->getHotSheetListingReportUrl(false) . "/{savedSearchId}"
+		// ); //disabled by decz
 		/**
 		 * @deprecated only used to support old URL
 		 */
