@@ -146,7 +146,7 @@ switch($property_type){
 }
 
 /* Generate custom template */
-$groupname = zipperagent_detailpage_group();
+$groupname = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 
 $group_dir_default='/default';
 $template_features_default = 'default-features.php';
@@ -264,7 +264,7 @@ if(file_exists($template_path) && $template_name ){
 								<div class="zy-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
 									<div class="grid grid-xs--full py-15">
 										<div class="cell">
-											<button style="width:100%" class="<?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button>	
+											<button style="width:100%" class="<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button>	
 										</div>
 										<div class="cell top-action-buttons btn-group mt-10 " role="group" aria-label="Share options and option to view property on a map">
 											<?php /*
@@ -343,7 +343,7 @@ if(file_exists($template_path) && $template_name ){
 
 											 ?>
 											 
-											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
+											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
 												<span class="zy-icon--stack">
 													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
@@ -359,7 +359,7 @@ if(file_exists($template_path) && $template_name ){
 												<div class="dropdown-menu" aria-labelledby="dropdownShare">
 													<ul class="menu-list">
 														<li>
-															<a class="share-item share-email <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="share_email" contactid="<?php echo implode(',',$contactIds) ?>" href="#">
+															<a class="share-item share-email <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="share_email" contactid="<?php echo implode(',',$contactIds) ?>" href="#">
 																<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i>
 																<span>Email this listing</span>
 															</a>
@@ -401,7 +401,7 @@ if(file_exists($template_path) && $template_name ){
 												</div>
 											</div>
 											
-											<?php /*<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+											<?php /*<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="zy-icon--stack">
 													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
@@ -417,7 +417,7 @@ if(file_exists($template_path) && $template_name ){
 						</div>
 					</div>
 					<div class="js-details-fav__container zy-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
-						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 							<i class="zy-icon fa fa-heart" aria-hidden="true"></i>
 						</button>
 					</div>
@@ -517,7 +517,7 @@ if(file_exists($template_path) && $template_name ){
 										
 					<div id="gallery-column" class="cell cell-xs-12 cell-lg-8 mb-15">						
 											
-						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
+						<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
 						
 						<?php if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ): ?>					
 						
@@ -525,7 +525,7 @@ if(file_exists($template_path) && $template_name ){
 							<div class="col-xs-12 zpa-property-photo">
 								<div class="owl-carousel-container">
 									<div class="top-head-carousel-wrapper">
-										<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+										<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 												$i=0;
@@ -566,7 +566,7 @@ if(file_exists($template_path) && $template_name ){
 								</div>
 							</div>
 						</div>
-						<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
+						<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 						<script>
 							(function($){
 								function setThumbnailAsASelected(number) {
@@ -638,7 +638,7 @@ if(file_exists($template_path) && $template_name ){
 									setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
 								})
 								
-								<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+								<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 								var count=<?php echo isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 								var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
 								var preventDouble=0;
@@ -932,7 +932,7 @@ if(file_exists($template_path) && $template_name ){
 															</div>
 															<div class="cell cell--bottom mt-auto">
 																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->listingAgent->userName )?$single_property->listingAgent->userName:''; ?></span></button></a> */ ?>
-																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 															</div>
 														</div>
 													</div>
@@ -973,7 +973,7 @@ if(file_exists($template_path) && $template_name ){
 															</div>
 															<div class="cell cell--bottom mt-auto">
 																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->coListingAgent->userName )?$single_property->coListingAgent->userName:''; ?></span></button></a> */ ?>
-																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 															</div>
 														</div>
 													</div>
@@ -1014,7 +1014,7 @@ if(file_exists($template_path) && $template_name ){
 															</div>
 															<div class="cell cell--bottom mt-auto">
 																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->salesAgent->userName )?$single_property->salesAgent->userName:''; ?></span></button></a> */ ?>
-																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 														</div>
 														</div>
 													</div>
@@ -1055,7 +1055,7 @@ if(file_exists($template_path) && $template_name ){
 															</div>
 															<div class="cell cell--bottom mt-auto">
 																<?php /* <a href="#ask-a-question-form"><button class="js-listing-contact-agent at-contact-agent-btn btn-primary width-1-1" type="button"><span><!-- react-text: 26 -->Contact <!-- react-text: 27 --><?php echo isset( $single_property->coSalesAgent->userName )?$single_property->coSalesAgent->userName:''; ?></span></button></a> */ ?>
-																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
+																<button class="js-listing-contact-agent request-info-btn at-contact-agent-btn btn-primary width-1-1 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afteraction="request_info" type="button"><span><!-- react-text: 26 -->Ask <!-- react-text: 27 --><?php echo $agentFirstName; ?> a question.</span></button>
 															</div>
 														</div>
 													</div>
@@ -1189,7 +1189,7 @@ if(file_exists($template_path) && $template_name ){
 												<div>
 													<form id="zpa-modal-contact-agent-form">
 														<div class="grid grid--gutters grid-xs--full">
-															<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+															<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 															<div class="cell cell-md-6 hidden-on-login">
 																<div>
 																	<label for="ListingDetailsContactForm__firstName">
@@ -1265,7 +1265,7 @@ if(file_exists($template_path) && $template_name ){
 														<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 														<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
 														<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
-														<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+														<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 														<input type="hidden" name="action" value="regist_user" >
 														<?php else: ?>
 														<input type="hidden" name="action" value="contact_agent" >
@@ -1601,7 +1601,7 @@ if(file_exists($template_path) && $template_name ){
 	</article>
 	<!-- print view -->
 	<?php
-		$rb = zipperagent_rb();
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
 		$print_color = isset($rb['web']['print_color'])?$rb['web']['print_color']:'';
@@ -1609,7 +1609,7 @@ if(file_exists($template_path) && $template_name ){
 	<div id="print-view-column top-brdr" class="zy-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
 	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
 	<?php
-		// $rb = zipperagent_rb();
+		// $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
 		// $print_logo = $rb['web']['print_logo'];
 		// $print_color = $rb['web']['print_color'];

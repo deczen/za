@@ -1,7 +1,7 @@
 <?php
 global $requests, $is_ajax;
 
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 
 $excludes = get_long_excludes();
 

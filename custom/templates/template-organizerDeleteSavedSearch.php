@@ -7,6 +7,6 @@ if( !empty($_POST) && isset($_POST['searchProfileId']) ){
 
 // include ZIPPERAGENTPATH . "/custom/templates/template-organizerViewSavedSearchList.php";
 
-$myaccount_url=zipperagent_page_url('property-organizer-edit-subscriber');
+$myaccount_url=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 wp_redirect($myaccount_url . '?menu=my-search');
 die();

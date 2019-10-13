@@ -236,7 +236,7 @@ class zipperAgentRequestor {
 					include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
 					if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
 						
-						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page())
+						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
 							include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 						else
 							include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
@@ -266,7 +266,7 @@ class zipperAgentRequestor {
 					$single_property = $this->single_property;					
 					$property_cache  = $this->property_cache;					
 					ob_start();	
-					if(is_facebook_bot()){
+					if(ZipperagentGlobalFunction()->is_facebook_bot()){
 						echo "facebook scrapper mode!";
 					}else if(!isset($single_property->id) && !isset($property_cache->id)){
 						echo "<h2>Property Not Found!</h2>";
@@ -276,17 +276,17 @@ class zipperAgentRequestor {
 					}
 					$html=ob_get_clean();
 					
-					if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
+					if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single-new.css');
-						$temp[]=new ZA_Css_Object('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
-						$temp[]=new ZA_Css_Object('print-new-css', zipperagent_url(false) . 'css/print-new.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css');
+						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css');
+						$temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
 						$css = (object)$temp;
 
 					}else{
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single.css');
-						$temp[]=new ZA_Css_Object('property-print', zipperagent_url(false) . 'css/print.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css');
+						$temp[]=new ZA_Css_Object('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css');
 						$css = (object) $temp;
 					}
 				break;
@@ -300,17 +300,17 @@ class zipperAgentRequestor {
 					include ZIPPERAGENTPATH . "/custom/templates/template-customLuxuryDetail.php";
 					$html=ob_get_clean();
 
-					if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
+					if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single-new.css');
-						$temp[]=new ZA_Css_Object('detail-page-css', zipperagent_url(false) . 'css/detail-page.css');
-						// $temp[]=new ZA_Css_Object('print-new-css', zipperagent_url(false) . 'css/print-new.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css');
+						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css');
+						// $temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
 						$css = (object)$temp;
 
 					}else{
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', zipperagent_url(false) . 'css/single.css');
-						// $temp[]=new ZA_Css_Object('property-print', zipperagent_url(false) . 'css/print.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css');
+						// $temp[]=new ZA_Css_Object('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css');
 						$css = (object) $temp;
 					}
 				break;
@@ -321,7 +321,7 @@ class zipperAgentRequestor {
 					$html=ob_get_clean();	
 
 					$temp=array();
-					$temp[]=new ZA_Css_Object('view-css', zipperagent_url(false) . 'css/view-new.css');
+					$temp[]=new ZA_Css_Object('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css');
 					$css = (object) $temp;						
 				break;
 				
@@ -372,7 +372,7 @@ class zipperAgentRequestor {
 					$html=ob_get_clean();	
 
 					$temp=array();
-					$temp[]=new ZA_Css_Object('view-css', zipperagent_url(false) . 'css/view-new.css');
+					$temp[]=new ZA_Css_Object('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css');
 					$css = (object) $temp;					
 				break;
 				

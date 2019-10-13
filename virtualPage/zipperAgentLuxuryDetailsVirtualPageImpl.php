@@ -20,7 +20,7 @@ class zipperAgentLuxuryDetailsVirtualPageImpl extends zipperAgentAbstractVirtual
 		/*
 		if( $listingNumber!='detail' ){
 			
-			$single_property=get_single_property( $listingNumber );
+			$single_property=ZipperagentGlobalFunction()->get_single_property( $listingNumber );
 			
 			$this->single_property = $single_property;
 		}*/

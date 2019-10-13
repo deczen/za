@@ -15,7 +15,7 @@ function login_user(){
 		if( $check ){
 		
 			// $return['result']=$userdata->id;
-			$myaccounturl=zipperagent_page_url('property-organizer-edit-subscriber');
+			$myaccounturl=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 			$contactIds = get_contact_id();
 			$return['myaccountname']=zipperagent_user_name();
 			$return['myaccounturl']=$myaccounturl;
@@ -46,15 +46,15 @@ add_action( 'wp_ajax_nopriv_check_user_logged_in', 'check_user_logged_in' );
 function check_user_logged_in(){
 	if ( isset($_REQUEST) ) {
 		
-		if(getCurrentUserContactLogin()){ //is user logged in
+		if(ZipperagentGlobalFunction()->getCurrentUserContactLogin()){ //is user logged in
 			$return['myaccount_name']=zipperagent_user_name();
-			$return['saved_search_count']=zipperagent_get_saved_search_count();
-			$return['favorites_count']=zipperagent_get_favorites_count();
+			$return['saved_search_count']=ZipperagentGlobalFunction()->zipperagent_get_saved_search_count();
+			$return['favorites_count']=ZipperagentGlobalFunction()->zipperagent_get_favorites_count();
 			$return['is_login']=1;
 		}else{ // if no login
 			$return['is_login']=0;
-			$return['saved_search_count']=zipperagent_get_saved_search_count();
-			$return['favorites_count']=zipperagent_get_favorites_count();
+			$return['saved_search_count']=ZipperagentGlobalFunction()->zipperagent_get_saved_search_count();
+			$return['favorites_count']=ZipperagentGlobalFunction()->zipperagent_get_favorites_count();
 		}
 		
 		echo json_encode($return);
@@ -200,7 +200,7 @@ function regist_user(){
 				// echo "<pre>"; print_r($result); echo "</pre>";
 			
 			
-			$myaccounturl=zipperagent_page_url('property-organizer-edit-subscriber');
+			$myaccounturl=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 			
 			$return['email']=$email;
 			$return['myaccountname']=zipperagent_user_name();
@@ -770,7 +770,7 @@ function display_property_detail(){
 		$contactIds=get_contact_id();			
 		$listingId = isset($_REQUEST['listingId'])?$_REQUEST['listingId']:'';
 		$searchId = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
-		$single_property=get_single_property( $listingId, implode(',',$contactIds), $searchId );
+		$single_property=ZipperagentGlobalFunction()->get_single_property( $listingId, implode(',',$contactIds), $searchId );
 		
 		//get source details
 		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
@@ -793,7 +793,7 @@ function display_property_detail(){
 		$is_doing_ajax=1;
 		
 		ob_start();
-		if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page())			
+		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())			
 			include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultDetail.php';
 		else
 			include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
@@ -843,7 +843,7 @@ function save_search_result(){
 			}
 			
 			$array['result']=$searchId;			
-			$array['saved_search_count']=(integer) zipperagent_get_saved_search_count();
+			$array['saved_search_count']=(integer) ZipperagentGlobalFunction()->zipperagent_get_saved_search_count();
 		}else{
 						
 			$count=zipperagent_save_search_cookie($vars);
@@ -920,7 +920,7 @@ function schedule_show_func(){
 		$searchId = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
 		
 		if(!sizeof($crit)){
-			$rb = zipperagent_rb();
+			$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			$asrc = $rb['web']['asrc'];
 			$crit=array(
 				'asts'=>zipperagent_active_status(),
@@ -1028,7 +1028,7 @@ function do_save_as_favorite(){
 				}
 			}
 			
-			$array['favorites_count']=(integer) zipperagent_get_favorites_count();
+			$array['favorites_count']=(integer) ZipperagentGlobalFunction()->zipperagent_get_favorites_count();
 		}else{
 			$count = zipperagent_save_property_cookie($listingId, $contactIds, true, $crit, $searchId);			
 			$array['favorites_count']=$count;
@@ -1075,7 +1075,7 @@ function get_property_slides(){
 		
 		$listingId = $_REQUEST['listingId'];
 		$contactIds = $_REQUEST['contactId'];
-		$single_property = get_single_property($listingId, $contactIds);
+		$single_property = ZipperagentGlobalFunction()->get_single_property($listingId, $contactIds);
 		$divId = '#carousel-'.$listingId;
 		
 		ob_start();
@@ -1139,7 +1139,7 @@ function load_more_properties(){
 		$excludes = get_long_excludes();
 		$requests=key_to_lowercase($_REQUEST); //convert all key to lowercase
 
-		$rb = zipperagent_rb();
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			   
 		/**
 		 * VARIABLES
@@ -1613,7 +1613,7 @@ function get_zipperagent_property_fields(){
 		$fields=array();
 		
 		if($listid){
-			$property=get_single_property($listid);
+			$property=ZipperagentGlobalFunction()->get_single_property($listid);
 		}
 		
 		foreach($property as $key=>$value){

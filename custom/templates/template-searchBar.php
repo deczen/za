@@ -1225,7 +1225,7 @@ $excludes = get_new_filter_excludes();
 	</script>
 	<script>  
 	  <?php
-	  $rb = zipperagent_rb();
+	  $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 	  $states=array_map('trim', explode(',', $states));
 	  $states=sizeof($states)===1?implode(' | ',$states):'';

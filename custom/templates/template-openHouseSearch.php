@@ -1,12 +1,12 @@
 <?php
 global $requests;
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
-<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
-<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css'; ?>">
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
-        <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
+        <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
             <fieldset>
                 <div class="row">
                     <div class="col-xs-12 col-sm-3 mb-10">

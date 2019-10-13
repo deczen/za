@@ -2,14 +2,14 @@
 global $requests;
 // $addressSearch = 0;
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
-<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
-<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
-<script src="<?php echo zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css'; ?>">
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
     <div>
-        <form id="zpa-main-search-form" class="form-inline" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET" target="_self" novalidate="novalidate">
+        <form id="zpa-main-search-form" class="form-inline" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET" target="_self" novalidate="novalidate">
             <fieldset>
                 <div class="row">
                     <div class="col-xs-12" id="zpa-search-tabs">
@@ -895,7 +895,7 @@ global $requests;
 	<?php /*
 	<script>  
 	  <?php
-	  $rb = zipperagent_rb();
+	  $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 	  $states=array_map('trim', explode(',', $states));
 	  $states=sizeof($states)===1?implode(' | ',$states):'';

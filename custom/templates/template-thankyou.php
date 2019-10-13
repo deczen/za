@@ -14,7 +14,7 @@ if(!$email){
 }
 
 if( isset($result->status) && $result->status==='SUCCESS' && !isset($result->cause)){
-	$loginurl=zipperagent_page_url('property-organizer-login');
+	$loginurl=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-login');
 	// echo "<span class='user-verification verification-success'>Your verification is success. Please login <a href='{$loginurl}'>here</a>!</span>";
 	echo "<div class='thankyou-box'>";
 	echo "<img src='". ZIPPERAGENTURL . "images/thankyou-padlock.png' alt='padlock' />";
@@ -34,7 +34,7 @@ if( isset($result->status) && $result->status==='SUCCESS' && !isset($result->cau
 	$email = isset($result->result->emailWork1)?$result->result->emailWork1:'';
 	if($email){
 		$isLogin = userContactLogin($email);
-		$redirect_url = zipperagent_page_url('property-organizer-edit-subscriber');
+		$redirect_url = ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 	}else{
 		$redirect_url = get_site_url();		
 	}
@@ -51,7 +51,7 @@ if( isset($result->status) && $result->status==='SUCCESS' && !isset($result->cau
 	
 	
 }else if(isset($result->status) && $result->status==='SUCCESS' && isset($result->cause)){
-	$loginurl=zipperagent_page_url('property-organizer-login');
+	$loginurl=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-login');
 	echo "<div class='thankyou-box'>";
 	echo "<h3 class='user-verification verification-success'>The confirmation link is not longer valid. Your email might have been confirmed already</h3>";
 	echo "</div>";
@@ -69,7 +69,7 @@ if( isset($result->status) && $result->status==='SUCCESS' && !isset($result->cau
 	if($previous_url)
 		$redirect_url = urldecode($previous_url);
 	else
-		$redirect_url = zipperagent_page_url('property-organizer-edit-subscriber');
+		$redirect_url = ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 	?>
 	<script>
 		jQuery(document).ready(function () {

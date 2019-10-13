@@ -10,21 +10,21 @@ if( !empty( $_POST ) && $_POST['actionType']=='login' ){
 	
 	if( $result ){
 		// $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		wp_safe_redirect( zipperagent_page_url('property-organizer-edit-subscriber') );
+		wp_safe_redirect( ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber') );
 		die();
 	}else{
 		$loginfail=1;
 	}
 }
 
-if( getCurrentUserContactLogin() ){
-	$edit_profile=zipperagent_page_url('property-organizer-edit-subscriber');
+if( ZipperagentGlobalFunction()->getCurrentUserContactLogin() ){
+	$edit_profile=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 	wp_safe_redirect($edit_profile);
 	die();
 }
 
 $contactIds=get_contact_id();
-$rb = zipperagent_rb();	
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();	
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <div id="zpa-main-container" class="zpa-container zpa-color-scheme-gray zpa-account-login" style="display: inline;" data-zpa-client-id="">
@@ -150,7 +150,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								<select name="agent" class="form-control">
 									<option value="">Select Agent</option>
 									<?php
-									$agents = getAgentList();
+									$agents = ZipperagentGlobalFunction()->getAgentList();
 									foreach( $agents as $agent ){
 										echo "<option value='{$agent->login}'>{$agent->userName}</option>"."/r/n";
 									}

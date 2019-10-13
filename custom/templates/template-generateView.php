@@ -417,7 +417,7 @@ if( $openHomesMode ){ // open houses mode
 	
 }else{ //if( $featuredOnlyYn=="true" || $status=='SLD' ){ //featured mode
 	
-	$rb = zipperagent_rb();
+	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	
 	$search=array(
 		'asrc'=>$rb['web']['asrc'],

@@ -1,8 +1,8 @@
 <?php
 global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o;
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
-<script src="<?php echo zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="filter-wrap">
 	
 	<form id="zpa-search-filter-form" class="form-inline" action="" method="GET" target="_self" novalidate="novalidate">

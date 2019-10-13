@@ -1,6 +1,6 @@
 <?php
 $contactIds = get_contact_id();
-$rb = zipperagent_rb();	
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();	
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <div class="za-container">
@@ -113,7 +113,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 															<select name="agent" class="form-control">
 																<option value="">Select</option>
 																<?php
-																$agents = getAgentList();
+																$agents = ZipperagentGlobalFunction()->getAgentList();
 																foreach( $agents as $agent ){
 																	echo "<option value='{$agent->login}'>{$agent->userName}</option>"."/r/n";
 																}
@@ -599,7 +599,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		});
 	</script>
 	<?php endif; ?>
-	<?php if( ! getCurrentUserContactLogin() && showSignUpPopup() ): //only for non logged in user ?>
+	<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() && showSignUpPopup() ): //only for non logged in user ?>
 	<script>
 		jQuery(document).ready(function(){			
 			var show = function(){

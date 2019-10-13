@@ -1,8 +1,8 @@
 <?php
+global $pagenow;
 
-require_once( 'BFIGitHubPluginUploader.php' );
-if ( is_admin() ) {
+if ( is_admin() && $pagenow==='plugins.php' ) {	//only do in plugins.php page
+	require_once( 'BFIGitHubPluginUploader.php' );
     new BFIGitHubPluginUpdater( ZIPPERAGENTPATH . '/zipperagent.php', 'deczen', "za" );
 }
-
 ?>

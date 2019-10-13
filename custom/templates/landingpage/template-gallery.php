@@ -7,7 +7,7 @@ $galleries = isset($postmeta['_lp_gallery'])?$postmeta['_lp_gallery']:array();
 $is_listing =isset($postmeta['_lp_listid'])?1:0;
 
 $listid = isset($postmeta['_lp_listid'][0])?$postmeta['_lp_listid'][0]:false;
-$single_property= $is_listing ? get_single_property($listid) : false;
+$single_property= $is_listing ? ZipperagentGlobalFunction()->get_single_property($listid) : false;
 
 if(!$single_property){
 	$is_listing=0;
@@ -20,7 +20,7 @@ if(!$single_property){
 <div id="zpa-main-container">					
 	<?php if( isset( $galleries ) && sizeof( $galleries ) ): ?>
 						
-	<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">						
+	<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">						
 	<div class="row">
 		<div class="col-xs-12 zpa-property-photo">
 			<div class="owl-carousel-container">
@@ -94,7 +94,7 @@ if(!$single_property){
 			</div>
 		</div>
 	</div>
-	<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
+	<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 	<script>
 		(function($){
 			function setThumbnailAsASelected(number) {
@@ -166,7 +166,7 @@ if(!$single_property){
 				setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
 			})
 			
-			<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+			<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 			var count=<?php echo $_SESSION['za_image_clicked'] ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 			var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
 			var preventDouble=0;

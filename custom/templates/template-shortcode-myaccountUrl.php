@@ -1,32 +1,32 @@
 <?php
 global $requests;
 
-$login_url=isset($requests['login_url'])&&!empty($requests['login_url'])?$requests['login_url']:zipperagent_page_url('property-organizer-login');
-$myaccount_url=isset($requests['myaccount_url'])&&!empty($requests['myaccount_url'])?$requests['myaccount_url']:zipperagent_page_url('property-organizer-edit-subscriber');
-if( ! getCurrentUserContactLogin()){
+$login_url=isset($requests['login_url'])&&!empty($requests['login_url'])?$requests['login_url']:ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-login');
+$myaccount_url=isset($requests['myaccount_url'])&&!empty($requests['myaccount_url'])?$requests['myaccount_url']:ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
+if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin()){
 	// echo '<a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a>';
 	echo '<ul class="nav nav-myaccount">';
-	echo "<li class='hide-mobile'><a class='favorites-count needLogin' href='".$myaccount_url."?menu=my-favorite' afterAction='myaccount_favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
-	echo "<li class='hide-mobile'><a class='save-search-count needLogin' href='".$myaccount_url."?menu=my-search' afterAction='myaccount_saved_search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='favorites-count needLogin' href='".$myaccount_url."?menu=my-favorite' afterAction='myaccount_favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".ZipperagentGlobalFunction()->zipperagent_get_favorites_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='save-search-count needLogin' href='".$myaccount_url."?menu=my-search' afterAction='myaccount_saved_search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".ZipperagentGlobalFunction()->zipperagent_get_saved_search_count()."</span>)</span></a></li>";
 	echo '<li><a class="login-url" href="'.$login_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">LOGIN</span></a></li>';
 	echo '</ul>';
 
 }else{
 	$myaccountname=zipperagent_user_name();
 	echo '<ul class="nav nav-myaccount">';
-	echo "<li class='hide-mobile'><a class='favorites-count' href='".$myaccount_url."?menu=my-favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_favorites_count()."</span>)</span></a></li>";
-	echo "<li class='hide-mobile'><a class='save-search-count' href='".$myaccount_url."?menu=my-search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".zipperagent_get_saved_search_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='favorites-count' href='".$myaccount_url."?menu=my-favorite'>My Favorites <span class='za-count-wrap'>(<span class='za-count-num'>".ZipperagentGlobalFunction()->zipperagent_get_favorites_count()."</span>)</span></a></li>";
+	echo "<li class='hide-mobile'><a class='save-search-count' href='".$myaccount_url."?menu=my-search'>My Saved Searches <span class='za-count-wrap'>(<span class='za-count-num'>".ZipperagentGlobalFunction()->zipperagent_get_saved_search_count()."</span>)</span></a></li>";
 	echo '<li><a class="myaccount-url" href="'.$myaccount_url.'"><i class="fa fa-user fa-fw"></i> <span class="link-text">'.$myaccountname.'</span></a>';
 	echo "<ul class='sub-menu'>";
 	echo "<li><a href='".$myaccount_url."'>Profile</a></li>";
 	// echo "<li><a href='".$myaccount_url."?menu=my-favorite'>My Favorites</a></li>";
 	// echo "<li><a href='".$myaccount_url."?menu=my-search'>My Saved Searches</a></li>";
-	echo "<li><a href='".zipperagent_page_url('property-organizer-logout')."'>Logout</a></li>";
+	echo "<li><a href='".ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout')."'>Logout</a></li>";
 	
 	echo "</ul></li></ul>";
 }
 ?>
-<?php if(!is_facebook_bot()): ?>
+<?php if(!ZipperagentGlobalFunction()->is_facebook_bot()): ?>
 <script>
 	jQuery(document).ready(function($){
 		

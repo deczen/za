@@ -34,7 +34,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			
 			$single_property=false;
 			if(! $property_cache){
-				$single_property=get_single_property( $listingId, implode(',',$contactIds), $searchId );	
+				$single_property=ZipperagentGlobalFunction()->get_single_property( $listingId, implode(',',$contactIds), $searchId );	
 			}
 			
 			$this->property_cache = $property_cache;
@@ -99,7 +99,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 		
 		if( $listingNumber ){
 			
-			$rb = zipperagent_rb();	
+			$rb = ZipperagentGlobalFunction()->zipperagent_rb();	
 				
 			$property = $this->property_cache ? $this->property_cache : $this->single_property;
 			

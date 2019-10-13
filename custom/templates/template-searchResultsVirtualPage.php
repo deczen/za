@@ -43,7 +43,7 @@ $alstid = ( isset($requests['alstid'])?$requests['alstid']:'' );
 $is_singleid = strpos($alstid, ',') !== false ? explode(',', $alstid) : $alstid;
 if(!empty($is_singleid) && !is_array($is_singleid)){
 	$alstid = strpos($alstid, '-') !== false ? $alstid : $alstid . '-0';
-	$property = get_single_property($alstid);
+	$property = ZipperagentGlobalFunction()->get_single_property($alstid);
 	$fulladdress = zipperagent_get_address($property);
 	
 	if(isset($property->id)){

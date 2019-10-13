@@ -29,7 +29,7 @@ if($templatename && file_exists($template_path)){
 			<div class="pull-right">
 				<button id="savedSearchButton" class="btn btn-sm btn-primary disabled pull-right" style="display: none"> <i class="glyphicon glyphicon-star"></i> Saved </button>
 			</div>
-			<button id="saveSearchButton" class="saveSearchButton <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search"> <i class="glyphicon glyphicon-star"></i> Save This Search </button>
+			<button id="saveSearchButton" class="saveSearchButton <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search"> <i class="glyphicon glyphicon-star"></i> Save This Search </button>
 			<?php endif; ?>
 		</div> */ ?>
 	</div>
@@ -64,7 +64,7 @@ if($templatename && file_exists($template_path)){
 					<button id="zpa-refine-search-button" class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown"> Refine Search <span class="caret"></span> </button>
 					<div class="dropdown-menu pull-right" style="padding: 17px;">
 						<div class="zpa-container zpa-refine-search-container">
-							<form id="zpa-mini-search-form" class="form-inline" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET">
+							<form id="zpa-mini-search-form" class="form-inline" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET">
 							   <?php
 								foreach( $requests as $key=>$val ){
 									if( !is_array($val) && !in_array($key,array('minListPrice','maxListPrice')))
@@ -129,7 +129,7 @@ if($templatename && file_exists($template_path)){
 			<div class="pull-right">
 				<button id="savedSearchButton" class="btn btn-sm btn-primary disabled pull-right" style="display: none"> <i class="glyphicon glyphicon-star"></i> <?php if($is_view_save_search) echo "Updated"; else echo "Saved"; ?> </button>
 			</div>
-			<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"> <i class="glyphicon glyphicon-star"></i> <?php if($is_view_save_search) echo "Update This Search"; else echo "Save This Search"; ?>  </button>
+			<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"> <i class="glyphicon glyphicon-star"></i> <?php if($is_view_save_search) echo "Update This Search"; else echo "Save This Search"; ?>  </button>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -176,7 +176,7 @@ if($templatename && file_exists($template_path)){
 							<div class="col-xs-12">
 								<div style="background-image: url('<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>');" class="zpa-results-grid-photo" >
 									<img class="printonly" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" />
-									<a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="<?php echo $searchId; ?>" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>
+									<a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="<?php echo $searchId; ?>" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<a class="property_url" href="<?php echo $single_url ?>"></a>
 									<a class="property_url" href="<?php echo $single_url ?>"><span class="zpa-for-sale-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?></a>
 								</div>
@@ -222,7 +222,7 @@ if($templatename && file_exists($template_path)){
 									</div>
 								</div>
 								<?php endif; ?>
-								<?php /* if( isset($property->unmapped->BathsTotal ) && $property->unmapped->BathsTotal > 0 && zipperagent_detailpage_group()=='gepmls' ): ?>
+								<?php /* if( isset($property->unmapped->BathsTotal ) && $property->unmapped->BathsTotal > 0 && ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='gepmls' ): ?>
 								<div class="col-xs-4 nopaddingleft nopaddingright"> 
 									<div class="zpa-grid-result-basic-info-container">
 										<?php if( isset($property->unmapped->BathsTotal ) && $property->unmapped->BathsTotal > 0 ): ?><div class="zpa-grid-result-basic-info-item2"> <b><?php echo $property->unmapped->BathsTotal ?> </b>

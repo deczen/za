@@ -11,7 +11,7 @@ function display_single_property(){
 	$requests=$_REQUEST;
 	
 	ob_start();	
-	if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){		
+	if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
 	}else if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
 		include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
@@ -68,7 +68,7 @@ function display_search_property($atts){
 	if( isset($requests['ajax']) && $requests['ajax']==0 ){
 		include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
 	}else{
-		if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page())
+		if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
 			include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 		else
 			include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
@@ -320,7 +320,7 @@ function display_mortgage_calculator($atts){
 	if(!empty($atts['loan_type']))					$args['default_loan_type'] = $requests['loan_type'];
 	
 	ob_start();	
-	if(is_zipperagent_new_detail_page()){
+	if(ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 		
 		echo '<div id="zpa-main-container" class="zpa-container">';
 		echo '<div class="row">';
@@ -580,7 +580,7 @@ add_shortcode( 'office_listing', 'display_office_listing' );
 
 function display_office_listing($atts){
 	
-	$rb = zipperagent_rb();
+	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	$aloff=isset($rb['web']['aloff'])?$rb['web']['aloff']:null;
 	
 	$vars=array();

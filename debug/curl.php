@@ -8,7 +8,7 @@ if( ! defined('ABSPATH') )
 $post=0;
 $vars=array();
 
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 
 $subdomain = $rb['web']['subdomain'];
 $protocol = $rb['web']['protocol'];

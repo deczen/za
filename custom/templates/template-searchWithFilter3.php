@@ -33,12 +33,12 @@ if(get_query_var('page')){
 	$requests['page'] = get_query_var('page');
 }
 ?>
-<?php /* <link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/view-new.css'; ?>"> */ ?>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/ion.rangeSlider.css'; ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css'; ?>">
-<script src="<?php echo zipperagent_url(false) . 'js/ion.rangeSlider.min.js'; ?>"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
-<script src="<?php echo zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
+<?php /* <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css'; ?>"> */ ?>
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css'; ?>">
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/ion.rangeSlider.min.js'; ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;" data-zpa-client-id="">
 	
 	<?php if( in_array( $type, array( 'photo' ) ) ): ?>

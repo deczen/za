@@ -67,7 +67,8 @@ class BFIGitHubPluginUpdater {
         $this->getRepoReleaseInfo();
 
         // Check the versions if we need to do an update
-        $doUpdate = version_compare( $this->githubAPIResult->tag_name, $transient->checked[$this->slug] );
+		// $doUpdate = version_compare( $this->githubAPIResult->tag_name, $transient->checked[$this->slug] );
+        $doUpdate = isset($this->githubAPIResult->tag_name) ? version_compare( $this->githubAPIResult->tag_name, $transient->checked[$this->slug] ) : 0;
 
         // Update the transient to include our updated plugin data
         if ( $doUpdate == 1 ) {

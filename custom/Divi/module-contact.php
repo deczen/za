@@ -30,7 +30,7 @@ class ET_Builder_Module_Za_Contact extends ET_Builder_Module {
 		self::$contact_options = $contact_options;
 		
 		// get angent option
-		$agents = getAgentList();
+		$agents = ZipperagentGlobalFunction()->getAgentList();
 		$agent_options[] = 'Select Agent';
 		foreach( $agents as $agent ){
 			$key=isset($agent->login)?$agent->login:'';
@@ -131,7 +131,7 @@ class ET_Builder_Module_Za_Contact extends ET_Builder_Module {
 				<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds); ?>" />
 				<input type="hidden" name="agent" value="<?php echo $agent_login; ?>" />
 				<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
-				<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+				<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 				<input type="hidden" name="action" value="regist_user" >
 				<?php else: ?>
 				<input type="hidden" name="action" value="contact_agent" >

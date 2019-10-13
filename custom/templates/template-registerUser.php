@@ -59,7 +59,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 												<select name="agent" class="form-control">
 													<option value="">Select</option>
 													<?php
-													$agents = getAgentList();
+													$agents = ZipperagentGlobalFunction()->getAgentList();
 													foreach( $agents as $agent ){
 														echo "<option value='{$agent->login}'>{$agent->userName}</option>"."/r/n";
 													}
@@ -156,7 +156,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	});
 	
 </script>
-<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 <script>
 	jQuery(document).ready(function(){
 		var show = function(){

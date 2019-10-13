@@ -6,7 +6,7 @@ if(!$single_property && $property_cache){
 	$single_property=$property_cache;
 }			
 
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 //get source details
 $source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
 
@@ -493,7 +493,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		});
 	</script>
 	<?php endif; ?>
-	<?php if($property_cache && !is_facebook_bot()): ?>
+	<?php if($property_cache && !ZipperagentGlobalFunction()->is_facebook_bot()): ?>
 	<script>
 		jQuery(document).ready(function(){
 			var data = {

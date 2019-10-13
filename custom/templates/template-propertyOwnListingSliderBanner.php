@@ -3,7 +3,7 @@ global $requests, $single_property;
 
 $is_ajax=0;
 
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 
 $excludes = get_long_excludes();
 $query_args=array();
@@ -251,7 +251,7 @@ if( $aloff ){
 	
 	if( sizeof($list) ){		
 	?>
-		<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/banner.css'; ?>">
+		<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/banner.css'; ?>">
 		<div style="order: 1" class="block slider-wrapper featured-slider">
 			<div class="slider royalSlider heroSlider">
 				<?php
@@ -345,7 +345,7 @@ if( $aloff ){
 		<style>
 			.rsContent img{margin-top: 0px !important;}
 		</style>
-		<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>			
+		<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>			
 		<script>
 			(function($){
 				

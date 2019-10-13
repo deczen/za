@@ -4,7 +4,7 @@ global $list, $maplist, $crit, $search, $searchId;
 global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o;
 
 $query_args=array();
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 
 $contactIds=get_contact_id();
 
@@ -57,7 +57,7 @@ if( $list ): ?>
 						<div class="col-xs-12">
 							<div style="background-image: url('<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>');" class="zpa-results-grid-photo" >
 								<img class="printonly" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" />
-								<a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>
+								<a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>
 								<a class="property_url" href="<?php echo $single_url ?>"></a>
 								<a class="property_url" href="<?php echo $single_url ?>"><span class="zpa-for-sale-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?></a>
 							</div>
@@ -709,7 +709,7 @@ else: ?>
 					$query_args['newsearchbar']= 1;
 				}
 				$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
-				$is_login=getCurrentUserContactLogin() ? 1:0;
+				$is_login=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
 				$is_active=zipperagent_is_favorite($property->id)?"active":"";
 				$searchId='';
 				$str_contactIds=implode(',',$contactIds);

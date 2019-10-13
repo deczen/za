@@ -23,7 +23,7 @@ $formatted_homeowners_insurance_percent = $default_homeowners_insurance_percent 
 $formatted_homeowners_insurance = zipperagent_currency() . round($default_homeowners_insurance, 2);
 $formatted_interestrate = $default_interestrate. '%';
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/detail-page.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css'; ?>">
 <div class="zy-mortgage-calculator">
 	<h3>Payment Calculator</h3>
 	<div class="zy-mortgage-title">
@@ -365,7 +365,7 @@ $formatted_interestrate = $default_interestrate. '%';
 			interestrate: parseFloat(jQuery('#mortgage-interest-rate').val()),			
 			loantype: jQuery('#mortgage-loan-type').val(),			
 		};
-		<?php if(!is_facebook_bot()): ?>
+		<?php if(!ZipperagentGlobalFunction()->is_facebook_bot()): ?>
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',

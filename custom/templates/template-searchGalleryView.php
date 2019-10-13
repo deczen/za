@@ -3,7 +3,7 @@
 global $list, $crit, $search, $searchId, $requests;
 
 $query_args=array();
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 
 if( $list ): ?>
 

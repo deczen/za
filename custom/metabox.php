@@ -8,7 +8,7 @@ function enable_page_categories(){
 add_filter( 'rwmb_meta_boxes', 'zipperagent_landing_page' );
 function zipperagent_landing_page( $meta_boxes ) {
     
-	$agents = getAgentList();
+	$agents = ZipperagentGlobalFunction()->getAgentList();
 	$agent_options = array();
 	foreach( $agents as $agent ){
 		$key=isset($agent->login)?$agent->login:'';

@@ -1,7 +1,7 @@
 <?php
 global $requests;
 
-$userdata = getCurrentUserContactLogin();
+$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
 // echo "<pre>"; print_r( $_COOKIE ); echo "</pre>";
 // echo "<pre>"; print_r( $userdata ); echo "</pre>";
 if( ! $userdata ){
@@ -18,7 +18,7 @@ foreach($userdata as $contact){
 	$contactIds[]=$contact->id;
 }
 
-// $rb = zipperagent_rb();
+// $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 $num=10;
 $index=$page*$num-$num;
 $vars=array(
@@ -76,28 +76,28 @@ $userdata = $userdata[0]; //get first index record
 									</div>
 									<ul class="uk-list">
 										<li class="link-list__item at-main-menu__account">
-											<a href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>" class="py-10 link-list__target">
+											<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>" class="py-10 link-list__target">
 												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">Profile</div>
 											</a>
 										</li>
 										<li class="link-list__item at-main-menu__favs">
-											<a href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>" class="py-10 link-list__target link-list__target--active">
+											<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-saved-listings'); ?>" class="py-10 link-list__target link-list__target--active">
 												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">My Favorites</div>
 											</a>
 										</li>
 										<li class="link-list__item at-main-menu__notification">
-											<a href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>" class="py-10 link-list__target">
+											<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-view-saved-search-list'); ?>" class="py-10 link-list__target">
 												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">My Saved Searches</div>
 											</a>
 										</li>
 										<li class="link-list__item at-main-menu__logout">
-											<a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
+											<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
 												<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 												</svg>-->
 												<div class="uk-text-truncate">Logout</div>
@@ -243,12 +243,12 @@ $userdata = $userdata[0]; //get first index record
     <div>
         <div class="row mb-10">
             <div class="col-xs-12">
-                <div class="pull-right"> <?php /* <a href="<?php echo site_url('/'); ?>property-organizer-help/">Help</a> <span>&nbsp;|&nbsp;</span> */ /*?> <a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
+                <div class="pull-right"> <?php /* <a href="<?php echo site_url('/'); ?>property-organizer-help/">Help</a> <span>&nbsp;|&nbsp;</span> */ /*?> <a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
             </div>
         </div>
         <div class="row mb-10">
             <div class="col-xs-12">
-                <div class="btn-group btn-group-justified"> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary active" href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
+                <div class="btn-group btn-group-justified"> <a class="btn btn-primary" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary active" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
             </div>
         </div>
         <div class="row mt-25 mb-25">
@@ -257,7 +257,7 @@ $userdata = $userdata[0]; //get first index record
 				<?php /*
                 <div class="pull-right">
                     <div class="btn-group">
-                        <form id="zpa-sort-search-form" action="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>" method="GET">
+                        <form id="zpa-sort-search-form" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-saved-listings'); ?>" method="GET">
                             <input type="hidden" id="zpa-search-sort" name="sortBy" value="">
                             <div> </div>
                         </form>

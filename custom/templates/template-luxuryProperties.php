@@ -9,7 +9,7 @@ global $showPagination, $showResults;
 $excludes = array('sidx','ps');
 $requests=key_to_lowercase($requests); //convert all key to lowercase
 
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	   
 /**
  * VARIABLES

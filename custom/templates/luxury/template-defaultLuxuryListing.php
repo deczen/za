@@ -1,7 +1,7 @@
 <?php
 $contactIds=get_contact_id();
 ?>
-<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/luxury.css'; ?>">	
+<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/luxury.css'; ?>">	
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	<div class="zpa-listing-search-results">
 		<div class="luxury-list-section">

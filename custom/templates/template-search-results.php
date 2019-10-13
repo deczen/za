@@ -11,7 +11,7 @@ $query_args=array();
 $excludes = get_long_excludes();
 $requests=key_to_lowercase($requests); //convert all key to lowercase
 
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	   
 /**
  * VARIABLES

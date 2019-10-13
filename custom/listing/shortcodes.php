@@ -132,7 +132,7 @@ function home_worth_func( $atts ) {
 </form>
 <script>
 <?php
-$rb = zipperagent_rb();
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 $states=array_map('trim', explode(',', $states));
 $states=implode(' | ',$states);

@@ -13,7 +13,7 @@ class ET_Builder_Module_Za_Agent extends ET_Builder_Module {
             'za_agent',
         );
 		
-		$agents = getAgentList();
+		$agents = ZipperagentGlobalFunction()->getAgentList();
 		$agent_options[] = 'Select Agent';
 		foreach( $agents as $agent ){
 			$key=isset($agent->login)?$agent->login:'';

@@ -3,7 +3,7 @@ global $is_detail_page;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/omnibar.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css'; ?>">
 <div id="omnibar-tools">
 	<?php
 	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
@@ -1374,7 +1374,7 @@ $excludes = get_new_filter_excludes();
 			}
 			
 			<?php
-			$rb = zipperagent_rb();
+			$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 			$states=array_map('trim', explode(',', $states));
 			$states=sizeof($states)===1?implode(' | ',$states):'';
@@ -2102,7 +2102,7 @@ $excludes = get_new_filter_excludes();
 	</script>
 	<script>  
 	  <?php
-	  $rb = zipperagent_rb();
+	  $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 	  $states=array_map('trim', explode(',', $states));
 	  $states=sizeof($states)===1?implode(' | ',$states):'';

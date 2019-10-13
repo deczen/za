@@ -5,7 +5,7 @@ $query_args=array();
 
 if( $list ): ?>
 
-<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/owl.carousel.min.css'; ?>">	
+<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css'; ?>">	
 <div class="">
    <?php 
 	$i=0;
@@ -375,5 +375,5 @@ jQuery(document).ready(function ($) {
 </script>
 <?php endif; ?>
 <?php auto_trigger_button_script(); ?>
-<script src="<?php echo zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
-<script src="<?php echo zipperagent_url(false) . 'js/owl.lazyload.js'; ?>"></script>
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.lazyload.js'; ?>"></script>

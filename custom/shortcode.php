@@ -4,8 +4,58 @@ class Zipperagent_Shortcodes{
 	
 	private static $instance;
 	
+	private $shortcodes = array(
+		'single_property' => 'display_single_property',
+		'listingphotos' => 'display_single_property_exterior_features',
+		'search_properties' => 'display_search_property',
+		'luxury_properties' => 'display_luxury_property',
+		'za_open_house_search' => 'display_open_house_search',
+		'za_quick_search' => 'display_quick_search',
+		'za_quick_search2' => 'display_quick_search2',
+		'za_quick_search3' => 'display_quick_search3',
+		'za_quick_search4' => 'display_quick_search4',
+		'za_quick_search5' => 'display_quick_search5',
+		'za_quick_search6' => 'display_quick_search6',
+		'zpa_mortgage_calculator' => 'display_mortgage_calculator',
+		'za_logout' => 'display_zipperagent_logout',
+		'za_gallery_view' => 'display_zipperagent_gallery_view',
+		'za_map_view' => 'display_zipperagent_map_view',
+		'za_photo_view' => 'display_zipperagent_photo_view',
+		'za_user_access' => 'display_zipperagent_za_user_access',
+		'own_listing_slider' => 'display_own_listing_slider',
+		'own_listing_banner' => 'display_own_listing_banner',
+		'listing_banner' => 'display_listing_banner',
+		'masonry_listing' => 'display_masonry_listing',
+		'office_listing' => 'display_office_listing',
+		'open_house' => 'display_open_house',
+		'search_distance' => 'display_search_distance',
+		// 'own_listing' => 'display_own_listing',
+		'za_basic_search' => 'getAdvancedSearch',
+		'za_advanced_search' => 'getAdvancedSearch',
+		'za_map_search' => 'getMapSearch',
+		'za_map_explore' => 'getMapExplore',
+		'landingpage_gallery' => 'display_landingpage_gallery',
+		'landingpage_map' => 'display_landingpage_map',
+		'landingpage_highlight' => 'display_landingpage_highlight',
+		'landingpage_details' => 'display_landingpage_details',
+		'landingpage_agent' => 'display_landingpage_agent',
+		'landingpage_download' => 'display_landingpage_download',
+		'landingpage_other_properties' => 'display_landingpage_other_properties',
+		'za_social_share' => 'display_social_share',
+		'za_thankyou' => 'display_thankyou_page',
+		'artifakt-video' => 'art_vid_func',
+		'fancytitle' => 'fancytitle_func',
+		'za_map' => 'za_generate_map',
+		'za_seller_saving' => 'display_slide_price',
+	);
+	
 	private function __construct() {
 		add_action('init', array($this, 'shortcodes') );
+		
+		if(is_admin()){
+			add_action( 'admin_menu', array($this, 'admin_menu'), 99 );
+			add_action( 'admin_init', array($this, 'register_setting') );	
+		}
 	}
 
 	public static function getInstance() {
@@ -15,51 +65,33 @@ class Zipperagent_Shortcodes{
 		return self::$instance;
 	}
 	
-	public function shortcodes(){
-	
-		add_shortcode( 'single_property', array($this, 'display_single_property') );
-		add_shortcode( 'listingphotos',  array($this, 'display_single_property_exterior_features') );
-		add_shortcode( 'search_properties',  array($this, 'display_search_property') );
-		add_shortcode( 'luxury_properties',  array($this, 'display_luxury_property') );
-		add_shortcode( 'za_open_house_search',  array($this, 'display_open_house_search') );
-		add_shortcode( 'za_quick_search',  array($this, 'display_quick_search') );
-		add_shortcode( 'za_quick_search2',  array($this, 'display_quick_search2') );
-		add_shortcode( 'za_quick_search3',  array($this, 'display_quick_search3') );
-		add_shortcode( 'za_quick_search4',  array($this, 'display_quick_search4') );
-		add_shortcode( 'za_quick_search5',  array($this, 'display_quick_search5') );
-		add_shortcode( 'za_quick_search6',  array($this, 'display_quick_search6') );
-		add_shortcode( 'zpa_mortgage_calculator',  array($this, 'display_mortgage_calculator') );
-		add_shortcode( 'za_logout',  array($this, 'display_zipperagent_logout') );
-		add_shortcode( 'za_gallery_view',  array($this, 'display_zipperagent_gallery_view') );
-		add_shortcode( 'za_map_view',  array($this, 'display_zipperagent_map_view') );
-		add_shortcode( 'za_photo_view',  array($this, 'display_zipperagent_photo_view') );
-		add_shortcode( 'za_user_access',  array($this, 'display_zipperagent_za_user_access') );
-		add_shortcode( 'own_listing_slider',  array($this, 'display_own_listing_slider') );
-		add_shortcode( 'own_listing_banner',  array($this, 'display_own_listing_banner') );
-		add_shortcode( 'listing_banner',  array($this, 'display_listing_banner') );
-		add_shortcode( 'masonry_listing',  array($this, 'display_masonry_listing') );
-		add_shortcode( 'office_listing',  array($this, 'display_office_listing') );
-		add_shortcode( 'open_house',  array($this, 'display_open_house') );
-		add_shortcode( 'search_distance',  array($this, 'display_search_distance') );
-		// add_shortcode( 'own_listing',  array($this, 'display_own_listing') );
-		add_shortcode( 'za_basic_search', array($this, 'getAdvancedSearch') );
-		add_shortcode( 'za_advanced_search', array($this, 'getAdvancedSearch') );
-		add_shortcode( 'za_map_search', array($this, 'getMapSearch') );
-		add_shortcode( 'za_map_explore', array($this, 'getMapExplore') );
-		add_shortcode( 'landingpage_gallery',  array($this, 'display_landingpage_gallery') );
-		add_shortcode( 'landingpage_map',  array($this, 'display_landingpage_map') );
-		add_shortcode( 'landingpage_highlight',  array($this, 'display_landingpage_highlight') );
-		add_shortcode( 'landingpage_details',  array($this, 'display_landingpage_details') );
-		add_shortcode( 'landingpage_agent',  array($this, 'display_landingpage_agent') );
-		add_shortcode( 'landingpage_download',  array($this, 'display_landingpage_download') );
-		add_shortcode( 'landingpage_other_properties',  array($this, 'display_landingpage_other_properties') );
-		add_shortcode( 'za_social_share',  array($this, 'display_social_share') );
-		add_shortcode( 'za_thankyou',  array($this, 'display_thankyou_page') );
-		add_shortcode( 'artifakt-video', array($this, 'art_vid_func') );
-		add_shortcode( 'fancytitle', array($this, 'fancytitle_func') );
-		add_shortcode( 'za_map', array($this, 'za_generate_map') );
-		add_shortcode( 'za_seller_saving',  array($this, 'display_slide_price') );
+	function admin_menu() {
 		
+		add_submenu_page(zipperAgentConstants::PAGE_CONFIGURATION, "Shortcodes", "Shortcodes", "manage_options", 'za-shortcode-setting', array($this, 'shortcode_setting_display') );
+	}
+	
+	function register_setting(){
+		//register our settings
+		register_setting( 'za_shortcode_setting_group', 'za_active_shortcodes' );
+	}
+	
+	function shortcode_setting_display(){
+		global $za_shortcodes;
+		
+		$za_shortcodes = $this->shortcodes;
+		
+		include ZIPPERAGENTPATH . "/custom/templates/admin/setting-shortcode.php";
+	}
+	
+	public function shortcodes(){	
+		
+		$active_shortcodes = get_option('za_active_shortcodes', array());
+		
+		foreach($this->shortcodes as $shortcode=>$function){
+			
+			if(isset($active_shortcodes[$shortcode]) && $active_shortcodes[$shortcode]==1 || !isset($active_shortcodes[$shortcode]))
+				add_shortcode( $shortcode, array($this, $function) );
+		}		
 	}
 
 	function display_single_property(){
@@ -72,7 +104,7 @@ class Zipperagent_Shortcodes{
 		$requests=$_REQUEST;
 		
 		ob_start();	
-		if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){		
+		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){		
 			include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
 		}else if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
 			include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
@@ -125,7 +157,7 @@ class Zipperagent_Shortcodes{
 		if( isset($requests['ajax']) && $requests['ajax']==0 ){
 			include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
 		}else{
-			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page())
+			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 			else
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
@@ -359,7 +391,7 @@ class Zipperagent_Shortcodes{
 		if(!empty($atts['loan_type']))					$args['default_loan_type'] = $requests['loan_type'];
 		
 		ob_start();	
-		if(is_zipperagent_new_detail_page()){
+		if(ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 			
 			echo '<div id="zpa-main-container" class="zpa-container">';
 			echo '<div class="row">';
@@ -599,7 +631,7 @@ class Zipperagent_Shortcodes{
 
 	function display_office_listing($atts){
 		
-		$rb = zipperagent_rb();
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		$aloff=isset($rb['web']['aloff'])?$rb['web']['aloff']:null;
 		
 		$vars=array();

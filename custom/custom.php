@@ -26,3 +26,14 @@ include "updater/Plugin-Update.php";
 /*disabled*/
 // include "listing-post-type.php";
 // include "thankyou.php";
+
+$GLOBALS['ZipperagentGlobalFunction']=null;
+
+function ZipperagentGlobalFunction(){
+	global $ZipperagentGlobalFunction;
+	
+	if(!$ZipperagentGlobalFunction)
+	$ZipperagentGlobalFunction = ZipperagentGlobalFunction::getInstance();
+	
+	return $ZipperagentGlobalFunction;
+}

@@ -11,9 +11,9 @@ if(zp_using_criteria()){
 $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)):array();
 ?>
 <div class="za-container">
-	<?php /* <link rel="stylesheet" type="text/css" href="<?php echo zipperagent_url(false) . 'css/pikaday.css'; ?>">
-	<script src="<?php echo zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
-	<script src="<?php echo zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script> */ ?>
+	<?php /* <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css'; ?>">
+	<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
+	<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.jquery.js'; ?>"></script> */ ?>
 	<div id="zpaScheduleShowing" class="modal in" aria-hidden="false" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -132,7 +132,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 														<select name="agent" class="form-control" required>
 															<option value="">Select</option>
 															<?php
-															$agents = getAgentList();
+															$agents = ZipperagentGlobalFunction()->getAgentList();
 															foreach( $agents as $agent ){
 																echo "<option value='{$agent->login}'>{$agent->userName}</option>"."/r/n";
 															}

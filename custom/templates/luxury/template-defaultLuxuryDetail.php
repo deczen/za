@@ -48,12 +48,12 @@ $properties = $single_luxury->properties;
 							
 							if( sizeof( $images ) ): ?>
 												
-							<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">						
+							<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">						
 							<div class="row">
 								<div class="col-xs-12 zpa-property-photo" style="margin-top:0">
 									<div class="owl-carousel-container">
 										<div class="top-head-carousel-wrapper">
-											<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+											<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>">
 												<?php
 												$i=0;
 												foreach ($images as $pic ){ ?>
@@ -91,7 +91,7 @@ $properties = $single_luxury->properties;
 									</div>
 								</div>
 							</div>
-							<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
+							<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 							<script>
 								(function($){
 									function setThumbnailAsASelected(number) {
@@ -163,7 +163,7 @@ $properties = $single_luxury->properties;
 										setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
 									})
 									
-									<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+									<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 									var count=<?php echo $_SESSION['za_image_clicked'] ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 									var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
 									var preventDouble=0;

@@ -16,7 +16,7 @@ class zipperAgentOrganizerEditSubscriberVirtualPageImpl extends zipperAgentAbstr
 	public function getPermalink() {
 		// return "property-organizer-edit-subscriber";
 		/* modified by decz */
-		return zipperagent_user_slug();
+		return ZipperagentGlobalFunction()->zipperagent_user_slug();
 		// return $this->getText(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_EDIT_SUBSCRIBER, "property-organizer-edit-subscriber");
 	}
 	

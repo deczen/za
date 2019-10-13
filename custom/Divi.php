@@ -5,7 +5,7 @@ function set_global_property(){
 	global $single_property, $post;
 	if($post->post_type=='zipperagent-lp'){
 		$listid=get_post_meta($post->ID,'_lp_listid',true);
-		$single_property= get_single_property($listid);
+		$single_property= ZipperagentGlobalFunction()->get_single_property($listid);
 		
 		// echo "<pre>"; print_r($single_property); echo "</pre>";
 	}	

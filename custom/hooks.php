@@ -4,7 +4,7 @@ add_action( 'wp_enqueue_scripts', 'za_enqueue_script', 11 );
  
 function za_enqueue_script(){
 	
-	$rb = zipperagent_rb();
+	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	
     $localize = array('ajaxurl'=> admin_url().'admin-ajax.php');
     wp_localize_script('jquery','zipperagent',$localize);
@@ -30,7 +30,7 @@ function cookie_generator(){
 	
 	/* contactId session */
 	if( (isset($_SESSION['contactId']) && !empty($_SESSION['contactId'])) || (isset($_COOKIE['contactId']) && !empty($_COOKIE['contactId'])) ){
-		$result=isset($_SESSION['contactId'])?$_SESSION['contactId']:zipperagent_get_cookie('contactId');
+		$result=isset($_SESSION['contactId'])?$_SESSION['contactId']:ZipperagentGlobalFunction()->zipperagent_get_cookie('contactId');
 		$contactIds = $result;
 		
 		// if( is_array($contactIds) && isset($contactIds[0]) ){
@@ -41,20 +41,20 @@ function cookie_generator(){
 		// print_r( $_COOKIE );
 		// print_r( $contactIds );
 		
-		zipperagent_set_cookie('contactId', $contactIds);
+		ZipperagentGlobalFunction()->zipperagent_set_cookie('contactId', $contactIds);
 	}
 	
 	/* userContact session */
 	if( (isset($_SESSION['userMail']) && !empty($_SESSION['userMail'])) || (isset($_COOKIE['userMail']) && !empty($_COOKIE['userMail'])) ){
-		$userMail=isset($_SESSION['userMail'])?$_SESSION['userMail']:zipperagent_get_cookie('userMail');
-		$contactIds=isset($_SESSION['contactId'])?$_SESSION['contactId']:zipperagent_get_cookie('contactId');
+		$userMail=isset($_SESSION['userMail'])?$_SESSION['userMail']:ZipperagentGlobalFunction()->zipperagent_get_cookie('userMail');
+		$contactIds=isset($_SESSION['contactId'])?$_SESSION['contactId']:ZipperagentGlobalFunction()->zipperagent_get_cookie('contactId');
 		// $contactIds=is_array($contactIds)?$contactIds[0]:$contactIds;
-		$userRemember=isset($_SESSION['userRemember'])?$_SESSION['userRemember']:zipperagent_get_cookie('userRemember');
+		$userRemember=isset($_SESSION['userRemember'])?$_SESSION['userRemember']:ZipperagentGlobalFunction()->zipperagent_get_cookie('userRemember');
 		
 		if( $userRemember ){
-			zipperagent_set_cookie('contactId', $contactIds);
-			zipperagent_set_cookie('userMail', $userMail);
-			zipperagent_set_cookie('userRemember', $userRemember);
+			ZipperagentGlobalFunction()->zipperagent_set_cookie('contactId', $contactIds);
+			ZipperagentGlobalFunction()->zipperagent_set_cookie('userMail', $userMail);
+			ZipperagentGlobalFunction()->zipperagent_set_cookie('userRemember', $userRemember);
 		}
 		
 		$_SESSION['contactId']=$contactIds;
@@ -120,7 +120,7 @@ function zipperagent_template( $content ){
 		ob_start();				
 		include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";			
 		if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
-			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page())
+			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 			else
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
@@ -466,7 +466,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 							<div class="owl-carousel-container">
 								
 								<div class="top-head-carousel-wrapper">
-									<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+									<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>">
 									<?php /* <div class="owl-carousel top-head-carousel"> */ ?>
 										<?php
 										if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
@@ -511,7 +511,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 				</div>
 			</div>
 		</div>
-		<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
+		<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 		<script>
 			(function($){
 				function setThumbnailAsASelected(number) {
@@ -588,7 +588,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 					setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
 				})
 				
-				<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+				<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 				var count=<?php echo isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 				var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
 				var preventDouble=0;
@@ -779,7 +779,7 @@ function zipperagent_login_popup(){
 add_action( 'wp_footer', 'zipperagent_adword_scripts', 11);
 
 function zipperagent_adword_scripts(){
-	$rb = zipperagent_rb();
+	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	$adwords_code = isset($rb['google']['adwords']['code'])?$rb['google']['adwords']['code']:'';
 	
 	if(!$adwords_code)

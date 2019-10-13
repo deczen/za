@@ -35,7 +35,7 @@ class zipperAgentOrganizerLogoutVirtualPageImpl extends zipperAgentAbstractPrope
 		 * Where as for legacy layout we need to kill session stored locally on wordpress servers
 		 */
 		if(zipperAgentDisplayRules::getInstance()->isResponsive()) {
-			zipperAgentStateManager::getInstance()->removeRememberMe();
+			/* zipperAgentStateManager::getInstance()->removeRememberMe(); */ //disabled by decz
 			$this->remoteRequest
 				->addParameter("requestType", "property-organizer-logout")
 			;

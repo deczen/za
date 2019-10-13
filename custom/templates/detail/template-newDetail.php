@@ -81,16 +81,16 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								<div class="zy-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
 									<div class="grid grid-xs--full py-15">
 										<div class="cell">
-											<button style="width:100%" class="<?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button> 	
+											<button style="width:100%" class="<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button> 	
 										</div>
 										<div class="cell top-action-buttons btn-group mt-10 " role="group" aria-label="Share options and option to view property on a map">
 											
-											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
+											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
 												<span class="zy-icon--stack">
 													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
-											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="zy-icon--stack">
 													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
@@ -105,7 +105,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						</div>
 					</div>
 					<div class="js-details-fav__container zy-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
-						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
+						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 							<i class="zy-icon fa fa-heart" aria-hidden="true"></i>
 						</button>
 					</div>
@@ -119,7 +119,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				<div id="listing-top-wrapper" class="grid grid--gutters">
 					<div id="gallery-column" class="cell cell-xs-12 cell-lg-8 mb-15">
 											
-						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
+						<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
 						
 						<?php if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ): ?>		
 						
@@ -127,7 +127,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 							<div class="col-xs-12 zpa-property-photo">
 								<div class="owl-carousel-container">
 									<div class="top-head-carousel-wrapper">
-										<div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+										<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 												$i=0;
@@ -168,7 +168,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								</div>
 							</div>
 						</div>
-						<script src="<?php echo zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
+						<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
 						<script>
 							(function($){
 								function setThumbnailAsASelected(number) {
@@ -240,7 +240,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 									setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
 								})
 								
-								<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+								<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 								var count=<?php echo $_SESSION['za_image_clicked'] ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
 								var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
 								var preventDouble=0;
@@ -1229,7 +1229,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 											<div>
 												<form id="zpa-modal-contact-agent-form">
 													<div class="grid grid--gutters grid-xs--full">
-														<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+														<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 														<div class="cell cell-md-6 hidden-on-login">
 															<div>
 																<label for="ListingDetailsContactForm__firstName">
@@ -1297,7 +1297,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 													<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 													<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
 													<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
-													<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+													<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 													<input type="hidden" name="action" value="regist_user" >
 													<?php else: ?>
 													<input type="hidden" name="action" value="contact_agent" >

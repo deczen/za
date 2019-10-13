@@ -79,7 +79,7 @@
 	$is_listing =isset($postmeta['_lp_listid'])?1:0;
 
 	$listid = isset($postmeta['_lp_listid'][0])?$postmeta['_lp_listid'][0]:false;
-	$single_property= $is_listing ? get_single_property($listid) : false;
+	$single_property= $is_listing ? ZipperagentGlobalFunction()->get_single_property($listid) : false;
 	// echo "<pre>"; print_r($single_property); echo "</pre>";
 	if(!$single_property){
 		$is_listing=0;

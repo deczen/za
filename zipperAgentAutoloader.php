@@ -14,6 +14,7 @@ class zipperAgentAutoloader {
 	private $classes = array(
 		//custom class
 		"Zipperagent_Shortcodes" => "custom/shortcode.php",
+		"ZipperagentGlobalFunction" => "custom/functions-global.php",
 		//core files
 		"zipperAgentAdmin" => "zipperAgentAdmin.php",
 		// "zipperAgentAjaxHandler" => "zipperAgentAjaxHandler.php",

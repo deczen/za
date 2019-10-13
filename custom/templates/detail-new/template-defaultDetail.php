@@ -295,7 +295,7 @@ switch($property_type){
 }
 
 /* Generate custom template */
-$groupname = zipperagent_detailpage_group();
+$groupname = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 $sourceid = strtolower($single_property->sourceid);
 
 // $group_dir_default='/default';
@@ -347,7 +347,7 @@ if(file_exists($template_path) && $template_name ){
 /* if there is no template, run default template */
 
 ?>
-<?php /* <link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/bootstrap.min.css'; ?>">	*/ ?>
+<?php /* <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/bootstrap.min.css'; ?>">	*/ ?>
 
 <div id="zipperagent-content">
 	<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">
@@ -397,22 +397,22 @@ if(file_exists($template_path) && $template_name ){
 						<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
 							<div class="row">								
 								<div class="btn_wrap zy_save-favorite-wrap col-btn">
-									<button class="zy_save-favorite <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
+									<button class="zy_save-favorite <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
 									<span>Favorite</span>
 								</div>
 								
 								<div class="btn_wrap zy_save-property-wrap col-btn">
-									<button class="zy_save-property <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" isLogin="<?php echo getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-floppy-o fa-fw"></i></button>
+									<button class="zy_save-property <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-floppy-o fa-fw"></i></button>
 									<span>Save</span>
 								</div>
 								
 								<div class="btn_wrap zy_schedule-showing-wrap col-btn">
-									<button class="zy_schedule-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>
+									<button class="zy_schedule-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>
 									<span>Request Showing</span>
 								</div>
 								
 								<div class="btn_wrap zy_request-showing-wrap col-btn">
-									<button class="zy_request-showing <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>
+									<button class="zy_request-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>
 									<span>Request info</span>
 								</div>
 								
@@ -422,7 +422,7 @@ if(file_exists($template_path) && $template_name ){
 									<div class="dropdown-menu" aria-labelledby="dropdownShare">
 										<ul class="menu-list">
 											<li>
-												<a class="share-item share-email <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="share_email" contactid="<?php echo implode(',',$contactIds) ?>" href="#">
+												<a class="share-item share-email <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="share_email" contactid="<?php echo implode(',',$contactIds) ?>" href="#">
 													<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i>
 													<span>Email this listing</span>
 												</a>
@@ -475,7 +475,7 @@ if(file_exists($template_path) && $template_name ){
 				<div class="col-lg-8 col-sm-12 col-md-12 col-xl-8"> 
 					<div id="gallery-column" style="display: block !important;">
 						
-						<link rel="stylesheet" href="<?php echo zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
+						<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
 						
 						<?php if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ): ?>
 						
@@ -489,7 +489,7 @@ if(file_exists($template_path) && $template_name ){
 												<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>
 											</a>
 										</div>
-										<?php /* <div class="owl-carousel top-head-carousel <?php if( ! getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
+										<?php /* <div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
 										<div class="owl-carousel top-head-carousel">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
@@ -669,7 +669,7 @@ if(file_exists($template_path) && $template_name ){
 					</ul>
 					
 					<ul class="zy_agent-info">
-						<?php $user_default = zipperagent_url() . 'images/user-default.png'; ?>
+						<?php $user_default = ZipperagentGlobalFunction()->zipperagent_url() . 'images/user-default.png'; ?>
 						
 						<?php if( isset($single_property->listingAgent) ): 
 						$agentFullName = isset( $single_property->listingAgent->userName ) ? $single_property->listingAgent->userName : '';
@@ -827,7 +827,7 @@ if(file_exists($template_path) && $template_name ){
 						
 						<form id="zpa-modal-contact-agent-form">
 							
-							<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+							<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 							<div class="row">
 								<div class="col-md-6 hidden-on-login">
 									<div>
@@ -871,7 +871,7 @@ if(file_exists($template_path) && $template_name ){
 							<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 							<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
 							<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
-							<?php if( ! getCurrentUserContactLogin() ): //only for non logged in user ?>
+							<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 							<input type="hidden" name="action" value="regist_user" >
 							<?php else: ?>
 							<input type="hidden" name="action" value="contact_agent" >
@@ -895,7 +895,7 @@ if(file_exists($template_path) && $template_name ){
 	<!-- print views -->
 	<?php
 	
-		$rb = zipperagent_rb();
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
 		$print_color = isset($rb['web']['print_color'])?$rb['web']['print_color']:'';

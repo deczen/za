@@ -1,8 +1,8 @@
 <?php
 global $requests;
 
-if( ! getCurrentUserContactLogin() ){
-	$login_form=zipperagent_page_url('property-organizer-login');
+if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ){
+	$login_form=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-login');
 	wp_safe_redirect($login_form);
 	die();
 }
@@ -74,7 +74,7 @@ if( isset($result['id']) ){
 
 // echo "<pre>"; print_r( $requests ); echo "</pre>";
 
-if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
+if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 	include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 }else{
 	include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";

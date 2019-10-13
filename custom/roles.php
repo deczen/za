@@ -69,6 +69,10 @@ function za_custom_roles(){
 
 add_action('init', 'za_custom_roles');
 
+
+if(!is_admin()) //only run in admin dashboard mode for increase performance
+	return;
+
 function wporg_simple_role_remove(){
 	
     remove_role('admin');
@@ -173,14 +177,13 @@ function wpse_hide_special_pages($query) {
 add_action('pre_get_posts', 'wpse_hide_special_pages');
 
 function wpse_hide_super_admin($user_search) {
-
+	global $wpdb;
+	
 	$user_id = get_current_user_id();
 	$user = new WP_User( $user_id );
 	$roles = $user->roles;
 	
-    if( (in_array( 'admin', $roles )) || (in_array( 'agent', $roles )) ){ 
-
-        global $wpdb;
+    if(in_array( 'admin', $roles )){
 
         $user_search->query_where = 
             str_replace('WHERE 1=1', 
@@ -190,13 +193,15 @@ function wpse_hide_super_admin($user_search) {
                     AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')", 
             $user_search->query_where
         );
+	}else if(in_array( 'agent', $roles )){
 		
 		$user_search->query_where = 
             str_replace('WHERE 1=1', 
             "WHERE 1=1 AND {$wpdb->users}.ID IN (
                  SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta 
                     WHERE {$wpdb->usermeta}.meta_key = '{$wpdb->prefix}capabilities'
-                    AND {$wpdb->usermeta}.meta_value NOT LIKE '%admin%')", 
+                    AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%'
+					AND {$wpdb->usermeta}.meta_value NOT LIKE '%admin%')", 
             $user_search->query_where
         );
 

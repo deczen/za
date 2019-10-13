@@ -2,7 +2,7 @@
 if( ! function_exists('zipperagent_run_curl') ){
 	function zipperagent_run_curl($url, $args=array(), $post=0, $vars='', $returnAll=0){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		$subdomain = $rb['web']['subdomain'];
 		$protocol = $rb['web']['protocol'];
@@ -166,10 +166,33 @@ if( ! function_exists('zipperagent_config') ){
 	}
 }
 
+if( ! function_exists('zipperagent_rb') ){
+	function zipperagent_rb($debug=0){
+		global $WORK_ENV;
+		// unset($_SESSION['zipperagent_rb']);
+		if( $WORK_ENV=='DEV' || !isset($_SESSION['zipperagent_rb']) || empty( $_SESSION['zipperagent_rb'] ) || $debug ){
+			
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/root.php";
+			$json=ob_get_clean();
+			$save_session=json_decode($json, TRUE);		
+			
+			$_SESSION['zipperagent_rb'] = $save_session;
+			
+			return $save_session;
+		}else{
+			
+			// $_SESSION['zipperagent_rb']['layout']['detailpage_layout']="template-newDetail.php";
+			
+			return $_SESSION['zipperagent_rb'];
+		}
+	}
+}
+
 if( ! function_exists('zipperagent_run_curl2') ){
 	function zipperagent_run_curl2($url, $args=array(), $post=0, $vars=''){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		$subdomain = $rb['web']['subdomain'];
 		$protocol = $rb['web']['protocol'];
@@ -218,7 +241,7 @@ if( ! function_exists('zipperagent_get_address') ){
 	function zipperagent_get_address($property){
 		// echo "<pre>"; print_r( $property ); echo "</pre>";
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		$hide_streetnumber=0;
 		$rnhidestreetno = isset($rb['web']['rnhidestreetno'])?$rb['web']['rnhidestreetno']:0;
@@ -247,7 +270,7 @@ if( ! function_exists('zipperagent_luxury_address') ){
 	function zipperagent_luxury_address($property){
 		// echo "<pre>"; print_r( $property ); echo "</pre>";
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		$hide_streetnumber=0;
 		$rnhidestreetno = isset($rb['web']['rnhidestreetno'])?$rb['web']['rnhidestreetno']:0;
@@ -275,7 +298,7 @@ if( ! function_exists('zipperagent_luxury_address') ){
 
 if( ! function_exists('zipperagent_use_default_status') ){
 	function zipperagent_use_default_status(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		// short long
 		// 1: Active
@@ -293,7 +316,7 @@ if( ! function_exists('zipperagent_use_default_status') ){
 if( ! function_exists('zipperagent_get_default_status') ){
 	function zipperagent_get_default_status($status){
 		$field_name = 'status_' . $status;
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$field_value = isset($rb['web'][$field_name])?$rb['web'][$field_name]:0;
 		return $field_value;
 	}
@@ -301,7 +324,7 @@ if( ! function_exists('zipperagent_get_default_status') ){
 
 if( ! function_exists('zipperagent_get_exclude_prop_types') ){
 	function zipperagent_get_exclude_prop_types(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$field_value = isset($rb['web']['exclude_prop_types'])?$rb['web']['exclude_prop_types']:'';
 		return $field_value;
 	}
@@ -309,7 +332,7 @@ if( ! function_exists('zipperagent_get_exclude_prop_types') ){
 
 if( ! function_exists('zipperagent_slider_limit_popup') ){
 	function zipperagent_slider_limit_popup(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$field_value = isset($rb['web']['slider_show_popup_count'])?$rb['web']['slider_show_popup_count']:3;
 		return $field_value;
 	}
@@ -536,6 +559,107 @@ if( ! function_exists('zipperagent_luxury_property_url') ){
 	}
 }
 
+if( ! function_exists('zipperagent_page_url') ){
+	function zipperagent_page_url($name){
+		global $wpdb;
+		
+		$url = null;
+		if( interface_exists( 'zipperAgentConstants' ) ){
+			switch( $name ){
+				case 'search-results':					
+				case 'homes-for-sale-results':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_SEARCH_RESULTS, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_SEARCH_RESULTS, null);
+							$endpoint = !empty($endpoint)?$endpoint:'homes-for-sale-results';
+							$url = site_url("/{$endpoint}/");
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+				case 'property-organizer-edit-subscriber':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_EDIT_SUBSCRIBER, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							// $endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_EDIT_SUBSCRIBER, null);
+							// $endpoint = !empty($endpoint)?$endpoint:'property-organizer-edit-subscriber';
+							$endpoint = zipperagent_user_slug();
+							$url = site_url("/{$endpoint}/");
+							// flush_rewrite_rules();
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+				case 'property-organizer-view-saved-search-list':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_VIEW_SAVED_SEARCH_LIST, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_VIEW_SAVED_SEARCH_LIST, null);
+							$endpoint = !empty($endpoint)?$endpoint:'property-organizer-view-saved-search-list';
+							$url = site_url("/{$endpoint}/");
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+				case 'property-organizer-view-saved-search':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_VIEW_SAVED_SEARCH, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_VIEW_SAVED_SEARCH, null);
+							$endpoint = !empty($endpoint)?$endpoint:'property-organizer-view-saved-search';
+							$url = site_url("/{$endpoint}/");
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+				case 'property-organizer-saved-listings':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_SAVED_LISTINGS, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_SAVED_LISTINGS, null);
+							$endpoint = !empty($endpoint)?$endpoint:'property-organizer-saved-listings';
+							$url = site_url("/{$endpoint}/");
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+				case 'property-organizer-login':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_LOGIN, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_LOGIN, null);
+							$endpoint = !empty($endpoint)?$endpoint:'property-organizer-login';
+							$url = site_url("/{$endpoint}/");
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+				case 'property-organizer-logout':					
+						$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_LOGOUT, null);
+						$exists = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE ID='{$page_id}'");
+						if( ! $exists ){
+							$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_ORGANIZER_LOGOUT, null);
+							$endpoint = !empty($endpoint)?$endpoint:'property-organizer-logout';
+							$url = site_url("/{$endpoint}/");
+						}else{
+							$url = get_permalink( $page_id );
+						}
+						
+					break;
+			}
+		}
+		
+		return $url;
+	} 
+}
+
 if( ! function_exists('zipperagent_property_type') ){
 	function zipperagent_property_type( $code ){
 		
@@ -750,7 +874,7 @@ if( ! function_exists('get_contact_id') ){
 		$contactIds=array();
 		
 		if( (isset($_SESSION['contactId']) && !empty($_SESSION['contactId'])) || (isset($_COOKIE['contactId']) && !empty($_COOKIE['contactId'])) ){
-			$result=isset($_SESSION['contactId'])?$_SESSION['contactId']:ZipperagentGlobalFunction()->zipperagent_get_cookie('contactId');
+			$result=isset($_SESSION['contactId'])?$_SESSION['contactId']:zipperagent_get_cookie('contactId');
 			// $contactIds=is_array($result)&&isset($result[0])?$result[0]:$result;
 			$contactIds=$result;
 		}
@@ -818,9 +942,34 @@ if( ! function_exists('userContactLoggout') ){
 	}
 }
 
+if( ! function_exists('getCurrentUserContactLogin') ){
+	function getCurrentUserContactLogin(){
+		$email=isset($_SESSION['userMail'])?$_SESSION['userMail']:'';
+		if($email){
+			if(isset($_SESSION['userdata']) && !empty($_SESSION['userdata'])){				
+				$userdata=$_SESSION['userdata'];
+			}else{
+				$userdata=getUserContact($email);
+				
+				if($userdata){
+					$_SESSION['userdata']=$userdata;					
+				}else{
+					$userdata=array();
+					//destroy session if fail retrieve data
+					userContactLoggout();
+				}
+			}
+		}else{
+			$userdata=array();
+		}
+		
+		return $userdata;
+	}
+}
+
 if( ! function_exists('get_current_user_assigned_agent') ){
 	function get_current_user_assigned_agent(){
-		$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+		$userdata = getCurrentUserContactLogin();
 		
 		$assignedTo='';
 		
@@ -870,6 +1019,16 @@ if( ! function_exists('getUserContact') ){
 	}
 }
 
+if( ! function_exists('getAgentList') ){
+	function getAgentList(){
+		$result = (array) zipperagent_get_agent_list();
+		
+		$agentList = isset($result['filteredList'])?$result['filteredList']:array();
+		
+		return $agentList;
+	}
+}
+
 if( ! function_exists('zipperagent_register_user') ){
 	function zipperagent_register_user( $vars ){
 		// $result = saveUserContact($vars);
@@ -904,6 +1063,33 @@ if( ! function_exists('zipperagent_user_confirmation') ){
 	function zipperagent_user_confirmation($tempId){
 		$result = zipperagent_run_curl("/api/contact/verifyTemp?id={$tempId}", array(), 1, array(), 1);
 		return (object)$result;
+	}
+}
+
+if( ! function_exists('get_single_property') ){
+	function get_single_property( $listingId, $contactIds='', $searchId='' ){
+		
+		$single_property = array();
+		
+		if(!empty($listingId)){
+			$args=array(
+				'id'=>$listingId,
+				// 'listingId'=>$listingId,
+				'contactId'=>$contactIds,
+				// 'searchId'=>$searchId,
+			);
+			
+			// $url="/api/mls/saveListing";
+			$url="/api/mls/anonget";
+			// die( $url );
+			$result = zipperagent_run_curl($url, $args);
+			
+			//force array to object
+			$result = is_array( $result ) ? (object) $result : $result;
+			$single_property = isset($result) && isset($result->property)?$result->property:(object) array();
+		}
+		
+		return $single_property;
 	}
 }
 
@@ -950,7 +1136,7 @@ if( ! function_exists('get_single_luxury') ){
 if( ! function_exists('zipperagent_property_fields') ){
 	function zipperagent_property_fields($single_property, $html){
 		// return $html;
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$rnhidestreetno = isset($rb['web']['rnhidestreetno'])?$rb['web']['rnhidestreetno']:0;
 		
 		$replaces=array();
@@ -1200,7 +1386,7 @@ if( ! function_exists('zipperagent_share_email') ){
 		
 		if($send_copy){
 			
-			$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+			$userdata = getCurrentUserContactLogin();
 			$firstUser=isset($userdata[0])?$userdata[0]:false;
 			$firstname=isset($firstUser->firstName)?$firstUser->firstName:'';
 			$lastname=isset($firstUser->lastName)?$firstUser->lastName:'';
@@ -1269,11 +1455,11 @@ if( ! function_exists('zipperagent_save_property') ){
 if( ! function_exists('add_saved_cookies_to_account') ){
 	function add_saved_cookies_to_account(){
 			
-			if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) //only for login user
+			if( ! getCurrentUserContactLogin() ) //only for login user
 				return;
 			
-			$saved_search = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_search');
-			$saved_favorites = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_favorites');
+			$saved_search = zipperagent_get_cookie('saved_search');
+			$saved_favorites = zipperagent_get_cookie('saved_favorites');
 			
 			$contactIds = implode(',', get_contact_id());
 			
@@ -1294,8 +1480,8 @@ if( ! function_exists('add_saved_cookies_to_account') ){
 			}
 			
 			//clear cookies
-			ZipperagentGlobalFunction()->zipperagent_set_cookie('saved_search', ''); 
-			ZipperagentGlobalFunction()->zipperagent_set_cookie('saved_favorites', '');
+			zipperagent_set_cookie('saved_search', ''); 
+			zipperagent_set_cookie('saved_favorites', '');
 			
 			//reset cache count
 			$contactIds_key = str_replace(',','_',$contactIds);
@@ -1319,7 +1505,7 @@ if( ! function_exists('zipperagent_save_property_cookie') ){
 			'searchId'=>$searchId,
 		);		
 		
-		$saved = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_favorites');
+		$saved = zipperagent_get_cookie('saved_favorites');
 		
 		if(!is_array($saved)){
 			$saved=array();
@@ -1327,7 +1513,7 @@ if( ! function_exists('zipperagent_save_property_cookie') ){
 		
 		$saved[$listingId]=$add;
 		
-		ZipperagentGlobalFunction()->zipperagent_set_cookie('saved_favorites', $saved);
+		zipperagent_set_cookie('saved_favorites', $saved);
 		
 		return count($saved);
 	}
@@ -1340,7 +1526,7 @@ if( ! function_exists('zipperagent_save_search_cookie') ){
 			'vars'=>$vars,
 		);		
 		
-		$saved = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_search');
+		$saved = zipperagent_get_cookie('saved_search');
 		
 		if(!is_array($saved)){
 			$saved=array();
@@ -1348,7 +1534,7 @@ if( ! function_exists('zipperagent_save_search_cookie') ){
 		
 		$saved[]=$add;
 		
-		ZipperagentGlobalFunction()->zipperagent_set_cookie('saved_search', $saved);
+		zipperagent_set_cookie('saved_search', $saved);
 		
 		return count($saved);
 	}
@@ -1379,7 +1565,7 @@ if( ! function_exists('generate_area_town') ){
 	function generate_area_town(){
 		$arr=array();
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 		
 		$qry = $states ? '/?states=' . urldecode($states) : '';
@@ -1393,7 +1579,7 @@ if( ! function_exists('generate_area_town') ){
 
 if( ! function_exists('zipperagent_get_map_centre') ){
 	function zipperagent_get_map_centre(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		//default boston area
 		$default_lat='42.114524';
@@ -1440,7 +1626,7 @@ if( ! function_exists('zipperagent_get_map_centre') ){
 if( ! function_exists('zipperagent_get_map_markers') ){
 	function zipperagent_get_map_markers(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		$markers = isset($rb['web']['map_markers']) ? $rb['web']['map_markers'] : array();
 		
@@ -1491,7 +1677,7 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 				$query_args['newsearchbar']= 1;
 			}
 			$single_url = str_replace( '/wp-admin/admin-ajax.php?=', '', add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) ) );
-			$is_login=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
+			$is_login=getCurrentUserContactLogin() ? 1:0;
 			$is_active=zipperagent_is_favorite($property->id)?"active":"";
 			$searchId='';
 			$str_contactIds=implode(',',$contactIds);
@@ -1535,7 +1721,7 @@ if( ! function_exists('zipperagent_source_details') ){
 		// unset($_SESSION['zipperagent_source']);
 		// if( $WORK_ENV=='DEV' || !isset($_SESSION['zipperagent_source'])){
 			
-			$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+			$rb = zipperagent_rb();
 			$asrc=$rb['web']['asrc'];
 			$url="/api/mls/getSourceDetails?sources=".$asrc;
 			$result = zipperagent_run_curl($url);
@@ -1975,7 +2161,7 @@ if( ! function_exists('populate_zipcodes') ){
 		
 		$arr=array();
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 		$states=trim($states);
 		$states=$states?explode(',',$states):array();
@@ -2081,7 +2267,7 @@ if( ! function_exists('populate_tenant_favorites') ){
 if( ! function_exists('populate_schools') ){
 	function populate_schools($t,$limit=100){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$asrc=isset($rb['web']['asrc']) ? $rb['web']['asrc'] : '';
 		$vars=array(
 			'asrc'=>$asrc,
@@ -2257,7 +2443,7 @@ if( ! function_exists('za_get_alert_type') ){
 if( ! function_exists('is_open_house_search_enabled') ){
 	function is_open_house_search_enabled(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		$enabled = isset($rb['web']['openhouse_searchbar'])?$rb['web']['openhouse_searchbar']:false;
 		$enabled = empty($enabled)?false:$enabled;
@@ -2265,11 +2451,21 @@ if( ! function_exists('is_open_house_search_enabled') ){
 		return $enabled;
 	}
 }
+
+if( ! function_exists('is_zipperagent_new_detail_page') ){
+	function is_zipperagent_new_detail_page(){
+		
+		$enabled=1;
+			
+		return $enabled;
+	}
+}
+
 if( ! function_exists('zipperagent_is_favorite') ){
 	function zipperagent_is_favorite($listingId){
 		$checked=false;
 		
-		if( $userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin() ){	
+		if( $userdata = getCurrentUserContactLogin() ){	
 			
 			$contactIds=array();
 			foreach($userdata as $contact){
@@ -2281,7 +2477,7 @@ if( ! function_exists('zipperagent_is_favorite') ){
 			
 			$saved_favorites = get_option($option_key_listid);
 		}else{			
-			$saved_favorites = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_favorites');			
+			$saved_favorites = zipperagent_get_cookie('saved_favorites');			
 		}
 		
 		if(is_array($saved_favorites)){
@@ -2299,7 +2495,7 @@ if( ! function_exists('zipperagent_is_favorite') ){
 
 if( ! function_exists('get_property_images') ){
 	function get_property_images( $listingId, $contactIds ){
-		$single_property = ZipperagentGlobalFunction()->get_single_property($listingId, $contactIds);
+		$single_property = get_single_property($listingId, $contactIds);
 		$images=array();
 		
 		if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
@@ -2541,7 +2737,7 @@ if( ! function_exists('zipperagent_type_mask') ){
 
 if( ! function_exists('zipperagent_timezone') ){
 	function zipperagent_timezone(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$timezone=isset( $rb['tenant']['timezone'] ) ? $rb['tenant']['timezone'] : '';
 		
 		return $timezone;
@@ -2550,7 +2746,7 @@ if( ! function_exists('zipperagent_timezone') ){
 
 if( ! function_exists('zipperagent_mls_timezone') ){
 	function zipperagent_mls_timezone($sourceid){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$timezone=isset($rb['tenant']['mls_timezone']) ? $rb['tenant']['mls_timezone'] : '';
 		
 		$timezone=is_array($timezone)&&isset($timezone[$sourceid])?$timezone[$sourceid]:$timezone;
@@ -2818,6 +3014,18 @@ if( ! function_exists('convert_key_name') ){
 	}
 }
 
+if( ! function_exists('zipperagent_url') ){
+	function zipperagent_url($withhttp=true){
+		if($withhttp){
+			return ZIPPERAGENTURL;
+		}else{
+			$find=array('http://','https://');
+			$rplc=array('//','//');
+			return str_replace($find,$rplc,ZIPPERAGENTURL);
+		}
+	}
+}
+
 if( ! function_exists('zipperagent_infinite_loop') ){
 	function zipperagent_infinite_loop(){
 		$is_ajax=true;
@@ -2828,7 +3036,7 @@ if( ! function_exists('zipperagent_infinite_loop') ){
 
 if( ! function_exists('zipperagent_listpage_layout') ){
 	function zipperagent_listpage_layout(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$rb = zipperagent_rb();		
 		$listpage_layout = isset($rb['layout']['listpage_layout'])?$rb['layout']['listpage_layout']:'';
 		
 		return $listpage_layout;
@@ -2837,7 +3045,7 @@ if( ! function_exists('zipperagent_listpage_layout') ){
 
 if( ! function_exists('zipperagent_detailpage_layout') ){
 	function zipperagent_detailpage_layout(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$rb = zipperagent_rb();		
 		$detailpage_layout = isset($rb['layout']['detailpage_layout'])?$rb['layout']['detailpage_layout']:'';
 		// $detailpage_layout = 'template-newDetail.php';
 		
@@ -2848,7 +3056,7 @@ if( ! function_exists('zipperagent_detailpage_layout') ){
 if( ! function_exists('get_detail_template_filename') ){
 	function get_detail_template_filename($proptype){
 		$proptype=strtolower($proptype);
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$rb = zipperagent_rb();		
 		$detailpage_layout = isset($rb['layout']['detailpage_layout_'.$proptype])?$rb['layout']['detailpage_layout_'.$proptype]:'';
 		// $detailpage_layout = 'template-newDetail.php';
 		
@@ -2856,9 +3064,108 @@ if( ! function_exists('get_detail_template_filename') ){
 	}
 }
 
+if( ! function_exists('zipperagent_detailpage_group') ){
+	function zipperagent_detailpage_group(){
+		$rb = zipperagent_rb();		
+		$detailpage_group = isset($rb['layout']['detailpage_group'])?$rb['layout']['detailpage_group']:'';
+		
+		if(isset($_GET['groupname'])){
+			$detailpage_group = $_GET['groupname'];
+		}
+		
+		return $detailpage_group ? $detailpage_group : 'mlspin';
+	}
+}
+
+if( ! function_exists('zipperagent_get_saved_search_count') ){
+	function zipperagent_get_saved_search_count(){
+
+		// $contactIds = get_contact_id();	
+		$userdata = getCurrentUserContactLogin();
+		
+		if($userdata){
+			$contactIds=array();
+			foreach($userdata as $contact){
+				$contactIds[]=$contact->id;
+			}
+				
+			$combined_contactIds = implode(',',$contactIds);
+			$contactIds_key = implode('_',$contactIds);
+			$option_key = $contactIds_key . '_saved_search_count';
+			
+			$dataCount = get_option( $option_key );
+			
+			if($dataCount!=='')
+				return (integer) $dataCount;
+			
+			$result = zipperagent_run_curl( '/api/mls/listSearches?contactId='. $combined_contactIds .'&ps=10&sidx=0' );
+			$dataCount = isset($result['dataCount'])?$result['dataCount']:0;
+			
+			update_option( $option_key, $dataCount );
+		}else{
+			$saved = zipperagent_get_cookie('saved_search');
+			$dataCount = $saved ? count($saved) : 0;
+		}
+		
+		return $dataCount;
+	}
+}
+
+if( ! function_exists('zipperagent_get_favorites_count') ){
+	function zipperagent_get_favorites_count(){
+		
+		// $contactIds = get_contact_id();	
+		$userdata = getCurrentUserContactLogin();
+		
+		if($userdata){
+			$contactIds=array();
+			foreach($userdata as $contact){
+				$contactIds[]=$contact->id;
+			}
+			
+			$combined_contactIds = implode(',',$contactIds);
+			$contactIds_key = implode('_',$contactIds);
+			$option_key = $contactIds_key . '_favorites_count';
+			$option_key_listid = $contactIds_key . '_favorite_listingIds';
+			
+			$dataCount = get_option( $option_key );
+			
+			if($dataCount!=='')
+				return (integer) $dataCount;
+			
+			$vars=array(
+				'sidx'=>0,
+				'ps'=>100,
+				'contactId'=>$combined_contactIds,
+			);
+
+			$result = zipperagent_run_curl( "/api/mls/listListings", $vars );
+			$dataCount=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+			$list=isset($result['filteredList'])?$result['filteredList']:$result;
+			
+			//save favorite count cache
+			update_option( $option_key, $dataCount );			
+			
+			//save favorites cache
+			$favorite_listingIds=array();
+			foreach($list as $property){
+				if(isset($roperty->listing->id))
+					$favorite_listingIds[]['listingId']=$property->listing->id;
+			}
+			update_option( $option_key_listid, $favorite_listingIds );
+		
+		}else{
+			$saved = zipperagent_get_cookie('saved_favorites');
+			$dataCount = $saved ? count($saved) : 0;
+		}
+		
+		return $dataCount;
+	}
+}
+
 if( ! function_exists('zipperagent_signup_optional') ){
 	function zipperagent_signup_optional(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$rb = zipperagent_rb();		
 		$signup_optional = isset($rb['web']['signup_optional'])?$rb['web']['signup_optional']:1;
 		
 		return $signup_optional;
@@ -2867,7 +3174,7 @@ if( ! function_exists('zipperagent_signup_optional') ){
 
 if( ! function_exists('zipperagent_signup_optional_time') ){
 	function zipperagent_signup_optional_time(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$rb = zipperagent_rb();		
 		$signup_optional_time = isset($rb['web']['signup_optional_time'])?$rb['web']['signup_optional_time']:0;
 		
 		return $signup_optional_time;
@@ -2876,7 +3183,7 @@ if( ! function_exists('zipperagent_signup_optional_time') ){
 
 if( ! function_exists('zipperagent_signup_optional_exception') ){
 	function zipperagent_signup_optional_exception(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$rb = zipperagent_rb();		
 		$signup_optional_exception = isset($rb['web']['signup_optional_exception'])?$rb['web']['signup_optional_exception']:0;
 		
 		return $signup_optional_exception;
@@ -2909,6 +3216,41 @@ if( ! function_exists('zipperagent_currency') ){
 		$curr="$";
 		
 		return $curr;
+	}
+}
+
+if( ! function_exists('zipperagent_set_cookie') ){
+	function zipperagent_set_cookie($name, $value='', $time=''){
+			
+		if(!$time){
+			$time=time() + (86400 * 30);  // 86400 = 1 day
+		}
+		
+		$subfolder=defined('SUBDOMAIN_INSTALL') && ! SUBDOMAIN_INSTALL && function_exists('get_blog_details') ? get_blog_details() : false;
+		
+		if(!$subfolder){
+			setcookie($name, base64_encode(serialize($value)), $time, "/");
+		}else{
+			setcookie($name, base64_encode(serialize($value)), $time, $subfolder->path);
+		}
+		
+		return $value;
+	}
+}
+
+if( ! function_exists('zipperagent_get_cookie') ){
+	function zipperagent_get_cookie($name){
+		
+		$value=null;
+		
+		if(isset($_COOKIE[$name])){
+			// echo "<pre>"; print_r($_COOKIE[$name]); echo "</pre>";
+			// echo "<pre>"; print_r(base64_decode($_COOKIE[$name])); echo "</pre>";
+			
+			$value = unserialize(base64_decode($_COOKIE[$name]));
+		}
+		
+		return $value;
 	}
 }
 
@@ -2976,11 +3318,33 @@ if( ! function_exists('zipperagent_remove_session') ){
 	}
 }
 
+if( ! function_exists('zipperagent_user_slug') ){
+	function zipperagent_user_slug(){
+		
+		$fullname='My Account';
+		$userdata=getCurrentUserContactLogin();
+		$firstUser=isset($userdata[0])?$userdata[0]:false;
+		
+		if(isset($firstUser->firstName)){
+			$fullname=$firstUser->firstName . ( isset($firstUser->lastName) ? ' ' . $firstUser->lastName : '' );
+		}
+		
+		// if($_GET['debug']==1){
+			// echo "<pre>"; print_r($_SESSION); echo "</pre>";
+			// echo "<pre>"; print_r($userdata); echo "</pre>";
+			// echo "<pre>"; print_r($fullname); echo "</pre>";			
+		// }
+		
+		flush_rewrite_rules();
+		return sanitize_title($fullname);
+	}
+}
+
 if( ! function_exists('zipperagent_user_name') ){
 	function zipperagent_user_name(){
 		
 		$fullname='My Account';
-		$userdata=ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+		$userdata=getCurrentUserContactLogin();
 		$firstUser=isset($userdata[0])?$userdata[0]:false;
 		
 		if(isset($firstUser->firstName)){
@@ -2997,22 +3361,22 @@ if( ! function_exists('detailpage_visit_counter') ){
 		$counter=SignUpPopupVisitCounter();
 		
 		if($counter){
-			$lastVisitedUrl =  ZipperagentGlobalFunction()->zipperagent_get_cookie('last_detail_page_url');
+			$lastVisitedUrl =  zipperagent_get_cookie('last_detail_page_url');
 			$currentUrl="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
 			
 			// if($isPageDifferent){
 			if(1){
-				$detailpage_visit_counter =  ZipperagentGlobalFunction()->zipperagent_get_cookie('detailpage_visit_counter');
+				$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
 				if(!is_numeric($detailpage_visit_counter) || $detailpage_visit_counter < 0){
 					$detailpage_visit_counter=0;
 				}
 				// echo "COUNTER++ : ". $detailpage_visit_counter;
 				$detailpage_visit_counter++; //raise up by one, if user visit
-				ZipperagentGlobalFunction()->zipperagent_set_cookie('detailpage_visit_counter', $detailpage_visit_counter);
+				zipperagent_set_cookie('detailpage_visit_counter', $detailpage_visit_counter);
 			}
 			
-			ZipperagentGlobalFunction()->zipperagent_set_cookie('last_detail_page_url',$currentUrl);
+			zipperagent_set_cookie('last_detail_page_url',$currentUrl);
 		}
 	}
 }
@@ -3033,15 +3397,15 @@ if( ! function_exists('showSignUpPopup') ){
 		$counter=SignUpPopupVisitCounter();
 		if($counter){// do popup if only counter not empty
 			
-			$lastVisitedUrl =  ZipperagentGlobalFunction()->zipperagent_get_cookie('last_detail_page_url');
+			$lastVisitedUrl =  zipperagent_get_cookie('last_detail_page_url');
 			$currentUrl="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 			$isPageDifferent = ($lastVisitedUrl !== $currentUrl);
 			
-			$detailpage_visit_counter =  ZipperagentGlobalFunction()->zipperagent_get_cookie('detailpage_visit_counter');
+			$detailpage_visit_counter =  zipperagent_get_cookie('detailpage_visit_counter');
 			// echo "COUNTER: ". $detailpage_visit_counter;
 			// if($detailpage_visit_counter>=$counter && $isPageDifferent){
 			if($detailpage_visit_counter>=$counter){
-				ZipperagentGlobalFunction()->zipperagent_set_cookie('detailpage_visit_counter', 0); //reset counter
+				zipperagent_set_cookie('detailpage_visit_counter', 0); //reset counter
 				return 1;
 			}else{
 				return 0;
@@ -3051,7 +3415,7 @@ if( ! function_exists('showSignUpPopup') ){
 	/*
 	 * using sign up interval
 	 */
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$interval = isset($rb['web']['sign_up_interval'])?$rb['web']['sign_up_interval']:0;
 		$status=0;
 		
@@ -3062,13 +3426,13 @@ if( ! function_exists('showSignUpPopup') ){
 			$interval=60;
 		}
 		
-		$lastDateTime =  ZipperagentGlobalFunction()->zipperagent_get_cookie('last_popup_time');		
+		$lastDateTime =  zipperagent_get_cookie('last_popup_time');		
 		$currDateTime = strtotime(date("Y-m-d h:i:sa"));
-		$lastVisitedUrl =  ZipperagentGlobalFunction()->zipperagent_get_cookie('last_visited_url');
+		$lastVisitedUrl =  zipperagent_get_cookie('last_visited_url');
 		$currentUrl="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		
 		if(!$lastDateTime){
-			ZipperagentGlobalFunction()->zipperagent_set_cookie('last_popup_time', $currDateTime);
+			zipperagent_set_cookie('last_popup_time', $currDateTime);
 		}else{
 			$diffInSeconds = ($currDateTime-$lastDateTime); //seconds
 			$diffInMinutes = $diffInSeconds / 60;
@@ -3077,8 +3441,8 @@ if( ! function_exists('showSignUpPopup') ){
 			// if($diffInMinutes > $interval && $isPageDifferent){
 			if($diffInMinutes > $interval){
 				$status=1;
-				ZipperagentGlobalFunction()->zipperagent_set_cookie('last_popup_time', $currDateTime);		
-				ZipperagentGlobalFunction()->zipperagent_set_cookie('last_visited_url', $currentUrl);
+				zipperagent_set_cookie('last_popup_time', $currDateTime);		
+				zipperagent_set_cookie('last_visited_url', $currentUrl);
 			}
 		}
 		
@@ -3094,7 +3458,7 @@ if( ! function_exists('SignUpPopupTime') ){
 			return $seconds; //if sign up is mandatory and already triggered before, show popup immediately
 		}
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$seconds = isset($rb['web']['popup_show_time'])?$rb['web']['popup_show_time']:'';
 		
 		if(empty($seconds))
@@ -3107,7 +3471,7 @@ if( ! function_exists('SignUpPopupTime') ){
 if( ! function_exists('SignUpPopupVisitCounter') ){
 	function SignUpPopupVisitCounter(){
 				
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$counter = isset($rb['web']['popup_visit_counter'])?$rb['web']['popup_visit_counter']:0;
 		
 		return $counter;
@@ -3117,7 +3481,7 @@ if( ! function_exists('SignUpPopupVisitCounter') ){
 if( ! function_exists('is_social_share_enabled') ){
 	function is_social_share_enabled(){
 				
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$enabled = isset($rb['web']['social_share'])?$rb['web']['social_share']:'';
 		
 		$enabled=$enabled?true:false;
@@ -3136,7 +3500,7 @@ if( ! function_exists('is_great_school_enabled') ){
 if( ! function_exists('is_show_agent_list') ){
 	function is_show_agent_list(){
 				
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$enabled = isset($rb['web']['show_agent_list'])?$rb['web']['show_agent_list']:'';
 		
 		$enabled=$enabled?true:false;
@@ -3148,7 +3512,7 @@ if( ! function_exists('is_show_agent_list') ){
 if( ! function_exists('is_branded_virtualtour') ){
 	function is_branded_virtualtour(){
 				
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$enabled = isset($rb['web']['branded_virtualtour'])?$rb['web']['branded_virtualtour']:'';
 		
 		$enabled=$enabled?true:false;
@@ -3173,7 +3537,7 @@ if( ! function_exists('create_zipperagent_plugin_version_file') ){
 if( ! function_exists('is_show_agent_name') ){
 	function is_show_agent_name(){
 				
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		$enabled = isset($rb['web']['show_agent_name'])?$rb['web']['show_agent_name']:'';
 		
 		$enabled=$enabled?true:false;
@@ -3411,7 +3775,7 @@ if( ! function_exists('za_correct_money_format') ){
 if( ! function_exists('za_google_api_key') ){
 	function za_google_api_key(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 		
 		
 		if( function_exists( 'conall_edge_options' ) ){
@@ -3430,7 +3794,7 @@ if( ! function_exists('za_google_api_key') ){
 if( ! function_exists('za_get_default_order') ){
 	function za_get_default_order(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$default_order = isset($rb['web']['default_order'])?$rb['web']['default_order']:'';
 			
@@ -3445,7 +3809,7 @@ if( ! function_exists('za_get_default_proptype') ){
 			'SF','MF','CC'
 		);
 			
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 					
 		$default_proptype = isset($rb['web']['default_proptype']) ? explode(',',$rb['web']['default_proptype']) : $default_value;
 		
@@ -3456,7 +3820,7 @@ if( ! function_exists('za_get_default_proptype') ){
 if( ! function_exists('is_popup_detail_page_only') ){
 	function is_popup_detail_page_only(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$check = isset($rb['web']['popup_detail_page_only'])?$rb['web']['popup_detail_page_only']:0;
 				
@@ -3466,7 +3830,7 @@ if( ! function_exists('is_popup_detail_page_only') ){
 
 if( ! function_exists('zipperagent_distance') ){
 	function zipperagent_distance(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$distance = isset($rb['web']['distance'])?$rb['web']['distance']:8000;
 		
@@ -3476,7 +3840,7 @@ if( ! function_exists('zipperagent_distance') ){
 
 if( ! function_exists('zipperagent_company_name') ){
 	function zipperagent_company_name(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:get_bloginfo('name');
 		
@@ -3487,7 +3851,7 @@ if( ! function_exists('zipperagent_company_name') ){
 if( ! function_exists('zp_using_criteria') ){
 	function zp_using_criteria(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$is_using_criteria = isset($rb['web']['using_criteria'])?$rb['web']['using_criteria']:0;
 			
@@ -3498,7 +3862,7 @@ if( ! function_exists('zp_using_criteria') ){
 if( ! function_exists('is_show_extra_search_feature') ){
 	function is_show_extra_search_feature(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$default_order = isset($rb['web']['show_extra_search_feature'])?$rb['web']['show_extra_search_feature']:1;
 			
@@ -3509,7 +3873,7 @@ if( ! function_exists('is_show_extra_search_feature') ){
 if( ! function_exists('is_price_slider_enabled') ){
 	function is_price_slider_enabled(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$enabled = isset($rb['web']['show_price_slider'])?$rb['web']['show_price_slider']:0;
 			
@@ -3520,7 +3884,7 @@ if( ! function_exists('is_price_slider_enabled') ){
 if( ! function_exists('zp_get_credentials') ){
 	function zp_get_credentials(){
 		
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$rb = zipperagent_rb();
 			
 		$username = isset($rb['credentials']['username'])?$rb['credentials']['username']:'';
 		$key = isset($rb['credentials']['key'])?$rb['credentials']['key']:'';
@@ -3537,7 +3901,7 @@ if( ! function_exists('zp_get_credentials') ){
 if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
 		
-		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
+		if(zipperagent_detailpage_group()=='mlspin' || is_zipperagent_new_detail_page()){
 			zipperagent_omnibar_new($requests);
 			return;
 		}
@@ -3981,7 +4345,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 				}
 				
 				<?php
-				$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+				$rb = zipperagent_rb();
 				$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 				$states=array_map('trim', explode(',', $states));
 				$states=sizeof($states)===1?implode(' | ',$states):'';
@@ -4668,7 +5032,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 		</script>
 		<script>  
 		  <?php
-		  $rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		  $rb = zipperagent_rb();
 		  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
 		  $states=array_map('trim', explode(',', $states));
 		  $states=sizeof($states)===1?implode(' | ',$states):'';
@@ -4948,7 +5312,7 @@ if( ! function_exists('global_magicsuggest_script') ){
 			var tenants = <?php echo json_encode($tenants); ?>;
 			
 			var ms = $('#zpa-area-input').magicSuggest({
-				<?php /* data: '<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'custom/options.php' ?>', */ ?>
+				<?php /* data: '<?php echo zipperagent_url(false) . 'custom/options.php' ?>', */ ?>
 				data: tenants ? tenants : all,
 				valueField: 'code',
 				displayField: 'name',
@@ -5154,6 +5518,18 @@ if( ! function_exists('auto_trigger_button_script') ){
 			});
 		</script>
 		<?php
+	}
+}
+
+if( ! function_exists('is_facebook_bot') ){
+	function is_facebook_bot(){
+		if( strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||          
+			strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false ) {
+			// it is probably Facebook's bot
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 

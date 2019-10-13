@@ -6,7 +6,7 @@ $maxListPrice		= $requests['maxlistprice'];
 
 ?><div id="zpa-main-container" class="zpa-container">
 	<div id="omnibar-wrap">
-		<form class="form-inline zpa-quick-search-form" action="<?php echo zipperagent_page_url( 'search-results' ) ?>" method="GET">
+		<form class="form-inline zpa-quick-search-form" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET">
 			<div class="omnibar">
 				<style>
 					#omnibar-wrap .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}

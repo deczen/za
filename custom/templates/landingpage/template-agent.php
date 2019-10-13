@@ -1,6 +1,6 @@
 <?php
 global $post;
-// $agents = getAgentList();
+// $agents = ZipperagentGlobalFunction()->getAgentList();
 // echo "<pre>"; print_r($agents); echo "</pre>";
 $agentlogin= get_post_meta($post->ID, '_lp_agent', true);
 

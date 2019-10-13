@@ -15,7 +15,7 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 //add saved cookies to account
 add_saved_cookies_to_account();
 
-$userdata = getCurrentUserContactLogin();
+$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
 
 if( ! $userdata || ! sizeof($userdata)){
 	wp_safe_redirect( site_url('/property-organizer-login') );
@@ -35,7 +35,7 @@ foreach($userdata as $contact){
 	$contactIds[]=$contact->id;
 }
 
-// $rb = zipperagent_rb();
+// $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 $num=10;
 $index=$page*$num-$num;
 $vars=array(
@@ -96,12 +96,12 @@ $userdata = $userdata[0]; //get first index record
 		<?php /*
         <div class="row mb-10">
             <div class="col-xs-12">
-                <div class="pull-right"></span> <a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
+                <div class="pull-right"></span> <a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
             </div>
         </div>
         <div class="row mb-10">
             <div class="col-xs-12">
-                <div class="btn-group btn-group-justified"> <a class="btn btn-primary active" href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
+                <div class="btn-group btn-group-justified"> <a class="btn btn-primary active" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
             </div>
         </div>
         <div class="row mb-10 mt-25">
@@ -161,7 +161,7 @@ $userdata = $userdata[0]; //get first index record
 												</a>
 											</li>
 											<li class="link-list__item at-main-menu__logout">
-												<a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
+												<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
 													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
 													<div class="uk-text-truncate">Logout</div>
@@ -192,7 +192,7 @@ $userdata = $userdata[0]; //get first index record
 											<div style="height: auto; transition: none 0s ease 0s; overflow: hidden;">
 												<div class="collapsible__inner za-container">
 													<div>
-														<form id="subscriberForm" role="form" class="form-horizontal" action="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=update" method="POST">
+														<form id="subscriberForm" role="form" class="form-horizontal" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=update" method="POST">
 															<input id="subscriberId" name="subscriberId" type="hidden" value="4002770">
 															<input type="hidden" name="actionType" value="update">
 															<div class="grid grid--gutters">
@@ -472,7 +472,7 @@ $userdata = $userdata[0]; //get first index record
 																<br> <strong> Property Type: </strong> <?php echo $propertyType; ?> &nbsp;&nbsp;&nbsp; <strong> Min. Price: </strong> <?php echo is_integer($minPrice)?'$'.number_format_i18n($minPrice,0):$minPrice; ?> &nbsp;&nbsp;&nbsp; <strong> Max. Price: </strong> <?php echo is_integer($maxPrice)?'$'.number_format_i18n($maxPrice,0):$maxPrice ?> &nbsp;&nbsp;&nbsp; <strong> Beds: </strong> <?php echo $beds; ?> &nbsp;&nbsp;&nbsp; <strong> Baths: </strong>  <?php echo $baths; ?>
 															</div>
 															<br />
-															<div class="pull-left"> <a href="<?php echo zipperagent_page_url('property-organizer-view-saved-search') . $saved->id ?>" class="btn btn-primary">View Search</a> </div>
+															<div class="pull-left"> <a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-view-saved-search') . $saved->id ?>" class="btn btn-primary">View Search</a> </div>
 															<div class="pull-right">
 																<?php /*
 																<form action="<?php echo site_url('/'); ?>email-alerts/" method="get" style="display: inline;">
@@ -507,12 +507,12 @@ $userdata = $userdata[0]; //get first index record
     <div>
         <div class="row mb-10">
             <div class="col-xs-12">
-                <div class="pull-right"> <?php /* <a href="./property-organizer-help/">Help</a> <span>&nbsp;|&nbsp; */ /*?></span> <a href="<?php echo zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
+                <div class="pull-right"> <?php /* <a href="./property-organizer-help/">Help</a> <span>&nbsp;|&nbsp; */ /*?></span> <a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>">Logout</a> </div>
             </div>
         </div>
         <div class="row mb-10">
             <div class="col-xs-12">
-                <div class="btn-group btn-group-justified"> <a class="btn btn-primary active" href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
+                <div class="btn-group btn-group-justified"> <a class="btn btn-primary active" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>">Profile</a> <a class="btn btn-primary" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-saved-listings'); ?>">My Favorites</a> <a class="btn btn-primary" href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-view-saved-search-list'); ?>">My Saved Searches</a> </div>
             </div>
         </div>
         <div class="row mb-10 mt-25">
@@ -520,7 +520,7 @@ $userdata = $userdata[0]; //get first index record
         </div>
         <div class="row mb-10">
             <div class="col-xs-12">
-                <form id="subscriberForm" role="form" class="form-horizontal" action="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=update" method="POST">
+                <form id="subscriberForm" role="form" class="form-horizontal" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=update" method="POST">
                     <input id="subscriberId" name="subscriberId" type="hidden" value="4002770">
                     <input type="hidden" name="actionType" value="update">
                     <div class="form-group">
@@ -606,7 +606,7 @@ $userdata = $userdata[0]; //get first index record
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9"> <span class="help-block">
 						*Required fields. Your personal information is strictly confidential and will not be shared with any outside organizations. <br>
-						<?php /* <br>By submitting this form with your telephone number you are consenting for Keller William Realty Chestnut Hill and authorized representatives to contact you even if your name is on the Federal "Do-not-call List." <br> <br> <a href="<?php echo zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=unsubscribe">Delete This Account</a> <br> </span> 
+						<?php /* <br>By submitting this form with your telephone number you are consenting for Keller William Realty Chestnut Hill and authorized representatives to contact you even if your name is on the Federal "Do-not-call List." <br> <br> <a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber'); ?>?actionType=unsubscribe">Delete This Account</a> <br> </span> 
 					</div>
                 </div> */ /*?>
             </div>
