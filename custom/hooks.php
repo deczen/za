@@ -844,3 +844,18 @@ function fix_divi_br(){
 <?php
 }
 
+add_filter( 'script_loader_tag', 'regal_tag', 10, 3 );
+function regal_tag( $tag, $handle, $src ) {
+	
+	switch($handle){
+		case "za-bundle-js":
+				return "<script src='$src' async></script>";
+			break;
+		case "magicsuggest-js":
+		case "owl-carousel-js":
+				return "<script src='$src' defer></script>";
+			break;
+	}
+	
+	return $tag;
+}

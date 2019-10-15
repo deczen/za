@@ -114,7 +114,7 @@ $maxListPrice		= $requests['maxlistprice'];
 			<?php endif; ?>
 		</form>	
 		
-		<?php echo global_new_omnibar_script(); ?>
+		<?php echo global_new_omnibar_script(1); ?>
 		
 	</div>
 </div>
