@@ -245,7 +245,7 @@ class zipperAgentRequestor {
 						include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter2.php";
 					}					
 					$html=ob_get_clean();					
-					break;
+				break;
 					
 			case "featuredSearchVirtualPage":
 					ob_start();

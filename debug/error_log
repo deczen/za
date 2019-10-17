@@ -162,3 +162,14 @@ Stack trace:
 #1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(313): Adoy\ICU\ResourceBundle\Parser->validateFormat('cis')
 #2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(277): Adoy\ICU\ResourceBundle\Parser->formatStatement()
 #3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\IC in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 18
+[16-Oct-2019 13:24:48 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/debug/curl_2.php on line 53
+[16-Oct-2019 13:25:19 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/debug/curl_2.php on line 49
+[17-Oct-2019 08:20:04 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:20:07 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:20:28 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:20:34 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:54:32 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:54:32 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:54:32 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:54:32 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163
+[17-Oct-2019 08:54:32 UTC] PHP Notice:  Undefined variable: data in /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/api-processing/root.php on line 163

@@ -40,7 +40,7 @@
 		display: block !important;
 	}
 	body .zy-margin{padding-top: 0 !important;}
-	body .zy-print-view .zy-print-block img{max-width: 100px;display: inline-block;}
+	body .zy-print-view .zy-print-block img{width: 100px;display: inline-block;}
 	body .zy-print-view {
 		display: block !important;
 		width: 100%;
