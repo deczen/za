@@ -20,7 +20,7 @@ class zipperAgentMapSearchVirtualPageImpl extends zipperAgentAbstractVirtualPage
 	}		
 	
 	public function getContent() {
-		zipperAgentStateManager::getInstance()->setLastSearchUrl();
+		// zipperAgentStateManager::getInstance()->setLastSearchUrl(); //modified by decz
 		$this->remoteRequest
 			->addParameters($_REQUEST)
 			->addParameter("requestType", "map-search-widget")

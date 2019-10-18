@@ -24,17 +24,17 @@ class zipperAgentSearchResultsVirtualPageImpl extends zipperAgentAbstractVirtual
 	}	
 			
 	public function getContent() {
-		$displayRules = zipperAgentDisplayRules::getInstance();
-		$stateManager = zipperAgentStateManager::getInstance();
-		$stateManager->setLastSearchUrl();
+		// $displayRules = zipperAgentDisplayRules::getInstance(); //modified by decz
+		// $stateManager = zipperAgentStateManager::getInstance(); //modified by decz
+		// $stateManager->setLastSearchUrl(); //modified by decz
 		//use a different requestType depending on the search
 		$requestType = "listing-search-results";
-		if($displayRules->isSearchByListingIdEnabled() && $stateManager->isListingIdResults()) {
+		/* if($displayRules->isSearchByListingIdEnabled() && $stateManager->isListingIdResults()) {
 			$requestType = "results-by-listing-id";
 		}
 		if($displayRules->isSearchByAddressEnabled() && $stateManager->isListingAddressResults()) {
 			$requestType = "results-by-address";
-		}
+		} */ //modified by decz
 		$this->remoteRequest
 			->addParameters($_REQUEST)
 			->addParameter("requestType", $requestType)

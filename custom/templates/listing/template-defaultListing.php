@@ -10,7 +10,7 @@ if($templatename && file_exists($template_path)){
 	return;
 }
 ?>
-<div class="zpa-listing-search-results">
+<div class="zpa-listing-search-results hideonprint">
 	<!-- Display hotsheet display text for saved search pages but not for listing or open home report pages -->			
 	<div class="row mb-10">
 		<?php /*
@@ -317,7 +317,7 @@ if($templatename && file_exists($template_path)){
 										</div>
 									</div>
 								</div>
-							<?php }else if(isset($property->openHouses) && sizeof($property->openHouses) && $openHomesOnlyYn){ ?>
+							<?php }else if(isset($property->openHouses) && sizeof($property->openHouses) /* && $openHomesOnlyYn */ ){ ?>
 								<?php
 								$openHouse=$property->openHouses[0];
 								?>
@@ -507,3 +507,6 @@ if($templatename && file_exists($template_path)){
 	});
 	
 </script>
+
+<?php
+include ZIPPERAGENTPATH . "/custom/templates/listing/template-list-print.php";

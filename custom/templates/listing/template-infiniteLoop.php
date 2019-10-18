@@ -4,7 +4,7 @@ $detect = new Mobile_Detect;
 $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 ?>
 <?php if( !isset($infiniteajax) || ! $infiniteajax ): // start not infinite ajax ?>
-<div class="zpa-listing-search-results">
+<div class="zpa-listing-search-results hideonprint">
 	<!-- Display hotsheet display text for saved search pages but not for listing or open home report pages -->			
 	<div class="row mb-10">
 	</div>
@@ -226,7 +226,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 										</div>
 									</div>
 								</div>
-							<?php }else if(isset($property->openHouses) && sizeof($property->openHouses) && $openHomesOnlyYn){ ?>
+							<?php }else if(isset($property->openHouses) && sizeof($property->openHouses) /* && $openHomesOnlyYn */ ){ ?>
 								<?php
 								$openHouse=$property->openHouses[0];
 								?>
@@ -554,4 +554,6 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 </script>
 <?php endif; ?>
 
-<?php endif; // end is not infinite ajax?> 
+<?php endif; // end is not infinite ajax ?> 
+<?php
+include ZIPPERAGENTPATH . "/custom/templates/listing/template-list-print.php";

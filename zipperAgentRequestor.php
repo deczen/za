@@ -280,7 +280,7 @@ class zipperAgentRequestor {
 						$temp=array();
 						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css');
 						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css');
-						$temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
+						// $temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
 						$css = (object)$temp;
 
 					}else{
