@@ -273,11 +273,11 @@
 	#zy_list-print .zy_pt-prop-info .zpa-status{
 		display:inline-block;
 		background:#ddd;
-		max-width: 70%;
+		max-width: 60%;
 		font-weight: bold;
 	}
 	#zy_list-print .zy_pt-days{
-		width:30%;
+		width:40%;
 		float:right;
 	}
 	#zy_list-print .zy_pt-days span{

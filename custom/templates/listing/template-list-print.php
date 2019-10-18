@@ -6,12 +6,18 @@
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
 		$print_color = isset($rb['web']['print_color'])?$rb['web']['print_color']:'';
 	?>	
+	<?php if($print_logo): ?>
 	<div class="zy-print-header-top">
 		<div class="zy-print-logo">
 			<img src="<?php echo $print_logo; ?>">
 		</div>
 	</div>
+	<?php endif; ?>
 <?php
+$i=0;
+$column=2;
+$wrapOpen=false;
+
 foreach( $list as $option ): ?>
 	<?php	
 	if( $open )
@@ -25,120 +31,91 @@ foreach( $list as $option ): ?>
 	$fulladdress = zipperagent_get_address($property);
 	$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 	?>
-
-	<div class="zy_pt-prop-wrap">
-		<div class="zy_pt-property">
-			<div class="zy_pt-border">
-				<div class="zy_pt-prop-img">
-					<img src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" />
-				</div>
-				<div class="zy_pt-price zy_pt-wrap">
-					<span class="zy_pt-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span>
-				</div>
-				<div class="zy_pt-address zy_pt-wrap">
-					<span class="zpa-grid-result-address"> <img src="<?php echo ZIPPERAGENTURL . "images/map-marker.png" ?>" title="map marker" alt="map marker" /> <?php echo $fulladdress; ?> </span> 
-				</div>
-				<div class="zy_pt-prop-features">
-					<?php
-					$infoscount=0;
-					?>
-					<?php if( isset($property->nobedrooms ) && $property->nobedrooms > 0 ): ?>
-					<div class="zy_pt-feature"> 
-						<div class="zpa-grid-result-basic-info-container">
-							<?php if( isset($property->nobedrooms ) && $property->nobedrooms > 0 ): ?><div class="zpa-grid-result-basic-info-item1"> <b><?php echo $property->nobedrooms ?></b>
-								beds </div>
-							<?php $infoscount++; ?>
-							<?php else: ?>
-								&nbsp;
-							<?php endif; ?>
-						</div>
+	
+	<?php
+	if($i % $column ==0 && ! $wrapOpen){		
+	echo "<div class='zy_row'>";
+	$wrapOpen=true;
+	}
+	?>
+		<div class="zy_pt-prop-wrap">
+			<div class="zy_pt-property">
+				<div class="zy_pt-border">
+					<div class="zy_pt-prop-img">
+						<img src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" />
 					</div>
-					<?php endif; ?>
-					<?php if( isset($property->nobaths ) && $property->nobaths > 0 ): ?>
-					<div class="zy_pt-feature"> 
-						<div class="zpa-grid-result-basic-info-container">
-							<?php if( isset($property->nobaths ) && $property->nobaths > 0 ): ?><div class="zpa-grid-result-basic-info-item2"> <b><?php echo $property->nobaths ?> </b>
-								baths </div>
-							<?php $infoscount++; ?>
-							<?php else: ?>
-								&nbsp;
-							<?php endif; ?>
-						</div>
+					<div class="zy_pt-price zy_pt-wrap">
+						<span class="zy_pt-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span>
 					</div>
-					<?php endif; ?>
-					<?php if( isset($property->squarefeet ) && $property->squarefeet > 0 ): ?>
-					<div class="zy_pt-feature"> 
-						<div class="zpa-grid-result-basic-info-container">
-							<?php if( isset($property->squarefeet ) && $property->squarefeet > 0 ): ?><div class="zpa-grid-result-basic-info-item3"> <b> <?php echo number_format_i18n( $property->squarefeet, 0 ) ?> </b>
-								sqft </div>
-							<?php $infoscount++; ?>
-							<?php else: ?>
-								&nbsp;
-							<?php endif; ?>
-						</div>
+					<div class="zy_pt-address zy_pt-wrap">
+						<span class="zpa-grid-result-address"> <img src="<?php echo ZIPPERAGENTURL . "images/map-marker.png" ?>" title="map marker" alt="map marker" /> <?php echo $fulladdress; ?> </span> 
 					</div>
-					<?php endif; ?>	
-					<?php if( !$infoscount ): ?>
-					<div class="zy_pt-feature"> 
-						<div class="zpa-grid-result-basic-info-container">
-							&nbsp;
-						</div>
-					</div>
-					<?php endif; ?>	
-					<div class="clearfix"></div>
-				</div>
-				<div class="zy_pt-prop-info zy_pt-wrap">
-					<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
+					<div class="zy_pt-prop-features">
 						<?php
-							$status=isset($property->status)?$property->status:'';
-							$converted_status = zipperagent_get_status_name($status);
+						$infoscount=0;
 						?>
-						<span class="text-center d-block"><?php echo strtoupper($converted_status) ?></span>
-					</div>
-					<div class="zy_pt-days">
-						<span class="pull-right"> <?php if(isset($property->dayssincelisting)): ?><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo isset($property->dayssincelisting)?$property->dayssincelisting:'-'; ?> Day(s) <?php endif; ?> </span>
+						<?php if( isset($property->nobedrooms ) && $property->nobedrooms > 0 ): ?>
+						<div class="zy_pt-feature"> 
+							<div class="zpa-grid-result-basic-info-container">
+								<?php if( isset($property->nobedrooms ) && $property->nobedrooms > 0 ): ?><div class="zpa-grid-result-basic-info-item1"> <b><?php echo $property->nobedrooms ?></b>
+									beds </div>
+								<?php $infoscount++; ?>
+								<?php else: ?>
+									&nbsp;
+								<?php endif; ?>
+							</div>
+						</div>
+						<?php endif; ?>
+						<?php if( isset($property->nobaths ) && $property->nobaths > 0 ): ?>
+						<div class="zy_pt-feature"> 
+							<div class="zpa-grid-result-basic-info-container">
+								<?php if( isset($property->nobaths ) && $property->nobaths > 0 ): ?><div class="zpa-grid-result-basic-info-item2"> <b><?php echo $property->nobaths ?> </b>
+									baths </div>
+								<?php $infoscount++; ?>
+								<?php else: ?>
+									&nbsp;
+								<?php endif; ?>
+							</div>
+						</div>
+						<?php endif; ?>
+						<?php if( isset($property->squarefeet ) && $property->squarefeet > 0 ): ?>
+						<div class="zy_pt-feature"> 
+							<div class="zpa-grid-result-basic-info-container">
+								<?php if( isset($property->squarefeet ) && $property->squarefeet > 0 ): ?><div class="zpa-grid-result-basic-info-item3"> <b> <?php echo number_format_i18n( $property->squarefeet, 0 ) ?> </b>
+									sqft </div>
+								<?php $infoscount++; ?>
+								<?php else: ?>
+									&nbsp;
+								<?php endif; ?>
+							</div>
+						</div>
+						<?php endif; ?>	
+						<?php if( !$infoscount ): ?>
+						<div class="zy_pt-feature"> 
+							<div class="zpa-grid-result-basic-info-container">
+								&nbsp;
+							</div>
+						</div>
+						<?php endif; ?>	
 						<div class="clearfix"></div>
 					</div>
-				</div>
-				<div class="zy_pt-open-house zy_pt-wrap">
-					<?php if( isset( $option->startDate ) && !empty( $option->startDate ) ){ ?>
-					<?php
-					$openHouse=$option;		
-					$sourceid=isset($property->sourceid)?$property->sourceid:'';
-					$mlstz = zipperagent_mls_timezone($sourceid);
-					$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
-					$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
-					$startDateOnly = $dt->format('Y-m-d');
-					$startDate = $dt->format('M j, Y h:i A');
-					$startTime =  $dt->format('h:i A');
-					
-					$duration = isset( $openHouse->duration ) && !empty( $openHouse->duration ) ? $openHouse->duration : 0;
-					$printEndTime = '';
-					
-					if( $duration ){
-						$dt->add(new DateInterval('PT' . $duration . 'M'));
-						// $endTime = date( 'h:i A', strtotime("+{$duration} minutes", strtotime($startTime)) );
-						$endTime = $dt->format('h:i A');
-						$printEndTime = '- '.$endTime;
-					}else if($openHouse->endDate){
-						$dt->setTimestamp($openHouse->endDate/1000);
-						$endDateOnly = $dt->format('Y-m-d');
-						
-						if($startDateOnly!=$endDateOnly){
-							
-							$endDate = $dt->format('M j, Y h:i A');
-							$printEndTime = '- '.$endDate;
-						}else{
-							
-							$endTime = $dt->format('h:i A');
-							$printEndTime = '- '.$endTime;
-						}
-					?>
-					<span class="openHomeText"> Open House:</span> <?php echo $startDate ?> <?php echo $printEndTime; ?>
-					<?php } ?>
-				<?php }else if(isset($property->openHouses) && sizeof($property->openHouses) /* && $openHomesOnlyYn */ ){ ?>
+					<div class="zy_pt-prop-info zy_pt-wrap">
+						<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
+							<?php
+								$status=isset($property->status)?$property->status:'';
+								$converted_status = zipperagent_get_status_name($status);
+							?>
+							<span class="text-center d-block"><?php echo strtoupper($converted_status) ?></span>
+						</div>
+						<div class="zy_pt-days">
+							<span class="pull-right"> <?php if(isset($property->dayssincelisting)): ?><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo isset($property->dayssincelisting)?$property->dayssincelisting:'-'; ?> Day(s) <?php endif; ?> </span>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="zy_pt-open-house zy_pt-wrap">
+						<?php if( isset( $option->startDate ) && !empty( $option->startDate ) ){ ?>
 						<?php
-						$openHouse=$property->openHouses[0];			
+						$openHouse=$option;		
 						$sourceid=isset($property->sourceid)?$property->sourceid:'';
 						$mlstz = zipperagent_mls_timezone($sourceid);
 						$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
@@ -168,24 +145,67 @@ foreach( $list as $option ): ?>
 								$endTime = $dt->format('h:i A');
 								$printEndTime = '- '.$endTime;
 							}
-						}
-					?>					
-					<span class="openHomeText"> Open House:</span> <?php echo $startDate ?> <?php echo $printEndTime; ?>
-					<?php } ?>
+						?>
+						<span class="openHomeText"> Open House:</span> <?php echo $startDate ?> <?php echo $printEndTime; ?>
+						<?php } ?>
+					<?php }else if(isset($property->openHouses) && sizeof($property->openHouses) /* && $openHomesOnlyYn */ ){ ?>
+							<?php
+							$openHouse=$property->openHouses[0];			
+							$sourceid=isset($property->sourceid)?$property->sourceid:'';
+							$mlstz = zipperagent_mls_timezone($sourceid);
+							$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
+							$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
+							$startDateOnly = $dt->format('Y-m-d');
+							$startDate = $dt->format('M j, Y h:i A');
+							$startTime =  $dt->format('h:i A');
+							
+							$duration = isset( $openHouse->duration ) && !empty( $openHouse->duration ) ? $openHouse->duration : 0;
+							$printEndTime = '';
+							
+							if( $duration ){
+								$dt->add(new DateInterval('PT' . $duration . 'M'));
+								// $endTime = date( 'h:i A', strtotime("+{$duration} minutes", strtotime($startTime)) );
+								$endTime = $dt->format('h:i A');
+								$printEndTime = '- '.$endTime;
+							}else if($openHouse->endDate){
+								$dt->setTimestamp($openHouse->endDate/1000);
+								$endDateOnly = $dt->format('Y-m-d');
+								
+								if($startDateOnly!=$endDateOnly){
+									
+									$endDate = $dt->format('M j, Y h:i A');
+									$printEndTime = '- '.$endDate;
+								}else{
+									
+									$endTime = $dt->format('h:i A');
+									$printEndTime = '- '.$endTime;
+								}
+							}
+						?>					
+						<span class="openHomeText"> Open House:</span> <?php echo $startDate ?> <?php echo $printEndTime; ?>
+						<?php } ?>
+					</div>
+					<div class="zy_pt-mls-info zy_pt-wrap">
+						<?php echo $property->displaySource; ?>#<?php echo $property->listno ?> | <?php echo zipperagent_property_type( $property->proptype ); ?>
+					</div>			
 				</div>
-				<div class="zy_pt-mls-info zy_pt-wrap">
-					<?php echo $property->displaySource; ?>#<?php echo $property->listno ?> | <?php echo zipperagent_property_type( $property->proptype ); ?>
-				</div>			
 			</div>
-		</div>
-		<?php						
-		$source_details = isset($property->sourceid) ? zipperagent_get_source_text($property->sourceid, array('listOfficeName'=>isset($property->listOfficeName)?$property->listOfficeName:'', 'listAgentName'=>isset($property->listAgentName)?$property->listAgentName:''), 'list') : false;
-		?>
-		<div class="zy_pt-property-source">				
+			<?php						
+			$source_details = isset($property->sourceid) ? zipperagent_get_source_text($property->sourceid, array('listOfficeName'=>isset($property->listOfficeName)?$property->listOfficeName:'', 'listAgentName'=>isset($property->listAgentName)?$property->listAgentName:''), 'list') : false;
+			?>
 			<?php if($source_details): ?>
-			<?php echo $source_details; ?>
+			<div class="zy_pt-property-source">			
+				<?php echo $source_details; ?>
+			</div>
+			<?php endif; ?>
 		</div>
-		<?php endif; ?>
+	<?php if( (($i % $column) >= ($column-1) && $wrapOpen  //if one line has reach prop limit close the div
+			  || ($i+1==sizeof($list) && $wrapOpen ) ) ): //if last prop reached close the div  ?>			
+		<div class="clearfix"></div>
 	</div>
-
+	<?php
+	$wrapOpen=false;
+	endif; ?>
+<?php $i++; ?>
 <?php endforeach; ?>
+</div>
