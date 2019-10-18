@@ -4,6 +4,7 @@
 .printonly{
 	display: none !important;
 }
+/* detail page */
 @media print {
 	.zy-margin .container, .et_pb_row, .et_pb_slider .et_pb_container, 
 	.zy-margin .et_pb_fullwidth_section .et_pb_title_container, 
@@ -29,7 +30,9 @@
 	body .zy-margin #zipperagent-content .hideonprint,
 	body .uk-sticky-placeholder,
 	body #edgtf-back-to-top,
-	body .grecaptcha-badge {
+	body .grecaptcha-badge,
+	body .desktop-omnibar,
+	body #omnibar-tools .mobile-omnimbar{
 		display: none!important;
 	}
 	body .zy-print-google-map{
@@ -199,4 +202,93 @@
 	body .zy-print-agent h6{padding-bottom:0;margin-bottom:0;}
 	body .uk-list li{margin-bottom:0;padding-bottom:0;line-height:1.4;}
 	body.modal-open{overflow: unset !important;max-height: unset !important}
+}
+
+/* list page */
+@media print{
+	#zy_list-print{
+		margin-left:-15px;
+		margin-right:-15px;
+	}
+	#zy_list-print .zy-print-header-top{
+		margin-bottom:30px;
+	}
+	#zy_list-print .zy-print-logo img{
+		display:block;
+		margin:0 auto;
+		max-height: 90px;
+	}
+	#zy_list-print .zy_pt-prop-wrap{
+		padding-left:15px;
+		padding-right:15px;
+		width:50%;
+		float:left;
+		margin-bottom: 20px;
+	}
+	#zy_list-print .zy_pt-property{
+	}
+	#zy_list-print .zy_pt-border{
+		
+		border:1px solid #e3e3e3;
+		border-radius:4px;
+	}
+	#zy_list-print .zy_pt-wrap{
+		padding:5px 15px;
+	}
+	#zy_list-print .zy_pt-prop-img{
+		background:#000;
+		position:relative;
+	}
+	#zy_list-print .zy_pt-prop-img img{
+		width:auto;
+		height:150px;
+		margin:0 auto;
+		display:block;
+	}
+	#zy_list-print .zy_pt-price{
+		color:#880000;
+		padding-top:10px;
+		padding-bottom:10px;
+		background:rgba(248,248,248,.8);
+		font-size:25px;
+		font-weight:bold;
+	}
+	#zy_list-print .zpa-grid-result-address{
+		padding:4px 0;
+	}
+	#zy_list-print .zy_pt-prop-features{
+		background:#f2f2f2;
+	}
+	#zy_list-print .zy_pt-feature{
+		width:33.33%;
+		float:left;
+		padding:10px 0;
+	}
+	#zy_list-print .zy_pt-mls-info{
+		font-size:11px;
+		padding-top:10px;
+		padding-bottom:10px;
+		border-top:1px solid #ccc;
+	}
+	#zy_list-print .zy_pt-prop-info .zpa-status{
+		display:inline-block;
+		background:#ddd;
+		max-width: 70%;
+		font-weight: bold;
+	}
+	#zy_list-print .zy_pt-days{
+		width:30%;
+		float:right;
+	}
+	#zy_list-print .zy_pt-days span{
+		margin-top:8px;
+	}
+	#zy_list-print .zy_pt-property-source{
+		font-size:13px;
+		min-height: 100px;
+	}
+	#zy_list-print .zy_pt-property-source img{
+		max-height:30px;
+	}
+
 }
