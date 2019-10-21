@@ -132,11 +132,11 @@ if($requests['lat'] && $requests['lng']){
 				
 				// Create the DIV to hold the control and call the CenterControl()
 				// constructor passing in this DIV.
-				var centerControlDiv = document.createElement('div');
+				/* var centerControlDiv = document.createElement('div');
 				var centerControl = new CenterControl(centerControlDiv, map);
 
 				centerControlDiv.index = 1;
-				map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+				map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv); */
 								
 				//update polygon input value	
 				google.maps.event.addListener(map, 'bounds_changed', function() {
@@ -362,7 +362,7 @@ if($requests['lat'] && $requests['lng']){
 			var xhr;
 			
 			var looplimit = 5;
-			var listlimit = 100;
+			var listlimit = 1000;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				

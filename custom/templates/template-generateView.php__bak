@@ -376,11 +376,8 @@ if( $openHomesMode ){ // open houses mode
 		$loop=1;
 		$maplist=array();
 		$mapindex=$index;
-		$maplimit=1000;
+		$maplimit=100;
 		$mapvars=$vars;
-		unset($mapvars['coords']); //remove coords from variables, search all locations
-		// $mapvars['coords']='';
-		$mapvars['micro']=true;
 		$maplisttemp=array();
 		for($i=0; $i<$loop; $i++){
 			if($i>0 && empty($maplisttemp))
@@ -391,13 +388,9 @@ if( $openHomesMode ){ // open houses mode
 			
 			if($type=='map')
 				$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
-			else if($type=='marker'){
-				$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
-				// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
-			}
-			
-			// print_r($mapvars);
-			
+			else if($type=='marker')
+				$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+		
 			$maplisttemp=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
 			$maplist=array_merge($maplist, $maplisttemp);
 			
@@ -526,7 +519,7 @@ switch( $type ){
 			$args = zipperagent_generate_result_markers($maplist);
 			extract($args);
 			
-			$NextMapIndex = $mapindex+1;
+			$NextMapIndex = $mapindex;
 		break;
 	case "gallery":
 	default:

@@ -1458,7 +1458,8 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 		foreach($maplist as $property){
 			
 			// $index=$uniqid.'_'.$i;
-			$index=$property->id;
+			// $index=$property->id;
+			$index=isset($property->id)?$property->id:$property->listno;
 			
 			if(!$index)
 				continue;
@@ -1474,11 +1475,14 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 			$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
 			$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
 			$proptype = $property->proptype;
-			if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )
-				$src = "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=100&h=100&n=0";
-			else
-				$src = str_replace('http://','//',$property->photoList[0]->imgurl);
-			
+			if(isset($property->photoList)){
+				if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )
+					$src = "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=100&h=100&n=0";
+				else
+					$src = str_replace('http://','//',$property->photoList[0]->imgurl);
+			}else if(isset($property->imageUrl)){
+				$src = str_replace('http://','//',$property->imageUrl);
+			}
 			$saved_crit=$search;
 			$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
 			if(!empty($searchId)){

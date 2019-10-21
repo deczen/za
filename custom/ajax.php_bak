@@ -316,9 +316,9 @@ function prop_result_and_pagination(){
 		
 		if(isset($vars['coords'])){
 			
-			// if($type=='withinbox')
-				// $resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $vars, 0, '', true );
-			// else
+			if($type=='withinbox')
+				$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $vars, 0, '', true );
+			else
 				$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $vars, 0, '', true );
 			
 			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
@@ -723,24 +723,22 @@ function get_map_markers_loop(){
 		
 		global $markers, $infoWindows, $NextMapIndex;
 		
-		$maplimit=1000;
+		$maplimit=100;
 		
 		$mapindex=$_REQUEST['sidx'];
 		
-		// $mapvars['coords']=$_REQUEST['coords'];
+		$mapvars['coords']=$_REQUEST['coords'];
 		$mapvars['crit']=$_REQUEST['crit'];
 		$mapvars['o']=$_REQUEST['o'];
 		$mapvars['ps']=$_REQUEST['ps'];
 		$mapvars['sidx']=$_REQUEST['sidx'];
-		$mapvars['micro']=true;
 		
 		
-		// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
-		$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+		$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
 		$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
 		
 		$mapindex+=($maplimit-1);
-		$NextMapIndex = $mapindex+1;
+		$NextMapIndex = $mapindex;
 		$args = zipperagent_generate_result_markers($maplist);
 		extract($args);
 		
