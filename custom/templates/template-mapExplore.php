@@ -202,7 +202,10 @@ if($requests['lat'] && $requests['lng']){
 						div.dataset.marker_id = self.args.marker_id;
 					}
 					
-					div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span></div>";
+					var bedrooms_html = bedrooms ? "&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>" : '';
+					var bath_html = bedrooms ? "&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span>" : '';
+					
+					div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>"+ bedrooms_html + bath_html +"</div>";
 									
 					<?php					
 					if($markers){ ?>
@@ -362,7 +365,7 @@ if($requests['lat'] && $requests['lng']){
 			var xhr;
 			
 			var looplimit = 5;
-			var listlimit = 1000;
+			var listlimit = 5000;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				

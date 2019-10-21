@@ -653,8 +653,8 @@ else: ?>
 				$lat = $property->lat;
 				$lng = $property->lng;
 				$listingId = $property->id;
-				$beds = isset($property->nobedrooms)?$property->nobedrooms:'-';
-				$bath = isset($property->nobaths)?$property->nobaths:'-';
+				$beds = isset($property->nobedrooms)?$property->nobedrooms:'';
+				$bath = isset($property->nobaths)?$property->nobaths:'';
 				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 				$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
 				$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
@@ -687,9 +687,9 @@ else: ?>
 				$fulladdress = zipperagent_get_address($property);
 				$lat = $property->lat;
 				$lng = $property->lng;
-				$beds = isset($property->nobedrooms)?$property->nobedrooms:'-';
-				$bath = isset($property->nobaths)?$property->nobaths:'-';
-				$sqft = isset($property->squarefeet)?$property->squarefeet:'-';
+				$beds = isset($property->nobedrooms)?$property->nobedrooms:'';
+				$bath = isset($property->nobaths)?$property->nobaths:'';
+				$sqft = isset($property->squarefeet)?$property->squarefeet:'';
 				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 				$price = zipperagent_currency() . number_format_i18n( $price, 0 );
 				if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )
@@ -714,13 +714,27 @@ else: ?>
 				$searchId='';
 				$str_contactIds=implode(',',$contactIds);
 				
+				$needBorder=0;
+				if($beds)
+					$needBorder++;
+				if($bath)
+					$needBorder++;
+				if($sqft)
+					$needBorder++;
+				
+				$needBorder_html = $needBorder > 1 ? "| ": "";
+			
+				$beds_html = $beds ? "{$beds} BEDS" : ""; 
+				$bath_html = $bath ? " {$needBorder_html}{$bath} BATH" : ""; 
+				$sqft_html = $sqft ? " {$needBorder_html}{$sqft} SQFT" : ""; 
+				
 				echo "['<div class=\"info_content\">' +
 						'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"{$src}\" /></div>' +
 						'<div class=\"content\">' +				
 							'<a href=\"{$single_url}\"><strong>". str_replace( "'", "\'", $fulladdress )  ."</strong></a>' +
 							'<p class=\"price\">{$price}</p>' +
 							'<p class=\"favorite\"><a class=\"listing-{$property->id} save-favorite-btn {$is_active}\" isLogin=\"{$is_login}\" listingId=\"{$property->id}\" searchId=\"{$searchId}\" contactId=\"{$str_contactIds}\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>' +
-							'<p class=\"info\">{$beds} BEDS | {$bath} BATH | {$sqft} SQFT</p>' +
+							'<p class=\"info\">{$beds_html}{$bath_html}{$sqft_html}</p>' +
 						'</div>' +
 					'</div>'],"."\r\n";
 			}
@@ -1015,11 +1029,14 @@ else: ?>
 				div.dataset.marker_id = self.args.marker_id;
 			}
 			
+			var bedrooms_html = bedrooms ? "&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>" : '';
+			var bath_html = bedrooms ? "&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span>" : '';
+			
 			<?php /*
 			div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span></div>" +
 							"<span class=\"short-price\">"+ shortprice +"</span>"; */ ?>
 							
-			div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span></div>";
+			div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>"+ bedrooms_html + bath_html +"</div>";
 							
 			<?php
 			$markers = zipperagent_get_map_markers();

@@ -723,7 +723,7 @@ function get_map_markers_loop(){
 		
 		global $markers, $infoWindows, $NextMapIndex;
 		
-		$maplimit=1000;
+		$maplimit=5000;
 		
 		$mapindex=$_REQUEST['sidx'];
 		

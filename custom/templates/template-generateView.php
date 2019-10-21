@@ -310,6 +310,8 @@ if( $openHomesMode ){ // open houses mode
 	$open=1;
 }else if( isset($coords) ){ // map mode
 	
+	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+	
 	$search=array(
 		'asrc'=>$rb['web']['asrc'],
 		// 'aloff'=>$rb['web']['aloff'],
@@ -376,11 +378,12 @@ if( $openHomesMode ){ // open houses mode
 		$loop=1;
 		$maplist=array();
 		$mapindex=$index;
-		$maplimit=1000;
+		$maplimit=5000;
 		$mapvars=$vars;
 		unset($mapvars['coords']); //remove coords from variables, search all locations
 		// $mapvars['coords']='';
 		$mapvars['micro']=true;
+		$mapvars['o']='ud:DESC';
 		$maplisttemp=array();
 		for($i=0; $i<$loop; $i++){
 			if($i>0 && empty($maplisttemp))
