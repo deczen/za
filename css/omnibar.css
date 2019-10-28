@@ -17,7 +17,7 @@
 #omnibar-tools .filter-column .dropdown-group .dropdown:last-child .btn{border-radius:0 3px 3px 0 !important;}
 
 #omnibar-tools .mobile-omnibar{display: none;}
-#zpa-main-container #omnibar-tools .open>.dropdown-menu{left: unset !important;}
+#zpa-main-container #omnibar-tools .open>.dropdown-menu{left: unset !important; max-width:500px !important;}
 #omnibar-tools .dropdown-group > .dropdown > .dropdown-menu{
     background: #fff;
     min-width: 130px;

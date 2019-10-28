@@ -346,10 +346,7 @@ if( $openHomesMode ){ // open houses mode
 		$mapvars['sidx']=$mapindex;
 		$mapvars['ps']=$maplimit;
 		
-		if($type=='map')
-			$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
-		else if($type=='marker')
-			$mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+		$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
 	
 		$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
 				
@@ -363,11 +360,8 @@ if( $openHomesMode ){ // open houses mode
 				$list[]=$maplist[$i];
 		}
 		
-		if(!$is_ajax && $type=='map'){
+		if(!$is_ajax){
 			$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
-			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
-		}else if(!$is_ajax && $type=='marker'){
-			$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
 			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
 		}else{		
 			$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
@@ -392,12 +386,8 @@ if( $openHomesMode ){ // open houses mode
 			$mapvars['sidx']=$mapindex;
 			$mapvars['ps']=$maplimit;
 			
-			if($type=='map')
-				$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
-			else if($type=='marker'){
-				$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
-				// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
-			}
+			$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+			// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
 			
 			// print_r($mapvars);
 			
@@ -407,11 +397,9 @@ if( $openHomesMode ){ // open houses mode
 			$mapindex+=($maplimit-1);
 		}
 		
-		/* if(!$is_ajax && $type=='map'){
+		if(!$is_ajax){			
 			$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
-			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0; */
-		if(!$is_ajax && $type=='marker'){
-			$resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
+			// $resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
 			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
 		}else{		
 			$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
@@ -462,7 +450,7 @@ if( $openHomesMode ){ // open houses mode
 	if( $contactIds )
 		$vars['contactId'] = implode(',',$contactIds);
 	
-	if($type=='map' || $type=='marker'){
+	if($type=='map'){
 		$maplimit=100;
 		$mapvars=$vars;
 		$mapindex=floor($index / $maplimit);
@@ -488,6 +476,44 @@ if( $openHomesMode ){ // open houses mode
 		}else{		
 			$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
 		}
+	}else if($type=='marker'){
+		
+		$loop=1;
+		$maplist=array();
+		$mapindex=$index;
+		$maplimit=5000;
+		$mapvars=$vars;
+		unset($mapvars['coords']); //remove coords from variables, search all locations
+		// $mapvars['coords']='';
+		$mapvars['micro']=true;
+		$mapvars['o']='ud:DESC';
+		$maplisttemp=array();
+		for($i=0; $i<$loop; $i++){
+			if($i>0 && empty($maplisttemp))
+				break;
+			
+			$mapvars['sidx']=$mapindex;
+			$mapvars['ps']=$maplimit;
+			
+			$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+			// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+			
+			// print_r($mapvars);
+			
+			$maplisttemp=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+			$maplist=array_merge($maplist, $maplisttemp);
+			
+			$mapindex+=($maplimit-1);
+		}
+		
+		if(!$is_ajax){			
+			$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
+			// $resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
+			$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+		}else{		
+			$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
+		}
+		
 	}else{
 		$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
 		if(!$is_ajax){

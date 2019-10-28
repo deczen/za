@@ -130,20 +130,20 @@ $excludes = get_new_filter_excludes();
 									</ul>
 								</div>
 								<div class="col-xs-6">
-									<ul class="select-max-price">
-										<li><a href="#" value="125000"><?php echo $currency; ?>125K</a></li>
-										<li><a href="#" value="150000"><?php echo $currency; ?>150K</a></li>
-										<li><a href="#" value="175000"><?php echo $currency; ?>175K</a></li>
+									<ul class="select-max-price hide">
+										<li><a href="#" value="100000"><?php echo $currency; ?>100K</a></li>
 										<li><a href="#" value="200000"><?php echo $currency; ?>200K</a></li>
-										<li><a href="#" value="225000"><?php echo $currency; ?>225K</a></li>
-										<li><a href="#" value="250000"><?php echo $currency; ?>250K</a></li>
-										<li><a href="#" value="275000"><?php echo $currency; ?>275K</a></li>
-										<li><a href="#" value="300000"><?php echo $currency; ?>300K</a></li>										
-										<li><a href="#" value="325000"><?php echo $currency; ?>325K</a></li>										
+										<li><a href="#" value="300000"><?php echo $currency; ?>300K</a></li>
+										<li><a href="#" value="400000"><?php echo $currency; ?>400K</a></li>
+										<li><a href="#" value="500000"><?php echo $currency; ?>500K</a></li>
+										<li><a href="#" value="600000"><?php echo $currency; ?>600K</a></li>
+										<li><a href="#" value="700000"><?php echo $currency; ?>700K</a></li>
+										<li><a href="#" value="800000"><?php echo $currency; ?>800K</a></li>										
+										<li><a href="#" value="900000"><?php echo $currency; ?>900K</a></li>										
 										<li><a href="#" value="">Any Price</a></li>										
 									</ul>
 								</div>
-							</div>
+							</div>							
 						  </div>
 						</div>
 						<div class="dropdown beds">
@@ -2058,6 +2058,10 @@ $excludes = get_new_filter_excludes();
 			
 			jQuery('#zpa-search-filter-form').submit();
 			
+			jQuery(this).closest('.listprice').find('input[name=maxlistprice]').focus();
+			
+			generateMaxPriceOption(value);
+			
 			return false;
 		});
 		jQuery('body').on( 'click', '#omnibar-tools .filter-column .select-max-price a,'+
@@ -2075,6 +2079,68 @@ $excludes = get_new_filter_excludes();
 			
 			return false;
 		});
+		
+		jQuery('.desktop-omnibar #minlistprice').on( 'focus', function(){
+			jQuery('.desktop-omnibar .select-min-price').removeClass('hide');
+			jQuery('.desktop-omnibar .select-max-price').addClass('hide');
+		});
+		
+		jQuery('.desktop-omnibar #maxlistprice').on( 'focus', function(){
+			jQuery('.desktop-omnibar .select-min-price').addClass('hide');
+			jQuery('.desktop-omnibar .select-max-price').removeClass('hide');
+		});
+		
+		jQuery('.desktop-omnibar #minlistprice').on( 'change', function(){
+			jQuery('.desktop-omnibar #maxlistprice').focus();
+			generateMaxPriceOption(jQuery(this).val());
+		});
+		
+		function generateMaxPriceOption(price){
+			
+			price = parseInt(price.replace(/,/g, ''));
+			
+			var boundary = 200000;
+			var plus = 0; 
+			var val = 0;
+			var options='';
+			
+			if(price===0){
+				plus = 100000;
+			}else if(price >= boundary)
+				plus = 50000;
+			else if(price < boundary)
+				plus = 25000;
+			
+			if(price===0){
+				val = 0;
+			}else if(price <= 50000){
+				val = 50000;
+			}else if(price <= 75000){
+				val = 75000;
+			}else if(price <= 100000){
+				val = 100000;
+			}else if(price <= 150000){
+				val = 150000;
+			}else if(price <= 200000){
+				val = 200000;
+			}else if(price <= 250000){
+				val = 250000;
+			}else if(price <= 300000){
+				val = 300000;
+			}else if(price <= 350000){
+				val = 350000;
+			}else if(price <= 400000){
+				val = 400000;
+			}
+			
+			for( x=0; x<9; x++ ){
+				val += plus;
+				options += '<li><a href="#" value="'+ val +'"><?php echo $currency; ?>'+ val / 1000 +'K</a></li>';
+			}
+			options += '<li><a href="#" value="">Any Price</a></li>';
+			
+			jQuery('.desktop-omnibar .select-max-price').html(options);
+		}
 	</script>
 	<script>
 		jQuery(document).ready(function(){

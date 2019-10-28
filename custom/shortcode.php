@@ -8,6 +8,7 @@ class Zipperagent_Shortcodes{
 		'single_property' => 'display_single_property',
 		'listingphotos' => 'display_single_property_exterior_features',
 		'search_properties' => 'display_search_property',
+		'search_properties_crm' => 'display_search_property_poc',
 		'luxury_properties' => 'display_luxury_property',
 		'za_open_house_search' => 'display_open_house_search',
 		'za_quick_search' => 'display_quick_search',
@@ -168,6 +169,36 @@ class Zipperagent_Shortcodes{
 		unset($requests);
 		unset($is_shortcode);
 		// echo "<pre>"; print_r( $requests ); echo "</pre>";
+		
+		return $html;
+	}
+	
+	function display_search_property_poc($atts){
+		
+		global $requests, $is_shortcode;
+		
+		$requests=$atts;
+		
+		if( isset($requests['location']) ){
+			$requests['location']=explode(',',$requests['location']);
+		}
+		
+		$requests['is_shortcode']=1;
+		$is_shortcode=1;
+		
+		//save all http request to $request
+		foreach( $_REQUEST as $key=>$val ){
+			$requests[$key]=$val;
+		}
+		
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/templates/template-search-results_poc.php";
+		// include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_poc.php";
+		$html=ob_get_clean();
+		
+		/* Reset variables */
+		unset($requests);
+		unset($is_shortcode);
 		
 		return $html;
 	}

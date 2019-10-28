@@ -137,11 +137,12 @@ if($requests['lat'] && $requests['lng']){
 
 				centerControlDiv.index = 1;
 				map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv); */
-								
+				
+				<?php /*
 				//update polygon input value	
 				google.maps.event.addListener(map, 'bounds_changed', function() {
 					updateCoords();
-				});
+				}); */ ?>
 				
 				setTimeout( function() {				  
 					jQuery('#zpa-search-filter-form').submit();
@@ -320,8 +321,9 @@ if($requests['lat'] && $requests['lng']){
 				var markerCluster = new MarkerClusterer(map, saved_markers,
 				{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 				
+				<?php /*
 				//update polygon input value
-				updateCoords();
+				updateCoords(); */ ?>
 			}
 			
 			function CenterControl(controlDiv, map) {
