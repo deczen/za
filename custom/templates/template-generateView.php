@@ -500,6 +500,7 @@ if( $openHomesMode ){ // open houses mode
 			// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
 			
 			// print_r($mapvars);
+			// print_r($mapresult);
 			
 			$maplisttemp=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
 			$maplist=array_merge($maplist, $maplisttemp);

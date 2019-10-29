@@ -1450,7 +1450,7 @@ if( ! function_exists('zipperagent_get_map_markers') ){
 
 if( ! function_exists('zipperagent_generate_result_markers') ){
 	function zipperagent_generate_result_markers($maplist){
-				
+		
 		$i=0;
 		$markers=array();
 		$infoWindows=array();

@@ -115,9 +115,9 @@ if($requests['lat'] && $requests['lng']){
 			var infoWindowContent = [];
 			var loop=0;
 
-			function initialize(za_lat, za_lng) {
+			function initialize(za_lat, za_lng, zoom, refresh) {
 				var mapOptions = {
-					zoom: <?php echo $requests['map_zoom']; ?>,
+					zoom: zoom,
 					center: new google.maps.LatLng(za_lat, za_lng),
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
 					disableDefaultUI: true,
@@ -144,9 +144,20 @@ if($requests['lat'] && $requests['lng']){
 					updateCoords();
 				}); */ ?>
 				
-				setTimeout( function() {				  
-					jQuery('#zpa-search-filter-form').submit();
-				}, 1000);
+				if(refresh){
+					setTimeout( function() {				  
+						jQuery('#zpa-search-filter-form').submit();
+					}, 1000);
+				}
+			}
+			
+			function refreshMap(){
+				var current_zoom = map.getZoom();
+				var current_center = map.getCenter();
+				var current_lat = current_center.lat();
+				var current_lng = current_center.lng();
+				
+				initialize(current_lat, current_lng, current_zoom, 0);
 			}
 			
 			function updateCoords(){				
@@ -361,7 +372,7 @@ if($requests['lat'] && $requests['lng']){
 
 			}
 			
-			initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>'); // show map
+			initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>', <?php echo $requests['map_zoom']; ?>, 1); // show map
 			
 			//ajax call
 			var xhr;
@@ -422,6 +433,8 @@ if($requests['lat'] && $requests['lng']){
 				
 				//hide refresh button
 				jQuery('.za-refresh-map').addClass('hide');
+				
+				refreshMap();
 			});	
 			
 			//ajax call

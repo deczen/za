@@ -639,7 +639,10 @@ $excludes = get_new_filter_excludes();
 				if(!newLabel){
 					switch(linked_name){
 						case "maxlistprice":
-							newLabel = 'up to '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
+							if(value)
+								newLabel = 'up to '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
+							else
+								newLabel = 'up to any';
 							break;
 						case "minlistprice":
 							newLabel = 'over '+ currency + shortenmoney(value.replace(/,/g, '')) ;	
@@ -2096,8 +2099,18 @@ $excludes = get_new_filter_excludes();
 			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
 			
 			if(minlistprice > maxlistprice && maxlistprice){
-				alert('Min Price should be less than Max Price');
-				jQuery(this).val('');
+				// alert('Min Price should be less than Max Price');
+				jQuery(this).val(maxvalue);
+				jQuery('.desktop-omnibar #maxlistprice').val(minvalue);
+				
+				addFilterLabel('minlistprice', maxvalue, 'minlistprice', '');
+				addFormField('minlistprice',maxvalue,'minlistprice');
+				addFilterLabel('maxlistprice', minvalue, 'maxlistprice', '');
+				addFormField('maxlistprice',minvalue,'maxlistprice');
+				
+				generateMaxPriceOption(minvalue);
+				
+				jQuery('#zpa-search-filter-form').submit();
 			}else{				
 				jQuery('.desktop-omnibar #maxlistprice').focus();
 			}
@@ -2110,8 +2123,18 @@ $excludes = get_new_filter_excludes();
 			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
 			
 			if(maxlistprice < minlistprice){
-				alert('Max Price should be not less than Min Price');
-				jQuery(this).val('');
+				// alert('Max Price should be not less than Min Price');
+				jQuery(this).val(minvalue);
+				jQuery('.desktop-omnibar #minlistprice').val(maxvalue);
+				
+				addFilterLabel('minlistprice', maxvalue, 'minlistprice', '');
+				addFormField('minlistprice',maxvalue,'minlistprice');
+				addFilterLabel('maxlistprice', minvalue, 'maxlistprice', '');
+				addFormField('maxlistprice',minvalue,'maxlistprice');
+				
+				generateMaxPriceOption(minvalue);
+				
+				jQuery('#zpa-search-filter-form').submit();
 			}
 		});
 		
@@ -2151,6 +2174,8 @@ $excludes = get_new_filter_excludes();
 				val = 350000;
 			}else if(price <= 400000){
 				val = 400000;
+			}else{
+				val = price;
 			}
 			
 			for( x=0; x<9; x++ ){
