@@ -2060,8 +2060,6 @@ $excludes = get_new_filter_excludes();
 			
 			jQuery(this).closest('.listprice').find('input[name=maxlistprice]').focus();
 			
-			generateMaxPriceOption(value);
-			
 			return false;
 		});
 		jQuery('body').on( 'click', '#omnibar-tools .filter-column .select-max-price a,'+
@@ -2088,11 +2086,33 @@ $excludes = get_new_filter_excludes();
 		jQuery('.desktop-omnibar #maxlistprice').on( 'focus', function(){
 			jQuery('.desktop-omnibar .select-min-price').addClass('hide');
 			jQuery('.desktop-omnibar .select-max-price').removeClass('hide');
+			generateMaxPriceOption(jQuery('.desktop-omnibar #minlistprice').val());
 		});
 		
 		jQuery('.desktop-omnibar #minlistprice').on( 'change', function(){
-			jQuery('.desktop-omnibar #maxlistprice').focus();
-			generateMaxPriceOption(jQuery(this).val());
+			var maxvalue = jQuery('.desktop-omnibar #maxlistprice').val();
+			var minvalue = jQuery(this).val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(minlistprice > maxlistprice && maxlistprice){
+				alert('Min Price should be less than Max Price');
+				jQuery(this).val('');
+			}else{				
+				jQuery('.desktop-omnibar #maxlistprice').focus();
+			}
+		});
+		
+		jQuery('.desktop-omnibar #maxlistprice').on( 'change', function(){
+			var maxvalue = jQuery(this).val();
+			var minvalue = jQuery('.desktop-omnibar #minlistprice').val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(maxlistprice < minlistprice){
+				alert('Max Price should be not less than Min Price');
+				jQuery(this).val('');
+			}
 		});
 		
 		function generateMaxPriceOption(price){

@@ -23,13 +23,6 @@ if($requests['lat'] && $requests['lng']){
 		<?php } ?>
 		</div>
 		
-		<div id="map">
-			<div id="map_wrapper" class="map-explore">								
-				<div id="color-palette" style="display:none"></div>
-				<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
-			</div>
-		</div>
-		
 		<?php
 		$markers = zipperagent_get_map_markers();
 		//echo '<pre>'; print_r($markers); echo '</pre>';
@@ -46,6 +39,13 @@ if($requests['lat'] && $requests['lng']){
 			
 		endif;
 		?>
+		
+		<div id="map">
+			<div id="map_wrapper" class="map-explore">								
+				<div id="color-palette" style="display:none"></div>
+				<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
+			</div>
+		</div>		
 		
 	</div>
 	<script>

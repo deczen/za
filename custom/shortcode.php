@@ -822,9 +822,24 @@ class Zipperagent_Shortcodes{
 			'result' => 1,
 			'lat' => '',
 			'lng' => '',
+			'location' => '',
+			'propertytype' => '',
+			'o' => '',
 		), $atts, 'za_map_search');
 		$requests = $atts;
 		$is_ajax_count = 1;
+		
+		if($requests['propertytype']){
+			$temp=explode(',',$requests['propertytype']);
+			
+			$requests['propertytype']=$temp;
+		}
+		
+		if($requests['location']){
+			$temp=explode(',',$requests['location']);
+			
+			$requests['location']=$temp;
+		}
 		
 		$showResults = $requests['result'];
 		
