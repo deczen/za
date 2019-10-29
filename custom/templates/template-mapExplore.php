@@ -157,6 +157,8 @@ if($requests['lat'] && $requests['lng']){
 				var current_lat = current_center.lat();
 				var current_lng = current_center.lng();
 				
+				saved_markers=new Array();
+				
 				initialize(current_lat, current_lng, current_zoom, 0);
 			}
 			

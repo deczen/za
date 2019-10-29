@@ -314,7 +314,7 @@ function prop_result_and_pagination(){
 		$actual_link = $_REQUEST['actual_link'];
 		$type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
 		
-		if(isset($vars['coords'])){
+		if(isset($vars['coords']) || $type=='withinbox'){
 			
 			// if($type=='withinbox')
 				// $resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $vars, 0, '', true );

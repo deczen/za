@@ -876,6 +876,55 @@ global $requests;
 	<script>
 		jQuery(function(){ jQuery('.cq-dropdown').dropdownCheckboxes(); });
 	</script> 
+	<script>
+		jQuery('#location-fields #zpa-minprice-homes').on( 'change', function(){
+			var maxvalue = jQuery('#location-fields #zpa-maxprice-homes').val();
+			var minvalue = jQuery(this).val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(minlistprice > maxlistprice && maxlistprice){
+				jQuery(this).val(maxvalue);
+				jQuery('#location-fields #zpa-maxprice-homes').val(minvalue);
+			}
+		});
+		
+		jQuery('#location-fields #zpa-maxprice-homes').on( 'change', function(){
+			var maxvalue = jQuery(this).val();
+			var minvalue = jQuery('#location-fields #zpa-minprice-homes').val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(maxlistprice < minlistprice){
+				jQuery(this).val(minvalue);
+				jQuery('#location-fields #zpa-minprice-homes').val(maxvalue);
+			}
+		});
+		
+		jQuery('#map-fields #zpa-minprice-homes').on( 'change', function(){
+			var maxvalue = jQuery('#map-fields #zpa-maxprice-homes').val();
+			var minvalue = jQuery(this).val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(minlistprice > maxlistprice && maxlistprice){
+				jQuery(this).val(maxvalue);
+				jQuery('#map-fields #zpa-maxprice-homes').val(minvalue);
+			}
+		});
+		
+		jQuery('#map-fields #zpa-maxprice-homes').on( 'change', function(){
+			var maxvalue = jQuery(this).val();
+			var minvalue = jQuery('#map-fields #zpa-minprice-homes').val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(maxlistprice < minlistprice){
+				jQuery(this).val(minvalue);
+				jQuery('#map-fields #zpa-minprice-homes').val(maxvalue);
+			}
+		});
+	</script>
 	<?php /*
 	<script>
 		// Material Select Initialization
