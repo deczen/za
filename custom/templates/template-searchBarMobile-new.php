@@ -540,3 +540,46 @@
 		});	
 	});
 </script>
+<script>
+	jQuery('.mobile-omnimbar #minlistprice').on( 'blur', function(){
+			var maxvalue = jQuery('.mobile-omnimbar #maxlistprice').val();
+			var minvalue = jQuery(this).val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(minlistprice > maxlistprice && maxlistprice){
+				// alert('Min Price should be less than Max Price');
+				jQuery(this).val(maxvalue);
+				jQuery('.mobile-omnimbar #maxlistprice').val(minvalue);
+				
+				addFilterLabel('minlistprice', maxvalue, 'minlistprice', '');
+				addFormField('minlistprice',maxvalue,'minlistprice');
+				addFilterLabel('maxlistprice', minvalue, 'maxlistprice', '');
+				addFormField('maxlistprice',minvalue,'maxlistprice');
+				
+				jQuery('#zpa-search-filter-form').submit();
+			}else{				
+				jQuery('.mobile-omnimbar #maxlistprice').focus();
+			}
+		});
+		
+		jQuery('.mobile-omnimbar #maxlistprice').on( 'blur', function(){
+			var maxvalue = jQuery(this).val();
+			var minvalue = jQuery('.mobile-omnimbar #minlistprice').val();
+			var maxlistprice =  parseInt(maxvalue.replace(/,/g, ''));
+			var minlistprice =  parseInt(minvalue.replace(/,/g, ''));
+			
+			if(maxlistprice < minlistprice){
+				// alert('Max Price should be not less than Min Price');
+				jQuery(this).val(minvalue);
+				jQuery('.mobile-omnimbar #minlistprice').val(maxvalue);
+				
+				addFilterLabel('minlistprice', maxvalue, 'minlistprice', '');
+				addFormField('minlistprice',maxvalue,'minlistprice');
+				addFilterLabel('maxlistprice', minvalue, 'maxlistprice', '');
+				addFormField('maxlistprice',minvalue,'maxlistprice');
+				
+				jQuery('#zpa-search-filter-form').submit();
+			}
+		});
+</script>

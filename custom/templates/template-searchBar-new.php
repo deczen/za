@@ -2010,7 +2010,7 @@ $excludes = get_new_filter_excludes();
 		});
 	</script>	
 	<script>
-		jQuery('body').on( 'change', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select,'+
+		jQuery('body').on( 'blur', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select,'+
 									 '#omnibar-tools .mobile-omnimbar .field-wrap input, #omnibar-tools .mobile-omnimbar .field-wrap select', function(){
 										 
 			var name = jQuery(this).attr('name').toLowerCase();
