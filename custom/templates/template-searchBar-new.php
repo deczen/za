@@ -2011,7 +2011,7 @@ $excludes = get_new_filter_excludes();
 	</script>	
 	<script>
 		jQuery('body').on( 'blur', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select,'+
-									 '#omnibar-tools .mobile-omnimbar .field-wrap input, #omnibar-tools .mobile-omnimbar .field-wrap select', function(){
+								   '#omnibar-tools .mobile-omnimbar .field-wrap input, #omnibar-tools .mobile-omnimbar .field-wrap select', function(){
 										 
 			var name = jQuery(this).attr('name').toLowerCase();
 			var value = jQuery(this).val();
@@ -2147,7 +2147,7 @@ $excludes = get_new_filter_excludes();
 			var val = 0;
 			var options='';
 			
-			if(price===0){
+			if(price===0 || ! price){
 				plus = 100000;
 			}else if(price >= boundary)
 				plus = 50000;
@@ -2174,8 +2174,10 @@ $excludes = get_new_filter_excludes();
 				val = 350000;
 			}else if(price <= 400000){
 				val = 400000;
-			}else{
+			}else if(jQuery.isNumeric(price)){
 				val = price;
+			}else{
+				val = 0;
 			}
 			
 			for( x=0; x<9; x++ ){
