@@ -267,7 +267,7 @@ $excludes = get_new_filter_excludes();
 									<div class="square-footage col-xs-12">
 										<h3>Square Footage</h3>
 										<div class="two-field-wrap">
-											<select id="searchSqftMin" name="minsqft">
+											<select id="searchSqftMin" name="acarea">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="500">500</option>
@@ -298,7 +298,7 @@ $excludes = get_new_filter_excludes();
 												<option value="5000">5,000</option>
 											</select>
 											<span class="between">to</span>
-											<select id="searchSqftMax" name="maxsqft">
+											<select id="searchSqftMax" name="acareamx">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="500">500</option>
@@ -333,7 +333,7 @@ $excludes = get_new_filter_excludes();
 									<div class="days-on-site col-xs-12">
 										<h3># Days On Site </h3>
 										<div class="one-field-wrap">
-											<select id="maxdayslisted" name="maxdayslisted">
+											<select id="domk" name="domk">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">New Listings (Since Yesterday)</option>
@@ -349,7 +349,7 @@ $excludes = get_new_filter_excludes();
 									<div class="acres col-xs-12">
 										<h3>Acres</h3>
 										<div class="two-field-wrap">
-											<select id="searchAcresMin" name="minacres">
+											<select id="searchAcresMin" name="aacr">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="0.01">1/100</option>
@@ -372,7 +372,7 @@ $excludes = get_new_filter_excludes();
 												<option value="100">100</option>
 											</select>
 											<span class="between">to</span>
-											<select id="searchAcresMax" name="maxacres">
+											<select id="searchAcresMax" name="aacrl">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="0.01">1/100</option>
@@ -399,7 +399,7 @@ $excludes = get_new_filter_excludes();
 									<div class="garage-spaces col-xs-12">		
 										<h3>Garage Spaces</h3>
 										<div class="two-field-wrap">
-											<select id="searchGaragesMin" name="mingarages">
+											<select id="searchGaragesMin" name="agrgspc">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -409,7 +409,7 @@ $excludes = get_new_filter_excludes();
 												<option value="5">5</option>
 											</select>
 											<span class="between">to</span>
-											<select id="searchGaragesMax" name="maxgarages">
+											<select id="searchGaragesMax" name="agrgspcmx">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -421,9 +421,9 @@ $excludes = get_new_filter_excludes();
 										</div>
 									</div>
 									<div class="stories col-xs-12">
-										<h3>Stories</h3>
+										<h3>Storeys</h3>
 										<div class="two-field-wrap">
-											<select id="searchStoriesMin" name="minstories">
+											<select id="searchStoriesMin" name="aminstor">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -433,7 +433,7 @@ $excludes = get_new_filter_excludes();
 												<option value="5">5</option>
 											</select>
 											<span class="between">to</span>
-											<select id="searchStoriesMax" name="maxstories">
+											<select id="searchStoriesMax" name="amaxstor">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -711,7 +711,7 @@ $excludes = get_new_filter_excludes();
 						case "yearbuilt":
 							newLabel = 'year ' + value;	
 							break;
-						case "maxdayslisted":
+						case "domk":
 							newLabel = 'max ' + value + ' days listed';
 							break;
 						case "withimage":
@@ -777,6 +777,30 @@ $excludes = get_new_filter_excludes();
 							break;
 						case "altand":
 							newLabel = 'Lot Description ' + value;	
+							break;
+						case "agrgspc":
+							newLabel = 'Min Garage ' + value;	
+							break;
+						case "agrgspcmx":
+							newLabel = 'Max Garage ' + value;	
+							break;
+						case "aacr":
+							newLabel = 'Min Acres ' + value;	
+							break;
+						case "aacrl":
+							newLabel = 'Max Acres ' + value;	
+							break;
+						case "acarea":
+							newLabel = 'Min SqFt ' + value;	
+							break;
+						case "acareamx":
+							newLabel = 'Max SqFt ' + value;	
+							break;
+						case "aminstor":
+							newLabel = 'Min Storeys ' + value;	
+							break;
+						case "amaxstor":
+							newLabel = 'Max Storeys ' + value;	
 							break;
 						case "school":
 							newLabel = value;	
@@ -2010,8 +2034,45 @@ $excludes = get_new_filter_excludes();
 		});
 	</script>	
 	<script>
-		jQuery('body').on( 'blur', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select,'+
-								   '#omnibar-tools .mobile-omnimbar .field-wrap input, #omnibar-tools .mobile-omnimbar .field-wrap select', function(){
+		jQuery('body').on( 'change', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select', function(){
+										 
+			var name = jQuery(this).attr('name').toLowerCase();
+			var value = jQuery(this).val();
+			var is_array = name.substr(name.length - 2) == '[]';
+			var linked_name='';
+			var type = jQuery(this).attr('type');
+			
+			if(is_array){				
+				linked_name=name.substr(0, name.length - 2) +'_'+value;
+			}else{
+				linked_name=name;
+			}
+			
+			switch(type){
+				case "checkbox":
+						var checked = jQuery(this).prop('checked');
+						if(!checked){
+							removeLabel(linked_name, name, value);
+						}else{
+							addFilterLabel(name, value, linked_name, '');
+							addFormField(name,value,linked_name);							
+						}
+					break;
+				case "text":
+				default:	
+						if(!value){
+							removeLabel(linked_name, name, value);
+						}else{
+							addFilterLabel(name, value, linked_name, '');
+							addFormField(name,value,linked_name);							
+						}	
+					break;
+					
+			}
+			jQuery('#zpa-search-filter-form').submit();
+		});
+		
+		jQuery('body').on( 'blur', '#omnibar-tools .mobile-omnimbar .field-wrap input, #omnibar-tools .mobile-omnimbar .field-wrap select', function(){
 										 
 			var name = jQuery(this).attr('name').toLowerCase();
 			var value = jQuery(this).val();

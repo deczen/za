@@ -226,7 +226,7 @@
 									<span class="field-label">Square Footage</span>
 									<div class="two-field-wrap grid">
 										<div class="cell">
-											<select id="searchSqftMin" name="minsqft">
+											<select id="searchSqftMin" name="acarea">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="500">500</option>
@@ -261,7 +261,7 @@
 											<span class="between">to</span>
 										</div>
 										<div class="cell">
-											<select id="searchSqftMax" name="maxsqft">
+											<select id="searchSqftMax" name="acareamx">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="500">500</option>
@@ -297,7 +297,7 @@
 								<div class="days-on-site col-xs-4">
 									<span class="field-label"># Days On Site </span>
 									<div class="one-field-wrap">
-										<select id="maxdayslisted" name="maxdayslisted">
+										<select id="domk" name="domk">
 											<option value="">Any</option>
 											<option value="---" disabled="">---</option>
 											<option value="1">New Listings (Since Yesterday)</option>
@@ -314,7 +314,7 @@
 									<span class="field-label">Acres</span>
 									<div class="two-field-wrap grid">
 										<div class="cell">
-											<select id="searchAcresMin" name="minacres">
+											<select id="searchAcresMin" name="aacr">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="0.01">1/100</option>
@@ -341,7 +341,7 @@
 											<span class="between">to</span>
 										</div>
 										<div class="cell">
-											<select id="searchAcresMax" name="maxacres">
+											<select id="searchAcresMax" name="aacrl">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="0.01">1/100</option>
@@ -372,7 +372,7 @@
 									<span class="field-label">Garage Spaces</span>
 									<div class="two-field-wrap grid">
 										<div class="cell">
-											<select id="searchGaragesMin" name="mingarages">
+											<select id="searchGaragesMin" name="agrgspc">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -386,7 +386,7 @@
 											<span class="between">to</span>
 										</div>
 										<div class="cell">
-											<select id="searchGaragesMax" name="maxgarages">
+											<select id="searchGaragesMax" name="agrgspcmx">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -399,10 +399,10 @@
 									</div>
 								</div>
 								<div class="stories col-xs-4">
-									<span class="field-label">Stories</span>
+									<span class="field-label">Storeys</span>
 									<div class="two-field-wrap grid">
 										<div class="cell">
-											<select id="searchStoriesMin" name="minstories">
+											<select id="searchStoriesMin" name="aminstor">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>
@@ -416,7 +416,7 @@
 											<span class="between">to</span>
 										</div>
 										<div class="cell">
-											<select id="searchStoriesMax" name="maxstories">
+											<select id="searchStoriesMax" name="amaxstor">
 												<option value="">Any</option>
 												<option value="---" disabled="">---</option>
 												<option value="1">1</option>

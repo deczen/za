@@ -193,6 +193,7 @@ switch($property_type){
 	case "MANU": //MAnufactured in Park	
 	case "B": //Multi-family
 	case "MULTYFAMILY": //Multi-family
+	case "MULTI FAMILY": //Multi-family
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -228,6 +229,7 @@ switch($property_type){
 	case "REN": //Rental		
 	case "REL": //Rental		
 	case "E": //Rental		
+	case "LEASE/RENT": //Rental		
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
