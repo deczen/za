@@ -825,6 +825,7 @@ class Zipperagent_Shortcodes{
 			'location' => '',
 			'propertytype' => '',
 			'o' => '',
+			'direct' => '',
 		), $atts, 'za_map_search');
 		$requests = $atts;
 		$is_ajax_count = 1;
@@ -843,8 +844,14 @@ class Zipperagent_Shortcodes{
 		
 		$showResults = $requests['result'];
 		
-		ob_start();	
-		include ZIPPERAGENTPATH . "/custom/templates/template-mapExplore.php";	
+		$is_direct = $requests['direct'];
+		unset($requests['direct']);
+		
+		ob_start();
+		if($is_direct)
+			include ZIPPERAGENTPATH . "/custom/templates/template-mapExplore-crm.php";
+		else
+			include ZIPPERAGENTPATH . "/custom/templates/template-mapExplore.php";	
 		$html=ob_get_clean();
 		
 		return $html;	

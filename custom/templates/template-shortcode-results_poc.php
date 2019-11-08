@@ -10,25 +10,10 @@ $column = isset( $requests['column'] ) ? $requests['column'] : 3;
 $maxlist=isset($requests['maxlist']) ? $requests['maxlist'] : $count;
 $count=$count>=$maxlist?$maxlist:$count;
 $query_args=array();
-
-switch( $column ){
-	case 4:
-			$columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
-		break;
-	case 1:
-			$columns_code = 'col-lg-12 col-sm-12 col-md-12 col-xs-12';
-		break;
-	case 2:
-			$columns_code = 'col-lg-6 col-sm-6 col-md-6 col-xs-12';
-		break;
-	case 3:
-	default:
-			$columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
-		break;
-}
 ?>
 <link rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/wp-list-property.css" ?>">
 <script type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+<script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	
 	<div class="zpa-listing-search-results">
@@ -81,7 +66,7 @@ switch( $column ){
 		
 	<script>
 
-		jQuery( '.zpa-grid-result-photocount > a' ).on( 'click', function(){
+		jQuery( 'body' ).on( 'click', '.zpa-grid-result-photocount > a', function(){
 			
 			var listingId=jQuery(this).attr('listingId');
 			

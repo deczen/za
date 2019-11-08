@@ -6,7 +6,27 @@ function za_enqueue_script(){
 	
 	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	
-    $localize = array('ajaxurl'=> admin_url().'admin-ajax.php');
+	$args['ajaxurl']=admin_url().'admin-ajax.php';
+    $args['ZIPPERAGENTPATH']=ZIPPERAGENTPATH;
+    $args['ZIPPERAGENTURL']=ZIPPERAGENTURL;
+    $args['currency']=zipperagent_currency();
+	
+	$listing_url = '';
+	if( interface_exists( 'zipperAgentConstants' ) ){
+		$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_DETAIL, null);
+		$endpoint = !empty($endpoint)?$endpoint:'listing';
+		$listing_url = site_url("/{$endpoint}/");	
+	}
+	$args['listingurl']=$listing_url;
+	$args['sold_status']=explode(',',zipperagent_sold_status());
+	$args['active_status']=explode(',',zipperagent_active_status());
+    $args['long_excludes']=get_long_excludes();
+	$args['distance']=zipperagent_distance();
+    $args['page']=get_query_var('page');
+    $args['root']=base64_encode(json_encode($rb));
+	$args['contactIds']=get_contact_id();
+	$args['is_login']=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
+    $localize = $args;
     wp_localize_script('jquery','zipperagent',$localize);
 	
 	if( function_exists( 'conall_edge_options' ) ){
