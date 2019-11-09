@@ -127,12 +127,16 @@ $maxListPrice		= $requests['maxlistprice'];
 			<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
 			<?php endif; ?>
 			
-			<?php if(isset($requests['column'])): ?>
+			<?php if($requests['column']): ?>
 			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
 			<?php endif; ?>
 			
-			<?php if(isset($requests['newsearchbar'])): ?>
+			<?php if($requests['newsearchbar']): ?>
 			<input type="hidden" name="newsearchbar" value="<?php echo $requests['newsearchbar']; ?>" />
+			<?php endif; ?>
+			
+			<?php if($requests['direct']): ?>
+			<input type="hidden" name="direct" value="<?php echo $requests['direct']; ?>" />
 			<?php endif; ?>
         </form>
     </div>

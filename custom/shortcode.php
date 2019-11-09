@@ -193,7 +193,6 @@ class Zipperagent_Shortcodes{
 		
 		ob_start();
 		include ZIPPERAGENTPATH . "/custom/templates/template-search-results_poc.php";
-		// include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_poc.php";
 		$html=ob_get_clean();
 		
 		/* Reset variables */
@@ -261,6 +260,7 @@ class Zipperagent_Shortcodes{
 			'minlistprice' => 500,
 			'maxlistprice' => 10000000,
 			'newsearchbar' => '',
+			'direct' => '',
 		), $atts, 'quick_search');
 		
 		$requests = $atts;
@@ -284,6 +284,7 @@ class Zipperagent_Shortcodes{
 			'column' => '',
 			'o' => '',
 			'newsearchbar' => '',
+			'direct' => '',
 		), $atts, 'quick_search2');
 		
 		$requests = $atts;
@@ -311,6 +312,7 @@ class Zipperagent_Shortcodes{
 			'column' => '',
 			'o' => '',
 			'newsearchbar' => '',
+			'direct' => '',
 		), $atts, 'quick_search3');
 		
 		$requests = $atts;
@@ -338,6 +340,7 @@ class Zipperagent_Shortcodes{
 			'column' => '',
 			'o' => '',
 			'newsearchbar' => '',
+			'direct' => '',
 		), $atts, 'quick_search4');
 		
 		$requests = $atts;
@@ -365,6 +368,7 @@ class Zipperagent_Shortcodes{
 			'column' => '',
 			'o' => '',
 			'newsearchbar' => '',
+			'direct' => '',
 		), $atts, 'quick_search5');
 		
 		$requests = $atts;
@@ -387,6 +391,7 @@ class Zipperagent_Shortcodes{
 			// 'property_type_default' => '',
 			'minlistprice' => 500,
 			'maxlistprice' => 10000000,
+			'direct' => '',
 		), $atts, 'quick_search6');
 		
 		$requests = $atts;
@@ -767,6 +772,7 @@ class Zipperagent_Shortcodes{
 			'newsearchbar' => '',
 			'minlistprice' => '',
 			'maxlistprice' => '',
+			'direct' => '',
 		), $atts, 'quick_search2');
 		
 		$requests = $atts;

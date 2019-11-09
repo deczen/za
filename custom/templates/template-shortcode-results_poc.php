@@ -20,7 +20,9 @@ $query_args=array();
 		<!-- Display hotsheet display text for saved search pages but not for listing or open home report pages -->		
 		
 		<div class="row mb-10 mt-25">
-			<div class="col-xs-4 prop-total"></div>
+			<?php if( $showResults ): ?>
+				<div class="col-xs-4 prop-total"></div>
+			<?php endif; ?>
 			
 			<div class="col-xs-8">
 				<?php if( $enable_filter && isset($requests['save_search']) && $requests['save_search']==1 ): ?>

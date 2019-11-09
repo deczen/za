@@ -279,7 +279,10 @@ function search_results_view(){
 		
 		ob_start();
 		
-		include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
+		if(isset($requests['direct']) && $requests['direct']==1)		
+			include ZIPPERAGENTPATH . "/custom/templates/template-search-results_crm.php";
+		else
+			include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
 		
 		$html=ob_get_clean();
 		$result['html']=$html;

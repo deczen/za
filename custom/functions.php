@@ -2695,7 +2695,7 @@ if( ! function_exists('get_long_excludes') ){
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
-					'fbclid','newsearchbar','school','search_category','coords',
+					'fbclid','newsearchbar','school','search_category','coords','direct',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2713,7 +2713,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
-			'lat','lng','search_category','map_zoom',
+			'lat','lng','search_category','map_zoom','direct',
 		);
 		
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2730,7 +2730,7 @@ if( ! function_exists('get_old_filter_excludes') ){
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
-					'location_option','criteria','afteraction','listingparams','fbclid','search_category',
+					'location_option','criteria','afteraction','listingparams','fbclid','search_category','direct',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());

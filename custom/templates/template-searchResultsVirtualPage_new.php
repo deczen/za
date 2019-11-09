@@ -5,6 +5,7 @@ global $zpa_show_login_popup;
 $excludes = get_short_excludes();
 $requests=key_to_lowercase($requests); //convert all key to lowercase
 $zpa_show_login_popup = 1;
+$contactIds = get_contact_id();
 
 $location 			= ( isset($requests['location'])?$requests['location']:'' );
 $propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
@@ -153,4 +154,41 @@ unset($alstid); */
 			}
 		});
 	});
+</script>
+<script>
+
+	jQuery( 'body' ).on( 'click','.zpa-grid-result-photocount > a', function(){
+		
+		var listingId=jQuery(this).attr('listingId');
+		
+		if( ! jQuery('#modal-'+listingId+' .modal-body').is(':empty') )
+			return;
+		
+		var data = {
+			action: 'get_property_slides',
+			'listingId': listingId,                      
+			'contactId': '<?php echo implode(',',$contactIds) ?>',                      
+		};
+		
+		jQuery('#modal-'+listingId+' .modal-body').html('<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/tenor.gif"; ?>" />');
+		
+		console.time('generate slides');
+		jQuery.ajax({
+			type: 'POST',
+			dataType : 'json',
+			url: zipperagent.ajaxurl,
+			data: data,
+			success: function( response ) {    
+				// console.log(response);
+				if( response['html'] ){
+					jQuery('#modal-'+listingId+' .modal-body').html(response['html']);
+				}
+				console.timeEnd('generate slides');
+			},
+			error: function(){
+				console.timeEnd('generate slides');
+			}
+		});
+	});
+	
 </script>

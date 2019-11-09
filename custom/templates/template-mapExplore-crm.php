@@ -400,10 +400,11 @@ if($requests['lat'] && $requests['lng']){
 				var parm=[];
 				var subdomain=zppr.data.root.web.subdomain;
 				var customer_key=zppr.data.root.web.authorization.consumer_key;
+				var requests = zppr.get_form_inputs(jQuery('#zpa-search-filter-form'));	
+				var params = zppr.generate_api_params(requests);
 				var ps=listlimit;
 				var sidx=0;
-				var requests = jQuery(this).serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});				
-				var crit = zppr.generate_crit(requests);
+				var crit = params.crit;
 				var order=requests.o;
 				var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 				var contactIds=zipperagent.contactIds.join();
@@ -422,53 +423,55 @@ if($requests['lat'] && $requests['lng']){
 							if(response.responseCode===200){
 								
 								var index=0;
-								for (const [key, value] of Object.entries(response.result.filteredList)) {
-									
-									property = value;
-									
-									fulladdress = zppr.getAddress(property);
-									lat = property.lat;
-									lng = property.lng;
-									listingId = property.id;
-									beds = property.hasOwnProperty('nobedrooms')?property.nobedrooms:'';
-									bath = property.hasOwnProperty('nobaths')?property.nobaths:'';
-									sqft = property.hasOwnProperty('squarefeet')?property.squarefeet:'';
-									price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
-									longprice = zppr.moneyFormat(price);
-									shortprice = zppr.moneyShorten(price);
-									proptype = property.proptype;
-									prop_url = zppr.getPropUrl(listingId,fulladdress);
-									img_url = property.hasOwnProperty('imageUrl')?property.imageUrl:( property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg' );
-									is_active = 0;
-									is_login = zipperagent.is_login;
-									searchId = '';
-									
-									needBorder=0;
-									if(beds)
-										needBorder++;
-									if(bath)
-										needBorder++;
-									if(sqft)
-										needBorder++;
-									
-									needBorder_html = needBorder > 1 ? "| ": "";
-									
-									beds_html = beds ? beds +" BEDS" : ""; 
-									bath_html = bath ? " "+ needBorder_html + bath + " BATH" : ""; 
-									sqft_html = sqft ? " "+ needBorder_html + $sqft + " SQFT" : ""; 
-									
-									curr_markers.push([fulladdress,lat,lng,listingId,longprice,shortprice,beds,bath,index,proptype]);
-									curr_infoWindowContent.push(['<div class=\"info_content\">' +
-										'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"'+ img_url +'\" /></div>' +
-										'<div class=\"content\">' +				
-											'<a href=\"'+ prop_url +'\"><strong>'+ fulladdress +'</strong></a>' +
-											'<p class=\"price\">'+ longprice +'</p>' +
-											'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>' +
-											'<p class=\"info\">'+ beds_html +  bath_html + sqft_html + '</p>' +
-										'</div>' +
-									'</div>']);
-									
-									index++;
+								if(response.result.hasOwnProperty('filteredList')){
+									for (const [key, value] of Object.entries(response.result.filteredList)) {
+										
+										property = value;
+										
+										fulladdress = zppr.getAddress(property);
+										lat = property.lat;
+										lng = property.lng;
+										listingId = property.id;
+										beds = property.hasOwnProperty('nobedrooms')?property.nobedrooms:'';
+										bath = property.hasOwnProperty('nobaths')?property.nobaths:'';
+										sqft = property.hasOwnProperty('squarefeet')?property.squarefeet:'';
+										price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+										longprice = zppr.moneyFormat(price);
+										shortprice = zppr.moneyShorten(price);
+										proptype = property.proptype;
+										prop_url = zppr.getPropUrl(listingId,fulladdress);
+										img_url = property.hasOwnProperty('imageUrl')?property.imageUrl:( property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg' );
+										is_active = 0;
+										is_login = zipperagent.is_login;
+										searchId = '';
+										
+										needBorder=0;
+										if(beds)
+											needBorder++;
+										if(bath)
+											needBorder++;
+										if(sqft)
+											needBorder++;
+										
+										needBorder_html = needBorder > 1 ? "| ": "";
+										
+										beds_html = beds ? beds +" BEDS" : ""; 
+										bath_html = bath ? " "+ needBorder_html + bath + " BATH" : ""; 
+										sqft_html = sqft ? " "+ needBorder_html + $sqft + " SQFT" : ""; 
+										
+										curr_markers.push([fulladdress,lat,lng,listingId,longprice,shortprice,beds,bath,index,proptype]);
+										curr_infoWindowContent.push(['<div class=\"info_content\">' +
+											'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"'+ img_url +'\" /></div>' +
+											'<div class=\"content\">' +				
+												'<a href=\"'+ prop_url +'\"><strong>'+ fulladdress +'</strong></a>' +
+												'<p class=\"price\">'+ longprice +'</p>' +
+												'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>' +
+												'<p class=\"info\">'+ beds_html +  bath_html + sqft_html + '</p>' +
+											'</div>' +
+										'</div>']);
+										
+										index++;
+									}
 								}
 								
 								if(curr_markers)
@@ -521,57 +524,58 @@ if($requests['lat'] && $requests['lng']){
 							var curr_markers=[];
 							var curr_infoWindowContent=[];
 							response=JSON.parse(this.responseText);
-							console.log(response);
 							if(response.responseCode===200){
 								
 								var index=0;
-								for (const [key, value] of Object.entries(response.result.filteredList)) {
-									
-									property = value;
-									
-									fulladdress = zppr.getAddress(property);
-									lat = property.lat;
-									lng = property.lng;
-									listingId = property.id;
-									beds = property.hasOwnProperty('nobedrooms')?property.nobedrooms:'';
-									bath = property.hasOwnProperty('nobaths')?property.nobaths:'';
-									sqft = property.hasOwnProperty('squarefeet')?property.squarefeet:'';
-									price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
-									longprice = zppr.moneyFormat(price);
-									shortprice = zppr.moneyShorten(price);
-									proptype = property.proptype;
-									prop_url = zppr.getPropUrl(listingId,fulladdress);
-									img_url = property.hasOwnProperty('imageUrl')?property.imageUrl:( property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg' );
-									is_active = 0;
-									is_login = zipperagent.is_login;
-									searchId = '';
-									
-									needBorder=0;
-									if(beds)
-										needBorder++;
-									if(bath)
-										needBorder++;
-									if(sqft)
-										needBorder++;
-									
-									needBorder_html = needBorder > 1 ? "| ": "";
-									
-									beds_html = beds ? beds +" BEDS" : ""; 
-									bath_html = bath ? " "+ needBorder_html + bath + " BATH" : ""; 
-									sqft_html = sqft ? " "+ needBorder_html + $sqft + " SQFT" : ""; 
-									
-									curr_markers.push([fulladdress,lat,lng,listingId,longprice,shortprice,beds,bath,index,proptype]);
-									curr_infoWindowContent.push(['<div class=\"info_content\">' +
-										'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"'+ img_url +'\" /></div>' +
-										'<div class=\"content\">' +				
-											'<a href=\"'+ prop_url +'\"><strong>'+ fulladdress +'</strong></a>' +
-											'<p class=\"price\">'+ longprice +'</p>' +
-											'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>' +
-											'<p class=\"info\">'+ beds_html +  bath_html + sqft_html + '</p>' +
-										'</div>' +
-									'</div>']);
-									
-									index++;
+								if(response.result.hasOwnProperty('filteredList')){
+									for (const [key, value] of Object.entries(response.result.filteredList)) {
+										
+										property = value;
+										
+										fulladdress = zppr.getAddress(property);
+										lat = property.lat;
+										lng = property.lng;
+										listingId = property.id;
+										beds = property.hasOwnProperty('nobedrooms')?property.nobedrooms:'';
+										bath = property.hasOwnProperty('nobaths')?property.nobaths:'';
+										sqft = property.hasOwnProperty('squarefeet')?property.squarefeet:'';
+										price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+										longprice = zppr.moneyFormat(price);
+										shortprice = zppr.moneyShorten(price);
+										proptype = property.proptype;
+										prop_url = zppr.getPropUrl(listingId,fulladdress);
+										img_url = property.hasOwnProperty('imageUrl')?property.imageUrl:( property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg' );
+										is_active = 0;
+										is_login = zipperagent.is_login;
+										searchId = '';
+										
+										needBorder=0;
+										if(beds)
+											needBorder++;
+										if(bath)
+											needBorder++;
+										if(sqft)
+											needBorder++;
+										
+										needBorder_html = needBorder > 1 ? "| ": "";
+										
+										beds_html = beds ? beds +" BEDS" : ""; 
+										bath_html = bath ? " "+ needBorder_html + bath + " BATH" : ""; 
+										sqft_html = sqft ? " "+ needBorder_html + $sqft + " SQFT" : ""; 
+										
+										curr_markers.push([fulladdress,lat,lng,listingId,longprice,shortprice,beds,bath,index,proptype]);
+										curr_infoWindowContent.push(['<div class=\"info_content\">' +
+											'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"'+ img_url +'\" /></div>' +
+											'<div class=\"content\">' +				
+												'<a href=\"'+ prop_url +'\"><strong>'+ fulladdress +'</strong></a>' +
+												'<p class=\"price\">'+ longprice +'</p>' +
+												'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>' +
+												'<p class=\"info\">'+ beds_html +  bath_html + sqft_html + '</p>' +
+											'</div>' +
+										'</div>']);
+										
+										index++;
+									}
 								}
 								
 								if(curr_markers)

@@ -470,43 +470,5 @@ if($templatename && file_exists($template_path)){
 
 <?php // include "template-registerUser.php"; ?>
 
-<script>
-
-	jQuery( '.zpa-grid-result-photocount > a' ).on( 'click', function(){
-		
-		var listingId=jQuery(this).attr('listingId');
-		
-		if( ! jQuery('#modal-'+listingId+' .modal-body').is(':empty') )
-			return;
-		
-		var data = {
-			action: 'get_property_slides',
-			'listingId': listingId,                      
-			'contactId': '<?php echo implode(',',$contactIds) ?>',                      
-		};
-		
-		jQuery('#modal-'+listingId+' .modal-body').html('<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/tenor.gif"; ?>" />');
-		
-		console.time('generate slides');
-		jQuery.ajax({
-			type: 'POST',
-			dataType : 'json',
-			url: zipperagent.ajaxurl,
-			data: data,
-			success: function( response ) {    
-				// console.log(response);
-				if( response['html'] ){
-					jQuery('#modal-'+listingId+' .modal-body').html(response['html']);
-				}
-				console.timeEnd('generate slides');
-			},
-			error: function(){
-				console.timeEnd('generate slides');
-			}
-		});
-	});
-	
-</script>
-
 <?php
 include ZIPPERAGENTPATH . "/custom/templates/listing/template-list-print.php";

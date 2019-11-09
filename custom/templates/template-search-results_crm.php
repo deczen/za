@@ -197,8 +197,8 @@ if( $squareFeet )
 if( $alagt )
 	$advSearch['alagt']=$alagt;
 
-// if( $aloff )
-	// $advSearch['aloff']=$aloff;
+if( $aloff )
+	$advSearch['aloff']=$aloff;
 
 //generate school variables
 if( $school  ){
@@ -429,6 +429,18 @@ if( $openHomesMode ){ // open houses mode
 	$contactIds=get_contact_id();
 	if( $contactIds )
 		$vars['contactId'] = implode(',',$contactIds);
+	
+	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );	
+	if(!$is_ajax){
+		$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+	}else{		
+		$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+	}
+	
+	$list=isset($result['filteredList'])?$result['filteredList']:$result;
+	
+	$is_ajax_count=1;
 }
 
 $enable_filter= $coords || $openHomesMode == "true" ? false : true;
@@ -448,214 +460,71 @@ if(!zp_using_criteria()){
  * TEMPLATE PROCESS
  * @ populate properties and build the template
  */
-include "template-shortcode-results_poc.php";
+if( ! $is_shortcode ):
+
+// echo "<pre>"; print_r( $list ); echo "</pre>";
+?>
+
+	<?php if( $list ): ?>
+	
+		<?php include ZIPPERAGENTPATH . '/custom/templates/listing/template-defaultListing.php'; ?>
+		
+		<?php // include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
+
+	<?php else: ?>
+		
+	<div class="zpa-listing-search-results">
+		<!-- Display hotsheet display text for saved search pages but not for listing or open home report pages -->
+		<div class="row mb-10">
+			<?php /*
+			<div class="col-xs-5"> 
+			<?php if( ! $top_search_enabled ): ?>
+				<?php if( $openHomesMode != 'true' ): ?>
+				<a href="<?php echo site_url('/'); ?>homes-for-sale-search/" class="btn btn-link"> &laquo; New Search </a>
+				<?php else: ?>
+				<a href="<?php echo site_url('/'); ?>open-home-search/" class="btn btn-link"> &laquo; New Search </a> 
+				<?php endif; ?>
+			<?php endif; ?>
+			</div> */ ?>
+			
+		</div>
+		<div class="row mb-10 mt-25">
+			<div class="col-xs-4"> No Properties Found </div>
+		</div>
+		<div class="row "> </div>
+		<div class="row">
+			<div class="col-xs-6">
+				<ul class="pagination">
+					<li class="disabled"><a href="#">&laquo;</a>
+					</li>
+					<li class="disabled"><a href="#">1 of 0</a>
+					</li>
+					<li class="disabled"><a href="#">&raquo;</a>
+					</li>
+				</ul>
+			</div>
+			<!--col-->
+		</div>
+		<!--row-->
+	</div>
+		
+		<?php // include "template-registerUser.php"; ?>
+	<?php endif; ?>
+<?php else: 
+	
+	/**
+	 * SHORTCODE TEMPLATE
+	 * @ populate properties and build the template for the shortcode
+	 */
+	include "template-shortcode-results.php";
+	
+endif;
 
 /**
  * SCRIPTS HANDLER
  * @ javascript
  */
-if( $enable_filter ):
-
-?>
-<script>
-	// jQuery(document).on('click', '#saveSearchButton:not(.needLogin)', function(){
-	// jQuery('.zpa-listing-search-results').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
-	jQuery('#zipperagent-content').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
-		var contactId=jQuery(this).attr('contactId');
-		var isLogin=jQuery(this).attr('isLogin');
-		<?php if($is_view_save_search): ?>
-		update_search();
-		<?php else: ?>
-		save_search(contactId,isLogin);
-		<?php endif; ?>
-		return false;
-	});	
-	
-	<?php if($is_view_save_search){ ?>
-	function update_search(){
-		var search = jQuery.parseJSON('<?php echo json_encode( $search ); ?>');
-		var data = {
-			action: 'update_search_result',
-			'criteria': search,			
-			'id': '<?php echo $searchId ?>',
-		};
-		
-		console.time('update search');
-		jQuery.ajax({
-			type: 'POST',
-			dataType : 'json',
-			url: zipperagent.ajaxurl,
-			data: data,
-			success: function( response ) {    
-				// console.log(response);
-				if( response['result'] ){
-					var searchId = response['result'];
-					jQuery('#saveSearchButton').hide();
-					jQuery('#savedSearchButton').show();
-					jQuery('.save-favorite-btn').attr( 'searchId', searchId );
-					jQuery('.save-favorite-btn').attr( 'contactId', contactId );
-					jQuery('.property_url').each(function(){
-						var url = jQuery(this).attr( 'href' );
-						
-						if(searchId && searchId!==1)
-							jQuery(this).attr( 'href', url + '?searchId=' + searchId );
-						
-						// jQuery(this).attr( 'href', url + '&searchId=' + searchId );
-					});
-				}else{
-					alert( 'save failed!' );
-				}
-				
-				console.timeEnd('update search');
-			},
-			error: function(){
-				console.timeEnd('update search');
-			}
-		});
-	}
-	<?php }else{ ?>
-	function save_search(contactId,isLogin){
-		var vars = jQuery.parseJSON('<?php echo json_encode( $vars ); ?>');
-		vars['contactId']=contactId;
-		var data = {
-			action: 'save_search_result',
-			'vars': vars,  
-			'isLogin': isLogin,  
-		};
-		
-		console.time('save search');
-		jQuery.ajax({
-			type: 'POST',
-			dataType : 'json',
-			url: zipperagent.ajaxurl,
-			data: data,
-			success: function( response ) {
-				// console.log(response);
-				if( response['result'] ){
-					var searchId = response['result'];
-					jQuery('#saveSearchButton').hide();
-					jQuery('#savedSearchButton').show();
-					jQuery('.save-favorite-btn').attr( 'searchId', searchId );
-					jQuery('.save-favorite-btn').attr( 'contactId', contactId );
-					jQuery('.property_url').each(function(){
-						var url = jQuery(this).attr( 'href' );
-						
-						if(searchId && searchId!==1)
-							jQuery(this).attr( 'href', url + '?searchId=' + searchId );
-						
-						// jQuery(this).attr( 'href', url + '&searchId=' + searchId );
-					});
-					
-					//set topbar count
-					jQuery('.save-search-count .za-count-num').html(response['saved_search_count']);
-				}else{
-					alert( 'save failed!' );
-				}
-				
-				console.timeEnd('save search');
-			},
-			error: function(){
-				console.timeEnd('save search');
-			}
-		});
-	}
-	<?php } ?>
-</script>
-<?php endif; ?>
-<script>
-	jQuery('.zpa-listing-search-results').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-		
-		var element = jQuery(this);
-		
-		if( element.hasClass('active') )
-			return false;		
-		
-		var searchId = element.attr('searchId');
-		var contactId = element.attr('contactId');
-		var listingId = element.attr('listingId');
-		var isLogin = element.attr('isLogin');
-		
-		save_favorite_listing(element, listingId, contactId, searchId, isLogin );
-		
-		return false;
-	});
-	
-	function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
-		var crit={
-			<?php
-			$saved_crit=array();
-			if(!$crit){
-				$search=array(
-					'asrc'=>$rb['web']['asrc'],
-					'aloff'=>$rb['web']['aloff'],
-					'abeds'=>$bedrooms,
-					'abths'=>$bathCount,
-					'apt'=>implode( ',', array_map("trim",$propertyType) ),
-					'apts'=>implode( ',', array_map("trim",$propSubType) ),
-					'asts'=>$status,
-					'apmin'=>za_correct_money_format($minListPrice),
-					'apmax'=>za_correct_money_format($maxListPrice),
-					'aacr'=>$lotAcres,
-				);	
-				
-				$saved_crit= array_merge($search, $locqry, $advSearch);
-			}else{
-				$temp = explode(';', $crit);
-				foreach( $temp as $val ){
-					if( empty($val) )
-						continue;
-					
-					$temp2 = explode(':', $val);
-					$saved_crit[$temp2[0]]=$temp2[1];
-				}
-			}
-			
-			foreach( $saved_crit as $key=>$val ){
-				echo "'{$key}': '{$val}',"."\r\n";
-			}
-			?>
-		};
-		var data = {
-			action: 'save_as_favorite',
-			'listingId': listingId,
-			'contactId': contactId,
-			'crit': crit,
-			'searchId': searchId,
-			'isLogin': isLogin,
-		};
-		
-		console.time('save favorite');
-		jQuery.ajax({
-			type: 'POST',
-			dataType : 'json',
-			url: zipperagent.ajaxurl,
-			data: data,
-			success: function( response ) {    
-				// console.log(response);
-				if( response['result'] ){
-					// alert('success');
-					element.addClass('active');
-					
-					//set topbar count
-					jQuery('.favorites-count .za-count-num').html(response['favorites_count']);
-				}else{
-					// alert( 'Submit failed!' );
-				}
-				
-				console.timeEnd('save favorite');
-			},
-			error: function(){
-				console.timeEnd('save favorite');
-			}
-		});
-	}
-</script>
-<script>
-	jQuery(document).on('click', '#zpa-main-container .dropdown-menu', function (e) {
-	  e.stopPropagation();
-	});
-</script>
-<?php if($is_ajax_count): ?>
+if($is_ajax_count): ?>
 <script>
 	jQuery(document).ready(function(){
 		var vars={
@@ -697,36 +566,3 @@ if( $enable_filter ):
 	});
 </script>
 <?php endif; ?>
-<script>
-	
-	jQuery(document).ready(function(){
-		<?php
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		?>
-		var parm=[];
-		var subdomain="<?php echo base64_encode($rb['web']['subdomain']); ?>";
-		var customer_key="<?php echo base64_encode($rb['web']['authorization']['consumer_key']); ?>";
-		var ps=<?php echo $num; ?>;
-		var sidx=<?php echo $index; ?>;
-		var crit="<?php echo $vars['crit']; ?>";
-		var order="<?php echo $o; ?>";
-		var model="aloff:<?php echo $aloff; ?>;"+order;
-		var contactId=zppr.data.contactIds.join();
-		var actual_link="<?php echo $actual_link; ?>";		
-		var json = '<?php echo wp_json_encode($requests); ?>';
-		var requests = JSON.parse(json);
-		
-		var args={
-			searchType:0,
-			subdomain:atob(subdomain),
-			customer_key:atob(customer_key),
-			crit:crit,
-			model:model,
-			sidx:sidx,
-			ps:ps,
-			contactId:contactId,
-		};
-		
-		zppr.search('.zpa-listing-search-results .props', 'poc', requests, args, actual_link, 0);			
-	});
-</script>

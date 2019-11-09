@@ -26,6 +26,13 @@ function za_enqueue_script(){
     $args['root']=base64_encode(json_encode($rb));
 	$args['contactIds']=get_contact_id();
 	$args['is_login']=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
+	$args['listing_disclaimer']=zipperagent_get_listing_disclaimer();
+	$fields = get_field_list();
+	$args['status_list']=isset($fields->STATUS)?$fields->STATUS:array();
+	$args['source_cached']=zipperagent_get_source_details_cached();
+	$args['is_show_agent_name']=is_show_agent_name();
+	$args['property_types_refenrence']=get_field_reference_property_type();
+	$args['property_types']=get_property_type();
     $localize = $args;
     wp_localize_script('jquery','zipperagent',$localize);
 	
@@ -141,7 +148,10 @@ function zipperagent_template( $content ){
 		include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";			
 		if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
 			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
-				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
+				if(isset($requests['direct']) && $requests['direct']==1)	
+					include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_crm.php";
+				else
+					include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 			else
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
 		}else{ //map search		

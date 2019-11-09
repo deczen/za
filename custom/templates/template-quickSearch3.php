@@ -188,7 +188,7 @@ $maxListPrice		= $requests['maxlistprice'];
 									<input type="hidden" name="o" value="<?php echo $default_order; ?>" />
 									<?php endif; ?>
 									
-									<?php if(isset($requests['column'])): ?>
+									<?php if($requests['column']): ?>
 									<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
 									<?php endif; ?>
 								</div>
