@@ -32,7 +32,7 @@ var zppr={
 		var is_shortcode 		= (requests.hasOwnProperty('is_shortcode')?requests['is_shortcode']:'');
 		
 		var o 					= ( requests.hasOwnProperty('o')?requests['o']:'' );
-		var location 			= ( requests.hasOwnProperty('location[]')?requests['location[]']:'' );
+		var location 			= ( requests.hasOwnProperty('location')?requests['location']:'' );
 		var address 			= ( requests.hasOwnProperty('address')?requests['address']:'' );
 		var advStNo 			= ( requests.hasOwnProperty('advstno')?requests['advstno']:'' );
 		var advStName 			= ( requests.hasOwnProperty('advstname')?requests['advstname']:'' );
@@ -196,7 +196,7 @@ var zppr={
 			requests['alstid']=requests['alstid'].replace(/ /g,'');
 		
 		for (const [key, val] of Object.entries(requests)) {
-			if( ! excludes.indexOf(key.toLowerCase()) ){
+			if( excludes.indexOf(key.toLowerCase()) === -1 ){
 				if(Array.isArray(val)){
 					advSearch[key]=val.join();
 				}else{			
@@ -303,9 +303,7 @@ var zppr={
 		if(!list_html){
 		
 			html+= 		'<div class="col-xs-4"> No Properties Found </div>';	
-		}else if( parseInt(showResults) ){
-			console.log('showResults: ' + showResults);
-			
+		}else if( parseInt(showResults) ){			
 			html+= 		'<div class="col-xs-4 prop-total"></div>';
 		}
 				
@@ -561,7 +559,6 @@ var zppr={
 	},
 	one_property:function(property, column){
 		var listingid = property.id;
-		var listid = property.displaySource + '#' + property.listno;
 		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
 		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
 		var address = zppr.getAddress(property);
@@ -802,7 +799,7 @@ var zppr={
 						'<div class="za-container">' +
 							'<div class="row">' +
 								'<div class="'+ ( column==4 ? 'col-xs-9' : 'col-xs-10' ) +' pull-left fs-11 ">' +
-									'<div class="zpa-grid-result-mlsnum-proptype">'+ displaySource +'#'+ listid +' | '+ zppr.proptype_label(proptype) +' </div>' +
+									'<div class="zpa-grid-result-mlsnum-proptype">'+ displaySource +'#'+ property.listno +' | '+ zppr.proptype_label(proptype) +' </div>' +
 								'</div>' +
 								'<div class="'+ ( column==4 ? 'col-xs-3' : 'col-xs-2' ) +' pull-right fs-12 zpa-grid-result-photocount nopaddingleft">' +
 									albums +
@@ -819,7 +816,6 @@ var zppr={
 	},
 	one_print:function(property){
 		var listingid = property.id;
-		var listid = property.displaySource + '#' + property.listno;
 		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
 		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
 		var address = zppr.getAddress(property);
@@ -913,7 +909,7 @@ var zppr={
 									openhouses +
 								'</div>' +
 								'<div class="zy_pt-mls-info zy_pt-wrap">' +
-									displaySource +'#'+ listid +' | '+ zppr.proptype_label(proptype) +
+									displaySource +'#'+ property.listno +' | '+ zppr.proptype_label(proptype) +
 								'</div>	' +		
 							'</div>' +
 						'</div>' +
