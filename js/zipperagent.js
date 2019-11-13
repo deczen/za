@@ -234,7 +234,8 @@ var zppr={
 			
 			//no action
 			
-		}else if( searchDistance=="true" || searchDistance=="1" || (lat && lng) ){ // map mode
+		/* }else if( searchDistance=="true" || searchDistance=="1" || (lat && lng) ){ // map mode */
+		}else if( searchDistance=="true" || searchDistance=="1" ){ // map mode
 			
 			//no action			
 		}else{ //if( featuredOnlyYn=="true" || status=='SLD' ){ //featured mode
