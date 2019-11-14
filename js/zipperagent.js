@@ -192,7 +192,7 @@ var zppr={
 		}
 
 		//remove space from alstid (listing id search)
-		if( requests.hasOwnProperty('alstid') )
+		if( requests.hasOwnProperty('alstid') && ! Array.isArray(requests['alstid']) )
 			requests['alstid']=requests['alstid'].replace(/ /g,'');
 		
 		for (const [key, val] of Object.entries(requests)) {
