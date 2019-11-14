@@ -73,6 +73,9 @@ $lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
  * @ prepare the arguments before API process
  */
 
+$uniqueClass = 'result_'.uniqid();
+$uniqueClassWithDot = '.'.$uniqueClass;
+
 if( $is_ajax )
 	$actual_link = $requests['actual_link'];
 else
@@ -459,7 +462,7 @@ if( $enable_filter ):
 ?>
 <script>
 	// jQuery(document).on('click', '#saveSearchButton:not(.needLogin)', function(){
-	// jQuery('.zpa-listing-search-results').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
+	// jQuery('.zpa-listing-search-results<?php echo $uniqueClassWithDot ?>').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
 	jQuery('#zipperagent-content').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
 		var contactId=jQuery(this).attr('contactId');
 		var isLogin=jQuery(this).attr('isLogin');
@@ -563,7 +566,7 @@ if( $enable_filter ):
 </script>
 <?php endif; ?>
 <script>
-	jQuery('.zpa-listing-search-results').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
+	jQuery('.zpa-listing-search-results<?php echo $uniqueClassWithDot ?>').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
 		
 		var element = jQuery(this);
 		
@@ -684,8 +687,8 @@ if( $enable_filter ):
 			success: function( response ) {    
 			
 				if( response['result'] ){
-					jQuery('.zpa-listing-search-results .prop-total').html(response['html_count']);
-					jQuery('.zpa-listing-search-results .prop-pagination').html('<div class="col-xs-6">' + response['html_pagination'] + '</div>');
+					jQuery('.zpa-listing-search-results<?php echo $uniqueClassWithDot ?> .prop-total').html(response['html_count']);
+					jQuery('.zpa-listing-search-results<?php echo $uniqueClassWithDot ?> .prop-pagination').html('<div class="col-xs-6">' + response['html_pagination'] + '</div>');
 				}
 				
 				console.timeEnd('generate list count/pagination');
@@ -727,6 +730,6 @@ if( $enable_filter ):
 			contactId:contactId,
 		};
 		
-		zppr.search('.zpa-listing-search-results .props', 'poc', requests, args, actual_link, 0);			
+		zppr.search('.zpa-listing-search-results<?php echo $uniqueClassWithDot ?> .props', 'poc', requests, args, actual_link, 0);			
 	});
 </script>

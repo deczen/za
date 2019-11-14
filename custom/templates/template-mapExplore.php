@@ -23,28 +23,29 @@ if($requests['lat'] && $requests['lng']){
 		<?php } ?>
 		</div>
 		
-		<?php
-		$markers = zipperagent_get_map_markers();
-		//echo '<pre>'; print_r($markers); echo '</pre>';
-		
-		if($markers):
-			echo '<div class="proptype-markers"><ul>';
-			foreach($markers as $key => $value){
-				
-				$proptype = zipperagent_property_type( $key );
-				
-				echo '<li class="proptype-marker"><img src="' . $value . '" alt=" ' . $proptype . '" title=""><span>' . $proptype . '</span></li>';
-			}
-			echo '</ul></div>';
-			
-		endif;
-		?>
-		
 		<div id="map">
 			<div id="map_wrapper" class="map-explore">								
 				<div id="color-palette" style="display:none"></div>
 				<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
 			</div>
+			
+			
+			<?php
+			$markers = zipperagent_get_map_markers();
+			//echo '<pre>'; print_r($markers); echo '</pre>';
+			
+			if($markers):
+				echo '<div class="proptype-markers"><ul>';
+				foreach($markers as $key => $value){
+					
+					$proptype = zipperagent_property_type( $key );
+					
+					echo '<li class="proptype-marker"><img src="' . $value . '" alt=" ' . $proptype . '" title=""><span>' . $proptype . '</span></li>';
+				}
+				echo '</ul></div>';
+				
+			endif;
+			?>
 		</div>		
 		
 	</div>
@@ -529,5 +530,55 @@ if($requests['lat'] && $requests['lng']){
 			<?php endif; ?>			
 		});
 	</script>
-	
+	<script>		
+		jQuery(window).scroll(function() {
+			
+			var $sticky = jQuery('#map .proptype-markers');
+			var $top = 0;
+			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
+				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+					$top = $top + $headerHeight;
+			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else{
+				var $headerHeight = 0;
+					$top = $top + $headerHeight;
+			}
+			if(jQuery('#wpadminbar').length){
+				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+					$top = $top + $wpadminbarHeight;
+			}
+			
+			var $stickyH = $sticky.outerHeight();
+			var $stickyContainer = jQuery('#map');
+			var $stickyContainerOffset = $stickyContainer.offset();
+			var $start = $stickyContainerOffset.top;
+			var $limit = $start + $stickyContainer.outerHeight();
+			var $padding = 15; // padding size;
+			var $maxWidth = '100%';
+			
+			if(jQuery(window).width() > 768){
+			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+				   $sticky.css({
+				   'position':'fixed', 
+				   'top': $top});
+			   }
+			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+				   $sticky.css({
+						   'position': 'absolute',
+						   'top'     : 'auto',
+						   'bottom'  : 0
+					   });
+			   }
+			   else {
+				   $sticky.css({
+					'position' : 'absolute',
+					'top' : 0});
+			   }
+			}
+		});
+	</script>
 </div>

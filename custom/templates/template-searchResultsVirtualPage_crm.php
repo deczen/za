@@ -59,8 +59,8 @@ unset($alstid); */
 ?>
 <?php if(isset($requests['direct']) && $requests['direct']): ?>
 <?php /* <script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/date.format.js" ?>"></script> */ ?>
-<script type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-<script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+<script async type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+<script async type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <?php endif; ?>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 

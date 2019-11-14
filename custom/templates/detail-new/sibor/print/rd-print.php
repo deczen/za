@@ -133,10 +133,10 @@
 				 <div class="zy-print-area-val">[lngCOUNTYDESCRIPTION]</div>
 			  </div>
 			<?php endif; ?>
-			<?php if(isset($single_property->shrtTOWNCODE)): ?>
+			<?php if(isset($single_property->shrtAREACODE)): ?>
 			  <div class="uk-clearfix">
 				 <div class="zy-print-area-label">Area:</div>
-				 <div class="zy-print-area-val">[shrtTOWNCODE]</div>
+				 <div class="zy-print-area-val">[shrtAREACODE]</div>
 			  </div>
 			<?php endif; ?>
 		   </div>

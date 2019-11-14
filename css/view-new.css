@@ -26,7 +26,8 @@
 }
 
 #map {
-	z-index: 1
+	z-index: 1;
+	position: relative;
 }
 
 #property-sidebar #filter-wrap {
@@ -2120,7 +2121,9 @@
 .proptype-markers .proptype-marker span {
 	padding-left: 3px;
 	font-size: 13px;
+	background: #fff;
 }
+.proptype-markers {position: absolute;margin-top: 10px;margin-left:10px;z-index:99;}
 @media(max-width:767px) {
 	.proptype-markers {
 		display: none;
