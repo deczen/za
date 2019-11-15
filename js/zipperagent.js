@@ -107,9 +107,9 @@ var zppr={
 					loc_country.push(temp.substring(6));
 				}else if( temp.substring(0, 6) == 'atwns_' ){
 					loc_town.push(temp.substring(6));
-				}else if( temp.substring(temp, 0, 5) == 'aars_' ){
+				}else if( temp.substring(0, 5) == 'aars_' ){
 					loc_area.push(temp.substring(5));
-				}else if( temp.substring(temp, 0, 5) == 'azip_' ){
+				}else if( temp.substring(0, 5) == 'azip_' ){
 					loc_zipcode.push(temp.substring(5));
 				}else{
 					loc_zipcode.push(temp);
@@ -280,7 +280,7 @@ var zppr={
 			response['sidx'] = index;
 			response['o'] = o;
 		}		
-		
+		// console.log(response);
 		return response;
 	},
 	list_template:function(requests, list_html, is_view_save_search){
