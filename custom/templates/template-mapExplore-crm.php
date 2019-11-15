@@ -48,8 +48,8 @@ if($requests['lat'] && $requests['lng']){
 		</div>		
 		
 	</div>
-	<script async type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-	<script async type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+	<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+	<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 	<script>
 		jQuery('#zpa-main-container').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
 			

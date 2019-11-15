@@ -12,8 +12,8 @@ $count=$count>=$maxlist?$maxlist:$count;
 $query_args=array();
 ?>
 <link rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/wp-list-property.css" ?>">
-<script async type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-<script async type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	
 	<div class="zpa-listing-search-results <?php echo $uniqueClass; ?>">
@@ -38,18 +38,8 @@ $query_args=array();
 			<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
 		</div>
 		
-		<?php if( $showPagination ): ?>
-			<?php if( ! $is_ajax_count ): ?>
-			<div class="row prop-pagination">
-				<div class="col-xs-6">				
-					<?php echo zipperagent_pagination($page, $num, $count, $actual_link); ?>
-				</div>
-				<!--col-->
-			</div>
-			<!--row-->
-			<?php else: ?>
+		<?php if( $showPagination ): ?>			
 			<div class="row prop-pagination"></div> <!-- show on ajax -->
-			<?php endif; ?>
 		<?php endif; ?>
 		
 		<?php
