@@ -1043,7 +1043,8 @@ if( ! function_exists('zipperagent_property_fields') ){
 			//custom field
 			
 			// [realprice]
-			$price=($single_property->status=='SLD'?(isset($single_property->saleprice)?$single_property->saleprice:$single_property->listprice):$single_property->listprice);
+			// $price=($single_property->status=='SLD'?(isset($single_property->saleprice)?$single_property->saleprice:$single_property->listprice):$single_property->listprice);
+			$price=(in_array($single_property->status, explode(',',zipperagent_sold_status()))?(isset($single_property->saleprice)?$single_property->saleprice:$single_property->listprice):$single_property->listprice);
 			$find[]="[realprice]";
 			$replaces[]=number_format_i18n( $price, 0 );
 			

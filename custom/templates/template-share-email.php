@@ -5,7 +5,7 @@ $contactIds=get_contact_id();
 $company_name = zipperagent_company_name();
 $listing_address=zipperagent_get_address($single_property);
 $default_subject = $company_name. ', ' .$listing_address;
-$price=($single_property->status=='SLD'?(isset($single_property->saleprice)?$single_property->saleprice:$single_property->listprice):$single_property->listprice);
+$price=(in_array($single_property->status, explode(',',zipperagent_sold_status()))?(isset($single_property->saleprice)?$single_property->saleprice:$single_property->listprice):$single_property->listprice);
 $listing_price = zipperagent_currency() . number_format_i18n( $price, 0 );
 $site_domain = $_SERVER['HTTP_HOST'];
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
