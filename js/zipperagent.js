@@ -310,7 +310,8 @@ var zppr={
 				
 		html+=		   '<div class="col-xs-8">';
 					
-		if( enable_filter ){
+		// if( enable_filter ){
+		if( 0 ){ //disabled
 		
 			var saved_btn_text = (is_view_save_search) ? "Updated" : "Saved"; 		
 			var save_btn_text = (is_view_save_search) ? "Update This Search" : "Save This Search";
@@ -564,7 +565,7 @@ var zppr={
 		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
 		var address = zppr.getAddress(property);
 		var prop_url = zppr.getPropUrl(listingid,address);
-		var price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
 		var status = property.status;
 		var days = property.hasOwnProperty('dayssincelisting') ? property.dayssincelisting : '-';
 		var displaySource = property.displaySource;
@@ -821,7 +822,7 @@ var zppr={
 		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
 		var address = zppr.getAddress(property);
 		var prop_url = zppr.getPropUrl(listingid,address);
-		var price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
 		var status = property.status;
 		var days = property.hasOwnProperty('dayssincelisting') ? property.dayssincelisting : '-';
 		var displaySource = property.displaySource;
