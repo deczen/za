@@ -2102,7 +2102,7 @@ if( ! function_exists('populate_tenant_favorites') ){
 	function populate_tenant_favorites(){
 		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		$tenants=isset($rb['web']['tenant_favorites']) ? $rb['web']['tenant_favorites'] : '';
+		$tenants=isset($rb['web']['tenant_favorites']) ? $rb['web']['tenant_favorites'] : array();
 		
 		foreach( $tenants as $code => $name ){
 		
