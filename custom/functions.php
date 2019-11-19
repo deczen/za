@@ -2069,6 +2069,7 @@ if( ! function_exists('populate_zipcodes') ){
 	}
 }
 
+/*
 if( ! function_exists('populate_tenant_favorites') ){
 	function populate_tenant_favorites(){
 		
@@ -2085,6 +2086,27 @@ if( ! function_exists('populate_tenant_favorites') ){
 			
 			$name = $tenant->value;
 			$code = 'atwns_'.$tenant->code;
+			$arr[]=array(
+				'group'=>'Town',
+				'name'=>$name,
+				'code'=>$code,
+				'type'=>'town',
+			);
+		}
+		
+		return $arr;
+	}
+} */
+
+if( ! function_exists('populate_tenant_favorites') ){
+	function populate_tenant_favorites(){
+		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$tenants=isset($rb['web']['tenant_favorites']) ? $rb['web']['tenant_favorites'] : '';
+		
+		foreach( $tenants as $code => $name ){
+		
+			$code = 'atwns_'.$code;
 			$arr[]=array(
 				'group'=>'Town',
 				'name'=>$name,
