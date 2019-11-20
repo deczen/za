@@ -19,9 +19,9 @@ $query_args=array();
 	<div class="zpa-listing-search-results <?php echo $uniqueClass; ?>">
 		<!-- Display hotsheet display text for saved search pages but not for listing or open home report pages -->		
 		
-		<div class="row mb-10 mt-25">
+		<div class="row mt-25 mb-25">
 			<?php if( $showResults ): ?>
-				<div class="col-xs-4 prop-total"></div>
+				<div class="col-xs-12 prop-total">&nbsp;</div>
 			<?php endif; ?>
 			
 			<div class="col-xs-8">

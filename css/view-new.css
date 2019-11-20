@@ -9,11 +9,10 @@
 .thankyou-box h3 {
 	font-weight: 400
 }
-
+#zipperagent-content #map{z-index: 0;}
 #map-view {
 	margin-top: 30px
 }
-
 #map_wrapper {
 	height: 500px
 }
@@ -28,6 +27,7 @@
 #map {
 	z-index: 1;
 	position: relative;
+	overflow:hidden;
 }
 
 #property-sidebar #filter-wrap {
@@ -205,7 +205,7 @@
 
 .widget-slider .owl-next,
 .widget-slider .owl-prev {
-	display: inline;
+	display: inline-block;
 	padding: 10px 15px;
 	background: #ddd;
 	margin-right: 10px
@@ -2123,14 +2123,14 @@
 	font-size: 13px;
 	background: #fff;
 }
-.proptype-markers {position: absolute;margin-top: 10px;margin-left:10px;z-index:99;}
+.proptype-markers {position: absolute;margin-top: 10px;margin-left:10px;}
 @media(max-width:767px) {
 	.proptype-markers {
 		display: none;
 	}
 }
 #zy_map-explore #zpa-view-selected-filter {
-	min-height: 44px;
+	/* min-height: 44px; */
 }
-#zy_map-explore .prop-total{font-size:16px; text-align:center; font-weight:bold;}
+#zy_map-explore .prop-total, .zpa-listing-search-results .prop-total{font-size:20px; text-align:center;}
 #zy_map-explore .za-refresh-map:hover{background-color:#eee !important; border:1px solid #eee !important;}

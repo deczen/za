@@ -1082,7 +1082,11 @@ if( ! function_exists('zipperagent_property_fields') ){
 
 if( ! function_exists('zipperagent_list_total') ){
 	function zipperagent_list_total($count){
-		return number_format_i18n($count,0) . " Result(s)";
+		if($count>1){
+			return number_format_i18n($count,0) . " Properties for sale";			
+		}else{
+			return number_format_i18n($count,0) . " Property";
+		}
 	}
 }
 if( ! function_exists('zipperagent_pagination') ){
@@ -2718,7 +2722,8 @@ if( ! function_exists('get_long_excludes') ){
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
-					'fbclid','newsearchbar','school','search_category','coords','direct',
+					'fbclid','newsearchbar','school','search_category','coords','direct','view',
+					'disableviewbar','vars',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2736,7 +2741,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
-			'lat','lng','search_category','map_zoom','direct',
+			'lat','lng','search_category','map_zoom','direct','view','disableviewbar',
 		);
 		
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2753,7 +2758,7 @@ if( ! function_exists('get_old_filter_excludes') ){
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
-					'location_option','criteria','afteraction','listingparams','fbclid','search_category','direct',
+					'location_option','criteria','afteraction','listingparams','fbclid','search_category','direct','view',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());

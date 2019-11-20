@@ -713,7 +713,7 @@ if( $enable_filter ):
 		var sidx=<?php echo $index; ?>;
 		var crit="<?php echo $vars['crit']; ?>";
 		var order="<?php echo $o; ?>";
-		var model="aloff:<?php echo $aloff; ?>;"+order;
+		// var model="aloff:<?php echo $aloff; ?>;"+order;
 		var contactId=zppr.data.contactIds.join();
 		var actual_link="<?php echo $actual_link; ?>";		
 		var json = '<?php echo wp_json_encode($requests); ?>';
@@ -724,7 +724,7 @@ if( $enable_filter ):
 			subdomain:atob(subdomain),
 			customer_key:atob(customer_key),
 			crit:crit,
-			model:model,
+			model:order,
 			sidx:sidx,
 			ps:ps,
 			contactId:contactId,

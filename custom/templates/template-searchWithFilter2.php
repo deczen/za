@@ -374,7 +374,7 @@ if(get_query_var('page')){
 						endif;
 						?>
 						
-						<div class="property-results mb-10 mt-25 hide">
+						<div class="property-results mt-25 mb-25 hide">
 						<?php
 						if( $showResults ){ ?>
 							<div class="col-xs-12 prop-total">&nbsp;</div>

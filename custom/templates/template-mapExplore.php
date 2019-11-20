@@ -1,9 +1,11 @@
 <?php
-global $requests, $is_ajax_count;
+global $requests, $is_ajax_count, $is_map_explore;
 
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 extract(zipperagent_get_map_centre());
+
+$is_map_explore=1;
 
 if($requests['lat'] && $requests['lng']){
 	$za_lat = $requests['lat'];
@@ -381,7 +383,7 @@ if($requests['lat'] && $requests['lng']){
 			var xhr;
 			
 			var looplimit = 5;
-			var listlimit = 5000;
+			var listlimit = 1000;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				
@@ -552,6 +554,10 @@ if($requests['lat'] && $requests['lng']){
 					$top = $top + $wpadminbarHeight;
 			}
 			
+			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+		
+			$top = $top + $searchBarHeight;
+			
 			var $stickyH = $sticky.outerHeight();
 			var $stickyContainer = jQuery('#map');
 			var $stickyContainerOffset = $stickyContainer.offset();
@@ -570,7 +576,6 @@ if($requests['lat'] && $requests['lng']){
 				   $sticky.css({
 						   'position': 'absolute',
 						   'top'     : 'auto',
-						   'bottom'  : 0
 					   });
 			   }
 			   else {

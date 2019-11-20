@@ -1,3 +1,4 @@
+#zy_header-section{background-color:#fff; z-index:3;width: calc(100% + 30px) !important;}
 #zipperagent-content{ min-height:400px;}
 /* .zy-margin{padding: 20px 15px 40px;overflow:hidden;} */
 .zy-margin{padding: 20px 0 40px;overflow:hidden;}

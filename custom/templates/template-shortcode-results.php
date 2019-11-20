@@ -33,12 +33,12 @@ switch( $column ){
 	<div class="zpa-listing-search-results">
 		<!-- Display hotsheet display text for saved search pages but not for listing or open home report pages -->		
 		
-		<div class="row mb-10 mt-25">
+		<div class="row mt-25 mb-25">
 			<?php if( $showResults ): ?>
 				<?php if( ! $is_ajax_count ): ?>
-				<div class="col-xs-4 prop-total"><?php echo zipperagent_list_total($count); ?></div>
+				<div class="col-xs-12 prop-total"><?php echo zipperagent_list_total($count); ?></div>
 				<?php else: ?>
-				<div class="col-xs-4 prop-total"></div>
+				<div class="col-xs-12 prop-total">&nbsp;</div>
 				<? endif; ?>
 			<?php endif; ?>
 			

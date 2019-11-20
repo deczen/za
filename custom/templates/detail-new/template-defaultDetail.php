@@ -354,7 +354,7 @@ if(file_exists($template_path) && $template_name ){
 <div id="zipperagent-content">
 	<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">
 		<article class="container-fluid">
-			<div id="zy_header-section" class="row zyapp_main-style">
+			<div id="zy_header-section" class="row zyapp_main-style" style="max-width:none;">
 				
 				<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save header section ?>
 				
@@ -882,6 +882,12 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				<?php endif; ?>	
+				
+				<div class="row zy-widget">
+					<div id="zy_related-properties" class="col-xs-12 col-md-12 col-lg-12 hideonprint" style="display:none">
+						
+					</div>
+				</div>
 					
 				<?php if(!isset($is_doing_ajax) && $property_cache): //only show on ajax mode, hide after ajax finished ?>
 				<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />

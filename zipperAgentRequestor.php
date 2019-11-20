@@ -234,7 +234,7 @@ class zipperAgentRequestor {
 			case "searchResultsVirtualPage":
 					ob_start();
 					include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
-					if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
+					// if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
 						
 						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
 							if(isset($requests['direct']) && $requests['direct']==1)	
@@ -243,10 +243,10 @@ class zipperAgentRequestor {
 								include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
 						else
 							include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
-					}else{ //map search		
-						$type='map';
-						include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter2.php";
-					}					
+					// }else{ //map search		
+						// $type='map';
+						// include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter2.php";
+					// }					
 					$html=ob_get_clean();					
 				break;
 					

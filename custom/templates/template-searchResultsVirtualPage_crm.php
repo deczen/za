@@ -25,7 +25,9 @@ $openHomesMode 		= ( isset($requests['openhomesmode'])?$requests['openhomesmode'
 
 $is_direct	 		= ( isset($requests['direct'])?$requests['direct']:0 );
 $enable_filter		= $boundaryWKT || $openHomesMode == "true" || $openHomesMode == 1 ? false : true;
-// echo "<pre>"; print_r( $requests ); echo "</pre>";
+
+//list view type
+$view 				= ( isset($requests['view'])?$requests['view']:'' );
 
 //set page
 if(get_query_var('page')){	
@@ -33,9 +35,9 @@ if(get_query_var('page')){
 }
 
 if(is_open_house_search_enabled()){
-	$top_search_enabled = ! $boundaryWKT && ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
+	$top_search_enabled = ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
 }else{
-	$top_search_enabled = ! $boundaryWKT && ! $openHomesMode && ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
+	$top_search_enabled = ! $openHomesMode && ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
 }
 
 /**
@@ -62,6 +64,7 @@ unset($alstid); */
 <script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <?php endif; ?>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 
 	<div class="zpa-listing-list">
@@ -113,8 +116,10 @@ unset($alstid); */
 			var searchDistance 		= ( requests.hasOwnProperty('searchdistance')?requests['searchdistance']:'' );
 			var lat 				= ( requests.hasOwnProperty('lat')?requests['lat']:'' );
 			var lng 				= ( requests.hasOwnProperty('lng')?requests['lng']:'' );
+			var direct				= ( requests.hasOwnProperty('direct')?requests['direct']:0 );
+			var view				= ( requests.hasOwnProperty('view')?requests['view']:'' );
 			
-			var is_direct = <?php echo $is_direct; ?>;
+			var is_direct 			= direct && view != 'map' && view != 'photo';
 			
 			if(!is_direct || openHomesMode || boundaryWKT || searchDistance || lat && lng){
 				if(xhr && xhr.readyState != 4){
@@ -129,6 +134,10 @@ unset($alstid); */
 					success: function( response ) {         
 						if( response['html'] ){
 							jQuery( '#zipperagent-content' ).html( response['html'] );
+							
+							if (typeof enableSaveSearchButton === "function") {						
+								enableSaveSearchButton();
+							}
 						}
 						console.timeEnd('generate list');
 					},
@@ -148,7 +157,7 @@ unset($alstid); */
 				var crit = params.crit;
 				console.log(crit);
 				var order=params.o;
-				var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
+				// var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 				var contactId=zppr.data.contactIds.join();
 				var actual_link = window.location.origin+window.location.pathname+url;
 				
@@ -157,7 +166,7 @@ unset($alstid); */
 					subdomain:subdomain,
 					customer_key:customer_key,
 					crit:crit,
-					model:model,
+					model:order,
 					sidx:sidx,
 					ps:ps,
 					contactId:contactId,
@@ -184,13 +193,16 @@ unset($alstid); */
 		$lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
 
 		?>
-		var is_direct = <?php echo $is_direct; ?>;
 		
 		var openHomesMode	= '<?php echo $openHomesMode; ?>';
 		var boundaryWKT 	= '<?php echo $boundaryWKT; ?>';
 		var searchDistance 	= '<?php echo $searchDistance; ?>';
 		var lat 			= '<?php echo $lat; ?>';
 		var lng 			= '<?php echo $lng; ?>';
+		var direct			= <?php echo $is_direct; ?>;
+		var view			= '<?php echo $view; ?>';		
+		
+		var is_direct		= direct && view != 'map' && view != 'photo';
 		
 		if(!is_direct || openHomesMode || boundaryWKT || searchDistance || lat && lng){
 			var data = {
@@ -219,6 +231,10 @@ unset($alstid); */
 				success: function( response ) {         
 					if( response['html'] ){
 						jQuery( '#zipperagent-content' ).html( response['html'] );
+						
+						if (typeof enableSaveSearchButton === "function") {						
+							enableSaveSearchButton();
+						}
 					}
 					console.timeEnd('generate list');
 				},
@@ -239,7 +255,7 @@ unset($alstid); */
 			var crit = params.crit;
 			console.log(crit);
 			var order=params.o;
-			var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
+			// var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 			var contactId=zppr.data.contactIds.join();
 			var actual_link="<?php echo $actual_link; ?>";
 			
@@ -248,7 +264,7 @@ unset($alstid); */
 				subdomain:subdomain,
 				customer_key:customer_key,
 				crit:crit,
-				model:model,
+				model:order,
 				sidx:sidx,
 				ps:ps,
 				contactId:contactId,
@@ -270,9 +286,11 @@ if( $top_search_enabled ):
 
 ?>
 <script>
+	<?php /*
 	// jQuery(document).on('click', '#saveSearchButton:not(.needLogin)', function(){
 	// jQuery('.zpa-listing-search-results').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
-	jQuery('#zipperagent-content').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
+	// jQuery('#zipperagent-content').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){ */ ?>
+	jQuery('.zy_filter-wrap').unbind().on('click', '#saveSearchButton:not(.needLogin)', function(){
 		var contactId=jQuery(this).attr('contactId');
 		var isLogin=jQuery(this).attr('isLogin');
 		<?php if($is_view_save_search): ?>

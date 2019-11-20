@@ -1,5 +1,5 @@
 <?php
-global $requests, $single_property, $property_cache, $is_search_apply;
+global $requests, $single_property, $property_cache;
 // global $location, $propertyType, $status, $minListPrice, $maxListPrice, $squareFeet, $bedrooms, $bathCount, $lotAcres, $minDate, $maxDate, $o;
 		
 if(!$single_property && $property_cache){
@@ -92,8 +92,8 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 <?php
  // echo 'weq'.$single_property->proptype;
 ?>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<div id="zpa-main-container" class="zpa-container ">
+
+<div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	
 	<div class="zpa-listing-detail">	
 		
@@ -421,7 +421,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				var url = $form.attr('action') + '?' + data;
 				var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />';
 				var valueToPush={};
-				valueToPush = {"name":"action", "value":"search_results_view"};
+				valueToPush = {"name":"action", "value":"properties_view"};
 				request.push(valueToPush);
 				valueToPush = {"name":"actual_link", "value":url};
 				request.push(valueToPush);
@@ -438,10 +438,6 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					success: function( response ) {
 						if( response['html'] ){
 							jQuery( '#zipperagent-content' ).html( response['html'] );
-							
-							if (typeof enableSaveSearchButton === "function") {						
-								enableSaveSearchButton();
-							}
 						}
 						
 						console.timeEnd('generate list');
@@ -450,9 +446,6 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						console.timeEnd('generate list');
 					}
 				});
-				
-				jQuery('#za_prop-navigation').hide();
-				jQuery('#omnibar-tools').addClass('fixedheader');
 				
 				return false;
 			});
@@ -465,7 +458,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		jQuery(document).ready(function(){
 			
 			var data = {
-				action: 'search_results_view',
+				action: 'properties_view',
 				<?php
 				if( isset($requests) && sizeof($requests) ){
 					foreach( $requests as $var=>$val ){
@@ -489,10 +482,6 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				success: function( response ) {
 					if( response['html'] ){
 						jQuery( '#zipperagent-content' ).html( response['html'] );
-						
-						if (typeof enableSaveSearchButton === "function") {						
-							enableSaveSearchButton();
-						}
 					}
 					
 					console.timeEnd('generate list');
@@ -501,12 +490,10 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					console.timeEnd('generate list');
 				}
 			});
-			
-			jQuery('#za_prop-navigation').hide();
 		});
 	</script>
 	<?php endif; ?>
-	<?php if($property_cache && !ZipperagentGlobalFunction()->is_facebook_bot() && ! $is_search_apply): ?>
+	<?php if($property_cache && !ZipperagentGlobalFunction()->is_facebook_bot()): ?>
 	<script>
 		jQuery(document).ready(function(){
 			var data = {
@@ -533,8 +520,6 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
 						initMap();
 						<?php endif; ?>
-						
-						show_related_properties();
 					}
 					
 					console.timeEnd('generate detail');
@@ -543,120 +528,11 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					console.timeEnd('generate detail');
 				}
 			});
-		});
-	</script>
-	<?php else: ?>
-	<script>		
-		jQuery(document).ready(function(){
-			show_related_properties();
 		});
 	</script>
 	<?php endif; ?>
 	
-	<script>
-		function show_related_properties(){
-			var vars={
-				'apt': '<?php echo isset($single_property->proptype)?$single_property->proptype:'' ?>',
-				'azip': '<?php echo isset($single_property->zipcode)?$single_property->zipcode:''; ?>',
-			};
-			var data = {
-				action: 'related_properties',
-				vars: vars,                
-			};
-			
-			console.time('generate related properties');
-			jQuery.ajax({
-				type: 'POST',
-				dataType : 'json',
-				url: zipperagent.ajaxurl,
-				data: data,
-				success: function( response ) {
-					if( response ){					
-						jQuery( '#zy_related-properties' ).html( response['html'] );
-						jQuery( '#zy_related-properties' ).fadeIn();
-					}
-					
-					console.timeEnd('generate related properties');
-				},
-				error: function(){
-					console.timeEnd('generate related properties');
-				}
-			});
-		}
-	</script>
-	<script>		
-		jQuery(window).scroll(function() {
-			
-			var $sticky = jQuery('#zy_header-section');
-			var $top = 0;
-			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
-				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
-				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
-					$top = $top + $headerHeight;
-			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
-				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
-				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
-					$top = $top + $topheaderHeight + $headerHeight;
-			}else{
-				var $headerHeight = 0;
-					$top = $top + $headerHeight;
-			}
-			if(jQuery('#wpadminbar').length){
-				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
-					$top = $top + $wpadminbarHeight;
-			}
-			
-			var $stickyH = $sticky.outerHeight();
-			var $stickyContainer = jQuery('#zipperagent-content');
-			var $stickyContainerOffset = $stickyContainer.offset();
-			var $start = $stickyContainerOffset.top;
-			var $limit = $start + $stickyContainer.outerHeight();
-			var $padding = 0; // padding size;
-			var $maxWidth = $stickyContainer.outerWidth() + $padding;
-			
-			if(jQuery(window).width() > 768){
-			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
-				   $sticky.css({
-					   'position':'fixed', 
-					   'top': $top,
-					   'width': '100%',
-					   'max-width': $maxWidth,
-					   'bottom':'auto',
-				   });
-				   $sticky.find('.zy_filter-wrap').css({
-						'border-bottom': '1px solid #ddd',					   
-						'padding-bottom': '10px'
-				   });
-				   $stickyContainer.find('.zy_main').css({
-					   'padding-top': $stickyH
-				   });
-			   }
-			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
-				   $sticky.css({
-					   'position': 'absolute',
-					   'top'     : 'auto',
-					   'bottom'  : 0,
-				   });
-			   }
-			   else {
-					$sticky.css({
-						'width' : 'calc(100% + 30px)',
-						'position' : 'static',
-						'max-width' : 'auto',
-					});
-					$sticky.find('.zy_filter-wrap').css({
-						'border-bottom': 0,
-						'padding-bottom': 0
-					});
-					$stickyContainer.find('.zy_main').css({
-						'padding-top': 0
-					});
-					
-					$maxWidth = $stickyContainer.outerWidth() + $padding;
-			   }
-			}
-		});
-	</script>
+	<?php // if(!zipperagent_signup_optional()): include "template-registerUser.php"; endif; ?>
 </div>
 
 <?php detailpage_visit_counter(); ?>

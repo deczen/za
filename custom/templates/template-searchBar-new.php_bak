@@ -1,11 +1,10 @@
 <?php
-global $is_detail_page, $is_map_explore, $is_view_save_search, $is_search_apply;
+global $is_detail_page;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
-$contactIds = get_contact_id();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css'; ?>">
-<div id="omnibar-tools" class="<?php echo !$is_detail_page&&!$is_map_explore||$is_search_apply? 'fixedheader' : ''; ?>">
+<div id="omnibar-tools">
 	<?php
 	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
 	$saved_results_url = zipperagent_get_session('/api/mls/advSearchWoCnt_url');
@@ -21,7 +20,7 @@ $contactIds = get_contact_id();
 			#omnibar-tools .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
 		</style>
 		<div class="row">
-			<div class="input-column col-sm-7">
+			<div class="input-column col-sm-8">
 				<div class="search-by dropdown">
 				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Search
@@ -97,7 +96,7 @@ $contactIds = get_contact_id();
 					});
 				</script>
 			</div>
-			<div class="filter-column pc-filter-column col-sm-5">
+			<div class="filter-column pc-filter-column col-sm-4">
 				<form>
 					<div class="dropdown-group">
 						<div class="dropdown listprice">
@@ -147,30 +146,6 @@ $contactIds = get_contact_id();
 							</div>							
 						  </div>
 						</div>
-						<div class="dropdown type">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Type
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<div class="row">
-								<div class="proptype col-xs-12">
-									<?php /* <h3>Property Type</h3> */ ?>
-									<ul class="propertytype">
-										<?php
-										$propTypeFields = get_property_type();
-										foreach( $propTypeFields as $fieldCode=>$fieldName ){
-											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propertytype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
-										}
-										$propSubTypeFields = get_property_sub_type();
-										foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
-											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
-										}
-										?>
-									</ul>									
-								</div>
-							</div>
-						  </div>
-						</div>
 						<div class="dropdown beds">
 						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Beds
@@ -215,7 +190,6 @@ $contactIds = get_contact_id();
 											<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
 										</ul>										
 									</div>
-									<?php /*
 									<div class="col-xs-12">
 										<div class="row">
 											<div class="proptype col-xs-6">
@@ -233,7 +207,7 @@ $contactIds = get_contact_id();
 													}
 													?>
 													
-												</select> * ?>
+												</select> */ ?>
 												<div class="dropdown cq-dropdown">
 													<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
 													<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
@@ -289,18 +263,6 @@ $contactIds = get_contact_id();
 												</select>
 											</div>
 										</div>
-									</div> */ ?>
-									<div class="sortby col-xs-12">
-										<h3>Sort By</h3>
-										<select name="o">
-											<option id="o-0" value="apmin%3ADESC">Price (High to Low)</option>
-											<option id="o-1" value="apmin%3AASC">Price (Low to High)</option>
-											<option id="o-2" value="asts%3AASC">Status</option>
-											<option id="o-3" value="atwns%3AASC">City</option>
-											<option id="o-4" value="lid%3ADESC">Listing Date</option>
-											<option id="o-5" value="apt%3ADESC">Type / Price Descending</option>
-											<?php //<option id="o-6" value="alstid%3AASC">Listing Number</option> ?>
-										</select>
 									</div>
 									<div class="square-footage col-xs-12">
 										<h3>Square Footage</h3>
@@ -617,31 +579,11 @@ $contactIds = get_contact_id();
 	<div class="mobile-omnimbar">
 		<?php include "template-searchBarMobile-new.php"; ?>
 	</div>
-	<div class="zy_filter-wrap hideonprint">
-		<?php if(!isset($requests['disableviewbar']) || isset($requests['disableviewbar']) && ! $requests['disableviewbar']): ?>
-		<div class="zy_col-1">
-			<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary" <?php echo $is_detail_page&&isset($is_search_apply)&&!$is_search_apply?'style="display:none;"':''; ?> isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"><?php if($is_view_save_search) echo "Update This Search"; else echo "Save This Search"; ?>  </button>
-			<button id="savedSearchButton" class="savedSearchButton btn btn-sm btn-primary disabled" style="display: none"><?php if($is_view_save_search) echo "Updated"; else echo "Saved"; ?> </button>
-		</div>		
-		<?php endif; ?>
-		<div class="<?php echo !isset($requests['disableviewbar']) || isset($requests['disableviewbar']) && ! $requests['disableviewbar'] ? 'zy_col-2' : 'zy_col-full'; ?>" id="zpa-view-selected-filter">
-			<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
-				<div class="ms-sel-ctn">
-				</div>
+	<div id="zpa-view-selected-filter">
+		<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
+			<div class="ms-sel-ctn">
 			</div>
 		</div>
-		<?php if(!isset($requests['disableviewbar']) || isset($requests['disableviewbar']) && ! $requests['disableviewbar']): ?>
-		<div class="zy_col-3">
-			<div class="input-group">
-				<div id="zy_view-type" class="btn-group">
-					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="map"><i class="fa fa-map-marker" aria-hidden="true"></i> Map</a>
-					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="photo"><i class="fa fa-picture-o" aria-hidden="true"></i> Photo</a>
-					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="gallery"><i class="fa fa-th" aria-hidden="true"></i> Gallery</a>
-				</div>
-			</div>
-		</div>
-		<?php endif; ?>
-		<div class="clearfix"></div>
 	</div>
 	<form id="zpa-search-filter-form" action="" class="form-inline zpa-quick-search-form">
 	<?php
@@ -2092,10 +2034,6 @@ $contactIds = get_contact_id();
 		});
 	</script>	
 	<script>
-		function enableSaveSearchButton(){
-			jQuery('.saveSearchButton').show();
-			jQuery('.savedSearchButton').hide();
-		}
 		jQuery('body').on( 'change', '#omnibar-tools .filter-column input, #omnibar-tools .filter-column select', function(){
 										 
 			var name = jQuery(this).attr('name').toLowerCase();
@@ -2667,107 +2605,8 @@ $contactIds = get_contact_id();
 		});
 	</script>
 	<script>
-		jQuery(document).ready(function($) {
-			var view = $('#zpa-search-filter-form input[name=view]').length ? $('#zpa-search-filter-form input[name=view]').val() : 'gallery';
-			
-			$('#omnibar-tools.fixedheader #zy_view-type a[data-title="'+view+'"]').addClass('active');
-			
-			$('#zy_view-type a').on('click', function(){
-				var sel = $(this).data('title');
-				var tog = $(this).data('toggle');
-				
-				$('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active');
-				$('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').addClass('active');
-				
-				var name='view';
-				var linked_name=name;
-				var value=sel;
-				
-				addFormField(name,value,linked_name);
-					
-				 $('#zpa-search-filter-form input[name=page]').remove(); //reset page
-				jQuery('#zpa-search-filter-form').submit();
-			});
-		});
-	</script>
-	<script>
 		jQuery(document).on('click', '#zpa-main-container #omnibar-tools .dropdown-menu', function (e) {
 		  e.stopPropagation();
-		});
-	</script>
-	<script>		
-		jQuery(window).scroll(function() {
-			
-			if(jQuery('#omnibar-tools.fixedheader').length){
-			
-				var $sticky = jQuery('#omnibar-tools');
-				var $top = 0;
-				if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
-					// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
-					var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
-						$top = $top + $headerHeight;
-				}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
-					var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
-					var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
-						$top = $top + $topheaderHeight + $headerHeight;
-				}else{
-					var $headerHeight = 0;
-						$top = $top + $headerHeight;
-				}
-				if(jQuery('#wpadminbar').length){
-					var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
-						$top = $top + $wpadminbarHeight;
-				}
-				
-				var $stickyH = $sticky.outerHeight();
-				var $stickyContainer = jQuery('#zpa-main-container');
-				var $stickyContainerOffset = $stickyContainer.offset();
-				var $start = $stickyContainerOffset.top;
-				var $limit = $start + $stickyContainer.outerHeight();
-				var $padding = 0; // padding size;
-				var $maxWidth = $stickyContainer.outerWidth() + $padding;
-				
-				if(jQuery(window).width() > 768){
-				   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
-					   $sticky.css({
-						   'position':'fixed', 
-						   'top': $top,
-						   'width': '100%',
-						   'max-width': $maxWidth,
-						   'bottom':'auto',
-					   });
-					   $sticky.find('.zy_filter-wrap').css({
-							'border-bottom': '1px solid #ddd',					   
-							'padding-bottom': '10px'
-					   });
-					   $stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
-						   'padding-top': $stickyH
-					   });
-				   }
-				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
-					   $sticky.css({
-						   'position': 'absolute',
-						   'top'     : 'auto',
-						   'bottom'  : 0,
-					   });
-				   }
-				   else {
-						$sticky.css({
-							'position' : 'static',
-							'max-width' : '100%',
-						});
-						$sticky.find('.zy_filter-wrap').css({
-							'border-bottom': 0,
-							'padding-bottom': 0
-						});
-						$stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
-							'padding-top': 0
-						});
-						
-						$maxWidth = $stickyContainer.outerWidth() + $padding;
-				   }
-				}
-			}
 		});
 	</script>
 </div>

@@ -279,7 +279,7 @@ function search_results_view(){
 		
 		ob_start();
 		
-		if(isset($requests['direct']) && $requests['direct']==1)		
+		if(isset($requests['direct']) && $requests['direct']==1 && isset($requests['view']) && !in_array($requests['view'],array('map','photo')))		
 			include ZIPPERAGENTPATH . "/custom/templates/template-search-results_crm.php";
 		else
 			include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
@@ -726,7 +726,7 @@ function get_map_markers_loop(){
 		
 		global $markers, $infoWindows, $NextMapIndex;
 		
-		$maplimit=5000;
+		$maplimit=1000;
 		
 		$mapindex=$_REQUEST['sidx'];
 		
@@ -817,6 +817,34 @@ function display_property_detail(){
 		$result['sidebar_section']=$htmls['sidebar_section'];
 		$result['bottom_section']=$htmls['bottom_section'];
 		$result['print_section']=$htmls['print_section'];
+		
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
+add_action( 'wp_ajax_related_properties', 'display_related_properties' );
+add_action( 'wp_ajax_nopriv_related_properties', 'display_related_properties' );
+
+function display_related_properties(){
+	
+	if ( isset($_REQUEST) ) {
+		
+		$vars = isset($_REQUEST['vars'])?$_REQUEST['vars']:'';
+		
+		$params=array();
+		foreach($vars as  $k=>$v){
+			$params[]="$k=\"$v\"";
+		}
+		
+		ob_start();
+		$html='';
+		if(shortcode_exists('listing_slider')){
+			$html='<h3>Related Properties</h3>'."\r\n";
+			$html=$html.do_shortcode('[listing_slider mobile_item="1" tablet_item="3" desktop_item="4" listinapage="10" '. implode( ' ', $params ) .']');;
+		}
+		$result['html']=$html;
 		
 		echo json_encode($result);
          

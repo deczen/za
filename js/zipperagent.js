@@ -299,13 +299,13 @@ var zppr={
 		
 		html+= '<div class="zpa-listing-search-results hideonprint">'+
 				
-					'<div class="row mb-10 mt-25">';				
+					'<div class="row mt-25 mb-25">';				
 				
 		if(!list_html){
 		
 			html+= 		'<div class="col-xs-4"> No Properties Found </div>';	
 		}else if( parseInt(showResults) ){			
-			html+= 		'<div class="col-xs-4 prop-total"></div>';
+			html+= 		'<div class="col-xs-12 prop-total">'+String.fromCharCode(160)+'</div>';
 		}
 				
 		html+=		   '<div class="col-xs-8">';
@@ -378,13 +378,15 @@ var zppr={
 		var subdomain = args.hasOwnProperty('subdomain') ? args.subdomain : '';
 		var customer_key = args.hasOwnProperty('customer_key') ? args.customer_key : '';
 		var crit = args.hasOwnProperty('crit') ? args.crit : '';
-		var model = args.hasOwnProperty('model') ? args.model : '';
+		var order = args.hasOwnProperty('model') ? args.model : '';
+			order = args.hasOwnProperty('order') ? args.order : order;
+			order = order.replace(/%253A/g, ":").replace(/%3A/g, ":");
 		var sidx = args.hasOwnProperty('sidx') ? args.sidx : '';
 		var ps = args.hasOwnProperty('ps') ? args.ps : '';
 		var contactId = args.hasOwnProperty('contactId') ? args.contactId : '';
 		var micro = args.hasOwnProperty('micro') ? args.micro : '';
 		
-		parm.push(searchType,subdomain,customer_key,crit,model,sidx,ps,contactId);
+		parm.push(searchType,subdomain,customer_key,crit,order,sidx,ps,contactId);
 		
 		switch(resultType){
 			case "list":				
@@ -543,6 +545,8 @@ var zppr={
 								console.timeEnd('generate list count/pagination');
 							break;
 						}
+						
+						zppr.enableSaveSearchButton();
 					}else{
 						console.log(response);
 					}
@@ -1009,7 +1013,11 @@ var zppr={
 		return crit;
 	},
 	list_total_text:function(count){
-		return zppr.formatNumber(count) + " Result(s)";
+		if(count>1){
+			return zppr.formatNumber(count) + "  Properties for sale";
+		}else{
+			return zppr.formatNumber(count) + "  Propertiy";
+		}		
 	},
 	html_pagination:function(page, num, count, actual_link){
 		
@@ -1237,7 +1245,8 @@ var zppr={
 			timezone='GMT';
 		
 		return timezone;
-	},declare_date_format:function(){
+	}
+	,declare_date_format:function(){
 	  // Defining locale
 	  Date.shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 	  Date.longMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -1334,5 +1343,9 @@ var zppr={
 		return this;
 	  }
 		
+	}
+	,enableSaveSearchButton:function(){
+		jQuery('.saveSearchButton').show();
+		jQuery('.savedSearchButton').hide();
 	}
 };

@@ -22,7 +22,9 @@ $o 					= ( isset($requests['o'])?$requests['o']:'' );
 
 $boundaryWKT 		= ( isset($requests['boundarywkt'])?$requests['boundarywkt']:false );
 $openHomesMode 		= ( isset($requests['openhomesmode'])?$requests['openhomesmode']:false );
-// echo "<pre>"; print_r( $requests ); echo "</pre>";
+
+//list view type
+$view 				= ( isset($requests['view'])?$requests['view']:'' );
 
 //set page
 if(get_query_var('page')){	
@@ -30,9 +32,9 @@ if(get_query_var('page')){
 }
 
 if(is_open_house_search_enabled()){
-	$top_search_enabled = ! $boundaryWKT && ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
+	$top_search_enabled = ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
 }else{
-	$top_search_enabled = ! $boundaryWKT && ! $openHomesMode && ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
+	$top_search_enabled = ! $openHomesMode && ! $is_shortcode || ( isset($requests['search_form_enabled']) && $requests['search_form_enabled'] );
 }
 
 /**
@@ -54,6 +56,8 @@ if(!empty($is_singleid) && !is_array($is_singleid)){
 }
 unset($alstid); */
 ?>
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 
 	<div class="zpa-listing-list">
@@ -102,6 +106,10 @@ unset($alstid); */
 				success: function( response ) {         
 					if( response['html'] ){
 						jQuery( '#zipperagent-content' ).html( response['html'] );
+						
+						if (typeof enableSaveSearchButton === "function") {						
+							enableSaveSearchButton();
+						}
 					}
 					console.timeEnd('generate list');
 				},
@@ -146,6 +154,10 @@ unset($alstid); */
 			success: function( response ) {         
 				if( response['html'] ){
 					jQuery( '#zipperagent-content' ).html( response['html'] );
+					
+					if (typeof enableSaveSearchButton === "function") {						
+						enableSaveSearchButton();
+					}
 				}
 				console.timeEnd('generate list');
 			},

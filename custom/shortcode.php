@@ -23,6 +23,7 @@ class Zipperagent_Shortcodes{
 		'za_map_view' => 'display_zipperagent_map_view',
 		'za_photo_view' => 'display_zipperagent_photo_view',
 		'za_user_access' => 'display_zipperagent_za_user_access',
+		'listing_slider' => 'display_listing_slider',
 		'own_listing_slider' => 'display_own_listing_slider',
 		'own_listing_banner' => 'display_own_listing_banner',
 		'listing_banner' => 'display_listing_banner',
@@ -451,7 +452,8 @@ class Zipperagent_Shortcodes{
 		
 		return $html;
 	}
-
+	
+	/*
 	function display_zipperagent_gallery_view($atts){
 		global $type, $requests;
 		
@@ -471,13 +473,31 @@ class Zipperagent_Shortcodes{
 		include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter.php";
 		$html=ob_get_clean();
 		
-		/* Reset variables */
+		/* Reset variables *
 		unset($requests);
 		unset($type);
 		
 		return $html;
+	} */
+	
+	function display_zipperagent_gallery_view($atts){
+		$vars=array();
+		if(is_array($atts)){
+			foreach( $atts as $var=>$val ){
+				$vars[]= $var.'="'.$val.'"';
+			}
+		}
+		
+		$view='gallery';
+		
+		ob_start();	
+		echo do_shortcode('[search_properties view="'. $view .'" search_form_enabled="1" '. implode( ' ', $vars ) .']');
+		$html=ob_get_clean();
+		
+		return $html;
 	}
-
+	
+	/*
 	function display_zipperagent_map_view($atts){
 		global $type, $requests;
 		
@@ -499,14 +519,31 @@ class Zipperagent_Shortcodes{
 		include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter2.php";
 		$html=ob_get_clean();
 		
-		/* Reset variables */
+		/* Reset variables *
 		unset($requests);
 		unset($type);
 		
 		return $html;
+	} */
+	
+	function display_zipperagent_map_view($atts){
+		$vars=array();
+		if(is_array($atts)){
+			foreach( $atts as $var=>$val ){
+				$vars[]= $var.'="'.$val.'"';
+			}
+		}
+		
+		$view='map';
+		
+		ob_start();	
+		echo do_shortcode('[search_properties view="'. $view .'" search_form_enabled="1" '. implode( ' ', $vars ) .']');
+		$html=ob_get_clean();
+		
+		return $html;
 	}
 
-	function display_zipperagent_photo_view($atts){
+	/* function display_zipperagent_photo_view($atts){
 		global $type, $requests;
 		
 		$requests=$atts;
@@ -525,9 +562,27 @@ class Zipperagent_Shortcodes{
 		include ZIPPERAGENTPATH . "/custom/templates/template-searchWithFilter3.php";
 		$html=ob_get_clean();
 		
-		/* Reset variables */
+		/* Reset variables *
 		unset($requests);
 		unset($type);
+		
+		return $html;
+	} */
+		
+	function display_zipperagent_photo_view($atts){
+		
+		$vars=array();
+		if(is_array($atts)){
+			foreach( $atts as $var=>$val ){
+				$vars[]= $var.'="'.$val.'"';
+			}
+		}
+		
+		$view='photo';
+		
+		ob_start();	
+		echo do_shortcode('[search_properties view="'. $view .'" search_form_enabled="1" '. implode( ' ', $vars ) .']');
+		$html=ob_get_clean();
 		
 		return $html;
 	}
@@ -545,6 +600,35 @@ class Zipperagent_Shortcodes{
 		ob_start();	
 		include ZIPPERAGENTPATH . "/custom/templates/template-shortcode-myaccountUrl.php";
 		$html=ob_get_clean();
+		
+		return $html;
+	}
+	
+	function display_listing_slider($atts){
+		global $requests;
+		
+		$requests=$atts;
+		
+		if( isset($requests['location']) ){
+			$requests['location']=explode(',',$requests['location']);
+		}
+		
+		$requests['is_shortcode']=1;
+		$is_shortcode=1;
+		
+		//save all http request to $request
+		foreach( $_REQUEST as $key=>$val ){
+			$requests[$key]=$val;
+		}
+		
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/templates/template-relatedSlider.php";
+		$html=ob_get_clean();
+		
+		/* Reset variables */
+		unset($requests);
+		unset($is_shortcode);
+		// echo "<pre>"; print_r( $requests ); echo "</pre>";
 		
 		return $html;
 	}
@@ -832,6 +916,7 @@ class Zipperagent_Shortcodes{
 			'propertytype' => '',
 			'o' => '',
 			'direct' => '',
+			'disableviewbar' => 1,
 		), $atts, 'za_map_search');
 		$requests = $atts;
 		$is_ajax_count = 1;

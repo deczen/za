@@ -206,7 +206,7 @@ if( $aloff ){
 	
 	$search=array(
 		'asrc'=>$rb['web']['asrc'],
-		'aloff'=>$aloff,
+		// 'aloff'=>$aloff,
 		'abeds'=>$bedrooms,
 		'abths'=>$bathCount,
 		'apt'=>implode( ',', array_map("trim",$propertyType) ),
@@ -386,6 +386,6 @@ if( $aloff ){
 		</script>
 	<?php
 	}else{
-		echo "<p class='no-property'>There is no featured Properties</p>";
+		echo "<p class='no-property'>no related properties</p>";
 	}
 }

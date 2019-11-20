@@ -1,9 +1,11 @@
 <?php
-global $requests, $is_ajax_count;
+global $requests, $is_ajax_count, $is_map_explore;
 
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 extract(zipperagent_get_map_centre());
+
+$is_map_explore=1;
 
 if($requests['lat'] && $requests['lng']){
 	$za_lat = $requests['lat'];
@@ -379,7 +381,7 @@ if($requests['lat'] && $requests['lng']){
 			initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>', <?php echo $requests['map_zoom']; ?>, 1); // show map
 						
 			var looplimit = 5;
-			var listlimit = 5000;
+			var listlimit = 1000;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				
@@ -405,12 +407,11 @@ if($requests['lat'] && $requests['lng']){
 				var ps=listlimit;
 				var sidx=0;
 				var crit = params.crit;
-				var order=requests.o;
-				var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
+				var order=requests.o.replace(/%253A/g, ":").replace(/%3A/g, ":");
+				// var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 				var contactIds=zipperagent.contactIds.join();
-				
 				var response=false;
-				parm.push(2,subdomain,customer_key,crit,model,sidx,ps,"",1);
+				parm.push(2,subdomain,customer_key,crit,order,sidx,ps,"",1);
 				
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
@@ -481,9 +482,9 @@ if($requests['lat'] && $requests['lng']){
 							
 								if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
 									sidx+=listlimit;
-									search_loop(subdomain,customer_key,crit,model,sidx,ps);
+									search_loop(subdomain,customer_key,crit,order,sidx,ps);
 								}else{								
-									totalPropertiesCount(subdomain,customer_key,crit,model,sidx,ps);
+									totalPropertiesCount(subdomain,customer_key,crit,order,sidx,ps);
 								}
 								
 								console.timeEnd('generate map');
@@ -507,14 +508,15 @@ if($requests['lat'] && $requests['lng']){
 				refreshMap();
 			});	
 						
-			function search_loop(subdomain,customer_key,crit,model,sidx,ps){
+			function search_loop(subdomain,customer_key,crit,order,sidx,ps){
 				
 				console.time('generate map loop');
 				
 				var parm=[];
 				var response=false;
 				var contactIds=zipperagent.contactIds.join();
-				parm.push(2,subdomain,customer_key,crit,model,sidx,ps,"",1);
+				order = order.replace(/%253A/g, ":").replace(/%3A/g, ":");
+				parm.push(2,subdomain,customer_key,crit,order,sidx,ps,"",1);
 				
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
@@ -585,9 +587,9 @@ if($requests['lat'] && $requests['lng']){
 							
 								if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
 									sidx+=listlimit;
-									search_loop(subdomain,customer_key,crit,model,sidx,ps);
+									search_loop(subdomain,customer_key,crit,order,sidx,ps);
 								}else{								
-									totalPropertiesCount(subdomain,customer_key,crit,model,sidx,ps);
+									totalPropertiesCount(subdomain,customer_key,crit,order,sidx,ps);
 								}
 								
 								console.timeEnd('generate map loop');
@@ -607,13 +609,14 @@ if($requests['lat'] && $requests['lng']){
 				jQuery('.za-refresh-map').addClass('hide');
 			}
 
-			function totalPropertiesCount(subdomain,customer_key,crit,model,sidx,ps){
+			function totalPropertiesCount(subdomain,customer_key,crit,order,sidx,ps){
 				
 				console.time('generate list count/pagination');
 				
 				var parm=[];
 				var response=false;
-				parm.push(3,subdomain,customer_key,crit,model,sidx,ps,"",1);
+				order = order.replace(/%253A/g, ":").replace(/%3A/g, ":");
+				parm.push(3,subdomain,customer_key,crit,order,sidx,ps,"",1);
 				
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
@@ -662,6 +665,10 @@ if($requests['lat'] && $requests['lng']){
 					$top = $top + $wpadminbarHeight;
 			}
 			
+			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+		
+			$top = $top + $searchBarHeight;
+			
 			var $stickyH = $sticky.outerHeight();
 			var $stickyContainer = jQuery('#map');
 			var $stickyContainerOffset = $stickyContainer.offset();
@@ -680,7 +687,6 @@ if($requests['lat'] && $requests['lng']){
 				   $sticky.css({
 						   'position': 'absolute',
 						   'top'     : 'auto',
-						   'bottom'  : 0
 					   });
 			   }
 			   else {

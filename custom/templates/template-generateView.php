@@ -372,7 +372,7 @@ if( $openHomesMode ){ // open houses mode
 		$loop=1;
 		$maplist=array();
 		$mapindex=$index;
-		$maplimit=5000;
+		$maplimit=1000;
 		$mapvars=$vars;
 		unset($mapvars['coords']); //remove coords from variables, search all locations
 		// $mapvars['coords']='';
@@ -481,7 +481,7 @@ if( $openHomesMode ){ // open houses mode
 		$loop=1;
 		$maplist=array();
 		$mapindex=$index;
-		$maplimit=5000;
+		$maplimit=1000;
 		$mapvars=$vars;
 		unset($mapvars['coords']); //remove coords from variables, search all locations
 		// $mapvars['coords']='';

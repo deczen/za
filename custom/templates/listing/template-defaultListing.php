@@ -41,7 +41,7 @@ if($templatename && file_exists($template_path)){
 		</div>
 	</div>
 	<?php endif; */ ?>
-	<div class="row mb-10 mt-25">
+	<div class="row mt-25 mb-25">
 		
 		<?php
 		if(isset($list['totalCount']) && $list['totalCount']==0){
@@ -50,12 +50,12 @@ if($templatename && file_exists($template_path)){
 		<?php
 		}else if( $showResults ){ ?>
 			<?php if( ! $is_ajax_count ): ?>
-			<div class="col-xs-4 prop-total"><?php echo zipperagent_list_total($count); ?></div>
+			<div class="col-xs-12 prop-total"><?php echo zipperagent_list_total($count); ?></div>
 			<?php else: ?>
-			<div class="col-xs-4 prop-total"></div>
+			<div class="col-xs-12 prop-total">&nbsp;</div>
 			<? endif; ?>
 		<?php } ?>
-		
+		<?php /*
 		<div class="col-xs-8">
 			<?php /*
 			<div class="btn-group pull-right">
@@ -123,7 +123,7 @@ if($templatename && file_exists($template_path)){
 					</ul>
 				</div>
 				<?php endif; ?>
-			</div> */ ?>
+			</div> * ?>
 			
 			<?php if( $enable_filter ): ?>
 			<div class="pull-right">
@@ -132,6 +132,7 @@ if($templatename && file_exists($template_path)){
 			<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"> <i class="glyphicon glyphicon-star"></i> <?php if($is_view_save_search) echo "Update This Search"; else echo "Save This Search"; ?>  </button>
 			<?php endif; ?>
 		</div>
+		*/ ?>
 	</div>
 	<div class="row list-section">
 	   <?php 
@@ -467,8 +468,5 @@ if($templatename && file_exists($template_path)){
 	<?php endif; ?>
 	
 </div>
-
-<?php // include "template-registerUser.php"; ?>
-
 <?php
 include ZIPPERAGENTPATH . "/custom/templates/listing/template-list-print.php";
