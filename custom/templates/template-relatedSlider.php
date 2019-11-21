@@ -235,7 +235,8 @@ if( $aloff ){
 	
 	// echo "<pre>"; print_r( $vars ); echo "</pre>";
 	
-	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
+	// $result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
+	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars, $post=0, $vars='', $returnAll=0, $saveSession=0 );
 	if(!$is_ajax){
 		// $resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
 		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;

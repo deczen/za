@@ -1,6 +1,6 @@
 <?php
 if( ! function_exists('zipperagent_run_curl') ){
-	function zipperagent_run_curl($url, $args=array(), $post=0, $vars='', $returnAll=0){
+	function zipperagent_run_curl($url, $args=array(), $post=0, $vars='', $returnAll=0, $saveSession=1){
 		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
@@ -90,7 +90,8 @@ if( ! function_exists('zipperagent_run_curl') ){
 		else
 			$result = isset($server_output->result)?$server_output->result:array();
 		
-		zipperagent_save_session_result($index, $result);
+		if($saveSession)
+			zipperagent_save_session_result($index, $result);
 		
 		return (array) $result;
 	}
@@ -124,7 +125,7 @@ if( ! function_exists('zipperagent_save_session_result') ){
 	function zipperagent_save_session_result($index, $result){
 		
 		global $requests;
-		
+		// print_r($requests);
 		$actual_link = isset($requests['actual_link'])?$requests['actual_link']: (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		
 		zipperagent_set_session($index, (array) $result);

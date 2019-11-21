@@ -1681,3 +1681,36 @@ function get_school_options(){
         die();
     }
 }
+
+add_action( 'wp_ajax_save_result_session', 'save_result_session' );
+add_action( 'wp_ajax_nopriv_save_result_session', 'save_result_session' );
+
+function save_result_session(){
+	global $requests;
+	
+	if ( isset($_REQUEST) ) {
+		
+		$requests = $_REQUEST;
+			
+		$index = isset($_REQUEST['index'])?$_REQUEST['index']:'';
+		$result = isset($_REQUEST['result'])?$_REQUEST['result']:array();
+		$actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:'';
+		
+		if(isset($result['filteredList'])){ //convert array to object
+			foreach($result['filteredList'] as $k=>&$v){
+				
+				if(!isset($v->id) && isset($v['id'])){
+					$v = json_decode(json_encode($v));
+				}
+			}
+		}
+		// print_r($result);
+		
+		if($index)
+			zipperagent_save_session_result($index, $result);
+		$return['result']=1;
+		echo json_encode($return);
+         
+        die();
+    }
+}

@@ -480,7 +480,8 @@ if($requests['lat'] && $requests['lng']){
 								
 								loop++;
 							
-								if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
+								// if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
+								if(curr_markers.length == listlimit){
 									sidx+=listlimit;
 									search_loop(subdomain,customer_key,crit,order,sidx,ps);
 								}else{								
@@ -585,7 +586,8 @@ if($requests['lat'] && $requests['lng']){
 								
 								loop++;
 							
-								if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
+								// if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
+								if(curr_markers.length == listlimit){
 									sidx+=listlimit;
 									search_loop(subdomain,customer_key,crit,order,sidx,ps);
 								}else{								

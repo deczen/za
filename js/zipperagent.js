@@ -459,6 +459,8 @@ var zppr={
 										
 										i++;
 									}
+									
+									zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
 								}
 								
 								html = zppr.list_template(requests, html, is_view_save_search);
@@ -521,6 +523,8 @@ var zppr={
 										
 										i++;
 									}
+									
+									zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
 								}
 								
 								// html = zppr.list_template(requests, html, is_view_save_search);
@@ -1347,5 +1351,32 @@ var zppr={
 	,enableSaveSearchButton:function(){
 		jQuery('.saveSearchButton').show();
 		jQuery('.savedSearchButton').hide();
+	},
+	save_session:function(index, result, actual_link){
+		var data = {
+			action: 'save_result_session',
+			'index': index, 
+			'actual_link': actual_link,
+			'result': result,
+		};
+		
+		console.time('save session');
+		jQuery.ajax({
+			type: 'POST',
+			dataType : 'json',
+			url: zipperagent.ajaxurl,
+			data: data,
+			success: function( response ) {
+				console.log(response);
+				if( response['result'] ){
+					
+				}
+				
+				console.timeEnd('save session');
+			},
+			error: function(){
+				console.timeEnd('save session');
+			}
+		});
 	}
 };
