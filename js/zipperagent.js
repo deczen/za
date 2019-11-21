@@ -929,7 +929,7 @@ var zppr={
 		return html;
 	},
 	formatNumber:function(num) {
-	  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	   return (typeof num !== 'undefined') ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 	},
 	getAddress:function(property){
 		var streetname = property.hasOwnProperty('streetname')?property.streetname:'';
