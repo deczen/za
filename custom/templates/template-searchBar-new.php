@@ -1,5 +1,5 @@
 <?php
-global $is_detail_page, $is_map_explore, $is_view_save_search, $is_search_apply;
+global $is_detail_page, $is_map_explore, $is_view_save_search, $is_search_apply, $is_shortcode;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 $contactIds = get_contact_id();
@@ -2695,6 +2695,8 @@ $contactIds = get_contact_id();
 		  e.stopPropagation();
 		});
 	</script>
+	
+	<?php if(!isset($requests['fixed_search_form']) || isset($requests['fixed_search_form']) && $requests['fixed_search_form']): ?>
 	<script>		
 		jQuery(window).scroll(function() {
 			
@@ -2770,4 +2772,5 @@ $contactIds = get_contact_id();
 			}
 		});
 	</script>
+	<?php endif; ?>
 </div>

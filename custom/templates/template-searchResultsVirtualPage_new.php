@@ -26,6 +26,15 @@ $openHomesMode 		= ( isset($requests['openhomesmode'])?$requests['openhomesmode'
 //list view type
 $view 				= ( isset($requests['view'])?$requests['view']:'' );
 
+//set unique class
+if($is_shortcode){
+	$uniqid = uniqid();
+	$uniqueClass = 'result_'.$uniqid;
+	$uniqueClassWithDot = '.'.$uniqueClass;
+}else{
+	$uniqueClass=$uniqueClassWithDot='';
+}
+
 //set page
 if(get_query_var('page')){	
 	$requests['page'] = get_query_var('page');
@@ -58,7 +67,7 @@ unset($alstid); */
 ?>
 
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<div id="zpa-main-container" class="zpa-container " style="display: inline;">
+<div id="zpa-main-container" class="zpa-container <?php echo $uniqueClass; ?>" style="display: inline;">
 
 	<div class="zpa-listing-list">
 	
@@ -77,7 +86,7 @@ unset($alstid); */
 		
 		var xhr;
 		
-		jQuery('#zpa-search-filter-form').on("submit", function(event) {
+		jQuery('<?php echo $uniqueClassWithDot; ?> #zpa-search-filter-form').on("submit", function(event) {
 			
 			if(xhr && xhr.readyState != 4){
 				xhr.abort();
@@ -95,7 +104,7 @@ unset($alstid); */
 			request.push(valueToPush);
 			window.history.pushState("", "", url);
 			
-			jQuery( '#zipperagent-content' ).html( loading );
+			jQuery( '<?php echo $uniqueClassWithDot; ?> #zipperagent-content' ).html( loading );
 			
 			console.time('generate list');
 			xhr = jQuery.ajax({
@@ -105,7 +114,7 @@ unset($alstid); */
 				data: request,
 				success: function( response ) {         
 					if( response['html'] ){
-						jQuery( '#zipperagent-content' ).html( response['html'] );
+						jQuery( '<?php echo $uniqueClassWithDot; ?> #zipperagent-content' ).html( response['html'] );
 						
 						if (typeof enableSaveSearchButton === "function") {						
 							enableSaveSearchButton();
@@ -153,7 +162,7 @@ unset($alstid); */
 			data: data,
 			success: function( response ) {         
 				if( response['html'] ){
-					jQuery( '#zipperagent-content' ).html( response['html'] );
+					jQuery( '<?php echo $uniqueClassWithDot; ?> #zipperagent-content' ).html( response['html'] );
 					
 					if (typeof enableSaveSearchButton === "function") {						
 						enableSaveSearchButton();

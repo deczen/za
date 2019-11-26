@@ -159,9 +159,12 @@ class Zipperagent_Shortcodes{
 		if( isset($requests['ajax']) && $requests['ajax']==0 ){
 			include ZIPPERAGENTPATH . "/custom/templates/template-search-results.php";
 		}else{
-			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
-				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
-			else
+			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
+				if(isset($requests['direct']) && $requests['direct']==1)	
+					include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_crm.php";
+				else
+					include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
+			}else
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
 		}
 		$html=ob_get_clean();
