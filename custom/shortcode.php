@@ -141,11 +141,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
-		
-		// if( isset($requests['propertytype']) ){
-			// $requests['propertytype']=explode(',',$requests['propertytype']);
-		// }
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		$requests['is_shortcode']=1;
 		$is_shortcode=1;
@@ -185,7 +187,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		$requests['is_shortcode']=1;
 		$is_shortcode=1;
@@ -214,7 +222,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		//save all http request to $request
 		foreach( $_REQUEST as $key=>$val ){
@@ -463,7 +477,13 @@ class Zipperagent_Shortcodes{
 		$requests=$atts;
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		//save all http request to $request
 		foreach( $_REQUEST as $key=>$val ){
@@ -509,7 +529,13 @@ class Zipperagent_Shortcodes{
 		//define location
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		//save all http request to $request
 		foreach( $_REQUEST as $key=>$val ){
@@ -552,7 +578,13 @@ class Zipperagent_Shortcodes{
 		$requests=$atts;
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		//save all http request to $request
 		foreach( $_REQUEST as $key=>$val ){
@@ -614,7 +646,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		$requests['is_shortcode']=1;
 		$is_shortcode=1;
@@ -643,7 +681,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		$requests['is_shortcode']=1;
 		$is_shortcode=1;
@@ -672,7 +716,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		$requests['is_shortcode']=1;
 		$is_shortcode=1;
@@ -701,7 +751,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		$requests['is_shortcode']=1;
 		$is_shortcode=1;
@@ -730,7 +786,13 @@ class Zipperagent_Shortcodes{
 		
 		if( isset($requests['location']) ){
 			$requests['location']=explode(',',$requests['location']);
-		}
+		}		
+		if( isset($requests['propertytype']) ){
+			$requests['propertytype']=explode(',',$requests['propertytype']);
+		}	
+		if( isset($requests['propsubtype']) ){
+			$requests['propsubtype']=explode(',',$requests['propsubtype']);
+		}	
 		
 		// $requests['is_shortcode']=1;
 		$is_shortcode=1;
