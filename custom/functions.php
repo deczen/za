@@ -3881,27 +3881,27 @@ if( ! function_exists('global_new_omnibar_script') ){
 				//auto submit on change
 				$(ms_all).on('selectionchange', function(e,m){	
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').submit();
+						$('form.zpa-quick-search-form').closest("form").submit();
 					}, 500);
 				});
 				$(ms_county).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').submit();
+						$('form.zpa-quick-search-form').closest("form").submit();
 					}, 500);
 				});
 				$(ms_area).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').submit();
+						$('form.zpa-quick-search-form').closest("form").submit();
 					}, 500);
 				});
 				$(ms_town).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').submit();
+						$('form.zpa-quick-search-form').closest("form").submit();
 					}, 500);
 				});
 				$(ms_zip).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').submit();
+						$('form.zpa-quick-search-form').closest("form").submit();
 					}, 500);
 				});
 				<?php endif; ?>
