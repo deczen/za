@@ -3879,29 +3879,29 @@ if( ! function_exists('global_new_omnibar_script') ){
 				
 				<?php if($auto_submit): ?>
 				//auto submit on change
-				$(ms_all).on('selectionchange', function(e,m){	
+				$(ms_all).on('selectionchange', function(e,m){
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').closest("form").submit();
+						$("form.omnibar").submit();						
 					}, 500);
 				});
 				$(ms_county).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').closest("form").submit();
+						$("form.omnibar").submit();
 					}, 500);
 				});
 				$(ms_area).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').closest("form").submit();
+						$("form.omnibar").submit();
 					}, 500);
 				});
 				$(ms_town).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').closest("form").submit();
+						$("form.omnibar").submit();
 					}, 500);
 				});
 				$(ms_zip).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$('form.zpa-quick-search-form').closest("form").submit();
+						$("form.omnibar").submit();
 					}, 500);
 				});
 				<?php endif; ?>
@@ -5644,7 +5644,7 @@ if( ! function_exists('zipperagent_search_filter_new') ){
 				</div>
 			</div>
 		</div>
-		<form id="zpa-search-filter-form" action="" class="form-inline zpa-quick-search-form">
+		<form id="zpa-search-filter-form" action="" class="form-inline zpa-search-bar-form">
 		<?php
 			foreach($requests as $key=>$value){
 				if(!in_array($key,get_wp_var_excludes())){

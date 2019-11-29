@@ -643,7 +643,7 @@ $contactIds = get_contact_id();
 		<?php endif; ?>
 		<div class="clearfix"></div>
 	</div>
-	<form id="zpa-search-filter-form" action="" class="form-inline zpa-quick-search-form">
+	<form id="zpa-search-filter-form" action="" class="form-inline zpa-search-bar-form">
 	<?php
 		foreach($requests as $key=>$value){
 			if(!in_array($key,get_wp_var_excludes())){

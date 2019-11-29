@@ -3,7 +3,7 @@ global $requests;
 
 ?><div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
-        <form id="searchProfile" class="form-inline zpa-quick-search-form" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET">
+        <form id="searchProfile" class="form-inline zpa-quick-search-form omnibar" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET">
             <fieldset>
                 <div class="row">
 					<div class="omnibar-content">

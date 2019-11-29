@@ -81,7 +81,7 @@ unset($alstid); */
 		<?php if( $top_search_enabled ): ?>
 		<?php zipperagent_omnibar($requests); ?>
 		<?php else: ?>
-			<form id="zpa-search-filter-form" action="" class="form-inline zpa-quick-search-form">
+			<form id="zpa-search-filter-form" action="" class="form-inline zpa-search-bar-form">
 			<?php
 				foreach($requests as $key=>$value){
 					if(!in_array($key,get_wp_var_excludes())){
