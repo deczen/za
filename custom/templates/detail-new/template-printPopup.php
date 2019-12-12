@@ -34,25 +34,24 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	</div>
 	
 	<script>
-		jQuery(document).ready(function(){
-			jQuery('body').on('click', '#zy_print-now', function(e){
-				var review = jQuery('.zy_print-view-wrap').html();
-				jQuery('#zy_print-popup .zy_print-view-wrap').html(review);
-				jQuery('#zy_print-popup').modal('show');
-				return false;
-			});	
+		jQuery('body').on('click', 'a#zy_open-print-popup', function(e){
+			var review = jQuery('.zy_print-view-wrap').html();
+			jQuery('#zy_print-popup .zy_print-view-wrap').html(review);
+			jQuery('#zy_print-popup').modal('show');
+			return false;
+			console.log('triggered');
+		});	
 
-			jQuery('.zy_print-option').on('change', function(){
-				
-				var target = jQuery(this).attr('attribute-target');
-				var is_checked = jQuery(this).is(":checked");
-				console.log('target: '+target);
-				if(is_checked){
-					jQuery('.'+target).show();
-				}else{
-					jQuery('.'+target).hide();
-				}
-			});
+		jQuery('.zy_print-option').on('change', function(){
+			
+			var target = jQuery(this).attr('attribute-target');
+			var is_checked = jQuery(this).is(":checked");
+			console.log('target: '+target);
+			if(is_checked){
+				jQuery('.'+target).show();
+			}else{
+				jQuery('.'+target).hide();
+			}
 		});
 	</script>
 </div>

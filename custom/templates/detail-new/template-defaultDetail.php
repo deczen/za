@@ -580,7 +580,7 @@ if(file_exists($template_path) && $template_name ){
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save description section ?>
 												
 						<div class="zy_print-button">
-							<a id="zy_print-now" href="#zy_print-popup"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+							<a id="zy_open-print-popup" href="#"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
 						</div>
 						
 						<div class="zy_vitural-tour">
@@ -912,7 +912,7 @@ if(file_exists($template_path) && $template_name ){
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
 		$print_color = isset($rb['web']['print_color'])?$rb['web']['print_color']:'';
 	?>	
-	<?php /* <div id="print-view-column top-brdr" class="zy-print-view js-print-view" style="border-color: <?php echo $print_color; ?>"> */ ?>
+	<div id="print-view-column" class="zy-print-view js-print-view top-brdr no-border" style="border-color: <?php echo $print_color; ?>">
 	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
 	<?php
 		/* incldue print template */

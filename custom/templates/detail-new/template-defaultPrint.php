@@ -1,9 +1,12 @@
 <div class="zy_print-view-wrap">
+
+	<?php if($print_color): ?>
 	<div class="zy-print-header-top" style="color: <?php echo $print_color; ?> !important;">
 		<div class="zy-print-logo">
 			<img src="<?php echo $print_logo; ?>">
 		</div>
 	</div>
+	<?php endif; ?>
 	
 	<div class="row">
 		<div class="zy_prop-main col-xs-7">
