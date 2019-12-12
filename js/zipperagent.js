@@ -524,6 +524,19 @@ var zppr={
 										i++;
 									}
 									
+									if(wrapOpen){
+										html +=		'<div class="clearfix"></div>' +
+												'</div>';
+												
+										wrapOpen=0;
+									}
+									if(prt_wrapOpen){
+										html_print +=	'<div class="clearfix"></div>' +
+												'</div>';
+												
+										prt_wrapOpen=0;
+									}
+									
 									zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
 								}
 								

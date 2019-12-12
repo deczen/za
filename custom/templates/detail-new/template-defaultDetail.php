@@ -578,7 +578,11 @@ if(file_exists($template_path) && $template_name ){
 					<div id="zy_description-section" class="zy_description-section">
 						
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save description section ?>
-					
+												
+						<div class="zy_print-button">
+							<a id="zy_print-now" href="#zy_print-popup"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+						</div>
+						
 						<div class="zy_vitural-tour">
 						<?php
 						/* incldue vtlink template */
@@ -908,15 +912,17 @@ if(file_exists($template_path) && $template_name ){
 		$print_logo = isset($rb['web']['print_logo'])?$rb['web']['print_logo']:'';
 		$print_color = isset($rb['web']['print_color'])?$rb['web']['print_color']:'';
 	?>	
-	<div id="print-view-column top-brdr" class="zy-print-view js-print-view" style="border-color: <?php echo $print_color; ?>">
+	<?php /* <div id="print-view-column top-brdr" class="zy-print-view js-print-view" style="border-color: <?php echo $print_color; ?>"> */ ?>
 	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
 	<?php
 		/* incldue print template */
+		/* old version
 		if(file_exists($template_print_path) && $template_print){
 			include $template_print_path;
 		}else{
 			include $template_print_path_default;
-		}
+		} */
+		include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultPrint.php';
 	?>	
 	<?php 
 	if(isset($is_doing_ajax) && $is_doing_ajax) $print_section = ob_get_clean(); //end save print section

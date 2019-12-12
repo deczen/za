@@ -844,6 +844,21 @@ function zipperagent_adword_scripts(){
 	<?php
 }
 
+add_action( 'wp_footer', 'zipperagent_print_popup', 11);
+
+function zipperagent_print_popup(){
+	global $zpa_show_login_popup, $is_detail_page, $single_property;
+	
+	if(!$is_detail_page)
+		return;
+	
+	?>
+	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
+		<?php include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-printPopup.php'; ?>
+	</div>
+	<?php
+}
+
 add_action('init','zp_auto_login');
 
 function zp_auto_login(){
