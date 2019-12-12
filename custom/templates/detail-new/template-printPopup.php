@@ -19,7 +19,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						<div class="zy_print-option">
 							<ul>
 								<li><input class="zy_print-option" attribute-target="zy-mls-toggle" type="checkbox" checked /> Additional MLS Info</li>
-								<?php /* <li><input class="zy_print-option" attribute-target="zy-photos-toggle" type="checkbox" /> Additional Photos</li> */ ?>
+								<li><input class="zy_print-option" attribute-target="zy-photos-toggle" type="checkbox" /> Additional Photos</li>
 								<li><button class="zy_print-now" onclick="print()">Print</button></li>
 							</ul>
 						</div>

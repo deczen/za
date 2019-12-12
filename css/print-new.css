@@ -294,6 +294,9 @@
 }
 
 /* new detailpage print view */
+.nomargintop{
+	margin-top:0 !important;
+}
 .zy_description-section{
 	position:relative;
 }
@@ -410,6 +413,12 @@
 	height:auto;
 	display:inline-block;
 	text-align:left;
+}
+.zy_print-view-wrap .zy_prop-photos img{
+	width:50%;
+	display:inline;
+	margin:0;
+	padding:0;
 }
 @media print {
 	body .zy-print-view.no-border {

@@ -68,6 +68,31 @@
 			?>
 		</div>
 	</div>
+	<div class="row zy-photos-toggle" style="display:none">
+		
+		<div class="zy_prop-photos col-xs-12">
+			
+			<h3 class="zy-feature-title nomargintop">Additional Photos</h3>
+			
+			<?php
+			if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
+				$i=0;
+				$image_urls=array();
+				foreach ($single_property->photoList as $pic ){
+					if( strpos($pic->imgurl, 'mlspin.com') !== false ){
+						$image_urls[]="//media.mlspin.com/photo.aspx?mls={$single_property->listno}&w=1600&h=1024&n={$i}";
+					}else{
+						$image_urls[]=$pic->imgurl;
+					}					 
+				$i++;
+				}
+				
+				foreach($image_urls as $img){
+					echo "<img src=\"{$img}\" />";
+				}
+			} ?>
+		</div>
+	</div>
 	<div class="row">
 		<div class="zy_prop-disclaimer col-xs-12">
 			<?php
