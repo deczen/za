@@ -197,196 +197,194 @@ $index=$page*$num-$num;
 $open=0;
 
 $aloff = $rb['web']['aloff'];
-if( $aloff ){
 
-	/**
-	 * API CALL
-	 * @ call method and get properties
-	 */	
-	
-	$search=array(
-		'asrc'=>$rb['web']['asrc'],
-		// 'aloff'=>$aloff,
-		'abeds'=>$bedrooms,
-		'abths'=>$bathCount,
-		'apt'=>implode( ',', array_map("trim",$propertyType) ),
-		'apts'=>implode( ',', array_map("trim",$propSubType) ),
-		'asts'=>$status,
-		'apmin'=>za_correct_money_format($minListPrice),
-		'apmax'=>za_correct_money_format($maxListPrice),
-		'aacr'=>$lotAcres,
-	);
-	
-	$search= array_merge($search, $locqry, $advSearch);
-	
-	$vars=array(
-		'crit'=>proces_crit($search),
-		'sidx'=>$index,
-		'ps'=>$num,
-		'o'=>$o,
-	);
-	
-	if( $crit )
-		$vars['crit'] = $crit;
-	
-	$contactIds=get_contact_id();
-	if( $contactIds )
-		$vars['contactId'] = implode(',',$contactIds);
-	
-	// echo "<pre>"; print_r( $vars ); echo "</pre>";
-	
-	// $result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
-	$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars, $post=0, $vars='', $returnAll=0, $saveSession=0 );
-	if(!$is_ajax){
-		// $resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
-		$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
-	}else{		
-		$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
-	}
-	$list=isset($result['filteredList'])?$result['filteredList']:$result;
-	
-	// echo "<pre>"; print_r( $result ); echo "</pre>";
-	
-	$enable_filter= $coords || $openHomesMode == "true" ? false : true;
-	$top_search_enabled = ! $boundaryWKT && ! $openHomesMode;
-	
-	if( sizeof($list) ){		
-		?>
+/**
+ * API CALL
+ * @ call method and get properties
+ */	
 
-		<div class="slider-container"> 
-			<!--Main Slider Start--> 
-			<div class="slider widget-slider owl-carousel"> 
-			<?php
-			foreach( $list as $property ){
-				// echo "<pre>"; print_r( $property ); echo "</pre>";
-				if( isset( $property->photoList ) && sizeof( $property->photoList ) ){
-					$i=0;
-					foreach ($property->photoList as $pic ){ 
-						$fulladdress = zipperagent_get_address($property);
-						$search_var= !empty($searchId) ? '?searchId='.$searchId : '';
-						
-						$saved_crit=$search;
-						$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
-						if(!empty($searchId)){
-							$query_args['searchId']= $searchId;
-						}
-						if(zp_using_criteria() && !empty($critBase64)){
-							$query_args['criteria']= $critBase64;
-						}
-						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
-							$query_args['newsearchbar']= 1;
-						}
-						
-						$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
-						?>
-						<?php /* <div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=1024&h=768&n={$i}" ?>"> </span> </div> */ ?>
-						<div class="impress-carousel-property">
-							<div class="owl-img-wrap">
-								<a href="<?php echo $single_url; ?>" class="impress-carousel-photo" target="_self">	
-									<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
-									<img class="lazyOwl" alt="<?php echo isset($property->remarks)? $property->remarks :''; ?>" title="<?php echo $fulladdress ?>" style="display: block;" src="//media.mlspin.com/photo.aspx?mls=<?php echo $property->listno ?>&amp;h=400&amp;w=512&amp;n=0">
-									<?php else: ?>
-									<span style="background:url('<?php echo $pic->imgurl; ?>');"></span>
-									<?php /* <img class="lazyOwl" alt="<?php echo isset($property->remarks)? $property->remarks :''; ?>" title="<?php echo $fulladdress ?>" style="display: block;" src="<?php echo $pic->imgurl; ?>"> */ ?>
-									<?php endif; ?>
-								</a>
-							</div>
-							<a href="<?php echo $single_url; ?>" class="impress-carousel-photo" target="_self">								
-								<span class="impress-price text-bold"><?php echo zipperagent_currency() . ( isset($property->listprice)? number_format_i18n( $property->listprice, 0 ) :'-' ); ?></span>
-							</a>
-							<a href="<?php echo $single_url; ?>" target="_self">
-								<p class="impress-address">
-									<span class="impress-street"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)?zipperagent_fix_comma($property->streetname):'-'; ?>  </span>
-									<span class="impress-cityname"><?php echo isset($property->lngTOWNSDESCRIPTION)? $property->lngTOWNSDESCRIPTION :'-'; ?></span>,
-									<span class="impress-state"> <?php echo isset($property->provinceState)? $property->provinceState :'-'; ?></span>
-								</p>
-							</a>
-							<p class="impress-beds-baths-sqft">
-								<?php if(isset($property->nobedrooms)): ?><span class="impress-beds"><?php echo isset($property->nobedrooms) ? $property->nobedrooms:'-'; ?> Beds</span><?php endif; ?>
-								<?php if(isset($property->nobaths)): ?><span class="impress-baths"><?php echo isset($property->nobaths) ? $property->nobaths :'-'; ?> Baths</span><?php endif; ?>
-								<?php if(isset($property->squarefeet)): ?><span class="impress-sqft"><?php echo isset($property->squarefeet)? number_format_i18n( $property->squarefeet, 0 ) :'-'; ?> SqFt</span><?php endif; ?>
-							</p>
-							<p class="impress-listingid">
-								<?php if(isset($property->listno)): ?><span class="impress-listno"><?php echo $property->sourceid; ?>#<?php echo isset($property->listno) ? $property->listno:'-'; ?></span><?php endif; ?>
-							</p>
-							<div class="disclaimer"></div>
-						</div>
-						<?php 
-						break;
+$search=array(
+	'asrc'=>$rb['web']['asrc'],
+	// 'aloff'=>$aloff,
+	'abeds'=>$bedrooms,
+	'abths'=>$bathCount,
+	'apt'=>implode( ',', array_map("trim",$propertyType) ),
+	'apts'=>implode( ',', array_map("trim",$propSubType) ),
+	'asts'=>$status,
+	'apmin'=>za_correct_money_format($minListPrice),
+	'apmax'=>za_correct_money_format($maxListPrice),
+	'aacr'=>$lotAcres,
+);
+
+$search= array_merge($search, $locqry, $advSearch);
+
+$vars=array(
+	'crit'=>proces_crit($search),
+	'sidx'=>$index,
+	'ps'=>$num,
+	'o'=>$o,
+);
+
+if( $crit )
+	$vars['crit'] = $crit;
+
+$contactIds=get_contact_id();
+if( $contactIds )
+	$vars['contactId'] = implode(',',$contactIds);
+
+// echo "<pre>"; print_r( $vars ); echo "</pre>";
+
+// $result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );
+$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars, $post=0, $vars='', $returnAll=0, $saveSession=0 );
+if(!$is_ajax){
+	// $resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+	$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+}else{		
+	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+}
+$list=isset($result['filteredList'])?$result['filteredList']:$result;
+
+// echo "<pre>"; print_r( $result ); echo "</pre>";
+
+$enable_filter= $coords || $openHomesMode == "true" ? false : true;
+$top_search_enabled = ! $boundaryWKT && ! $openHomesMode;
+
+if( sizeof($list) ){		
+	?>
+
+	<div class="slider-container"> 
+		<!--Main Slider Start--> 
+		<div class="slider widget-slider owl-carousel"> 
+		<?php
+		foreach( $list as $property ){
+			// echo "<pre>"; print_r( $property ); echo "</pre>";
+			if( isset( $property->photoList ) && sizeof( $property->photoList ) ){
+				$i=0;
+				foreach ($property->photoList as $pic ){ 
+					$fulladdress = zipperagent_get_address($property);
+					$search_var= !empty($searchId) ? '?searchId='.$searchId : '';
+					
+					$saved_crit=$search;
+					$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
+					if(!empty($searchId)){
+						$query_args['searchId']= $searchId;
 					}
+					if(zp_using_criteria() && !empty($critBase64)){
+						$query_args['criteria']= $critBase64;
+					}
+					if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+						$query_args['newsearchbar']= 1;
+					}
+					
+					$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+					?>
+					<?php /* <div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=1024&h=768&n={$i}" ?>"> </span> </div> */ ?>
+					<div class="impress-carousel-property">
+						<div class="owl-img-wrap">
+							<a href="<?php echo $single_url; ?>" class="impress-carousel-photo" target="_self">	
+								<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
+								<img class="lazyOwl" alt="<?php echo isset($property->remarks)? $property->remarks :''; ?>" title="<?php echo $fulladdress ?>" style="display: block;" src="//media.mlspin.com/photo.aspx?mls=<?php echo $property->listno ?>&amp;h=400&amp;w=512&amp;n=0">
+								<?php else: ?>
+								<span style="background:url('<?php echo $pic->imgurl; ?>');"></span>
+								<?php /* <img class="lazyOwl" alt="<?php echo isset($property->remarks)? $property->remarks :''; ?>" title="<?php echo $fulladdress ?>" style="display: block;" src="<?php echo $pic->imgurl; ?>"> */ ?>
+								<?php endif; ?>
+							</a>
+						</div>
+						<a href="<?php echo $single_url; ?>" class="impress-carousel-photo" target="_self">								
+							<span class="impress-price text-bold"><?php echo zipperagent_currency() . ( isset($property->listprice)? number_format_i18n( $property->listprice, 0 ) :'-' ); ?></span>
+						</a>
+						<a href="<?php echo $single_url; ?>" target="_self">
+							<p class="impress-address">
+								<span class="impress-street"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)?zipperagent_fix_comma($property->streetname):'-'; ?>  </span>
+								<span class="impress-cityname"><?php echo isset($property->lngTOWNSDESCRIPTION)? $property->lngTOWNSDESCRIPTION :'-'; ?></span>,
+								<span class="impress-state"> <?php echo isset($property->provinceState)? $property->provinceState :'-'; ?></span>
+							</p>
+						</a>
+						<p class="impress-beds-baths-sqft">
+							<?php if(isset($property->nobedrooms)): ?><span class="impress-beds"><?php echo isset($property->nobedrooms) ? $property->nobedrooms:'-'; ?> Beds</span><?php endif; ?>
+							<?php if(isset($property->nobaths)): ?><span class="impress-baths"><?php echo isset($property->nobaths) ? $property->nobaths :'-'; ?> Baths</span><?php endif; ?>
+							<?php if(isset($property->squarefeet)): ?><span class="impress-sqft"><?php echo isset($property->squarefeet)? number_format_i18n( $property->squarefeet, 0 ) :'-'; ?> SqFt</span><?php endif; ?>
+						</p>
+						<p class="impress-listingid">
+							<?php if(isset($property->listno)): ?><span class="impress-listno"><?php echo $property->sourceid; ?>#<?php echo isset($property->listno) ? $property->listno:'-'; ?></span><?php endif; ?>
+						</p>
+						<div class="disclaimer"></div>
+					</div>
+					<?php 
+					break;
 				}
 			}
-			?>
-			</div>
-			<!--Main Slider End-->
+		}
+		?>
 		</div>
+		<!--Main Slider End-->
+	</div>
 
-		<script>
-			jQuery(document).ready(function ($) {
-				// reference for main items
-				var mainSlider=new Array();
-				//transition time in ms
-				var duration = 500;
-				var index=0;
-				
-				index=0;
-				$('.widget-slider').each(function(){
-					var slider = $(this);
-					mainSlider.push(slider);
-				});
-				
-				// carousel function for main slider
-				index=0;
-				$('.widget-slider').each(function(){
-					
-					var tempMainSlider = mainSlider[index];
-					
-					// console.log('current index: '+index);
-					tempMainSlider.owlCarousel({
-						loop: <?php echo $loop ?>,
-						nav:true,
-						navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>','<i class="fa fa-caret-right" aria-hidden="true"></i>'],
-						lazyLoad:true,
-						margin:15,
-						controlsClass:"owl-controls",
-						responsive:{
-							0:{
-								items:'<?php echo $mobile_item ?>',
-							},
-							768:{
-								items:'<?php echo $tablet_item ?>',
-							},
-							1200:{
-								items:'<?php echo $desktop_item ?>',
-							}
-						},
-						autoplay: <?php echo $autoplay ?>,
-					}).on('changed.owl.carousel', function (e) {
-						//On change of main item to trigger thumbnail item
-						// tempThumbSlider.trigger('to.owl.carousel', [e.item.index, duration, true]);
-						
-					//These two are navigation for main items
-					})
-					
-					index++;
-				});
-				
-								
-				// $(document).on('click', '.slider-right', function(e) {
-					// var slider = $(this).parent().parent().find('.widget-slider');
-					// slider.trigger('next.owl.carousel');
-				// });
-				
-				// $(document).on('click', '.slider-left', function(e) {
-					// var slider = $(this).parent().parent().find('.widget-slider');
-					// slider.trigger('prev.owl.carousel');
-				// });
-				// console.log(mainSlider);
-				// console.log(thumbnailSlider);
+	<script>
+		jQuery(document).ready(function ($) {
+			// reference for main items
+			var mainSlider=new Array();
+			//transition time in ms
+			var duration = 500;
+			var index=0;
+			
+			index=0;
+			$('.widget-slider').each(function(){
+				var slider = $(this);
+				mainSlider.push(slider);
 			});
-		</script>
-	<?php
-	}else{
-		echo "<p class='no-property'>no related properties</p>";
-	}
+			
+			// carousel function for main slider
+			index=0;
+			$('.widget-slider').each(function(){
+				
+				var tempMainSlider = mainSlider[index];
+				
+				// console.log('current index: '+index);
+				tempMainSlider.owlCarousel({
+					loop: <?php echo $loop ?>,
+					nav:true,
+					navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>','<i class="fa fa-caret-right" aria-hidden="true"></i>'],
+					lazyLoad:true,
+					margin:15,
+					controlsClass:"owl-controls",
+					responsive:{
+						0:{
+							items:'<?php echo $mobile_item ?>',
+						},
+						768:{
+							items:'<?php echo $tablet_item ?>',
+						},
+						1200:{
+							items:'<?php echo $desktop_item ?>',
+						}
+					},
+					autoplay: <?php echo $autoplay ?>,
+				}).on('changed.owl.carousel', function (e) {
+					//On change of main item to trigger thumbnail item
+					// tempThumbSlider.trigger('to.owl.carousel', [e.item.index, duration, true]);
+					
+				//These two are navigation for main items
+				})
+				
+				index++;
+			});
+			
+							
+			// $(document).on('click', '.slider-right', function(e) {
+				// var slider = $(this).parent().parent().find('.widget-slider');
+				// slider.trigger('next.owl.carousel');
+			// });
+			
+			// $(document).on('click', '.slider-left', function(e) {
+				// var slider = $(this).parent().parent().find('.widget-slider');
+				// slider.trigger('prev.owl.carousel');
+			// });
+			// console.log(mainSlider);
+			// console.log(thumbnailSlider);
+		});
+	</script>
+<?php
+}else{
+	echo "<p class='no-property'>no related properties</p>";
 }
