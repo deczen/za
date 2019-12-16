@@ -377,8 +377,8 @@
 .zy_print-view-wrap .zy-sub-list{
 }
 .zy_print-view-wrap .zy-sub-list li{
-	float:left;
-	width: 50%;
+	/* float:left; */
+	width: 49%;
 	padding-left:0 !important;
 	margin-left:0;
 	display:inline-block;
