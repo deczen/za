@@ -62,7 +62,7 @@
 		<div class="zy_prop-openhouse col-xs-12">
 			<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>
 				
-				<h3 class="zy-feature-title nomargintop">Open House</h3>
+				<h3 class="zy-feature-title">Open House</h3>
 				<?php 
 				foreach($single_property->openHouses as $openHouse){
 											
