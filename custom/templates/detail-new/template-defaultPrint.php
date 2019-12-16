@@ -52,7 +52,57 @@
 	<div class="row">
 	
 		<div class="zy_prop-desc col-xs-12">
+			
+			<h3 class="zy-feature-title nomargintop">Description</h3>
+			
 			[remarks]
+		</div>
+	</div>
+	<div class="row">
+		<div class="zy_prop-openhouse col-xs-12">
+			<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>
+				
+				<h3 class="zy-feature-title nomargintop">Open House</h3>
+				<?php 
+				foreach($single_property->openHouses as $openHouse){
+											
+					$sourceid=isset($single_property->sourceid)?$single_property->sourceid:'';
+					$mlstz = zipperagent_mls_timezone($sourceid);
+					$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
+					$dt->setTimestamp($openHouse->startDate/1000); //adjust the object to correct timestamp
+					$startDateOnly = $dt->format('Y-m-d');
+					$startDate = $dt->format('M j, Y h:i A');
+					$startTime =  $dt->format('h:i A');
+					
+					$duration = isset( $openHouse->duration ) && !empty( $openHouse->duration ) ? $openHouse->duration : 0;
+					$printEndTime = '';
+					
+					if( $duration ){
+						$dt->add(new DateInterval('PT' . $duration . 'M'));
+						// $endTime = date( 'h:i A', strtotime("+{$duration} minutes", strtotime($startTime)) );
+						$endTime = $dt->format('h:i A');
+						$printEndTime = '- '.$endTime;
+					}else if($openHouse->endDate){
+						$dt->setTimestamp($openHouse->endDate/1000);
+						$endDateOnly = $dt->format('Y-m-d');
+						
+						if($startDateOnly!=$endDateOnly){
+							
+							$endDate = $dt->format('M j, Y h:i A');
+							$printEndTime = '- '.$endDate;
+						}else{
+							
+							$endTime = $dt->format('h:i A');
+							$printEndTime = '- '.$endTime;
+						}
+					}
+					?>
+					
+					<p class="open-house-info"><span class="openHomeText"><?php echo $startDate ?> <?php echo $printEndTime; ?></p>							
+				<?php
+				}
+				?>
+				<?php endif; ?>
 		</div>
 	</div>
 	<div class="row zy-mls-toggle">
