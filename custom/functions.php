@@ -1049,15 +1049,21 @@ if( ! function_exists('zipperagent_property_fields') ){
 			$find[]="[realprice]";
 			$replaces[]=number_format_i18n( $price, 0 );
 			
-			// [provinceState]
+			// [provinceState] if empty provinceState
 			if(!isset($single_property->provinceState)){
 				$find[]="[provinceState]";
 				$replaces[]="";
 			}
 			
-			// [zipcode]
+			// [zipcode] if empty zipcode
 			if(!isset($single_property->zipcode)){
 				$find[]="[zipcode]";
+				$replaces[]="";
+			}
+			
+			// [streetno] if empty streetno
+			if(!isset($single_property->streetno)){
+				$find[]="[streetno]";
 				$replaces[]="";
 			}
 		}
