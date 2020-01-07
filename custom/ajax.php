@@ -132,6 +132,7 @@ function regist_user(){
         $lastName = $_REQUEST['lastName'];
         $phone = $_REQUEST['phone'];
 		$agent = $_REQUEST['agent'];
+		$assignedTo = isset($_REQUEST['assignedTo'])?$_REQUEST['assignedTo']:'';
 		$propertyAlerts = isset($_REQUEST['propertyAlerts'])?"true":"false";;
 		$note = $_REQUEST['note'];
 		$url = urlencode($_REQUEST['actual_link']);
@@ -166,6 +167,10 @@ function regist_user(){
 		
 		if($agent && is_show_agent_list()){
 			$vars['assignedTo']=($agent);
+		}
+		
+		if($assignedTo){
+			$vars['assignedTo']=$assignedTo;
 		}
 		// print_r($vars);
         $result = zipperagent_register_user( $vars );

@@ -158,7 +158,14 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								</select>
 							</div>
 						</div>
-					</div>  <?php
+					</div>
+					<?php else: 
+						
+						if( isset($atts['assignedto']) && $atts['assignedto'] ){
+							// echo "<pre>"; print_r($atts); echo "</pre>";
+							echo '<input type="hidden" name="assignedTo" value="'. $atts['assignedto'] .'" />';
+						}
+					
 					endif; ?>				
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-6">

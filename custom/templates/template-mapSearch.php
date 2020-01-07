@@ -3,20 +3,22 @@ global $requests;
 
 
 // echo "<pre>"; print_r($requests); echo "</pre>";
-
+$is_redirect=$requests['auto_redirect'];
 //redirect this page directly
-$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
-$parameters['propertyType']=$propDefaultOption;
-$parameters['minListPrice']='';
-$parameters['maxListPrice']='';
-$parameters['bedrooms']='';
-$parameters['bathCount']='';
-$parameters['boundaryWKT']='';	
-$parameters['o']='lid:DESC';
+if($is_redirect && !is_admin()){
+	$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+	$parameters['propertyType']=$propDefaultOption;
+	$parameters['minListPrice']='';
+	$parameters['maxListPrice']='';
+	$parameters['bedrooms']='';
+	$parameters['bathCount']='';
+	$parameters['boundaryWKT']='';	
+	$parameters['o']='lid:DESC';
 
-$toUrl = add_query_arg( $parameters, ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ));
+	$toUrl = add_query_arg( $parameters, ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ));
 
-wp_safe_redirect($toUrl);
+	wp_safe_redirect($toUrl);
+}
 // end redirect code
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">

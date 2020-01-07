@@ -49,6 +49,7 @@ class Zipperagent_Shortcodes{
 		'fancytitle' => 'fancytitle_func',
 		'za_map' => 'za_generate_map',
 		'za_seller_saving' => 'display_slide_price',
+		'za_organizer_login' => 'getOrganizerLogin',
 	);
 	
 	private function __construct() {
@@ -950,6 +951,7 @@ class Zipperagent_Shortcodes{
 			'minlistprice' => '',
 			'maxlistprice' => '',
 			'map_zoom' => 9,
+			'auto_redirect' => 1,
 		), $atts, 'za_map_search');
 		
 		$requests = $atts;
@@ -1013,8 +1015,12 @@ class Zipperagent_Shortcodes{
 		return $html;	
 	}
 
-	function getOrganizerLogin(){
-			
+	function getOrganizerLogin($atts){
+		
+		$atts = shortcode_atts( array(
+			'assignedto' => '',
+		), $atts, 'za_signup');
+		
 		ob_start();	
 		include ZIPPERAGENTPATH . "/custom/templates/template-organizerLoginForm.php";
 		$html=ob_get_clean();

@@ -47,7 +47,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				if($property_cache){					
 					echo "<pre>"; print_r($property_cache); echo "</pre>";
 				}
-				echo "<pre>"; print_r($_SESSION); echo "</pre>";
+				// echo "<pre>"; print_r($_SESSION); echo "</pre>";
 				// echo "<pre>"; print_r($lastest_cache); echo "</pre>";
 			}
 			

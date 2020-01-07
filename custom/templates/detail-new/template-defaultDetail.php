@@ -202,6 +202,7 @@ switch($property_type){
 		break;
 	case "MH": //Mobile Home	
 	case "MOBILEHOMES": //Mobile Home	
+	case "MOB": //Mobile Home	
 		$template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
 		$template_features='mh-features.php';
 		$template_print='mh-print.php';
@@ -216,6 +217,7 @@ switch($property_type){
 	case "FM": //Farm		
 	case "FR": //Farm		
 	case "C": //Lands&Lots		
+	case "LAN": //Land		
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -284,6 +286,13 @@ switch($property_type){
 		$template_print='rd-print.php';
 		$template_sidebar='rd-sidebar.php';
 		$template_vtlink='rd-vtlink.php';
+		break;
+	case "FAR": //Farm
+		$template_name=get_detail_template_filename('fm')?get_detail_template_filename('fm'):'';
+		$template_features='fm-features.php';
+		$template_print='fm-print.php';
+		$template_sidebar='fm-sidebar.php';
+		$template_vtlink='fm-vtlink.php';
 		break;
 	default: //custom default		
 		// $template_name = zipperagent_detailpage_layout();
