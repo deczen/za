@@ -809,22 +809,44 @@ if(file_exists($template_path) && $template_name ){
 				</div>			
 				<?php endif; ?>
 				
-				<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
-				<div class="row zy-widget greatschool-widget">
-					<div class="col-xs-12">
-						<div class="zy-map-container">
-							<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo $single_property->lat; ?>&lon=<?php echo $single_property->lng; ?>&cityName=<?php echo isset($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address($single_property) ); ?>&width=auto&height=368&zoom=13" width="1180" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>
-						</div>
-					</div>
-				</div>
-				<?php endif; ?>
-				
 				<?php if( isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
 				<div class="row zy-widget map-widget">
 					<div class="col-xs-12">
 						<div class="zy-map-container">
 							<div id="map" style="height:300px"></div>
 						</div>
+					</div>
+				</div>
+				<?php endif; ?>
+				
+				<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
+				<div class="row zy-widget greatschool-widget">
+					<div class="col-xs-12 col-md-12 col-lg-6">
+						<h3 class="">Greatshools</h3>
+						<div id="greatshools"></div>
+						<script>
+							jQuery(document).ready(function(){
+								var curr_width = jQuery('.greatschool-widget #greatshools').width();
+								var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo $single_property->lat; ?>&lon=<?php echo $single_property->lng; ?>&cityName=<?php echo isset($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address($single_property) ); ?>&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
+								jQuery('#greatshools').html(gs_iframe);
+							});
+						</script>
+					</div>
+				</div>
+				<?php endif; ?>
+				
+				<?php if( is_walkscore_enabled() ): ?>
+				<div class="row zy-widget walkscore-widget">
+					<div class="col-xs-12 col-md-12 col-lg-6">
+						<h3 class="">Walk Score</h3>
+						<div id="ws"></div>
+						<script type='text/javascript'>
+						var ws_wsid = 'ws';
+						var ws_address = '<?php echo zipperagent_get_address($single_property); ?>';
+						var ws_format = 'tall';
+						var ws_width = '100%';
+						var ws_height = '300';
+						</script><style type='text/css'>#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style><div id='ws-walkscore-tile'></div><script type='text/javascript' src='https://www.walkscore.com/tile/show-walkscore-tile.php'></script>
 					</div>
 				</div>
 				<?php endif; ?>

@@ -1033,7 +1033,7 @@ var zppr={
 		if(count>1){
 			return zppr.formatNumber(count) + "  Properties for sale";
 		}else{
-			return zppr.formatNumber(count) + "  Propertiy";
+			return zppr.formatNumber(count) + "  Property";
 		}		
 	},
 	html_pagination:function(page, num, count, actual_link){

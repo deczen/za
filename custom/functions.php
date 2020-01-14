@@ -3182,7 +3182,14 @@ if( ! function_exists('is_social_share_enabled') ){
 if( ! function_exists('is_great_school_enabled') ){
 	function is_great_school_enabled(){
 				
-		return 0;
+		return 1;
+	}
+}
+
+if( ! function_exists('is_walkscore_enabled') ){
+	function is_walkscore_enabled(){
+				
+		return 1;
 	}
 }
 
