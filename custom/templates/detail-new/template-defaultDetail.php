@@ -165,8 +165,16 @@ if( $single_property->sourceid == 'BMMLS' || $single_property->sourceid == 'FGMM
 				break;
 		}
 		
+	}	
+}
+//custom case for nwmls
+else if($single_property->sourceid == 'NWMLS'){
+	switch($property_type){
+		// case "MANU": changed to MANUFACTURING
+		case "MANU":
+				$property_type='MANUFACTURING';
+			break;
 	}
-	
 }
 
 //Template selection
@@ -175,7 +183,7 @@ switch($property_type){
 	case "SFR": //Single Family		
 	case "RES": //Single Family			
 	case "DETSF": //Detached Single Family		
-	case "FARM": //Farm and Ranch
+	// case "FARM": //Farm and Ranch
 	case "CS": //CommonInterest CS
 	case "CL": //CommonInterest CL
 	case "BF": //ResidentialProperty BF
@@ -194,6 +202,7 @@ switch($property_type){
 	case "B": //Multi-family
 	case "MULTYFAMILY": //Multi-family
 	case "MULTI FAMILY": //Multi-family
+	case "MULT": //Multi-family
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -218,6 +227,7 @@ switch($property_type){
 	case "FR": //Farm		
 	case "C": //Lands&Lots		
 	case "LAN": //Land		
+	case "VACL": //Land		
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -244,6 +254,7 @@ switch($property_type){
 	case "ATTSF": //Attached Single Family	
 	case "CONDOMINIUM": //Condo		
 	case "CON": //Condo	
+	case "COND": //Condo	
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
@@ -258,6 +269,7 @@ switch($property_type){
 	case "INC": //Income		
 	case "D": //Commercial		
 	case "COMMERCIAL": //Commercial		
+	case "COMI": //Commercial		
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';
@@ -271,6 +283,7 @@ switch($property_type){
 	case "IND": //Industri		
 	case "BUSI": //Business		
 	case "BUSINESS": //Business		
+	case "BUSO": //Business		
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';
@@ -287,12 +300,20 @@ switch($property_type){
 		$template_sidebar='rd-sidebar.php';
 		$template_vtlink='rd-vtlink.php';
 		break;
+	case "FARM": //Farm
 	case "FAR": //Farm
 		$template_name=get_detail_template_filename('fm')?get_detail_template_filename('fm'):'';
 		$template_features='fm-features.php';
 		$template_print='fm-print.php';
 		$template_sidebar='fm-sidebar.php';
 		$template_vtlink='fm-vtlink.php';
+		break;
+	case "MANUFACTURING": //Manufacturing
+		$template_name=get_detail_template_filename('mu')?get_detail_template_filename('mu'):'';
+		$template_features='mu-features.php';
+		$template_print='mu-print.php';
+		$template_sidebar='mu-sidebar.php';
+		$template_vtlink='mu-vtlink.php';
 		break;
 	default: //custom default		
 		// $template_name = zipperagent_detailpage_layout();
