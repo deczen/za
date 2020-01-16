@@ -1625,7 +1625,7 @@ if( ! function_exists('zipperagent_get_listing_disclaimer') ){
 	function zipperagent_get_listing_disclaimer(){
 		$sources = zipperagent_get_source_details_cached();
 		$text='';
-		if(sizeof($sources)){
+		if(is_array($sources) && sizeof($sources)){
 			foreach( $sources as $source ){	
 			
 				// unset($source['discComingle']);
@@ -2491,7 +2491,13 @@ if( ! function_exists('zipperagent_field_value') ){
 			
 			$temp=array();
 			
-			$values=explode(',', $val );
+			if(strpos($val, '|') !== false) {
+				$separator="|";
+			}else{	
+				$separator=",";
+			}
+			
+			$values=explode($separator, $val );
 			// print_r( "Before: " . $val. "<br />" );
 			foreach( $values as $value ){
 				$temp[]=0;
