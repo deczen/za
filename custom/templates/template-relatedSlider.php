@@ -308,7 +308,14 @@ if( sizeof($list) ){
 						<p class="impress-listingid">
 							<?php if(isset($property->listno)): ?><span class="impress-listno"><?php echo $property->sourceid; ?>#<?php echo isset($property->listno) ? $property->listno:'-'; ?></span><?php endif; ?>
 						</p>
-						<div class="disclaimer"></div>
+						<div class="disclaimer">
+							<?php						
+							$source_details = isset($property->sourceid) ? zipperagent_get_source_text($property->sourceid, array('listOfficeName'=>isset($property->listOfficeName)?$property->listOfficeName:'', 'listAgentName'=>isset($property->listAgentName)?$property->listAgentName:''), 'list') : false;
+							?>
+							<?php if($source_details): ?>
+								<?php echo $source_details; ?>
+							<?php endif; ?>
+						</div>
 					</div>
 					<?php 
 					break;

@@ -603,6 +603,24 @@ if(file_exists($template_path) && $template_name ){
 							// });
 						</script>
 						<?php endif; ?>
+						
+						<?php if($groupname == 'nwmls'): ?>
+						<div class="zy_img-source">
+							<?php
+							$img_disclaimer='';
+							if(isset($single_property->listAgentName) && is_show_agent_name()){
+								$img_disclaimer.= sprintf( "Listing Provided Courtesy %s of", $single_property->listAgentName);							
+							}else{
+								$img_disclaimer.= "Listing Provided Courtesy of";						
+							}
+							
+							if(isset($single_property->listOfficeName)){
+								$img_disclaimer.= ' '. "<strong>{$single_property->listOfficeName}</strong>";
+							}	
+							echo $img_disclaimer;
+							?>
+						</div>
+						<?php endif; ?>
 					</div>
 					
 					<div id="zy_description-section" class="zy_description-section">
@@ -813,6 +831,11 @@ if(file_exists($template_path) && $template_name ){
 							<?php
 							if( $source_details ){
 								echo $source_details;
+								
+								if($groupname == 'nwmls'){
+									$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
+									echo '<br /><br />'. $defaultDisc;
+								}
 							}else{
 								echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
 							}

@@ -1733,10 +1733,9 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						}
 					}
 					$text.= ' '. 'via ' . $source['name'];
-					
-					$text.='<br />';
-					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? $source['discComingle'] : (isset($source['discDetail']) ? $source['discDetail'] : '' );
-					
+					$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$listOfficeName}</strong> and should be verified by the buyer.";
+					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? '<br />' . $source['discComingle'] : (isset($source['discDetail']) ? '<br />' . $source['discDetail'] : '' );
+					// $text.='<br /><br />' . $defaultDisc;
 				break;
 			case "newdetail":
 					$year = isset($source['year'])?$source['year']:date("Y");

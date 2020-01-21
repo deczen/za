@@ -192,6 +192,10 @@
 	}
 }
 
+.widget-slider .owl-img-wrap{
+	margin-bottom:10px;
+}
+
 .widget-slider .owl-nav {
 	text-align: center;
 	display: block;
@@ -200,7 +204,10 @@
 
 .widget-slider .impress-carousel-property p {
 	padding: 0;
-	margin: 0
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .widget-slider .owl-next,
