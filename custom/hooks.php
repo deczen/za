@@ -163,7 +163,7 @@ function zipperagent_template( $content ){
 	
 	//Login Page
 	$page_id = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TEMPLATE_ORGANIZER_LOGIN, null);
-	if( !empty($post->ID) && $page_id == $post->ID ){
+	if( !empty($post->ID) && $page_id == $post->ID && !$content ){
 		ob_start();
 		include ZIPPERAGENTPATH . "/custom/templates/template-organizerLoginForm.php";
 		$content.=ob_get_clean();			

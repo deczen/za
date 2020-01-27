@@ -174,6 +174,8 @@ function regist_user(){
 		}
 		// print_r($vars);
         $result = zipperagent_register_user( $vars );
+		// echo "<pre>"; print_r( $_REQUEST); echo "</pre>";
+		// echo "<pre>"; print_r( $vars); echo "</pre>";
 		// echo "<pre>"; print_r( $result); echo "</pre>";
 		//fix array
 		// if(is_array($result)){
