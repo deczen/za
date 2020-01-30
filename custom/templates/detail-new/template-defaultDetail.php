@@ -189,6 +189,7 @@ switch($property_type){
 	case "BF": //ResidentialProperty BF
 	case "COF": //OFFICE
 	case "RESIDENTIAL": //Residential
+	case "RESI": //Residential
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -227,7 +228,8 @@ switch($property_type){
 	case "FR": //Farm		
 	case "C": //Lands&Lots		
 	case "LAN": //Land		
-	case "VACL": //Land		
+	case "VACL": //Land
+	case "Land": //Land
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -302,6 +304,7 @@ switch($property_type){
 		break;
 	case "FARM": //Farm
 	case "FAR": //Farm
+	case "Farm": //Farm	
 		$template_name=get_detail_template_filename('fm')?get_detail_template_filename('fm'):'';
 		$template_features='fm-features.php';
 		$template_print='fm-print.php';
