@@ -3582,6 +3582,17 @@ if( ! function_exists('is_price_slider_enabled') ){
 	}
 }
 
+if( ! function_exists('is_register_form_chaptcha_enabled') ){
+	function is_register_form_chaptcha_enabled(){
+		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+			
+		$enabled = isset($rb['web']['register_form_chaptcha'])?$rb['web']['register_form_chaptcha']:0;
+			
+		return $enabled;
+	}
+}
+
 if( ! function_exists('zp_get_credentials') ){
 	function zp_get_credentials(){
 		

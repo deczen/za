@@ -799,7 +799,7 @@ var zppr={
 							'<div class="row mb-5 fs-12 mt-10">' +
 								'<div class="'+ ( column==4 ? 'col-xs-7 nopaddingright' : 'col-xs-8' ) +'">' +
 									'<div class="zpa-grid-result-additional-info">' +
-										'<div class="zpa-status '+ (Number.isInteger(status)?'status_'+status:status) +'">' +
+										'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status:status) +'">' +
 											'<span class="text-center d-block">'+ zppr.prop_status_label(status).toUpperCase() +'</span>' +
 										'</div>' +
 									'</div>' +
@@ -920,7 +920,7 @@ var zppr={
 									'<div class="clearfix"></div>' +
 								'</div>' +
 								'<div class="zy_pt-prop-info zy_pt-wrap">' +
-									'<div class="zpa-status '+ (Number.isInteger(status)?'status_'+status:status) +'">' +
+									'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status:status) +'">' +
 										'<span class="text-center d-block">'+ zppr.prop_status_label(status).toUpperCase() +'</span>' +
 									'</div>' +
 									'<div class="zy_pt-days">' +
@@ -964,8 +964,27 @@ var zppr={
 		
 		return zppr.data.listingurl + listingid +"/"+ zppr.wpFeSanitizeTitle(fulladdress) +"/";
 	},
-	wpFeSanitizeTitle:function(fulladdress){
-		return "1";
+	wpFeSanitizeTitle:function(str){
+		
+		str = str.replace(/^\s+|\s+$/g, ''); // trim
+		str = str.toLowerCase();
+
+		// remove accents, swap ñ for n, etc
+		var from = "àáäâèéëêìíïîòóöôùúüûñçěščřžýúůďťň·/_,:;";
+		var to   = "aaaaeeeeiiiioooouuuuncescrzyuudtn------";
+
+		for (var i=0, l=from.length ; i<l ; i++)
+		{
+			str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+		}
+
+		str = str.replace('.', '-') // replace a dot by a dash 
+			.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+			.replace(/\s+/g, '-') // collapse whitespace and replace by a dash
+			.replace(/-+/g, '-') // collapse dashes
+			.replace( /\//g, '' ); // collapse all forward-slashes
+
+		return str;
 	},
 	moneyFormat:function(num){
 		return zppr.data.currency + zppr.formatNumber(num);

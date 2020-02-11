@@ -306,7 +306,7 @@ if( sizeof($list) ){
 							<?php if(isset($property->squarefeet)): ?><span class="impress-sqft"><?php echo isset($property->squarefeet)? number_format_i18n( $property->squarefeet, 0 ) :'-'; ?> SqFt</span><?php endif; ?>
 						</p>
 						<p class="impress-listingid">
-							<?php if(isset($property->listno)): ?><span class="impress-listno"><?php echo $property->sourceid; ?>#<?php echo isset($property->listno) ? $property->listno:'-'; ?></span><?php endif; ?>
+							<?php if(isset($property->listno)): ?><span class="impress-listno"><?php echo $property->displaySource; ?>#<?php echo isset($property->listno) ? $property->listno:'-'; ?></span><?php endif; ?>
 						</p>
 						<div class="disclaimer">
 							<?php						

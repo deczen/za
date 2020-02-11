@@ -4,28 +4,27 @@
 		<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) ):?>
 		<h3 class="zy-feature-title">Space, #Units, SQ FT</h3>
 		<ul class="zy-sub-list">
-
 			
-				<?php if( isset($single_property->mauunits) || isset($single_property->mafbldgsf)): ?>
-				<li>Manufacturing</td>
-					<td class="zy-listing__table__label"><span>[mauunits]</span>: [mafbldgsf]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->ofuunits) || isset($single_property->offbldgsf)): ?>
-				<li>Office</td>
-					<td class="zy-listing__table__label"><span>[ofuunits]</span>: [offbldgsf]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->rsuunits) || isset($single_property->rsfbldgsf)): ?>
-				<li>Residential</td>
-					<td class="zy-listing__table__label"><span>[rsuunits]</span>: [rsfbldgsf]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->reuunits) || isset($single_property->refbldgsf)): ?>
-				<li>Retail</td>
-					<td class="zy-listing__table__label"><span>[reuunits]</span>: [refbldgsf]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->wauunits) || isset($single_property->wafbldgsf)): ?>
-				<li>Warehouse</td>
-					<td class="zy-listing__table__label"><span>[wauunits]</span>: [wafbldgsf]</li>
-				<?php endif; ?>
+			<?php if( isset($single_property->mauunits) || isset($single_property->mafbldgsf)): ?>
+			<li>Manufacturing</td>
+				<td class="zy-listing__table__label"><span>[mauunits]</span>: [mafbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->ofuunits) || isset($single_property->offbldgsf)): ?>
+			<li>Office</td>
+				<td class="zy-listing__table__label"><span>[ofuunits]</span>: [offbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->rsuunits) || isset($single_property->rsfbldgsf)): ?>
+			<li>Residential</td>
+				<td class="zy-listing__table__label"><span>[rsuunits]</span>: [rsfbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->reuunits) || isset($single_property->refbldgsf)): ?>
+			<li>Retail</td>
+				<td class="zy-listing__table__label"><span>[reuunits]</span>: [refbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->wauunits) || isset($single_property->wafbldgsf)): ?>
+			<li>Warehouse</td>
+				<td class="zy-listing__table__label"><span>[wauunits]</span>: [wafbldgsf]</li>
+			<?php endif; ?>
 			
 		</ul>
 		<?php endif; ?>

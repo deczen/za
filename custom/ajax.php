@@ -151,72 +151,125 @@ function regist_user(){
 			$id = implode(',',$contactIds);
 		}*/
 		
-		$vars=array(
-			// 'id'=>$id, //disabled
-			'email'=>($email),
-			// 'emailWork1'=>$email,
-			'firstName'=>($firstName),
-			'lastName'=>($lastName),
-			'phone'=>($phone),			
-			// 'phoneOffice'=>$phone,					
-			'propertyAlerts'=>($propertyAlerts),			
-			'notes'=>($note),
-			'alertType'=>$alertType,
-			'url'=>$url,
-		);
 		
-		if($agent && is_show_agent_list()){
-			$vars['assignedTo']=($agent);
-		}
-		
-		if($assignedTo){
-			$vars['assignedTo']=$assignedTo;
-		}
 		// print_r($vars);
-        $result = zipperagent_register_user( $vars );
-		// echo "<pre>"; print_r( $_REQUEST); echo "</pre>";
-		// echo "<pre>"; print_r( $vars); echo "</pre>";
-		// echo "<pre>"; print_r( $result); echo "</pre>";
-		//fix array
-		// if(is_array($result)){
-			// $result=isset($result[0])?$result[0]:'';
-		// }
 		
-		$result=isset($result->status) && $result->status=='SUCCESS'?$result->result:0;
+		/* chaptcha check */
+		$response = null;
 		
-		// if there is no id, keep no error appear!
-		/*if(!$id){
-			$result='SUCCESS';
-		}*/
+		if($chaptcha_enabled = is_register_form_chaptcha_enabled()){
+			include ZIPPERAGENTPATH . '/custom/lib/recaptchalib.php';
+			
+			$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+			$secret_key = isset($rb['google']['secret_key'])?$rb['google']['secret_key']:'';
+			 
+			 
+			// check secret key
+			$reCaptcha = new ReCaptcha($secret_key);
+			
+			$response = $reCaptcha->verifyResponse(
+				$_SERVER["REMOTE_ADDR"],
+				$_REQUEST["g-recaptcha-response"]
+			);
+			
+			
+			$chaptcha_check = $response != null && $response->success;
+			$chaptcha_enabled = 1;
+		}else{			
+			$chaptcha_check = 1;
+			$chaptcha_enabled = 0;
+		}
 		
-		if($result){			
+		if($chaptcha_enabled && ! $chaptcha_check){
+			
+			switch($response->errorCodes){
+				case 'missing-input':
+						$msg = 'Please check chaptcha';
+					break;
+				default:
+						$msg = 'Chaptcha Failed, please reload the page if error still happening';
+					break;
+			}
+			
+			$return['result']=0;
+			$return['message']=$msg;
+		}else{		
+			
+			$vars=array(
+				// 'id'=>$id, //disabled
+				'email'=>($email),
+				// 'emailWork1'=>$email,
+				'firstName'=>($firstName),
+				'lastName'=>($lastName),
+				'phone'=>($phone),			
+				// 'phoneOffice'=>$phone,					
+				'propertyAlerts'=>($propertyAlerts),			
+				'notes'=>($note),
+				'alertType'=>$alertType,
+				'url'=>$url,
+			);
+			
+			if($agent && is_show_agent_list()){
+				$vars['assignedTo']=($agent);
+			}
+			
+			if($assignedTo){
+				$vars['assignedTo']=$assignedTo;
+			}
+			
+			$result = zipperagent_register_user( $vars );
+			
+			// echo "<pre>"; print_r( $_REQUEST); echo "</pre>";
+			// echo "<pre>"; print_r( $vars); echo "</pre>";
+			// echo "<pre>"; print_r( $result); echo "</pre>";
+			//fix array
+			// if(is_array($result)){
+				// $result=isset($result[0])?$result[0]:'';
+			// }
+			
+			$status=isset($result->status) && $result->status=='SUCCESS'?$result->result:0;
+			
+			// if there is no id, keep no error appear!
+			/*if(!$id){
+				$status='SUCCESS';
+			}*/
+			
 			/* auto login user */		
 				// userContactLogin($email);
 			
 			/* send email (disabled) */
-				/*
-				$url = add_query_arg( array('action'=>'verify', 'code' => $id), site_url('/thankyou/') );
-				$parse = parse_url($url);			
-				$headers = 'From: '. get_bloginfo('name') .' <no-reply@'. $parse['host'] .'>';
-				$subject="[".get_bloginfo('name')."] Please confirm your email";
-				$message="Confirmation url: " . $url;
-				// wp_mail($email, $subject, $message, $headers);
-				// echo $url;
-				// $return['contactId']=$id; */
+			/*
+			$url = add_query_arg( array('action'=>'verify', 'code' => $id), site_url('/thankyou/') );
+			$parse = parse_url($url);			
+			$headers = 'From: '. get_bloginfo('name') .' <no-reply@'. $parse['host'] .'>';
+			$subject="[".get_bloginfo('name')."] Please confirm your email";
+			$message="Confirmation url: " . $url;
+			// wp_mail($email, $subject, $message, $headers);
+			// echo $url;
+			// $return['contactId']=$id; */
+			
+			// echo "<pre>"; print_r($status); echo "</pre>";
+			
+			
+			
+			if($status){
 				
-				// echo "<pre>"; print_r($result); echo "</pre>";
+				$myaccounturl=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
 			
+				$return['email']=$email;
+				$return['myaccountname']=zipperagent_user_name();
+				$return['myaccounturl']=$myaccounturl;
+				// $return['thankyouurl']=add_query_arg( array('action'=>'verify', 'code' => $result->id), site_url('/thankyou/') );
+				$return['thankyouurl']=add_query_arg( array('email'=>$email), site_url('/thankyou/') );			
+				$return['favorites_url']=add_query_arg( array('menu'=>'my-favorite'), $myaccounturl );
+				$return['saved_search_url']=add_query_arg( array('menu'=>'my-search'), $myaccounturl );
+			}else{				
+				$return['message']=isset($result->errors[0]->errorMessage)?$result->errors[0]->errorMessage:'Submit failed!';
+			}
 			
-			$myaccounturl=ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber');
-			
-			$return['email']=$email;
-			$return['myaccountname']=zipperagent_user_name();
-			$return['myaccounturl']=$myaccounturl;
-			// $return['thankyouurl']=add_query_arg( array('action'=>'verify', 'code' => $result->id), site_url('/thankyou/') );
-			$return['thankyouurl']=add_query_arg( array('email'=>$email), site_url('/thankyou/') );			
-			$return['favorites_url']=add_query_arg( array('menu'=>'my-favorite'), $myaccounturl );
-			$return['saved_search_url']=add_query_arg( array('menu'=>'my-search'), $myaccounturl );
-			$return['result']=$result;
+			$return['result_params']=$result;
+			// $return['vars']=$vars;
+			$return['result']=$status;
 			
 			flush_rewrite_rules(); //fix page not found
 			
@@ -225,8 +278,6 @@ function regist_user(){
 			
 			//add saved cookies to account
 			// add_saved_cookies_to_account();
-		}else{
-			$return['result']=0;
 		}
 		
 		echo json_encode($return);

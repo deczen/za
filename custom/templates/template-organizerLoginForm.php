@@ -215,6 +215,15 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds); ?>" />
 								<input type="hidden" name="action" value="regist_user" >
 								<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
+								<?php if(is_register_form_chaptcha_enabled()): 
+									
+									$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+									$site_key = isset($rb['google']['site_key'])?$rb['google']['site_key']:'';
+									?>
+									<div class="g-recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
+									<br />
+									<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+								<?php endif; ?>
 								<button type="submit" class="btn btn-primary btn-block">Sign Up</button>
 							</div>
 						</div>
@@ -324,7 +333,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						window.location.replace(response['thankyouurl']);
 					}, 1000);
 				}else{
-					alert( 'Submit failed!' );
+					alert( response['message'] );
 					jQuery('#zpa-create-organizer-form').css('opacity', 1);
 					jQuery('#zpa-create-organizer-form').css('pointer-events', 'initial');
 				}
