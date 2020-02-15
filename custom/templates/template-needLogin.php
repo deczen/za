@@ -157,6 +157,16 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 													</div>
 												</div>
+												<?php if(is_register_form_chaptcha_enabled()): 
+													$site_key = isset($rb['google']['site_key'])?$rb['google']['site_key']:'';
+													?>
+													<div class="row mt-10">
+														<div class="col-xs-12">
+															<div class="g-recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
+															<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+														</div>
+													</div>
+												<?php endif; ?>												
 												<div class="row mt-10">
 													<div class="col-xs-12 zpa-modal-form-disclaimer"> *Required fields.</div>
 												</div>
@@ -431,7 +441,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 							window.location.replace(response['thankyouurl'] + '&previous_url=' + previous_url);
 						}, 1000);
 					}else{
-						alert( 'Submit failed!' );					
+						alert( response['message'] );					
 						jQuery('#needLoginModal #zpa-modal-register-user-form').css('opacity', 1);
 						jQuery('#needLoginModal #zpa-modal-register-user-form').css('pointer-events', 'initial');
 					}

@@ -517,14 +517,14 @@ if(file_exists($template_path) && $template_name ){
 						<div class="row">
 							<div class="col-xs-12 zpa-property-photo">
 								<div class="owl-carousel-container">
-									
+										
 									<div class="top-head-carousel-wrapper">
 										<div class="zy-full-lightbox">
 											<a class="btn btn-primary btn-zy-lightbox">
 												<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>
 											</a>
 										</div>
-										<?php /* <div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
+										<?php /* < div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
 										<div class="owl-carousel top-head-carousel">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
@@ -565,10 +565,10 @@ if(file_exists($template_path) && $template_name ){
 									</div>
 								</div>
 							</div>							
-							
+								
 						</div>
-						
-						
+							
+							
 						<?php /*
 						if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 							$i=0;
@@ -625,7 +625,7 @@ if(file_exists($template_path) && $template_name ){
 						</div>
 						<?php endif; ?>
 					</div>
-					
+						
 					<div id="zy_description-section" class="zy_description-section">
 						
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save description section ?>
@@ -699,7 +699,7 @@ if(file_exists($template_path) && $template_name ){
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) $description_section = ob_get_clean(); //end save description section ?>
 						
 					</div>
-					
+						
 				</div>				
 				
 				<div id="zy_sidebar" class="col-lg-4 col-sm-12 col-md-12 col-xl-4">					
@@ -825,6 +825,7 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
+				<?php /*
 				<div class="row">
 					
 					<div class="col-xs-12">
@@ -845,7 +846,7 @@ if(file_exists($template_path) && $template_name ){
 							?>								
 						</div>
 					</div>
-				</div>
+				</div> */ ?>
 				
 				<?php if( isset($single_luxury) && isset($single_luxury->id) ): ?>
 				<div class="row">
@@ -970,6 +971,29 @@ if(file_exists($template_path) && $template_name ){
 						
 					</div>
 				</div>
+				
+				<div class="row">
+					
+					<div class="col-xs-12">
+
+						<div class="full-details-disclaimer">
+							<br> 
+							<?php
+							if( $source_details ){
+								echo $source_details;
+								
+								if($groupname == 'nwmls'){
+									$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
+									echo '<br /><br />'. $defaultDisc;
+								}
+							}else{
+								echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
+							}
+							?>								
+						</div>
+					</div>
+				</div>
+				
 					
 				<?php if(!isset($is_doing_ajax) && $property_cache): //only show on ajax mode, hide after ajax finished ?>
 				<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
