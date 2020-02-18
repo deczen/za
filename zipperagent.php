@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zipperagent
 Description: Adds MLS / IDX property search and listings to your site. Includes search and listing pages, widgets and shortcodes.
-Version: 2.0.1.13
+Version: 2.0.1.14
 Author: Decz
 License: GPL
 */
@@ -13,7 +13,7 @@ $GLOBALS['WORK_ENV'] = 'PROD';
 
 $GLOBALS['ZaRemoteResponse'] = array();
 
-define( 'ZIPPERAGENT_VERSION', '20200215.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
+define( 'ZIPPERAGENT_VERSION', '20200218.1' ); //first part is date in yyyymmdd format and number after . is the number of version on that day
 define( 'ZIPPERAGENTPATH', dirname( __FILE__ ) );
 define( 'ZIPPERAGENTURL', plugins_url( '/', __FILE__ ) );
 

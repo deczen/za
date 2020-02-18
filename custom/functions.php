@@ -1109,13 +1109,34 @@ if( ! function_exists('zipperagent_pagination') ){
 			$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
 			$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
 			?>
-			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
+			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>" data-page="<?php echo $page - 1; ?>">&laquo;</a>
 			</li>
 			<li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a>
 			</li>
-			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>">&raquo;</a>
+			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>" data-page="<?php echo $page + 1; ?>">&raquo;</a>
 			</li>
-		</ul>
+		</ul>		
+		<script>
+			jQuery('body').on( 'click', '.prop-pagination .pagination li:not(.disabled) a', function(){
+				
+				var page = jQuery(this).attr('data-page');
+				var linked_name = 'page';
+				var name = linked_name;
+				var value = page;
+				var field = jQuery('#zpa-search-filter-form input[linked-name="'+ linked_name +'"]');
+						
+				add='<input type="hidden" linked-name="'+linked_name+'" name="'+name+'" value="'+value+'">';
+				
+				if(!field.length){
+					jQuery('#zpa-search-filter-form').append(add);
+				}else{
+					jQuery(field).replaceWith(add);
+				}
+				
+				jQuery('#zpa-search-filter-form').submit();
+				return false;
+			});
+		</script>
 		<?php
 		return ob_get_clean();
 	}

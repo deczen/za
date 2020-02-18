@@ -630,7 +630,7 @@ $contactIds = get_contact_id();
 				</div>
 			</div>
 		</div>
-		<?php if(!isset($requests['disableviewbar']) || isset($requests['disableviewbar']) && ! $requests['disableviewbar']): ?>
+		<?php if( ( !isset($requests['disableviewbar']) || isset($requests['disableviewbar']) && ! $requests['disableviewbar'] ) && !$is_detail_page): ?>
 		<div class="zy_col-3">
 			<div class="input-group">
 				<div id="zy_view-type" class="btn-group">

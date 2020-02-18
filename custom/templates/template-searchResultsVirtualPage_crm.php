@@ -503,3 +503,24 @@ if( $top_search_enabled ):
 	});
 	
 </script>
+<script>
+	jQuery('body').on( 'click', '.prop-pagination .pagination li:not(.disabled) a', function(){
+		
+		var page = jQuery(this).attr('data-page');
+		var linked_name = 'page';
+		var name = linked_name;
+		var value = page;
+		var field = jQuery('#zpa-search-filter-form input[linked-name="'+ linked_name +'"]');
+				
+		add='<input type="hidden" linked-name="'+linked_name+'" name="'+name+'" value="'+value+'">';
+		
+		if(!field.length){
+			jQuery('#zpa-search-filter-form').append(add);
+		}else{
+			jQuery(field).replaceWith(add);
+		}
+		
+		jQuery('#zpa-search-filter-form').submit();
+		return false;
+	});
+</script>

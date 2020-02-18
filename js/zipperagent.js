@@ -13,6 +13,7 @@ var zppr={
 		root: JSON.parse(atob(zipperagent.root)),
 		contactIds: zipperagent.contactIds,
 		is_login: zipperagent.is_login,
+		listing_disclaimer: zipperagent.listing_disclaimer,
 		status_list: zipperagent.status_list,
 		source_cached: zipperagent.source_cached,
 		is_show_agent_name: zipperagent.is_show_agent_name,
@@ -779,7 +780,7 @@ var zppr={
 							'<div class="col-xs-12">' +
 								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
 									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
-									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" islogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
+									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" islogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
 									'<a class="property_url" href="'+ prop_url +'"></a>' +
 									'<a class="property_url" href="'+ prop_url +'"><span class="zpa-for-sale-price"> '+ zppr.moneyFormat(price) +' </span> </a>' +
 								'</div>' +
@@ -1068,11 +1069,11 @@ var zppr={
 		
 		html+= '<ul class="pagination">'+
 			
-			'<li class="'+ ( back_url=="#" ? 'disabled' : '' ) +'"><a href="'+ back_url +'">&laquo;</a>'+
+			'<li class="'+ ( back_url=="#" ? 'disabled' : '' ) +'"><a href="'+ back_url +'" data-page="'+ ( page - 1 ) +'">&laquo;</a>'+
 			'</li>'+
 			'<li class="disabled"><a href="#">'+ page +' of '+ pagescount +'</a>'+
 			'</li>'+
-			'<li class="'+ ( next_url=="#" ? 'disabled' : '' ) +'"><a href="'+ next_url +'">&raquo;</a>'+
+			'<li class="'+ ( next_url=="#" ? 'disabled' : '' ) +'"><a href="'+ next_url +'" data-page="'+ ( page + 1 ) +'">&raquo;</a>'+
 			'</li>'+
 		'</ul>';
 		
