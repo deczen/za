@@ -607,7 +607,7 @@ if(file_exists($template_path) && $template_name ){
 						</script>
 						<?php endif; ?>
 						
-						<?php if($groupname == 'nwmls'): ?>
+						<?php if($groupname == 'gsmls' || $groupname == 'nwmls'): ?>
 						<div class="zy_img-source">
 							<?php
 							$img_disclaimer='';
