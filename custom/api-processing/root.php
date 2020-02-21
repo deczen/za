@@ -135,7 +135,8 @@
 	if(isset($rb['web']['signup_optional_time']))  			$data['web']['signup_optional_time'] = $rb['web']['signup_optional_time'];
 	if(isset($rb['web']['map_markers']))  					$data['web']['map_markers'] = $rb['web']['map_markers'];
 	if(isset($rb['web']['tenant_favorites']))  				$data['web']['tenant_favorites'] = $rb['web']['tenant_favorites'];
-	if(isset($rb['web']['register_form_chaptcha']))  		$data['web']['register_form_chaptcha'] = $rb['web']['register_form_chaptcha'];
+	if(isset($rb['web']['register_form_chaptcha']))  		$data['web']['register_form_chaptcha'] = $rb['web']['register_form_chaptcha'];	
+	if(isset($rb['web']['proptype']))  						$data['web']['proptype'] = $rb['web']['proptype'];
 	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];

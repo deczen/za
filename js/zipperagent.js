@@ -19,6 +19,7 @@ var zppr={
 		is_show_agent_name: zipperagent.is_show_agent_name,
 		property_types_refenrence: zipperagent.property_types_refenrence,
 		property_types: zipperagent.property_types,
+		rental_code: zipperagent.rental_code,
 	},
 	generate_api_params:function(requests){
 		
@@ -556,9 +557,10 @@ var zppr={
 								var count = response.result;
 								var num = ps;
 								var page = Math.ceil( ( sidx + 1 ) / num );
+								var proptypes = (!Array.isArray(requests['propertytype'])?[requests['propertytype']]:requests['propertytype']);
 								
 								html_pagination = zppr.html_pagination(page, num, count, actual_link);
-								jQuery(targetElement + ' .prop-total').html( zppr.list_total_text(count) );
+								jQuery(targetElement + ' .prop-total').html( zppr.list_total_text(count, proptypes.length==1?proptypes[0]:'') );
 								jQuery(targetElement + ' .prop-pagination').html( '<div class="col-xs-6">' + html_pagination + '</div>' );
 								console.timeEnd('generate list count/pagination');
 							break;
@@ -1049,9 +1051,16 @@ var zppr={
 		crit = !crit?'':crit+';';
 		return crit;
 	},
-	list_total_text:function(count){
+	list_total_text:function(count, proptype){
 		if(count>1){
-			return zppr.formatNumber(count) + "  Properties for sale";
+			
+			var act_text = 'sale';
+			
+			if(proptype && zppr.data.rental_code.indexOf(proptype) >= 0){
+				act_text = 'rent';
+			}
+			
+			return zppr.formatNumber(count) + "  Properties for " + act_text;
 		}else{
 			return zppr.formatNumber(count) + "  Property";
 		}		

@@ -1072,10 +1072,13 @@ if( ! function_exists('zipperagent_property_fields') ){
 		
 		if(!is_array($html)){
 			$html = str_replace($find,$replaces,$html);
-			
+			// ini_set("pcre.backtrack_limit", "1000000");
 			// $html = preg_replace("/\[([^\]]*)\]/", "-", $html);
 			// $html = preg_replace("/\[([\w\h,]+)\]/", "-", $html);
-			$html = preg_replace("/\[([\w\h,]+){2,}\]/", "-", $html); //more than 1 chars
+			// $html = preg_replace("/\[([\w\h,]+){2,}\]/", "-", $html); //more than 1 chars
+			$html = preg_replace("/\[[\w\h]{2,30}\]/", "-", $html); //more than 1 chars and max 30 chars
+			
+			// var_dump($html);
 		}else{
 			foreach($html as $key=>&$source){
 				$source = str_replace($find,$replaces,$source);
@@ -1088,9 +1091,19 @@ if( ! function_exists('zipperagent_property_fields') ){
 }
 
 if( ! function_exists('zipperagent_list_total') ){
-	function zipperagent_list_total($count){
+	function zipperagent_list_total($count, $proptype=''){
 		if($count>1){
-			return number_format_i18n($count,0) . " Properties for sale";			
+			
+			$proptypes = zipperagent_get_proptype_codes();
+			$rental = isset($proptypes['rental'])?explode(',',$proptypes['rental']):array('RNT');
+			
+			$act_text = 'sale';
+			
+			if($proptype && in_array($proptype, $rental)){
+				$act_text = 'rent';
+			}
+			
+			return number_format_i18n($count,0) . " Properties for " . $act_text;			
 		}else{
 			return number_format_i18n($count,0) . " Property";
 		}
@@ -1481,6 +1494,17 @@ if( ! function_exists('zipperagent_get_map_markers') ){
 	}
 }
 
+if( ! function_exists('zipperagent_get_proptype_codes') ){
+	function zipperagent_get_proptype_codes(){
+		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
+		$proptype = isset($rb['web']['proptype']) ? $rb['web']['proptype'] : array();
+		
+		return $proptype;
+	}
+}
+
 if( ! function_exists('zipperagent_generate_result_markers') ){
 	function zipperagent_generate_result_markers($maplist){
 		
@@ -1768,6 +1792,34 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? $source['discComingle'] : (isset($source['discDetail']) ? $source['discDetail'] : '' );
 					
 				break;
+			case "detail_source":
+					$year = isset($source['year'])?$source['year']:date("Y");
+					$text.= 'Listing information &copy; ' . $year . '<br />';		
+					
+					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+						$text.= sprintf( "Listing Provided Courtesy %s of", $listAgentName);							
+					}else{
+						$text.= "Listing Provided Courtesy of";						
+					}
+					
+					if(isset($listOfficeName) && !empty($listOfficeName)){
+						$text.= ' '. "<strong>$listOfficeName</strong>";
+					}						
+				break;
+			case "detail_disclaimer":
+					if(isset($source['logo_path']) && file_exists($source['logo_path'])){
+						$text.= '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
+						
+						if(isset($source['copyrightUrl']) && $source['copyrightUrl']){
+							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
+						}
+					}
+					$text.= ' '. 'via ' . $source['name'];
+					$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$listOfficeName}</strong> and should be verified by the buyer.";
+					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? '<br />' . $source['discComingle'] : (isset($source['discDetail']) ? '<br />' . $source['discDetail'] : '' );
+					// $text.='<br /><br />' . $defaultDisc;
+				break;
+			
 		}
 		
 		return $text;

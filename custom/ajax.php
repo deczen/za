@@ -395,8 +395,16 @@ function prop_result_and_pagination(){
 			$count = $maxtotal;
 		}
 		
+		$tmp = explode(';',$vars['crit']);
+		foreach($tmp as $val){
+			$var=explode(':',$val);
+			$requests[$var[0]]=$var[1];
+		}
+		
+		$proptypes = explode(',', isset($requests['apt'])?$requests['apt']:'');
+		
 		$result['result']=1;
-		$result['html_count']=zipperagent_list_total($count);
+		$result['html_count']=zipperagent_list_total($count, (sizeof($proptypes)==1 ? $proptypes[0] : '') );
 		
 		$result['html_pagination']=zipperagent_pagination($page, $num, $count, $actual_link);
 		

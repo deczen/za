@@ -33,6 +33,8 @@ function za_enqueue_script(){
 	$args['is_show_agent_name']=is_show_agent_name();
 	$args['property_types_refenrence']=get_field_reference_property_type();
 	$args['property_types']=get_property_type();
+	$proptypes = zipperagent_get_proptype_codes();
+	$args['rental_code']=isset($proptypes['rental'])?explode(',',$proptypes['rental']):array('RNT');
     $localize = $args;
     wp_localize_script('jquery','zipperagent',$localize);
 	

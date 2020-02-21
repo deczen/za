@@ -17,7 +17,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 		<?php
 		}else if( $showResults ){ ?>
 			<?php if( ! $is_ajax_count ): ?>
-			<div class="col-xs-12 prop-total"><?php echo zipperagent_list_total($count); ?></div>
+			<div class="col-xs-12 prop-total"><?php echo zipperagent_list_total($count, (sizeof($propertyType)==1?$propertyType[0]:'') ); ?></div>
 			<?php else: ?>
 			<div class="col-xs-12 prop-total">&nbsp;</div>
 			<? endif; ?>

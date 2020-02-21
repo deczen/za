@@ -825,7 +825,6 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
-				<?php /*
 				<div class="row">
 					
 					<div class="col-xs-12">
@@ -846,7 +845,7 @@ if(file_exists($template_path) && $template_name ){
 							?>								
 						</div>
 					</div>
-				</div> */ ?>
+				</div>
 				
 				<?php if( isset($single_luxury) && isset($single_luxury->id) ): ?>
 				<div class="row">
@@ -979,16 +978,15 @@ if(file_exists($template_path) && $template_name ){
 						<div class="full-details-disclaimer">
 							<br> 
 							<?php
-							if( $source_details ){
-								echo $source_details;
-								
-								if($groupname == 'nwmls'){
-									$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
-									echo '<br /><br />'. $defaultDisc;
-								}
-							}else{
-								echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
+							
+							if($source_disclaimer){
+								echo $source_disclaimer;
 							}
+							
+							// if($groupname == 'nwmls'){
+									// $defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
+									// echo $defaultDisc;
+							// }
 							?>								
 						</div>
 					</div>
