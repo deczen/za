@@ -607,7 +607,9 @@ if(file_exists($template_path) && $template_name ){
 						</script>
 						<?php endif; ?>
 						
-						<?php if($groupname == 'gsmls' || $groupname == 'nwmls'): ?>
+						<?php 
+						$includes=array('gsmls','nwmls');
+						if(in_array($groupname,$includes)): ?>
 						<div class="zy_img-source">
 							<?php
 							$img_disclaimer='';
@@ -832,15 +834,18 @@ if(file_exists($template_path) && $template_name ){
 						<div class="full-details-disclaimer">
 							<br> 
 							<?php
-							if( $source_details ){
-								echo $source_details;
-								
-								if($groupname == 'nwmls'){
-									$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
-									echo '<br /><br />'. $defaultDisc;
+							$excludes=array('gsmls');
+							if(!in_array($groupname,$excludes)){
+								if( $source_details ){
+									echo $source_details;
+									
+									if($groupname == 'nwmls'){
+										$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
+										echo '<br /><br />'. $defaultDisc;
+									}
+								}else{
+									echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
 								}
-							}else{
-								echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
 							}
 							?>								
 						</div>

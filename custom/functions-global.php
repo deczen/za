@@ -103,7 +103,8 @@ class ZipperagentGlobalFunction{
 	public function zipperagent_set_cookie($name, $value='', $time=''){
 			
 		if(!$time){
-			$time=time() + (86400 * 30);  // 86400 = 1 day
+			// $time=time() + (86400 * 30);  // 86400 = 1 day
+			$time=time() + (86400 * 365);  // 86400 = 1 day
 		}
 		
 		$subfolder=defined('SUBDOMAIN_INSTALL') && ! SUBDOMAIN_INSTALL && function_exists('get_blog_details') ? get_blog_details() : false;

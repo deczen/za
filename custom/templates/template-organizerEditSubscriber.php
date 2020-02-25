@@ -326,8 +326,8 @@ $userdata = $userdata[0]; //get first index record
 																</div>
 																<div class="zpa-results-property-info">
 																	<div class="zpa-results-price"> <span class=""> <?php echo isset( $property->listprice ) ? '$'.number_format_i18n( $property->listprice, 0 ) : '-'; ?> </span> </div>
-																	Beds: <strong>5</strong>
-																	<br> Baths: <strong><?php echo isset( $property->nobedrooms ) ? $property->nobedrooms : '-'; ?></strong>
+																	Beds: <strong><?php echo isset( $property->nobedrooms ) ? $property->nobedrooms : '-'; ?></strong>
+															<br> Baths: <strong><strong><?php echo isset( $property->nofullbaths ) ? $property->nofullbaths : '-'; ?></strong>
 																	<br> Sq. Ft.: <strong> <?php echo isset( $property->squarefeet ) && $property->squarefeet > 0 ? number_format_i18n( $property->squarefeet, 0 ) : '-'; ?> </strong>
 																	<br> Type: <strong><?php echo zipperagent_property_type( $property->proptype ); ?></strong>
 																	<br>
