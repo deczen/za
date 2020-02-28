@@ -783,7 +783,7 @@ if( ! function_exists('save_contact_id') ){
 }
 
 if( ! function_exists('userContactLogin') ){
-	function userContactLogin($email, $remember=0){
+	function userContactLogin($email, $remember=1){
 		$userdata=getUserContact($email);
 		
 		if( $userdata ){

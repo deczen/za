@@ -55,8 +55,10 @@ function za_enqueue_script(){
 add_action( 'init', 'cookie_generator' );
 
 function cookie_generator(){
-	// session_start();
-	
+	if(session_id() == '') {
+		session_start();
+	}
+	// echo "<pre>"; print_r( $_SESSION ); echo "</pre>"; die();
 	/* contactId session */
 	if( (isset($_SESSION['contactId']) && !empty($_SESSION['contactId'])) || (isset($_COOKIE['contactId']) && !empty($_COOKIE['contactId'])) ){
 		$result=isset($_SESSION['contactId'])?$_SESSION['contactId']:ZipperagentGlobalFunction()->zipperagent_get_cookie('contactId');
