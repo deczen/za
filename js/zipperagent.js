@@ -1285,9 +1285,9 @@ var zppr={
 	mls_timezone:function(sourceid){
 		timezone=zppr.data.root.tenant.mls_timezone;
 		
-		timezone=Array.isArray(timezone)&&timezone[sourceid]?timezone[sourceid]:timezone;
+		timezone=typeof timezone === 'object'&&'sourceid' in timezone ?timezone.sourceid:timezone;
 		
-		if(!timezone)
+		if(!timezone || typeof timezone === 'object')
 			timezone='GMT';
 		
 		return timezone;
