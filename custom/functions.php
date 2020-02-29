@@ -2685,7 +2685,7 @@ if( ! function_exists('zipperagent_mls_timezone') ){
 		
 		$timezone=is_array($timezone)&&isset($timezone[$sourceid])?$timezone[$sourceid]:$timezone;
 		
-		if(empty($timezone))
+		if(empty($timezone) || is_array($timezone))
 			$timezone='GMT';
 		
 		return $timezone;
