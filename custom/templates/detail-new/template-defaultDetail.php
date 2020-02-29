@@ -914,7 +914,7 @@ if(file_exists($template_path) && $template_name ){
 					<div id="ask-a-question-form" class="col-xs-12 col-md-12 col-lg-8">
 						<h3 class="zy-listing-contact-title">Ask Agent a Question</h3>
 						
-						<form id="zpa-modal-contact-agent-form">
+						<form id="zpa-modal-contact-agent-form" method="post">
 							
 							<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 							<div class="row">
@@ -953,6 +953,14 @@ if(file_exists($template_path) && $template_name ){
 										<textarea id="listing-contact-comment" class="at-comment-txt" name="note" cols="30" rows="5" required="required"></textarea>
 									</div>
 								</div>
+								<?php if(is_register_form_chaptcha_enabled()): 
+								$site_key = isset($rb['google']['site_key'])?$rb['google']['site_key']:'';
+								?>
+								<div class="col-md-12 mt-10">
+									<div class="g-recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
+									<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+								</div>
+								<?php endif; ?>						
 								<div class="col-md-12">
 									<input type="submit" class="listing-contact-submit" value="Submit">
 								</div>

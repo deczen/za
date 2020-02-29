@@ -386,7 +386,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						}
 						?>
 					}else{
-						alert( 'Submit failed!' );
+						alert( response['message'] );
 					}
 					
 					console.timeEnd('submit contact form');

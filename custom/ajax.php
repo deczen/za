@@ -302,14 +302,54 @@ function contact_agent(){
 		$contactIds = (strpos($contactId, ',')!==false) ? explode(',',$contactId) : $contactId;
 		$contactId  = is_array($contactIds) ? $contactIds[0] : $contactId;
 		
-        $result = zipperagent_run_curl( "/api/note/add2related/contact/{$contactId}?notes={$note}", array(), 1);
-		// $result = zipperagent_run_curl( "/api/note/related/add/contact/{$contactId}/", array(), 1, $vars);
-		// print_r( $vars);
-		// print_r( $result);
-		if(!empty($result)){			
-			$return['result']=$result;
-		}else{
+		if($chaptcha_enabled = is_register_form_chaptcha_enabled()){
+			include ZIPPERAGENTPATH . '/custom/lib/recaptchalib.php';
+			
+			$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+			$secret_key = isset($rb['google']['secret_key'])?$rb['google']['secret_key']:'';
+			 
+			 
+			// check secret key
+			$reCaptcha = new ReCaptcha($secret_key);
+			
+			$response = $reCaptcha->verifyResponse(
+				$_SERVER["REMOTE_ADDR"],
+				$_REQUEST["g-recaptcha-response"]
+			);
+			
+			
+			$chaptcha_check = $response != null && $response->success;
+			$chaptcha_enabled = 1;
+		}else{			
+			$chaptcha_check = 1;
+			$chaptcha_enabled = 0;
+		}
+		
+		if($chaptcha_enabled && ! $chaptcha_check){
+			
+			switch($response->errorCodes){
+				case 'missing-input':
+						$msg = 'Please check chaptcha';
+					break;
+				default:
+						$msg = 'Chaptcha Failed, please reload the page if error still happening';
+					break;
+			}
+			
 			$return['result']=0;
+			$return['message']=$msg;
+		}else{
+		
+			$result = zipperagent_run_curl( "/api/note/add2related/contact/{$contactId}?notes={$note}", array(), 1);
+			// $result = zipperagent_run_curl( "/api/note/related/add/contact/{$contactId}/", array(), 1, $vars);
+			// print_r( $vars);
+			// print_r( $result);
+			if(!empty($result)){			
+				$return['result']=$result;
+			}else{
+				$return['result']=0;
+				$return['message']='Submit failed!';
+			}
 		}
 		
 		echo json_encode($return);
