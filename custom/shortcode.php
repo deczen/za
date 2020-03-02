@@ -402,16 +402,20 @@ class Zipperagent_Shortcodes{
 	function display_quick_search6($atts){
 		global $requests;
 		
-		$atts = shortcode_atts( array(
+		$defaults = array(
 			'location_option' => '',
 			'column' => '',
 			'o' => '',
 			// 'property_type_option' => '',
 			// 'property_type_default' => '',
-			'minlistprice' => 500,
-			'maxlistprice' => 10000000,
+			// 'minlistprice' => 500,
+			// 'maxlistprice' => 10000000,
 			'direct' => '',
-		), $atts, 'quick_search6');
+		);
+		
+		$atts = $atts + $defaults;
+				
+		// $atts = shortcode_atts( $defaults, $atts, 'quick_search6');
 		
 		$requests = $atts;
 			

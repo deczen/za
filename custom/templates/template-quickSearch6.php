@@ -1,8 +1,8 @@
 <?php
 global $requests;
 
-$minListPrice 		= $requests['minlistprice'];
-$maxListPrice		= $requests['maxlistprice'];
+// $minListPrice 		= $requests['minlistprice'];
+// $maxListPrice		= $requests['maxlistprice'];
 
 ?><div id="zpa-main-container" class="zpa-container">
 	<div id="omnibar-wrap">
@@ -116,6 +116,14 @@ $maxListPrice		= $requests['maxlistprice'];
 			<?php if($requests['direct']): ?>
 			<input type="hidden" name="direct" value="<?php echo $requests['direct']; ?>" />
 			<?php endif; ?>
+			
+			<?php
+			foreach($requests as $key=>$val){
+				if( ! in_array($key, array('o','column','direct')) ){
+					echo "<input type=\"hidden\" name=\"{$key}\" value=\"{$val}\" />"."\r\n";
+				}
+			}
+			?>
 		</form>	
 		
 		<?php echo global_new_omnibar_script(1); ?>

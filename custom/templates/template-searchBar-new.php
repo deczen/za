@@ -483,9 +483,42 @@ $contactIds = get_contact_id();
 										</div>
 									</div>
 									<div class="popular-features col-xs-12">
-										<h3>Popular Features</h3>
-										<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>&nbsp;
-										<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openhomesonlyyn" value="true" /> Open House</label>
+										<div class="row">
+											<div class="col-sm-6">
+												<h3>Popular Features</h3>
+												<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>&nbsp;
+												<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openhomesonlyyn" value="true" /> Open House</label>
+											</div>
+											<div class="col-sm-6">
+												<?php
+												$fields = get_references_field('SFTYPE');
+												if($fields): ?>
+												<div class="propstyles">
+													<h3>Building Type</h3>
+													<?php /* <select name="abtsf[]" multiple="multiple">
+														<?php										
+														foreach($fields as $field){
+															echo '<option id="'. $field->longDescription .'" name="abtsf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</option>';
+														}
+														?>
+													</select> */ ?>
+													<div class="dropdown cq-dropdown">
+														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+															<?php
+															foreach( $fields as $field ){
+																
+																$checked="";
+																	
+																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"abtsf[]\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+															}
+															?>
+														</ul>
+													</div>
+												</div>
+												<?php endif; ?>
+											</div>
+										</div>
 									</div>
 									<div class="col-xs-12">
 										<div class="row">
@@ -730,6 +763,15 @@ $contactIds = get_contact_id();
 							"newLabel = '{$val}'"."\r\n" .
 							'break;'."\r\n";
 						} ?>
+						<?php
+						$fields = get_references_field('SFTYPE');
+						foreach($fields as $field){
+						echo "\r\n" .
+						'case "abtsf_'.$field->shortDescription.'":'."\r\n" .
+							"newLabel = '{$field->longDescription}'"."\r\n" .
+							'break;'."\r\n";
+						}
+						?>
 						<?php
 						$fields = get_references_field('STYLE');
 						foreach($fields as $field){

@@ -434,6 +434,24 @@
 						
 					</div>
 				</div>
+				
+				<?php
+				$fields = get_references_field('SFTYPE');				
+				if($fields): ?>
+				<div class="field-wrap proptype-type" id="droptop">
+					<button class="btn btn-secondary dropdown-toggle" type="button">Building Type</button>
+					<div class="sub-menu col-xs-12">
+						<ul class="styles">
+							<?php							
+							foreach($fields as $field){
+								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="abtsf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
+							}
+							?>
+						</ul>
+					</div>
+				</div>
+				<?php endif; ?>
+				
 				<?php
 				$fields = get_references_field('STYLE');				
 				if($fields): ?>
