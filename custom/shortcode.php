@@ -413,11 +413,16 @@ class Zipperagent_Shortcodes{
 			'direct' => '',
 		);
 		
+		if(!is_array($atts))
+        $atts = array();
+		
 		$atts = $atts + $defaults;
 				
 		// $atts = shortcode_atts( $defaults, $atts, 'quick_search6');
 		
 		$requests = $atts;
+			
+		// echo "<pre>"; print_r($requests); echo "</pre>";	
 			
 		ob_start();	
 		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch6.php";
