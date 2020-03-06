@@ -135,8 +135,8 @@ function regist_user(){
 		$state = isset($_REQUEST['state'])?$_REQUEST['state']:'';
 		$zipCode = isset($_REQUEST['zipCode'])?$_REQUEST['zipCode']:'';
 		$lookfor = isset($_REQUEST['lookfor'])?$_REQUEST['lookfor']:'';
-		$buyer = isset($_REQUEST['buyer'])?$_REQUEST['buyer']:($lookfor=='buyer'?1:0);
-		$seller = isset($_REQUEST['seller'])?$_REQUEST['seller']:($lookfor=='seller'?1:0);
+		$buyer = isset($_REQUEST['buyer'])?$_REQUEST['buyer']:(strpos(strtolower($lookfor), 'buy') !== false?1:0);
+		$seller = isset($_REQUEST['seller'])?$_REQUEST['seller']:(strpos(strtolower($lookfor), 'sell') !== false?1:0);
 		$leadSource = isset($_REQUEST['leadSource'])?$_REQUEST['leadSource']:'';
 		$assignedTo = isset($_REQUEST['assignedTo'])?$_REQUEST['assignedTo']:'';
 		$propertyAlerts = isset($_REQUEST['propertyAlerts'])?"true":"false";;
@@ -213,9 +213,6 @@ function regist_user(){
 				'notes'=>($note),
 				'alertType'=>$alertType,
 				'url'=>$url,
-				'city'=>$city,
-				'state'=>$state,
-				'zipCode'=>$zipCode,
 			);
 			
 			if($agent && is_show_agent_list()){
@@ -228,6 +225,18 @@ function regist_user(){
 			
 			if($leadSource){
 				$vars['leadSource']=$leadSource;
+			}
+			
+			if(isset($_REQUEST['city'])){
+				$vars['city']=$city;
+			}
+			
+			if(isset($_REQUEST['state'])){
+				$vars['state']=$state;
+			}
+			
+			if(isset($_REQUEST['zipCode'])){
+				$vars['zipCode']=$zipCode;
 			}
 			
 			if(isset($_REQUEST['buyer'])){

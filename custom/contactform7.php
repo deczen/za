@@ -10,9 +10,12 @@ function cf7_auto_populate($atts){
 
 	$atts = shortcode_atts( array(
 		'assign' => '',
+		'assignedto' => '',
+		'leadsource' => '',
 	), $atts, 'cf7_auto_populate' );
 	
-	$assign = $atts['assign'];
+	$assign = $atts['assign'] ? $atts['assign'] : $atts['assignedto'];
+	$leadsource = $atts['leadsource'];
 	
 	ob_start();	?>
 	<style>
@@ -52,7 +55,7 @@ function cf7_auto_populate($atts){
 								action: 'get_user_fields'
 							},
 						success: function( response ) { 
-							// console.log(response);
+							console.log(response);
 							if( response['userdata']!="" && response['userdata'] != null){
 								var userdata = response['userdata'];
 								// console.log(userdata);
@@ -60,7 +63,7 @@ function cf7_auto_populate($atts){
 								$('.wpcf7-form input:not([type=submit]), .wpcf7-form checkbox, .wpcf7-form textarea, .wpcf7-form select').prop("readonly", false);
 								$('.wpcf7-form input, .wpcf7-form checkbox, .wpcf7-form textarea, .wpcf7-form select').css("opacity", 1);
 								
-								if(userdata.firstName!=''){
+								if(userdata.firstName.length && userdata.firstName!=''){
 									$('.wpcf7-form input[type=text][name=first-name]').val(userdata.firstName);								
 									$('.wpcf7-form input[type=text][name=first-name]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=first-name]').css("opacity", 0.5);
@@ -72,17 +75,35 @@ function cf7_auto_populate($atts){
 									$('.wpcf7-form input[type=text][name=your-name]').css("opacity", 0.5);									
 									$('.wpcf7-form input[type=text][name=your-name]').parent().addClass('hide-alert');
 								}
-								if(userdata.lastName!=''){
+								if(userdata.lastName.length && userdata.lastName!=''){
 									$('.wpcf7-form input[type=text][name=last-name]').val(userdata.lastName);
 									$('.wpcf7-form input[type=text][name=last-name]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=last-name]').css("opacity", 0.5);											
 									$('.wpcf7-form input[type=text][name=last-name]').parent().addClass('hide-alert');
 								}
-								if(userdata.phoneOffice!=''){
+								if(userdata.phoneOffice.length && userdata.phoneOffice!=''){
 									$('.wpcf7-form input[type=tel][name=phone]').val(userdata.phoneOffice);
 									$('.wpcf7-form input[type=tel][name=phone]').prop("readonly", true);
 									$('.wpcf7-form input[type=tel][name=phone]').css("opacity", 0.5);				
 									$('.wpcf7-form input[type=tel][name=phone]').parent().addClass('hide-alert');
+								}
+								if(userdata.primaryAddressCity.length && userdata.primaryAddressCity!=''){
+									$('.wpcf7-form input[type=text][name=city]').val(userdata.primaryAddressCity);
+									$('.wpcf7-form input[type=text][name=city]').prop("readonly", true);
+									$('.wpcf7-form input[type=text][name=city]').css("opacity", 0.5);				
+									$('.wpcf7-form input[type=text][name=city]').parent().addClass('hide-alert');
+								}
+								if(userdata.primaryAddressState.length && userdata.primaryAddressState!=''){
+									$('.wpcf7-form input[type=text][name=state]').val(userdata.primaryAddressState);
+									$('.wpcf7-form input[type=text][name=state]').prop("readonly", true);
+									$('.wpcf7-form input[type=text][name=state]').css("opacity", 0.5);				
+									$('.wpcf7-form input[type=text][name=state]').parent().addClass('hide-alert');
+								}
+								if(userdata.primaryAddressPostalCode.length && userdata.primaryAddressPostalCode!=''){
+									$('.wpcf7-form input[type=text][name=zipCode]').val(userdata.primaryAddressPostalCode);
+									$('.wpcf7-form input[type=text][name=zipCode]').prop("readonly", true);
+									$('.wpcf7-form input[type=text][name=zipCode]').css("opacity", 0.5);				
+									$('.wpcf7-form input[type=text][name=zipCode]').parent().addClass('hide-alert');
 								}
 							}else{
 								
@@ -93,14 +114,23 @@ function cf7_auto_populate($atts){
 								$('.wpcf7-form input[type=text][name=last-name]').val('');
 								$('.wpcf7-form input[type=text][name=your-name]').val('');
 								$('.wpcf7-form input[type=tel][name=phone]').val('');
+								$('.wpcf7-form input[type=text][name=city]').val('');
+								$('.wpcf7-form input[type=text][name=state]').val('');
+								$('.wpcf7-form input[type=text][name=zipCode]').val('');
 								$('.wpcf7-form input[type=text][name=first-name]').prop("readonly", false);
 								$('.wpcf7-form input[type=text][name=last-name]').prop("readonly", false);
 								$('.wpcf7-form input[type=text][name=your-name]').prop("readonly", false);
 								$('.wpcf7-form input[type=tel][name=phone]').prop("readonly", false);
+								$('.wpcf7-form input[type=text][name=city]').prop("readonly", false);
+								$('.wpcf7-form input[type=text][name=state]').prop("readonly", false);
+								$('.wpcf7-form input[type=text][name=zipCode]').prop("readonly", false);
 								$('.wpcf7-form input[type=text][name=first-name]').css("opacity", 1);
 								$('.wpcf7-form input[type=text][name=last-name]').css("opacity", 1);
 								$('.wpcf7-form input[type=text][name=your-name]').css("opacity", 1);
 								$('.wpcf7-form input[type=tel][name=phone]').css("opacity", 1);
+								$('.wpcf7-form input[type=text][name=city]').css("opacity", 1);
+								$('.wpcf7-form input[type=text][name=state]').css("opacity", 1);
+								$('.wpcf7-form input[type=text][name=zipCode]').css("opacity", 1);
 								
 								$('.wpcf7 .hide-alert').removeClass('hide-alert');
 							}
@@ -116,14 +146,23 @@ function cf7_auto_populate($atts){
 					$('.wpcf7-form input[type=text][name=last-name]').val('');
 					$('.wpcf7-form input[type=text][name=your-name]').val('');
 					$('.wpcf7-form input[type=tel][name=phone]').val('');
+					$('.wpcf7-form input[type=text][name=city]').val('');
+					$('.wpcf7-form input[type=text][name=state]').val('');
+					$('.wpcf7-form input[type=text][name=zipCode]').val('');
 					$('.wpcf7-form input[type=text][name=first-name]').prop("readonly", false);
 					$('.wpcf7-form input[type=text][name=last-name]').prop("readonly", false);
 					$('.wpcf7-form input[type=text][name=your-name]').prop("readonly", false);
 					$('.wpcf7-form input[type=tel][name=phone]').prop("readonly", false);
+					$('.wpcf7-form input[type=text][name=city]').prop("readonly", false);
+					$('.wpcf7-form input[type=text][name=state]').prop("readonly", false);
+					$('.wpcf7-form input[type=text][name=zipCode]').prop("readonly", false);
 					$('.wpcf7-form input[type=text][name=first-name]').css("opacity", 1);
 					$('.wpcf7-form input[type=text][name=last-name]').css("opacity", 1);
 					$('.wpcf7-form input[type=text][name=your-name]').css("opacity", 1);
 					$('.wpcf7-form input[type=tel][name=phone]').css("opacity", 1);
+					$('.wpcf7-form input[type=text][name=city]').css("opacity", 1);
+					$('.wpcf7-form input[type=text][name=state]').css("opacity", 1);
+					$('.wpcf7-form input[type=text][name=zipCode]').css("opacity", 1);
 					
 					$('.wpcf7 .hide-alert').removeClass('hide-alert');
 				}
@@ -253,14 +292,22 @@ function zipperagent_panel_additional_settings( $post ) {
 	if( isset($post->id) ){
 		$za_contact_form = get_post_meta( $post->id, 'za_contact_form', true);
 		$za_agent_login = get_post_meta( $post->id, 'za_agent_login', true);
+		$za_assignedTo = get_post_meta( $post->id, 'za_assignedTo', true);
+		$za_leadSource = get_post_meta( $post->id, 'za_leadSource', true);
 	}else{
 		$za_contact_form = get_post_meta( $post->id(), 'za_contact_form', true);
 		$za_agent_login = get_post_meta( $post->id(), 'za_agent_login', true);
+		$za_assignedTo = get_post_meta( $post->id(), 'za_assignedTo', true);
+		$za_leadSource = get_post_meta( $post->id(), 'za_leadSource', true);
 	}
 	?>
-	<p><label>		
+	<p><label>Enable Zipperagent Contact Form 
 	<input type="hidden" name="za_contact_form" value="0" />
-	<input type="checkbox" name="za_contact_form" value="1" <?php checked($za_contact_form, 1); ?> /> Enable Zipperagent Contact Form </label></p>	
+	<input type="checkbox" name="za_contact_form" value="1" <?php checked($za_contact_form, 1); ?> /></label></p>	
+	<p><label>assignedTo
+	<input type="text" name="za_assignedTo" value="<?php echo $za_assignedTo; ?>" /></label></p>	
+	<p><label>leadSource
+	<input type="text" name="za_leadSource" value="<?php echo $za_leadSource; ?>" /></label></p>	
 	<?php /* <p><label>	Agent Login
 	<input type="text" name="za_agent_login" value="<?php echo $za_agent_login; ?>" /> </label>	</p> */
 }
@@ -272,9 +319,13 @@ function zipperagent_save_contact_form($contact_form, $args, $context){
 	if( isset($contact_form->id) ){
 		update_post_meta( $contact_form->id, 'za_contact_form', sanitize_text_field( $_REQUEST['za_contact_form'] ) );
 		update_post_meta( $contact_form->id, 'za_agent_login', sanitize_text_field( $_REQUEST['za_agent_login'] ) );
+		update_post_meta( $contact_form->id, 'za_assignedTo', sanitize_text_field( $_REQUEST['za_assignedTo'] ) );
+		update_post_meta( $contact_form->id, 'za_leadSource', sanitize_text_field( $_REQUEST['za_leadSource'] ) );
 	}else{
 		update_post_meta( $contact_form->id(), 'za_contact_form', sanitize_text_field( $_REQUEST['za_contact_form'] ) );
 		update_post_meta( $contact_form->id(), 'za_agent_login', sanitize_text_field( $_REQUEST['za_agent_login'] ) );
+		update_post_meta( $contact_form->id(), 'za_assignedTo', sanitize_text_field( $_REQUEST['za_assignedTo'] ) );
+		update_post_meta( $contact_form->id(), 'za_leadSource', sanitize_text_field( $_REQUEST['za_leadSource'] ) );
 	}
 }
  
@@ -283,10 +334,15 @@ add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit', 2);
 
 function zipperagent_cf7_submit($contact_form, $cfresult=null){
 	
-	if(isset($contact_form->id))
+	if(isset($contact_form->id)){
 		$za_contact_form = get_post_meta( $contact_form->id, 'za_contact_form', true);
-	else	
+		$za_assignedTo = get_post_meta( $contact_form->id, 'za_assignedTo', true);
+		$za_leadSource = get_post_meta( $contact_form->id, 'za_leadSource', true);
+	}else{	
 		$za_contact_form = get_post_meta( $contact_form->id(), 'za_contact_form', true);
+		$za_assignedTo = get_post_meta( $contact_form->id(), 'za_assignedTo', true);
+		$za_leadSource = get_post_meta( $contact_form->id(), 'za_leadSource', true);
+	}
 	
 	if($za_contact_form){		
 		$contactIds=get_contact_id();
@@ -301,9 +357,15 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 			$lastName = sanitize_text_field( $_REQUEST['last-name'] );
 		}
 		$phone = sanitize_text_field( $_REQUEST['phone'] );
+		$city = isset($_REQUEST['city']) ? sanitize_text_field( $_REQUEST['city'] ) : '';
+		$state = isset($_REQUEST['state']) ? sanitize_text_field( $_REQUEST['state'] ) : '';
+		$zipCode = isset($_REQUEST['zipCode']) ? sanitize_text_field( $_REQUEST['zipCode'] ) : '';
 		$subject = sanitize_text_field( $_REQUEST['your-subject'] );
 		$message = sanitize_textarea_field( $_REQUEST['your-message'] );
 		$url = isset($_REQUEST['current-url']) ? urlencode( $_REQUEST['current-url'] ) : '';
+		$lookfor = isset($_REQUEST['lookfor'])?$_REQUEST['lookfor']:'';
+		$buyer = isset($_REQUEST['buyer'])?$_REQUEST['buyer']:(strpos(strtolower($lookfor), 'buy') !== false?1:0);
+		$seller = isset($_REQUEST['seller'])?$_REQUEST['seller']:(strpos(strtolower($lookfor), 'sell') !== false?1:0);
 		
 		$vars=array(
 			// 'id'=>implode(',',$contactIds), //disabled
@@ -315,9 +377,42 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 			'notes'=>($message),			
 			'url'=>($url),			
 		);
+		
+		if($za_assignedTo){
+			$vars['assignedTo']=$za_assignedTo;
+		}
+		
+		if($za_leadSource){
+			$vars['leadSource']=$za_leadSource;
+		}
+		
+		if($city){
+			$vars['city']=$city;
+		}
+		if($state){
+			$vars['state']=$state;
+		}
+		if($zipCode){
+			$vars['zipCode']=$zipCode;
+		}
+		
+		if(isset($_REQUEST['buyer'])){
+			$vars['buyer']=$buyer;
+		}
+		
+		if(isset($_REQUEST['seller'])){
+			$vars['seller']=$seller;
+		}
+		
+		if(isset($_REQUEST['lookfor'])){
+			$vars['buyer']=$buyer;
+			$vars['seller']=$seller;
+		}
+		
         $result = zipperagent_register_user( $vars );
 		
 		$result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
+		
 		if($result){
 			// print_r($result);
 		}

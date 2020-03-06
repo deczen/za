@@ -1116,12 +1116,33 @@ if( ! function_exists('zipperagent_list_total') ){
 				$act_text = 'rent';
 			}
 			
+			return number_format_i18n($count,0) . " matching properties found";			
+		}else{
+			return number_format_i18n($count,0) . " matching property found";
+		}
+	}
+}
+/*
+if( ! function_exists('zipperagent_list_total') ){
+	function zipperagent_list_total($count, $proptype=''){
+		if($count>1){
+			
+			$proptypes = zipperagent_get_proptype_codes();
+			$rental = isset($proptypes['rental'])?explode(',',$proptypes['rental']):array('RNT');
+			
+			$act_text = 'sale';
+			
+			if($proptype && in_array($proptype, $rental)){
+				$act_text = 'rent';
+			}
+			
 			return number_format_i18n($count,0) . " Properties for " . $act_text;			
 		}else{
 			return number_format_i18n($count,0) . " Property";
 		}
 	}
-}
+} */
+
 if( ! function_exists('zipperagent_pagination') ){
 	function zipperagent_pagination($page, $num, $count, $actual_link){
 		ob_start();

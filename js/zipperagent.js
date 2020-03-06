@@ -1065,9 +1065,11 @@ var zppr={
 				act_text = 'rent';
 			}
 			
-			return zppr.formatNumber(count) + "  Properties for " + act_text;
+			// return zppr.formatNumber(count) + "  Properties for " + act_text;
+			return zppr.formatNumber(count) + " matching properties found";
 		}else{
-			return zppr.formatNumber(count) + "  Property";
+			// return zppr.formatNumber(count) + "  Property";
+			return zppr.formatNumber(count) + " matching property found";
 		}		
 	},
 	html_pagination:function(page, num, count, actual_link){
