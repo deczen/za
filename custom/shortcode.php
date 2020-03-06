@@ -1028,6 +1028,8 @@ class Zipperagent_Shortcodes{
 		
 		$atts = shortcode_atts( array(
 			'assignedto' => '',
+			'leadsource' => '',
+			'additional_fields' => '',
 		), $atts, 'za_signup');
 		
 		ob_start();	

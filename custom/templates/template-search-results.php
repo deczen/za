@@ -286,6 +286,12 @@ if( $openHomesMode ){ // open houses mode
 		'aacr'=>$lotAcres,
 	);
 	
+	//set states
+	$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+	if($states){
+		$search['astt']=str_replace(' ','',$states);
+	}
+	
 	$search= array_merge($search, $locqry, $advSearch);
 	
 	$vars=array(
@@ -351,6 +357,12 @@ if( $openHomesMode ){ // open houses mode
 		'apmax'=>za_correct_money_format($maxListPrice),
 		'aacr'=>$lotAcres,
 	);
+	
+	//set states
+	$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+	if($states){
+		$search['astt']=str_replace(' ','',$states);
+	}
 	
 	$search= array_merge($search, $locqry, $advSearch);
 	
@@ -458,6 +470,12 @@ if( $openHomesMode ){ // open houses mode
 		'aacr'=>$lotAcres,
 	);
 	
+	//set states
+	$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+	if($states){
+		$search['astt']=str_replace(' ','',$states);
+	}
+	
 	$search= array_merge($search, $locqry, $advSearch);
 	
 	// $search=array(
@@ -507,6 +525,12 @@ if( $openHomesMode ){ // open houses mode
 	
 	if($alstid){
 		unset($search['asts']);
+	}
+	
+	//set states
+	$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+	if($states){
+		$search['astt']=str_replace(' ','',$states);
 	}
 	
 	$search= array_merge($search, $locqry, $advSearch);

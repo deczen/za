@@ -108,7 +108,7 @@ $contactIds=get_contact_id();
 				<div class="row mb-5 fs-12 mt-10">
 					<div class="col-xs-7">
 						<div class="zpa-grid-result-additional-info">
-							<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
+							<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.str_replace(' ','',$property->status) : str_replace(' ','',$property->status); ?>">
 								<?php
 									$status=isset($property->status)?$property->status:'';
 									$converted_status = zipperagent_get_status_name($status);

@@ -131,7 +131,13 @@ function regist_user(){
         $firstName = $_REQUEST['firstName'];
         $lastName = $_REQUEST['lastName'];
         $phone = $_REQUEST['phone'];
-		$agent = $_REQUEST['agent'];
+		$city = isset($_REQUEST['city'])?$_REQUEST['city']:'';
+		$state = isset($_REQUEST['state'])?$_REQUEST['state']:'';
+		$zipCode = isset($_REQUEST['zipCode'])?$_REQUEST['zipCode']:'';
+		$lookfor = isset($_REQUEST['lookfor'])?$_REQUEST['lookfor']:'';
+		$buyer = isset($_REQUEST['buyer'])?$_REQUEST['buyer']:($lookfor=='buyer'?1:0);
+		$seller = isset($_REQUEST['seller'])?$_REQUEST['seller']:($lookfor=='seller'?1:0);
+		$leadSource = isset($_REQUEST['leadSource'])?$_REQUEST['leadSource']:'';
 		$assignedTo = isset($_REQUEST['assignedTo'])?$_REQUEST['assignedTo']:'';
 		$propertyAlerts = isset($_REQUEST['propertyAlerts'])?"true":"false";;
 		$note = $_REQUEST['note'];
@@ -207,6 +213,9 @@ function regist_user(){
 				'notes'=>($note),
 				'alertType'=>$alertType,
 				'url'=>$url,
+				'city'=>$city,
+				'state'=>$state,
+				'zipCode'=>$zipCode,
 			);
 			
 			if($agent && is_show_agent_list()){
@@ -215,6 +224,23 @@ function regist_user(){
 			
 			if($assignedTo){
 				$vars['assignedTo']=$assignedTo;
+			}
+			
+			if($leadSource){
+				$vars['leadSource']=$leadSource;
+			}
+			
+			if(isset($_REQUEST['buyer'])){
+				$vars['buyer']=$buyer;
+			}
+			
+			if(isset($_REQUEST['seller'])){
+				$vars['seller']=$seller;
+			}
+			
+			if(isset($_REQUEST['lookfor'])){
+				$vars['buyer']=$buyer;
+				$vars['seller']=$seller;
 			}
 			
 			$result = zipperagent_register_user( $vars );
@@ -1545,6 +1571,12 @@ function load_more_properties(){
 				'aacr'=>$lotAcres,
 			);
 			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
+			
 			$search= array_merge($search, $locqry, $advSearch);
 			
 			$vars=array(
@@ -1586,6 +1618,12 @@ function load_more_properties(){
 				'aacr'=>$lotAcres,
 			);
 			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
+			
 			$search= array_merge($search, $locqry, $advSearch);
 			
 			// $search=array(
@@ -1622,6 +1660,12 @@ function load_more_properties(){
 				'apmax'=>za_correct_money_format($maxListPrice),
 				'aacr'=>$lotAcres,
 			);
+			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
 			
 			$search= array_merge($search, $locqry, $advSearch);
 			
@@ -1666,6 +1710,12 @@ function load_more_properties(){
 			
 			if($alstid){
 				unset($search['asts']);
+			}
+			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
 			}
 			
 			$search= array_merge($search, $locqry, $advSearch);

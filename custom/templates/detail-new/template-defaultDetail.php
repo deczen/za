@@ -942,6 +942,32 @@ if(file_exists($template_path) && $template_name ){
 										<input type="text" id="listing-contact-phone" name="phone" required="">
 									</div><span></span>
 								</div>
+								<?php /*
+								<div class="col-md-6 hidden-on-login">
+									<div>
+										<label for="listing-contact-city">City</label>
+										<input type="text" id="listing-contact-city" name="city" required="">
+									</div><span></span>
+								</div>
+								<div class="col-md-6 hidden-on-login">
+									<div>
+										<label for="listing-contact-state">State</label>
+										<input type="text" id="listing-contact-state" name="state" required="">
+									</div><span></span>
+								</div>
+								<div class="col-md-6 hidden-on-login">
+									<div>
+										<label for="listing-contact-zipcode">Zip Code</label>
+										<input type="text" id="listing-contact-zipcode" name="zipCode" required="">
+									</div><span></span>
+								</div>
+								<div class="col-md-6 hidden-on-login">
+									<div>
+										<label for="listing-contact-lookfor">Looking For</label><br />
+										<input type="radio" id="listing-contact-lookfor" name="lookfor" value="buyer" required="">&nbsp; Buy
+										<input type="radio" id="listing-contact-lookfor" name="lookfor" value="seller" required="">&nbsp; Sell
+									</div><span></span>
+								</div> */ ?>
 							</div>
 							<?php endif; ?>
 							<div class="row">							
@@ -968,6 +994,7 @@ if(file_exists($template_path) && $template_name ){
 							<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 							<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
 							<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
+							<input type="hidden" name="leadSource" value="<?php echo ZipperagentGlobalFunction()->get_lead_source(); ?>" />
 							<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 							<input type="hidden" name="action" value="regist_user" >
 							<?php else: ?>

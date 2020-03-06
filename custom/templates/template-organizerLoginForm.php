@@ -132,7 +132,35 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								<label for="inputEmail5" class="sr-only"> Phone </label>
 								<input id="inputEmail5" name="phone" placeholder="Phone (required)" type="tel" class="form-control" required="required" value=""> </div>
 						</div>
-					</div>				
+					</div>
+					<?php if( isset($atts['additional_fields']) && $atts['additional_fields'] ): ?>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="contact-city" class="sr-only"> City </label>
+								<input id="contact-city" name="city" placeholder="City (required)" type="text" class="form-control" required="required" value=""> </div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="contact-state" class="sr-only"> State </label>
+								<input id="contact-state" name="state" placeholder="State (required)" type="text" class="form-control" required="required" value=""> </div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="contact-zipcode" class="sr-only"> Zip Code </label>
+								<input id="contact-zipcode" name="zipCode" placeholder="Zip Code (required)" type="text" class="form-control" required="required" value=""> </div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="contact-lookfor" class=""> Looking For: </label>
+								<input type="radio" id="listing-contact-lookfor" name="lookfor" value="buyer" required="">&nbsp; Buy
+								<input type="radio" id="listing-contact-lookfor" name="lookfor" value="seller" required="">&nbsp; Sell
+							</div>
+						</div>
+					</div>
+					<?php endif; ?>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<div class="form-group">
@@ -223,6 +251,9 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 									<div class="g-recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
 									<br />
 									<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+								<?php endif; ?>
+								<?php if( isset($atts['leadsource']) && $atts['leadsource'] ): ?>
+									<input type="hidden" name="leadSource" value="<?php echo $atts['leadsource']; ?>" />
 								<?php endif; ?>
 								<button type="submit" class="btn btn-primary btn-block">Sign Up</button>
 							</div>

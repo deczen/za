@@ -69,7 +69,7 @@ class ZipperagentGlobalFunction{
 	
 	
 	public function zipperagent_detailpage_group(){
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();	
+		$rb = $this->zipperagent_rb();	
 		$detailpage_group = isset($rb['layout']['detailpage_group'])?$rb['layout']['detailpage_group']:'';
 		
 		if(isset($_GET['groupname'])){
@@ -77,6 +77,13 @@ class ZipperagentGlobalFunction{
 		}
 		
 		return $detailpage_group ? $detailpage_group : 'mlspin';
+	}
+	
+	public function zipperagent_is_direct_detailpage(){
+		$rb = $this->zipperagent_rb();	
+		$detailpage_direct = isset($rb['layout']['detailpage_direct'])?$rb['layout']['detailpage_direct']:0;
+				
+		return $detailpage_direct;
 	}
 	
 	public function is_zipperagent_new_detail_page(){
@@ -312,7 +319,7 @@ class ZipperagentGlobalFunction{
 			update_option( $option_key_listid, $favorite_listingIds );
 		
 		}else{
-			$saved = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_favorites');
+			$saved = $this->zipperagent_get_cookie('saved_favorites');
 			$dataCount = $saved ? count($saved) : 0;
 		}
 		
@@ -344,7 +351,7 @@ class ZipperagentGlobalFunction{
 			
 			update_option( $option_key, $dataCount );
 		}else{
-			$saved = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_search');
+			$saved = $this->zipperagent_get_cookie('saved_search');
 			$dataCount = $saved ? count($saved) : 0;
 		}
 		
@@ -359,5 +366,13 @@ class ZipperagentGlobalFunction{
 		}else{
 			return false;
 		}
+	}
+	
+	public function get_lead_source(){
+		$rb = $this->zipperagent_rb();
+		
+		$leadSource=isset($rb['web']['lead_source'])?$rb['web']['lead_source']:'';
+		
+		return $leadSource;
 	}
 }

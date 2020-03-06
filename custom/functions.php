@@ -694,6 +694,8 @@ if( ! function_exists('get_property_sub_type') ){
 
 if( ! function_exists('get_field_reference_property_type') ){
 	function get_field_reference_property_type(){	
+		
+		//fieldsReferences
 		ob_start();
 		include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
 		$json=ob_get_clean();
@@ -703,6 +705,17 @@ if( ! function_exists('get_field_reference_property_type') ){
 		
 		foreach($data as $entity){
 			$arr[$entity->shortDescription]=$entity->longDescription;
+		}
+		
+		//staticReferences
+		ob_start();
+		include ZIPPERAGENTPATH . "/custom/api-processing/proptype-static.php";
+		$json=ob_get_clean();
+		$data=json_decode($json);
+		
+		foreach($data as $entity){
+			if(!isset($arr[$entity->shortDescription]))
+				$arr[$entity->shortDescription]=isset($entity->longDescription) ? $entity->longDescription : $entity->shortDescription;
 		}
 		
 		return $arr;

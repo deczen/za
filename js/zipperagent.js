@@ -20,6 +20,8 @@ var zppr={
 		property_types_refenrence: zipperagent.property_types_refenrence,
 		property_types: zipperagent.property_types,
 		rental_code: zipperagent.rental_code,
+		detailpage_group: zipperagent.detailpage_group,
+		states: zipperagent.states,
 	},
 	generate_api_params:function(requests){
 		
@@ -264,6 +266,9 @@ var zppr={
 				// if(o){
 					// delete advSearch.o;
 				// }
+				if(zppr.data.states){
+					search.astt = zppr.data.states.replace(' ','');
+				}
 				
 				for (const [key, val] of Object.entries(locqry)) {
 					search[key] = val;
@@ -802,7 +807,7 @@ var zppr={
 							'<div class="row mb-5 fs-12 mt-10">' +
 								'<div class="'+ ( column==4 ? 'col-xs-7 nopaddingright' : 'col-xs-8' ) +'">' +
 									'<div class="zpa-grid-result-additional-info">' +
-										'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status:status) +'">' +
+										'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
 											'<span class="text-center d-block">'+ zppr.prop_status_label(status).toUpperCase() +'</span>' +
 										'</div>' +
 									'</div>' +
@@ -923,7 +928,7 @@ var zppr={
 									'<div class="clearfix"></div>' +
 								'</div>' +
 								'<div class="zy_pt-prop-info zy_pt-wrap">' +
-									'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status:status) +'">' +
+									'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
 										'<span class="text-center d-block">'+ zppr.prop_status_label(status).toUpperCase() +'</span>' +
 									'</div>' +
 									'<div class="zy_pt-days">' +

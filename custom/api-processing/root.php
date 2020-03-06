@@ -137,6 +137,7 @@
 	if(isset($rb['web']['tenant_favorites']))  				$data['web']['tenant_favorites'] = $rb['web']['tenant_favorites'];
 	if(isset($rb['web']['register_form_chaptcha']))  		$data['web']['register_form_chaptcha'] = $rb['web']['register_form_chaptcha'];	
 	if(isset($rb['web']['proptype']))  						$data['web']['proptype'] = $rb['web']['proptype'];
+	if(isset($rb['web']['lead_source']))  					$data['web']['lead_source'] = $rb['web']['lead_source'];
 	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
@@ -149,6 +150,7 @@
 	if(isset($rb['layout']['detailpage_layout_ci']))  		$data['layout']['detailpage_layout_ci'] = $rb['layout']['detailpage_layout_ci'];
 	if(isset($rb['layout']['detailpage_layout_bu']))		$data['layout']['detailpage_layout_bu'] = $rb['layout']['detailpage_layout_bu'];
 	if(isset($rb['layout']['detailpage_group']))			$data['layout']['detailpage_group'] = $rb['layout']['detailpage_group'];
+	if(isset($rb['layout']['detailpage_direct']))			$data['layout']['detailpage_direct'] = $rb['layout']['detailpage_direct'];
 	
 	if(isset($rb['google']['apikey']))  					$data['google']['apikey'] = $rb['google']['apikey'];
 	if(isset($rb['google']['adwords']['code']))				$data['google']['adwords']['code'] = $rb['google']['adwords']['code'];

@@ -112,7 +112,11 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		ob_start();
 		
 		// include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
-		include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultDetail.php';
+		if(ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage()){			
+			include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultDetail-crm.php';
+		}else{			
+			include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultDetail.php';
+		}
 		
 		$property_detail=ob_get_clean();
 		$property_detail = zipperagent_property_fields($single_property, $property_detail);	

@@ -100,7 +100,7 @@ foreach( $list as $option ): ?>
 						<div class="clearfix"></div>
 					</div>
 					<div class="zy_pt-prop-info zy_pt-wrap">
-						<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
+						<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.str_replace(' ','',$property->status) : str_replace(' ','',$property->status); ?>">
 							<?php
 								$status=isset($property->status)?$property->status:'';
 								$converted_status = zipperagent_get_status_name($status);

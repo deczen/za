@@ -165,7 +165,7 @@ switch( $column ){
 								<div class="row mb-5 fs-12 mt-10">
 									<div class="<?php echo $column==4 ? "col-xs-7 nopaddingright" : "col-xs-8"; ?>">
 										<div class="zpa-grid-result-additional-info">
-											<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.$property->status : $property->status; ?>">
+											<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.str_replace(' ','',$property->status) : str_replace(' ','',$property->status); ?>">
 												<?php
 													$status=isset($property->status)?$property->status:'';
 													$converted_status = zipperagent_get_status_name($status);
