@@ -123,7 +123,14 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 													</div>
 													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 													</div>
-												</div> <?php
+												</div>
+												<?php else: 
+						
+													if( $assignedto = ZipperagentGlobalFunction()->get_assignedto() ){
+														
+														echo '<input type="hidden" name="assignedTo" value="'. $assignedto .'" />';
+													}
+												
 												endif;
 												?>
 												<div class="row mt-10">

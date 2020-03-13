@@ -353,8 +353,8 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 			$firstName = sanitize_text_field( $fullname[0] );
 			$lastName = substr( sanitize_text_field( $_REQUEST['your-name'] ), strlen ($firstName) + 1 );
 		}else{
-			$firstName = sanitize_text_field( $_REQUEST['first-name'] );
-			$lastName = sanitize_text_field( $_REQUEST['last-name'] );
+			$firstName = $_REQUEST['first-name'] ? sanitize_text_field( $_REQUEST['first-name'] ) : '';
+			$lastName = $_REQUEST['last-name'] ? sanitize_text_field( $_REQUEST['last-name'] ) : '';
 		}
 		$phone = sanitize_text_field( $_REQUEST['phone'] );
 		$city = isset($_REQUEST['city']) ? sanitize_text_field( $_REQUEST['city'] ) : '';

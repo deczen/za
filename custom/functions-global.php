@@ -375,4 +375,12 @@ class ZipperagentGlobalFunction{
 		
 		return $leadSource;
 	}
+	
+	public function get_assignedto(){
+		$rb = $this->zipperagent_rb();
+		
+		$assignedto=isset($rb['web']['assignedto'])?$rb['web']['assignedto']:'test';
+		
+		return $assignedto;
+	}
 }
