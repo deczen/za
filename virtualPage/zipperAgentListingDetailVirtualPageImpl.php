@@ -33,7 +33,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			// }
 			
 			$single_property=false;
-			if(! $property_cache){
+			if(! $property_cache && !ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage() || ZipperagentGlobalFunction()->is_facebook_bot()){
 				$single_property=ZipperagentGlobalFunction()->get_single_property( $listingId, implode(',',$contactIds), $searchId );	
 			}
 			

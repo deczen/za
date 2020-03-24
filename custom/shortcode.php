@@ -108,7 +108,12 @@ class Zipperagent_Shortcodes{
 		
 		ob_start();	
 		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){		
-			include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";
+			
+			if(ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage()){
+				include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail-crm.php";	
+			}else{
+				include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";			
+			}
 		}else if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){		
 			include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty_new.php";
 		}else{

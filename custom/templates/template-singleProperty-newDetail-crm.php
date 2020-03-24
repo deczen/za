@@ -105,14 +105,9 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
 		<?php else: 
 		
-		if(in_array($single_property->status, explode(',',zipperagent_sold_status()))){
-			echo '<style>.mortgage-calculator{display:none !important}</style>';
-		}
-		
 		ob_start();
 		
-		// include ZIPPERAGENTPATH . '/custom/templates/detail/template-defaultDetail.php';
-		include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultDetail.php';
+		include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultDetail-crm.php';
 		
 		$property_detail=ob_get_clean();
 		$property_detail = zipperagent_property_fields($single_property, $property_detail);	
@@ -174,6 +169,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 			save_property( contactId, searchId );			
 		});
 		
+		<?php /*
 		function save_favorite(contactId, searchId, isLogin){
 			var listingId = '<?php echo $single_property->id; ?>';
 			var crit={
@@ -216,7 +212,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					console.timeEnd('save favorite');
 				}
 			});
-		}
+		} */ ?>
 		function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
 			var crit={
 				<?php
@@ -286,6 +282,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				}
 			});
 		}
+		<?php /*
 		function save_property(contactId, searchId){
 			var listingId = '<?php echo $single_property->id; ?>';
 			var crit={
@@ -325,7 +322,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					console.timeEnd('save property');
 				}
 			});
-		}		
+		}	*/ ?>	
 		<?php /*
 		function schedule_show(contactId, assignedTo, when, searchId){
 			var listingId = '<?php echo $single_property->id; ?>';

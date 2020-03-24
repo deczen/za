@@ -379,7 +379,7 @@ class ZipperagentGlobalFunction{
 	public function get_assignedto(){
 		$rb = $this->zipperagent_rb();
 		
-		$assignedto=isset($rb['web']['assignedto'])?$rb['web']['assignedto']:'test';
+		$assignedto=isset($rb['web']['assignedto'])?$rb['web']['assignedto']:'';
 		
 		return $assignedto;
 	}

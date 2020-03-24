@@ -22,6 +22,13 @@ var zppr={
 		rental_code: zipperagent.rental_code,
 		detailpage_group: zipperagent.detailpage_group,
 		states: zipperagent.states,
+		
+		/* single property */
+		agent: zipperagent.agent,
+		is_show_agent_name: zipperagent.is_show_agent_name,
+		listing_disclaimer: zipperagent.listing_disclaimer,
+		soruce_details: zipperagent.soruce_details,
+		searchId: zipperagent.searchId,
 	},
 	generate_api_params:function(requests){
 		
@@ -377,6 +384,641 @@ var zppr={
 		
 		return html;
 	},
+	detail:function(single_property, actual_link){
+		
+		var html = '';
+		
+		html += 	'<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">' +
+						'<article class="container-fluid">' +
+							'<div id="zy_header-section" class="row zyapp_main-style" style="max-width:none;">' +	
+								
+								'<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">' +
+									'<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">' +
+										'<h1>' +
+											'<p class="zy_address-style"><span itemprop="streetAddress">{{streetno}} '+ (single_property.hasOwnProperty('streetname')?zppr.streetname_fix_comma(single_property.streetname):'') +'</span></p>' +
+											'<p class="zy_subaddress-style">' +
+												'<span itemprop="addressLocality"> '+ ( single_property.hasOwnProperty('lngTOWNSDESCRIPTION') && single_property.lngTOWNSDESCRIPTION ? single_property.lngTOWNSDESCRIPTION + ',':'' ) +' </span>' +
+												'<span itemprop="addressRegion"> '+ (single_property.hasOwnProperty('provinceState')?single_property.provinceState:'') +'</span>' +
+												'<span itemprop="postalCode"> '+ (single_property.hasOwnProperty('zipcode')?single_property.zipcode:'') +' </span>' +
+											'</p>' +
+										'</h1>' +
+									'</div>' +
+								'</div>' +
+								
+								'<div class="zy_price-mls col-lg-3 col-sm-12 col-md-12 col-xl-4 zy_nopadding">' +
+									'<div class="row">' +
+										'<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">' +
+											'<h2>' +
+												'<p class="zy_price-style">' + zppr.data.currency +'{{realprice}}</p>' +
+												'<p class="zy_label-style">Price</p>' +
+											'</h2>' +
+										'</div>' +
+										'<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">' +
+											'<h2>' +
+												'<p class="zy_mlsno">{{listno}}</p>' +
+												'<p class="zy_label-style">{{displaySource}}#</p>' +
+											'</h2>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+								
+								'<div class="zy_price-mls col-lg-6 col-sm-12 col-md-12 col-xl-5 zy_nopadding">' +
+									'<div class="row">' +
+										'<div class="col-lg-3 col-sm-12 col-md-12">' +
+											'<h2>' +
+												'<p class="zy_price-style zy_status-style zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">{{status}}</p>' +
+												'<p class="zy_label-style">Status</p>' +
+											'</h2>' +
+										'</div>' +
+										'<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">' +
+											'<div class="row">' +				
+												'<div class="btn_wrap zy_save-favorite-wrap col-btn">' +
+													'<button class="zy_save-favorite '+ (zppr.is_favorite(single_property.id)?"favorited":"") +'" isLogin="'+ (zppr.data.is_login? 1:0) +'" afterAction="save_favorite" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'"><i class="fa fa-heart fa-fw"></i></button>' +
+													'<span>Favorite</span>' +
+												'</div>' +
+												
+												'<div class="btn_wrap zy_save-property-wrap col-btn">' +
+													'<button class="zy_save-property '+ (!zppr.data.is_login?"needLogin":"") +'" isLogin="'+ (zppr.data.is_login? 1:0) +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'"><i class="fa fa-floppy-o fa-fw"></i></button>' +
+													'<span>Save</span>' +
+												'</div>' +
+												
+												'<div class="btn_wrap zy_schedule-showing-wrap col-btn">' +
+													'<button class="zy_schedule-showing '+ (!zppr.data.is_login?"needLogin":"") +'" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>' +
+													'<span>Request Showing</span>' +
+												'</div>' +
+												
+												'<div class="btn_wrap zy_request-showing-wrap col-btn">' +
+													'<button class="zy_request-showing '+ (!zppr.data.is_login?"needLogin":"") +'" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>' +
+													'<span>Request info</span>' +
+												'</div>' +
+												
+												'<div class="btn_wrap zy_share-property-wrap col-btn">' +
+													'<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>' +
+													'<span>Share</span>' +
+													'<div class="dropdown-menu" aria-labelledby="dropdownShare">' +
+														'<ul class="menu-list">' +
+															'<li>' +
+																'<a class="share-item share-email '+ (!zppr.data.is_login?"needLogin":"") +'" afterAction="share_email" contactid="'+ zppr.data.contactIds.join() +'" href="#">' +
+																	'<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i>' +
+																	'<span>Email this listing</span>' +
+																'</a>' +
+																
+															'</li>' +															
+															'<li>' +
+																'<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u='+ actual_link +'" target="_blank" onclick="window.open(this.href, \'facebook-share-dialog\', \'width=626,height=436\'); return false;">' +
+																	'<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i>' +
+																	'<span>Share on Facebook</span>' +
+																'</a>' +
+															'</li>' +															
+														'</ul>' +
+													'</div>' +
+												'</div>' +
+											'</div>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+								
+							'</div>' +
+							
+							'<div class="row zy_highlight-section">' +
+								'<div class="col-lg-8 col-sm-12 col-md-12 col-xl-8">' + 
+									'<div id="gallery-column" style="display: block !important;">';										
+										
+		if( single_property.hasOwnProperty('photoList') && single_property.photoList.length ){
+										
+			html +=						'<div class="row">' +
+											'<div class="col-xs-12 zpa-property-photo">' +
+												'<div class="owl-carousel-container">' +
+														
+													'<div class="top-head-carousel-wrapper">' +
+														'<div class="zy-full-lightbox">' +
+															'<a class="btn btn-primary btn-zy-lightbox">' +
+																'<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>' +
+															'</a>' +
+														'</div>' +
+														 /* < div class="owl-carousel top-head-carousel '+ (!zppr.data.is_login?"needLogin":"") +'"> */
+														'<div class="owl-carousel top-head-carousel">';
+														
+			var i=0;
+			for (const [key, pic] of Object.entries(single_property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') > -1){
+					html += 								'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'\')" class="owl-slide"><img class="" src="//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'" /></div>';
+				}else{
+					html += 								'<div style="background-image: url(\''+ pic.imgurl +'\')" class="owl-slide"><img class="" src="'+ pic.imgurl +'" /></div>';
+				}		
+				i++;
+			}
+			html += 									'</div>' +
+														'<div class="left-nav"><i class="icon-left-arrow"></i>' +
+														'</div>' +
+														'<div class="right-nav"><i class="icon-right-arrow"></i>' +
+														'</div>' +
+													'</div>' +
+													'<div class="carousel-controller-wrapper">' +
+														'<div class="owl-carousel carousel-controller">';
+		
+		
+			$i=0;
+			for (const [key, pic] of Object.entries(single_property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') > -1){
+					html +=									'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=150&h=150&n='+ i +'\')" class="item"></div>';
+				}else{
+					html +=									'<div style="background-image: url(\''+ pic.imgurl +'\')" class="item"></div>';
+				}
+				$i++;
+			}
+		
+		
+														'</div>' +
+													'</div>' +
+												'</div>' +
+											'</div>' +							
+												
+										'</div>';
+											
+											
+		}
+										
+										
+		var includes=['gsmls','nwmls'];
+		if(zppr.in_array(zppr.data.detailpage_group,includes)){
+		
+			html+= 						'<div class="zy_img-source">';
+			
+			var img_disclaimer='';
+			if(single_property.hasOwnProperty('listAgentName') && zppr.data.is_show_agent_name){
+				img_disclaimer+= "Listing Provided Courtesy "+ single_property.listAgentName +" of";							
+			}else{
+				img_disclaimer+= "Listing Provided Courtesy of";						
+			}
+			
+			if(single_property.hasOwnProperty('listOfficeName')){
+				img_disclaimer+= ' '+ "<strong>{$single_property->listOfficeName}</strong>";
+			}	
+			
+			html+=img_disclaimer;
+			
+			html+= 						'</div>';
+		}
+		html+= 						'</div>' +
+										
+									'<div id="zy_description-section" class="zy_description-section">' +
+																
+										'<div class="zy_print-button">' +
+											'<a id="zy_open-print-popup" href="#"><i class="fa fa-print" aria-hidden="true"></i> Print</a>' +
+										'</div>' +
+										
+										'<div class="zy_vitural-tour">' +
+										
+										/* incldue vtlink template */
+										zppr.vtlink_template(single_property) +
+											
+										'</div>';
+										
+		if(single_property.hasOwnProperty('openHouses') && single_property.openHouses.length){
+			html+=						'<h2>Open House</h2>';
+			
+			for (const [key, openHouse] of Object.entries(single_property.openHouses)) {
+				
+
+				var sourceid=single_property.sourceid;
+				var mlstz = zppr.mls_timezone(sourceid);
+				var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+				var dt = new Date(ld);
+				var startDateOnly = dt.format('Y-m-d');
+				var startDate = dt.format('M j, Y h:i A');
+				var startTime =  dt.format('h:i A');
+				
+				var duration = openHouse.duration  ? openHouse.duration : 0;
+				var printEndTime = '';
+				
+				if( duration ){
+					dt = dt.addMinutes( duration );
+					endTime =dt.format('h:i A');
+					printEndTime = '- '+endTime;
+				}else if(openHouse.endDate){
+					ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+					dt = new Date(ld);
+					endDateOnly = dt.format('Y-m-d');
+					
+					if(startDateOnly!=endDateOnly){
+						
+						endDate = dt.format('M j, Y h:i A');
+						printEndTime = '- '+endDate;
+					}else{
+						
+						endTime = dt.format('h:i A');
+						printEndTime = '- '+endTime;
+					}
+				}
+				
+				html+=					'<p class="open-house-info"><span class="openHomeText">'+ startDate +' '+ printEndTime +'</p>';						
+			
+			}
+		}
+										
+		html+=							'<h2>Description</h2>' +
+										'<p>[remarks]</p>';
+										
+		if(single_property.hasOwnProperty('direction')){
+			html+=						'<h2>Direction</h2>' +
+										'<p>{{direction}}</p>';
+		}
+									
+											
+		html+=						'</div>' +
+										
+								'</div>' +			
+								
+								'<div id="zy_sidebar" class="col-lg-4 col-sm-12 col-md-12 col-xl-4">' +					
+																		
+									'<ul class="zy_prop-details">';
+										
+		if( single_property.hasOwnProperty('syncTime') ){
+			html+=						'<li><label class="update-info col-xs-12 zy_nopadding"> Last Checked for Updates on {{syncTime}} </label></li>';
+		}else if( single_property.hasOwnProperty('syncAge') ){
+			html+=						'<li><label class="update-info col-xs-12 zy_nopadding"> Last Checked for Updates: {{syncAge}} minutes ago </label></li>';
+		}
+										
+								
+		/* incldue sidebar template */
+		html+=							zppr.sidebar_template(single_property) +
+														
+									'</ul>' +
+									
+									'<ul class="zy_agent-info">';
+									
+		var user_default = zppr.data.plugin_url + 'images/user-default.png';
+		
+		if( single_property.hasOwnProperty('listingAgent') ){
+			var agentFullName = zppr.checkNested(single_property,'listingAgent','userName') ? single_property.listingAgent.userName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'listingAgent','imageURL') ? single_property.listingAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'listingAgent','phoneMobile') ? single_property.listingAgent.phoneMobile : zppr.checkNested(single_property,'listingAgent','phoneOffice') ? single_property.listingAgent.phoneOffice : '';
+			var agentEmail = zppr.checkNested(single_property,'listingAgent','email') ? single_property.listingAgent.email : '';
+			
+			html+=						'<li>Listing Agent</li>' +
+										'<li>';
+			if(agentImage){
+				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+			}
+			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+			if( $agent ){
+				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+			}
+			html+=							'</span>' +
+										'</li>';
+		}
+		
+		if( single_property.hasOwnProperty('coListingAgent') ){
+			
+			var agentFullName = zppr.checkNested(single_property,'coListingAgent','userName') ? single_property.coListingAgent.userName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'coListingAgent','imageURL') ? single_property.coListingAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'coListingAgent','phoneMobile') ? single_property.coListingAgent.phoneMobile : zppr.checkNested(single_property,'coListingAgent','phoneOffice') ? single_property.coListingAgent.phoneOffice : '';
+			var agentEmail = zppr.checkNested(single_property,'coListingAgent','email') ? single_property.coListingAgent.email : '';
+			
+			html+=						'<li>Listing Agent</li>' +
+										'<li>';
+			if(agentImage){
+				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+			}
+			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+			if( $agent ){
+				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+			}
+			html+=							'</span>' +
+										'</li>';
+		}
+		
+		if( single_property.hasOwnProperty('salesAgent') ){
+			var agentFullName = zppr.checkNested(single_property,'salesAgent','userName') ? single_property.salesAgent.userName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'salesAgent','imageURL') ? single_property.salesAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'salesAgent','phoneMobile') ? single_property.salesAgent.phoneMobile : zppr.checkNested(single_property,'salesAgent','phoneOffice') ? single_property.salesAgent.phoneOffice : '';
+			var agentEmail = zppr.checkNested(single_property,'salesAgent','email') ? single_property.salesAgent.email : '';
+			
+			html+=						'<li>Listing Agent</li>' +
+										'<li>';
+			if(agentImage){
+				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+			}
+			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+			if( $agent ){
+				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+			}
+			html+=							'</span>' +
+										'</li>';
+		}
+		
+		if( single_property.hasOwnProperty('coSalesAgent') ){
+			var agentFullName = zppr.checkNested(single_property,'coSalesAgent','userName') ? single_property.coSalesAgent.userName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'coSalesAgent','imageURL') ? single_property.coSalesAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'coSalesAgent','phoneMobile') ? single_property.coSalesAgent.phoneMobile : zppr.checkNested(single_property,'coSalesAgent','phoneOffice') ? single_property.coSalesAgent.phoneOffice : '';
+			var agentEmail = zppr.checkNested(single_property,'coSalesAgent','email') ? single_property.coSalesAgent.email : '';
+			
+			html+=						'<li>Listing Agent</li>' +
+										'<li>';
+			if(agentImage){
+				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+			}
+			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+			if( $agent ){
+				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+			}
+			html+=							'</span>' +
+										'</li>';
+		}
+										
+		html+=						'</ul>' +
+									
+								'</div>' +
+								
+							'</div>' +
+							
+							'<div id="zy_bottom-section">' +
+								
+								'<div class="row">' +
+									
+									'<div class="col-xs-12">' +
+										
+										'<h2>Property Details</h2>' +
+										
+										/* incldue content template */
+										zppr.feature_template(single_property) +
+										
+									'</div>' +
+								'</div>' +
+								
+								'<div class="row">' +
+									
+									'<div class="col-xs-12">' +
+
+										'<div class="full-details-disclaimer">' +
+											'<br> ';
+											
+		var excludes=['gsmls'];
+		if(zppr.in_array(zppr.data.detailpage_group,excludes)){
+			if( zppr.data.source_details ){
+				html+=						zppr.data.source_details;
+				
+				if(zppr.data.detailpage_group == 'nwmls'){
+					var defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
+					html+= 					'<br /><br />'+ defaultDisc;
+				}
+			}else{
+				html+=						'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
+			}
+		}
+																		
+		html+=							'</div>' +
+									'</div>' +
+								'</div>';
+								
+								/*
+								<?php if( isset($single_luxury) && isset($single_luxury->id) ): ?>
+								<div class="row">
+									<div class="col-xs-12">
+										<h2 class="zy-listing__headline">Properties</h2>
+										<?php zipperagent_luxury_table($single_luxury); ?>
+									</div>
+								</div>			
+								<?php endif; ?> */
+								
+								/*
+								<?php if( isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
+								<div class="row zy-widget map-widget">
+									<div class="col-xs-12">
+										<div class="zy-map-container">
+											<div id="map" style="height:300px"></div>
+										</div>
+									</div>
+								</div>
+								<?php endif; ?>
+								
+								<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
+								<div class="row zy-widget greatschool-widget">
+									<div class="col-xs-12 col-md-12 col-lg-6">
+										<h3 class="">Greatshools</h3>
+										<div id="greatshools"></div>
+										<script>
+											jQuery(document).ready(function(){
+												var curr_width = jQuery('.greatschool-widget #greatshools').width();
+												var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo $single_property->lat; ?>&lon=<?php echo $single_property->lng; ?>&cityName=<?php echo isset($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address($single_property) ); ?>&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
+												jQuery('#greatshools').html(gs_iframe);
+											});
+										</script>
+									</div>
+								</div>
+								<?php endif; ?>
+								
+								<?php if( is_walkscore_enabled() ): ?>
+								<div class="row zy-widget walkscore-widget">
+									<div class="col-xs-12 col-md-12 col-lg-6">
+										<h3 class="">Walk Score</h3>
+										<div id="ws"></div>
+										<script type='text/javascript'>
+										var ws_wsid = 'ws';
+										var ws_address = '<?php echo zipperagent_get_address($single_property); ?>';
+										var ws_format = 'tall';
+										var ws_width = '100%';
+										var ws_height = '300';
+										</script><style type='text/css'>#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style><div id='ws-walkscore-tile'></div><script type='text/javascript' src='https://www.walkscore.com/tile/show-walkscore-tile.php'></script>
+									</div>
+								</div>
+								<?php endif; ?>
+								
+								if(!zppr.data.sold_status.indexOf(single_property.status)>-1){
+								<div class="row zy-widget">
+									<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">
+										<?php include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-mortgage-calculator.php'; ?>
+									</div>
+								</div> 
+								}
+								*/
+								
+		if( zppr.data.agent ){
+			html+=				'<div class="row zy-widget">' +
+									'<div id="ask-a-question-form" class="col-xs-12 col-md-12 col-lg-8">' +
+										'<h3 class="zy-listing-contact-title">Ask Agent a Question</h3>' +
+										
+										'<form id="zpa-modal-contact-agent-form" method="post">';
+											
+			if( ! zppr.data.is_login ){ /* only for non logged in user */
+				html+=						'<div class="row">' +
+												'<div class="col-md-6 hidden-on-login">' +
+													'<div>' +
+														'<label for="listing-contact-fname">First Name</label>' +
+														'<input type="text" id="listing-contact-fname" name="firstName" required="">' +
+													'</div><span></span>' +
+												'</div>' +
+												'<div class="col-md-6 hidden-on-login">' +
+													'<div>' +
+														'<label for="listing-contact-lname">Last Name</label>' +
+														'<input type="text" id="listing-contact-lname" name="lastName" required="">' +
+													'</div><span></span>' +
+												'</div>' +
+												'<div class="col-md-6 hidden-on-login">' +
+													'<div>' +
+														'<label for="listing-contact-email">Email</label>' +
+														'<input type="email" id="listing-contact-email" name="email" required="">' +
+													'</div><span></span>' +
+												'</div>' +
+												'<div class="col-md-6 hidden-on-login">' +
+													'<div>' +
+														'<label for="listing-contact-phone">phoneMobile</label>' +
+														'<input type="text" id="listing-contact-phone" name="phone" required="">' +
+													'</div><span></span>' +
+												'</div>' +
+												/*
+												<div class="col-md-6 hidden-on-login">
+													<div>
+														<label for="listing-contact-city">City</label>
+														<input type="text" id="listing-contact-city" name="city" required="">
+													</div><span></span>
+												</div>
+												<div class="col-md-6 hidden-on-login">
+													<div>
+														<label for="listing-contact-state">State</label>
+														<input type="text" id="listing-contact-state" name="state" required="">
+													</div><span></span>
+												</div>
+												<div class="col-md-6 hidden-on-login">
+													<div>
+														<label for="listing-contact-zipcode">Zip Code</label>
+														<input type="text" id="listing-contact-zipcode" name="zipCode" required="">
+													</div><span></span>
+												</div>
+												<div class="col-md-6 hidden-on-login">
+													<div>
+														<label for="listing-contact-lookfor">Looking For</label><br />
+														<input type="radio" id="listing-contact-lookfor" name="lookfor" value="buyer" required="">&nbsp; Buy
+														<input type="radio" id="listing-contact-lookfor" name="lookfor" value="seller" required="">&nbsp; Sell
+													</div><span></span>
+												</div> */
+											'</div>';
+			}
+			html+=							'<div class="row">' +						
+												'<div class="col-md-12">' +
+													'<div>' +
+														'<label for="listing-contact-comment">' +
+															'What would you like to know?' +										
+														'</label>' +
+														'<textarea id="listing-contact-comment" class="at-comment-txt" name="note" cols="30" rows="5" required="required"></textarea>' +
+													'</div>' +
+												'</div>';
+												
+			if(zppr.data.is_register_form_chaptcha_enabled){
+				var site_key = zppr.data.root.google.site_key;
+												
+				html+=							'<div class="col-md-12 mt-10">' +
+													'<div class="g-recaptcha" data-sitekey="'+ site_key +'"></div>' +
+													'<script src=\'https://www.google.com/recaptcha/api.js?hl=en\'></script>' +
+												'</div>';
+			}														
+			html+=								'<div class="col-md-12">' +
+													'<input type="submit" class="listing-contact-submit" value="Submit">' +
+												'</div>' +
+											'</div>' +
+											'<input type="hidden" name="contactId" value="'+ zppr.data.contactIds.join() +'" />' +
+											'<input type="hidden" name="agent" value="'+ zppr.data.agent.login +'" />' +
+											'<input type="hidden" name="actual_link" value="'+ actual_link +'" />' +
+											'<input type="hidden" name="leadSource" value="'+ zppr.data.root.web.lead_source +'" />';
+			if( ! zppr.data.is_login ){ /* only for non logged in user */
+				html+=						'<input type="hidden" name="action" value="regist_user" >';
+			}else{
+				html+=						'<input type="hidden" name="action" value="contact_agent" >';
+			}
+			html+=						'</form>' +
+									'</div>' +
+								'</div>';
+		}	
+								
+		html+=					'<div class="row zy-widget">' +
+									'<div id="zy_related-properties" class="col-xs-12 col-md-12 col-lg-12 hideonprint" style="display:none">' +
+										
+									'</div>' +
+								'</div>' +
+								
+								'<div class="row">' +
+									
+									'<div class="col-xs-12">' +
+
+										'<div class="full-details-disclaimer">' +
+											'<br> ';
+																						
+		if(zppr.data.source_disclaimer){
+			html+= 							zppr.data.source_disclaimer;
+		}
+											
+		/* if(zppr.data.detailpage_group == 'nwmls'){
+			var defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>'+ single_property.listOfficeName +'</strong> and should be verified by the buyer.";
+			html+=							defaultDisc;
+		} */
+																	
+		html+=							'</div>' +
+									'</div>' +
+								'</div>' +							
+								
+							'</div>' +
+							
+						'</article>' +
+						
+					'</section>';
+		
+		return html;
+	},
+	anonget:function(targetElement,listid,actual_link){
+				
+		var response=false;
+		var parm=[];
+				
+		console.time('generate anonget');
+		
+		parm.push(8,zppr.data.root.web.subdomain,zppr.data.root.web.authorization.consumer_key,zppr.data.contactIds.join(),listid);
+		
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+
+			if (this.readyState == 4 ) {
+				if(this.status == 200){
+					response=JSON.parse(this.responseText);
+					if(response.responseCode===200){					
+						
+						// console.log(response);
+						var single_property = response.result.property;
+						var html = zppr.detail(single_property, actual_link);
+						jQuery(targetElement).html( html );
+						console.timeEnd('generate anonget');		
+					}else{
+						console.log(response);
+					}
+					
+				}else {
+					console.log("status = " + this.status + " received");
+				}
+			} else {
+				console.log("status = " + this.status + " received");
+			}
+		};
+		xhttp.open("GET", guxx(parm), true);
+		xhttp.send();
+		
+		return response;
+	},
 	search:function(targetElement,resultType,requests,args,actual_link,is_view_save_search){
 		var response=false;
 		var parm=[];
@@ -398,9 +1040,10 @@ var zppr={
 		switch(resultType){
 			case "list":				
 				console.time('generate list');
+				break;
 			case "count":				
 				console.time('generate list count/pagination');
-			break;
+				break;
 		}
 		
 		var xhttp = new XMLHttpRequest();
@@ -1427,5 +2070,54 @@ var zppr={
 				console.timeEnd('save session');
 			}
 		});
+	},
+	in_array:function(needle, haystack) {
+		var length = haystack.length;
+		for(var i = 0; i < length; i++) {
+			if(haystack[i] == needle) return true;
+		}
+		return false;
+	},
+	checkNested:function(obj /*, level1, level2, ... levelN*/) {
+	  var args = Array.prototype.slice.call(arguments, 1);
+
+	  for (var i = 0; i < args.length; i++) {
+		if (!obj || !obj.hasOwnProperty(args[i])) {
+		  return false;
+		}
+		obj = obj[args[i]];
+	  }
+	  return true;
+	},
+	is_favorite:function(listid){
+		return 0;
+	},
+	vtlink_template:function(property){
+		
+		var html='';
+		
+		return html;
+	},
+	sidebar_template:function(property){
+		
+		var html='';
+		
+		return html;
+	},
+	feature_template:function(property){
+		
+		var html='';
+		
+		return html;
+	},
+	streetname_fix_comma:function(value){
+		
+		value=value.replace(', ',',');
+		value=value.replace(' , ',',');
+		value=value.replace(' ,',',');
+		value=value.replace(',',', ');
+		
+		return value;
+		
 	}
 };

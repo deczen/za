@@ -264,19 +264,32 @@ class zipperAgentRequestor {
 					$html=ob_get_clean();					
 				break;
 				
-			case "listingDetail":			
-					global $single_property, $property_cache;					
-					$single_property = $this->single_property;					
-					$property_cache  = $this->property_cache;					
+			case "listingDetail":		
+					
 					ob_start();	
-					if(ZipperagentGlobalFunction()->is_facebook_bot()){
-						echo "facebook scrapper mode!";
-					}else if(!isset($single_property->id) && !isset($property_cache->id)){
-						echo "<h2>Property Not Found!</h2>";
+						
+					if(ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage()){
+						if(ZipperagentGlobalFunction()->is_facebook_bot()){
+							echo "facebook scrapper mode!";
+						}else{
+							include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
+							include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";
+						}
 					}else{
-						include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
-						include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";
+						global $single_property, $property_cache;	
+						
+						$single_property = $this->single_property;					
+						$property_cache  = $this->property_cache;
+						if(ZipperagentGlobalFunction()->is_facebook_bot()){
+							echo "facebook scrapper mode!";
+						}else if(!isset($single_property->id) && !isset($property_cache->id)){
+							echo "<h2>Property Not Found!</h2>";
+						}else{
+							include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
+							include ZIPPERAGENTPATH . "/custom/templates/template-customSingleProperty.php";
+						}
 					}
+					
 					$html=ob_get_clean();
 					
 					if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
