@@ -11,6 +11,9 @@ $actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:$actual_
 <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">	
 
 <div id="zipperagent-content">
+	
+	<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+	
 	<!-- print views -->
 	<?php /*
 	
@@ -22,9 +25,9 @@ $actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:$actual_
 	<div id="print-view-column" class="zy-print-view js-print-view top-brdr no-border" style="border-color: <?php echo $print_color; ?>">
 	<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save print section ?>
 	<?php
-		include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultPrint.php'; */
+		include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-defaultPrint.php'; 
 	?>	
-	</div>
+	</div> */ ?>
 </div>
 <script>
 	jQuery(document).ready(function(){

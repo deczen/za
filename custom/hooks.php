@@ -36,7 +36,13 @@ function za_enqueue_script(){
 	$proptypes = zipperagent_get_proptype_codes();
 	$args['rental_code']=isset($proptypes['rental'])?explode(',',$proptypes['rental']):array('RNT');
 	$args['detailpage_group']=ZipperagentGlobalFunction()->zipperagent_detailpage_group();
-	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';;
+	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
+	
+	$args['agent']=0;
+	$args['is_show_agent_name']=is_show_agent_name();
+	$args['searchId']='';
+	$args['field_list']=get_field_list();
+	// $args['source_details']=zipperagent_get_listing_disclaimer();
     $localize = $args;
     wp_localize_script('jquery','zipperagent',$localize);
 	
@@ -153,12 +159,12 @@ function zipperagent_template( $content ){
 		ob_start();				
 		include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";			
 		// if(!isset($requests['boundaryWKT']) && !isset($requests['boundarywkt'])){ //default
-			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page())
+			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1 || ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 				if(isset($requests['direct']) && $requests['direct']==1)	
 					include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_crm.php";
 				else
 					include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage_new.php";
-			else
+			}else
 				include ZIPPERAGENTPATH . "/custom/templates/template-searchResultsVirtualPage.php";
 		// }else{ //map search		
 			// $type='map';
@@ -384,9 +390,11 @@ function zipperagent_detail_page_navigation(){
 	$saved_props = isset($saved_results['filteredList'])?$saved_results['filteredList']:false;
 	if($saved_props): 
 		
+		$listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 		$prop_exists=0;
 		foreach($saved_props as $prop_index=>$prop){
-			if($prop->id == $single_property->id){
+			// if($prop->id == $single_property->id){
+			if($prop->id == $listingId){
 				$prop_exists=1;
 				$prev_prop = isset($saved_props[$prop_index - 1]->id)?$saved_props[$prop_index - 1]:false;
 				$next_prop = isset($saved_props[$prop_index + 1]->id)?$saved_props[$prop_index + 1]:false;
@@ -791,6 +799,10 @@ function zipperagent_detail_page_lightbox_gallery(){
 			*/
 		</script>
 	</div>
+	<?php
+	else: ?>
+		<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/rs-slider/plugins.js'; ?>"></script>
+		<div id="zy_gallery-popup"></div>
 	<?php
 	endif;
 }

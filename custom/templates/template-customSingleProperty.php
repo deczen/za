@@ -29,7 +29,7 @@ if( $listing ){
 	ob_start();
 	if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){	
 		
-		if(ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage()){
+		if(ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage() && !ZipperagentGlobalFunction()->is_facebook_bot()){
 			include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail-crm.php";	
 		}else{
 			include ZIPPERAGENTPATH . "/custom/templates/template-singleProperty-newDetail.php";			

@@ -590,7 +590,8 @@ if( $openHomesMode ){ // open houses mode
 	$is_ajax_count=1;
 }
 
-$enable_filter= $coords || $openHomesMode == "true" ? false : true;
+// $enable_filter= $coords || $openHomesMode == "true" ? false : true;
+$enable_filter= $openHomesMode == "true" ? false : true;
 $top_search_enabled = ! $boundaryWKT && ! $openHomesMode;
 
 /**

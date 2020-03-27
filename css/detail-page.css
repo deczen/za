@@ -217,7 +217,7 @@
 #zy-gallery-slide-proptype .modal-dialog{max-width: unset;width: 100%;padding: 10px 0;}
 #zy-gallery-slide-proptype .top-head-carousel-wrapper .owl-item{height: calc(100vh - 140px);}
 #zy-gallery-slide-proptype .modal-dialog .modal-content{background: rgba(0,0,0,0);box-shadow: none;border: none;}
-#zy-gallery-slide-proptype .modal-dialog .modal-header{background: rgba(0,0,0,0);}
+#zy-gallery-slide-proptype .modal-dialog .modal-header{background: rgba(0,0,0,0) !important;}
 #zy-gallery-slide-proptype.modal{background: rgba(11, 11, 9, 0.8);padding: 0;}
 #zy-gallery-slide-proptype.modal .modal-header .close{top: 30px;opacity: 0.8;color: #fff;}
 

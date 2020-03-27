@@ -26,9 +26,9 @@ var zppr={
 		/* single property */
 		agent: zipperagent.agent,
 		is_show_agent_name: zipperagent.is_show_agent_name,
-		listing_disclaimer: zipperagent.listing_disclaimer,
-		soruce_details: zipperagent.soruce_details,
+		source_details: zipperagent.source_details,
 		searchId: zipperagent.searchId,
+		field_list: zipperagent.field_list,
 	},
 	generate_api_params:function(requests){
 		
@@ -114,16 +114,18 @@ var zppr={
 			
 				temp = decodeURIComponent(value);
 				
-				if( temp.substring(0, 6) == 'acnty_' ){
-					loc_country.push(temp.substring(6));
-				}else if( temp.substring(0, 6) == 'atwns_' ){
-					loc_town.push(temp.substring(6));
-				}else if( temp.substring(0, 5) == 'aars_' ){
-					loc_area.push(temp.substring(5));
-				}else if( temp.substring(0, 5) == 'azip_' ){
-					loc_zipcode.push(temp.substring(5));
-				}else{
-					loc_zipcode.push(temp);
+				if(temp){
+					if( temp.substring(0, 6) == 'acnty_' ){
+						loc_country.push(temp.substring(6));
+					}else if( temp.substring(0, 6) == 'atwns_' ){
+						loc_town.push(temp.substring(6));
+					}else if( temp.substring(0, 5) == 'aars_' ){
+						loc_area.push(temp.substring(5));
+					}else if( temp.substring(0, 5) == 'azip_' ){
+						loc_zipcode.push(temp.substring(5));
+					}else{
+						loc_zipcode.push(temp);
+					}
 				}
 			}
 			
@@ -195,10 +197,13 @@ var zppr={
 				school_code=school_tmp.hasOwnProperty(0)?school_tmp[0]:scl;
 				school_name=school_tmp.hasOwnProperty(1)?school_tmp[1]:'';
 				
-				if(school_code && school_name)
-					requests['aschlnm'].push(school_code+''+school_name);
-				else
-					requests['aschlnm'].push(school_code);
+				if(school_code && school_name){
+                	if (typeof requests['aschlnm'] !== 'undefined')
+						requests['aschlnm'].push(school_code+''+school_name);
+				}else{
+                	if (typeof requests['aschlnm'] !== 'undefined')
+						requests['aschlnm'].push(school_code);
+                }
 			}
 		}
 
@@ -518,18 +523,18 @@ var zppr={
 														'<div class="owl-carousel carousel-controller">';
 		
 		
-			$i=0;
+			i=0;
 			for (const [key, pic] of Object.entries(single_property.photoList)) {
 				if( pic.imgurl.indexOf('mlspin.com') > -1){
 					html +=									'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=150&h=150&n='+ i +'\')" class="item"></div>';
 				}else{
 					html +=									'<div style="background-image: url(\''+ pic.imgurl +'\')" class="item"></div>';
 				}
-				$i++;
+				i++;
 			}
 		
 		
-														'</div>' +
+			html +=										'</div>' +
 													'</div>' +
 												'</div>' +
 											'</div>' +							
@@ -553,7 +558,7 @@ var zppr={
 			}
 			
 			if(single_property.hasOwnProperty('listOfficeName')){
-				img_disclaimer+= ' '+ "<strong>{$single_property->listOfficeName}</strong>";
+				img_disclaimer+= ' '+ "<strong>{single_property->listOfficeName}</strong>";
 			}	
 			
 			html+=img_disclaimer;
@@ -580,7 +585,6 @@ var zppr={
 			
 			for (const [key, openHouse] of Object.entries(single_property.openHouses)) {
 				
-
 				var sourceid=single_property.sourceid;
 				var mlstz = zppr.mls_timezone(sourceid);
 				var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
@@ -618,7 +622,7 @@ var zppr={
 		}
 										
 		html+=							'<h2>Description</h2>' +
-										'<p>[remarks]</p>';
+										'<p>{{remarks}}</p>';
 										
 		if(single_property.hasOwnProperty('direction')){
 			html+=						'<h2>Direction</h2>' +
@@ -776,7 +780,7 @@ var zppr={
 				html+=						zppr.data.source_details;
 				
 				if(zppr.data.detailpage_group == 'nwmls'){
-					var defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$single_property->listOfficeName}</strong> and should be verified by the buyer.";
+					var defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{single_property->listOfficeName}</strong> and should be verified by the buyer.";
 					html+= 					'<br /><br />'+ defaultDisc;
 				}
 			}else{
@@ -799,7 +803,7 @@ var zppr={
 								<?php endif; ?> */
 								
 								/*
-								<?php if( isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
+								<?php if( isset(single_property->lat) && isset(single_property->lng) && !empty(single_property->lat) && !empty(single_property->lng) ): ?>
 								<div class="row zy-widget map-widget">
 									<div class="col-xs-12">
 										<div class="zy-map-container">
@@ -809,7 +813,7 @@ var zppr={
 								</div>
 								<?php endif; ?>
 								
-								<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
+								<?php if( is_great_school_enabled() && isset(single_property->lat) && isset(single_property->lng) && !empty(single_property->lat) && !empty(single_property->lng) ): ?>
 								<div class="row zy-widget greatschool-widget">
 									<div class="col-xs-12 col-md-12 col-lg-6">
 										<h3 class="">Greatshools</h3>
@@ -817,7 +821,7 @@ var zppr={
 										<script>
 											jQuery(document).ready(function(){
 												var curr_width = jQuery('.greatschool-widget #greatshools').width();
-												var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo $single_property->lat; ?>&lon=<?php echo $single_property->lng; ?>&cityName=<?php echo isset($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address($single_property) ); ?>&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
+												var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo single_property->lat; ?>&lon=<?php echo single_property->lng; ?>&cityName=<?php echo isset(single_property->lngTOWNSDESCRIPTION)?single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset(single_property->provinceState)?single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address(single_property) ); ?>&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
 												jQuery('#greatshools').html(gs_iframe);
 											});
 										</script>
@@ -832,7 +836,7 @@ var zppr={
 										<div id="ws"></div>
 										<script type='text/javascript'>
 										var ws_wsid = 'ws';
-										var ws_address = '<?php echo zipperagent_get_address($single_property); ?>';
+										var ws_address = '<?php echo zipperagent_get_address(single_property); ?>';
 										var ws_format = 'tall';
 										var ws_width = '100%';
 										var ws_height = '300';
@@ -850,7 +854,7 @@ var zppr={
 								}
 								*/
 								
-		if( zppr.data.agent ){
+		if( zppr.data.agent != 0 ){
 			html+=				'<div class="row zy-widget">' +
 									'<div id="ask-a-question-form" class="col-xs-12 col-md-12 col-lg-8">' +
 										'<h3 class="zy-listing-contact-title">Ask Agent a Question</h3>' +
@@ -981,6 +985,72 @@ var zppr={
 		
 		return html;
 	},
+	gallery_template:function(single_property){
+		
+		var html = '<div id="zpa-main-container" class="zpa-container " style="display: inline;">' +
+						'<div id="gallery-column" style="display: block !important;">';										
+										
+		if( single_property.hasOwnProperty('photoList') && single_property.photoList.length ){
+										
+			html +=				'<div id="zy-gallery-slide-proptype"  class="col-xs-12 modal in hideonprint" style="display: none;">' +
+									'<div class="modal-dialog">' +
+										'<div class="modal-content">' +
+											'<div class="modal-header">' +
+												'<button type="button" class="close" data-dismiss="modal"> &#215; </button>' +
+											'</div>' +
+											'<div class="modal-body">' +
+												'<div class="owl-carousel-container">' +
+														
+													'<div class="top-head-carousel-wrapper">' +
+														 /* < div class="owl-carousel top-head-carousel '+ (!zppr.data.is_login?"needLogin":"") +'"> */
+														'<div class="owl-carousel top-head-carousel">';
+														
+			var i=0;
+			for (const [key, pic] of Object.entries(single_property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') > -1){
+					html += 								'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'\')" class="owl-slide"><img class="" src="//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'" /></div>';
+				}else{
+					html += 								'<div style="background-image: url(\''+ pic.imgurl +'\')" class="owl-slide"><img class="" src="'+ pic.imgurl +'" /></div>';
+				}		
+				i++;
+			}
+			html += 									'</div>' +
+														'<div class="left-nav"><i class="icon-left-arrow"></i>' +
+														'</div>' +
+														'<div class="right-nav"><i class="icon-right-arrow"></i>' +
+														'</div>' +
+													'</div>' +
+													'<div class="carousel-controller-wrapper">' +
+														'<div class="owl-carousel carousel-controller">';
+		
+		
+			i=0;
+			for (const [key, pic] of Object.entries(single_property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') > -1){
+					html +=									'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=150&h=150&n='+ i +'\')" class="item"></div>';
+				}else{
+					html +=									'<div style="background-image: url(\''+ pic.imgurl +'\')" class="item"></div>';
+				}
+				i++;
+			}
+		
+		
+			html +=										'</div>' +
+													'</div>' +
+												'</div>' +	
+											'</div>' +
+										'</div>' +
+									'</div>' +							
+								'</div>' +							
+							'</div>' +		
+												
+					'</div>';
+											
+											
+		}
+		
+		return html;
+	},
 	anonget:function(targetElement,listid,actual_link){
 				
 		var response=false;
@@ -997,11 +1067,152 @@ var zppr={
 				if(this.status == 200){
 					response=JSON.parse(this.responseText);
 					if(response.responseCode===200){					
+						zppr.declare_date_format();
 						
 						// console.log(response);
 						var single_property = response.result.property;
 						var html = zppr.detail(single_property, actual_link);
+						var real_price = zppr.moneyFormat(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
+						var gallery = zppr.gallery_template(single_property);
+						
+						html = zppr.property_fields(single_property, html);
 						jQuery(targetElement).html( html );
+						jQuery('#zpa-modal-share-email-form .listing-price > span').html(real_price);
+						jQuery('#zy_gallery-popup').html( gallery ).promise().done(function(){
+							//your callback logic / code here
+						
+							(function($){
+								function setThumbnailAsASelected(number) {
+									$carouselController.find(".owl-item.selected").removeClass("selected"), $carouselController.find(".owl-item:nth-of-type(" + (number + 1) + ")").addClass("selected")
+								}
+
+								function changeSlide(isLeftDirection) {
+									var pickedItemNumber = void 0,
+										oldItemIndex = $topHeadCarousel.find(".owl-item.active").index(),
+										itemCount = $topHeadCarousel.find(".owl-stage .owl-item").length;
+									oldItemIndex >= itemCount - 1 && !isLeftDirection ? $topHeadCarousel.trigger("to.owl.carousel", 0) : 0 == oldItemIndex && isLeftDirection ? $topHeadCarousel.trigger("to.owl.carousel", itemCount - 1) : $topHeadCarousel.trigger(isLeftDirection ? "prev.owl.carousel" : "next.owl.carousel"), pickedItemNumber = $topHeadCarousel.find(".owl-item.active").index(), setThumbnailAsASelected(pickedItemNumber), center(pickedItemNumber, visibleItemCount)
+								}
+
+								function center(number, itemInPage) {
+									$carouselController.trigger("to.owl.carousel", number - parseInt(itemInPage / 2))
+								}
+								var $topHeadCarousel = $(".top-head-carousel"),
+									$carouselController = $(".carousel-controller"),
+									visibleItemCount = 0,
+									itemTotalCount = 0;
+								$topHeadCarousel.owlCarousel({
+									singleItem: !0,
+									slideSpeed: 1e3,
+									pagination: !1,
+									responsiveRefreshRate: 200,
+									smartSpeed: 800,
+									paginationSpeed: 400,
+									rewindSpeed: 500,
+									items: 1,
+									dots: !1,
+									autoplay: $topHeadCarousel.hasClass("carousel-autoplay"),
+									autoplayTimeout: 3500,
+									// animateOut: "fadeOut",
+									// animateIn: "fadeIn",
+									onDragged: function(el) {
+										console.log(el), $carouselController.find(".owl-item.selected").removeClass("selected"), center(el.item.index, visibleItemCount), $carouselController.find(".owl-item:nth-child(" + (el.item.index + 1) + ")").addClass("selected")
+									}
+								}), $(".left-nav").click(function() {
+									return changeSlide(!0)
+								}), $(".right-nav").click(function() {
+									return changeSlide(!1)
+								}), $carouselController.owlCarousel({
+									items: 11,
+									responsiveClass: !0,
+									responsive: {
+										0: {
+											items: 5
+										},
+										600: {
+											items: 7
+										},
+										1e3: {
+											items: 11
+										}
+									},
+									pagination: !1,
+									dots: !1,
+									nav: true,
+									merge:true,
+									slideBy: 5,
+									smartSpeed: 200,
+									navText:['<i class="icon-left-arrow"></i>', '<i class="icon-right-arrow"></i>'],
+									autoplay: $carouselController.hasClass("carousel-autoplay"),
+									autoplayTimeout: 3500,
+									responsiveRefreshRate: 100,
+									onInitialized: function(el) {
+										visibleItemCount = el.page.size, itemTotalCount = el.item.count, $(el.target).find(".owl-item").eq(0).addClass("selected")
+									},
+									onResize: function(el) {
+										visibleItemCount = el.page.size
+									}
+								}), $carouselController.on("click", ".owl-item", function(e) {
+									var clickedItemNumber = $(this).index();
+									setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
+								})
+								
+								/*
+								<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
+								var count=<?php echo isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
+								var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
+								var preventDouble=0;
+								$topHeadCarousel.on('changed.owl.carousel', function(event) {
+									
+									if(preventDouble){
+										preventDouble=0;
+										return;
+									}
+									
+									count++;			
+									ajax_image_count(count);		
+									if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
+										jQuery('#needLoginModal').modal('show');
+										<?php if(!zipperagent_signup_optional()): ?>
+										set_popup_is_triggered();
+										<?php endif; ?>
+										count=0;
+									}
+									
+									function ajax_image_count(count){
+										var data = {
+											action: 'image_click_count',			
+											count: count,			
+										};
+										
+										jQuery.ajax({
+											type: 'POST',
+											dataType : 'json',
+											url: zipperagent.ajaxurl,
+											data: data,
+											success: function( response ) {    
+												if( response['result'] ){
+												}
+											}
+										});
+									}
+									
+									preventDouble=1;
+								});
+								<?php endif; ?> */
+								
+							})(jQuery);
+													
+							jQuery('body').on('click', '.zy-full-lightbox .btn-zy-lightbox', function(e){
+								jQuery('#zy-gallery-slide-proptype').modal('show');
+								// jQuery('#gallery-column .zpa-property-photo').hide();
+							});
+							
+							jQuery('body').on('click', '#zy-gallery-slide-proptype .modal-header .close', function(){							
+								// jQuery('#gallery-column .zpa-property-photo').show();
+							});	
+						
+						});
+						
 						console.timeEnd('generate anonget');		
 					}else{
 						console.log(response);
@@ -1935,7 +2146,9 @@ var zppr={
 	mls_timezone:function(sourceid){
 		timezone=zppr.data.root.tenant.mls_timezone;
 		
-		timezone=typeof timezone === 'object'&&'sourceid' in timezone ?timezone.sourceid:timezone;
+		if(sourceid){
+			timezone=typeof timezone === 'object'&&'sourceid' in timezone ?timezone.sourceid:timezone;
+		}
 		
 		if(!timezone || typeof timezone === 'object')
 			timezone='GMT';
@@ -2119,5 +2332,428 @@ var zppr={
 		
 		return value;
 		
+	},
+	type_mask:function($fields, $key, $proptype){
+		
+		$KEY=$key.toUpperCase();
+		
+		$nostripkey = $key.replace('_', '');
+		$NOSTRIPKEY = $KEY.replace('_', '');
+			
+		var $keyFeaturesRaw=$fields.hasOwnProperty($key)?$fields[$key]:( $fields.hasOwnProperty($KEY)? $fields[$KEY]:[]);
+				
+		if(!$keyFeaturesRaw){
+			$keyFeaturesRaw=$fields.hasOwnProperty($nostripkey)?$fields[$nostripkey]:( $fields.hasOwnProperty($NOSTRIPKEY)? $fields[$NOSTRIPKEY]:[] );
+		}
+		
+		$keyFeatures = [];
+		$p_typ = $proptype;
+		$p_pty_mask = 7;
+		
+		if ($p_typ==="BU"){
+			$p_pty_mask = 0;			
+		} else if ($p_typ==="CC"){
+			$p_pty_mask = 1;			
+		} else if ($p_typ==="CI"){
+			$p_pty_mask = 2;			
+		} else if ($p_typ==="LD"){
+			$p_pty_mask = 3;			
+		} else if ($p_typ==="MF"){
+			$p_pty_mask = 4;			
+		} else if ($p_typ==="MH"){
+			$p_pty_mask = 5;			
+		} else if ($p_typ==="RN"){
+			$p_pty_mask = 6;			
+		} else if ($p_typ==="SF"){
+			$p_pty_mask = 7;			
+		}
+		for (const [key, $entity] of Object.entries($keyFeaturesRaw)) {
+			if ( $entity.hasOwnProperty('propTypeMask') && ( ($entity.propTypeMask == 255) || ($entity.propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))){
+				$keyFeatures.push($entity);
+			}
+		}
+		
+		return $keyFeatures;
+	},
+	field_value:function( $key, $val, $proptype='' ){
+		
+		var $fields = zppr.data.field_list;
+		
+		//special case
+		switch($key){
+			case "mbrdimen":case "mbrdscrp":case "mbrDSCRP":
+			case "bed2dimen":case "bed2DSCRP":
+			case "bed3dimen":case "bed3DSCRP":
+			case "bed4dimen":case "bed4DSCRP":
+			case "bed5dimen":case "bed5DSCRP":
+			case "bth1dimen":case "bth1dscrp":case "bth1DSCRP":
+			case "bth2dimen":case "bth2dscrp":case "bth2DSCRP":
+			case "bth3dimen":case "bth3dscrp":case "bth3DSCRP":
+			case "kitdimen":case "kitdscrp":case "kitDSCRP":
+			case "famdimen":case "famdscrp":case "famDSCRP":
+			case "livdimen":case "livdscrp":case "livDSCRP":
+			case "dindimen":case "dindscrp":case "dinDSCRP":
+			case "oth1DIMEN":case "oth1DSCRP":
+			case "oth2DIMEN":case "oth2DSCRP":
+			case "oth3DIMEN":case "oth3DSCRP":
+			case "oth4DIMEN":case "oth4DSCRP":
+			case "oth5DIMEN":case "oth5DSCRP":
+			case "headscrp1":case "coldscrp1":
+			case "heaDSCRP1":case "colDSCRP1":
+			case "headscrp2":case "coldscrp2":
+			case "heaDSCRP2":case "colDSCRP2":
+			case "headscrp3":case "coldscrp3":
+			case "heaDSCRP3":case "colDSCRP3":
+			case "headscrp4":case "coldscrp4":
+			case "heaDSCRP4":case "colDSCRP4":
+			case "headscrp5":case "coldscrp5":
+			case "heaDSCRP5":case "colDSCRP5":
+				$key=$fields.hasOwnProperty('ROOM')?"ROOM":$key;
+				break;
+			
+			case "mbrlevel":
+			case "bed2LEVEL":
+			case "bed3LEVEL":
+			case "bed4LEVEL":
+			case "bed5LEVEL":
+			case "bth1LEVEL":
+			case "bth2LEVEL":
+			case "bth3LEVEL":
+			case "kitlevel":
+			case "famlevel":
+			case "livlevel":
+			case "dinlevel":
+			case "oth1LEVEL":
+			case "oth2LEVEL":
+			case "oth3LEVEL":
+			case "oth4LEVEL":
+			case "oth5LEVEL":
+				$key=$fields.hasOwnProperty('ROOMLEVEL')?"ROOMLEVEL":$key;
+				break;
+			
+			case "roomLevel":
+				$key=$fields.hasOwnProperty('BEDROOMMASTERLEVEL')?"BEDROOMMASTERLEVEL":$key;
+				break;
+				
+			case "CommunityFeatures":
+				$key=$fields.hasOwnProperty('COMMUNITY')?"COMMUNITY":$key;
+				break;
+				
+			case "RoomType":
+				$key=$fields.hasOwnProperty('ROOMS')?"ROOMS":$key;
+				break;
+				
+			case "Levels":
+				$key=$fields.hasOwnProperty('STORIES')?"STORIES":$key;
+				break;	
+				
+			case "Fees Include":
+				$key=$fields.hasOwnProperty('FEESINCLUD')?"FEESINCLUD":$key;
+				break;	
+				
+			case "Laundry Type":
+				$key=$fields.hasOwnProperty('LAUNDRYTYP')?"LAUNDRYTYP":$key;
+				break;
+				
+			case "Fireplace Type":
+				$key=$fields.hasOwnProperty('FIREPLCTYP')?"FIREPLCTYP":$key;
+				break;
+				
+			case "Financing Type":
+				$key=$fields.hasOwnProperty('HOWSOLD')?"HOWSOLD":$key;
+				break;
+				
+			case "Possible Financing":
+				$key=$fields.hasOwnProperty('PSSBLFNCNG')?"PSSBLFNCNG":$key;
+				break;
+				
+			case "Kitchen/Breakfast":
+				$key=$fields.hasOwnProperty('KTCHNBRKFS')?"KTCHNBRKFS":$key;
+				break;
+				
+			case "Kitchen Equipment":
+				$key=$fields.hasOwnProperty('KTCHNQPMNT')?"KTCHNQPMNT":$key;
+				break;
+				
+			case "Laundry Location":
+				$key=$fields.hasOwnProperty('LANDRYLCTN')?"LANDRYLCTN":$key;
+				break;
+				
+			case "Fireplace Location":
+				$key=$fields.hasOwnProperty('FIRPLCLCTN')?"FIRPLCLCTN":$key;
+				break;
+				
+			case "Cooling Source":
+				$key=$fields.hasOwnProperty('COOLINGSRC')?"COOLINGSRC":$key;
+				break;
+				
+			case "Heating Source":
+				$key=$fields.hasOwnProperty('HEATINGSRC')?"HEATINGSRC":$key;
+				break;
+		}
+		$KEY=$key.toUpperCase();
+		
+		$nostripkey = $key.replace('_', '');
+		$NOSTRIPKEY = $KEY.replace('_', '');
+		
+		if( $fields.hasOwnProperty($key) || $fields.hasOwnProperty($KEY) || $fields.hasOwnProperty($nostripkey) || $fields.hasOwnProperty($NOSTRIPKEY) ){
+			
+			var $temp=[];
+			
+			if( $val.toString().indexOf('|') === -1 ){
+				var $separator="|";
+			}else{	
+				var $separator=",";
+			}
+			
+			var $values=$val.toString().split($separator);
+			// print_r( "Before: " . $val. "<br />" );
+			for(var i = 0; i < $values.length; i++) {
+				$temp.push(0);
+			}
+			
+			var $keyFeatures = zppr.type_mask($fields, $key, $proptype);
+			
+			for (const [key, $entity] of Object.entries($keyFeatures)) {
+				$version = $entity.hasOwnProperty('version')?$entity.version:'';
+				$fieldName = $entity.hasOwnProperty('fieldName')?$entity.fieldName:'';
+				$shortDescription = $entity.hasOwnProperty('shortDescription')?$entity.shortDescription:'';
+				$mediumDescription = $entity.hasOwnProperty('mediumDescription')?$entity.mediumDescription:'';
+				$longDescription = $entity.hasOwnProperty('longDescription')?$entity.longDescription:'';
+				$propTypeMask = $entity.hasOwnProperty('propTypeMask')?$entity.propTypeMask:'';
+				
+				for (const [$index, $value] of Object.entries($temp)) {
+					if( ! $temp[$index] ){
+						if( $mediumDescription == $values[$index] ){
+							$values[$index]=$values[$index].replace( $mediumDescription, $longDescription );
+							$temp[$index]=1;
+						}else if( $shortDescription == $values[$index] ){
+							$values[$index]=$values[$index].replace( $shortDescription, $longDescription );
+							$temp[$index]=1;
+						}
+					}
+				}
+			}
+			
+			$val = $values.join( ', ' );
+			
+		}else if( $key.substr(-2) === 'YN' ){
+			switch($val){
+				case 1:
+					$val='Yes';
+					break;
+				case 0:
+					$val='No';
+					break;
+			}
+		}
+		
+		if($val===false)
+			$val = 'No';
+		if($val===true)
+			$val = 'Yes';
+		
+		return $val;
+	},
+	property_fields:function(single_property, $html){
+		// return $html;
+		var $rnhidestreetno = zppr.data.root.web.hasOwnProperty('rnhidestreetno')?zppr.data.root.web.rnhidestreetno:0;
+		console.log(single_property);
+		$replaces=[];
+		$find=[];
+		if( typeof single_property === "object" || Array.isArray(single_property) ){
+			
+			for (const [$k, $v] of Object.entries(single_property)) {
+				// console.log($v);
+				if( typeof $v === 'string' || jQuery.isNumeric($v) || ! Array.isArray($v) && !typeof $v === "object" ){ //level 1
+					$find.push("{{"+$k+"}}");
+					
+					switch( $k ){
+						case "listprice":
+						case "squarefeet":
+						case "taxes":
+						case "lotsize":
+								$replaces.push(zppr.formatNumber($v));
+							break;
+						case "status":
+								$replaces.push(zppr.get_status_name($v));
+							break;
+						case "proptype":
+								$replaces.push(zppr.proptype_label($v));
+							break;
+						case "syncTime":
+								var $mlstz = zppr.mls_timezone('');
+								var ld = new Date(Date.now()).toLocaleString("en-US", {timeZone: $mlstz});
+								var dt = new Date(ld);
+								$datetime = dt.format('Y-m-d h:i A');
+								
+								$replaces.push($datetime);									
+							break;
+						case "streetno":
+								if($rnhidestreetno && single_property.proptype=="RN")
+									$replaces.push('');
+								else
+									$replaces.push(zppr.field_value( $k, $v, single_property.proptype ));
+							break;
+						// case "beachfrontflag":
+						// case "waterfrontflag":
+						// case "waterviewflag":
+						// case "basement":
+						// case "adultcommunity":
+						// case "apodavailable":
+						// case "disclosure":
+						// case "lenderowned":
+						// case "shortsalelenderappreqd":
+								// $replaces[]=zipperagent_yes_no_value($v);
+							// break;					
+						default:								
+								$replaces.push(zppr.field_value( $k, $v, single_property.proptype ));
+							break;
+					}
+				}else if( Array.isArray($v) && typeof $v === "object" ){ //level 2,3,4,..
+					for (const [$k2, $v2] of Object.entries($v)) {
+						
+						if(!Array.isArray($v2) && !typeof $v2 === "object"){
+							if(jQuery.isNumeric($k2)){
+								$find.push("{{"+$k+"_"+$k2+"}}");
+								$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype ));
+							}else{
+								switch($k2){
+									case "SQFTRoofedLiving":
+											$find.push("{{"+$k+"_"+$k2+"}}");
+											$replaces.push(zppr.formatNumber( $v2 ));
+										break;
+									default:
+											$find.push("{{"+$k+"_"+$k2+"}}");
+											$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype ));
+										break;
+								}
+							}
+						}else if(Array.isArray($v2)){
+							for (const [$k3, $v3] of Object.entries($v2)) {
+								if(!Array.isArray($v3) && !typeof $v3 === "object"){
+									$find.push("{{"+$k+"_"+$k2+"_"+$k3+"}}");
+									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype ));
+								}
+							}
+						}else if(typeof $v2 === "object"){
+							for (const [$k3, $v3] of Object.entries($v2)) {
+								if(!Array.isArray($v3) && !typeof $v3 === "object"){
+									$find.push("{{"+$k+"_"+$k2+"_"+$k3+"}}");
+									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype ));
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			//custom field
+			
+			// [realprice]
+			$price=(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
+			$find.push("{{realprice}}");
+			$replaces.push(zppr.formatNumber($price));
+			
+			// [provinceState] if empty provinceState
+			if(!single_property.hasOwnProperty('provinceState')){
+				$find.push("{{provinceState}}");
+				$replaces.push("");
+			}
+			
+			// [zipcode] if empty zipcode
+			if(!single_property.hasOwnProperty('zipcode')){
+				$find.psuh("{{zipcode}}");
+				$replaces.push("");
+			}
+			
+			// [streetno] if empty streetno
+			if(!single_property.hasOwnProperty('streetno')){
+				$find.push("{{streetno}}");
+				$replaces.push("");
+			}
+		}
+		
+		console.log($find);
+		console.log($replaces);
+		
+		String.prototype.allReplace = function(find,replaces) {
+			var retStr = this;
+			for (var x in find) {
+				retStr = retStr.replace(new RegExp(find[x], 'g'), replaces[x]);
+			}
+			return retStr;
+		};
+		
+		$html = $html.allReplace($find,$replaces);
+		$html = $html.replace(/\{{[\w\h]{2,30}\}}/g, "-"); //more than 1 chars and max 30 chars
+		
+		return $html;
+	},
+	get_status_name:function( $status ){
+		
+		$converted_status='';
+		var $fields = zppr.data.field_list;
+				
+		if( $fields.hasOwnProperty('STATUS') ){
+			// echo "<pre>"; print_r( $fields->STATUS ); echo "</pre>";
+			for (const [$key, $entity] of Object.entries($fields.STATUS)) {		
+				if($status==$entity.shortDescription || $status==$entity.mediumDescription){
+					$converted_status = $entity.longDescription;
+					break;
+				}
+			}
+			
+		}else{
+			switch($status){
+				case "ACT":
+						$converted_status="Active";
+					break;
+				case "BOM":
+						$converted_status="Back on Market";
+					break;
+				case "CAN":
+						$converted_status="Canceled";
+					break;
+				case "CTG":
+						$converted_status="Contingent";
+					break;
+				case "EXP":
+						$converted_status="Expired";
+					break;
+				case "EXT":
+						$converted_status="Extended";
+					break;
+				case "KIL":
+						$converted_status="Killed";
+					break;
+				case "NEW":
+						$converted_status="New";
+					break;
+				case "PCG":
+						$converted_status="Price Changed";
+					break;
+				case "RAC":
+						$converted_status="Reactivated";
+					break;
+				case "RNT":
+						$converted_status="Rented";
+					break;
+				case "SLD":
+						$converted_status="Sold";
+					break;
+				case "UAG":
+						$converted_status="Under Agreement";
+					break;
+				case "WDN":
+						$converted_status="Temporarily Withdrawn";
+					break;
+			};
+		}	
+		
+		if(!$converted_status)
+			$converted_status=$status;
+		
+		return $converted_status;
 	}
 };

@@ -2221,6 +2221,8 @@ if( ! function_exists('populate_tenant_favorites') ){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		$tenants=isset($rb['web']['tenant_favorites']) ? $rb['web']['tenant_favorites'] : array();
 		
+		$arr=array();
+		
 		foreach( $tenants as $code => $name ){
 		
 			$code = 'atwns_'.$code;
@@ -4017,27 +4019,27 @@ if( ! function_exists('global_new_omnibar_script') ){
 				//auto submit on change
 				$(ms_all).on('selectionchange', function(e,m){
 					setTimeout(function() {					
-						$("form.omnibar").submit();						
+						m.container.parents('#omnibar-wrap form.omnibar').submit();						
 					}, 500);
 				});
 				$(ms_county).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$("form.omnibar").submit();
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				$(ms_area).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$("form.omnibar").submit();
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
-				$(ms_town).on('selectionchange', function(e,m){						
-					setTimeout(function() {					
-						$("form.omnibar").submit();
+				$(ms_town).on('selectionchange', function(e,m){		
+					setTimeout(function() {			
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				$(ms_zip).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						$("form.omnibar").submit();
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				<?php endif; ?>
