@@ -2844,7 +2844,7 @@ if( ! function_exists('get_long_excludes') ){
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
 					'fbclid','newsearchbar','school','search_category','coords','direct','view',
-					'disableviewbar','vars','fixed_search_form',
+					'disableviewbar','vars','fixed_search_form','anycrit',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2856,7 +2856,7 @@ if( ! function_exists('get_long_excludes') ){
 if( ! function_exists('get_new_filter_excludes') ){
 	function get_new_filter_excludes(){
 		$excludes=array( 'address', 'boundarywkt',				
-			'pagination', 'result', 'crit', 'ajax', 'save_search',
+			'pagination', 'result', 'crit', 'anycrit', 'ajax', 'save_search',
 			'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
 			'search_form_enabled', 'listinapage', 'page', 'maxlist',
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
@@ -2874,7 +2874,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 if( ! function_exists('get_old_filter_excludes') ){
 	function get_old_filter_excludes(){
 		$excludes=array( 'location', 'address', 'boundarywkt',				
-					'pagination', 'result', 'crit', 'ajax', 'save_search',
+					'pagination', 'result', 'crit', 'anycrit', 'ajax', 'save_search',
 					'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',

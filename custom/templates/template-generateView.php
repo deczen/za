@@ -53,6 +53,7 @@ $aloff 				= ( isset($requests['aloff'])?$requests['aloff']:'' );
 $showPagination 	= ( isset($requests['pagination'])?$requests['pagination']:1 );
 $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
+$anycrit	 		= ( isset($requests['anycrit'])?$requests['anycrit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 $column 			= ( isset($requests['column'])?$requests['column']:'' );
@@ -276,8 +277,12 @@ if( $openHomesMode ){ // open houses mode
 		'o'=>$o,
 	);
 	
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	if($type=='map' || $type=='marker'){
 		$maplimit=100;
@@ -341,8 +346,12 @@ if( $openHomesMode ){ // open houses mode
 		'o'=>$o,
 	);
 	
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	if($type=='map'){
 		$maplimit=100;
@@ -455,8 +464,12 @@ if( $openHomesMode ){ // open houses mode
 		'o'=>$o,
 	);
 	
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	$contactIds=get_contact_id();
 	if( $contactIds )

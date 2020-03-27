@@ -47,6 +47,7 @@ $aloff 				= ( isset($requests['aloff'])?$requests['aloff']:'' );
 $showPagination 	= ( isset($requests['pagination'])?$requests['pagination']:1 );
 $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
+$anycrit	 		= ( isset($requests['anycrit'])?$requests['anycrit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 
 /**
@@ -227,8 +228,12 @@ $vars=array(
 	'o'=>$o,
 );
 // echo "<pre>"; print_r( $vars ); echo "</pre>";
-if( $crit )
+if( $crit ){
 	$vars['crit'] = $crit;
+}
+if( $anycrit ){
+	$vars['anycrit'] = $anycrit;
+}
 
 $contactIds=get_contact_id();
 if( $contactIds )

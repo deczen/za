@@ -164,7 +164,8 @@ unset($alstid); */
 				var ps=params.ps;
 				var sidx=params.sidx;
 				var crit = params.crit;
-				console.log(crit);
+				var anycrit = params.anycrit;
+				// console.log(crit);
 				var order=params.o;
 				// var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 				var contactId=zppr.data.contactIds.join();
@@ -175,6 +176,7 @@ unset($alstid); */
 					subdomain:subdomain,
 					customer_key:customer_key,
 					crit:crit,
+					anycrit:anycrit,
 					model:order,
 					sidx:sidx,
 					ps:ps,
@@ -262,7 +264,8 @@ unset($alstid); */
 			var ps=params.ps;
 			var sidx=params.sidx;
 			var crit = params.crit;
-			console.log(crit);
+			var anycrit = params.anycrit;
+			// console.log(crit);
 			var order=params.o;
 			// var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 			var contactId=zppr.data.contactIds.join();
@@ -273,6 +276,7 @@ unset($alstid); */
 				subdomain:subdomain,
 				customer_key:customer_key,
 				crit:crit,
+				anycrit:anycrit,
 				model:order,
 				sidx:sidx,
 				ps:ps,

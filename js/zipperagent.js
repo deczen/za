@@ -78,6 +78,7 @@ var zppr={
 		var showPagination 		= ( requests.hasOwnProperty('pagination')?parseInt(requests['pagination']):1 );
 		var showResults	 		= ( requests.hasOwnProperty('result')?parseInt(requests['result']):1 );
 		var crit	 			= ( requests.hasOwnProperty('crit')?requests['crit']:'' );
+		var anycrit	 			= ( requests.hasOwnProperty('anycrit')?requests['anycrit']:'' );
 		var searchId			= ( requests.hasOwnProperty('searchid')?requests['searchid']:'' );
 		var alstid 				= ( requests.hasOwnProperty('alstid')?requests['alstid']:'' );
 		var column 				= ( requests.hasOwnProperty('column')?requests['column']:'' );
@@ -295,6 +296,7 @@ var zppr={
 			}
 			
 			response['crit'] = generatedCrit;
+			response['anycrit'] = anycrit;
 			response['ps'] = num;
 			response['sidx'] = index;
 			response['o'] = o;
@@ -1238,6 +1240,7 @@ var zppr={
 		var subdomain = args.hasOwnProperty('subdomain') ? args.subdomain : '';
 		var customer_key = args.hasOwnProperty('customer_key') ? args.customer_key : '';
 		var crit = args.hasOwnProperty('crit') ? args.crit : '';
+		var anycrit = args.hasOwnProperty('anycrit') ? args.anycrit : '';
 		var order = args.hasOwnProperty('model') ? args.model : '';
 			order = args.hasOwnProperty('order') ? args.order : order;
 			order = order.replace(/%253A/g, ":").replace(/%3A/g, ":");
@@ -1246,7 +1249,7 @@ var zppr={
 		var contactId = args.hasOwnProperty('contactId') ? args.contactId : '';
 		var micro = args.hasOwnProperty('micro') ? args.micro : '';
 		
-		parm.push(searchType,subdomain,customer_key,crit,order,sidx,ps,contactId);
+		parm.push(searchType,subdomain,customer_key,crit,order,sidx,ps,contactId,'','','','','','',anycrit);
 		
 		switch(resultType){
 			case "list":				
@@ -2272,7 +2275,7 @@ var zppr={
 			url: zipperagent.ajaxurl,
 			data: data,
 			success: function( response ) {
-				console.log(response);
+				// console.log(response);
 				if( response['result'] ){
 					
 				}

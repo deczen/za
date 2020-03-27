@@ -56,6 +56,7 @@ $aloff 				= ( isset($requests['aloff'])?$requests['aloff']:'' );
 $showPagination 	= ( isset($requests['pagination'])?$requests['pagination']:1 );
 $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
+$anycrit	 		= ( isset($requests['anycrit'])?$requests['anycrit']:'' );
 $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 $column 			= ( isset($requests['column'])?$requests['column']:'' );
@@ -310,8 +311,12 @@ if( $openHomesMode ){ // open houses mode
 	if($endTime){
 		$vars['endTime']=$endTime;
 	}	
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	if($view=='map' || $view=='marker'){
 		
@@ -379,8 +384,12 @@ if( $openHomesMode ){ // open houses mode
 		'o'=>$o,
 	);
 	
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	if($view=='map'){
 		$maplimit=100;
@@ -492,8 +501,12 @@ if( $openHomesMode ){ // open houses mode
 		'ps'=>$num,
 	);
 	
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	// $crit="crit=acnty:LINC,CATA,GASTON;asts:ACT,UCS,CS;apt:SFR,CND;alotd:WTRVIEW,WTRFRNT;awbn:Lake Norman";
 	// $xxx="?o=alstp:ASC&distance=402.336&lat=0.00000&lng=0.00000&sidx=0&ps=20";
@@ -542,8 +555,12 @@ if( $openHomesMode ){ // open houses mode
 		'o'=>$o,
 	);
 	// echo "<pre>"; print_r( $vars ); echo "</pre>";
-	if( $crit )
+	if( $crit ){
 		$vars['crit'] = $crit;
+	}
+	if( $anycrit ){
+		$vars['anycrit'] = $anycrit;
+	}
 	
 	$contactIds=get_contact_id();
 	if( $contactIds )
