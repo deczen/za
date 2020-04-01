@@ -159,7 +159,9 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		</script>
 		<?php endif; ?>
 	
-	<?php endif; ?>
+	<?php endif; 
+	
+	?>
 	<script>
 		jQuery('body').on('click', '.zy_save-favorite:not(.needLogin):not(.favorited)', function(e){
 			var contactId = jQuery(this).attr('contactid');
@@ -354,7 +356,10 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					}
 				}
 			});
-		} */ ?>
+		} */ 
+		
+		
+		?>
 	</script>
 	<script>
 

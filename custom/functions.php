@@ -350,11 +350,17 @@ if( ! function_exists('zipperagent_sold_status') ){
 if( ! function_exists('zipperagent_rental_status') ){
 	function zipperagent_rental_status(){
 		$rental='';
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/static-references.php";
-		$json=ob_get_clean();
-		$obj=json_decode($json);
-			
+		
+		if(!isset($_SESSION['za_static_references'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/static-references.php";
+			$json=ob_get_clean();
+			$obj=json_decode($json);
+			$_SESSION['za_static_references'] = $obj;
+		}else{
+			$obj = $_SESSION['za_static_references'];
+		}	
+		
 		if(isset($obj->status) && $obj->status=='SUCCESS' && isset($obj->result)){
 			$result = $obj->result;
 			
@@ -376,10 +382,17 @@ if( ! function_exists('zipperagent_rental_status') ){
 
 if( ! function_exists('get_rental_status') ){
 	function get_rental_status(){
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/rental.php";
-		$json = ob_get_clean();
-		$obj = json_decode($json);
+		
+		if(!isset($_SESSION['za_rental'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/rental.php";
+			$json = ob_get_clean();
+			$obj = json_decode($json);
+			
+			$_SESSION['za_rental'] = $obj;
+		}else{
+			$obj = $_SESSION['za_rental'];
+		}
 		
 		return isset($obj->rental)?$obj->rental:null;
 	}
@@ -568,10 +581,16 @@ if( ! function_exists('get_static_references') ){
 	function get_static_references($type='PROPTYPE'){
 		$arr=array();
 		
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/static-references.php";
-		$json=ob_get_clean();
-		$obj=json_decode($json);
+		if(!isset($_SESSION['za_static_references'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/static-references.php";
+			$json=ob_get_clean();
+			$obj=json_decode($json);
+			
+			$_SESSION['za_static_references'] = $obj;
+		}else{
+			$obj = $_SESSION['za_static_references'];
+		}
 		
 		if(isset($obj->status) && $obj->status=='SUCCESS' && isset($obj->result)){
 			$result = $obj->result;
@@ -642,10 +661,17 @@ if( ! function_exists('get_property_type') ){
 
 if( ! function_exists('get_property_type') ){
 	function get_property_type($type=array('NA')){	
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/proptype-static.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		
+		if(!isset($_SESSION['za_proptype_static'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/proptype-static.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_proptype_static'] = $data;
+		}else{
+			$data = $_SESSION['za_proptype_static'];
+		}
 		
 		$arr=array();
 		
@@ -668,10 +694,17 @@ if( ! function_exists('get_property_type') ){
 
 if( ! function_exists('get_property_sub_type') ){
 	function get_property_sub_type($type=array('NA')){	
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/propsubtype-static.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		
+		if(!isset($_SESSION['za_propsubtype_static'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/propsubtype-static.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_propsubtype_static'] = $data;
+		}else{
+			$data = $_SESSION['za_propsubtype_static'];
+		}
 		
 		$arr=array();
 		
@@ -695,11 +728,17 @@ if( ! function_exists('get_property_sub_type') ){
 if( ! function_exists('get_field_reference_property_type') ){
 	function get_field_reference_property_type(){	
 		
-		//fieldsReferences
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		if(!isset($_SESSION['za_proptype'])){
+			//fieldsReferences
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/proptype.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_proptype'] = $data;
+		}else{
+			$data = $_SESSION['za_proptype'];
+		}
 		
 		$arr=array();
 		
@@ -707,11 +746,17 @@ if( ! function_exists('get_field_reference_property_type') ){
 			$arr[$entity->shortDescription]=$entity->longDescription;
 		}
 		
-		//staticReferences
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/proptype-static.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		if(!isset($_SESSION['za_proptype_static'])){
+			//staticReferences
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/proptype-static.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_proptype_static'] = $data;
+		}else{
+			$data = $_SESSION['za_proptype_static'];
+		}
 		
 		foreach($data as $entity){
 			if(!isset($arr[$entity->shortDescription]))
@@ -724,10 +769,17 @@ if( ! function_exists('get_field_reference_property_type') ){
 
 if( ! function_exists('get_lot_descriptions') ){
 	function get_lot_descriptions(){	
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/lotdescription.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+	
+		if(!isset($_SESSION['za_lotdescription'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/lotdescription.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_lotdescription'] = $data;
+		}else{
+			$data = $_SESSION['za_lotdescription'];
+		}
 		
 		$arr=array();
 		
@@ -1095,7 +1147,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 		}else{
 			foreach($html as $key=>&$source){
 				$source = str_replace($find,$replaces,$source);
-				$source = preg_replace("/\[([\w\h,]+){2,}\]/", "-", $source); //more than 1 chars
+				$source = preg_replace("/\[[\w\h]{2,30}\]/", "-", $source); //more than 1 chars
 			}
 		}
 		
@@ -1446,10 +1498,17 @@ if( ! function_exists('zipperagent_meta') ){
 
 if( ! function_exists('zipperagent_area_town') ){
 	function zipperagent_area_town(){
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/areaTowns.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		
+		if(!isset($_SESSION['za_areaTowns'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/areaTowns.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_areaTowns'] = $data;
+		}else{
+			$data = $_SESSION['za_areaTowns'];
+		}
 		
 		return $data;
 	}
@@ -1691,10 +1750,16 @@ if( ! function_exists('zipperagent_source_details') ){
 if( ! function_exists('zipperagent_get_source_details_cached') ){
 	function zipperagent_get_source_details_cached(){
 		
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/source.php";
-		$json=ob_get_clean();
-		$data=json_decode($json,true);
+		if(!isset($_SESSION['za_source'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/source.php";
+			$json=ob_get_clean();
+			$data=json_decode($json,true);
+			
+			$_SESSION['za_source'] = $data;
+		}else{
+			$data = $_SESSION['za_source'];
+		}
 		
 		return $data;
 	}
@@ -2331,11 +2396,18 @@ if( ! function_exists('zipperagent_populate_autocomplete_data') ){
 
 if( ! function_exists('get_autocomplete_data') ){
 	function get_autocomplete_data(){
-		ob_start();
-		include ZIPPERAGENTPATH . '/custom/api-processing/autocomplete.php'; 
-		$json = ob_get_clean();
 		
-		$data = json_decode($json);
+		if(!isset($_SESSION['za_autocomplete'])){
+			ob_start();
+			include ZIPPERAGENTPATH . '/custom/api-processing/autocomplete.php'; 
+			$json = ob_get_clean();
+			
+			$data = json_decode($json);
+			
+			$_SESSION['za_autocomplete'] = $data;
+		}else{
+			$data = $_SESSION['za_autocomplete'];
+		}
 		
 		return $data;
 	}
@@ -2374,10 +2446,17 @@ if( ! function_exists('zipperagent_convert_last_updates') ){
 if( ! function_exists('get_town_list') ){
 	function get_town_list(){
 		
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/towns.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		if(!isset($_SESSION['za_towns'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/towns.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_towns'] = $data;
+		}else{
+			$data = $_SESSION['za_towns'];
+		}
+		
 		$arr=array();
 		
 		foreach( $data as $obj ){
@@ -2393,11 +2472,16 @@ if( ! function_exists('get_town_list') ){
 if( ! function_exists('get_field_list') ){
 	function get_field_list(){
 		
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/fields.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		if(!isset($_SESSION['za_fields'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/fields.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
 			
+			$_SESSION['za_fields']=$data;
+		}else{
+			$data = $_SESSION['za_fields'];
+		}	
 		return $data;
 	}
 }
@@ -2405,11 +2489,17 @@ if( ! function_exists('get_field_list') ){
 if( ! function_exists('za_get_alert_type') ){
 	function za_get_alert_type(){
 		
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/alert.php";
-		$json=ob_get_clean();
-		$data=json_decode($json);
+		if(!isset($_SESSION['za_alert'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/alert.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
 			
+			$_SESSION['za_alert'] = $data;
+		}else{
+			$data = $_SESSION['za_alert'];
+		}	
+		
 		return $data;
 	}
 }
@@ -2741,9 +2831,15 @@ if( ! function_exists('populate_users') ){
 if( ! function_exists('zipperagent_get_agent_list') ){
 	function zipperagent_get_agent_list(){
 		
-		ob_start();
-		include ZIPPERAGENTPATH . "/custom/api-processing/users.php";
-		$users = ob_get_clean();		
+		if(!isset($_SESSION['za_users'])){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/users.php";
+			$users = ob_get_clean();	
+
+			$_SESSION['za_users'] = $users;
+		}else{
+			$users = $_SESSION['za_users'];
+		}
 		
 		return json_decode($users);
 	}
