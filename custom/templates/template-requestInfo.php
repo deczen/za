@@ -3,6 +3,8 @@ global $single_property;
 
 $contactIds=get_contact_id();
 $searchId = isset($_GET['searchId'])?$_GET['searchId']:'';
+$listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
+
 $login='';
 
 $assignedTo = get_current_user_assigned_agent();
@@ -48,7 +50,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<form id="zpa-more-info-request-form" class="form-inline" data-zpa-event="more-info-request-form-submit" data-zpa-event-bound="true">
-									<input id="listingNumber" name="listno" type="hidden" value="<?php echo $single_property->id; ?>">
+									<input id="listingNumber" name="listno" type="hidden" value="<?php echo $listingId; ?>">
 									<input id="searchId" name="searchId" type="hidden" value="<?php echo $searchId; ?>">
 									<input id="contactId" name="contactId" type="hidden" value="<?php echo implode(',',$contactIds); ?>">
 									<input type="hidden" name="contactType" value="moreInfo">

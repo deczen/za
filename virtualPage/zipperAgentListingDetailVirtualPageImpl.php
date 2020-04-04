@@ -33,8 +33,12 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			// }
 			
 			$single_property=false;
-			if(! $property_cache && !ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage() || ZipperagentGlobalFunction()->is_facebook_bot()){
+			if(ZipperagentGlobalFunction()->is_facebook_bot()){
+				$single_property=get_single_property_micro( $listingId, implode(',',$contactIds), $searchId ); //consume 1-2 seconds of time
+			}else if(! $property_cache && !ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage()){
 				$single_property=ZipperagentGlobalFunction()->get_single_property( $listingId, implode(',',$contactIds), $searchId );	
+			}else{
+				// $single_property=get_single_property_micro( $listingId, implode(',',$contactIds), $searchId ); //consume 1-2 seconds of time
 			}
 			
 			$this->property_cache = $property_cache;

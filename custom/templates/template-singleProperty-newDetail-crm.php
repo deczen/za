@@ -116,62 +116,30 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		endif; ?>
 	</div>
 	
-	<?php // include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
-	<?php //include ZIPPERAGENTPATH . '/custom/templates/template-schedule-show.php'; ?>
-	<?php //include ZIPPERAGENTPATH . '/custom/templates/template-requestInfo.php'; ?>
-	
 	<script>
 		jQuery('.js-listing-map').on('click', function(){
 			 window.location = "#map";
 		});
 	</script>
-	
-	<?php if( ! $is_search_apply ): ?>
-		
-		<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
-		<script>
-			jQuery(document).ready(function(){
-				window.initMap=function(){
-					
-					var myLatLng = {lat: <?php echo $single_property->lat; ?>, lng: <?php echo $single_property->lng; ?>};
-
-					var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 15,
-					center: myLatLng,
-					gestureHandling: 'greedy',
-					});
-
-					var marker = new google.maps.Marker({
-					position: myLatLng,
-					map: map,
-					// title: 'Hello World!'
-					});
-				}
-				
-				if(jQuery('#map').length)
-					initMap();
-			});		  
-		</script>
-		<?php endif; ?>
-	
-	<?php endif; ?>
 	<script>
 		jQuery('body').on('click', '.zy_save-favorite:not(.needLogin):not(.favorited)', function(e){
 			var contactId = jQuery(this).attr('contactid');
 			var searchId = jQuery(this).attr('searchid');
 			var isLogin = jQuery(this).attr('isLogin');
+			var listingId = jQuery(this).attr('listingid');
 			
-			save_favorite( contactId, searchId, isLogin );			
+			save_favorite( contactId, searchId, isLogin, listingId );			
 		});
 		jQuery('body').on('click', '.zy_save-property:not(.needLogin)', function(e){
 			var contactId = jQuery(this).attr('contactid');
 			var searchId = jQuery(this).attr('searchid');
-			save_property( contactId, searchId );			
+			var listingId = jQuery(this).attr('listingid');
+			
+			save_property( contactId, searchId, listingId);			
 		});
 		
-		<?php /*
-		function save_favorite(contactId, searchId, isLogin){
-			var listingId = '<?php echo $single_property->id; ?>';
+		
+		function save_favorite(contactId, searchId, isLogin, listingId){
 			var crit={
 				<?php				
 				foreach( $saved_crit as $key=>$val ){
@@ -212,7 +180,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					console.timeEnd('save favorite');
 				}
 			});
-		} */ ?>
+		}
 		function save_favorite_listing(element, listingId, contactId, searchId, isLogin){
 			var crit={
 				<?php
@@ -282,9 +250,8 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				}
 			});
 		}
-		<?php /*
-		function save_property(contactId, searchId){
-			var listingId = '<?php echo $single_property->id; ?>';
+		
+		function save_property(contactId, searchId, listingId){
 			var crit={
 				<?php				
 				foreach( $saved_crit as $key=>$val ){
@@ -322,40 +289,11 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					console.timeEnd('save property');
 				}
 			});
-		}	*/ ?>	
-		<?php /*
-		function schedule_show(contactId, assignedTo, when, searchId){
-			var listingId = '<?php echo $single_property->id; ?>';
-			var data = {
-				action: 'schedule_show',
-				'listingId': listingId,                  
-				'contactId': contactId,                    
-				'assignedTo': assignedTo,                    
-				'when': when,                     
-				'searchId': searchId,                    
-			};
-			
-			jQuery.ajax({
-				type: 'POST',
-				dataType : 'json',
-				url: zipperagent.ajaxurl,
-				data: data,
-				success: function( response ) {    
-					// console.log(response);
-					if( response['result'] ){
-						alert('Submitted');
-						// jQuery('.save-listing-btn').addClass('disabled');
-						// jQuery('.save-listing-btn .change').html('Saved');
-					}else{
-						// alert( 'Submit failed!' );
-					}
-				}
-			});
-		} */ ?>
+		}
 	</script>
 	<script>
 
-		jQuery( '#zpa-modal-contact-agent-form' ).on( 'submit', function(){
+		jQuery( 'body' ).on( 'submit', '#zpa-modal-contact-agent-form', function(){
 			
 			var data = jQuery(this).serialize();
 			
@@ -504,85 +442,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 			jQuery('#za_prop-navigation').hide();
 		});
 	</script>
-	<?php endif; ?>
-	<?php if($property_cache && !ZipperagentGlobalFunction()->is_facebook_bot() && ! $is_search_apply): ?>
-	<script>
-		jQuery(document).ready(function(){
-			var data = {
-				action: 'property_detail',
-				listingId: '<?php echo zipperAgentUtility::getInstance()->getQueryVar("listingNumber"); ?>',                 
-				searchId: '<?php echo $searchId; ?>',                 
-				actual_link: '<?php echo $actual_link; ?>',                 
-			};
-			
-			console.time('generate detail');
-			jQuery.ajax({
-				type: 'POST',
-				dataType : 'json',
-				url: zipperagent.ajaxurl,
-				data: data,
-				success: function( response ) {
-					if( response ){
-						// jQuery( '#zipperagent-content' ).replaceWith( response['html'] );						
-						jQuery( '#zy_header-section' ).html( response['header_section'] );						
-						jQuery( '#zy_description-section' ).html( response['description_section'] );						
-						jQuery( '#zy_sidebar' ).html( response['sidebar_section'] );
-						jQuery( '#zy_bottom-section' ).html( response['bottom_section'] );
-						jQuery( '#print-view-column' ).html( response['print_section'] );
-						<?php if(isset($single_property->lat) && isset($single_property->lng)): ?>
-						initMap();
-						<?php endif; ?>
-						
-						show_related_properties();
-					}
-					
-					console.timeEnd('generate detail');
-				},
-				error: function(){
-					console.timeEnd('generate detail');
-				}
-			});
-		});
-	</script>
-	<?php else: ?>
-	<script>		
-		jQuery(document).ready(function(){
-			show_related_properties();
-		});
-	</script>
-	<?php endif; ?>
-	
-	<script>
-		function show_related_properties(){
-			var vars={
-				'apt': '<?php echo isset($single_property->proptype)?$single_property->proptype:'' ?>',
-				'azip': '<?php echo isset($single_property->zipcode)?$single_property->zipcode:''; ?>',
-			};
-			var data = {
-				action: 'related_properties',
-				vars: vars,                
-			};
-			
-			console.time('generate related properties');
-			jQuery.ajax({
-				type: 'POST',
-				dataType : 'json',
-				url: zipperagent.ajaxurl,
-				data: data,
-				success: function( response ) {
-					if( response ){					
-						jQuery( '#zy_related-properties' ).html( response['html'] );
-						jQuery( '#zy_related-properties' ).fadeIn();
-					}
-					
-					console.timeEnd('generate related properties');
-				},
-				error: function(){
-					console.timeEnd('generate related properties');
-				}
-			});
-		}
-	</script>
+	<?php endif; ?>	
 	<script>		
 		jQuery(window).scroll(function() {
 			

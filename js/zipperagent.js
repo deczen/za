@@ -24,11 +24,15 @@ var zppr={
 		states: zipperagent.states,
 		
 		/* single property */
-		agent: zipperagent.agent,
-		is_show_agent_name: zipperagent.is_show_agent_name,
-		source_details: zipperagent.source_details,
+		agent_list: zipperagent.agent_list,
 		searchId: zipperagent.searchId,
 		field_list: zipperagent.field_list,
+		za_image_clicked: zipperagent.za_image_clicked,
+		za_slider_limit_popup: zipperagent.za_slider_limit_popup,
+		za_signup_optional: zipperagent.za_signup_optional,
+		is_great_school_enabled: zipperagent.is_great_school_enabled,
+		is_walkscore_enabled: zipperagent.is_walkscore_enabled,
+		is_register_form_chaptcha_enabled: zipperagent.is_register_form_chaptcha_enabled,
 	},
 	generate_api_params:function(requests){
 		
@@ -279,7 +283,7 @@ var zppr={
 				// if(o){
 					// delete advSearch.o;
 				// }
-				if(zppr.data.states){
+				if(zppr.data.states!=''){
 					search.astt = zppr.data.states.replace(' ','');
 				}
 				
@@ -353,7 +357,7 @@ var zppr={
 		}
 			
 		
-		if( zppr.data.listing_disclaimer ){
+		if( zppr.data.listing_disclaimer!='' ){
 			
 			html+= '<div class="row">'+
 						'<div class="col-xs-12">'+
@@ -392,6 +396,24 @@ var zppr={
 		return html;
 	},
 	detail:function(single_property, actual_link){
+		
+		agent = [];
+		if( single_property.hasOwnProperty('listagent') || single_property.hasOwnProperty('saleagent') ){
+			mlsid = single_property.hasOwnProperty('saleagent') ? single_property.saleagent : '';
+			if(mlsid)
+				agent = zppr.get_agent(mlsid);
+			
+			if(!agent){
+				mlsid = single_property.hasOwnProperty('listagent') ? single_property.listagent : '';
+				if(mlsid)
+					agent =  zppr.get_agent(mlsid);
+			}
+		}
+		// agent =  zppr.get_agent("G0003031");
+		// agent =  zppr.get_agent("BB981188");
+		// agent =  zppr.get_agent("0");
+		// console.log('------agent------');
+		// console.log(agent);
 		
 		var html = '';
 		
@@ -440,22 +462,22 @@ var zppr={
 										'<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">' +
 											'<div class="row">' +				
 												'<div class="btn_wrap zy_save-favorite-wrap col-btn">' +
-													'<button class="zy_save-favorite '+ (zppr.is_favorite(single_property.id)?"favorited":"") +'" isLogin="'+ (zppr.data.is_login? 1:0) +'" afterAction="save_favorite" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'"><i class="fa fa-heart fa-fw"></i></button>' +
+													'<button class="zy_save-favorite '+ (zppr.is_favorite(single_property.id)?"favorited":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_favorite" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-heart fa-fw"></i></button>' +
 													'<span>Favorite</span>' +
 												'</div>' +
 												
 												'<div class="btn_wrap zy_save-property-wrap col-btn">' +
-													'<button class="zy_save-property '+ (!zppr.data.is_login?"needLogin":"") +'" isLogin="'+ (zppr.data.is_login? 1:0) +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'"><i class="fa fa-floppy-o fa-fw"></i></button>' +
+													'<button class="zy_save-property '+ (zppr.data.is_login==0?"needLogin":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-floppy-o fa-fw"></i></button>' +
 													'<span>Save</span>' +
 												'</div>' +
 												
 												'<div class="btn_wrap zy_schedule-showing-wrap col-btn">' +
-													'<button class="zy_schedule-showing '+ (!zppr.data.is_login?"needLogin":"") +'" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>' +
+													'<button class="zy_schedule-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>' +
 													'<span>Request Showing</span>' +
 												'</div>' +
 												
 												'<div class="btn_wrap zy_request-showing-wrap col-btn">' +
-													'<button class="zy_request-showing '+ (!zppr.data.is_login?"needLogin":"") +'" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>' +
+													'<button class="zy_request-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>' +
 													'<span>Request info</span>' +
 												'</div>' +
 												
@@ -465,15 +487,15 @@ var zppr={
 													'<div class="dropdown-menu" aria-labelledby="dropdownShare">' +
 														'<ul class="menu-list">' +
 															'<li>' +
-																'<a class="share-item share-email '+ (!zppr.data.is_login?"needLogin":"") +'" afterAction="share_email" contactid="'+ zppr.data.contactIds.join() +'" href="#">' +
-																	'<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i>' +
+																'<a class="share-item share-email '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="share_email" contactid="'+ zppr.data.contactIds.join() +'" href="#">' +
+																	'<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i> ' +
 																	'<span>Email this listing</span>' +
 																'</a>' +
 																
 															'</li>' +															
 															'<li>' +
 																'<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u='+ actual_link +'" target="_blank" onclick="window.open(this.href, \'facebook-share-dialog\', \'width=626,height=436\'); return false;">' +
-																	'<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i>' +
+																	'<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i> ' +
 																	'<span>Share on Facebook</span>' +
 																'</a>' +
 															'</li>' +															
@@ -503,7 +525,7 @@ var zppr={
 																'<svg id="zy-icon-arrowsExpand_16x16" viewBox="0 0 16 16"><path d="M14.53 10.12h-.84a.42.42 0 0 0-.44.4V12l-2.66-2.68a.48.48 0 0 0-.61 0l-.64.68a.38.38 0 0 0 0 .55l2.72 2.72h-1.57a.43.43 0 0 0-.4.46v.82a.43.43 0 0 0 .41.46h3.86a.63.63 0 0 0 .64-.64v-3.85a.45.45 0 0 0-.47-.4zM6 9.33a.38.38 0 0 0-.55 0l-2.72 2.74v-1.59a.43.43 0 0 0-.45-.4h-.82a.43.43 0 0 0-.46.41v3.87a.63.63 0 0 0 .63.65h3.85a.45.45 0 0 0 .4-.47v-.85a.42.42 0 0 0-.4-.44H4l2.66-2.66a.48.48 0 0 0 0-.62zM3.93 2.73h1.58a.43.43 0 0 0 .4-.46v-.81a.43.43 0 0 0-.4-.46H1.65a.63.63 0 0 0-.65.63v3.85a.45.45 0 0 0 .47.4h.84a.42.42 0 0 0 .44-.4V4l2.66 2.68a.48.48 0 0 0 .61 0L6.66 6a.38.38 0 0 0 0-.55zM14.37 1h-3.85a.45.45 0 0 0-.4.47v.84a.42.42 0 0 0 .4.44H12L9.32 5.41a.48.48 0 0 0 0 .62l.68.64a.38.38 0 0 0 .55 0l2.72-2.72v1.57a.43.43 0 0 0 .45.4h.82a.43.43 0 0 0 .46-.41V1.65a.63.63 0 0 0-.63-.65z" fill-rule="evenodd"></path></svg>' +
 															'</a>' +
 														'</div>' +
-														 /* < div class="owl-carousel top-head-carousel '+ (!zppr.data.is_login?"needLogin":"") +'"> */
+														 /* < div class="owl-carousel top-head-carousel '+ (zppr.data.is_login==0?"needLogin":"") +'"> */
 														'<div class="owl-carousel top-head-carousel">';
 														
 			var i=0;
@@ -553,7 +575,7 @@ var zppr={
 			html+= 						'<div class="zy_img-source">';
 			
 			var img_disclaimer='';
-			if(single_property.hasOwnProperty('listAgentName') && zppr.data.is_show_agent_name){
+			if(single_property.hasOwnProperty('listAgentName') && zppr.data.is_show_agent_name==1){
 				img_disclaimer+= "Listing Provided Courtesy "+ single_property.listAgentName +" of";							
 			}else{
 				img_disclaimer+= "Listing Provided Courtesy of";						
@@ -672,7 +694,7 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( $agent ){
+			if( agent ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
@@ -696,7 +718,7 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( $agent ){
+			if( agent ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
@@ -719,7 +741,7 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( $agent ){
+			if( agent ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
@@ -742,7 +764,7 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( $agent ){
+			if( agent ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
@@ -777,9 +799,11 @@ var zppr={
 											'<br> ';
 											
 		var excludes=['gsmls'];
-		if(zppr.in_array(zppr.data.detailpage_group,excludes)){
-			if( zppr.data.source_details ){
-				html+=						zppr.data.source_details;
+		if(!zppr.in_array(zppr.data.detailpage_group,excludes)){
+			
+			var source_details=single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'detail_source' ) : false;	
+			if( source_details!='' ){
+				html+=						source_details;
 				
 				if(zppr.data.detailpage_group == 'nwmls'){
 					var defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{single_property->listOfficeName}</strong> and should be verified by the buyer.";
@@ -804,66 +828,64 @@ var zppr={
 								</div>			
 								<?php endif; ?> */
 								
-								/*
-								<?php if( isset(single_property->lat) && isset(single_property->lng) && !empty(single_property->lat) && !empty(single_property->lng) ): ?>
-								<div class="row zy-widget map-widget">
-									<div class="col-xs-12">
-										<div class="zy-map-container">
-											<div id="map" style="height:300px"></div>
-										</div>
-									</div>
-								</div>
-								<?php endif; ?>
+		if( single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
+			html +=				'<div class="row zy-widget map-widget">' +
+									'<div class="col-xs-12">' +
+										'<div class="zy-map-container">' +
+											'<div id="map" style="height:300px"></div>' +
+										'</div>' +
+									'</div>' +
+								'</div>';
+		}
 								
-								<?php if( is_great_school_enabled() && isset(single_property->lat) && isset(single_property->lng) && !empty(single_property->lat) && !empty(single_property->lng) ): ?>
-								<div class="row zy-widget greatschool-widget">
-									<div class="col-xs-12 col-md-12 col-lg-6">
-										<h3 class="">Greatshools</h3>
-										<div id="greatshools"></div>
-										<script>
-											jQuery(document).ready(function(){
-												var curr_width = jQuery('.greatschool-widget #greatshools').width();
-												var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo single_property->lat; ?>&lon=<?php echo single_property->lng; ?>&cityName=<?php echo isset(single_property->lngTOWNSDESCRIPTION)?single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset(single_property->provinceState)?single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address(single_property) ); ?>&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
-												jQuery('#greatshools').html(gs_iframe);
-											});
-										</script>
-									</div>
-								</div>
-								<?php endif; ?>
+		if( zppr.data.is_great_school_enabled==1 && single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
+			html +=				'<div class="row zy-widget greatschool-widget">' +
+									'<div class="col-xs-12 col-md-12 col-lg-6">' +
+										'<h3 class="">Greatshools</h3>' +
+										'<div id="greatshools"></div>' +										
+									'</div>' +
+								'</div>';
+		}
 								
-								<?php if( is_walkscore_enabled() ): ?>
-								<div class="row zy-widget walkscore-widget">
-									<div class="col-xs-12 col-md-12 col-lg-6">
-										<h3 class="">Walk Score</h3>
-										<div id="ws"></div>
-										<script type='text/javascript'>
-										var ws_wsid = 'ws';
-										var ws_address = '<?php echo zipperagent_get_address(single_property); ?>';
-										var ws_format = 'tall';
-										var ws_width = '100%';
-										var ws_height = '300';
-										</script><style type='text/css'>#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style><div id='ws-walkscore-tile'></div><script type='text/javascript' src='https://www.walkscore.com/tile/show-walkscore-tile.php'></script>
-									</div>
-								</div>
-								<?php endif; ?>
+		if( zppr.data.is_walkscore_enabled==1 ){
+			html +=				'<div class="row zy-widget walkscore-widget">' +
+									'<div class="col-xs-12 col-md-12 col-lg-6">' +
+										'<h3 class="">Walk Score</h3>' +
+										'<div id="ws"></div>' +										
+										'<style type="text/css">#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style>' +
+										'<div id="ws-walkscore-tile"></div>' +
+									'</div>' +
+								'</div>';
+		}
 								
-								if(!zppr.data.sold_status.indexOf(single_property.status)>-1){
-								<div class="row zy-widget">
-									<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">
-										<?php include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-mortgage-calculator.php'; ?>
-									</div>
-								</div> 
-								}
-								*/
-								
-		if( zppr.data.agent != 0 ){
+		if(!zppr.data.sold_status.indexOf(single_property.status)>-1){
+			
+			args = {};
+			
+			default_homeprice=(single_property.status=='SLD'?(isset(single_property.saleprice)?single_property.saleprice:single_property.listprice):single_property.listprice);
+			default_taxes_ammount=zppr.checkNested(single_property,'unmapped','PropertyTax')?single_property.unmapped.PropertyTax:'';
+
+			args.default_homeprice=default_homeprice;
+
+			if(default_taxes_ammount){
+				args.default_taxes_ammount=default_taxes_ammount;
+			}
+			
+			html +=				'<div class="row zy-widget">' +
+									'<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">' +
+										zppr.mortgage_calculator(args) +
+									'</div>' +
+								'</div>';
+		}
+													
+		if( agent.id ){
 			html+=				'<div class="row zy-widget">' +
 									'<div id="ask-a-question-form" class="col-xs-12 col-md-12 col-lg-8">' +
 										'<h3 class="zy-listing-contact-title">Ask Agent a Question</h3>' +
 										
 										'<form id="zpa-modal-contact-agent-form" method="post">';
 											
-			if( ! zppr.data.is_login ){ /* only for non logged in user */
+			if( zppr.data.is_login == 0 ){ /* only for non logged in user */
 				html+=						'<div class="row">' +
 												'<div class="col-md-6 hidden-on-login">' +
 													'<div>' +
@@ -927,7 +949,7 @@ var zppr={
 													'</div>' +
 												'</div>';
 												
-			if(zppr.data.is_register_form_chaptcha_enabled){
+			if(zppr.data.is_register_form_chaptcha_enabled==1){
 				var site_key = zppr.data.root.google.site_key;
 												
 				html+=							'<div class="col-md-12 mt-10">' +
@@ -940,10 +962,10 @@ var zppr={
 												'</div>' +
 											'</div>' +
 											'<input type="hidden" name="contactId" value="'+ zppr.data.contactIds.join() +'" />' +
-											'<input type="hidden" name="agent" value="'+ zppr.data.agent.login +'" />' +
+											'<input type="hidden" name="agent" value="'+ agent.login +'" />' +
 											'<input type="hidden" name="actual_link" value="'+ actual_link +'" />' +
-											'<input type="hidden" name="leadSource" value="'+ zppr.data.root.web.lead_source +'" />';
-			if( ! zppr.data.is_login ){ /* only for non logged in user */
+											'<input type="hidden" name="leadSource" value="'+ ( zppr.data.root.web.hasOwnProperty('lead_source') ? zppr.data.root.web.lead_source : '' ) +'" />';
+			if( zppr.data.is_login == 0 ){ /* only for non logged in user */
 				html+=						'<input type="hidden" name="action" value="regist_user" >';
 			}else{
 				html+=						'<input type="hidden" name="action" value="contact_agent" >';
@@ -965,9 +987,10 @@ var zppr={
 
 										'<div class="full-details-disclaimer">' +
 											'<br> ';
-																						
-		if(zppr.data.source_disclaimer){
-			html+= 							zppr.data.source_disclaimer;
+		
+		source_disclaimer = single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'detail_disclaimer') : false;		
+		if(source_disclaimer!=''){
+			html+= 							source_disclaimer;
 		}
 											
 		/* if(zppr.data.detailpage_group == 'nwmls'){
@@ -984,6 +1007,8 @@ var zppr={
 						'</article>' +
 						
 					'</section>';
+		
+		html += zppr.print_template(single_property);
 		
 		return html;
 	},
@@ -1004,7 +1029,7 @@ var zppr={
 												'<div class="owl-carousel-container">' +
 														
 													'<div class="top-head-carousel-wrapper">' +
-														 /* < div class="owl-carousel top-head-carousel '+ (!zppr.data.is_login?"needLogin":"") +'"> */
+														 /* < div class="owl-carousel top-head-carousel '+ (zppr.data.is_login==0?"needLogin":"") +'"> */
 														'<div class="owl-carousel top-head-carousel">';
 														
 			var i=0;
@@ -1076,10 +1101,296 @@ var zppr={
 						var html = zppr.detail(single_property, actual_link);
 						var real_price = zppr.moneyFormat(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
 						var gallery = zppr.gallery_template(single_property);
+						var address = zppr.getAddress(single_property);
+						
+						jQuery('#zpa-modal-share-email-form .listing-price > span').html(real_price);
+						document.title = document.title.replace('Property Title', address);
 						
 						html = zppr.property_fields(single_property, html);
-						jQuery(targetElement).html( html );
-						jQuery('#zpa-modal-share-email-form .listing-price > span').html(real_price);
+						jQuery(targetElement).html( html ).promise().done(function(){
+							
+							(function($){
+								
+								if( single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
+									window.initMap=function(){
+										
+										var myLatLng = {lat: single_property.lat, lng: single_property.lng};
+
+										var map = new google.maps.Map(document.getElementById('map'), {
+											zoom: 15,
+											center: myLatLng,
+											gestureHandling: 'greedy',
+										});
+
+										var marker = new google.maps.Marker({
+											position: myLatLng,
+											map: map,
+										});
+									}
+									
+									if(jQuery('#map').length) initMap();
+								}
+							})(jQuery);
+							
+							(function($){
+								
+								if( zppr.data.is_great_school_enabled==1 && single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
+									jQuery(document).ready(function(){
+										var curr_width = jQuery('.greatschool-widget #greatshools').width();
+										var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat='+ single_property.lat +'&lon='+ single_property.lng +'&cityName='+ (single_property.hasOwnProperty('lngTOWNSDESCRIPTION')?single_property.lngTOWNSDESCRIPTION:'') +'&state='+ (single_property.hasOwnProperty('provinceState') ? single_property.provinceState:'') +'&normalizedAddress='+ encodeURI( zppr.getAddress(single_property) ) +'&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
+										jQuery('#greatshools').html(gs_iframe);
+									});
+								}
+							})(jQuery);
+							
+							(function($){
+								
+								if(zppr.data.is_walkscore_enabled==1){
+									ws_address = zppr.getAddress(single_property);
+									
+									$.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php", function( data, textStatus, jqxhr ) {
+									});
+								}
+							})(jQuery);
+							
+							(function($){
+								function mortgage_format(number){
+									number = !jQuery.isNumeric(number) ? number.replace(/[^0-9\.]/g,'') : number;
+									number = number ? number : 0;
+									// number = parseFloat(number).toLocaleString();
+									return zppr.data.currency + number.toString();
+								}
+								function mortgage_unformat(number){
+									number = number ? number.replace(/[^0-9\.]/g,'') : "";
+									return number;
+								}
+								function mortgage_percentage(number){
+									number = number ? number : 0;
+										
+									if(number < 0) number = 0; //min 0
+									if(number > 100) number = 100; //max 100
+									
+									return parseFloat(number)+'%';
+								}
+								
+								jQuery('#zy_mortgage-calculator .price-format').on('keyup', function(event){
+									var curr_val = jQuery(this).val();
+									var adj_val = mortgage_unformat(curr_val);
+									jQuery(this).val(adj_val);
+								});
+								jQuery('#zy_mortgage-calculator .price-format').focusin(function(){
+									var formatted_number = jQuery(this).val();	
+									var number = mortgage_unformat(formatted_number);
+									jQuery(this).val(number);
+								});
+								jQuery('#zy_mortgage-calculator .price-format').focusout(function(){					
+									var number = jQuery(this).val();	
+									var formatted_number = mortgage_format(number);
+									jQuery(this).val(formatted_number);
+								});	
+								jQuery('#zy_mortgage-calculator .percent-format').on('keyup', function(event){
+									var curr_val = jQuery(this).val();
+									
+									var adj_val = mortgage_unformat(curr_val);
+									
+									if(adj_val < 0) adj_val = 0; //min 0
+									if(adj_val > 100) adj_val = 100; //max 100
+									
+									jQuery(this).val(adj_val);
+								});
+								jQuery('#zy_mortgage-calculator .percent-format').focusin(function(){
+									var formatted_percent_in = jQuery(this).val();
+									var percent_in = mortgage_unformat(formatted_percent_in);		
+									jQuery(this).val(percent_in);
+								});
+								jQuery('#zy_mortgage-calculator .percent-format').focusout(function(){		
+									var percent_out = jQuery(this).val();
+									percent_out = mortgage_percentage(percent_out);
+									jQuery(this).val(percent_out);
+								});	
+								
+								jQuery('#mortgage-downpayment').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var downpayment = jQuery(this).val();
+									var percent = jQuery('#mortgage-downpayment-percent').val();
+									homeprice = mortgage_unformat(homeprice);	
+									downpayment = mortgage_unformat(downpayment);
+									
+									percent = downpayment / homeprice * 100;
+									
+									jQuery('#mortgage-downpayment-percent').val(mortgage_percentage(percent));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-downpayment-percent').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var downpayment = jQuery('#mortgage-downpayment').val();
+									var percent = jQuery(this).val();
+									homeprice = mortgage_unformat(homeprice);	
+									percent = mortgage_unformat(percent);
+									
+									downpayment = homeprice * percent / 100;
+									
+									jQuery('#mortgage-downpayment').val(mortgage_format(downpayment));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-property-taxes').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var taxes = jQuery(this).val();
+									var percent = jQuery('#mortgage-property-taxes-percent').val();
+									homeprice = mortgage_unformat(homeprice);	
+									taxes = mortgage_unformat(taxes);
+									
+									percent = taxes / homeprice * 100;
+									
+									jQuery('#mortgage-property-taxes-percent').val(mortgage_percentage(percent));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-property-taxes-percent').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var taxes = jQuery('#mortgage-property-taxes').val();
+									var percent = jQuery(this).val();
+									homeprice = mortgage_unformat(homeprice);	
+									percent = mortgage_unformat(percent);
+									
+									taxes = homeprice * percent / 100;
+									
+									jQuery('#mortgage-property-taxes').val(mortgage_format(taxes));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-insurance').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var taxes = jQuery(this).val();
+									var percent = jQuery('#mortgage-insurance-percent').val();
+									homeprice = mortgage_unformat(homeprice);	
+									taxes = mortgage_unformat(taxes);
+									
+									percent = taxes / ( homeprice / 12 ) * 100;
+									
+									jQuery('#mortgage-insurance-percent').val(mortgage_percentage(percent));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-insurance-percent').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var taxes = jQuery('#mortgage-insurance').val();
+									var percent = jQuery(this).val();
+									homeprice = mortgage_unformat(homeprice);	
+									percent = mortgage_unformat(percent);
+									
+									taxes = ( homeprice / 12 ) * percent / 100;
+									
+									jQuery('#mortgage-insurance').val(mortgage_format(taxes));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-homeowners-insurance').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var taxes = jQuery(this).val();
+									var percent = jQuery('#mortgage-homeowners-insurance-percent').val();
+									homeprice = mortgage_unformat(homeprice);	
+									taxes = mortgage_unformat(taxes);
+									
+									percent = taxes / ( homeprice / 12 ) * 100;
+									
+									jQuery('#mortgage-homeowners-insurance-percent').val(mortgage_percentage(percent));
+									
+									mortgage_calculator_count();
+								});
+								jQuery('#mortgage-homeowners-insurance-percent').on( 'change', function(){
+									var homeprice = jQuery('#mortgage-homeprice').val();
+									var taxes = jQuery('#mortgage-homeowners-insurance').val();
+									var percent = jQuery(this).val();
+									homeprice = mortgage_unformat(homeprice);	
+									percent = mortgage_unformat(percent);
+									
+									taxes = ( homeprice / 12 ) * percent / 100;
+									
+									jQuery('#mortgage-homeowners-insurance').val(mortgage_format(taxes));
+									
+									mortgage_calculator_count();
+								});
+								
+								jQuery('.zy-mortgage-calculator #mortgage-homeprice, .zy-mortgage-calculator #mortgage-hoa-dues, .zy-mortgage-calculator #mortgage-interest-rate, .zy-mortgage-calculator select').on( 'change', function(){
+									mortgage_calculator_count();
+								});
+								
+								function mortgage_calculator_count(){
+									var data = {
+										action: 'mortgage_calculator_count',			
+										homeprice: jQuery('#mortgage-homeprice').val().replace(/[^0-9\.]/g,''),			
+										downpayment: jQuery('#mortgage-downpayment').val().replace(/[^0-9\.]/g,''),			
+										downpaymentpercent: parseFloat(jQuery('#mortgage-downpayment-percent').val()),			
+										taxes: jQuery('#mortgage-property-taxes').val().replace(/[^0-9\.]/g,''),			
+										taxespercent: parseFloat(jQuery('#mortgage-property-taxes-percent').val()),			
+										hoadues: jQuery('#mortgage-hoa-dues').val().replace(/[^0-9\.]/g,''),			
+										insurance: jQuery('#mortgage-insurance').val().replace(/[^0-9\.]/g,''),			
+										insurancepercent: parseFloat(jQuery('#mortgage-insurance-percent').val()),			
+										homeowners: jQuery('#mortgage-homeowners-insurance').val().replace(/[^0-9\.]/g,''),			
+										homeownerspercent: parseFloat(jQuery('#mortgage-homeowners-insurance-percent').val()),			
+										interestrate: parseFloat(jQuery('#mortgage-interest-rate').val()),			
+										loantype: jQuery('#mortgage-loan-type').val(),			
+									};
+									
+									jQuery.ajax({
+										type: 'POST',
+										dataType : 'json',
+										url: zipperagent.ajaxurl,
+										data: data,
+										success: function( response ) {    
+											if( response['result'] ){
+												
+												jQuery('#zy-mortgage-total').html( response['mortgage_total'] );
+												jQuery('#zy-mortgage-interest').html( response['mortgage_interest'] );
+												jQuery('.zy_mortgage-bar').html( response['mortgage_bar'] );
+												jQuery('.mg-detail').html( response['mortgage_detail'] );
+											}
+										}
+									});
+								}
+								
+								mortgage_calculator_count();
+								
+							})(jQuery);
+							
+							(function($){
+								
+								show_related_properties();
+								
+								function show_related_properties(){
+									var vars={
+										'apt': single_property.hasOwnProperty('proptype')?single_property.proptype:'',
+										'azip': single_property.hasOwnProperty('zipcode')?single_property.zipcode:'',
+									};
+									var data = {
+										action: 'related_properties',
+										vars: vars,                
+									};
+									
+									console.time('generate related properties');
+									jQuery.ajax({
+										type: 'POST',
+										dataType : 'json',
+										url: zipperagent.ajaxurl,
+										data: data,
+										success: function( response ) {
+											if( response ){					
+												jQuery( '#zy_related-properties' ).html( response['html'] );
+												jQuery( '#zy_related-properties' ).fadeIn();
+											}
+											
+											console.timeEnd('generate related properties');
+										},
+										error: function(){
+											console.timeEnd('generate related properties');
+										}
+									});
+								}
+							})(jQuery);
+						});
 						jQuery('#zy_gallery-popup').html( gallery ).promise().done(function(){
 							//your callback logic / code here
 						
@@ -1158,49 +1469,51 @@ var zppr={
 									setThumbnailAsASelected(clickedItemNumber), $topHeadCarousel.trigger("to.owl.carousel", clickedItemNumber), center(clickedItemNumber, visibleItemCount)
 								})
 								
-								/*
-								<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
-								var count=<?php echo isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0; ?>;
-								var limit='<?php echo zipperagent_slider_limit_popup(); ?>';
-								var preventDouble=0;
-								$topHeadCarousel.on('changed.owl.carousel', function(event) {
-									
-									if(preventDouble){
-										preventDouble=0;
-										return;
-									}
-									
-									count++;			
-									ajax_image_count(count);		
-									if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
-										jQuery('#needLoginModal').modal('show');
-										<?php if(!zipperagent_signup_optional()): ?>
-										set_popup_is_triggered();
-										<?php endif; ?>
-										count=0;
-									}
-									
-									function ajax_image_count(count){
-										var data = {
-											action: 'image_click_count',			
-											count: count,			
-										};
+								
+								if( zppr.data.is_login == 0 ){ /* only for non logged in user */
+								
+									var count=zppr.data.za_image_clicked;
+									var limit=zppr.data.za_slider_limit_popup;
+									var preventDouble=0;
+									$topHeadCarousel.on('changed.owl.carousel', function(event) {
 										
-										jQuery.ajax({
-											type: 'POST',
-											dataType : 'json',
-											url: zipperagent.ajaxurl,
-											data: data,
-											success: function( response ) {    
-												if( response['result'] ){
-												}
+										if(preventDouble){
+											preventDouble=0;
+											return;
+										}
+										
+										count++;			
+										ajax_image_count(count);		
+										// if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
+										if(count>=limit && limit != 0 && zppr.data.is_login == 0){
+											jQuery('#needLoginModal').modal('show');
+											if(zppr.data.za_signup_optional==1){
+												set_popup_is_triggered();
 											}
-										});
-									}
-									
-									preventDouble=1;
-								});
-								<?php endif; ?> */
+											count=0;
+										}
+										
+										function ajax_image_count(count){
+											var data = {
+												action: 'image_click_count',			
+												count: count,			
+											};
+											
+											jQuery.ajax({
+												type: 'POST',
+												dataType : 'json',
+												url: zipperagent.ajaxurl,
+												data: data,
+												success: function( response ) {    
+													if( response['result'] ){
+													}
+												}
+											});
+										}
+										
+										preventDouble=1;
+									});
+								}
 								
 							})(jQuery);
 													
@@ -1644,7 +1957,7 @@ var zppr={
 							'<div class="col-xs-12">' +
 								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
 									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
-									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" islogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
+									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
 									'<a class="property_url" href="'+ prop_url +'"></a>' +
 									'<a class="property_url" href="'+ prop_url +'"><span class="zpa-for-sale-price"> '+ zppr.moneyFormat(price) +' </span> </a>' +
 								'</div>' +
@@ -2062,7 +2375,7 @@ var zppr={
 		
 		switch(type){
 			case "list":
-					if(listAgentName && zppr.data.is_show_agent_name){
+					if(listAgentName && zppr.data.is_show_agent_name==1){
 						text+= "Listing Provided Courtesy "+ listAgentName +" of";							
 					}else{
 						text+= "Listing Provided Courtesy of";						
@@ -2088,7 +2401,7 @@ var zppr={
 					year = source['year']?source['year']:curr_year;
 					text+= 'Listing information &copy; ' + year + '<br />';		
 					
-					if(listAgentName && zppr.data.is_show_agent_name){
+					if(listAgentName && zppr.data.is_show_agent_name==1){
 						text+= "Listing Provided Courtesy "+ listAgentName +" of";							
 					}else{
 						text+= "Listing Provided Courtesy of";						
@@ -2108,8 +2421,9 @@ var zppr={
 					text+= ' '+ 'via ' + source['name'];
 					
 					text+='<br />';
+					defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$listOfficeName}</strong> and should be verified by the buyer.";
 					text+= source['discComingle'] ? source['discComingle'] : ( source['discDetail'] ? source['discDetail'] : '' );
-					
+					// text+='<br /><br />' + defaultDisc;
 				break;
 			case "newdetail":
 					var date = new Date();
@@ -2122,6 +2436,37 @@ var zppr={
 					text+='</strong><br />';
 					text+= source['discComingle'] ? source['discComingle'] : ( source['discDetail'] ? source['discDetail'] : '' );
 					
+				break;
+			case "detail_source":
+					console.log('tai');
+					var date = new Date();
+					var curr_year = date.getFullYear();
+					year = source['year']?source['year']:curr_year;
+					text+= 'Listing information &copy; ' + year + '<br />';		
+					
+					if(listAgentName!='' && zppr.data.is_show_agent_name==1){
+						text+= "Listing Provided Courtesy "+ listAgentName +" of";							
+					}else{
+						text+= "Listing Provided Courtesy of";						
+					}
+					
+					if(listOfficeName){
+						text+= ' '+ "<strong>"+ listOfficeName +"</strong>";
+					}						
+				break;
+			case "detail_disclaimer":
+					if(source['logo_path']){
+						text+= '<img src="'+ source['logo_url'] +'" alt="'+ source['name'] +'" />';
+						
+						if(source['copyrightUrl']){
+							text+=' ' + '<a target="_blank" href="'+ source['copyrightUrl'] +'">click here</a>';
+						}
+					}
+					text+= ' '+ 'via ' + source['name'];
+					defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{listOfficeName}</strong> and should be verified by the buyer.";
+					text+='<br />';
+					text+= source['discComingle'] ? source['discComingle'] : ( source['discDetail'] ? source['discDetail'] : '' );
+					// text+='<br /><br />' + defaultDisc;
 				break;
 		}
 		
@@ -2308,21 +2653,885 @@ var zppr={
 	is_favorite:function(listid){
 		return 0;
 	},
-	vtlink_template:function(property){
+	generate_template:function(single_property){
+				
+		property_type = single_property.hasOwnProperty('proptype')?single_property.proptype.toUpperCase():'';
+		property_subtype = single_property.hasOwnProperty('propsubtype')?single_property.propsubtype.toUpperCase():'';
 		
-		var html='';
+		//special case
+		switch(property_type){
+			case "A":
+					switch(property_subtype){
+						case "CONDOMINIUM":
+								property_type=property_subtype;
+							break;
+					}
+				break;
+			case "E":
+					switch(property_subtype){
+						case "Commercial":
+								property_type='COMMERCIAL';
+							break;
+					}
+				break;
+		}
+
+		//custom case for bmmls-fgmmls-fmxmls-gfkmls-mwmmls
+		if( single_property.sourceid == 'BMMLS' || single_property.sourceid == 'FGMMLS' || single_property.sourceid == 'FMXMLS' || single_property.sourceid == 'GFKMLS' || single_property.sourceid == 'MWMMLS' ){
+				
+			if(single_property.sourceid == 'BMMLS'){
+				
+				switch(property_type){
+					// case "A": changed to RES
+					case "RES":
+							property_type='RESIDENTIAL';
+						break;
+					// case "B": changed to LND
+					case "LND":
+							property_type='LAND';
+						break;
+					// case "C": changed to CIS
+					case "CIS":
+							property_type='COMMERCIAL';
+						break;
+				}
+
+			}else if(single_property.sourceid == 'FGMMLS'){
+				
+				switch(property_type){
+					// case "A": changed to RES
+					case "RES":
+							property_type='RESIDENTIAL';
+						break;
+					// case "I": changed to MUL
+					case "MUL":
+							property_type='MULTYFAMILY';
+						break;
+					// case "J": changed to LND
+					case "LND":
+							property_type='LAND';
+						break;
+					// case "K": changed to CIS
+					case "CIS":
+							property_type='COMMERCIAL';
+						break;
+				}
+				
+			}else if(single_property.sourceid == 'FMXMLS'){
+				
+				switch(property_type){
+					// case "A": changed to CIS
+					case "CIS":
+							property_type='RESIDENTIAL';
+						break;
+					// case "B": changed to CIL
+					case "CIL":
+							property_type='COMMERCIAL';
+						break;
+				}
+				
+			}else if(single_property.sourceid == 'GFKMLS'){
+				
+				switch(property_type){
+					// case "A": changed to RES
+					case "RES":
+							property_type='RESIDENTIAL';
+						break;
+					// case "B": changed to MUL
+					case "MUL":
+							property_type='MULTYFAMILY';
+						break;
+					// case "C": changed to LND
+					case "LND":
+							property_type='LAND';
+						break;
+					// case "D": changed to CIL
+					case "CIL":
+							property_type='COMMERCIAL';
+						break;
+					// case "F": changed to MOB
+					case "MOB":
+							property_type='MOBILEHOMES';
+						break;
+					// case "G": changed to BUS
+					case "BUS":
+							property_type='BUSINESS';
+						break;
+					// case "H": changed to CIS
+					case "CIS":
+							property_type='COMMERCIAL';
+						break;
+					case "RES":
+							property_type='RES';
+						break;
+					case "LN":
+							property_type='LAND';
+						break;
+					case "COM":
+							property_type='COM';
+						break;
+					case "CL":
+							property_type='COMMERCIAL';
+						break;
+					case "MF":
+							property_type='MF';
+						break;
+					case "REL":
+							property_type='RESI';
+						break;
+				}
+				
+			}else if(single_property.sourceid == 'MWMMLS'){
+				
+				switch(property_type){
+					// case "A": changed to RES
+					case "RES":
+							property_type='RESIDENTIAL';
+						break;
+					// case "B": changed to MUL
+					case "MUL":
+							property_type='MULTYFAMILY';
+						break;
+					// case "C": changed to FRM
+					case "FRM":
+							property_type='FARM';
+						break;
+					// case "D": LND
+					case "LND":
+							property_type='LAND';
+						break;
+					// case "E": CIS
+					case "CIS":
+							property_type='COMMERCIAL';
+						break;
+				}
+				
+			}	
+		}
+		//custom case for nwmls
+		else if(single_property.sourceid == 'NWMLS'){
+			switch(property_type){
+				// case "MANU": changed to MANUFACTURING
+				case "MANU":
+						property_type='MANUFACTURING';
+					break;
+			}
+		}
+
+		//Template selection
+		switch(property_type){
+			case "SF": //Single Family		
+			case "SFR": //Single Family		
+			case "RES": //Single Family			
+			case "DETSF": //Detached Single Family		
+			// case "FARM": //Farm and Ranch
+			case "CS": //CommonInterest CS
+			case "CL": //CommonInterest CL
+			case "BF": //ResidentialProperty BF
+			case "COF": //OFFICE
+			case "RESIDENTIAL": //Residential
+			case "RESI": //Residential
+				// template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
+				template_features='sf-features-crm.php';
+				template_print='sf-print-crm.php';
+				template_sidebar='sf-sidebar-crm.php';
+				template_vtlink='sf-vtlink-crm.php';
+				break;
+			case "MF": //Multifamily	
+			case "MUL": //Multifamily	
+			case "MUL": //Multifamily	
+			case "MANU": //MAnufactured in Park	
+			case "B": //Multi-family
+			case "MULTYFAMILY": //Multi-family
+			case "MULTI FAMILY": //Multi-family
+			case "MULT": //Multi-family
+				// template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
+				template_features='mf-features-crm.php';
+				template_print='mf-print-crm.php';
+				template_sidebar='mf-sidebar-crm.php';
+				template_vtlink='mf-vtlink-crm.php';
+				break;
+			case "MH": //Mobile Home	
+			case "MOBILEHOMES": //Mobile Home	
+			case "MOB": //Mobile Home	
+				// template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
+				template_features='mh-features-crm.php';
+				template_print='mh-print-crm.php';
+				template_sidebar='mh-sidebar-crm.php';
+				template_vtlink='mh-vtlink-crm.php';
+				break;
+			case "LD": //Land		
+			case "LND": //Land		
+			case "LAND": //Land		
+			case "VLD": //Land		
+			case "LN": //Land		
+			case "FM": //Farm		
+			case "FR": //Farm		
+			case "C": //Lands&Lots		
+			case "LAN": //Land		
+			case "VACL": //Land
+			case "Land": //Land
+				// template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
+				template_features='ld-features-crm.php';
+				template_print='ld-print-crm.php';
+				template_sidebar='ld-sidebar-crm.php';
+				template_vtlink='ld-vtlink-crm.php';
+				break;
+			case "RN": //Rental		
+			case "RNT": //Rental		
+			case "LSE": //Rental		
+			case "RENT": //Rental		
+			case "REN": //Rental		
+			case "REL": //Rental		
+			case "E": //Rental		
+			case "LEASE/RENT": //Rental		
+				// template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
+				template_features='rn-features-crm.php';
+				template_print='rn-print-crm.php';
+				template_sidebar='rn-sidebar-crm.php';
+				template_vtlink='rn-vtlink-crm.php';
+				break;
+			case "CC": //Condo		
+			case "CND": //Condo		
+			case "CND": //Condo		
+			case "ATTSF": //Attached Single Family	
+			case "CONDOMINIUM": //Condo		
+			case "CON": //Condo	
+			case "COND": //Condo	
+				// template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
+				template_features='cc-features-crm.php';
+				template_print='cc-print-crm.php';
+				template_sidebar='cc-sidebar-crm.php';
+				template_vtlink='cc-vtlink-crm.php';
+				break;
+			case "CI": //Commercial			
+			case "CLSE": //Commercial Lease			
+			case "COM": //Commercial				
+			case "COMM": //Commercial		
+			case "CM": //Commercial		
+			case "INC": //Income		
+			case "D": //Commercial		
+			case "COMMERCIAL": //Commercial		
+			case "COMI": //Commercial		
+				// template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
+				template_features='ci-features-crm.php';
+				template_print='ci-print-crm.php';
+				template_sidebar='ci-sidebar-crm.php';
+				template_vtlink='ci-vtlink-crm.php';
+				break;
+			case "BU": //Business		
+			case "BUS": //Business		
+			case "BUSOP": //Business Opportunity		
+			case "BOP": //Business Opportunity		
+			case "IND": //Industri		
+			case "BUSI": //Business		
+			case "BUSINESS": //Business		
+			case "BUSO": //Business		
+				// template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
+				template_features='bu-features-crm.php';
+				template_print='bu-print-crm.php';
+				template_sidebar='bu-sidebar-crm.php';
+				template_vtlink='bu-vtlink-crm.php';
+				break;
+			case "RESI": //Residential
+			case "RINC": //Residential
+			case "RLSE": //Residential
+			case "A": //Residential
+				// template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
+				template_features='rd-features-crm.php';
+				template_print='rd-print-crm.php';
+				template_sidebar='rd-sidebar-crm.php';
+				template_vtlink='rd-vtlink-crm.php';
+				break;
+			case "FARM": //Farm
+			case "FAR": //Farm
+			case "Farm": //Farm	
+				// template_name=get_detail_template_filename('fm')?get_detail_template_filename('fm'):'';
+				template_features='fm-features-crm.php';
+				template_print='fm-print-crm.php';
+				template_sidebar='fm-sidebar-crm.php';
+				template_vtlink='fm-vtlink-crm.php';
+				break;
+			case "MANUFACTURING": //Manufacturing
+				// template_name=get_detail_template_filename('mu')?get_detail_template_filename('mu'):'';
+				template_features='mu-features-crm.php';
+				template_print='mu-print-crm.php';
+				template_sidebar='mu-sidebar-crm.php';
+				template_vtlink='mu-vtlink-crm.php';
+				break;
+			default: //custom default		
+				// template_name = zipperagent_detailpage_layout();
+				// template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
+				template_features='sf-features-crm.php';
+				template_print='sf-print-crm.php';
+				template_sidebar='sf-sidebar-crm.php';
+				template_vtlink='sf-vtlink-crm.php';
+				break;
+			
+		}
+		
+		return {
+			template_features: template_features,
+			template_print: template_print,
+			template_sidebar: template_sidebar,
+			template_vtlink: template_vtlink,
+		};
+	},
+	get_detail_template_filename:function(proptype){
+		proptype=proptype.toLowerCase();	
+		detailpage_layout = zppr.data.root.layout.hasOwnProperty('detailpage_layout_' + proptype)?zppr.data.root.layout['detailpage_layout_' + proptype]:'';
+		
+		return detailpage_layout;
+	},
+	vtlink_template:function(single_property){
+		
+		var html='';		
+		var virtual_tours= [];
+
+		if( (zppr.checkNested(single_property,'unmapped','VirtualTourURLBranded')) && (single_property.hasOwnProperty('listingAgent') || single_property.hasOwnProperty('coListingAgent')) && (zppr.is_branded_virtualtour() == 1)){
+			
+			if(Array.isArray(single_property.unmapped.VirtualTourURLBranded)){		
+				virtual_tours = single_property.unmapped.VirtualTourURLBranded;
+			}
+		}else if( zppr.checkNested(single_property,'unmapped','VirtualTourURLUnbranded') && (zppr.is_branded_virtualtour() == 1) ){
+
+			if(Array.isArray(single_property.unmapped.VirtualTourURLUnbranded)){
+				virtual_tours = single_property.unmapped.VirtualTourURLUnbranded;
+			}
+		}else if(single_property.hasOwnProperty('vtlink')){
+			
+			if(Array.isArray(single_property.vtlink)){
+				virtual_tours = single_property.vtlink;
+			}	
+		}
+		
+		for (const [virtual_index, original_virtual_tour_url] of Object.entries(virtual_tours)) {
+			
+			is_possible_popup = 1;
+			virtual_tour_url=original_virtual_tour_url.replace('http://','//');
+			virtual_tour_url=virtual_tour_url.replace('https://','//');
+			
+			if(virtual_tour_url.toString().indexOf('iframe') !== -1){ //iframe
+				embed = virtual_tour_url;
+			}else if(virtual_tour_url.toString().indexOf('youtube.com') !== -1 || virtual_tour_url.toString().indexOf('youtu.be') !== -1){ //youtube url
+				embed = virtual_tour_url.replace( /\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i, "<iframe id=\"matterportFrame\" width=\"853\" height=\"480\" src=\"//www.youtube.com/embed/$2\" frameborder=\"0\" allowfullscreen></iframe>");
+			}else if(virtual_tour_url.toString().indexOf('vimeo.com') !== -1){ //vimeo url
+				
+				vimeos = virtual_tour_url.split('vimeo.com/');
+				vimeo_id = vimeos[1];
+				
+				embed = "<iframe src=\"https://player.vimeo.com/video/"+ vimeo_id +"?color=ffffff\" width=\"853\" height=\"480\" frameborder=\"0\" allow=\"autoplay; fullscreen\" allowfullscreen></iframe>";
+					
+			}else if(virtual_tour_url.toString().indexOf('exite-listings.com') !== -1){
+				is_possible_popup = 0;
+			}else if(virtual_tour_url.toString().indexOf('video214.com') !== -1){
+				is_possible_popup = 0;
+			}else{ //normal url
+				embed= "<iframe id=\"matterportFrame\" width=\"853\" height=\"480\" src=\""+ virtual_tour_url +"\" frameborder=\"0\" allowfullscreen></iframe>";
+			}
+			
+			if(is_possible_popup){
+				html+= '<a href="#" content-iframe=\''+ embed +'\' class="virtual-tour-open">' +
+						  '<i class="fa fa-camera"></i>' +
+						  '<span> Virtual Tour&nbsp;#'+ (parseInt(virtual_index) + 1) +'</span>' +
+						'</a>';
+			}else{
+				html+= '<a href="'+ original_virtual_tour_url +'" class="virtual-tour-open-direct" target="_blank">' +
+						  '<i class="fa fa-camera"></i>' +
+						  '<span> Virtual Tour&nbsp;#'+ (parseInt(virtual_index) + 1) +'</span>' +
+						'</a>';
+			}
+
+		}
 		
 		return html;
 	},
-	sidebar_template:function(property){
+	sidebar_template:function(single_property){
 		
-		var html='';
+		var proptype = single_property.proptype;		
+		var template = zppr.generate_template(single_property);		
+		var sidebar = jQuery('templates').find('[data-filename="'+ template.template_sidebar +'"]').html();		
+		var regex = /{if field="(\S*)"}(.*?){\/if}/gs;
+		var html = '';
+		
+		do {
+			matches = regex.exec(sidebar);
+			if (matches) {
+				obj_str = matches[1];
+				attr = obj_str.split('.');				
+				content = matches[2];
+				field=false;
+				switch(attr.length){
+					case 2:
+							if(zppr.checkNested(single_property,attr[1]))
+								field = single_property[attr[1]];
+						break;
+					case 3:
+							if(zppr.checkNested(single_property,attr[1],attr[2]))
+								field = single_property[attr[1]][attr[2]];
+						break;
+				}
+				
+				if(field){
+					html+=content;
+				}
+				
+			}
+		} while (matches);
 		
 		return html;
 	},
-	feature_template:function(property){
+	feature_template:function(single_property){
+		
+		var proptype = single_property.proptype;		
+		var template = zppr.generate_template(single_property);		
+		var features = jQuery('templates').find('[data-filename="'+ template.template_features +'"]').html();		
+		var regex = /{nested fields="(\S*)"}(.*?){\/nested}/gs;
+		var html = features;
+		var find = [];
+		var replaces = [];
+		
+		String.prototype.allReplace = function(find,replaces) {
+			var retStr = this;
+			for (var x in find) {
+				retStr = retStr.replace(find[x], replaces[x]);
+			}
+			return retStr;
+		};
+		
+		do {
+			matches = regex.exec(features);
+			if (matches) {
+				full = matches[0];
+				obj_str = matches[1];				
+				content = matches[2];
+				
+				state=0;
+				fields = obj_str.split(',');	
+				
+				for (const [key, value] of Object.entries(fields)) {
+				
+					attr = value.split('.');
+					
+					field=false;
+					switch(attr.length){
+						case 2:
+								if(zppr.checkNested(single_property,attr[1]))
+									field = single_property[attr[1]];
+							break;
+						case 3:
+								if(zppr.checkNested(single_property,attr[1],attr[2]))
+									field = single_property[attr[1]][attr[2]];
+							break;
+					}
+				
+					if(field){
+						state=1;
+						break;
+					}
+				}
+				
+				if(!state){
+					find.push(full);
+					replaces.push('');
+				}else{
+					find.push(full);
+					replaces.push(content);
+				}				
+			}
+		} while (matches);
+		
+		html = html.allReplace(find,replaces);
+		
+		regex = /{section fields="(\S*)"}(.*?){\/section}/gs;
+		find = [];
+		replaces = [];
+		
+		do {
+			matches = regex.exec(html);
+			if (matches) {
+				full = matches[0];				
+				obj_str = matches[1];				
+				content = matches[2];
+				
+				state=0;
+				fields = obj_str.split(',');	
+				
+				for (const [key, values] of Object.entries(fields)) {
+				
+					attr = values.split('.');
+					
+					field=false;
+					switch(attr.length){
+						case 2:
+								if(zppr.checkNested(single_property,attr[1]))
+									field = single_property[attr[1]];
+							break;
+						case 3:
+								if(zppr.checkNested(single_property,attr[1],attr[2]))
+									field = single_property[attr[1]][attr[2]];
+							break;
+					}
+				
+					if(field){
+						state=1;
+						break;
+					}
+				}
+				
+				if(!state){
+					find.push(full);
+					replaces.push('');
+				}else{
+					find.push(full);
+					replaces.push(content);
+				}				
+			}
+		} while (matches);
+		
+		html = html.allReplace(find,replaces);
+		
+		regex = /{if field="(\S*)"}(.*?){\/if}/gs;
+		find = [];
+		replaces = [];
+		
+		do {
+			matches = regex.exec(html);
+			if (matches) {
+				full = matches[0];
+				obj_str = matches[1];
+				fields = obj_str.split(',');
+				state=true;
+				
+				for (const [key, value] of Object.entries(fields)) {
+					attr = value.split('.');				
+					content = matches[2];
+					
+					switch(attr.length){
+						case 2:
+								if(zppr.checkNested(single_property,attr[1])){
+									field = single_property[attr[1]];
+									state = state && field;
+								}else{
+									state = false;
+								}
+							break;
+						case 3:
+								if(zppr.checkNested(single_property,attr[1],attr[2])){
+									field = single_property[attr[1]][attr[2]];
+									state = state && field;
+								}else{
+									state = false;
+								}
+							break;
+					}	
+					
+				}
+			}
+			
+				
+			if(!state){
+				find.push(full);
+				replaces.push('');
+			}else{
+				find.push(full);
+				replaces.push(content);
+			}	
+				
+			
+		} while (matches);
+		
+		html = html.allReplace(find,replaces);
+		
+		return html;
+	},
+	print_template:function(single_property){		
+		
+		var print_logo = zppr.data.root.web.hasOwnProperty('print_logo')?zppr.data.root.web.print_logo:'';
+		var print_color = zppr.data.root.web.hasOwnProperty('print_color')?zppr.data.root.web.print_color:'';
 		
 		var html='';
+		
+		html += '<div id="print-view-column" class="zy-print-view js-print-view top-brdr no-border" style="border-color: '+ print_color +'">' +
+					'<div class="zy_print-view-wrap">';
+
+		if(print_color){
+			html += 	'<div class="zy-print-header-top" style="color: '+ print_color +' !important;">' +
+							'<div class="zy-print-logo">' +
+								'<img src="'+ print_logo +'">' +
+							'</div>' +
+						'</div>';
+		}
+						
+		html +=			'<div class="row">' +
+							'<div class="zy_prop-main col-xs-7">' +
+								
+								'<div class="zy_prop-address">' +
+									'<h1>'+ zppr.getAddress(single_property) +'</h1>' +
+								'</div>' +
+								
+								'<div class="zy_prop-img">';									
+		
+		if( single_property.hasOwnProperty('photoList') && single_property.photoList.length ){
+			i=0;
+			img=[];
+			for (const [key, pic] of Object.entries(single_property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
+					img.push("//media.mlspin.com/photo.aspx?mls="+ single_property.listno +"&w=744&h=419&n="+ i +"");
+				}else{
+					img.push(pic.imgurl);
+				}
+				i++;
+			}
+			
+			if ( img[0] ) html += 		'<img src="'+ img[0] +'" />';
+		}
+		
+		html +=					'</div>' +
+							'</div>' +
+							
+							'<div class="zy_prop-sidebar col-xs-5">' +
+								'<ul class="zy_prop-details">' +
+									
+									'<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">List Price</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">'+ zppr.data.currency +'{{realprice}}</span></li>' +
+									'<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">MLS#</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{listno}}</span></li>' +
+									zppr.sidebar_template(single_property) +		
+								'</ul>' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+						
+							'<div class="zy_prop-desc col-xs-12">' +
+								
+								'<h3 class="zy-feature-title nomargintop">Description</h3>' +
+								
+								'{{remarks}}' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="zy_prop-openhouse col-xs-12">';									
+									
+		if(single_property.hasOwnProperty('openHouses') && single_property.openHouses.length){
+			html+=				'<h3 class="zy-feature-title">Open House</h3>';
+			
+			for (const [key, openHouse] of Object.entries(single_property.openHouses)) {
+				
+				var sourceid=single_property.sourceid;
+				var mlstz = zppr.mls_timezone(sourceid);
+				var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+				var dt = new Date(ld);
+				var startDateOnly = dt.format('Y-m-d');
+				var startDate = dt.format('M j, Y h:i A');
+				var startTime =  dt.format('h:i A');
+				
+				var duration = openHouse.duration  ? openHouse.duration : 0;
+				var printEndTime = '';
+				
+				if( duration ){
+					dt = dt.addMinutes( duration );
+					endTime =dt.format('h:i A');
+					printEndTime = '- '+endTime;
+				}else if(openHouse.endDate){
+					ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+					dt = new Date(ld);
+					endDateOnly = dt.format('Y-m-d');
+					
+					if(startDateOnly!=endDateOnly){
+						
+						endDate = dt.format('M j, Y h:i A');
+						printEndTime = '- '+endDate;
+					}else{
+						
+						endTime = dt.format('h:i A');
+						printEndTime = '- '+endTime;
+					}
+				}
+				
+				html+=			'<p class="open-house-info"><span class="openHomeText">'+ startDate +' '+ printEndTime +'</p>';						
+			
+			}
+		}							
+									
+		html +=				'</div>' +
+						'</div>' +
+						'<div class="row zy-mls-toggle">' +
+							
+							'<div class="zy_mls-infos col-xs-12">' +
+								
+								zppr.feature_template(single_property) +
+								
+							'</div>' +
+						'</div>' +
+						'<div class="row zy-photos-toggle" style="display:none">' +
+							
+							'<div class="zy_prop-photos col-xs-12">' +
+								
+								'<h3 class="zy-feature-title nomargintop">Additional Photos</h3>';
+								
+		if( single_property.hasOwnProperty('photoList') && single_property.photoList.length ){
+			i=0;
+			image_urls=[];
+			for (const [key, pic] of Object.entries(single_property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
+					image_urls.push("//media.mlspin.com/photo.aspx?mls="+ single_property.listno +"&w=1600&h=1024&n="+ i +"");
+				}else{
+					image_urls.push(pic.imgurl);
+				}
+				i++;
+			}
+			
+			for (const [key, img] of Object.entries(image_urls)) {			
+				html += 		"<img src=\""+ img +"\" />";
+			}
+		}
+							
+		html +=				'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="zy_prop-disclaimer col-xs-12">';
+							
+		var source_details=single_property.sourceid ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'list' ) : false;						
+		if( source_details ){
+			html += 			source_details;
+		}else{
+			html +=				'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
+		}
+									
+		html +=				'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+				
+		return html;
+	},
+	mortgage_calculator:function(args){
+		var html='';
+		
+		var defaults = {
+			'default_homeprice' : 1000000,
+			'default_downpayment_percent' : 20,
+			'default_taxes_percent' : 0.98,
+			'default_taxes_ammount' : '',
+			'default_hoadues' : 0,
+			'default_mortgage_insurance_percent' : 0.75,
+			'default_homeowners_insurance_percent' : 0.4,
+			'default_interestrate' : 3.77,
+			'default_loan_type' : '30yrs',
+		};
+		
+		args = zppr.parse_args(args,defaults);
+		
+		var default_homeprice = parseFloat(args.default_homeprice);
+		var default_downpayment_percent = parseFloat(args.default_downpayment_percent);
+		var default_taxes_percent = parseFloat(args.default_taxes_percent);
+		var default_taxes_ammount = parseFloat(args.default_taxes_ammount);
+		var default_hoadues = parseFloat(args.default_hoadues);
+		var default_mortgage_insurance_percent = parseFloat(args.default_mortgage_insurance_percent);
+		var default_homeowners_insurance_percent = parseFloat(args.default_homeowners_insurance_percent);
+		var default_interestrate = parseFloat(args.default_interestrate);
+		var default_loan_type = args.default_loan_type;
+		
+		default_downpayment=default_homeprice * default_downpayment_percent / 100;
+		if(!default_taxes_ammount){	
+			default_taxes=default_homeprice * default_taxes_percent / 100;
+		}else{
+			default_taxes=default_taxes_ammount;
+			default_taxes_percent=default_taxes * 100 / default_homeprice;
+		}
+		default_mortgage_insurance=(default_homeprice/12) * default_mortgage_insurance_percent / 100;
+		default_homeowners_insurance=(default_homeprice/12) * default_homeowners_insurance_percent / 100;
+
+		formatted_homeprice = zppr.data.currency + Math.round(default_homeprice).toFixed(2).toString();
+		formatted_downpayment_percent = default_downpayment_percent.toString() + '%';
+		formatted_downpayment = zppr.data.currency + Math.round(default_downpayment).toFixed(2).toString();
+		formatted_taxes_percent = default_taxes_percent.toString() + '%';
+		formatted_taxes = zppr.data.currency + Math.round(default_taxes).toFixed(2).toString();
+		formatted_hoadues = zppr.data.currency + Math.round(default_hoadues).toFixed(2).toString();
+		formatted_mortgage_insurance_percent = default_mortgage_insurance_percent.toString() + '%';
+		formatted_mortgage_insurance = zppr.data.currency + Math.round(default_mortgage_insurance).toFixed(2).toString();
+		formatted_homeowners_insurance_percent = default_homeowners_insurance_percent.toString() + '%';
+		formatted_homeowners_insurance = zppr.data.currency + Math.round(default_homeowners_insurance).toFixed(2).toString();
+		formatted_interestrate = default_interestrate + '%';
+		
+		html += '<div class="zy-mortgage-calculator">' +
+					'<h3>Payment Calculator</h3>' +
+					'<div class="zy-mortgage-title">' +
+						'<p id="zy-mortgage-total">-</p>' +
+					'</div>' +
+					'<div class="zy-mortgage-sub-title">' +
+						'<p id="zy-mortgage-interest">-</p>' +
+					'</div>' +
+					'<div class="row">' +
+						'<div class="col-xs-12 col-sm-12 mb-12">' +
+							'<div class="zy_mortgage-bar">' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+					'<div class="row">' +
+						'<div class="col-xs-12 col-sm-12 mb-12 mg-detail">' +
+						'</div>' +
+						'<div class="col-xs-12 col-sm-12 mb-12 mg-input">' +
+							'<div class="row row-group">' +
+								'<div id="zy_homeprice" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Home Price</label>' +
+									'<input type="text" name="home_price" class="price-format" id="mortgage-homeprice" value="'+ formatted_homeprice +'">' +
+									'<input type="hidden" id="zy-mortgage-homeprice" />' +
+								'</div>' +
+								'<div id="zy_downpayment" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Down Payment</label>' +
+									'<div class="col-2-group">' +
+										'<input type="text" name="down_payment" class="price-format" id="mortgage-downpayment" value="'+ formatted_downpayment +'">' +
+										'<input type="text" name="down_payment_percent" class="percent-format" id="mortgage-downpayment-percent" value="'+ formatted_downpayment_percent +'">' +
+									'</div>' +
+									'<input type="hidden" id="zy-mortgage-downpayment" />' +
+								'</div>' +
+							'</div>' +
+							'<div class="row row-group">' +
+								'<div id="zy_property-taxes" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Property Taxes</label>' +
+									'<div class="col-2-group">' +
+										'<input type="text" name="zy_property-taxes" class="price-format" id="mortgage-property-taxes" value="'+ formatted_taxes +'">' +
+										'<input type="text" name="zy_property_taxes_percent" class="percent-format" id="mortgage-property-taxes-percent" value="'+ formatted_taxes_percent +'">' +
+									'</div>' +
+								'</div>' +
+								'<div id="zy_hoa-dues" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>HOA Dues</label>' +
+									'<input type="text" name="hoa_dues" class="price-format" id="mortgage-hoa-dues" value="'+ formatted_hoadues +'">' +
+								'</div>' +			
+							'</div>' +
+							'<div class="row row-group">' +
+								'<div id="zy_mortgage-insurance" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Mortgage Insurance</label>' +
+									'<div class="col-2-group">' +
+										'<input type="text" name="mortgage_insurance" class="price-format" id="mortgage-insurance" value="'+ formatted_mortgage_insurance +'">' +
+										'<input type="text" name="mortgage_insurance_percent" class="percent-format" id="mortgage-insurance-percent" value="'+ formatted_mortgage_insurance_percent +'">' +
+									'</div>' +
+								'</div>' +
+								'<div id="zy_homeowners-insurance" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Homeowners\' Insurance</label>' +
+									'<div class="col-2-group">' +
+										'<input type="text" name="homeowners_insurance" class="price-format" id="mortgage-homeowners-insurance" value="'+ formatted_homeowners_insurance +'">' +
+										'<input type="text" name="homeowners_insurance_percent" class="percent-format" id="mortgage-homeowners-insurance-percent" value="'+ formatted_homeowners_insurance_percent +'">' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row row-group">' +
+								'<div id="zy_interest-rate" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Interest Rate</label>' +
+									'<input type="text" name="interest_rate" class="percent-format" id="mortgage-interest-rate" value="'+ formatted_interestrate +'">' +
+								'</div>' +
+								'<div id="zy_loan-type" class="col-xs-12 col-sm-6 mb-6">' +
+									'<label>Loan Type</label>' +
+									'<select name="loan_type" id="mortgage-loan-type">' +
+										'<option '+ (default_loan_type=='30yrs'?'selected':'') +' value="30yrs">30 Years Fixed</option>' +
+										'<option '+ (default_loan_type=='15yrs'?'selected':'') +' value="15yrs">15 Years Fixed</option>' +
+										'<option '+ (default_loan_type=='5-1arm'?'selected':'') +' value="5-1arm">5/1 ARM</option>' +
+									'</select>' +
+								'</div>' +
+							'</div>	' +
+						'</div>' +
+					'</div>' +
+				'</div>';
 		
 		return html;
 	},
@@ -2503,7 +3712,7 @@ var zppr={
 			
 			var $temp=[];
 			
-			if( $val.toString().indexOf('|') === -1 ){
+			if( $val.toString().indexOf('|') !== -1 ){
 				var $separator="|";
 			}else{	
 				var $separator=",";
@@ -2677,13 +3886,11 @@ var zppr={
 			}
 		}
 		
-		console.log($find);
-		console.log($replaces);
-		
 		String.prototype.allReplace = function(find,replaces) {
 			var retStr = this;
 			for (var x in find) {
-				retStr = retStr.replace(new RegExp(find[x], 'g'), replaces[x]);
+				retStr = retStr.replace(new RegExp(find[x], 'gs'), replaces[x]);
+				// retStr = retStr.replace(find[x], replaces[x]);
 			}
 			return retStr;
 		};
@@ -2758,5 +3965,37 @@ var zppr={
 			$converted_status=$status;
 		
 		return $converted_status;
+	},
+	is_branded_virtualtour:function(){
+		
+		var enabled = zppr.data.root.web.hasOwnProperty('branded_virtualtour')?zppr.data.root.web.branded_virtualtour:'';
+		
+		enabled=enabled?true:false;
+		
+		return enabled;
+	},
+	get_agent:function(mlsid){
+		agents = zppr.data.agent_list;
+		findAgent=[];
+		if( agents.hasOwnProperty('filteredList') ){
+			for (const [key, agent] of Object.entries(agents.filteredList)) {
+				if( agent.hasOwnProperty('mlsAgentId') && agent.mlsAgentId == mlsid ){
+					findAgent=agent;
+					break;
+				}
+			}
+		}
+		
+		return findAgent;
+	},
+	parse_args:function(args, defaults){
+		
+		for (const [key, value] of Object.entries(defaults)) {
+			if( ! args.hasOwnProperty(key) ){
+				args[key] = value;
+			}
+		}
+		
+		return args;
 	}
 };

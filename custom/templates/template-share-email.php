@@ -10,6 +10,7 @@ $listing_price = zipperagent_currency() . number_format_i18n( $price, 0 );
 $site_domain = $_SERVER['HTTP_HOST'];
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $default_body = "Take a look at this property I found on {$site_domain}: {$actual_link}";
+$listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 ?>
 <div class="za-container">
 	<div id="zpaShareEmail" class="modal in" aria-hidden="false" style="display: none;">
@@ -83,7 +84,7 @@ $default_body = "Take a look at this property I found on {$site_domain}: {$actua
 											
 											<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 											<input type="hidden" name="action" value="share_email" >									
-											<input type="hidden" name="listingId" value="<?php echo $single_property->id; ?>" >									
+											<input type="hidden" name="listingId" value="<?php echo $listingId; ?>" >									
 											<input type="hidden" name="default_body" value="<?php echo $default_body; ?>" >									
 											<button type="submit" class="btn btn-primary mt-10">Send Email</button>
 											<div class="clearfix"></div>

@@ -2,6 +2,7 @@
 
 $contactIds=get_contact_id();
 $searchId = isset($_GET['searchId'])?$_GET['searchId']:'';
+$listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 
 if(zp_using_criteria()){	
 	$criteriaBase64 = isset($_GET['criteria'])?$_GET['criteria']:'';
@@ -32,7 +33,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 							<div class="panel-body">
 								<form id="zpa-schedule-showing-request-form" class="form-inline" data-zpa-event="schedule-showing-form-submit" action="" method="GET" data-zpa-event-bound="true">
 									<input name="action" value="schedule_show" type="hidden">
-									<input name="listingId" value="<?php echo $single_property->id; ?>" type="hidden">
+									<input name="listingId" value="<?php echo $listingId; ?>" type="hidden">
 									<input name="contactId" value="<?php echo implode(',',$contactIds) ?>" type="hidden">
 									<input name="searchId" value="<?php echo $searchId ?>" type="hidden">
 									<div class="row mt-10">

@@ -38,11 +38,15 @@ function za_enqueue_script(){
 	$args['detailpage_group']=ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
 	
-	$args['agent']=0;
-	$args['is_show_agent_name']=is_show_agent_name();
-	$args['searchId']='';
+	$args['agent_list']=zipperagent_get_agent_list();	
+	$args['searchId']=isset($_GET['searchid'])?$_GET['searchid']:'';
 	$args['field_list']=get_field_list();
-	// $args['source_details']=zipperagent_get_listing_disclaimer();
+	$args['za_image_clicked']=isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0;
+	$args['za_slider_limit_popup']=zipperagent_slider_limit_popup();
+	$args['za_signup_optional']=zipperagent_signup_optional();
+	$args['is_great_school_enabled']=is_great_school_enabled();
+	$args['is_walkscore_enabled']=is_walkscore_enabled();
+	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
     $localize = $args;
     wp_localize_script('jquery','zipperagent',$localize);
 	
@@ -646,7 +650,8 @@ function zipperagent_detail_page_lightbox_gallery(){
 					
 					count++;			
 					ajax_image_count(count);		
-					if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
+					// if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
+					if(count>=limit && limit != 0){
 						jQuery('#needLoginModal').modal('show');
 						<?php if(!zipperagent_signup_optional()): ?>
 						set_popup_is_triggered();

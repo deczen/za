@@ -919,8 +919,10 @@ function display_property_detail(){
 		$single_property=ZipperagentGlobalFunction()->get_single_property( $listingId, implode(',',$contactIds), $searchId );
 		
 		//get source details
-		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
-		
+		// $source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
+		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail_source') : false;
+		$source_disclaimer = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail_disclaimer') : false;
+
 		//get agent
 		$agent=array();
 		if( isset( $single_property->listagent ) || isset( $single_property->saleagent ) ){

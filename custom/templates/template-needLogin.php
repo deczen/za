@@ -289,9 +289,16 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						//set contactId to input field
 						jQuery('input[name=contactId]').val(contactId);
 						
-						//remove needLogin
+						//update button status
+						jQuery('input[name=contactId],input[name=contactid]').val(contactId);
 						jQuery('.needLogin').attr('contactId', contactId);
+						jQuery('.needLogin').attr('contactid', contactId);
+						jQuery('.needLogin').attr('isLogin', 1);
 						jQuery('.needLogin').removeClass('needLogin');
+						jQuery('a').attr('contactid', contactId);
+						jQuery('a').attr('isLogin', 1);
+						jQuery('button').attr('contactid', contactId);
+						jQuery('button').attr('isLogin', 1);
 						
 						//modify contact form
 						jQuery('.hidden-on-login').remove();
@@ -304,6 +311,12 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						
 						//show close button
 						jQuery('#needLoginModal .close').show();
+						
+						//update zppr data
+						if (typeof zppr != "undefined"){
+							zppr.data.is_login=1;
+							zppr.data.contactIds=[contactId];
+						}
 					}else{						
 						var email = jQuery('#zpa-login-user-email').val();
 						jQuery( '.zpa-social-signup' ).hide();
@@ -410,9 +423,16 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						//set contactId to input field
 						jQuery('input[name=contactId]').val(contactId);
 						
-						//remove needLogin
+						//update button status
+						jQuery('input[name=contactId],input[name=contactid]').val(contactId);
 						jQuery('.needLogin').attr('contactId', contactId);
+						jQuery('.needLogin').attr('contactid', contactId);
+						jQuery('.needLogin').attr('isLogin', 1);
 						jQuery('.needLogin').removeClass('needLogin');
+						jQuery('a').attr('contactid', contactId);
+						jQuery('a').attr('isLogin', 1);
+						jQuery('button').attr('contactid', contactId);
+						jQuery('button').attr('isLogin', 1);
 						
 						//modify contact form
 						jQuery('.hidden-on-login').remove();
@@ -434,6 +454,12 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						
 						//show close button
 						jQuery('#needLoginModal .close').show();
+						
+						//update zppr data
+						if (typeof zppr != "undefined"){
+							zppr.data.is_login=1;
+							zppr.data.contactIds=[contactId];
+						}
 						
 						//redirect
 						var current_url=window.location.href;
@@ -570,9 +596,17 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 							
 							jQuery('#needLoginModal .modal-header .close').click();
 							jQuery('#needLoginModal .modal-body #content').html('<p>Login success</p>');
-							jQuery('input[name=contactId]').val(contactId);
+							
+							//update button status
+							jQuery('input[name=contactId],input[name=contactid]').val(contactId);
 							jQuery('.needLogin').attr('contactId', contactId);
+							jQuery('.needLogin').attr('contactid', contactId);
+							jQuery('.needLogin').attr('isLogin', 1);
 							jQuery('.needLogin').removeClass('needLogin');
+							jQuery('a').attr('contactid', contactId);
+							jQuery('a').attr('isLogin', 1);
+							jQuery('button').attr('contactid', contactId);
+							jQuery('button').attr('isLogin', 1);
 							
 							//modify contact form
 							jQuery('.hidden-on-login').remove();
@@ -585,6 +619,12 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 							
 							//show close button
 							jQuery('#needLoginModal .close').show();
+							
+							//update zppr data
+							if (typeof zppr != "undefined"){
+								zppr.data.is_login=1;
+								zppr.data.contactIds=[contactId];
+							}
 							
 						}else{
 							jQuery('#zpa-modal-register-user-form input[name=firstName]').val(facebook.first_name);
