@@ -24,6 +24,7 @@ var zppr={
 		states: zipperagent.states,
 		
 		/* single property */
+		company_name: zipperagent.company_name,
 		agent_list: zipperagent.agent_list,
 		searchId: zipperagent.searchId,
 		field_list: zipperagent.field_list,
@@ -1102,8 +1103,10 @@ var zppr={
 						var real_price = zppr.moneyFormat(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
 						var gallery = zppr.gallery_template(single_property);
 						var address = zppr.getAddress(single_property);
+						var share_subject = zppr.data.company_name+ ', ' + address;
 						
 						jQuery('#zpa-modal-share-email-form .listing-price > span').html(real_price);
+						jQuery('#zpa-modal-share-email-form #share-subject').val(share_subject);
 						document.title = document.title.replace('Property Title', address);
 						
 						html = zppr.property_fields(single_property, html);

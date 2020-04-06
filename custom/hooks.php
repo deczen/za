@@ -38,6 +38,7 @@ function za_enqueue_script(){
 	$args['detailpage_group']=ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
 	
+	$args['company_name']=zipperagent_company_name();	
 	$args['agent_list']=zipperagent_get_agent_list();	
 	$args['searchId']=isset($_GET['searchid'])?$_GET['searchid']:'';
 	$args['field_list']=get_field_list();
