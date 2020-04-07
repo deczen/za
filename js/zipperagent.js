@@ -2441,7 +2441,6 @@ var zppr={
 					
 				break;
 			case "detail_source":
-					console.log('tai');
 					var date = new Date();
 					var curr_year = date.getFullYear();
 					year = source['year']?source['year']:curr_year;
@@ -3054,7 +3053,8 @@ var zppr={
 		var proptype = single_property.proptype;		
 		var template = zppr.generate_template(single_property);		
 		var sidebar = jQuery('templates').find('[data-filename="'+ template.template_sidebar +'"]').html();		
-		var regex = /{if field="(\S*)"}(.*?){\/if}/gs;
+		var regex = /{if field="(\S*)"}([^\x05]*?){\/if}/g;
+		// var regex = new RegExp(/{if field="(\S*)"}(.*?){\/if}/, 'g');
 		var html = '';
 		
 		do {
@@ -3089,10 +3089,13 @@ var zppr={
 		var proptype = single_property.proptype;		
 		var template = zppr.generate_template(single_property);		
 		var features = jQuery('templates').find('[data-filename="'+ template.template_features +'"]').html();		
-		var regex = /{nested fields="(\S*)"}(.*?){\/nested}/gs;
+		var regex = /{nested fields="(\S*)"}([^\x05]*?){\/nested}/g;
+		// var regex = new RegExp(/{nested fields="(\S*)"}(.*?){\/nested}/, 'g');
 		var html = features;
 		var find = [];
 		var replaces = [];
+		var state=0;
+		var full='';
 		
 		String.prototype.allReplace = function(find,replaces) {
 			var retStr = this;
@@ -3146,7 +3149,8 @@ var zppr={
 		
 		html = html.allReplace(find,replaces);
 		
-		regex = /{section fields="(\S*)"}(.*?){\/section}/gs;
+		regex = /{section fields="(\S*)"}([^\x05]*?){\/section}/g;
+		// regex = new RegExp(/{section fields="(\S*)"}(.*?){\/section}/, 'g');
 		find = [];
 		replaces = [];
 		
@@ -3194,7 +3198,8 @@ var zppr={
 		
 		html = html.allReplace(find,replaces);
 		
-		regex = /{if field="(\S*)"}(.*?){\/if}/gs;
+		regex = /{if field="(\S*)"}([^\x05]*?){\/if}/g;
+		// regex = new RegExp(/{if field="(\S*)"}(.*?){\/if}/, 'g');
 		find = [];
 		replaces = [];
 		
@@ -3892,7 +3897,8 @@ var zppr={
 		String.prototype.allReplace = function(find,replaces) {
 			var retStr = this;
 			for (var x in find) {
-				retStr = retStr.replace(new RegExp(find[x], 'gs'), replaces[x]);
+				retStr = retStr.replace(new RegExp(find[x], 'g'), replaces[x]);
+				// retStr = retStr.replace(new RegExp(find[x], 'gs'), replaces[x]);
 				// retStr = retStr.replace(find[x], replaces[x]);
 			}
 			return retStr;

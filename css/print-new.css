@@ -7,7 +7,7 @@
 /* detail page */
 @media print {
 	.edgtf-grid-section .edgtf-section-inner{
-		width:auto !important;
+		width:auto !important; /* fix width overflow issue in connal */
 	}
 	.zy-margin .container, .et_pb_row, .et_pb_slider .et_pb_container, 
 	.zy-margin .et_pb_fullwidth_section .et_pb_title_container, 
