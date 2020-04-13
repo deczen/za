@@ -867,7 +867,7 @@ function get_map_markers_loop(){
 		
 		global $markers, $infoWindows, $NextMapIndex;
 		
-		$maplimit=1000;
+		$maplimit=$_REQUEST['micro'] ? 1000 : 100;
 		
 		$mapindex=$_REQUEST['sidx'];
 		
@@ -876,7 +876,7 @@ function get_map_markers_loop(){
 		$mapvars['o']=$_REQUEST['o'];
 		$mapvars['ps']=$_REQUEST['ps'];
 		$mapvars['sidx']=$_REQUEST['sidx'];
-		$mapvars['micro']=true;
+		$mapvars['micro']=$_REQUEST['micro'];
 		
 		
 		// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );

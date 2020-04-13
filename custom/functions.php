@@ -1614,6 +1614,9 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 			if(!$index)
 				continue;
 			
+			if(!isset($property->lat) || !isset($property->lng))
+				continue;
+			
 			$fulladdress = zipperagent_get_address($property);
 			$lat = $property->lat;
 			$lng = $property->lng;
@@ -2940,7 +2943,7 @@ if( ! function_exists('get_long_excludes') ){
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
 					'fbclid','newsearchbar','school','search_category','coords','direct','view',
-					'disableviewbar','vars','fixed_search_form','anycrit',
+					'disableviewbar','vars','fixed_search_form','anycrit','micro',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -2958,7 +2961,8 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
-			'lat','lng','search_category','map_zoom','direct','view','disableviewbar','fixed_search_form','aloff'
+			'lat','lng','search_category','map_zoom','direct','view','disableviewbar','fixed_search_form','aloff',
+			'micro',
 		);
 		
 		$excludes=array_merge($excludes,get_wp_var_excludes());

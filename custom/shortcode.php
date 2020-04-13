@@ -998,6 +998,7 @@ class Zipperagent_Shortcodes{
 			'o' => '',
 			'direct' => '',
 			'disableviewbar' => 1,
+			'micro' => 1,
 		), $atts, 'za_map_search');
 		$requests = $atts;
 		$is_ajax_count = 1;

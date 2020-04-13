@@ -3,8 +3,6 @@ global $requests, $is_ajax_count, $is_map_explore;
 
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
-$micro = isset($requests['micro'])&&!$requests['micro']?0:1; // default always on
-$listlimit = $micro ? 1000 : 100;
 extract(zipperagent_get_map_centre());
 
 $is_map_explore=1;
@@ -383,7 +381,7 @@ if($requests['lat'] && $requests['lng']){
 			initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>', <?php echo $requests['map_zoom']; ?>, 1); // show map
 						
 			var looplimit = 5;
-			var listlimit = <?php echo $listlimit; ?>;
+			var listlimit = 1000;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				
@@ -412,9 +410,8 @@ if($requests['lat'] && $requests['lng']){
 				var order=requests.o.replace(/%253A/g, ":").replace(/%3A/g, ":");
 				// var model=zppr.data.root.web.aloff?'aloff:'+zppr.data.root.web.aloff+';':""+order;
 				var contactIds=zipperagent.contactIds.join();
-				var micro=<?php echo $micro; ?>;
 				var response=false;
-				parm.push(2,subdomain,customer_key,crit,order,sidx,ps,"",micro);
+				parm.push(2,subdomain,customer_key,crit,order,sidx,ps,"",1);
 				
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
@@ -431,9 +428,6 @@ if($requests['lat'] && $requests['lng']){
 									for (const [key, value] of Object.entries(response.result.filteredList)) {
 										
 										property = value;
-										
-										if(!property.hasOwnProperty('lat') || !property.hasOwnProperty('lng'))
-											continue;
 										
 										fulladdress = zppr.getAddress(property);
 										lat = property.lat;
@@ -464,7 +458,7 @@ if($requests['lat'] && $requests['lng']){
 										
 										beds_html = beds ? beds +" BEDS" : ""; 
 										bath_html = bath ? " "+ needBorder_html + bath + " BATH" : ""; 
-										sqft_html = sqft ? " "+ needBorder_html + sqft + " SQFT" : ""; 
+										sqft_html = sqft ? " "+ needBorder_html + $sqft + " SQFT" : ""; 
 										
 										curr_markers.push([fulladdress,lat,lng,listingId,longprice,shortprice,beds,bath,index,proptype]);
 										curr_infoWindowContent.push(['<div class=\"info_content\">' +
@@ -486,8 +480,8 @@ if($requests['lat'] && $requests['lng']){
 								
 								loop++;
 							
-								// if(loop <= (looplimit - 1) && response.result.filteredList.length == listlimit){
-								if(response.result.filteredList.length == listlimit){
+								// if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
+								if(curr_markers.length == listlimit){
 									sidx+=listlimit;
 									search_loop(subdomain,customer_key,crit,order,sidx,ps);
 								}else{								
@@ -522,10 +516,8 @@ if($requests['lat'] && $requests['lng']){
 				var parm=[];
 				var response=false;
 				var contactIds=zipperagent.contactIds.join();
-				var micro=<?php echo $micro; ?>;
-				
 				order = order.replace(/%253A/g, ":").replace(/%3A/g, ":");
-				parm.push(2,subdomain,customer_key,crit,order,sidx,ps,"",micro);
+				parm.push(2,subdomain,customer_key,crit,order,sidx,ps,"",1);
 				
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
@@ -542,9 +534,6 @@ if($requests['lat'] && $requests['lng']){
 									for (const [key, value] of Object.entries(response.result.filteredList)) {
 										
 										property = value;
-										
-										if(!property.hasOwnProperty('lat') || !property.hasOwnProperty('lng'))
-											continue;
 										
 										fulladdress = zppr.getAddress(property);
 										lat = property.lat;
@@ -575,7 +564,7 @@ if($requests['lat'] && $requests['lng']){
 										
 										beds_html = beds ? beds +" BEDS" : ""; 
 										bath_html = bath ? " "+ needBorder_html + bath + " BATH" : ""; 
-										sqft_html = sqft ? " "+ needBorder_html + sqft + " SQFT" : ""; 
+										sqft_html = sqft ? " "+ needBorder_html + $sqft + " SQFT" : ""; 
 										
 										curr_markers.push([fulladdress,lat,lng,listingId,longprice,shortprice,beds,bath,index,proptype]);
 										curr_infoWindowContent.push(['<div class=\"info_content\">' +
@@ -597,8 +586,8 @@ if($requests['lat'] && $requests['lng']){
 								
 								loop++;
 							
-								// if(loop <= (looplimit - 1) && response.result.filteredList.length == listlimit){
-								if(response.result.filteredList.length == listlimit){
+								// if(loop <= (looplimit - 1) && curr_markers.length == listlimit){
+								if(curr_markers.length == listlimit){
 									sidx+=listlimit;
 									search_loop(subdomain,customer_key,crit,order,sidx,ps);
 								}else{								
@@ -628,10 +617,8 @@ if($requests['lat'] && $requests['lng']){
 				
 				var parm=[];
 				var response=false;
-				var micro=<?php echo $micro; ?>;
-				
 				order = order.replace(/%253A/g, ":").replace(/%3A/g, ":");
-				parm.push(3,subdomain,customer_key,crit,order,sidx,ps,"",micro);
+				parm.push(3,subdomain,customer_key,crit,order,sidx,ps,"",1);
 				
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {

@@ -3,6 +3,8 @@ global $requests, $is_ajax_count, $is_map_explore;
 
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
+$micro = isset($requests['micro'])&&!$requests['micro']?0:1; // default always on
+$listlimit = $micro ? 1000 : 100;
 extract(zipperagent_get_map_centre());
 
 $is_map_explore=1;
@@ -383,7 +385,7 @@ if($requests['lat'] && $requests['lng']){
 			var xhr;
 			
 			var looplimit = 5;
-			var listlimit = 1000;
+			var listlimit = <?php echo $listlimit; ?>;
 			
 			jQuery('#zpa-search-filter-form').on("submit", function(event) {
 				
@@ -459,6 +461,7 @@ if($requests['lat'] && $requests['lng']){
 				request['o']=vars.o;
 				request['ps']=vars.ps;
 				request['sidx']=vars.sidx;
+				request['micro']=<?php echo $micro; ?>;
 								
 				console.time('generate map loop');
 				xhr = jQuery.ajax({
