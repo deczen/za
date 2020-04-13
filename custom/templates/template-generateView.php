@@ -387,7 +387,8 @@ if( $openHomesMode ){ // open houses mode
 		$loop=1;
 		$maplist=array();
 		$mapindex=$index;
-		$maplimit=$requests['micro']?1000:100;
+		// $maplimit=$requests['micro']?1000:100;
+		$maplimit=$num;
 		$mapvars=$vars;
 		unset($mapvars['coords']); //remove coords from variables, search all locations
 		// $mapvars['coords']='';
@@ -506,7 +507,8 @@ if( $openHomesMode ){ // open houses mode
 		$loop=1;
 		$maplist=array();
 		$mapindex=$index;
-		$maplimit=$requests['micro']?1000:100;
+		// $maplimit=$requests['micro']?1000:100;
+		$maplimit=$num;
 		$mapvars=$vars;
 		unset($mapvars['coords']); //remove coords from variables, search all locations
 		// $mapvars['coords']='';

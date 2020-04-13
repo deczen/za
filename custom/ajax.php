@@ -867,7 +867,8 @@ function get_map_markers_loop(){
 		
 		global $markers, $infoWindows, $NextMapIndex;
 		
-		$maplimit=$_REQUEST['micro'] ? 1000 : 100;
+		// $maplimit=$_REQUEST['micro'] ? 1000 : 100;
+		$maplimit=$_REQUEST['ps'];
 		
 		$mapindex=$_REQUEST['sidx'];
 		

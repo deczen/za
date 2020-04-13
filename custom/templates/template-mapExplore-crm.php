@@ -4,7 +4,7 @@ global $requests, $is_ajax_count, $is_map_explore;
 //map zoom level
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 $micro = isset($requests['micro'])&&!$requests['micro']?0:1; // default always on
-$listlimit = $micro ? 1000 : 100;
+$listlimit = $requests['listinapage'] ? $requests['listinapage'] : ( $micro ? 1000 : 100 );
 extract(zipperagent_get_map_centre());
 
 $is_map_explore=1;
