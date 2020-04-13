@@ -863,7 +863,7 @@ var zppr={
 			
 			args = {};
 			
-			default_homeprice=(single_property.status=='SLD'?(isset(single_property.saleprice)?single_property.saleprice:single_property.listprice):single_property.listprice);
+			default_homeprice=(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
 			default_taxes_ammount=zppr.checkNested(single_property,'unmapped','PropertyTax')?single_property.unmapped.PropertyTax:'';
 
 			args.default_homeprice=default_homeprice;
