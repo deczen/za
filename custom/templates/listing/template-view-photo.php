@@ -166,7 +166,15 @@ $query_args=array();
 						</div>
 						<div class="grid px-5">
 							<div class="cell cell-xs-3 uk-text-bold">Area:</div>
-							<div class="cell uk-text-right"><?php echo isset($property->shrtAREACODE) ? $property->shrtAREACODE :'-'; ?></div>
+							<?php
+							$area = isset($property->lngAREADESCRIPTION) ? $property->lngAREADESCRIPTION : '';
+							$area = isset($property->lngTOWNSDESCRIPTION) && !$area ? $property->lngTOWNSDESCRIPTION : $area;
+							$area = isset($property->lngCOUNTYDESCRIPTION) && !$area ? $property->lngCOUNTYDESCRIPTION : $area;
+							$area = isset($property->ShrtAREACODE) && !$area ? zipperagent_field_value( 'ShrtAREACODE', $property->ShrtAREACODE, $property->proptype ) : $area;
+							$area = isset($property->ShrtCOUNTYCODE) && !$area ? zipperagent_field_value( 'ShrtCOUNTYCODE', $property->ShrtCOUNTYCODE, $property->proptype ) : $area;
+							$area = isset($property->ShrtTOWNCODE) && !$area ? zipperagent_field_value( 'ShrtTOWNCODE', $property->ShrtTOWNCODE, $property->proptype ) : $area;
+							?>
+							<div class="cell uk-text-right"><?php echo $area ? $area : '-'; ?></div>
 						</div>
 					</div>
 				</div>
