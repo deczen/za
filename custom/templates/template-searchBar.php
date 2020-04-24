@@ -29,7 +29,7 @@ $excludes = get_new_filter_excludes();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any area, city, county, MLS# or zip code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Area, city, county, MLS# or zip code"  name="location[]"/>
 					</div>
 					<div class="field-section addr hide">
 						<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
@@ -42,25 +42,25 @@ $excludes = get_new_filter_excludes();
 						<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
 					</div>
 					<div class="field-section area hide">
-						<input id="zpa-areas-input" class="form-control" placeholder="Type any area"  name="location[]"/>
+						<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
 					</div>
 					<div class="field-section town hide">
-						<input id="zpa-town-input" class="form-control" placeholder="Type any city or town"  name="location[]"/>
+						<input id="zpa-town-input" class="form-control" placeholder="Type any City or Town"  name="location[]"/>
 					</div>
 					<div class="field-section county hide">
-						<input id="zpa-county-input" class="form-control" placeholder="Type any county"  name="location[]"/>
+						<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
 					</div>
 					<div class="field-section listid hide">
 						<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/>
 					</div>
 					<div class="field-section school hide">
-						<input type="text" id="zpa-school" class="form-control" placeholder="Type any address" name="school" />
+						<input type="text" id="zpa-school" class="form-control" placeholder="Type any Address" name="school" />
 					</div>					
 					<div class="field-section school2 hide">
-						<input id="zpa-school-input" class="form-control" placeholder="Type any address"  name="school[]"/>
+						<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
 					</div>
 					<div class="field-section zip hide">
-						<input id="zpa-zipcode-input" class="form-control" placeholder="Type any zip code"  name="location[]"/>
+						<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
 					</div>
 				</div>
 				<script>

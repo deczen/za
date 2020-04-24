@@ -59,7 +59,7 @@ if(get_query_var('page')){
 														<div class="zy-search__query-inner">
 															<div class="cell zy-off-canvas__ballerbox-wrapper width-1-1">
 																<div class="zy-search__query-wrapper">
-																	<input type="text" id="zpa-all-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Type any address, area, city, county, MLS# or zip code" name="location[]">
+																	<input type="text" id="zpa-all-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Type any Address, Area, City, County, MLS# or Zip Code" name="location[]">
 																	
 																	<input id="zpa-all-input-address" type="hidden" value="" />
 																	<input id="zpa-all-input-address-values" type="hidden" value="" />

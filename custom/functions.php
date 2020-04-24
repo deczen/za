@@ -347,6 +347,17 @@ if( ! function_exists('zipperagent_sold_status') ){
 	}
 }
 
+if( ! function_exists('zipperagent_pending_status') ){
+	function zipperagent_pending_status(){
+		$pending = zipperagent_get_default_status('pending');
+		
+		if($pending)
+			return $pending;
+		else
+			return 'CTG,AUC';
+	}
+}
+
 if( ! function_exists('zipperagent_rental_status') ){
 	function zipperagent_rental_status(){
 		$rental='';

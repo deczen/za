@@ -210,6 +210,7 @@
 						<ul class="status">
 							<li><label for="active"><input id="active" name="status" type="radio" value="" checked /> Active</label></li>
 							<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
+							<li><label for="pending"><input id="pending" name="status" type="radio" value="<?php echo zipperagent_pending_status(); ?>" /> Pending</li>
 						</ul>
 					</div>
 				</div>

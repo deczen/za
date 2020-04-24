@@ -42,7 +42,7 @@ $contactIds = get_contact_id();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any address, area, city, county, MLS# or zip code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="location[]"/>
 						<input id="zpa-all-input-address" type="hidden" value="" />
 						<input id="zpa-all-input-address-values" type="hidden" value="" />
 					</div>
@@ -57,25 +57,25 @@ $contactIds = get_contact_id();
 						<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
 					</div>
 					<div class="field-section area hide">
-						<input id="zpa-areas-input" class="form-control" placeholder="Type any area"  name="location[]"/>
+						<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
 					</div>
 					<div class="field-section town hide">
-						<input id="zpa-town-input" class="form-control" placeholder="Type any city or town"  name="location[]"/>
+						<input id="zpa-town-input" class="form-control" placeholder="Type any City or Town"  name="location[]"/>
 					</div>
 					<div class="field-section county hide">
-						<input id="zpa-county-input" class="form-control" placeholder="Type any county"  name="location[]"/>
+						<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
 					</div>
 					<div class="field-section listid hide">
 						<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/>
 					</div>
 					<div class="field-section school hide">
-						<input type="text" id="zpa-school" class="form-control" placeholder="Type any address" name="school" />
+						<input type="text" id="zpa-school" class="form-control" placeholder="Type any Address" name="school" />
 					</div>					
 					<div class="field-section school2 hide">
-						<input id="zpa-school-input" class="form-control" placeholder="Type any address"  name="school[]"/>
+						<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
 					</div>
 					<div class="field-section zip hide">
-						<input id="zpa-zipcode-input" class="form-control" placeholder="Type any zip code"  name="location[]"/>
+						<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
 					</div>
 				</div>
 				<script>
@@ -213,6 +213,7 @@ $contactIds = get_contact_id();
 										<ul class="status">
 											<li><label for="active"><input id="active" name="status" type="radio" value="" checked /> Active</label></li>
 											<li><label for="sold"><input id="sold" name="status" type="radio" value="<?php echo zipperagent_sold_status(); ?>" /> Sold</li>
+											<li><label for="pending"><input id="pending" name="status" type="radio" value="<?php echo zipperagent_pending_status(); ?>" /> Pending</li>
 										</ul>										
 									</div>
 									<?php /*

@@ -55,13 +55,13 @@ global $requests;
 												</div>
 												<div class="field-wrap">
 													<div class="field-section all">
-														<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any address, area, city, county, MLS# or zip code"  name=""/>
+														<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name=""/>
 														<input id="zpa-all-input-address" type="hidden" value="" />
 														<input id="zpa-all-input-address-values" type="hidden" value="" />
 														<div style="display:none;" class="input-fields"></div>
 													</div>
 													<div class="field-section addr hide">
-														<input type="text" id="zpa-area-address" class="form-control" placeholder="Type any address" />
+														<input type="text" id="zpa-area-address" class="form-control" placeholder="Type any Address" />
 																																										
 														<input type="hidden" id="street_number" name="advStNo" disabled="true" />
 														<input type="hidden" id="route" name="advStName" disabled="true" />
@@ -71,29 +71,29 @@ global $requests;
 														<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
 													</div>
 													<div class="field-section area hide">
-														<input id="zpa-areas-input" class="form-control" placeholder="Type any area"  name="location[]"/>
+														<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
 													</div>
 													<div class="field-section town hide">
-														<input id="zpa-town-input" class="form-control" placeholder="Type any city or town"  name="location[]"/>
+														<input id="zpa-town-input" class="form-control" placeholder="Type any City or Town"  name="location[]"/>
 													</div>
 													<div class="field-section county hide">
-														<input id="zpa-county-input" class="form-control" placeholder="Type any county"  name="location[]"/>
+														<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
 													</div>
 													<div class="field-section listid hide">
 														<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name=""/>
 														<div style="display:none;" class="input-fields"></div>
 													</div>
 													<div class="field-section school hide">
-														<input type="text" id="zpa-school" class="form-control" placeholder="Type any address" />
+														<input type="text" id="zpa-school" class="form-control" placeholder="Type any Address" />
 														
 														<input type="hidden" id="lat" name="lat" />
 														<input type="hidden" id="lng" name="lng" />
 													</div>
 													<div class="field-section school2 hide">
-														<input id="zpa-school-input" class="form-control" placeholder="Type any address"  name="school[]"/>
+														<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
 													</div>
 													<div class="field-section zip hide">
-														<input id="zpa-zipcode-input" class="form-control" placeholder="Type any zip code"  name="location[]"/>
+														<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
 													</div>
 												</div>
 												<script>
@@ -442,7 +442,7 @@ global $requests;
 							</div>
 								
 						</div>
-						<div class="col-xs-12 col-sm-2 mb-10"> <span id="zpa-status-fields"> <label for="zpa-status" class="field-label zpa-status-label"> Status </label> <div> <label class="radio-inline"> <input class="radio" name="status" value="" type="radio" checked> Active </label>  <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_sold_status(); ?>" type="radio"> Sold </label> </div> </span> </div>
+						<div class="col-xs-12 col-sm-3 mb-10"> <span id="zpa-status-fields"> <label for="zpa-status" class="field-label zpa-status-label"> Status </label> <div> <label class="radio-inline"> <input class="radio" name="status" value="" type="radio" checked> Active </label>  <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_sold_status(); ?>" type="radio"> Sold </label> <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_pending_status(); ?>" type="radio"> Pending </label> </div> </span> </div>
 					</div>
 					<div id="zpa-house-condo-search-fields" class="">
 						<div class="row mt-25 zpa-home-search-fields filter">
