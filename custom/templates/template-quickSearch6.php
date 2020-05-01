@@ -126,7 +126,7 @@ global $requests;
 			?>
 		</form>	
 		
-		<?php echo global_new_omnibar_script(1); ?>
+		<?php echo global_new_omnibar_script(0); ?>
 		
 	</div>
 </div>
