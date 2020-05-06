@@ -126,7 +126,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				'1024',
 				'768',
 				isset($property->id) ? zipperagent_get_address($property) : 'Not Found',
-				isset($property->id) ? zipperagent_field_value('lngTOWNSDESCRIPTION',$property->lngTOWNSDESCRIPTION, $property->proptype) : '',
+				isset($property->id) ? zipperagent_field_value('lngTOWNSDESCRIPTION',$property->lngTOWNSDESCRIPTION, $property->proptype, (isset($property->sourceid)?$property->sourceid:'')) : '',
 				
 				isset($property->id) ? zipperagent_property_url( $property->id, zipperagent_get_address($property) ) : '',
 				zipperagent_company_name().', '.$this->getTitle(),

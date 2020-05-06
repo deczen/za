@@ -1836,7 +1836,7 @@ function get_zipperagent_property_fields(){
 		
 		foreach($property as $key=>$value){
 			if(array_key_exists ($key, $default_fields)){
-				$fields[$default_fields[$key]]=zipperagent_field_value($key, $value, $property->proptype);
+				$fields[$default_fields[$key]]=zipperagent_field_value($key, $value, $property->proptype, (isset($property->sourceid)?$property->sourceid:''));
 			}
 		}
 		

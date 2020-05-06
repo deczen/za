@@ -129,7 +129,7 @@ if( $list ): ?>
 									<div class="zpa-status <?php echo is_numeric($property->status)? 'status_'.str_replace(' ','',$property->status) : str_replace(' ','',$property->status); ?>">
 										<?php
 											$status=isset($property->status)?$property->status:'';
-											$converted_status = zipperagent_get_status_name($status);
+											$converted_status = zipperagent_get_status_name($status,isset($property->sourceid)?$property->sourceid:'');
 										?>
 										<span class="text-center d-block"><?php echo strtoupper($converted_status) ?></span>
 									</div>

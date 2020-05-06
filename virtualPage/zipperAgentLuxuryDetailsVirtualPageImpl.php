@@ -70,7 +70,7 @@ class zipperAgentLuxuryDetailsVirtualPageImpl extends zipperAgentAbstractVirtual
 				'1024',
 				'768',
 				zipperagent_get_address($this->single_property),
-				zipperagent_field_value('lngTOWNSDESCRIPTION',$this->single_property->lngTOWNSDESCRIPTION, $this->single_property->proptype),
+				zipperagent_field_value('lngTOWNSDESCRIPTION',$this->single_property->lngTOWNSDESCRIPTION, $this->single_property->proptype, (isset($property->sourceid)?$property->sourceid:'')),
 			);
 			
 			$metaTags = str_replace($find, $replace, $metaTags);

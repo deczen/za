@@ -43,6 +43,8 @@ foreach( $virtual_tours as $virtual_index => $virtual_tour_url ):
 		$is_possible_popup = 0;
 	}else if(stripos($virtual_tour_url, "video214.com") !== false){
 		$is_possible_popup = 0;
+	}else if(stripos($virtual_tour_url, "getopenframe.com") !== false){
+		$is_possible_popup = 0;
 	}else{ //normal url
 		$embed= "<iframe id=\"matterportFrame\" width=\"853\" height=\"480\" src=\"{$virtual_tour_url}\" frameborder=\"0\" allowfullscreen></iframe>";
 	}

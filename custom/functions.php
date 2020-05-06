@@ -410,7 +410,7 @@ if( ! function_exists('get_rental_status') ){
 }
 
 if( ! function_exists('zipperagent_get_status_name') ){
-	function zipperagent_get_status_name( $status ){
+	function zipperagent_get_status_name( $status, $sourceid='' ){
 		
 		$converted_status='';
 		$fields = get_field_list();
@@ -429,8 +429,11 @@ if( ! function_exists('zipperagent_get_status_name') ){
 		
 		if( isset( $fields->STATUS ) ){
 			// echo "<pre>"; print_r( $fields->STATUS ); echo "</pre>";
-			foreach( $fields->STATUS as $entity ){			
-				if($status==$entity->shortDescription || $status==$entity->mediumDescription){
+			foreach( $fields->STATUS as $entity ){
+				
+				$shortDescription = array_filter( explode('$',$entity->shortDescription) );
+				
+				if(in_array($status, $shortDescription) || $status==$entity->mediumDescription && ( $sourceid!='' && $entity->sourceId==$sourceid || $sourceid=='' )){
 					$converted_status = $entity->longDescription;
 					break;
 				}
@@ -1030,6 +1033,8 @@ if( ! function_exists('zipperagent_property_fields') ){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		$rnhidestreetno = isset($rb['web']['rnhidestreetno'])?$rb['web']['rnhidestreetno']:0;
 		
+		$sourceid=isset($single_property->sourceid)?$single_property->sourceid:'';
+		
 		$replaces=array();
 		$find=array();
 		if(is_object($single_property) || is_array($single_property)){
@@ -1046,7 +1051,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								$replaces[]=number_format_i18n( $v, 0 );
 							break;
 						case "status":
-								$replaces[]=zipperagent_get_status_name($v);
+								$replaces[]=zipperagent_get_status_name($v,$sourceid);
 							break;
 						case "proptype":
 								$replaces[]=zipperagent_property_type($v);
@@ -1062,7 +1067,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								if($rnhidestreetno && $single_property->proptype=="RN")
 									$replaces[]='';
 								else
-									$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype );
+									$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid );
 							break;
 						// case "beachfrontflag":
 						// case "waterfrontflag":
@@ -1076,7 +1081,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								// $replaces[]=zipperagent_yes_no_value($v);
 							// break;					
 						default:								
-								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype );
+								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid );
 							break;
 					}
 				}else if(is_array( $v ) || is_object( $v )){ //level 2,3,4,..
@@ -1085,7 +1090,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 						if(!is_array($v2) && !is_object($v2)){
 							if(is_numeric($k2)){
 								$find[]="[{$k}_{$k2}]";
-								$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
+								$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype, $sourceid );
 							}else{
 								switch($k2){
 									case "SQFTRoofedLiving":
@@ -1094,7 +1099,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 										break;
 									default:
 											$find[]="[{$k}_{$k2}]";
-											$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype );
+											$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype, $sourceid );
 										break;
 								}
 							}
@@ -1102,14 +1107,14 @@ if( ! function_exists('zipperagent_property_fields') ){
 							foreach($v2 as $k3 => $v3){
 								if(!is_array($v3) && !is_object($v3)){
 									$find[]="[{$k}_{$k2}_{$k3}]";
-									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype );
+									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype, $sourceid );
 								}
 							}
 						}else if(is_object($v2)){
 							foreach($v2 as $k3 => $v3){
 								if(!is_array($v3) && !is_object($v3)){
 									$find[]="[{$k}_{$k2}_{$k3}]";
-									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype );
+									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype, $sourceid );
 								}
 							}
 						}
@@ -1909,15 +1914,13 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					$year = isset($source['year'])?$source['year']:date("Y");
 					$text.= 'Listing information &copy; ' . $year . '<br />';		
 					
-					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
-						$text.= sprintf( "Listing Provided Courtesy %s of", $listAgentName);							
-					}else{
-						$text.= "Listing Provided Courtesy of";						
+					if(isset($listOfficeName) && !empty($listOfficeName)){
+						$text.= sprintf( "Listing Provided Courtesy of <strong>%s</strong>", $listOfficeName);
 					}
 					
-					if(isset($listOfficeName) && !empty($listOfficeName)){
-						$text.= ' '. "<strong>$listOfficeName</strong>";
-					}						
+					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+						$text.= sprintf( ", %s", $listAgentName);							
+					}				
 				break;
 			case "detail_disclaimer":
 					if(isset($source['logo_path']) && file_exists($source['logo_path'])){
@@ -1931,6 +1934,17 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					$defaultDisc="Disclaimer: The information contained in this listing has not been verified by <strong>{$listOfficeName}</strong> and should be verified by the buyer.";
 					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? '<br />' . $source['discComingle'] : (isset($source['discDetail']) ? '<br />' . $source['discDetail'] : '' );
 					// $text.='<br /><br />' . $defaultDisc;
+					
+					if($sourceid=='LVMLS'){
+						$text.="<br /><br />";
+						$text.="<img style=\"max-height:none;\" src=\"". ZIPPERAGENTURL . 'custom/logo/IDX.png' ."\" /><br />";
+						$text.="The data related to real estate for sale on this website comes in part from the INTERNET DATA EXCHANGE (IDX) program of the Greater Las Vegas Association of REALTORS® MLS. Real estate listings held by brokerage firms other than this site owner are marked with the IDX logo. IDX information is for consumers' personal, non-commercial use and may not be used for any purpose other than to identify prospective properties consumers may be interested in purchasing.";
+						$text.="<br /><b>GLVAR deems information reliable but not guaranteed.</b>";
+						$text.="<br /><b><i>© 2020 of the Greater Las Vegas Association of REALTORS® MLS. All rights reserved.</i></b>";
+						$text.="<br /><a href=\"http://www.idxre.com/docs/idxdocs/nvglvar-dmca.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">GLVAR DMCA Notice</a>";
+						$text.="<br />GLVAR (Las Vegas) data last updated at April 29, 2020 10:00 AM PT";
+					}
+					
 				break;
 			
 		}
@@ -2430,8 +2444,12 @@ if( ! function_exists('get_autocomplete_data') ){
 if( ! function_exists('populate_fields') ){
 	function populate_fields(){
 		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
+		$sources = isset($rb['web']['asrc'])?'?sources='.$rb['web']['asrc']:'';
+		
 		$fields=array();
-		$url="/api/mls/fieldReferences";
+		$url="/api/mls/fieldReferences" . $sources;
 		// die( $url );
 		$result = zipperagent_run_curl($url);
 		
@@ -2578,7 +2596,7 @@ if( ! function_exists('get_property_images') ){
 }
 
 if( ! function_exists('zipperagent_field_value') ){
-	function zipperagent_field_value( $key, $val, $proptype='' ){
+	function zipperagent_field_value( $key, $val, $proptype='', $sourceid='' ){
 		
 		$fields = get_field_list();
 		
@@ -2715,12 +2733,12 @@ if( ! function_exists('zipperagent_field_value') ){
 				$temp[]=0;
 			}
 			
-			$keyFeatures = zipperagent_type_mask($fields, $key, $proptype);
+			$keyFeatures = zipperagent_type_mask($fields, $key, $proptype, $sourceid);
 			
 			foreach( $keyFeatures as $entity ){
 				$version = isset($entity->version)?$entity->version:'';
 				$fieldName = isset($entity->fieldName)?$entity->fieldName:'';
-				$shortDescription = isset($entity->shortDescription)?$entity->shortDescription:'';
+				$shortDescription = isset($entity->shortDescription)?array_filter(explode('$',$entity->shortDescription)):'';
 				$mediumDescription = isset($entity->mediumDescription)?$entity->mediumDescription:'';
 				$longDescription = isset($entity->longDescription)?$entity->longDescription:'';
 				$propTypeMask = isset($entity->propTypeMask)?$entity->propTypeMask:'';
@@ -2730,7 +2748,7 @@ if( ! function_exists('zipperagent_field_value') ){
 						if( $mediumDescription == $values[$index] ){
 							$values[$index]=str_replace( $mediumDescription, $longDescription, $values[$index] );
 							$temp[$index]=1;
-						}else if( $shortDescription == $values[$index] ){
+						}else if( in_array($values[$index], $shortDescription) ){
 							$values[$index]=str_replace( $shortDescription, $longDescription, $values[$index] );
 							$temp[$index]=1;
 						}
@@ -2765,7 +2783,7 @@ if( ! function_exists('zipperagent_field_value') ){
 }
 
 if( ! function_exists('zipperagent_type_mask') ){
-	function zipperagent_type_mask($fields, $key, $proptype){
+	function zipperagent_type_mask($fields, $key, $proptype, $sourceid=''){
 		
 		$KEY=strtoupper($key);
 		
@@ -2800,7 +2818,8 @@ if( ! function_exists('zipperagent_type_mask') ){
 			$p_pty_mask = 7;			
 		}
 		foreach($keyFeaturesRaw as $entity){
-			if ( isset($entity->propTypeMask) && ( ($entity->propTypeMask == 255) || ($entity->propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))){
+			if ( isset($entity->propTypeMask) && ( ($entity->propTypeMask == 255) || ($entity->propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))
+				 && ( $sourceid=='' || $sourceid!='' && $entity->sourceId==$sourceid )){
 				array_push($keyFeatures,$entity);
 			}
 		}

@@ -1981,7 +1981,7 @@ var zppr={
 								'<div class="'+ ( column==4 ? 'col-xs-7 nopaddingright' : 'col-xs-8' ) +'">' +
 									'<div class="zpa-grid-result-additional-info">' +
 										'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
-											'<span class="text-center d-block">'+ zppr.prop_status_label(status).toUpperCase() +'</span>' +
+											'<span class="text-center d-block">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</span>' +
 										'</div>' +
 									'</div>' +
 								'</div>' +
@@ -2102,7 +2102,7 @@ var zppr={
 								'</div>' +
 								'<div class="zy_pt-prop-info zy_pt-wrap">' +
 									'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
-										'<span class="text-center d-block">'+ zppr.prop_status_label(status).toUpperCase() +'</span>' +
+										'<span class="text-center d-block">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</span>' +
 									'</div>' +
 									'<div class="zy_pt-days">' +
 										'<span class="pull-right">'+ ( days ? '<i class="fa fa-calendar" aria-hidden="true"></i>'+ days +' Day(s)' : '' ) + '</span>' +
@@ -2298,72 +2298,6 @@ var zppr={
 		
 		return inputs;
 	},
-	prop_status_label:function(status){
-		status = status.toString();
-		converted_status='';
-		status_list = zppr.data.status_list;
-		
-		if( status_list ){
-			
-			for (const [key, entity] of Object.entries(status_list)) {			
-				if(status==entity.shortDescription || status==entity.mediumDescription){
-					converted_status = entity.longDescription;
-					break;
-				}
-			}
-			
-		}else{
-			switch(status){
-				case "ACT":
-						converted_status="Active";
-					break;
-				case "BOM":
-						converted_status="Back on Market";
-					break;
-				case "CAN":
-						converted_status="Canceled";
-					break;
-				case "CTG":
-						converted_status="Contingent";
-					break;
-				case "EXP":
-						converted_status="Expired";
-					break;
-				case "EXT":
-						converted_status="Extended";
-					break;
-				case "KIL":
-						converted_status="Killed";
-					break;
-				case "NEW":
-						converted_status="New";
-					break;
-				case "PCG":
-						converted_status="Price Changed";
-					break;
-				case "RAC":
-						converted_status="Reactivated";
-					break;
-				case "RNT":
-						converted_status="Rented";
-					break;
-				case "SLD":
-						converted_status="Sold";
-					break;
-				case "UAG":
-						converted_status="Under Agreement";
-					break;
-				case "WDN":
-						converted_status="Temporarily Withdrawn";
-					break;
-			};
-		}	
-		
-		if(!converted_status)
-			converted_status=status;
-		
-		return converted_status;
-	},
 	get_source_text:function(sourceid, params, type){
 		sources = zppr.data.source_cached;
 		
@@ -2444,17 +2378,15 @@ var zppr={
 					var date = new Date();
 					var curr_year = date.getFullYear();
 					year = source['year']?source['year']:curr_year;
-					text+= 'Listing information &copy; ' + year + '<br />';		
-					
-					if(listAgentName!='' && zppr.data.is_show_agent_name==1){
-						text+= "Listing Provided Courtesy "+ listAgentName +" of";							
-					}else{
-						text+= "Listing Provided Courtesy of";						
-					}
+					text+= 'Listing information &copy; ' + year + '<br />';	
 					
 					if(listOfficeName){
-						text+= ' '+ "<strong>"+ listOfficeName +"</strong>";
-					}						
+						text+= "Listing Provided Courtesy of <strong>"+ listOfficeName +"</strong>";
+					}	
+					
+					if(listAgentName!='' && zppr.data.is_show_agent_name==1){
+						text+= ", "+ listAgentName;
+					}				
 				break;
 			case "detail_disclaimer":
 					if(source['logo_path']){
@@ -2476,6 +2408,10 @@ var zppr={
 	},
 	proptype_label:function(code){
 		propertyType = code;
+		
+		if(typeof code === 'undefined')
+        	return '';
+		
 		propTypeFields = zppr.data.property_types_refenrence;
 		
 		if(!propTypeFields){// if value empty, use static references
@@ -3028,6 +2964,8 @@ var zppr={
 				is_possible_popup = 0;
 			}else if(virtual_tour_url.toString().indexOf('video214.com') !== -1){
 				is_possible_popup = 0;
+			}else if(virtual_tour_url.toString().indexOf('getopenframe.com') !== -1){
+				is_possible_popup = 0;
 			}else{ //normal url
 				embed= "<iframe id=\"matterportFrame\" width=\"853\" height=\"480\" src=\""+ virtual_tour_url +"\" frameborder=\"0\" allowfullscreen></iframe>";
 			}
@@ -3553,7 +3491,7 @@ var zppr={
 		return value;
 		
 	},
-	type_mask:function($fields, $key, $proptype){
+	type_mask:function($fields, $key, $proptype, $sourceid){
 		
 		$KEY=$key.toUpperCase();
 		
@@ -3588,14 +3526,15 @@ var zppr={
 			$p_pty_mask = 7;			
 		}
 		for (const [key, $entity] of Object.entries($keyFeaturesRaw)) {
-			if ( $entity.hasOwnProperty('propTypeMask') && ( ($entity.propTypeMask == 255) || ($entity.propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))){
+			if ( $entity.hasOwnProperty('propTypeMask') && ( ($entity.propTypeMask == 255) || ($entity.propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))
+				 && ( $sourceid=='' || $sourceid!='' && $entity.sourceId==$sourceid ) ){
 				$keyFeatures.push($entity);
 			}
 		}
 		
 		return $keyFeatures;
 	},
-	field_value:function( $key, $val, $proptype='' ){
+	field_value:function( $key, $val, $proptype='', $sourceid='' ){
 		
 		var $fields = zppr.data.field_list;
 		
@@ -3732,22 +3671,26 @@ var zppr={
 				$temp.push(0);
 			}
 			
-			var $keyFeatures = zppr.type_mask($fields, $key, $proptype);
+			var $keyFeatures = zppr.type_mask($fields, $key, $proptype, $sourceid);
 			
 			for (const [key, $entity] of Object.entries($keyFeatures)) {
 				$version = $entity.hasOwnProperty('version')?$entity.version:'';
 				$fieldName = $entity.hasOwnProperty('fieldName')?$entity.fieldName:'';
-				$shortDescription = $entity.hasOwnProperty('shortDescription')?$entity.shortDescription:'';
+				$shortDescription = $entity.hasOwnProperty('shortDescription')?$entity.shortDescription.split('$'):'';
 				$mediumDescription = $entity.hasOwnProperty('mediumDescription')?$entity.mediumDescription:'';
 				$longDescription = $entity.hasOwnProperty('longDescription')?$entity.longDescription:'';
 				$propTypeMask = $entity.hasOwnProperty('propTypeMask')?$entity.propTypeMask:'';
+				
+				$shortDescription = $shortDescription.filter(function (el) {
+				  return el != '';
+				});
 				
 				for (const [$index, $value] of Object.entries($temp)) {
 					if( ! $temp[$index] ){
 						if( $mediumDescription == $values[$index] ){
 							$values[$index]=$values[$index].replace( $mediumDescription, $longDescription );
 							$temp[$index]=1;
-						}else if( $shortDescription == $values[$index] ){
+						}else if( zppr.in_array($values[$index],$shortDescription) ){
 							$values[$index]=$values[$index].replace( $shortDescription, $longDescription );
 							$temp[$index]=1;
 						}
@@ -3796,7 +3739,7 @@ var zppr={
 								$replaces.push(zppr.formatNumber($v));
 							break;
 						case "status":
-								$replaces.push(zppr.get_status_name($v));
+								$replaces.push(zppr.get_status_name($v, single_property.sourceid));
 							break;
 						case "proptype":
 								$replaces.push(zppr.proptype_label($v));
@@ -3813,7 +3756,7 @@ var zppr={
 								if($rnhidestreetno && single_property.proptype=="RN")
 									$replaces.push('');
 								else
-									$replaces.push(zppr.field_value( $k, $v, single_property.proptype ));
+									$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid ));
 							break;
 						// case "beachfrontflag":
 						// case "waterfrontflag":
@@ -3827,7 +3770,7 @@ var zppr={
 								// $replaces[]=zipperagent_yes_no_value($v);
 							// break;					
 						default:								
-								$replaces.push(zppr.field_value( $k, $v, single_property.proptype ));
+								$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid ));
 							break;
 					}
 				}else if( Array.isArray($v) && typeof $v === "object" ){ //level 2,3,4,..
@@ -3836,7 +3779,7 @@ var zppr={
 						if(!Array.isArray($v2) && !typeof $v2 === "object"){
 							if(jQuery.isNumeric($k2)){
 								$find.push("{{"+$k+"_"+$k2+"}}");
-								$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype ));
+								$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype, single_property.sourceid ));
 							}else{
 								switch($k2){
 									case "SQFTRoofedLiving":
@@ -3845,7 +3788,7 @@ var zppr={
 										break;
 									default:
 											$find.push("{{"+$k+"_"+$k2+"}}");
-											$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype ));
+											$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype, single_property.sourceid ));
 										break;
 								}
 							}
@@ -3853,14 +3796,14 @@ var zppr={
 							for (const [$k3, $v3] of Object.entries($v2)) {
 								if(!Array.isArray($v3) && !typeof $v3 === "object"){
 									$find.push("{{"+$k+"_"+$k2+"_"+$k3+"}}");
-									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype ));
+									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype, single_property.sourceid ));
 								}
 							}
 						}else if(typeof $v2 === "object"){
 							for (const [$k3, $v3] of Object.entries($v2)) {
 								if(!Array.isArray($v3) && !typeof $v3 === "object"){
 									$find.push("{{"+$k+"_"+$k2+"_"+$k3+"}}");
-									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype ));
+									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype, single_property.sourceid ));
 								}
 							}
 						}
@@ -3909,15 +3852,22 @@ var zppr={
 		
 		return $html;
 	},
-	get_status_name:function( $status ){
+	get_status_name:function( $status, $sourceid ){
 		
 		$converted_status='';
 		var $fields = zppr.data.field_list;
 				
 		if( $fields.hasOwnProperty('STATUS') ){
 			// echo "<pre>"; print_r( $fields->STATUS ); echo "</pre>";
-			for (const [$key, $entity] of Object.entries($fields.STATUS)) {		
-				if($status==$entity.shortDescription || $status==$entity.mediumDescription){
+			for (const [$key, $entity] of Object.entries($fields.STATUS)) {
+				
+				var shortDescription = $entity.shortDescription.split('$');
+				
+				shortDescription = shortDescription.filter(function (el) {
+				  return el != '';
+				});
+				
+				if(zppr.in_array($status,shortDescription) || $status==$entity.mediumDescription && ( $sourceid!='' && $entity.sourceId==$sourceid || $sourceid=='' )){
 					$converted_status = $entity.longDescription;
 					break;
 				}
