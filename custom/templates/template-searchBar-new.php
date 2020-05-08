@@ -370,7 +370,7 @@ $contactIds = get_contact_id();
 										</div>
 									</div>
 									<div class="days-on-site col-xs-12">
-										<h3># Days On Site </h3>
+										<h3># Days on Market </h3>
 										<div class="one-field-wrap">
 											<select id="domk" name="domk">
 												<option value="">Any</option>

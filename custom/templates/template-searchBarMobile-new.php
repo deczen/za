@@ -296,7 +296,7 @@
 									</div>
 								</div>
 								<div class="days-on-site col-xs-4">
-									<span class="field-label"># Days On Site </span>
+									<span class="field-label"># Days on Market </span>
 									<div class="one-field-wrap">
 										<select id="domk" name="domk">
 											<option value="">Any</option>
