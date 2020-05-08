@@ -591,7 +591,7 @@ global $requests;
 						</div>
 						
 						<div class="col-xs-12 col-sm-2">
-							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"> Max days On Site </label>
+							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"># Days on Market</label>
 							<input id="zpa-max-days-listed" name="domk" placeholder="days number" type="text" class="form-control" value="">
 						</div>
 						<div class="col-xs-12 col-sm-2">
