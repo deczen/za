@@ -906,6 +906,9 @@ $contactIds = get_contact_id();
 						case "school":
 							newLabel = value;	
 							break;
+						case "awvf": //disable label text
+							newLabel = '';	
+							break;
 						default:
 							switch(name){
 								case "alstid":
