@@ -2785,6 +2785,16 @@ if( ! function_exists('zipperagent_field_value') ){
 if( ! function_exists('zipperagent_type_mask') ){
 	function zipperagent_type_mask($fields, $key, $proptype, $sourceid=''){
 		
+		$sourceid=''; // fix wrong label
+		
+		// if($key=='style'){
+			// echo "key: ".$key."<br />";
+			// echo "proptype: ".$proptype."<br />";
+			// echo "sourceid: ".$sourceid."<br />";
+			// echo "<pre>"; print_r($fields->STYLE); echo "</pre>";
+			// die();
+		// }
+		
 		$KEY=strtoupper($key);
 		
 		$nostripkey = str_replace('_', '', $key);

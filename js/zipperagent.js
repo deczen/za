@@ -3493,6 +3493,8 @@ var zppr={
 	},
 	type_mask:function($fields, $key, $proptype, $sourceid){
 		
+		$sourceid='';
+		
 		$KEY=$key.toUpperCase();
 		
 		$nostripkey = $key.replace('_', '');
