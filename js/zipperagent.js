@@ -3693,7 +3693,15 @@ var zppr={
 							$values[$index]=$values[$index].replace( $mediumDescription, $longDescription );
 							$temp[$index]=1;
 						}else if( zppr.in_array($values[$index],$shortDescription) ){
-							$values[$index]=$values[$index].replace( $shortDescription, $longDescription );
+							
+							$code='';
+							for (const [$k, $v] of Object.entries($shortDescription)) {
+								if($v == $values[$index]){
+									$code=$v;
+								}
+							}
+							
+							$values[$index]=$values[$index].replace( $code, $longDescription );
 							$temp[$index]=1;
 						}
 					}
