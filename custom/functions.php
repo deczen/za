@@ -2607,6 +2607,7 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "bed3dimen":case "bed3DSCRP":
 			case "bed4dimen":case "bed4DSCRP":
 			case "bed5dimen":case "bed5DSCRP":
+			case "bed6dimen":case "bed6DSCRP":
 			case "bth1dimen":case "bth1dscrp":case "bth1DSCRP":
 			case "bth2dimen":case "bth2dscrp":case "bth2DSCRP":
 			case "bth3dimen":case "bth3dscrp":case "bth3DSCRP":
@@ -2619,6 +2620,7 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "oth3DIMEN":case "oth3DSCRP":
 			case "oth4DIMEN":case "oth4DSCRP":
 			case "oth5DIMEN":case "oth5DSCRP":
+			case "oth6DIMEN":case "oth6DSCRP":
 			case "headscrp1":case "coldscrp1":
 			case "heaDSCRP1":case "colDSCRP1":
 			case "headscrp2":case "coldscrp2":
@@ -2629,6 +2631,8 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "heaDSCRP4":case "colDSCRP4":
 			case "headscrp5":case "coldscrp5":
 			case "heaDSCRP5":case "colDSCRP5":
+			case "headscrp6":case "coldscrp6":
+			case "heaDSCRP6":case "colDSCRP6":
 				$key=isset($fields->ROOM)?"ROOM":$key;
 				break;
 			
@@ -2637,6 +2641,7 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "bed3LEVEL":
 			case "bed4LEVEL":
 			case "bed5LEVEL":
+			case "bed6LEVEL":
 			case "bth1LEVEL":
 			case "bth2LEVEL":
 			case "bth3LEVEL":
@@ -2649,6 +2654,7 @@ if( ! function_exists('zipperagent_field_value') ){
 			case "oth3LEVEL":
 			case "oth4LEVEL":
 			case "oth5LEVEL":
+			case "oth6LEVEL":
 				$key=isset($fields->ROOMLEVEL)?"ROOMLEVEL":$key;
 				break;
 			
@@ -2749,7 +2755,14 @@ if( ! function_exists('zipperagent_field_value') ){
 							$values[$index]=str_replace( $mediumDescription, $longDescription, $values[$index] );
 							$temp[$index]=1;
 						}else if( in_array($values[$index], $shortDescription) ){
-							$values[$index]=str_replace( $shortDescription, $longDescription, $values[$index] );
+							$code='';
+							foreach($shortDescription as $k=>$v){
+								if($v==$values[$index]){
+									$code=$v;
+									break;
+								}
+							}
+							$values[$index]=str_replace( $code, $longDescription, $values[$index] );
 							$temp[$index]=1;
 						}
 					}

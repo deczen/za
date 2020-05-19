@@ -3547,6 +3547,7 @@ var zppr={
 			case "bed3dimen":case "bed3DSCRP":
 			case "bed4dimen":case "bed4DSCRP":
 			case "bed5dimen":case "bed5DSCRP":
+			case "bed6dimen":case "bed6DSCRP":
 			case "bth1dimen":case "bth1dscrp":case "bth1DSCRP":
 			case "bth2dimen":case "bth2dscrp":case "bth2DSCRP":
 			case "bth3dimen":case "bth3dscrp":case "bth3DSCRP":
@@ -3559,6 +3560,7 @@ var zppr={
 			case "oth3DIMEN":case "oth3DSCRP":
 			case "oth4DIMEN":case "oth4DSCRP":
 			case "oth5DIMEN":case "oth5DSCRP":
+			case "oth6DIMEN":case "oth6DSCRP":
 			case "headscrp1":case "coldscrp1":
 			case "heaDSCRP1":case "colDSCRP1":
 			case "headscrp2":case "coldscrp2":
@@ -3569,6 +3571,8 @@ var zppr={
 			case "heaDSCRP4":case "colDSCRP4":
 			case "headscrp5":case "coldscrp5":
 			case "heaDSCRP5":case "colDSCRP5":
+			case "headscrp6":case "coldscrp6":
+			case "heaDSCRP6":case "colDSCRP6":
 				$key=$fields.hasOwnProperty('ROOM')?"ROOM":$key;
 				break;
 			
@@ -3577,6 +3581,7 @@ var zppr={
 			case "bed3LEVEL":
 			case "bed4LEVEL":
 			case "bed5LEVEL":
+			case "bed6LEVEL":
 			case "bth1LEVEL":
 			case "bth2LEVEL":
 			case "bth3LEVEL":
@@ -3589,6 +3594,7 @@ var zppr={
 			case "oth3LEVEL":
 			case "oth4LEVEL":
 			case "oth5LEVEL":
+			case "oth6LEVEL":
 				$key=$fields.hasOwnProperty('ROOMLEVEL')?"ROOMLEVEL":$key;
 				break;
 			
