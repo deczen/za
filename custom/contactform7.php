@@ -207,10 +207,10 @@ function cf7_auto_suggest($atts){
 	</script>
 	<script>
 		<?php
-		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		$states=isset($rb['web']['states'])?$rb['web']['states']:'';
-		$states=array_map('trim', explode(',', $states));
-		$states=implode(' | ',$states);
+		 $rb = ZipperagentGlobalFunction()->zipperagent_rb();
+	  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
+	  $states=array_map('trim', explode(',', $states));
+	  $states=sizeof($states)===1?implode(' | ',$states):'';
 		?>
 		
 		var autocomplete;
@@ -219,7 +219,7 @@ function cf7_auto_suggest($atts){
 		function initAutocomplete() {
 			var options = {
 				types: ['geocode'],  // or '(cities)' if that's what you want?
-				componentRestrictions: {country: ["us","ca","in"]},
+				componentRestrictions: {country: ["us"]},
 			};
 			autocomplete = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(input), options);

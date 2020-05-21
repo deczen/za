@@ -144,7 +144,7 @@ var input = document.getElementById('autocomplete');
 function initAutocomplete() {
 	var options = {
 		types: ['geocode'],  // or '(cities)' if that's what you want?
-		componentRestrictions: {country: ["us","ca","in"]},
+		componentRestrictions: {country: ["us"]},
 	};
 	autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(input), options);

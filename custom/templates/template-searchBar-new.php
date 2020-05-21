@@ -1561,7 +1561,7 @@ $contactIds = get_contact_id();
 			function initAutocomplete() {
 				var options = {
 					types: ['geocode'],  // or '(cities)' if that's what you want?
-					componentRestrictions: {country: ["us","ca","in"]},
+					componentRestrictions: {country: ["us"]},
 				};
 				// Create the autocomplete object, restricting the search to geographical
 				// location types.
@@ -2439,7 +2439,7 @@ $contactIds = get_contact_id();
 		  function initAutocomplete() {
 			var options = {
 				types: ['geocode'],  // or '(cities)' if that's what you want?
-				componentRestrictions: {country: ["us","ca","in"]},
+				componentRestrictions: {country: ["us"]},
 			};
 			// Create the autocomplete object, restricting the search to geographical
 			// location types.
@@ -2586,7 +2586,7 @@ $contactIds = get_contact_id();
 		  function initAutocomplete() {
 			var options = {
 				types: ['establishment'],  // or '(cities)' if that's what you want?
-				componentRestrictions: {country: ["us","ca","in"]},
+				componentRestrictions: {country: ["us"]},
 			};
 			// Create the autocomplete object, restricting the search to geographical
 			// location types.
