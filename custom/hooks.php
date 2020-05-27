@@ -42,6 +42,14 @@ function za_enqueue_script(){
 	$args['agent_list']=zipperagent_get_agent_list();	
 	$args['searchId']=isset($_GET['searchid'])?$_GET['searchid']:'';
 	$args['field_list']=get_field_list();
+	$asrc=$rb['web']['asrc'];
+	$sources=explode(',', $asrc);
+	if($asrc!=''){
+		foreach($sources as $sourceid){
+			$args['field_list_'.$sourceid]=get_field_list('detail', $sourceid);
+		}
+	}
+	
 	$args['za_image_clicked']=isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0;
 	$args['za_slider_limit_popup']=zipperagent_slider_limit_popup();
 	$args['za_signup_optional']=zipperagent_signup_optional();

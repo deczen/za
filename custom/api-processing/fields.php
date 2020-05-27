@@ -10,12 +10,19 @@
 	if (!file_exists($dir)) {
 		mkdir($dir, 0777, true);
 	}
-	$filename = 'fields-' . date('M-d-Y').'.php';
+	
+	if(!isset($type))
+		$type='general';
+	if(!isset($sourceid))
+		$sourceid='';
+	
+	$chk = 'fields'. ( $type=='detail' && $sourceid ? '_'.$sourceid : '' ) .'-';
+	$filename = $chk. date('M-d-Y').'.php';
 	$cachefile = $dir.$filename;
 	
 	$files = scandir($dir);
 	foreach($files as $file) {
-		if( is_file( $dir . $file ) && $file!=$filename && strpos($file, 'fields-') !== false )
+		if( is_file( $dir . $file ) && $file!=$filename && strpos($file, $chk) !== false )
 			@unlink( $dir . $file );
 	}
 	
@@ -30,7 +37,7 @@
 	ob_start();
 	
 	/** CONTENT HERE **/
-	$data = populate_fields();
+	$data = populate_fields($sourceid);
 		
 	echo json_encode( $data );
 	/** CONTENT END **/

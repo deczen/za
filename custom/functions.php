@@ -240,6 +240,10 @@ if( ! function_exists('zipperagent_get_address') ){
 			$address = $streetno.' '.$streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
 		}
 		
+		if(strlen(str_replace(' ','', $address)) <= 2){ //fix broken address
+			$address='Property Title';
+		}
+		
 		return $address;
 	}
 }
@@ -410,10 +414,10 @@ if( ! function_exists('get_rental_status') ){
 }
 
 if( ! function_exists('zipperagent_get_status_name') ){
-	function zipperagent_get_status_name( $status, $sourceid='' ){
+	function zipperagent_get_status_name( $status, $sourceid='', $type='general'){
 		
 		$converted_status='';
-		$fields = get_field_list();
+		$fields = get_field_list($type, $sourceid);
 		
 		
 		/*$propTypeFields = get_property_type(array('NA','NA1'));
@@ -1051,7 +1055,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								$replaces[]=number_format_i18n( $v, 0 );
 							break;
 						case "status":
-								$replaces[]=zipperagent_get_status_name($v,$sourceid);
+								$replaces[]=zipperagent_get_status_name($v,$sourceid,'detail');
 							break;
 						case "proptype":
 								$replaces[]=zipperagent_property_type($v);
@@ -1067,7 +1071,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								if($rnhidestreetno && $single_property->proptype=="RN")
 									$replaces[]='';
 								else
-									$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid );
+									$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid, 'detail' );
 							break;
 						// case "beachfrontflag":
 						// case "waterfrontflag":
@@ -1081,7 +1085,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								// $replaces[]=zipperagent_yes_no_value($v);
 							// break;					
 						default:								
-								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid );
+								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid, 'detail' );
 							break;
 					}
 				}else if(is_array( $v ) || is_object( $v )){ //level 2,3,4,..
@@ -1090,7 +1094,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 						if(!is_array($v2) && !is_object($v2)){
 							if(is_numeric($k2)){
 								$find[]="[{$k}_{$k2}]";
-								$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype, $sourceid );
+								$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype, $sourceid, 'detail' );
 							}else{
 								switch($k2){
 									case "SQFTRoofedLiving":
@@ -1099,7 +1103,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 										break;
 									default:
 											$find[]="[{$k}_{$k2}]";
-											$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype, $sourceid );
+											$replaces[]=zipperagent_field_value( $k2, $v2, $single_property->proptype, $sourceid, 'detail' );
 										break;
 								}
 							}
@@ -1107,14 +1111,14 @@ if( ! function_exists('zipperagent_property_fields') ){
 							foreach($v2 as $k3 => $v3){
 								if(!is_array($v3) && !is_object($v3)){
 									$find[]="[{$k}_{$k2}_{$k3}]";
-									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype, $sourceid );
+									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype, $sourceid, 'detail' );
 								}
 							}
 						}else if(is_object($v2)){
 							foreach($v2 as $k3 => $v3){
 								if(!is_array($v3) && !is_object($v3)){
 									$find[]="[{$k}_{$k2}_{$k3}]";
-									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype, $sourceid );
+									$replaces[]=zipperagent_field_value( $k3, $v3, $single_property->proptype, $sourceid, 'detail' );
 								}
 							}
 						}
@@ -2442,14 +2446,19 @@ if( ! function_exists('get_autocomplete_data') ){
 }
 
 if( ! function_exists('populate_fields') ){
-	function populate_fields(){
+	function populate_fields($sourceid=''){
 		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
 		$sources = isset($rb['web']['asrc'])?'?sources='.$rb['web']['asrc']:'';
 		
 		$fields=array();
-		$url="/api/mls/fieldReferences" . $sources;
+		
+		if($sourceid==''){
+			$url="/api/mls/fieldReferences" . $sources;
+		}else{
+			$url="/api/mls/fieldReferences?sources=" . $sourceid;
+		}
 		// die( $url );
 		$result = zipperagent_run_curl($url);
 		
@@ -2502,17 +2511,19 @@ if( ! function_exists('get_town_list') ){
 }
 
 if( ! function_exists('get_field_list') ){
-	function get_field_list(){
+	function get_field_list($type='general', $sourceid=''){
 		
-		if(!isset($_SESSION['za_fields']) || ( isset($_SESSION['za_fields']) && !$_SESSION['za_fields'] )){
+		$sname = $type=='detail' && $sourceid ? 'za_fields_' . $sourceid : 'za_fields';
+		
+		if(!isset($_SESSION[$sname]) || ( isset($_SESSION[$sname]) && !$_SESSION[$sname] )){
 			ob_start();
 			include ZIPPERAGENTPATH . "/custom/api-processing/fields.php";
 			$json=ob_get_clean();
 			$data=json_decode($json);
 			
-			$_SESSION['za_fields']=$data;
+			$_SESSION[$sname]=$data;
 		}else{
-			$data = $_SESSION['za_fields'];
+			$data = $_SESSION[$sname];
 		}	
 		return $data;
 	}
@@ -2596,9 +2607,9 @@ if( ! function_exists('get_property_images') ){
 }
 
 if( ! function_exists('zipperagent_field_value') ){
-	function zipperagent_field_value( $key, $val, $proptype='', $sourceid='' ){
+	function zipperagent_field_value( $key, $val, $proptype='', $sourceid='', $type='general' ){
 		
-		$fields = get_field_list();
+		$fields = get_field_list($type, $sourceid);
 		
 		//special case
 		switch($key){

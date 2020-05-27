@@ -3536,9 +3536,9 @@ var zppr={
 		
 		return $keyFeatures;
 	},
-	field_value:function( $key, $val, $proptype='', $sourceid='' ){
+	field_value:function( $key, $val, $proptype='', $sourceid='', $type='general' ){
 		
-		var $fields = zppr.data.field_list;
+		var $fields = zppr.get_field_list($type, $sourceid);;
 		
 		//special case
 		switch($key){
@@ -3755,7 +3755,7 @@ var zppr={
 								$replaces.push(zppr.formatNumber($v));
 							break;
 						case "status":
-								$replaces.push(zppr.get_status_name($v, single_property.sourceid));
+								$replaces.push(zppr.get_status_name($v, single_property.sourceid, 'detail'));
 							break;
 						case "proptype":
 								$replaces.push(zppr.proptype_label($v));
@@ -3772,7 +3772,7 @@ var zppr={
 								if($rnhidestreetno && single_property.proptype=="RN")
 									$replaces.push('');
 								else
-									$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid ));
+									$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid, 'detail' ));
 							break;
 						// case "beachfrontflag":
 						// case "waterfrontflag":
@@ -3786,7 +3786,7 @@ var zppr={
 								// $replaces[]=zipperagent_yes_no_value($v);
 							// break;					
 						default:								
-								$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid ));
+								$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid, 'detail' ));
 							break;
 					}
 				}else if( Array.isArray($v) && typeof $v === "object" ){ //level 2,3,4,..
@@ -3795,7 +3795,7 @@ var zppr={
 						if(!Array.isArray($v2) && !typeof $v2 === "object"){
 							if(jQuery.isNumeric($k2)){
 								$find.push("{{"+$k+"_"+$k2+"}}");
-								$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype, single_property.sourceid ));
+								$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype, single_property.sourceid, 'detail' ));
 							}else{
 								switch($k2){
 									case "SQFTRoofedLiving":
@@ -3804,7 +3804,7 @@ var zppr={
 										break;
 									default:
 											$find.push("{{"+$k+"_"+$k2+"}}");
-											$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype, single_property.sourceid ));
+											$replaces.push(zppr.field_value( $k2, $v2, single_property.proptype, single_property.sourceid, 'detail' ));
 										break;
 								}
 							}
@@ -3812,14 +3812,14 @@ var zppr={
 							for (const [$k3, $v3] of Object.entries($v2)) {
 								if(!Array.isArray($v3) && !typeof $v3 === "object"){
 									$find.push("{{"+$k+"_"+$k2+"_"+$k3+"}}");
-									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype, single_property.sourceid ));
+									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype, single_property.sourceid, 'detail' ));
 								}
 							}
 						}else if(typeof $v2 === "object"){
 							for (const [$k3, $v3] of Object.entries($v2)) {
 								if(!Array.isArray($v3) && !typeof $v3 === "object"){
 									$find.push("{{"+$k+"_"+$k2+"_"+$k3+"}}");
-									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype, single_property.sourceid ));
+									$replaces.push(zppr.field_value( $k3, $v3, single_property.proptype, single_property.sourceid, 'detail' ));
 								}
 							}
 						}
@@ -3868,10 +3868,10 @@ var zppr={
 		
 		return $html;
 	},
-	get_status_name:function( $status, $sourceid ){
+	get_status_name:function( $status, $sourceid, $type='general' ){
 		
 		$converted_status='';
-		var $fields = zppr.data.field_list;
+		var $fields = zppr.get_field_list($type, $sourceid);;
 				
 		if( $fields.hasOwnProperty('STATUS') ){
 			// echo "<pre>"; print_r( $fields->STATUS ); echo "</pre>";
@@ -3940,6 +3940,14 @@ var zppr={
 			$converted_status=$status;
 		
 		return $converted_status;
+	},
+	get_field_list:function(type, sourceid){
+		
+		if(type=='detail' && sourceid){
+			return zipperagent['field_list_'+sourceid];
+		}else{			
+			return zppr.data.field_list
+		}
 	},
 	is_branded_virtualtour:function(){
 		
