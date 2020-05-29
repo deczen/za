@@ -9,7 +9,8 @@ $price=is_object($single_property)?(in_array($single_property->status, explode('
 $listing_price = zipperagent_currency() . number_format_i18n( $price, 0 );
 $site_domain = $_SERVER['HTTP_HOST'];
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$default_body = "Take a look at this property I found on {$site_domain}: {$actual_link}";
+// $default_body = "Take a look at this property I found on {$site_domain}: {$actual_link}";
+$default_body = "Take a look at this property I found on: {$actual_link}";
 $listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 ?>
 <div class="za-container">

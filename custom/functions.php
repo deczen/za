@@ -1064,7 +1064,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								$mlstz = zipperagent_timezone();
 								$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 								$dt->setTimestamp($v/1000); //adjust the object to correct timestamp
-								$datetime = $dt->format('Y-m-d h:i A');
+								$datetime = $dt->format('d-m-Y h:i A');
 								$replaces[]=$datetime;								
 							break;
 						case "streetno":
@@ -3816,7 +3816,8 @@ if( ! function_exists('zipperagent_company_name') ){
 	function zipperagent_company_name(){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			
-		$company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:get_bloginfo('name');
+		// $company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:get_bloginfo('name');
+		$company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:'This property was shared to you';
 		
 		return $company_name;
 	}

@@ -190,6 +190,7 @@ switch($property_type){
 	case "COF": //OFFICE
 	case "RESIDENTIAL": //Residential
 	case "RESI": //Residential
+	case "Residential": //Residential
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -272,6 +273,7 @@ switch($property_type){
 	case "D": //Commercial		
 	case "COMMERCIAL": //Commercial		
 	case "COMI": //Commercial		
+	case "Commercial_Sale": //Commercial Sale	
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';

@@ -2769,6 +2769,7 @@ var zppr={
 			case "COF": //OFFICE
 			case "RESIDENTIAL": //Residential
 			case "RESI": //Residential
+			case "Residential": //Residential
 				// template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 				template_features='sf-features-crm.php';
 				template_print='sf-print-crm.php';
@@ -2850,7 +2851,8 @@ var zppr={
 			case "INC": //Income		
 			case "D": //Commercial		
 			case "COMMERCIAL": //Commercial		
-			case "COMI": //Commercial		
+			case "COMI": //Commercial	
+			case "Commercial_Sale": //Commercial Sale			
 				// template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 				template_features='ci-features-crm.php';
 				template_print='ci-print-crm.php';
