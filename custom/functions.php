@@ -46,7 +46,7 @@ if( ! function_exists('zipperagent_run_curl') ){
 			// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 			// curl_setopt($ch, CURLOPT_HTTPGET, 1);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 			if($vars)
 			curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($vars));  //Post Fields
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

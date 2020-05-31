@@ -44,7 +44,7 @@ try{
 	// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 	// curl_setopt($ch, CURLOPT_HTTPGET, 1);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	
 	//curl_setopt($ch, CURLOPT_DNS_USE_GLOBAL_CACHE, false );
 	//curl_setopt($ch, CURLOPT_DNS_CACHE_TIMEOUT, 2 );
