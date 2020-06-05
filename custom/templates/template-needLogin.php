@@ -667,10 +667,12 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				<?php endif; ?>
 			};
 			
+			<?php if(za_is_show_popup()): ?>
 			var seconds='<?php echo SignUpPopupTime(); ?>';
 			setTimeout(function(){
 				show();
 			}, 1000*parseInt(seconds));
+			<?php endif; ?>
 		});		
 	</script>
 	<script>

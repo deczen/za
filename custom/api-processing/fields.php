@@ -16,7 +16,7 @@
 	if(!isset($sourceid))
 		$sourceid='';
 	
-	$chk = 'fields'. ( $type=='detail' && $sourceid ? '_'.$sourceid : '' ) .'-';
+	$chk = 'fields'. ( $type=='detail' && $sourceid!='' ? '_'.$sourceid : '' ) .'-';
 	$filename = $chk. date('M-d-Y').'.php';
 	$cachefile = $dir.$filename;
 	
@@ -37,7 +37,15 @@
 	ob_start();
 	
 	/** CONTENT HERE **/
-	$data = populate_fields($sourceid);
+	switch($type){
+		case "detail":
+				$data = populate_fields($sourceid);
+			break;
+		case "general":
+		default:
+				$data = populate_fields();
+			break;
+	}
 		
 	echo json_encode( $data );
 	/** CONTENT END **/

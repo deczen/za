@@ -140,6 +140,7 @@
 	if(isset($rb['web']['proptype']))  						$data['web']['proptype'] = $rb['web']['proptype'];
 	if(isset($rb['web']['lead_source']))  					$data['web']['lead_source'] = $rb['web']['lead_source'];
 	if(isset($rb['web']['assignedto']))  					$data['web']['assignedto'] = $rb['web']['assignedto'];
+	if(isset($rb['web']['popupshow']))  					$data['web']['popupshow'] = $rb['web']['popupshow'];
 	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];

@@ -3539,8 +3539,7 @@ var zppr={
 		return $keyFeatures;
 	},
 	field_value:function( $key, $val, $proptype='', $sourceid='', $type='general' ){
-		
-		var $fields = zppr.get_field_list($type, $sourceid);;
+		var $fields = zppr.get_field_list($type, $sourceid);
 		
 		//special case
 		switch($key){
@@ -3945,7 +3944,7 @@ var zppr={
 	},
 	get_field_list:function(type, sourceid){
 		
-		if(type=='detail' && sourceid){
+		if(type=='detail' && sourceid!=''){
 			return zipperagent['field_list_'+sourceid];
 		}else{			
 			return zppr.data.field_list

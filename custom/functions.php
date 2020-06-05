@@ -2513,7 +2513,7 @@ if( ! function_exists('get_town_list') ){
 if( ! function_exists('get_field_list') ){
 	function get_field_list($type='general', $sourceid=''){
 		
-		$sname = $type=='detail' && $sourceid ? 'za_fields_' . $sourceid : 'za_fields';
+		$sname = $type=='detail' && $sourceid!='' ? 'za_fields_' . $sourceid : 'za_fields';
 		
 		if(!isset($_SESSION[$sname]) || ( isset($_SESSION[$sname]) && !$_SESSION[$sname] )){
 			ob_start();
@@ -3432,6 +3432,18 @@ if( ! function_exists('SignUpPopupTime') ){
 			$seconds=120; //default is 120 seconds
 		
 		return $seconds;
+	}
+}
+
+if( ! function_exists('za_is_show_popup') ){
+	function za_is_show_popup(){
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$is_enabled = isset($rb['web']['popupshow'])?$rb['web']['popupshow']:1;
+		
+		if($is_enabled=='')
+			$is_enabled=1; //default is always enable
+		
+		return $is_enabled;
 	}
 }
 
