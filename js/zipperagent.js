@@ -1099,6 +1099,12 @@ var zppr={
 						
 						// console.log(response);
 						var single_property = response.result.property;
+						
+						//custom field
+						if(single_property){
+							single_property['customtype'] = single_property.hasOwnProperty('propsubtype')?single_property.propsubtype:single_property.proptype;
+						}
+						
 						var html = zppr.detail(single_property, actual_link);
 						var real_price = zppr.moneyFormat(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
 						var gallery = zppr.gallery_template(single_property);
@@ -3785,7 +3791,11 @@ var zppr={
 						// case "lenderowned":
 						// case "shortsalelenderappreqd":
 								// $replaces[]=zipperagent_yes_no_value($v);
-							// break;					
+							// break;
+						case "customtype":	
+								var custom_key = single_property.hasOwnProperty('propsubtype')?'propsubtype':'proptype';
+								$replaces.push(zppr.field_value( custom_key, $v, single_property.proptype, single_property.sourceid, 'detail' ));
+							break;
 						default:								
 								$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid, 'detail' ));
 							break;

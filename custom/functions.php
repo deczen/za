@@ -1084,6 +1084,10 @@ if( ! function_exists('zipperagent_property_fields') ){
 						// case "shortsalelenderappreqd":
 								// $replaces[]=zipperagent_yes_no_value($v);
 							// break;					
+						case "customtype":			
+								$k=isset($single_property->propsubtype)?'propsubtype':'proptype';
+								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid, 'detail' );
+							break;
 						default:								
 								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid, 'detail' );
 							break;

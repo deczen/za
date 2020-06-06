@@ -42,6 +42,10 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				// $single_property=get_single_property_micro( $listingId, implode(',',$contactIds), $searchId ); //consume 1-2 seconds of time
 			}
 			
+			/*custom field */
+			if($single_property)
+				$single_property->customtype = isset($single_property->propsubtype)?$single_property->propsubtype : $single_property->proptype;
+			
 			$this->property_cache = $property_cache;
 			$this->single_property = $single_property;
 						

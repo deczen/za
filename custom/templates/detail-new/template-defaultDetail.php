@@ -362,6 +362,18 @@ $template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_
 $template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/sidebar/'. $template_sidebar;
 $template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/vtlink/'. $template_vtlink;
 
+/* custom case for NERENMLS in MLSPIN group */
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+$asrc=$rb['web']['asrc'];
+if($groupname=='mlspin' && $asrc=='0,NERENMLS'){
+	$template_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/'. $template_name;
+	$template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/features/nerenmls/'. $template_features;
+	$template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/print/nerenmls/'. $template_print;	
+	$template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/sidebar/nerenmls/'. $template_sidebar;
+	$template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/vtlink/nerenmls/'. $template_vtlink;
+}
+/* end custom case for NERENMLS in MLSPIN group */
+
 //check subfolder
 $template_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/'. $sourceid .'/'. $template_name)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/'. $sourceid .'/'. $template_name:$template_path;
 $template_features_path = file_exists(ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid. '/features/'. $template_features)?ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir. '/'. $sourceid. '/features/'. $template_features:$template_features_path;

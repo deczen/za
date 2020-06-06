@@ -10,6 +10,13 @@ $groupname = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 $group_dir = $groupname ? $groupname : 'mlspin';
 
 $files = getDirContents(ZIPPERAGENTPATH . '/custom/templates/detail-new/'. $group_dir);
+
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+$asrc=$rb['web']['asrc'];
+if($groupname=='mlspin' && $asrc=='0,NERENMLS'){
+	$files = getDirContents(ZIPPERAGENTPATH . '/custom/templates/detail-new/'. $group_dir . '/nerenmls/');
+}
+
 echo "<templates id=\"za_property-templates\">";
 foreach($files as $file){
 	$ext = substr($file,-3);

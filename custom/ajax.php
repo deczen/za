@@ -919,6 +919,10 @@ function display_property_detail(){
 		$searchId = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
 		$single_property=ZipperagentGlobalFunction()->get_single_property( $listingId, implode(',',$contactIds), $searchId );
 		
+		/*custom field */
+		if($single_property)
+			$single_property->customtype = isset($single_property->propsubtype)?$single_property->propsubtype : $single_property->proptype;
+		
 		//get source details
 		// $source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
 		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail_source') : false;
