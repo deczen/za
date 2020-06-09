@@ -12,10 +12,12 @@ function cf7_auto_populate($atts){
 		'assign' => '',
 		'assignedto' => '',
 		'leadsource' => '',
+		'google_field_id' => '',
 	), $atts, 'cf7_auto_populate' );
 	
 	$assign = $atts['assign'] ? $atts['assign'] : $atts['assignedto'];
 	$leadsource = $atts['leadsource'];
+	$google_field_id = $atts['google_field_id'];
 	
 	ob_start();	?>
 	<style>
@@ -27,6 +29,11 @@ function cf7_auto_populate($atts){
 			$('.wpcf7-form input, .wpcf7-form checkbox, .wpcf7-form textarea, .wpcf7-form select').css("opacity", 0.5);
 			$('.wpcf7-form input[type=email][name=your-email]').prop("readonly", false);
 			$('.wpcf7-form input[type=email][name=your-email]').css("opacity", 1);
+			
+			<?php if($google_field_id): ?>
+			$('.wpcf7-form input#<?php echo $google_field_id; ?>').prop("readonly", false);
+			$('.wpcf7-form input#<?php echo $google_field_id; ?>').css("opacity", 1);
+			<?php endif; ?>
 			
 			$('.wpcf7-form input[type=email][name=your-email]').on('keyup',function(e){
 				if (e.keyCode == 13) {
