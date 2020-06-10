@@ -1061,7 +1061,9 @@ if( ! function_exists('zipperagent_property_fields') ){
 								$replaces[]=zipperagent_property_type($v);
 							break;
 						case "syncTime":
-								$mlstz = zipperagent_timezone();
+								// $mlstz = zipperagent_timezone();
+								// $mlstz = date_default_timezone_get() ? date_default_timezone_get() : zipperagent_timezone();
+								$mlstz = zipperagent_browser_timezone();
 								$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 								$dt->setTimestamp($v/1000); //adjust the object to correct timestamp
 								$datetime = $dt->format('d-m-Y h:i A');
@@ -2870,6 +2872,14 @@ if( ! function_exists('zipperagent_timezone') ){
 	function zipperagent_timezone(){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		$timezone=isset( $rb['tenant']['timezone'] ) ? $rb['tenant']['timezone'] : '';
+		
+		return $timezone;
+	}
+}
+
+if( ! function_exists('zipperagent_browser_timezone') ){
+	function zipperagent_browser_timezone(){
+		$timezone = isset($_COOKIE['browser_timezone']) && $_COOKIE['browser_timezone'] ? $_COOKIE['browser_timezone'] : zipperagent_timezone();
 		
 		return $timezone;
 	}

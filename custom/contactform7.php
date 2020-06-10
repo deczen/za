@@ -70,7 +70,7 @@ function cf7_auto_populate($atts){
 								$('.wpcf7-form input:not([type=submit]), .wpcf7-form checkbox, .wpcf7-form textarea, .wpcf7-form select').prop("readonly", false);
 								$('.wpcf7-form input, .wpcf7-form checkbox, .wpcf7-form textarea, .wpcf7-form select').css("opacity", 1);
 								
-								if(userdata.firstName.length && userdata.firstName!=''){
+								if(userdata.hasOwnProperty('firstName') && userdata.firstName.length && userdata.firstName!=''){
 									$('.wpcf7-form input[type=text][name=first-name]').val(userdata.firstName);								
 									$('.wpcf7-form input[type=text][name=first-name]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=first-name]').css("opacity", 0.5);
@@ -82,31 +82,31 @@ function cf7_auto_populate($atts){
 									$('.wpcf7-form input[type=text][name=your-name]').css("opacity", 0.5);									
 									$('.wpcf7-form input[type=text][name=your-name]').parent().addClass('hide-alert');
 								}
-								if(userdata.lastName.length && userdata.lastName!=''){
+								if(userdata.hasOwnProperty('lastName') && userdata.lastName.length && userdata.lastName!=''){
 									$('.wpcf7-form input[type=text][name=last-name]').val(userdata.lastName);
 									$('.wpcf7-form input[type=text][name=last-name]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=last-name]').css("opacity", 0.5);											
 									$('.wpcf7-form input[type=text][name=last-name]').parent().addClass('hide-alert');
 								}
-								if(userdata.phoneOffice.length && userdata.phoneOffice!=''){
+								if(userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!=''){
 									$('.wpcf7-form input[type=tel][name=phone]').val(userdata.phoneOffice);
 									$('.wpcf7-form input[type=tel][name=phone]').prop("readonly", true);
 									$('.wpcf7-form input[type=tel][name=phone]').css("opacity", 0.5);				
 									$('.wpcf7-form input[type=tel][name=phone]').parent().addClass('hide-alert');
 								}
-								if(userdata.primaryAddressCity.length && userdata.primaryAddressCity!=''){
+								if(userdata.hasOwnProperty('primaryAddressCity') && userdata.primaryAddressCity.length && userdata.primaryAddressCity!=''){
 									$('.wpcf7-form input[type=text][name=city]').val(userdata.primaryAddressCity);
 									$('.wpcf7-form input[type=text][name=city]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=city]').css("opacity", 0.5);				
 									$('.wpcf7-form input[type=text][name=city]').parent().addClass('hide-alert');
 								}
-								if(userdata.primaryAddressState.length && userdata.primaryAddressState!=''){
+								if(userdata.hasOwnProperty('primaryAddressState') && userdata.primaryAddressState.length && userdata.primaryAddressState!=''){
 									$('.wpcf7-form input[type=text][name=state]').val(userdata.primaryAddressState);
 									$('.wpcf7-form input[type=text][name=state]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=state]').css("opacity", 0.5);				
 									$('.wpcf7-form input[type=text][name=state]').parent().addClass('hide-alert');
 								}
-								if(userdata.primaryAddressPostalCode.length && userdata.primaryAddressPostalCode!=''){
+								if(userdata.hasOwnProperty('primaryAddressPostalCode') && userdata.primaryAddressPostalCode.length && userdata.primaryAddressPostalCode!=''){
 									$('.wpcf7-form input[type=text][name=zipCode]').val(userdata.primaryAddressPostalCode);
 									$('.wpcf7-form input[type=text][name=zipCode]').prop("readonly", true);
 									$('.wpcf7-form input[type=text][name=zipCode]').css("opacity", 0.5);				
@@ -221,6 +221,20 @@ function cf7_auto_suggest($atts){
 		?>
 		
 		var autocomplete;
+		var componentForm = {
+			// street_number: 'short_name',
+			// route: 'long_name',
+			locality: 'long_name',
+			administrative_area_level_1: 'long_name',
+			country: 'short_name',
+			postal_code: 'short_name'
+		};
+		var addressTypes = {
+			locality : 'city',
+			administrative_area_level_1 : 'state',
+			postal_code : 'zipCode',
+			country : 'country',
+		};
 		var input = document.getElementById('<?php echo $google_field_id ?>');
 		
 		function initAutocomplete() {
@@ -230,6 +244,34 @@ function cf7_auto_suggest($atts){
 			};
 			autocomplete = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(input), options);
+			
+			// When the user selects an address from the dropdown, populate the address
+			// fields in the form.
+			autocomplete.addListener('place_changed', fillInAddress);
+		}
+		
+		function fillInAddress() {
+			// Get the place details from the autocomplete object.
+			var place = autocomplete.getPlace();
+
+			for (var component in componentForm) {
+				var addressType = addressTypes[component];
+				document.querySelector('input[name="'+ addressType +'"]').value = '';
+				document.querySelector('input[name="'+ addressType +'"]').disabled = false;
+			}
+
+			// Get each component of the address from the place details
+			// and fill the corresponding field on the form.
+			console.log(place.address_components);
+			console.log(componentForm);
+			for (var i = 0; i < place.address_components.length; i++) {
+				var component = place.address_components[i].types[0];
+				var addressType = addressTypes[component];
+				if (componentForm[component]) {
+					var val = place.address_components[i][componentForm[component]];
+					document.querySelector('input[name="'+ addressType +'"]').value = val;
+				}
+			}
 		}
 
 		jQuery(document).ready(function(){
@@ -367,6 +409,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$city = isset($_REQUEST['city']) ? sanitize_text_field( $_REQUEST['city'] ) : '';
 		$state = isset($_REQUEST['state']) ? sanitize_text_field( $_REQUEST['state'] ) : '';
 		$zipCode = isset($_REQUEST['zipCode']) ? sanitize_text_field( $_REQUEST['zipCode'] ) : '';
+		$country = isset($_REQUEST['country']) ? sanitize_text_field( $_REQUEST['country'] ) : '';
 		$subject = sanitize_text_field( $_REQUEST['your-subject'] );
 		$message = sanitize_textarea_field( $_REQUEST['your-message'] );
 		$url = isset($_REQUEST['current-url']) ? urlencode( $_REQUEST['current-url'] ) : '';
@@ -401,6 +444,9 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		}
 		if($zipCode){
 			$vars['zipCode']=$zipCode;
+		}
+		if($country){
+			$vars['country']=$country;
 		}
 		
 		if(isset($_REQUEST['buyer'])){

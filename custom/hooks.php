@@ -37,6 +37,7 @@ function za_enqueue_script(){
 	$args['rental_code']=isset($proptypes['rental'])?explode(',',$proptypes['rental']):array('RNT');
 	$args['detailpage_group']=ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
+	$args['browser_timezone']=date_default_timezone_get() ? date_default_timezone_get() : zipperagent_timezone();
 	
 	$args['company_name']=zipperagent_company_name();	
 	$args['agent_list']=zipperagent_get_agent_list();	
@@ -889,6 +890,25 @@ function zipperagent_print_popup(){
 	<div id="zpa-main-container" class="zpa-container " style="display: inline;">
 		<?php include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-printPopup.php'; ?>
 	</div>
+	<?php
+}
+
+add_action( 'wp_footer', 'zipperagent_set_browser_timezone_cookie', 11);
+
+function zipperagent_set_browser_timezone_cookie(){
+	?>
+	<script>
+		var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+		za_set_cookie('browser_timezone', timezone, 100);
+
+		function za_set_cookie(cname, cvalue, exdays){
+		  var d = new Date();
+		  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		  var expires = "expires="+ d.toUTCString();
+		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+	</script>
 	<?php
 }
 
