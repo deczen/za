@@ -3799,7 +3799,7 @@ var zppr={
 								var $mlstz = zppr.browser_timezone();
 								var ld = new Date($v).toLocaleString("en-US", {timeZone: $mlstz});
 								var dt = new Date(ld);
-								$datetime = dt.format('Y-m-d h:i A');
+								$datetime = dt.format('m-d-Y h:i A');
 								
 								$replaces.push($datetime);									
 							break;

@@ -1066,7 +1066,7 @@ if( ! function_exists('zipperagent_property_fields') ){
 								$mlstz = zipperagent_browser_timezone();
 								$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 								$dt->setTimestamp($v/1000); //adjust the object to correct timestamp
-								$datetime = $dt->format('d-m-Y h:i A');
+								$datetime = $dt->format('m-d-Y h:i A');
 								$replaces[]=$datetime;								
 							break;
 						case "streetno":
