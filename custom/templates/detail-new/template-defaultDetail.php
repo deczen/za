@@ -3,6 +3,8 @@ $contactIds=get_contact_id();
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:$actual_link; // fix on ajax request
 
+$is_enable_save = zipperagent_is_enable_save();
+
 /* Process the template */	
 $template_name='';
 $template_features='';
@@ -437,23 +439,25 @@ if(file_exists($template_path) && $template_name ){
 				
 				<div class="zy_price-mls col-lg-6 col-sm-12 col-md-12 col-xl-5 zy_nopadding">
 					<div class="row">
-						<div class="col-lg-3 col-sm-12 col-md-12">
+						<div class="<?php echo $is_enable_save ? 'col-lg-3' : 'col-lg-4'; ?> col-sm-12 col-md-12">
 							<h2>
 								<p class="zy_price-style zy_status-style zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?>">[status]</p>
 								<p class="zy_label-style">Status</p>
 							</h2>
 						</div>
-						<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
+						<div class="<?php echo $is_enable_save ? 'col-lg-8' : 'col-lg-7'; ?> col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
 							<div class="row">								
 								<div class="btn_wrap zy_save-favorite-wrap col-btn">
 									<button class="zy_save-favorite <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
 									<span>Favorite</span>
 								</div>
 								
+								<?php if($is_enable_save): ?>
 								<div class="btn_wrap zy_save-property-wrap col-btn">
 									<button class="zy_save-property <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-floppy-o fa-fw"></i></button>
 									<span>Save</span>
 								</div>
+								<?php endif; ?>
 								
 								<div class="btn_wrap zy_schedule-showing-wrap col-btn">
 									<button class="zy_schedule-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>

@@ -107,6 +107,18 @@ switch( $column ){
 		break;
 }
 
+/* generate mls_state_map */
+$arr=array();
+$mls_state_map=isset($rb['web']['mls_state_map']) ? $rb['web']['mls_state_map'] : array();
+foreach( $mls_state_map as $source => $param ){
+
+	$arr=array(
+		'ascr'=>$source,
+		'astt'=>$param,
+	);
+	$anycrit.='('. proces_crit($arr) .')';
+}
+
 /* get town list */
 $locqry=array();
 $coords=null;
@@ -303,6 +315,9 @@ if( $openHomesMode ){ // open houses mode
 		'ps'=>$num,
 		'o'=>$o,
 	);
+	
+	xxx
+	$anycrit.=
 	
 	
 	if($startTime){

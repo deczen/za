@@ -35,6 +35,7 @@
 .zy_main .btn_wrap span{font-size:12px;display:block; margin-top:5px;}
 .zy_main .btn_wrap button{width:100%;}
 .zy_main .col-btn{float:left; width:20%; padding-left:15px; padding-right:15px;}
+.zy_main .zy-detail-tool.col-lg-7 .col-btn{width:25%;}
 .zy_schedule-showing, .zy_request-showing, .zy_share-property, .zy_save-property, .zy_save-favorite{border:1px solid #ddd;color:#000; background-color:#fff; font-size:20px;padding:8px;margin:0;text-align:center;line-height:0;}
 .zy_schedule-showing{background-color:#d539b6; color:#fff;border:none;}
 .zy_request-showing{background-color: #f1be48; color:#fff;border:none;}

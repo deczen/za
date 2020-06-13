@@ -88,6 +88,18 @@ $is_ajax_count=0;
 /* default status */
 $status = empty($status)?zipperagent_active_status():$status;
 
+/* generate mls_state_map */
+$arr=array();
+$mls_state_map=isset($rb['web']['mls_state_map']) ? $rb['web']['mls_state_map'] : array();
+foreach( $mls_state_map as $source => $param ){
+
+	$arr=array(
+		'ascr'=>$source,
+		'astt'=>$param,
+	);
+	$anycrit.='('. proces_crit($arr) .')';
+}
+
 /* set column number */
 $default_column=3;
 $column = empty($column)?$default_column:$column;

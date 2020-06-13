@@ -1413,6 +1413,18 @@ function load_more_properties(){
 					$columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
 				break;
 		}
+		
+		/* generate mls_state_map */
+		$arr=array();
+		$mls_state_map=isset($rb['web']['mls_state_map']) ? $rb['web']['mls_state_map'] : array();
+		foreach( $mls_state_map as $source => $param ){
+
+			$arr=array(
+				'ascr'=>$source,
+				'astt'=>$param,
+			);
+			$anycrit.='('. proces_crit($arr) .')';
+		}
 
 		/* get town list */
 		$locqry=array();

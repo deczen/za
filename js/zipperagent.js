@@ -35,6 +35,7 @@ var zppr={
 		is_great_school_enabled: zipperagent.is_great_school_enabled,
 		is_walkscore_enabled: zipperagent.is_walkscore_enabled,
 		is_register_form_chaptcha_enabled: zipperagent.is_register_form_chaptcha_enabled,
+		is_enable_save: zipperagent.is_enable_save,
 	},
 	generate_api_params:function(requests){
 		
@@ -104,6 +105,15 @@ var zppr={
 
 		/* default status */
 		status = !status?zppr.data.active_status:status;
+		
+		/* generate mls_state_map */
+		var mls_state_map=zppr.data.root.web.hasOwnProperty('mls_state_map')?zppr.data.root.web.mls_state_map:{};
+		for (const [source, param] of Object.entries(mls_state_map)) {
+			anycrit+='('+ zppr.format_crit({
+				ascr:source,
+				astt:param,
+			}) +')';
+		}
 
 		/* get town list */
 		locqry={};
@@ -419,6 +429,11 @@ var zppr={
 		
 		var html = '';
 		
+		var save_btn_html = zppr.data.is_enable_save!=1 ? '' : '<div class="btn_wrap zy_save-property-wrap col-btn">' +
+								'<button class="zy_save-property '+ (zppr.data.is_login==0?"needLogin":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-floppy-o fa-fw"></i></button>' +
+								'<span>Save</span>' +
+							'</div>';
+		
 		html += 	'<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">' +
 						'<article class="container-fluid">' +
 							'<div id="zy_header-section" class="row zyapp_main-style" style="max-width:none;">' +	
@@ -455,23 +470,20 @@ var zppr={
 								
 								'<div class="zy_price-mls col-lg-6 col-sm-12 col-md-12 col-xl-5 zy_nopadding">' +
 									'<div class="row">' +
-										'<div class="col-lg-3 col-sm-12 col-md-12">' +
+										'<div class="'+ ( zppr.data.is_enable_save==1 ? 'col-lg-3' : 'col-lg-4' ) +' col-sm-12 col-md-12">' +
 											'<h2>' +
 												'<p class="zy_price-style zy_status-style zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">{{status}}</p>' +
 												'<p class="zy_label-style">Status</p>' +
 											'</h2>' +
 										'</div>' +
-										'<div class="col-lg-8 col-sm-12 col-md-12 zy_nopadding zy-detail-tool">' +
+										'<div class="'+ ( zppr.data.is_enable_save==1 ? 'col-lg-8' : 'col-lg-7' ) +' col-sm-12 col-md-12 zy_nopadding zy-detail-tool">' +
 											'<div class="row">' +				
 												'<div class="btn_wrap zy_save-favorite-wrap col-btn">' +
 													'<button class="zy_save-favorite '+ (zppr.is_favorite(single_property.id)?"favorited":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_favorite" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-heart fa-fw"></i></button>' +
 													'<span>Favorite</span>' +
 												'</div>' +
 												
-												'<div class="btn_wrap zy_save-property-wrap col-btn">' +
-													'<button class="zy_save-property '+ (zppr.data.is_login==0?"needLogin":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-floppy-o fa-fw"></i></button>' +
-													'<span>Save</span>' +
-												'</div>' +
+												save_btn_html +
 												
 												'<div class="btn_wrap zy_schedule-showing-wrap col-btn">' +
 													'<button class="zy_schedule-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>' +

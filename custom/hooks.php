@@ -57,6 +57,7 @@ function za_enqueue_script(){
 	$args['is_great_school_enabled']=is_great_school_enabled();
 	$args['is_walkscore_enabled']=is_walkscore_enabled();
 	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
+	$args['is_enable_save']=zipperagent_is_enable_save();
     $localize = $args;
     wp_localize_script('jquery','zipperagent',$localize);
 	

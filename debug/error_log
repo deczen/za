@@ -1,63 +1,14 @@
-[29-Feb-2020 17:49:54 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
+[13-Jun-2020 07:59:47 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:50
 Stack trace:
 #0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
 #1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
 #2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
 #3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:52:01 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
+#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 50
+[13-Jun-2020 07:59:50 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:50
 Stack trace:
 #0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
 #1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
 #2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
 #3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:52:15 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:67
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 67
-[29-Feb-2020 17:52:48 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:53:28 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:53:42 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:54:31 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:54:46 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
-[29-Feb-2020 17:54:51 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_RRANGEEX got T_LRANGEEX ({) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:68
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(339): Adoy\ICU\ResourceBundle\Parser->parseError('T_RRANGEEX')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(280): Adoy\ICU\ResourceBundle\Parser->match(257)
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 68
+#4 /home/blpcfvhi/p in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 50

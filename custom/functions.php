@@ -1545,12 +1545,28 @@ if( ! function_exists('generate_area_town') ){
 		$arr=array();
 		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		$states=isset($rb['web']['states'])?$rb['web']['states']:'';
 		
-		$qry = $states ? '/?states=' . urldecode($states) : '';
+		$mls_state_map=isset($rb['web']['mls_state_map']) ? $rb['web']['mls_state_map'] : array();
 		
-		$url="/api/mls/getAreaTowns" . $qry;
-		$result = (object) zipperagent_run_curl($url);
+		if(!$mls_state_map){
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			
+			$qry = $states ? '/?states=' . urldecode($states) : '';
+			
+			$url="/api/mls/getAreaTowns" . $qry;
+			$result = (object) zipperagent_run_curl($url);
+		}else{
+			$temp=array();
+			foreach($mls_state_map as $source=>$param){
+				$qry = '/?states=' . urldecode($param) . '&sources=' . $source;
+			
+				$url="/api/mls/getAreaTowns" . $qry;
+				$result = zipperagent_run_curl($url);
+				$temp=array_merge_recursive($temp, $result);
+			}
+			// echo "<pre>"; print_r($temp); echo "</pre>";
+			$result = (object) $temp;
+		}
 		// echo "<pre>"; print_r( $result ); echo "</pre>";
 		return $result;
 	}
@@ -3246,6 +3262,16 @@ if( ! function_exists('zipperagent_is_close_popup_enabled') ){
 		}
 		
 		return true;
+	}
+}
+
+if( ! function_exists('zipperagent_is_enable_save') ){
+	function zipperagent_is_enable_save(){
+		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();		
+		$is_enable = isset($rb['web']['enable_save_button'])?$rb['web']['enable_save_button']:0;
+		
+		return $is_enable;	
 	}
 }
 
