@@ -314,11 +314,7 @@ if( $openHomesMode ){ // open houses mode
 		'sidx'=>$index,
 		'ps'=>$num,
 		'o'=>$o,
-	);
-	
-	xxx
-	$anycrit.=
-	
+	);	
 	
 	if($startTime){
 		$vars['startTime']=$startTime;
