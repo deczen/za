@@ -139,7 +139,7 @@ $userdata = $userdata[0]; //get first index record
 											</div>
 										</div>
 										<ul class="uk-list" id="zpa-edit-subscribe-tabs">
-											<li class="link-list__item at-main-menu__account <?php if($_GET['menu']=='') echo 'active'; ?>">
+											<li class="link-list__item at-main-menu__account <?php if(isset($_GET['menu']) && $_GET['menu']=='') echo 'active'; ?>">
 												<a href="#za-edit-subscriber" class="py-10 link-list__target" data-toggle="tab">
 													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
@@ -153,7 +153,7 @@ $userdata = $userdata[0]; //get first index record
 													<div class="uk-text-truncate">My Favorites (<?php echo $count; ?>)</div>
 												</a>
 											</li>
-											<li class="link-list__item at-main-menu__notification <?php if($_GET['menu']=='my-search') echo 'active'; ?>">
+											<li class="link-list__item at-main-menu__notification <?php if(isset($_GET['menu']) && $_GET['menu']=='my-search') echo 'active'; ?>">
 												<a href="#za-saved-search-list" class="py-10 link-list__target" data-toggle="tab">
 													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
 													</svg>-->
@@ -180,7 +180,7 @@ $userdata = $userdata[0]; //get first index record
 							</div>
 							
 							<div class="tab-content cell cell-lg-9 cell-md-12 cell-sm-12 cell-xs-12">
-								<div id="za-edit-subscriber" class="tab-pane <?php if($_GET['menu']=='') echo 'active'; ?> cell cell-md-12">
+								<div id="za-edit-subscriber" class="tab-pane <?php if(!isset($_GET['menu']) || isset($_GET['menu']) && $_GET['menu']=='') echo 'active'; ?> cell cell-md-12">
 									<div class="mb-10 card">
 										<div class="collapsible collapsible--borderless">
 											<div class="collapsible__trigger is-open">
@@ -283,7 +283,7 @@ $userdata = $userdata[0]; //get first index record
 									</div>
 								</div>
 								
-								<div id="za-saved-listing-list" class="tab-pane <?php if($_GET['menu']=='my-favorite') echo 'active'; ?> cell cell-md-12">
+								<div id="za-saved-listing-list" class="tab-pane <?php if(isset($_GET['menu']) && $_GET['menu']=='my-favorite') echo 'active'; ?> cell cell-md-12">
 									<div class="mb-10 card">
 										<div class="collapsible__trigger is-open">
 											<div class="collapsible collapsible--borderless">
@@ -327,7 +327,7 @@ $userdata = $userdata[0]; //get first index record
 																<div class="zpa-results-property-info">
 																	<div class="zpa-results-price"> <span class=""> <?php echo isset( $property->listprice ) ? '$'.number_format_i18n( $property->listprice, 0 ) : '-'; ?> </span> </div>
 																	Beds: <strong><?php echo isset( $property->nobedrooms ) ? $property->nobedrooms : '-'; ?></strong>
-															<br> Baths: <strong><strong><?php echo isset( $property->nofullbaths ) ? $property->nofullbaths : '-'; ?></strong>
+																	<br> Baths: <strong><?php echo isset( $property->nofullbaths ) ? $property->nofullbaths : '-'; ?></strong>
 																	<br> Sq. Ft.: <strong> <?php echo isset( $property->squarefeet ) && $property->squarefeet > 0 ? number_format_i18n( $property->squarefeet, 0 ) : '-'; ?> </strong>
 																	<br> Type: <strong><?php echo zipperagent_property_type( $property->proptype ); ?></strong>
 																	<br>
@@ -412,7 +412,7 @@ $userdata = $userdata[0]; //get first index record
 									</div>
 								</div>
 							
-								<div id="za-saved-search-list" class="tab-pane <?php if($_GET['menu']=='my-search') echo 'active'; ?> cell cell-md-12">
+								<div id="za-saved-search-list" class="tab-pane <?php if(isset($_GET['menu']) && $_GET['menu']=='my-search') echo 'active'; ?> cell cell-md-12">
 									<div class="mb-10 card">
 										<div class="collapsible__trigger is-open">
 											<div class="collapsible collapsible--borderless">
