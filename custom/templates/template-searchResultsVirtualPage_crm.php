@@ -525,6 +525,10 @@ if( $top_search_enabled ):
 		}
 		
 		jQuery('#zpa-search-filter-form').submit();
+		jQuery([document.documentElement, document.body]).animate({
+			scrollTop: jQuery("#zipperagent-content").offset().top
+		}, 1000);
+		
 		return false;
 	});
 </script>

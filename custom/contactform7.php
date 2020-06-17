@@ -222,18 +222,20 @@ function cf7_auto_suggest($atts){
 		
 		var autocomplete;
 		var componentForm = {
-			// street_number: 'short_name',
-			// route: 'long_name',
+			street_number: 'short_name',
+			route: 'long_name',
 			locality: 'long_name',
 			administrative_area_level_1: 'long_name',
 			country: 'short_name',
 			postal_code: 'short_name'
 		};
 		var addressTypes = {
+			street_number: 'streetno',
+			route: 'streetname',
 			locality : 'city',
 			administrative_area_level_1 : 'state',
-			postal_code : 'zipCode',
 			country : 'country',
+			postal_code : 'zipCode',
 		};
 		var input = document.getElementById('<?php echo $google_field_id ?>');
 		
@@ -409,6 +411,8 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$city = isset($_REQUEST['city']) ? sanitize_text_field( $_REQUEST['city'] ) : '';
 		$state = isset($_REQUEST['state']) ? sanitize_text_field( $_REQUEST['state'] ) : '';
 		$zipCode = isset($_REQUEST['zipCode']) ? sanitize_text_field( $_REQUEST['zipCode'] ) : '';
+		$streetno = isset($_REQUEST['streetno']) ? sanitize_text_field( $_REQUEST['streetno'] ) : '';
+		$streetname = isset($_REQUEST['streetname']) ? sanitize_text_field( $_REQUEST['streetname'] ) : '';
 		$country = isset($_REQUEST['country']) ? sanitize_text_field( $_REQUEST['country'] ) : '';
 		$subject = sanitize_text_field( $_REQUEST['your-subject'] );
 		$message = sanitize_textarea_field( $_REQUEST['your-message'] );
@@ -444,6 +448,12 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		}
 		if($zipCode){
 			$vars['zipCode']=$zipCode;
+		}		
+		if($streetno){
+			$vars['streetno']=$streetno;
+		}
+		if($streetname){
+			$vars['streetname']=$streetname;
 		}
 		if($country){
 			$vars['country']=$country;
@@ -467,6 +477,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		
 		if($result){
+			// print_r($vars);
 			// print_r($result);
 		}
 	}
