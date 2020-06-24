@@ -415,7 +415,7 @@ var zppr={
 			if(mlsid)
 				agent = zppr.get_agent(mlsid);
 			
-			if(!agent){
+			if(agent.length == 0){
 				mlsid = single_property.hasOwnProperty('listagent') ? single_property.listagent : '';
 				if(mlsid)
 					agent =  zppr.get_agent(mlsid);
@@ -472,7 +472,7 @@ var zppr={
 									'<div class="row">' +
 										'<div class="'+ ( zppr.data.is_enable_save==1 ? 'col-lg-3' : 'col-lg-4' ) +' col-sm-12 col-md-12">' +
 											'<h2>' +
-												'<p class="zy_price-style zy_status-style zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">{{status}}</p>' +
+												'<p class="zy_price-style zy_status-style zpa-status '+ (jQuery.isNumeric(single_property.status)?'status_'+single_property.status.replace(' ', ''):single_property.status.replace(' ', '')) +'">{{status}}</p>' +
 												'<p class="zy_label-style">Status</p>' +
 											'</h2>' +
 										'</div>' +
