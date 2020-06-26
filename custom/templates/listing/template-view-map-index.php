@@ -289,9 +289,9 @@ function initialize() {
 			$fulladdress = zipperagent_get_address($property);
 			$lat = $property->lat;
 			$lng = $property->lng;
-			$beds = isset($property->nobedrooms)?$property->nobedrooms:'';
-			$bath = isset($property->nobaths)?$property->nobaths:'';
-			$sqft = isset($property->squarefeet)?$property->squarefeet:'';
+			$beds = zipperagent_get_nobedrooms($property);
+			$bath = zipperagent_get_nobaths($property);
+			$sqft = zipperagent_get_sqft($property);
 			$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 			$price = zipperagent_currency() . number_format_i18n( $price, 0 );
 			if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )

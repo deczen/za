@@ -130,7 +130,10 @@ $query_args=array();
 							<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>
 						</li>
 						<li class="sqft">
-							<div class="attr-num"><?php echo isset($property->squarefeet)? number_format_i18n( $property->squarefeet, 0 ) :'-'; ?></div>
+							<?php
+							$sqft = zipperagent_get_sqft($property);
+							?>
+							<div class="attr-num"><?php echo $sqft ? $sqft :'-'; ?></div>
 							<div class="uk-text-small uk-text-truncate">SQFT</div>
 						</li>
 						<li class="price-sqft">

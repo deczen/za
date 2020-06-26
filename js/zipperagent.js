@@ -424,8 +424,8 @@ var zppr={
 		// agent =  zppr.get_agent("G0003031");
 		// agent =  zppr.get_agent("BB981188");
 		// agent =  zppr.get_agent("0");
-		// console.log('------agent------');
-		// console.log(agent);
+		console.log('------agent------');
+		console.log(agent);
 		
 		var html = '';
 		
@@ -708,10 +708,33 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent ){
+			if( agent.length ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
+											'<div class="clearfix"></div>' +
+										'</li>';
+		}else if( single_property.hasOwnProperty('listAgent') ){
+			var agentFullName = zppr.checkNested(single_property,'listAgent','fullName') ? single_property.listAgent.fullName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'listAgent','imageURL') ? single_property.listAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'listOffice','officePhone') ? single_property.listOffice.officePhone : '';
+			var agentEmail = zppr.checkNested(single_property,'listAgent','preferredMail') ? single_property.listAgent.preferredMail : '';
+			
+			html+=						'<li>Listing Agent</li>' +
+										'<li>';
+			if(agentImage){
+				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+			}
+			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+			if( agent.length ){
+				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+			}
+			html+=							'</span>' +
+											'<div class="clearfix"></div>' +
 										'</li>';
 		}
 		
@@ -724,7 +747,7 @@ var zppr={
 			var agentPhone = zppr.checkNested(single_property,'coListingAgent','phoneMobile') ? single_property.coListingAgent.phoneMobile : zppr.checkNested(single_property,'coListingAgent','phoneOffice') ? single_property.coListingAgent.phoneOffice : '';
 			var agentEmail = zppr.checkNested(single_property,'coListingAgent','email') ? single_property.coListingAgent.email : '';
 			
-			html+=						'<li>Listing Agent</li>' +
+			html+=						'<li>CoListing Agent</li>' +
 										'<li>';
 			if(agentImage){
 				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
@@ -732,10 +755,34 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent ){
+			if( agent.length ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
+											'<div class="clearfix"></div>' +
+										'</li>';
+		}else if( single_property.hasOwnProperty('coListAgent') ){
+			
+			var agentFullName = zppr.checkNested(single_property,'coListAgent','fullName') ? single_property.coListAgent.fullName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'coListAgent','imageURL') ? single_property.coListAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'coListOffice','officePhone') ? single_property.coListOffice.officePhone : '';
+			var agentEmail = zppr.checkNested(single_property,'coListAgent','preferredMail') ? single_property.coListAgent.preferredMail : '';
+			
+			html+=						'<li>CoListing Agent</li>' +
+										'<li>';
+			if(agentImage){
+				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+			}
+			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+			if( agent.length ){
+				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+			}
+			html+=							'</span>' +
+											'<div class="clearfix"></div>' +
 										'</li>';
 		}
 		
@@ -747,7 +794,7 @@ var zppr={
 			var agentPhone = zppr.checkNested(single_property,'salesAgent','phoneMobile') ? single_property.salesAgent.phoneMobile : zppr.checkNested(single_property,'salesAgent','phoneOffice') ? single_property.salesAgent.phoneOffice : '';
 			var agentEmail = zppr.checkNested(single_property,'salesAgent','email') ? single_property.salesAgent.email : '';
 			
-			html+=						'<li>Listing Agent</li>' +
+			html+=						'<li>Sales Agent</li>' +
 										'<li>';
 			if(agentImage){
 				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
@@ -755,10 +802,11 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent ){
+			if( agent.length ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
+											'<div class="clearfix"></div>' +
 										'</li>';
 		}
 		
@@ -770,7 +818,7 @@ var zppr={
 			var agentPhone = zppr.checkNested(single_property,'coSalesAgent','phoneMobile') ? single_property.coSalesAgent.phoneMobile : zppr.checkNested(single_property,'coSalesAgent','phoneOffice') ? single_property.coSalesAgent.phoneOffice : '';
 			var agentEmail = zppr.checkNested(single_property,'coSalesAgent','email') ? single_property.coSalesAgent.email : '';
 			
-			html+=						'<li>Listing Agent</li>' +
+			html+=						'<li>CoSales Agent</li>' +
 										'<li>';
 			if(agentImage){
 				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
@@ -778,10 +826,11 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent ){
+			if( agent.length ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
+											'<div class="clearfix"></div>' +
 										'</li>';
 		}
 										
@@ -1792,9 +1841,12 @@ var zppr={
 		var displaySource = property.displaySource;
 		var proptype = property.proptype;
 		var img_count =  property.hasOwnProperty('photoList') ? property.photoList.length : 0;
-		var beds_html = property.nobedrooms ? '<div class="zpa-grid-result-basic-info-item1"> <b>'+ property.nobedrooms +'</b> beds </div>' : '&nbsp;';
-		var bath_html = property.nobaths ? '<div class="zpa-grid-result-basic-info-item2"> <b>'+ property.nobaths +' </b> baths </div>' : '&nbsp;';
-		var sqft_html = property.squarefeet ? '<div class="zpa-grid-result-basic-info-item3"> <b> '+ zppr.formatNumber( property.squarefeet ) +' </b> sqft </div>' : '&nbsp;';
+		var nobedrooms = zppr.get_nobedrooms(property);
+		var nobaths = zppr.get_nobaths(property);
+		var sqft = zppr.get_sqft(property);
+		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> beds </div>';
+		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> baths </div>'
+		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> sqft </div>';
 		
 		var columns_code='';
 		switch( column ){
@@ -1819,7 +1871,7 @@ var zppr={
 		infos = '';
 		infoscount=0;
 		
-		if(property.nobedrooms){
+		if( nobedrooms !== '' && nobedrooms > 0 ){
 			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
 						'<div class="zpa-grid-result-basic-info-container">' +
 							beds_html +
@@ -1827,7 +1879,7 @@ var zppr={
 					'</div>';
 			infoscount++;
 		}
-		if(property.nobaths){
+		if( nobaths !== '' && nobaths > 0 ){
 			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
 						'<div class="zpa-grid-result-basic-info-container">' +
 							bath_html +
@@ -1835,7 +1887,7 @@ var zppr={
 					'</div>';
 			infoscount++;
 		}
-		if(property.squarefeet){
+		if( sqft !== '' && parseInt(sqft) > 0 ){
 			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
 						'<div class="zpa-grid-result-basic-info-container">' +
 							sqft_html +
@@ -2829,6 +2881,7 @@ var zppr={
 			case "MULTYFAMILY": //Multi-family
 			case "MULTI FAMILY": //Multi-family
 			case "MULT": //Multi-family
+			case "MUNT": //Multi unit
 				// template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 				template_features='mf-features-crm.php';
 				template_print='mf-print-crm.php';
@@ -2854,7 +2907,8 @@ var zppr={
 			case "C": //Lands&Lots		
 			case "LAN": //Land		
 			case "VACL": //Land
-			case "Land": //Land
+			case "Land": //Land			
+			case "LOTS": //Farm	without house
 				// template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 				template_features='ld-features-crm.php';
 				template_print='ld-print-crm.php';
@@ -2882,6 +2936,7 @@ var zppr={
 			case "CONDOMINIUM": //Condo		
 			case "CON": //Condo	
 			case "COND": //Condo	
+			case "CLse": //Commercial Lease	
 				// template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 				template_features='cc-features-crm.php';
 				template_print='cc-print-crm.php';
@@ -2922,6 +2977,7 @@ var zppr={
 			case "RINC": //Residential
 			case "RLSE": //Residential
 			case "A": //Residential
+			case "RLse": //Residential Lease
 				// template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 				template_features='rd-features-crm.php';
 				template_print='rd-print-crm.php';
@@ -4011,8 +4067,10 @@ var zppr={
 	get_agent:function(mlsid){
 		agents = zppr.data.agent_list;
 		findAgent=[];
-		if( agents.hasOwnProperty('filteredList') ){
-			for (const [key, agent] of Object.entries(agents.filteredList)) {
+		/* if( agents.hasOwnProperty('filteredList') ){
+			for (const [key, agent] of Object.entries(agents.filteredList)) { */
+		if( agents.length ){
+			for (const [key, agent] of Object.entries(agents)) {
 				if( agent.hasOwnProperty('mlsAgentId') && agent.mlsAgentId == mlsid ){
 					findAgent=agent;
 					break;
@@ -4021,6 +4079,46 @@ var zppr={
 		}
 		
 		return findAgent;
+	},
+	get_nobedrooms:function(property){
+		
+		var nobedrooms = '';
+		
+		if(property.hasOwnProperty('nobedrooms')){
+			nobedrooms = property.nobedrooms;
+		}
+		
+		return nobedrooms;
+	},
+	get_nobaths:function(property){
+		
+		var nobaths = '';
+		
+		if(property.hasOwnProperty('nobaths')){
+			nobaths = property.nobaths;
+		}
+		
+		return nobaths;
+	},
+	get_sqft:function(property){
+		
+		var sqft = '';
+		
+		var sourceid = property.hasOwnProperty('sourceid') ? property.sourceid : '';
+			
+		switch(sourceid){
+			case 'CMLS_N':
+					// echo "<pre>"; print_r($property); echo "</pre>";
+					sqft = property.hasOwnProperty('bldgsqfeet') ? property.bldgsqfeet : '';
+				break;
+			default:				
+					sqft = property.hasOwnProperty('squarefeet') ? property.squarefeet : '';
+				break;
+		}
+		
+		sqft = sqft!='' ? zppr.formatNumber( sqft ) : '';
+		
+		return sqft;
 	},
 	parse_args:function(args, defaults){
 		

@@ -439,9 +439,9 @@ if($requests['lat'] && $requests['lng']){
 										lat = property.lat;
 										lng = property.lng;
 										listingId = property.id;
-										beds = property.hasOwnProperty('nobedrooms')?property.nobedrooms:'';
-										bath = property.hasOwnProperty('nobaths')?property.nobaths:'';
-										sqft = property.hasOwnProperty('squarefeet')?property.squarefeet:'';
+										beds = zppr.get_nobedrooms(property);
+										bath = zppr.get_nobaths(property);
+										sqft = zppr.get_sqft(property);
 										price=(zppr.data.sold_status.indexOf(property.status)?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
 										longprice = zppr.moneyFormat(price);
 										shortprice = zppr.moneyShorten(price);

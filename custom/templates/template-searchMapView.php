@@ -79,22 +79,28 @@ if( $list ): ?>
 							<?php
 							$infoscount=0;
 							?>
-							<?php if( isset($property->nobedrooms ) && $property->nobedrooms > 0 ): ?>
+							<?php if( zipperagent_get_nobedrooms($property) !== '' && zipperagent_get_nobedrooms($property) > 0 ): ?>
 							<div class="col-xs-4 nopaddingleft nopaddingright"> 
 								<div class="zpa-grid-result-basic-info-container">
-									<?php if( isset($property->nobedrooms ) && $property->nobedrooms > 0 ): ?><div class="zpa-grid-result-basic-info-item1"> <b><?php echo $property->nobedrooms ?></b>
+									<div class="zpa-grid-result-basic-info-item1"> <b><?php echo zipperagent_get_nobedrooms($property); ?></b>
 										beds </div>
 									<?php $infoscount++; ?>
-									<?php else: ?>
-										&nbsp;
-									<?php endif; ?>
 								</div>
 							</div>
 							<?php endif; ?>
-							<?php if( isset($property->nobaths ) && $property->nobaths > 0 ): ?>
+							<?php if( zipperagent_get_nobaths($property) !== '' && zipperagent_get_nobaths($property) > 0 ): ?>
 							<div class="col-xs-4 nopaddingleft nopaddingright"> 
 								<div class="zpa-grid-result-basic-info-container">
-									<?php if( isset($property->nobaths ) && $property->nobaths > 0 ): ?><div class="zpa-grid-result-basic-info-item2"> <b><?php echo $property->nobaths ?> </b>
+									<div class="zpa-grid-result-basic-info-item2"> <b><?php echo zipperagent_get_nobaths($property); ?> </b>
+										baths </div>
+									<?php $infoscount++; ?>
+								</div>
+							</div>
+							<?php endif; ?>
+							<?php /* if( isset($property->unmapped->BathsTotal ) && $property->unmapped->BathsTotal > 0 && ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='gepmls' ): ?>
+							<div class="col-xs-4 nopaddingleft nopaddingright"> 
+								<div class="zpa-grid-result-basic-info-container">
+									<?php if( isset($property->unmapped->BathsTotal ) && $property->unmapped->BathsTotal > 0 ): ?><div class="zpa-grid-result-basic-info-item2"> <b><?php echo $property->unmapped->BathsTotal ?> </b>
 										baths </div>
 									<?php $infoscount++; ?>
 									<?php else: ?>
@@ -102,16 +108,13 @@ if( $list ): ?>
 									<?php endif; ?>
 								</div>
 							</div>
-							<?php endif; ?>
-							<?php if( isset($property->squarefeet ) && $property->squarefeet > 0 ): ?>
+							<?php endif; */ ?>
+							<?php if( zipperagent_get_sqft($property) !== '' && zipperagent_get_sqft($property) > 0 ): ?>
 							<div class="col-xs-4 nopaddingleft nopaddingright"> 
 								<div class="zpa-grid-result-basic-info-container">
-									<?php if( isset($property->squarefeet ) && $property->squarefeet > 0 ): ?><div class="zpa-grid-result-basic-info-item3"> <b> <?php echo number_format_i18n( $property->squarefeet, 0 ) ?> </b>
+									<div class="zpa-grid-result-basic-info-item3"> <b> <?php echo zipperagent_get_sqft($property); ?> </b>
 										sqft </div>
 									<?php $infoscount++; ?>
-									<?php else: ?>
-										&nbsp;
-									<?php endif; ?>
 								</div>
 							</div>
 							<?php endif; ?>	
@@ -687,9 +690,9 @@ else: ?>
 				$fulladdress = zipperagent_get_address($property);
 				$lat = $property->lat;
 				$lng = $property->lng;
-				$beds = isset($property->nobedrooms)?$property->nobedrooms:'';
-				$bath = isset($property->nobaths)?$property->nobaths:'';
-				$sqft = isset($property->squarefeet)?$property->squarefeet:'';
+				$beds = zipperagent_get_nobedrooms($property);
+				$bath = zipperagent_get_nobaths($property);
+				$sqft = zipperagent_get_sqft($property);
 				$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 				$price = zipperagent_currency() . number_format_i18n( $price, 0 );
 				if( strpos($property->photoList[0]->imgurl, 'mlspin.com') !== false )

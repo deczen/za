@@ -278,6 +278,53 @@ if( ! function_exists('zipperagent_luxury_address') ){
 	}
 }
 
+if( ! function_exists('zipperagent_get_nobedrooms') ){
+	function zipperagent_get_nobedrooms($property){
+		$nobedrooms = '';
+		
+		if(isset($property->nobedrooms)){
+			$nobedrooms = $property->nobedrooms;
+		}
+		
+		return $nobedrooms;
+	}
+}
+
+if( ! function_exists('zipperagent_get_nobaths') ){
+	function zipperagent_get_nobaths($property){
+		$nobaths = '';
+		
+		if(isset($property->nobaths)){
+			$nobaths = $property->nobaths;
+		}
+		
+		return $nobaths;
+	}
+}
+
+if( ! function_exists('zipperagent_get_sqft') ){
+	function zipperagent_get_sqft($property){
+		$sqft = '';
+		
+		// $groupname = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
+		$sourceid = isset($property->sourceid) ? $property->sourceid : '';
+			
+		switch($sourceid){
+			case 'CMLS_N':
+					// echo "<pre>"; print_r($property); echo "</pre>";
+					$sqft = isset($property->bldgsqfeet) ? $property->bldgsqfeet : '';
+				break;
+			default:				
+					$sqft = isset($property->squarefeet) ? $property->squarefeet : '';
+				break;
+		}
+		
+		$sqft = $sqft!='' ? number_format_i18n( $sqft, 0 ) : '';
+		
+		return $sqft;
+	}
+}
+
 if( ! function_exists('zipperagent_use_default_status') ){
 	function zipperagent_use_default_status(){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
@@ -1668,9 +1715,9 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 			$lat = $property->lat;
 			$lng = $property->lng;
 			$listingId = $property->id;
-			$beds = isset($property->nobedrooms)?$property->nobedrooms:'';
-			$bath = isset($property->nobaths)?$property->nobaths:'';
-			$sqft = isset($property->squarefeet)?$property->squarefeet:'';
+			$beds = zipperagent_get_nobedrooms($property);
+			$bath = zipperagent_get_nobaths($property);
+			$sqft = zipperagent_get_sqft($property);
 			$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 			$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
 			$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
@@ -2922,11 +2969,28 @@ if( ! function_exists('zipperagent_mls_timezone') ){
 
 if( ! function_exists('populate_users') ){
 	function populate_users(){
-		$url="/api/lite/user/list?sidx=0&ps=100";
-		// die( $url );
-		$result = zipperagent_run_curl($url);
 		
-		return (object) $result;
+		$page=0;
+		$limit=100;
+		// die( $url );
+		
+		$count=0;
+		
+		$users = array();
+		
+		do{
+			$url="/api/lite/user/list?sidx=$page&ps=$limit";
+		
+			$result = zipperagent_run_curl($url);
+			if(isset($result['filteredList']) && count($result['filteredList'])){
+				$users=array_merge_recursive($users, $result['filteredList']);
+			}
+			$count = isset($result['filteredList']) ? count($result['filteredList']) : 0;
+			
+			$page++;
+		}while($count == $limit);
+		
+		return $users;
 	}
 }
 
@@ -2961,8 +3025,10 @@ if( ! function_exists('zipperagent_get_agent') ){
 		$agents = zipperagent_get_agent_list();
 		// echo "<pre>"; print_r( $agents ); echo "</pre>";
 		$findAgent=array();
-		if( isset( $agents->filteredList ) ){
-			foreach( $agents->filteredList as $agent ){
+		// if( isset( $agents->filteredList ) ){
+			// foreach( $agents->filteredList as $agent ){
+		if( sizeof($agents) ){
+			foreach( $agents as $agent ){
 				if( isset( $agent->mlsAgentId ) && $agent->mlsAgentId == $mlsid ){
 					$findAgent=$agent;
 					break;
@@ -2979,8 +3045,10 @@ if( ! function_exists('zipperagent_get_agent_by') ){
 		$agents = zipperagent_get_agent_list();
 		// echo "<pre>"; print_r( $agents ); echo "</pre>";
 		$findAgent=array();
-		if( isset( $agents->filteredList ) ){
-			foreach( $agents->filteredList as $agent ){
+		// if( isset( $agents->filteredList ) ){
+			// foreach( $agents->filteredList as $agent ){
+		if( sizeof($agents) ){
+			foreach( $agents as $agent ){
 				if( isset( $agent->$type ) && $agent->$type == $value ){
 					$findAgent=$agent;
 					break;

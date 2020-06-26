@@ -126,9 +126,11 @@ class ZipperagentGlobalFunction{
 	}
 	
 	public function getAgentList(){
-		$result = (array) zipperagent_get_agent_list();
+		// $result = (array) zipperagent_get_agent_list();
 		
-		$agentList = isset($result['filteredList'])?$result['filteredList']:array();
+		// $agentList = isset($result['filteredList'])?$result['filteredList']:array();
+		
+		$agentList = (array) zipperagent_get_agent_list();
 		
 		return $agentList;
 	}
