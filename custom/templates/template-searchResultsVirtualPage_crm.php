@@ -69,9 +69,11 @@ if(!empty($is_singleid) && !is_array($is_singleid)){
 unset($alstid); */
 ?>
 <?php if(isset($requests['direct']) && $requests['direct']): ?>
+<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css'; ?>">	
 <?php /* <script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/date.format.js" ?>"></script> */ ?>
 <script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
 <?php endif; ?>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <div id="zpa-main-container" class="zpa-container <?php echo $uniqueClass; ?>" style="display: inline;">
@@ -128,7 +130,8 @@ unset($alstid); */
 			var direct				= ( requests.hasOwnProperty('direct')?requests['direct']:0 );
 			var view				= ( requests.hasOwnProperty('view')?requests['view']:'' );
 			
-			var is_direct 			= direct && view != 'map' && view != 'photo';
+			// var is_direct 			= direct && view != 'map' && view != 'photo';
+			var is_direct 			= direct && view != 'map';
 			
 			if(!is_direct || openHomesMode || boundaryWKT || searchDistance || lat && lng){
 				if(xhr && xhr.readyState != 4){
@@ -213,7 +216,8 @@ unset($alstid); */
 		var direct			= <?php echo $is_direct; ?>;
 		var view			= '<?php echo $view; ?>';		
 		
-		var is_direct		= direct && view != 'map' && view != 'photo';
+		// var is_direct		= direct && view != 'map' && view != 'photo';
+		var is_direct		= direct && view != 'map';
 		
 		if(!is_direct || openHomesMode || boundaryWKT || searchDistance || lat && lng){
 			var data = {
@@ -282,8 +286,8 @@ unset($alstid); */
 				ps:ps,
 				contactId:contactId,
 			};
-			
-			zppr.search('<?php echo $uniqueClassWithDot; ?> #zipperagent-content', 'list', requests, args, actual_link, 0);			
+
+			zppr.search('<?php echo $uniqueClassWithDot; ?> #zipperagent-content', 'list', requests, args, actual_link, 0);
 		}
 		<?php endif; ?>
 	});

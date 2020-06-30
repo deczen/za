@@ -382,6 +382,56 @@ var zppr={
 		
 		return html;
 	},
+	list_photo_view_template:function(requests, main_html, sidebar_html, is_view_save_search){
+		
+		var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
+		var boundaryWKT 		= ( requests.hasOwnProperty('boundarywkt')?requests['boundarywkt']:'' );
+		var openHomesMode 		= ( requests.hasOwnProperty('openhomesmode')?requests['openhomesmode']:'' );
+		var openHomesOnlyYn 	= ( requests.hasOwnProperty('openhomesonlyyn')?requests['openhomesonlyyn']:'' );
+		var showPagination 		= ( requests.hasOwnProperty('pagination')?parseInt(requests['pagination']):1 );
+		var showResults	 		= ( requests.hasOwnProperty('result')?parseInt(requests['result']):1 );
+		var searchId			= ( requests.hasOwnProperty('searchid')?requests['searchid']:'' );
+		
+		var html = '';
+		
+		html += '<div class="zpa-listing-search-results hideonprint">' +
+
+					'<div class="row mt-25 mb-25">';
+		if( showResults ){
+		html +=			'<div class="col-xs-12 prop-total">&nbsp;</div>';
+		}
+		html += 		'</div>' +
+			
+					'<div class="container-fluid">' +				
+						'<div id="" class="row sticky-container" style="position:relative;">' +     
+							'<div id="small-property" class="col-lg-4 col-md-4 col-xs-12 bg-light ">' +
+								'<div class="row ">' + sidebar_html + '</div>' +
+							'</div>' +
+							'<div class="col-lg-8 col-md-8 col-xs-12 ml-auto" id="photos">' +	
+								'<div class="">'
+									+ main_html;
+		if( showPagination ){
+			html+= 					'<div class="clearfix"></div>' +
+									'<div class="col-md-12 pagination-wrap prop-pagination"></div>';
+		}
+		
+		if( zppr.data.listing_disclaimer!='' ){
+			
+			html+= 						'<div class="row">'+
+											'<div class="col-xs-12">'+
+												'<span class="listing-disclaimer">'+ zppr.data.listing_disclaimer +'</span>'+
+											'</div>'+
+										'</div>';
+		}
+								'</div>' +
+							'</div>' +
+							'<div class="clearfix"></div>' +
+						'</div>' +
+					'</div>' +		
+				'</div>';
+		
+		return html;
+	},
 	list_print:function(requests, list_html){
 		
 		// var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
@@ -424,8 +474,8 @@ var zppr={
 		// agent =  zppr.get_agent("G0003031");
 		// agent =  zppr.get_agent("BB981188");
 		// agent =  zppr.get_agent("0");
-		console.log('------agent------');
-		console.log(agent);
+		// console.log('------agent------');
+		// console.log(agent);
 		
 		var html = '';
 		
@@ -1633,10 +1683,12 @@ var zppr={
 		var contactId = args.hasOwnProperty('contactId') ? args.contactId : '';
 		var micro = args.hasOwnProperty('micro') ? args.micro : '';
 		
+		var view = requests.hasOwnProperty('view')?requests['view']:''
+		
 		parm.push(searchType,subdomain,customer_key,crit,order,sidx,ps,contactId,'','','','','','',anycrit);
 		
 		switch(resultType){
-			case "list":				
+			case "list":			
 				console.time('generate list');
 				break;
 			case "count":				
@@ -1652,79 +1704,230 @@ var zppr={
 					
 					zppr.declare_date_format();
 					
-					var html='';
-					var html_print='';
 					response=JSON.parse(this.responseText);
 					if(response.responseCode===200){					
 						
 						switch(resultType){
 							case "list":
-								if(response.result.hasOwnProperty('filteredList')){
+								
+								switch(view){
 									
-									var column = requests.hasOwnProperty('column') ? parseInt(requests.column) : 3;									
-									var wrapOpen=0;
-									var i=0;
+									case "map":
 									
-									var prt_column = 2;
-									var prt_wrapOpen = 0;
+										break;
+									case "photo":
+										if(response.result.hasOwnProperty('filteredList')){
+											
+											var html='';
+											var html_sidebar='';
+											var html_main='';
+											var html_print='';
+											var i=0;
+											
+											var prt_column = 2;
+											var prt_wrapOpen = 0;
 
-									for (const [key, value] of Object.entries(response.result.filteredList)) {
-										
-										/* for listing */
-										if(i % column ==0 && ! wrapOpen){
-											html += '<div class="zpa-grid-wrap">';
-											wrapOpen=1;
-										}
-										
-										html += zppr.one_property(value, column);
-										
-										if( ((i % column) >= (column-1) && wrapOpen  //if one line has reach prop limit close the div
-											  || (i+1==response.result.filteredList.length && wrapOpen ) ) //if last prop reached close the div
-											  && ! zppr.is_mobile() ){
-											
-											html +=		'<div class="clearfix"></div>' +
-													'</div>';
+											for (const [key, value] of Object.entries(response.result.filteredList)) {
+												
+												/* for sidebar */										
+												html_sidebar += zppr.one_property_sidebar(value, i);
+												
+												/* for main content */										
+												html_main += zppr.one_property_with_photo_slider(value, i);
+												
+												/* for print view */
+												if(i % prt_column ==0 && ! prt_wrapOpen && ! zppr.is_mobile()){
+													html_print += '<div class="zy_row">';
+													prt_wrapOpen=1;
+												}
+												
+												html_print += zppr.one_print(value);
+												
+												if( ((i % prt_column) >= (prt_column-1) && prt_wrapOpen  //if one line has reach prop limit close the div
+													  || (i+1==response.result.filteredList.length && prt_wrapOpen ) ) ){ //if last prop reached close the div
 													
-											wrapOpen=0;
-										}
-										
-										/* for print view */
-										if(i % prt_column ==0 && ! prt_wrapOpen && ! zppr.is_mobile()){
-											html_print += '<div class="zy_row">';
-											prt_wrapOpen=1;
-										}
-										
-										html_print += zppr.one_print(value);
-										
-										if( ((i % prt_column) >= (prt_column-1) && prt_wrapOpen  //if one line has reach prop limit close the div
-											  || (i+1==response.result.filteredList.length && prt_wrapOpen ) ) ){ //if last prop reached close the div
+													html_print +=	'<div class="clearfix"></div>' +
+															'</div>';
+															
+													prt_wrapOpen=0;
+												}
+												
+												i++;
+											}
 											
-											html_print +=	'<div class="clearfix"></div>' +
-													'</div>';
-													
-											prt_wrapOpen=0;
+											zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
 										}
 										
-										i++;
-									}
-									
-									zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
+										html = zppr.list_photo_view_template(requests, html_main, html_sidebar, is_view_save_search);
+										html_print = zppr.list_print(requests, html_print);
+										
+										jQuery(targetElement).html( html );
+										jQuery(targetElement).append( html_print );
+										
+										args.searchType=1;
+										zppr.search('.zpa-listing-search-results', 'count', requests, args, actual_link, is_view_save_search);
+										
+										console.timeEnd('generate list');
+										
+										
+										jQuery(document).ready(function ($) {
+											// reference for main items
+											var mainSlider=new Array();
+											// reference for thumbnail items
+											var thumbnailSlider=new Array();
+											//transition time in ms
+											var duration = 500;
+											var index=0;
+											
+											index=0;
+											$('.main-slider').each(function(){
+												var slider = $(this);
+												mainSlider.push(slider);
+											});
+											index=0;
+											$('.thumbnail-slider').each( function(){
+												var slider = $(this);
+												thumbnailSlider.push(slider);
+											});
+											
+											// carousel function for main slider
+											index=0;
+											$('.main-slider').each(function(){
+												
+												var tempMainSlider = mainSlider[index];
+												var tempThumbSlider = thumbnailSlider[index];
+												
+												// console.log('current index: '+index);
+												tempMainSlider.owlCarousel({
+													loop:false,
+													nav:true,
+													navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right"></i></span></a>'],
+													lazyLoad:true,
+													items:1,
+													dots: false,
+													slideBy: 1,
+												}).on('changed.owl.carousel', function (e) {
+													//On change of main item to trigger thumbnail item
+													tempThumbSlider.trigger('to.owl.carousel', [e.item.index, duration, true]);
+													
+												//These two are navigation for main items
+												})
+												
+												index++;
+											});
+											
+											// carousel function for thumbnail slider
+											index=0;
+											$('.thumbnail-slider').each( function(){
+												
+												var tempMainSlider = mainSlider[index];
+												var tempThumbSlider = thumbnailSlider[index];
+												
+												tempThumbSlider.owlCarousel({
+													loop:false,
+													center:true, //to display the thumbnail item in center
+													nav:false,
+													lazyLoad:true,
+													dots: false,
+													slideBy: 1,
+													responsive:{
+														0:{
+															items:3
+														},
+														600:{
+															items:4
+														},
+														1000:{
+															items:6
+														}
+													}
+												}).on('click', '.owl-item', function () {
+													// On click of thumbnail items to trigger same main item
+													tempMainSlider.trigger('to.owl.carousel', [$(this).index(), duration, true]);
+
+												}).on('changed.owl.carousel', function (e) {
+													// On change of thumbnail item to trigger main item
+													tempMainSlider.trigger('to.owl.carousel', [e.item.index, duration, true]);
+												});
+												
+												index++;
+											});
+										});
+										break;
+									case "gallery":
+									default:
+										if(response.result.hasOwnProperty('filteredList')){
+											
+											var html='';
+											var html_print='';
+											var column = requests.hasOwnProperty('column') ? parseInt(requests.column) : 3;									
+											var wrapOpen=0;
+											var i=0;
+											
+											var prt_column = 2;
+											var prt_wrapOpen = 0;
+
+											for (const [key, value] of Object.entries(response.result.filteredList)) {
+												
+												/* for listing */
+												if(i % column ==0 && ! wrapOpen){
+													html += '<div class="zpa-grid-wrap">';
+													wrapOpen=1;
+												}
+												
+												html += zppr.one_property(value, column);
+												
+												if( ((i % column) >= (column-1) && wrapOpen  //if one line has reach prop limit close the div
+													  || (i+1==response.result.filteredList.length && wrapOpen ) ) //if last prop reached close the div
+													  && ! zppr.is_mobile() ){
+													
+													html +=		'<div class="clearfix"></div>' +
+															'</div>';
+															
+													wrapOpen=0;
+												}
+												
+												/* for print view */
+												if(i % prt_column ==0 && ! prt_wrapOpen && ! zppr.is_mobile()){
+													html_print += '<div class="zy_row">';
+													prt_wrapOpen=1;
+												}
+												
+												html_print += zppr.one_print(value);
+												
+												if( ((i % prt_column) >= (prt_column-1) && prt_wrapOpen  //if one line has reach prop limit close the div
+													  || (i+1==response.result.filteredList.length && prt_wrapOpen ) ) ){ //if last prop reached close the div
+													
+													html_print +=	'<div class="clearfix"></div>' +
+															'</div>';
+															
+													prt_wrapOpen=0;
+												}
+												
+												i++;
+											}
+											
+											zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
+										}
+										
+										html = zppr.list_template(requests, html, is_view_save_search);
+										html_print = zppr.list_print(requests, html_print);
+										
+										jQuery(targetElement).html( html );
+										jQuery(targetElement).append( html_print );
+										
+										args.searchType=1;
+										zppr.search('.zpa-listing-search-results', 'count', requests, args, actual_link, is_view_save_search);
+										
+										console.timeEnd('generate list');
+										break;
 								}
-								
-								html = zppr.list_template(requests, html, is_view_save_search);
-								html_print = zppr.list_print(requests, html_print);
-								
-								jQuery(targetElement).html( html );
-								jQuery(targetElement).append( html_print );
-								
-								args.searchType=1;
-								zppr.search('.zpa-listing-search-results', 'count', requests, args, actual_link, is_view_save_search);
-								
-								console.timeEnd('generate list');
-							break;
+							break;							
 							case "poc":
 								if(response.result.hasOwnProperty('filteredList')){
 									
+									var html='';
+									var html_print='';
 									var column = requests.hasOwnProperty('column') ? parseInt(requests.column) : 3;									
 									var wrapOpen=0;
 									var i=0;
@@ -2087,6 +2290,395 @@ var zppr={
 					'<div class="grid-margin"></div>' +
 				'</div>';
 		
+		return html;
+	},
+	one_property_sidebar:function(property, index){
+		var listingid = property.id;
+		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
+		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
+		var address = zppr.getAddress(property);
+		var prop_url = zppr.getPropUrl(listingid,address);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var status = property.status;
+		var days = property.hasOwnProperty('dayssincelisting') ? property.dayssincelisting : '-';
+		var displaySource = property.displaySource;
+		var proptype = property.proptype;
+		var img_count =  property.hasOwnProperty('photoList') ? property.photoList.length : 0;
+		var nobedrooms = zppr.get_nobedrooms(property);
+		var nobaths = zppr.get_nobaths(property);
+		var sqft = zppr.get_sqft(property);
+		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> beds </div>';
+		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> baths </div>'
+		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> sqft </div>';
+		
+		var is_favorite=''; //'active'
+		var searchid='';
+		
+		infos = '';
+		infoscount=0;
+		
+		if( nobedrooms !== '' && nobedrooms > 0 ){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							beds_html +
+						'</div>' +
+					'</div>';
+			infoscount++;
+		}
+		if( nobaths !== '' && nobaths > 0 ){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							bath_html +
+						'</div>' +
+					'</div>';
+			infoscount++;
+		}
+		if( sqft !== '' && parseInt(sqft) > 0 ){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							sqft_html +
+						'</div>' +
+					'</div>	';
+			infoscount++;
+		}
+		if(!infoscount){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright">' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							'&nbsp;' +
+						'</div>' +
+					'</div>';
+		}
+		
+		var albums='';
+		
+		if(photoList.length){
+			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
+					'<div id="modal-'+ listingid +'" class="modal">' +
+						'<div class="modal-dialog">' +
+							'<div class="modal-content">' +
+								'<div class="modal-header">' +
+									'<div class="modal-title text-left">'+ address +'</div>' +
+									'<button type="button" class="close" data-dismiss="modal"> × </button>' +
+								'</div>' +
+								'<div class="modal-body"></div>' +
+								'<div class="modal-footer">' +
+									'<button class="btn btn-link" data-dismiss="modal"> Close </button>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>';
+		}else{
+			albums+='<i class="glyphicon glyphicon-camera"></i> <span class="photo-count">(0)</span>';
+		}
+		
+		var openhouses='';
+		
+		if(property.startDate){
+			
+			var openHouse=property;
+			
+			openhouses+= '<div class="row mb-5 fs-12">' +
+							'<div class="col-xs-12 mt-10">' +
+								'<div class="zpa-grid-result-additional-info">' +
+									'<div class="zpa-listing-open-home-text-grid">';
+											
+										var sourceid=property.sourceid;
+										var mlstz = zppr.mls_timezone(sourceid);
+										var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+										var dt = new Date(ld);
+										var startDateOnly = dt.format('Y-m-d');
+										var startDate = dt.format('M j, Y h:i A');
+										var startTime =  dt.format('h:i A');
+										
+										var duration = openHouse.duration  ? openHouse.duration : 0;
+										var printEndTime = '';
+										
+										if( duration ){
+											dt = dt.addMinutes( duration );
+											endTime =dt.format('h:i A');
+											printEndTime = '- '+endTime;
+										}else if(openHouse.endDate){
+											ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+											dt = new Date(ld);
+											endDateOnly = dt.format('Y-m-d');
+											
+											if(startDateOnly!=endDateOnly){
+												
+												endDate = dt.format('M j, Y h:i A');
+												printEndTime = '- '+endDate;
+											}else{
+												
+												endTime = dt.format('h:i A');
+												printEndTime = '- '+endTime;
+											}
+										}
+			openhouses+= 				'<span class="openHomeText"> Open House:</span> '+ startDate +' '+ printEndTime +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+		}else if(property.openHouses && property.openHouses.length ){
+			
+			var openHouse=property.openHouses[0];
+			
+			openhouses+= '<div class="row mb-5 fs-12">' +
+							'<div class="col-xs-12 mt-10">' +
+								'<div class="zpa-grid-result-additional-info">' +
+									'<div class="zpa-listing-open-home-text-grid">';
+									
+										var sourceid=property.sourceid;
+										var mlstz = zppr.mls_timezone(sourceid);
+										var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+										var dt = new Date(ld);
+										var startDateOnly = dt.format('Y-m-d');
+										var startDate = dt.format('M j, Y h:i A');
+										var startTime =  dt.format('h:i A');
+										
+										var duration = openHouse.duration  ? openHouse.duration : 0;
+										var printEndTime = '';
+										
+										if( duration ){
+											dt = dt.addMinutes( duration );
+											endTime =dt.format('h:i A');
+											printEndTime = '- '+endTime;
+										}else if(openHouse.endDate){
+											ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+											dt = new Date(ld);
+											endDateOnly = dt.format('Y-m-d');
+											
+											if(startDateOnly!=endDateOnly){
+												
+												endDate = dt.format('M j, Y h:i A');
+												printEndTime = '- '+endDate;
+											}else{
+												
+												endTime = dt.format('h:i A');
+												printEndTime = '- '+endTime;
+											}
+										}
+			openhouses+= 				'<span class="openHomeText"> Open House:</span> '+ startDate +' '+ printEndTime +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+		}
+		
+		var property_source='';
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName}, 'list' ) : false;
+		if(source_details){
+			property_source+='<div class="property-source">' +
+								source_details +
+							'</div>';
+		}
+		
+		var html = '<div class="zpa-grid-result col-lg-12 col-sm-12 col-md-12 col-xs-12" index="'+ index +'">' +
+							
+					'<div class="zpa-grid-result-container well">' +
+						'<div class="row">' +
+							'<div class="col-xs-12">' +
+								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
+									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
+									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
+									'<a class="property_url" href="#to_'+ property.listno +'"></a>' +
+									'<a class="property_url" href="#to_'+ property.listno +'"><span class="zpa-for-sale-price"> '+ zppr.moneyFormat(price) +' </span> </a>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="za-container">' +
+							'<div class="row mt-10">' +
+								'<div class="col-xs-12">' +
+									'<a class="property_url" href="#to_'+ property.listno +'">' +
+									'<span class="zpa-grid-result-address"> <img src="'+ zppr.data.plugin_url +'images/map-marker.png" title="map marker" alt="map marker"> '+ address +' </span> </a>' +
+								'</div>' +
+							'</div>	' +											
+							'<div class="row mt-10 property-infos">' +
+								infos +
+							'</div>' +
+							'<div class="row mb-5 fs-12 mt-10">' +
+								'<div class="col-xs-7 nopaddingright">' +
+									'<div class="zpa-grid-result-additional-info">' +
+										'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
+											'<span class="text-center d-block">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</span>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+								'<div class="col-xs-5 nopaddingleft">' +
+									'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true"></i> '+ days +' Day(s)  </span>' +
+								'</div>' +
+							'</div>' +
+							openhouses +
+						'</div>' +
+						'<div style="clear:both"></div>' +
+					'</div>' +
+					property_source +
+					'<div class="grid-margin"></div>' +
+				'</div>';
+				
+		return html;
+		
+	},
+	one_property_with_photo_slider:function(property, index){
+		
+		var listingid = property.id;
+		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
+		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
+		var address = zppr.getAddress(property);
+		var prop_url = zppr.getPropUrl(listingid,address);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var status = property.status;
+		var days = property.hasOwnProperty('dayssincelisting') ? property.dayssincelisting : '-';
+		var displaySource = property.displaySource;
+		var proptype = property.proptype;
+		var img_count =  property.hasOwnProperty('photoList') ? property.photoList.length : 0;
+		var nobedrooms = zppr.get_nobedrooms(property);
+		var nobaths = zppr.get_nobaths(property);
+		var sqft = zppr.get_sqft(property);
+		
+		var area = property.hasOwnProperty('lngAREADESCRIPTION') ? property.lngAREADESCRIPTION : '';
+			area = property.hasOwnProperty('lngTOWNSDESCRIPTION') && area != '' ? property.lngTOWNSDESCRIPTION : area;
+			area = property.hasOwnProperty('lngCOUNTYDESCRIPTION') && area != '' ? property.lngCOUNTYDESCRIPTION : area;
+			area = property.hasOwnProperty('ShrtAREACODE') && area != '' ? zppr.field_value( 'ShrtAREACODE', property.ShrtAREACODE, property.proptype, (property.hasOwnProperty('sourceid')?property.sourceid:'') ) : area;
+			area = property.hasOwnProperty('ShrtCOUNTYCODE') && area != '' ? zppr.field_value( 'ShrtCOUNTYCODE', property.ShrtCOUNTYCODE, property.proptype, (property.hasOwnProperty('sourceid')?property.sourceid:'') ) : area;
+			area = property.hasOwnProperty('ShrtTOWNCODE') && area != '' ? zppr.field_value( 'ShrtTOWNCODE', property.ShrtTOWNCODE, property.proptype, (property.hasOwnProperty('sourceid')?property.sourceid:'') ) : area;
+			
+		var is_favorite=''; //'active'
+		var searchid='';
+		
+		var html = '<div id="to_'+ property.listno +'" class="grid grid--gutters">' +
+						'<div class="cell cell-xs-12 cell-lg-8 uk-position-relative">' +
+							'<div class="mb-10">' +
+								'<h1 class="uk-h2 mb-5 listing-address" itemprop="address" itemtype="http://schema.org/PostalAddress"><a class="zy-text-default view_full_details" href="'+ prop_url +'"><span itemprop="streetAddress">' + ( property.hasOwnProperty('streetno') ? property.streetno :'-' ) +' '+ ( property.hasOwnProperty('streetname') ? zppr.streetname_fix_comma( property.streetname ) :'-' ) +'</span></a><div class="uk-text-muted zy-text-reset"><span itemprop="addressLocality"><!-- react-text: 1375 -->' + ( property.hasOwnProperty('lngTOWNSDESCRIPTION')? property.lngTOWNSDESCRIPTION :'-' ) +' <!-- /react-text --><!-- react-text: 1376 -->,&nbsp;<!-- /react-text --></span><span itemprop="addressRegion"><!-- react-text: 1378 -->' + ( property.hasOwnProperty('provinceState')? property.provinceState :'-' ) + '<!-- /react-text --><!-- react-text: 1379 -->&nbsp;<!-- /react-text --></span><span itemprop="postalCode"><!-- react-text: 1381 -->' + ( property.hasOwnProperty('zipcode')? property.zipcode :'-' ) + '<!-- /react-text --><!-- react-text: 1382 -->&nbsp;<!-- /react-text --></span></div></h1>' +
+								'<div class="grid grid-xs--full grid-md--thirds grid-lg--halves">' +
+									'<div class="cell"><i class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +' zy-sash py-5 px-10 zy-listing-single__sash">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</i></div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="uk-position-relative text-xs--center">' +
+								'<div>' +
+									'<div class="row listing-gallery js-listing-gallery flickity-enabled is-draggable" tabindex="0" style="height:auto; padding-bottom:0">' +
+										'<div class="photo-slider col-xs-12">' +
+											'<div class="slider-container">' + 
+												'<!--Main Slider Start--> ' +
+												'<div id="slider" class="slider main-slider owl-carousel"> ';
+												
+		if( property.hasOwnProperty('photoList') && property.photoList.length ){
+			var i=0;
+			for (const [key, pic] of Object.entries(property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
+					html += 						'<div class="item ' + (i==0 ? "active" : "" ) + '"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="//media.mlspin.com/photo.aspx?mls='+ property.listno + '&w=500&h=300&n='+ i +'"> </span> </div>';
+				}else{
+					html += 						'<div class="item ' + (i==0 ? "active" : "" ) + '"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="'+ pic.imgurl +'"> </span> </div>';
+				}
+			
+			i++;
+			}
+		}
+												
+		html +=									'</div>' +
+												'<!--Main Slider End-->' +
+												
+												'<!--Navigation Links For the Main Items' +
+												'<div class="slider-controls"> ' +
+													'<a class="slider-left" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left"></i></span></a>' + 
+													'<a class="slider-right" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right"></i></span></a>' + 
+												'</div> --> ' +
+											'</div>' +
+										   
+										  '<!--Thumbnail slider container-->' + 
+										  '<div class="thumbnail-slider-container">' +											   
+												'<div id="thumbnailSlider" class="thumbnail-slider owl-carousel">';
+												
+		if( property.hasOwnProperty('photoList') && property.photoList.length ){
+			var i=0;
+			for (const [key, pic] of Object.entries(property.photoList)) {
+				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
+					html +=							'<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="//media.mlspin.com/photo.aspx?mls='+ property.listno +'&w=100&h=100&n='+ i +'"> </span></div>';
+				}else{
+					html +=							'<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="'+ pic.imgurl +'"> </span></div>';
+				}
+			i++;
+			}
+		}
+													
+		html +=									'</div>' +
+												'<!--Thumbnail Slider End-->' + 
+											'</div>' +
+										'</div>' +
+										
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="cell">' +
+							'<div class="mb-15 p-0 zy-panel">' +
+								'<div class="zy-panel__stack__sub zy-panel--small uk-text-center">' +
+									'<div class="uk-h1 uk-text-primary">' +
+										'<!-- react-text: 1395 -->' +
+										'<!-- /react-text -->' +
+										'<!-- react-text: 1396 -->' + zppr.moneyFormat(price) +
+										'<!-- /react-text -->' +
+										
+									'</div>' +
+								'</div>' +
+								'<div class="zy-panel__stack__sub">' +
+									'<ul class="zy-listing__feature-grid" style="margin-bottom:0">' +
+										'<li class="beds">' +
+											'<div class="attr-num">'+ ( property.hasOwnProperty('nobedrooms') ? property.nobedrooms:'-' ) +'</div>' +
+											'<div class="uk-text-small uk-text-truncate">BEDS</div>' +
+										'</li>' +
+										'<li class="acres">' +
+											'<div class="attr-num zy-listing__acreage-text">'+ ( property.hasOwnProperty('acre') ? property.acre:'-' ) +'</div>' +
+											'<div class="uk text-small uk-text-truncate">ACRES</div>' +
+										'</li>' +
+										'<li class="baths">' +
+											'<div class="attr-num">'+ ( property.hasOwnProperty('nobaths') ? property.nobaths :'-' ) +'</div>' +
+											'<div class="uk-text-small uk-text-truncate">BATHS</div>' +
+										'</li>' +
+										'<li class="half-baths">' +
+											'<div class="attr-num">'+ ( property.hasOwnProperty('nohalfbaths') ? property.nohalfbaths :'-' ) +'</div>' +
+											'<div class="uk-text-small uk-text-truncate">1/2 BATHS</div>' +
+										'</li>' +
+										'<li class="sqft">' +
+											'<div class="attr-num">'+ ( sqft ? sqft :'-' ) +'</div>' +
+											'<div class="uk-text-small uk-text-truncate">SQFT</div>' +
+										'</li>' +
+										'<li class="price-sqft">' +
+											'<div class="attr-num"> &nbsp;</div>' +
+											'<div class="uk-text-small uk-text-truncate">&nbsp;</div>' +
+										'</li>' +
+									'</ul>' +
+								'</div>' +
+								'<div class="zy-panel__stack__sub">' +
+									'<div class="m-0 zy-listing-table zy-listing__table-break">' +
+										'<div class="grid px-5">' +
+											'<div class="cell uk-text-bold">' +
+												'<!-- react-text: 1423 -->Neighborhood:' +
+												'<!-- /react-text -->' +
+												'<!-- react-text: 1424 -->' +
+												'<!-- /react-text -->' +
+											'</div>' +
+											'<div class="cell uk-text-right">'+ ( property.hasOwnProperty('neighborhood') ? property.neighborhood :'-' ) +'</div>' +
+										'</div>' +
+										'<div class="grid px-5">' +
+											'<div class="cell cell-xs-3 uk-text-bold">Type:</div>' +
+											'<div class="cell uk-text-right">'+ ( property.hasOwnProperty('proptype') ? zppr.proptype_label(proptype) :'-' ) +'</div>' +
+										'</div>' +
+										'<div class="grid px-5">' +
+											'<div class="cell cell-xs-3 uk-text-bold">Built:</div>' +
+											'<div class="cell uk-text-right">'+ ( property.hasOwnProperty('yearbuilt') ? property.yearbuilt :'-' ) +'</div>' +
+										'</div>' +
+										'<div class="grid px-5">' +
+											'<div class="cell cell-xs-3 uk-text-bold">Area:</div>' +
+											'<div class="cell uk-text-right">'+ ( area ? area : '-' ) +'</div>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+							
+							'<a href="'+ prop_url +'"><button class="js-snapshot-view-details btn-primary width-1-1" type="button"><!-- react-text: 1252 -->View Full Details&nbsp;<!-- /react-text --></button></a>' +
+																
+						'</div>' +
+					'</div>';
+					
 		return html;
 	},
 	one_print:function(property){
