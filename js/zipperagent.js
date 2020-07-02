@@ -1716,12 +1716,13 @@ var zppr={
 									
 										break;
 									case "photo":
-										if(response.result.hasOwnProperty('filteredList')){
 											
-											var html='';
-											var html_sidebar='';
-											var html_main='';
-											var html_print='';
+										var html='';
+										var html_sidebar='';
+										var html_main='';
+										var html_print='';
+										
+										if(response.result.hasOwnProperty('filteredList')){
 											var i=0;
 											
 											var prt_column = 2;
@@ -1856,10 +1857,11 @@ var zppr={
 										break;
 									case "gallery":
 									default:
-										if(response.result.hasOwnProperty('filteredList')){
 											
-											var html='';
-											var html_print='';
+										var html='';
+										var html_print='';
+										
+										if(response.result.hasOwnProperty('filteredList')){
 											var column = requests.hasOwnProperty('column') ? parseInt(requests.column) : 3;									
 											var wrapOpen=0;
 											var i=0;
@@ -1924,10 +1926,11 @@ var zppr={
 								}
 							break;							
 							case "poc":
-								if(response.result.hasOwnProperty('filteredList')){
 									
-									var html='';
-									var html_print='';
+								var html='';
+								var html_print='';
+								
+								if(response.result.hasOwnProperty('filteredList')){
 									var column = requests.hasOwnProperty('column') ? parseInt(requests.column) : 3;									
 									var wrapOpen=0;
 									var i=0;

@@ -601,7 +601,7 @@ $contactIds = get_contact_id();
 																
 																$checked="";
 																	
-																echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"awtrf[]\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+																echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtrf\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
 															}
 															?>
 														</ul>
@@ -793,12 +793,22 @@ $contactIds = get_contact_id();
 						?>
 						<?php
 						$fields = get_references_field('WATERFRONT');
-						foreach($fields as $field){
+						/* foreach($fields as $field){
 						echo "\r\n" .
 						'case "awtrf_'.$field->shortDescription.'":'."\r\n" .
 							"newLabel = '{$field->longDescription}'"."\r\n" .
 							'break;'."\r\n";
+						} */
+						echo "\r\n";
+						echo 'case "awtrf":' .
+							 "switch(value){" . "\r\n";
+						foreach($fields as $field){
+							echo 'case "'.$field->shortDescription.'":'."\r\n" .
+									"newLabel = '{$field->longDescription}'"."\r\n" .
+									'break;'."\r\n";
 						}
+						echo '}' .
+							 'break;' . "\r\n";
 						?>
 						<?php
 						$fields = get_references_field('WATERVIEWFEATURES');

@@ -496,7 +496,7 @@
 						<ul class="waterfront">
 							<?php							
 							foreach($fields as $field){
-								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
+								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="radio" name="awtrf" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
 							}
 							?>
 						</ul>
