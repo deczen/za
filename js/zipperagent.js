@@ -459,13 +459,13 @@ var zppr={
 	},
 	detail:function(single_property, actual_link){
 		
-		agent = [];
+		agent = {};
 		if( single_property.hasOwnProperty('listagent') || single_property.hasOwnProperty('saleagent') ){
 			mlsid = single_property.hasOwnProperty('saleagent') ? single_property.saleagent : '';
 			if(mlsid)
 				agent = zppr.get_agent(mlsid);
 			
-			if(agent.length == 0){
+			if(jQuery.isEmptyObject(agent)){
 				mlsid = single_property.hasOwnProperty('listagent') ? single_property.listagent : '';
 				if(mlsid)
 					agent =  zppr.get_agent(mlsid);
@@ -758,13 +758,13 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.length ){
+			if( agent.id ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
-		}else if( single_property.hasOwnProperty('listAgent') ){
+		}/* else if( single_property.hasOwnProperty('listAgent') ){
 			var agentFullName = zppr.checkNested(single_property,'listAgent','fullName') ? single_property.listAgent.fullName : '';
 			var agentFullNameArr = agentFullName.split(' ');
 			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
@@ -780,13 +780,13 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.length ){
+			if( agent.id ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
-		}
+		} */
 		
 		if( single_property.hasOwnProperty('coListingAgent') ){
 			
@@ -805,13 +805,13 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.length ){
+			if( agent.id ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
-		}else if( single_property.hasOwnProperty('coListAgent') ){
+		} /* else if( single_property.hasOwnProperty('coListAgent') ){
 			
 			var agentFullName = zppr.checkNested(single_property,'coListAgent','fullName') ? single_property.coListAgent.fullName : '';
 			var agentFullNameArr = agentFullName.split(' ');
@@ -828,13 +828,13 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.length ){
+			if( agent.id ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
-		}
+		} */
 		
 		if( single_property.hasOwnProperty('salesAgent') ){
 			var agentFullName = zppr.checkNested(single_property,'salesAgent','userName') ? single_property.salesAgent.userName : '';
@@ -852,7 +852,7 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.length ){
+			if( agent.id ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +
@@ -876,7 +876,7 @@ var zppr={
 			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.length ){
+			if( agent.id ){
 				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
 			}
 			html+=							'</span>' +

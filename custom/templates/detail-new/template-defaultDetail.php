@@ -770,7 +770,7 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
-						<?php elseif( isset($single_property->listAgent) ): 
+						<?php /* elseif( isset($single_property->listAgent) ): 
 						$agentFullName = isset( $single_property->listAgent->fullName ) ? $single_property->listAgent->fullName : '';
 						$agentFullNameArr = explode( ' ',  $agentFullName );
 						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
@@ -788,7 +788,7 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
-						<?php endif; ?>
+						<?php */ endif; ?>
 						
 						<?php if( isset($single_property->coListingAgent) ):
 						$agentFullName = isset( $single_property->coListingAgent->userName ) ? $single_property->coListingAgent->userName : '';
@@ -807,7 +807,7 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
-						<?php elseif( isset($single_property->coListAgent) ):
+						<?php /* elseif( isset($single_property->coListAgent) ):
 						$agentFullName = isset( $single_property->coListAgent->fullName ) ? $single_property->coListAgent->fullName : '';
 						$agentFullNameArr = explode( ' ',  $agentFullName );
 						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
@@ -824,7 +824,7 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
-						<?php endif; ?>
+						<?php */ endif; ?>
 						
 						<?php if( isset($single_property->salesAgent) ):
 						$agentFullName = isset( $single_property->salesAgent->userName ) ? $single_property->salesAgent->userName : '';
