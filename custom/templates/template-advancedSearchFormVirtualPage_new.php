@@ -442,6 +442,7 @@ global $requests;
 							</div>
 								
 						</div>
+						<?php if($requests['enable_lakename']): ?><div class="col-xs-12 col-sm-3 mb-10"> <span id="zpa-lake-name-fields"> <label for="zpa-lakename" class="field-label zpa-lakename-label"> Lake Name </label> <input id="zpa-lakename" name="LakeChainName" placeholder="Any" type="text" class="form-control zpa-search-form-input" value=""></span> </div><?php endif; ?>
 						<div class="col-xs-12 col-sm-3 mb-10"> <span id="zpa-status-fields"> <label for="zpa-status" class="field-label zpa-status-label"> Status </label> <div> <label class="radio-inline"> <input class="radio" name="status" value="" type="radio" checked> Active </label>  <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_sold_status(); ?>" type="radio"> Sold </label> <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_pending_status(); ?>" type="radio"> Pending </label> </div> </span> </div>
 					</div>
 					<div id="zpa-house-condo-search-fields" class="">

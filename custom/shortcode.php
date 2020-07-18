@@ -937,6 +937,7 @@ class Zipperagent_Shortcodes{
 			'minlistprice' => '',
 			'maxlistprice' => '',
 			'direct' => '',
+			'enable_lakename' => 0,
 		), $atts, 'quick_search2');
 		
 		$requests = $atts;

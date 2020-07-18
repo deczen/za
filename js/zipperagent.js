@@ -3644,7 +3644,11 @@ var zppr={
 		for (const [virtual_index, original_virtual_tour_url] of Object.entries(virtual_tours)) {
 			
 			is_possible_popup = 1;
-			virtual_tour_url=original_virtual_tour_url.replace('http://','//');
+			virtual_tour_url=original_virtual_tour_url;
+			if(!zppr.is_valid_url(virtual_tour_url) && virtual_tour_url.toString().substring(0, 2) != '//'){
+				virtual_tour_url='//'+virtual_tour_url;
+			}
+			virtual_tour_url=virtual_tour_url.replace('http://','//');
 			virtual_tour_url=virtual_tour_url.replace('https://','//');
 			
 			if(virtual_tour_url.toString().indexOf('iframe') !== -1){ //iframe
@@ -4724,5 +4728,18 @@ var zppr={
 		}
 		
 		return args;
+	},
+	is_valid_url:function(str){
+		var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+		'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+		'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+		'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+		'(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+		
+		var is_valid = !!pattern.test(str);
+		var is_contains_protocol = str.toString().indexOf('http://') !== -1 || str.toString().indexOf('https://') !== -1
+		
+		return is_valid && is_contains_protocol;
 	}
 };
