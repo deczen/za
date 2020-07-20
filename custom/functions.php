@@ -148,7 +148,14 @@ if( ! function_exists('zipperagent_config') ){
 		if( $WORK_ENV=='DEV' || !isset($_SESSION['zipperagent_config']) || empty( $_SESSION['zipperagent_config'] ) || $debug ){
 			include_once ZIPPERAGENTPATH. "/custom/lib/Adoy/ICU/ResourceBundle/autoload.php";
 			
-			$configdir = ZIPPERAGENTPATH . "/custom/files/";
+			$overridedir = ABSPATH . 'wp-content/';
+			$defaultdir = ZIPPERAGENTPATH . "/custom/files/";
+			
+			if( file_exists($overridedir.'config.txt') ){
+				$configdir = $overridedir;
+			}else{
+				$configdir = $defaultdir;
+			}
 			
 			$config['configurationPath'] = null;
 			try{
