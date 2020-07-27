@@ -374,7 +374,7 @@ if( sizeof($list) ){
 				tempMainSlider.owlCarousel({
 					loop: <?php echo $loop ?>,
 					nav:true,
-					navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>','<i class="fa fa-caret-right" aria-hidden="true"></i>'],
+					navText: ['<i class="fa fa-caret-left" aria-hidden="true" role="none"></i>','<i class="fa fa-caret-right" aria-hidden="true" role="none"></i>'],
 					lazyLoad:true,
 					margin:15,
 					controlsClass:"owl-controls",

@@ -133,7 +133,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 											<button class="dropdown-toggle zy-ccomp__trigger at-price-trigger zy-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
 												<!-- react-text: 42 -->Price&nbsp;
 												
-												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 											</button>
 											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right">
 												<div class="zy-ccomp__content__inner">
@@ -159,7 +159,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Status
 												
-												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 											</button>
 											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 												<div class="zy-ccomp__content__inner">
@@ -181,7 +181,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 											<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 												<!-- react-text: 48 -->Type
 												
-												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 											</button>
 											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 												<div class="zy-ccomp__content__inner">
@@ -224,7 +224,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 												
 												<!-- react-text: 55 -->
 												
-												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 											</button>
 											<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 												<div class="zy-ccomp__content__inner">
@@ -264,7 +264,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 												
 												<!-- react-text: 62 -->
 												
-												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 											</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 												<div class="zy-ccomp__content__inner">
 													<ul class="uk-list uk-list-space m-0">
@@ -303,7 +303,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 												
 												<!-- react-text: 62 -->
 												
-												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+												<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 											</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 												<div class="zy-ccomp__content__inner">
 													

@@ -12,8 +12,8 @@ $contactIds = get_contact_id();
 	?>
 	<?php if($is_detail_page && $saved_results): ?>
 	<div class="omnibar-btn-back">
-		<?php /* <a onclick="window.history.back();"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a> */ ?>
-		<a href="<?php echo $saved_results_url; ?>"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
+		<?php /* <a onclick="window.history.back();"><i class="fa fa-angle-left" aria-hidden="true" role="none"></i> Back</a> */ ?>
+		<a href="<?php echo $saved_results_url; ?>"><i class="fa fa-angle-left" aria-hidden="true" role="none"></i> Back</a>
 	</div>
 	<?php endif; ?>
 	<div class="desktop-omnibar">
@@ -42,7 +42,7 @@ $contactIds = get_contact_id();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code" name="location[]" aria-label="search" />
 						<input id="zpa-all-input-address" type="hidden" value="" />
 						<input id="zpa-all-input-address-values" type="hidden" value="" />
 					</div>
@@ -668,9 +668,9 @@ $contactIds = get_contact_id();
 		<div class="zy_col-3">
 			<div class="input-group">
 				<div id="zy_view-type" class="btn-group">
-					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="map"><i class="fa fa-map-marker" aria-hidden="true"></i> Map</a>
-					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="photo"><i class="fa fa-picture-o" aria-hidden="true"></i> Photo</a>
-					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="gallery"><i class="fa fa-th" aria-hidden="true"></i> Gallery</a>
+					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="map"><i class="fa fa-map-marker" aria-hidden="true" role="none"></i> Map</a>
+					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="photo"><i class="fa fa-picture-o" aria-hidden="true" role="none"></i> Photo</a>
+					<a class="btn btn-primary btn-sm" data-toggle="view" data-title="gallery"><i class="fa fa-th" aria-hidden="true" role="none"></i> Gallery</a>
 				</div>
 			</div>
 		</div>

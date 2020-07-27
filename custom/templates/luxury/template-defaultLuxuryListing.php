@@ -101,7 +101,7 @@ $contactIds=get_contact_id();
 		<?php if( $listing_disclaimer ): ?>
 		<div class="row">
 			<div class="col-xs-12">
-				<span class="listing-disclaimer"><?php echo $listing_disclaimer ?></span>
+				<span class="listing-disclaimer" role="none"><?php echo $listing_disclaimer ?></span>
 			</div>
 			<!--col-->
 		</div>

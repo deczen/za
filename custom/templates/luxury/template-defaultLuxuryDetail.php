@@ -10,7 +10,7 @@ $properties = $single_luxury->properties;
 			<div class="uk-sticky-placeholder" style="margin: 0px;">
 				<header class="zy-listing__header js-listing__header uk-active" data-uk-sticky="{media: 768}">
 					<div class="grid--wrapper uk-position-relative">
-						<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true"></i></a>
+						<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true" role="none"></i></a>
 						<div class="grid grid--noWrap zy-header__inner">
 							<div class="cell">
 								<div class="grid grid--gutters">
@@ -67,9 +67,9 @@ $properties = $single_luxury->properties;
 												}
 												?>
 											</div>
-											<div class="left-nav"><i class="icon-left-arrow"></i>
+											<div class="left-nav"><i class="icon-left-arrow" role="none"></i>
 											</div>
-											<div class="right-nav"><i class="icon-right-arrow"></i>
+											<div class="right-nav"><i class="icon-right-arrow" role="none"></i>
 											</div>
 										</div>
 										<div class="carousel-controller-wrapper" style="padding:0">

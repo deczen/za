@@ -66,7 +66,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 										<!-- Display user profile data -->
 										<div id="userdata"></div>
 										
-										<span class="privacy-message"><i class="fa fa-lock" aria-hidden="true"></i> This does not let the app post to Facebook.</span>
+										<span class="privacy-message"><i class="fa fa-lock" aria-hidden="true" role="none"></i> This does not let the app post to Facebook.</span>
 									</div>									
 								</div>
 								<div class="row mt-15">

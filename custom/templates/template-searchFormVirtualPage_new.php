@@ -52,7 +52,7 @@ global $requests;
 												</div>
 												<div class="field-wrap">
 													<div class="field-section all">
-														<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name=""/>
+														<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="" aria-label="search" />
 														<input id="zpa-all-input-address" type="hidden" value="" />
 														<input id="zpa-all-input-address-values" type="hidden" value="" />
 														<div style="display:none;" class="input-fields"></div>

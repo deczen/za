@@ -59,7 +59,7 @@ if(get_query_var('page')){
 														<div class="zy-search__query-inner">
 															<div class="cell zy-off-canvas__ballerbox-wrapper width-1-1">
 																<div class="zy-search__query-wrapper">
-																	<input type="text" id="zpa-all-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Type any Address, Area, City, County, MLS# or Zip Code" name="location[]">
+																	<input type="text" id="zpa-all-input" class="zpa-area-input undefined autocomplete zy-search__query" placeholder="Type any Address, Area, City, County, MLS# or Zip Code" name="location[]" aria-label="search">
 																	
 																	<input id="zpa-all-input-address" type="hidden" value="" />
 																	<input id="zpa-all-input-address-values" type="hidden" value="" />
@@ -80,7 +80,7 @@ if(get_query_var('page')){
 															<button class="dropdown-toggle zy-ccomp__trigger at-price-trigger zy-filter__button js-search-price btn-primary" data-toggle="dropdown" type="button">
 																<!-- react-text: 42 -->Price&nbsp;
 																
-																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 															</button>
 															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right">
 																<div class="zy-ccomp__content__inner">
@@ -106,7 +106,7 @@ if(get_query_var('page')){
 															<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 																<!-- react-text: 48 -->Status
 																
-																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 															</button>
 															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 																<div class="zy-ccomp__content__inner">
@@ -128,7 +128,7 @@ if(get_query_var('page')){
 															<button class="dropdown-toggle zy-ccomp__trigger at-type-menu-trigger zy-filter__button btn-primary" type="button" data-toggle="dropdown" >
 																<!-- react-text: 48 -->Type
 																
-																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 															</button>
 															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 																<div class="zy-ccomp__content__inner">
@@ -171,7 +171,7 @@ if(get_query_var('page')){
 																
 																<!-- react-text: 55 -->
 																
-																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 															</button>
 															<div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 																<div class="zy-ccomp__content__inner">
@@ -211,7 +211,7 @@ if(get_query_var('page')){
 																
 																<!-- react-text: 62 -->
 																
-																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 															</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 																<div class="zy-ccomp__content__inner">
 																	<ul class="uk-list uk-list-space m-0">
@@ -250,7 +250,7 @@ if(get_query_var('page')){
 																
 																<!-- react-text: 62 -->
 																
-																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--smaller fa fa-angle-down" aria-hidden="true" role="none"></i>
 															</button><div class="dropdown-menu dropdown-menu-right zy-react-dropdown__content zy-dropdown--right zy-dropdown--small">
 																<div class="zy-ccomp__content__inner">
 																														

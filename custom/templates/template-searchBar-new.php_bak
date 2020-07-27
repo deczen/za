@@ -11,8 +11,8 @@ $excludes = get_new_filter_excludes();
 	?>
 	<?php if($is_detail_page && $saved_results): ?>
 	<div class="omnibar-btn-back">
-		<?php /* <a onclick="window.history.back();"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a> */ ?>
-		<a href="<?php echo $saved_results_url; ?>"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
+		<?php /* <a onclick="window.history.back();"><i class="fa fa-angle-left" aria-hidden="true" role="none"></i> Back</a> */ ?>
+		<a href="<?php echo $saved_results_url; ?>"><i class="fa fa-angle-left" aria-hidden="true" role="none"></i> Back</a>
 	</div>
 	<?php endif; ?>
 	<div class="desktop-omnibar">
@@ -41,7 +41,7 @@ $excludes = get_new_filter_excludes();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="location[]" aria-label="search" />
 						<input id="zpa-all-input-address" type="hidden" value="" />
 						<input id="zpa-all-input-address-values" type="hidden" value="" />
 					</div>

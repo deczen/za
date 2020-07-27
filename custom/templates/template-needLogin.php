@@ -38,7 +38,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 													<div class="col-xs-12 col-sm-12">
 														<!-- Facebook login or logout button -->
 														<a href="javascript:void(0);" onclick="fbLogin()" id="fbLink"><img src="<?php echo ZIPPERAGENTURL ?>images/fb-login-btn.png" alt="facebook login" /></a>
-														<span class="privacy-message"><i class="fa fa-lock" aria-hidden="true"></i> This does not let the app post to Facebook.</span>
+														<span class="privacy-message"><i class="fa fa-lock" aria-hidden="true" role="none"></i> This does not let the app post to Facebook.</span>
 													</div>									
 												</div>
 												<div class="row mt-15">

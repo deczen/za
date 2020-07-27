@@ -175,11 +175,11 @@ $userdata = $userdata[0]; //get first index record
 																<input type="hidden" name="savedListingId" value="6378347">
 																<input type="hidden" name="interestLevel" value="">
 																<label>My Rating:</label>
-																<a href="#" data-zpa-interest-level="1" title="1 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-																<a href="#" data-zpa-interest-level="2" title="2 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-																<a href="#" data-zpa-interest-level="3" title="3 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-																<a href="#" data-zpa-interest-level="4" title="4 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-																<a href="#" data-zpa-interest-level="5" title="5 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
+																<a href="#" data-zpa-interest-level="1" title="1 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+																<a href="#" data-zpa-interest-level="2" title="2 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+																<a href="#" data-zpa-interest-level="3" title="3 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+																<a href="#" data-zpa-interest-level="4" title="4 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+																<a href="#" data-zpa-interest-level="5" title="5 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
 															</form>
 															<div class="zpa-results-organizer-comments"> <a href="#">Comments</a> </div> */ ?>
 															<div class="zpa-results-organizer-delete"> <a href="<?php echo site_url('/'); ?>property-organizer-delete-saved-listing-submit/<?php //echo $saveId; ?><?php echo $property->id; ?>">Delete</a> </div>
@@ -412,11 +412,11 @@ $userdata = $userdata[0]; //get first index record
                                 <input type="hidden" name="savedListingId" value="6378347">
                                 <input type="hidden" name="interestLevel" value="">
                                 <label>My Rating:</label>
-                                <a href="#" data-zpa-interest-level="1" title="1 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-                                <a href="#" data-zpa-interest-level="2" title="2 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-                                <a href="#" data-zpa-interest-level="3" title="3 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-                                <a href="#" data-zpa-interest-level="4" title="4 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
-                                <a href="#" data-zpa-interest-level="5" title="5 out of 5"> <i class="glyphicon glyphicon-star"></i> </a>
+                                <a href="#" data-zpa-interest-level="1" title="1 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+                                <a href="#" data-zpa-interest-level="2" title="2 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+                                <a href="#" data-zpa-interest-level="3" title="3 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+                                <a href="#" data-zpa-interest-level="4" title="4 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
+                                <a href="#" data-zpa-interest-level="5" title="5 out of 5"> <i class="glyphicon glyphicon-star" role="none"></i> </a>
                             </form>
                             <div class="zpa-results-organizer-comments"> <a href="#">Comments</a> </div> */ /*?>
                             <div class="zpa-results-organizer-delete"> <a href="<?php echo site_url('/'); ?>property-organizer-delete-saved-listing-submit/<?php //echo $saveId; ?><?php echo $property->id; ?>">Delete</a> </div>

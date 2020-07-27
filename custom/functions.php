@@ -1784,7 +1784,7 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 									<div class=\"content\">		
 										<a href=\"{$single_url}\"><strong>". str_replace( "'", "\'", $fulladdress )  ."</strong></a>
 										<p class=\"price\">{$longprice}</p>
-										<p class=\"favorite\"><a class=\"listing-{$property->id} save-favorite-btn {$is_active}\" isLogin=\"{$is_login}\" listingId=\"{$property->id}\" searchId=\"{$searchId}\" contactId=\"{$str_contactIds}\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i> Favorite</a></p>
+										<p class=\"favorite\"><a class=\"listing-{$property->id} save-favorite-btn {$is_active}\" isLogin=\"{$is_login}\" listingId=\"{$property->id}\" searchId=\"{$searchId}\" contactId=\"{$str_contactIds}\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\" role=\"none\"></i> Favorite</a></p>
 										<p class=\"info\">{$beds_html}{$bath_html}{$sqft_html}</p>
 									</div> <a class=\"link-cover\" href=\"{$single_url}\"></a>
 								</div>";
@@ -3757,7 +3757,7 @@ if( ! function_exists('zipperagent_luxury_table') ){
 										$bath = isset($property->nobaths ) && $property->nobaths > 0 ? $property->nobaths : '-';
 										$sqft = isset($property->squarefeet ) && $property->squarefeet > 0 ? number_format_i18n( $property->squarefeet, 0 ) : '-';
 										echo '<tr>';
-										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true"></i></a></td>';
+										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true" role="none"></i></a></td>';
 										echo '</tr>';
 									}
 								}else{
@@ -3788,7 +3788,7 @@ if( ! function_exists('zipperagent_luxury_table') ){
 										$bath = isset($property->nobaths ) && $property->nobaths > 0 ? $property->nobaths : '-';
 										$sqft = isset($property->squarefeet ) && $property->squarefeet > 0 ? number_format_i18n( $property->squarefeet, 0 ) : '-';
 										echo '<tr>';
-										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true"></i></a></td>';
+										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true" role="none"></i></a></td>';
 										echo '</tr>';
 									}
 								}else{
@@ -3818,7 +3818,7 @@ if( ! function_exists('zipperagent_luxury_table') ){
 										$bath = isset($property->nobaths ) && $property->nobaths > 0 ? $property->nobaths : '-';
 										$sqft = isset($property->squarefeet ) && $property->squarefeet > 0 ? number_format_i18n( $property->squarefeet, 0 ) : '-';
 										echo '<tr>';
-										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true"></i></a></td>';
+										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true" role="none"></i></a></td>';
 										echo '</tr>';
 									}
 								}else{
@@ -3848,7 +3848,7 @@ if( ! function_exists('zipperagent_luxury_table') ){
 										$bath = isset($property->nobaths ) && $property->nobaths > 0 ? $property->nobaths : '-';
 										$sqft = isset($property->squarefeet ) && $property->squarefeet > 0 ? number_format_i18n( $property->squarefeet, 0 ) : '-';
 										echo '<tr>';
-										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true"></i></a></td>';
+										echo '<td>'. zipperagent_currency() . number_format_i18n( $price, 0 ).'</td><td>'. $bedrooms .'</td><td>'. $bath .'</td><td>'. $sqft .'</td><td><a href="'. $single_url .'"><i class="fa fa-search" aria-hidden="true" role="none"></i></a></td>';
 										echo '</tr>';
 									}
 								}else{

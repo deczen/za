@@ -29,7 +29,7 @@ $excludes = get_new_filter_excludes();
 				</div>
 				<div class="field-wrap">
 					<div class="field-section all">
-						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Area, city, county, MLS# or zip code"  name="location[]"/>
+						<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Type any Area, city, county, MLS# or zip code" name="location[]" aria-label="search" />
 					</div>
 					<div class="field-section addr hide">
 						<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />

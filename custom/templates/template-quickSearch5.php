@@ -14,7 +14,7 @@ global $requests;
 										<input id="zpa-area-input" class="zpa-area-input form-control" placeholder="<?php echo (empty($requests['location_option'])) ? "Enter City / County / Zip" : "Select Location"; ?>"  name="location[]"/>
 										<input class="zpa-area-input-hidden" name="" type="hidden">
 									</div>
-									<button id="zpa-quicksearch-submit5" class="" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit5" class="" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>
 							</div>
 						</div>						

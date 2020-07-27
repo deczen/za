@@ -34,7 +34,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								</div>							
 								
 								<div class="col-sm-2 hidden-xs hidden-sm">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>
 							</div>
 							    
@@ -160,7 +160,7 @@ $maxListPrice		= $requests['maxlistprice'];
 							
 							<div class="row">
 								<div class="col-xs-12 hidden-md hidden-lg">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>
 							</div>
 						</div>
@@ -178,7 +178,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								</div>
 								
 								<div class="col-xs-12 col-md-2 col-sm-2">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>
 							</div>
 						</div>
@@ -189,7 +189,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								</div>						
 								
 								<div class="col-xs-12 col-md-2 col-sm-2">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 									<?php 
 									$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order();
 									if($default_order): ?>

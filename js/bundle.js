@@ -9394,31 +9394,31 @@ MapManager.prototype.debug = function(e) {
     var a;
     switch (e) {
         case "SFR":
-            a = '<div class="zpa-map-icon zpa-map-icon-house"><i class="fa fa-home"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-house"><i class="fa fa-home" role="none"></i></div>';
             break;
         case "CND":
-            a = '<div class="zpa-map-icon zpa-map-icon-condo"><i class="glyphicon glyphicon-credit-card"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-condo"><i class="glyphicon glyphicon-credit-card" role="none"></i></div>';
             break;
         case "LL":
-            a = '<div class="zpa-map-icon zpa-map-icon-land"><i class="glyphicon glyphicon-tree-conifer"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-land"><i class="glyphicon glyphicon-tree-conifer" role="none"></i></div>';
             break;
         case "COM":
-            a = '<div class="zpa-map-icon zpa-map-icon-commercial"><i class="fa fa-tag"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-commercial"><i class="fa fa-tag" role="none"></i></div>';
             break;
         case "RI":
-            a = '<div class="zpa-map-icon zpa-map-icon-multiunit"><i class="glyphicon glyphicon-th-large"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-multiunit"><i class="glyphicon glyphicon-th-large" role="none"></i></div>';
             break;
         case "MH":
-            a = '<div class="zpa-map-icon zpa-map-icon-mobilehome"><i class="fa fa-road"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-mobilehome"><i class="fa fa-road" role="none"></i></div>';
             break;
         case "FRM":
-            a = '<div class="zpa-map-icon zpa-map-icon-house"><i class="fa fa-leaf"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-house"><i class="fa fa-leaf" role="none"></i></div>';
             break;
         case "RNT":
-            a = '<div class="zpa-map-icon zpa-map-icon-rental"><i class="fa fa-building-o"></i></div>';
+            a = '<div class="zpa-map-icon zpa-map-icon-rental"><i class="fa fa-building-o" role="none"></i></div>';
             break;
         default:
-            a = '<div class="zpa-map-icon zpa-map-icon-house"><i class="fa fa-home"></i></div>'
+            a = '<div class="zpa-map-icon zpa-map-icon-house"><i class="fa fa-home" role="none"></i></div>'
     }
     return a
 }, MapManager.prototype.getNumericMarkerIconHtml = function(e) {

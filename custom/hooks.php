@@ -453,7 +453,7 @@ function zipperagent_detail_page_navigation(){
 					</div>
 				</div>
 				<div class="zy_nav-right-wrap">
-					<i class="fa fa-angle-left" aria-hidden="true"></i>						
+					<i class="fa fa-angle-left" aria-hidden="true" role="none"></i>						
 					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
 				</div>
 			</div>
@@ -493,7 +493,7 @@ function zipperagent_detail_page_navigation(){
 					</div>
 				</div>
 				<div class="zy_nav-right-wrap">
-					<i class="fa fa-angle-right" aria-hidden="true"></i>						
+					<i class="fa fa-angle-right" aria-hidden="true" role="none"></i>						
 					<a class="zy_nav_link" href="<?php echo $single_url; ?>"></a>
 				</div>
 			</div>
@@ -542,9 +542,9 @@ function zipperagent_detail_page_lightbox_gallery(){
 											}
 										} ?>
 									</div>
-									<div class="left-nav"><i class="icon-left-arrow"></i>
+									<div class="left-nav"><i class="icon-left-arrow" role="none"></i>
 									</div>
-									<div class="right-nav"><i class="icon-right-arrow"></i>
+									<div class="right-nav"><i class="icon-right-arrow" role="none"></i>
 									</div>
 								</div>
 								<div class="carousel-controller-wrapper">
@@ -633,7 +633,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 					merge:true,
 					slideBy: 5,
 					smartSpeed: 200,
-					navText:['<i class="icon-left-arrow"></i>', '<i class="icon-right-arrow"></i>'],
+					navText:['<i class="icon-left-arrow" role="none"></i>', '<i class="icon-right-arrow" role="none"></i>'],
 					autoplay: $carouselController.hasClass("carousel-autoplay"),
 					autoplayTimeout: 3500,
 					responsiveRefreshRate: 100,
@@ -795,7 +795,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 					merge:true,
 					slideBy: 5,
 					smartSpeed: 200,
-					navText:['<i class="icon-left-arrow"></i>', '<i class="icon-right-arrow"></i>'],
+					navText:['<i class="icon-left-arrow" role="none"></i>', '<i class="icon-right-arrow" role="none"></i>'],
 					autoplay: $carouselController.hasClass("carousel-autoplay"),
 					autoplayTimeout: 3500,
 					responsiveRefreshRate: 100,

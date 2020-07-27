@@ -52,13 +52,13 @@ foreach( $virtual_tours as $virtual_index => $virtual_tour_url ):
 	if($is_possible_popup):
 	?>
 	<a href="#" content-iframe='<?php echo $embed; ?>' class="virtual-tour-open">
-	  <i class="fa fa-camera"></i>
+	  <i class="fa fa-camera" role="none"></i>
 	  <span> Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?></span>
 	</a>
 	<?php
 	else: ?>
 	<a href="<?php echo $original_virtual_tour_url; ?>" class="virtual-tour-open-direct" target="_blank">
-	  <i class="fa fa-camera"></i>
+	  <i class="fa fa-camera" role="none"></i>
 	  <span> Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?></span>
 	</a>
 	<?php endif; ?>

@@ -452,35 +452,35 @@ if(file_exists($template_path) && $template_name ){
 						<div class="<?php echo $is_enable_save ? 'col-lg-8' : 'col-lg-7'; ?> col-sm-12 col-md-12 zy_nopadding zy-detail-tool">
 							<div class="row">								
 								<div class="btn_wrap zy_save-favorite-wrap col-btn">
-									<button class="zy_save-favorite <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw"></i></button>
+									<button class="zy_save-favorite <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-heart fa-fw" role="none"></i></button>
 									<span>Favorite</span>
 								</div>
 								
 								<?php if($is_enable_save): ?>
 								<div class="btn_wrap zy_save-property-wrap col-btn">
-									<button class="zy_save-property <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-floppy-o fa-fw"></i></button>
+									<button class="zy_save-property <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>"><i class="fa fa-floppy-o fa-fw" role="none"></i></button>
 									<span>Save</span>
 								</div>
 								<?php endif; ?>
 								
 								<div class="btn_wrap zy_schedule-showing-wrap col-btn">
-									<button class="zy_schedule-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>
+									<button class="zy_schedule-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw" role="none"></i></button>
 									<span>Request Showing</span>
 								</div>
 								
 								<div class="btn_wrap zy_request-showing-wrap col-btn">
-									<button class="zy_request-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>
+									<button class="zy_request-showing <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info"><i class="fa fa-info fa-fw" role="none"></i></button>
 									<span>Request info</span>
 								</div>
 								
 								<div class="btn_wrap zy_share-property-wrap col-btn">
-									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>
+									<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw" role="none"></i></button>
 									<span>Share</span>
 									<div class="dropdown-menu" aria-labelledby="dropdownShare">
 										<ul class="menu-list">
 											<li>
 												<a class="share-item share-email <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="share_email" contactid="<?php echo implode(',',$contactIds) ?>" href="#">
-													<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true" role="none"></i>
 													<span>Email this listing</span>
 												</a>
 												
@@ -488,32 +488,32 @@ if(file_exists($template_path) && $template_name ){
 											<?php /*
 											<li>
 												<a class="share-item" href="https://pinterest.com/pin/create/button/?url=<?php echo $actual_link; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-													<i class="zy-icon zy-icon--larger fa fa-pinterest" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-pinterest" aria-hidden="true" role="none"></i>
 													<span>Share on Pinterest</span>
 												</a>
 											</li>
 											<li>
 												<a class="share-item" href="https://plus.google.com/share?url=<?php echo $actual_link; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-													<i class="zy-icon zy-icon--larger fa fa-google-plus" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-google-plus" aria-hidden="true" role="none"></i>
 													<span>Share on Google+</span>
 												</a>
 											</li> */ ?>
 											<li>
 												<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $actual_link; ?>" target="_blank" onclick="window.open(this.href, 'facebook-share-dialog', 'width=626,height=436'); return false;">
-													<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true" role="none"></i>
 													<span>Share on Facebook</span>
 												</a>
 											</li>
 											<?php /*
 											<li>
 												<a class="share-item" href="https://twitter.com/share?url=<?php echo $actual_link; ?>" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=626,height=436'); return false;">
-													<i class="zy-icon zy-icon--larger fa fa-twitter" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-twitter" aria-hidden="true" role="none"></i>
 													<span>Share on Twitter</span>
 												</a>
 											</li>
 											<li>
 												<a class="share-item" href="#" onClick="window.print()" target="_blank">
-													<i class="zy-icon zy-icon--larger fa fa-print" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-print" aria-hidden="true" role="none"></i>
 													<span>Print this listing</span>
 												</a>
 											</li> */ ?>
@@ -562,9 +562,9 @@ if(file_exists($template_path) && $template_name ){
 												}
 											} ?>
 										</div>
-										<div class="left-nav"><i class="icon-left-arrow"></i>
+										<div class="left-nav"><i class="icon-left-arrow" role="none"></i>
 										</div>
-										<div class="right-nav"><i class="icon-right-arrow"></i>
+										<div class="right-nav"><i class="icon-right-arrow" role="none"></i>
 										</div>
 									</div>
 									<div class="carousel-controller-wrapper">
@@ -655,7 +655,7 @@ if(file_exists($template_path) && $template_name ){
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save description section ?>
 												
 						<div class="zy_print-button">
-							<a id="zy_open-print-popup" href="#"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+							<a id="zy_open-print-popup" href="#"><i class="fa fa-print" aria-hidden="true" role="none"></i> Print</a>
 						</div>
 						
 						<div class="zy_vitural-tour">

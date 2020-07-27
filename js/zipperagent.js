@@ -354,9 +354,9 @@ var zppr={
 			var save_btn_text = (is_view_save_search) ? "Update This Search" : "Save This Search";
 			
 			html+= 			'<div class="pull-right">'+
-								'<button id="savedSearchButton" class="btn btn-sm btn-primary disabled pull-right" style="display: none"> <i class="glyphicon glyphicon-star"></i>'+ saved_btn_text +'</button>'+
+								'<button id="savedSearchButton" class="btn btn-sm btn-primary disabled pull-right" style="display: none"> <i class="glyphicon glyphicon-star" role="none"></i>'+ saved_btn_text +'</button>'+
 							'</div>'+
-							'<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="'+ zppr.data.is_login +'" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="'+ zppr.data.contactIds.join() +'"> <i class="glyphicon glyphicon-star"></i> '+ save_btn_text +'  </button>';
+							'<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="'+ zppr.data.is_login +'" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="'+ zppr.data.contactIds.join() +'"> <i class="glyphicon glyphicon-star" role="none"></i> '+ save_btn_text +'  </button>';
 		}
 		html+= 			'</div>'+
 					'</div>'+
@@ -373,7 +373,7 @@ var zppr={
 			
 			html+= '<div class="row">'+
 						'<div class="col-xs-12">'+
-							'<span class="listing-disclaimer">'+ zppr.data.listing_disclaimer +'</span>'+
+							'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
 						'</div>'+
 					'</div>';
 		}
@@ -419,7 +419,7 @@ var zppr={
 			
 			html+= 						'<div class="row">'+
 											'<div class="col-xs-12">'+
-												'<span class="listing-disclaimer">'+ zppr.data.listing_disclaimer +'</span>'+
+												'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
 											'</div>'+
 										'</div>';
 		}
@@ -480,7 +480,7 @@ var zppr={
 		var html = '';
 		
 		var save_btn_html = zppr.data.is_enable_save!=1 ? '' : '<div class="btn_wrap zy_save-property-wrap col-btn">' +
-								'<button class="zy_save-property '+ (zppr.data.is_login==0?"needLogin":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-floppy-o fa-fw"></i></button>' +
+								'<button class="zy_save-property '+ (zppr.data.is_login==0?"needLogin":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-floppy-o fa-fw" role="none"></i></button>' +
 								'<span>Save</span>' +
 							'</div>';
 		
@@ -529,37 +529,37 @@ var zppr={
 										'<div class="'+ ( zppr.data.is_enable_save==1 ? 'col-lg-8' : 'col-lg-7' ) +' col-sm-12 col-md-12 zy_nopadding zy-detail-tool">' +
 											'<div class="row">' +				
 												'<div class="btn_wrap zy_save-favorite-wrap col-btn">' +
-													'<button class="zy_save-favorite '+ (zppr.is_favorite(single_property.id)?"favorited":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_favorite" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-heart fa-fw"></i></button>' +
+													'<button class="zy_save-favorite '+ (zppr.is_favorite(single_property.id)?"favorited":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_favorite" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-heart fa-fw" role="none"></i></button>' +
 													'<span>Favorite</span>' +
 												'</div>' +
 												
 												save_btn_html +
 												
 												'<div class="btn_wrap zy_schedule-showing-wrap col-btn">' +
-													'<button class="zy_schedule-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw"></i></button>' +
+													'<button class="zy_schedule-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="schedule_show"><i class="fa fa-clock-o fa-fw" role="none"></i></button>' +
 													'<span>Request Showing</span>' +
 												'</div>' +
 												
 												'<div class="btn_wrap zy_request-showing-wrap col-btn">' +
-													'<button class="zy_request-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="request_info"><i class="fa fa-info fa-fw"></i></button>' +
+													'<button class="zy_request-showing '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="request_info"><i class="fa fa-info fa-fw" role="none"></i></button>' +
 													'<span>Request info</span>' +
 												'</div>' +
 												
 												'<div class="btn_wrap zy_share-property-wrap col-btn">' +
-													'<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw"></i></button>' +
+													'<button class="zy_share-property dropdown-toggle" id="dropdownShare" data-toggle="dropdown"><i class="fa fa-share fa-fw" role="none"></i></button>' +
 													'<span>Share</span>' +
 													'<div class="dropdown-menu" aria-labelledby="dropdownShare">' +
 														'<ul class="menu-list">' +
 															'<li>' +
 																'<a class="share-item share-email '+ (zppr.data.is_login==0?"needLogin":"") +'" afterAction="share_email" contactid="'+ zppr.data.contactIds.join() +'" href="#">' +
-																	'<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true"></i> ' +
+																	'<i class="zy-icon zy-icon--larger fa fa-at" aria-hidden="true" role="none"></i> ' +
 																	'<span>Email this listing</span>' +
 																'</a>' +
 																
 															'</li>' +															
 															'<li>' +
 																'<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u='+ actual_link +'" target="_blank" onclick="window.open(this.href, \'facebook-share-dialog\', \'width=626,height=436\'); return false;">' +
-																	'<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i> ' +
+																	'<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true" role="none"></i> ' +
 																	'<span>Share on Facebook</span>' +
 																'</a>' +
 															'</li>' +															
@@ -602,9 +602,9 @@ var zppr={
 				i++;
 			}
 			html += 									'</div>' +
-														'<div class="left-nav"><i class="icon-left-arrow"></i>' +
+														'<div class="left-nav"><i class="icon-left-arrow" role="none"></i>' +
 														'</div>' +
-														'<div class="right-nav"><i class="icon-right-arrow"></i>' +
+														'<div class="right-nav"><i class="icon-right-arrow" role="none"></i>' +
 														'</div>' +
 													'</div>' +
 													'<div class="carousel-controller-wrapper">' +
@@ -658,7 +658,7 @@ var zppr={
 									'<div id="zy_description-section" class="zy_description-section">' +
 																
 										'<div class="zy_print-button">' +
-											'<a id="zy_open-print-popup" href="#"><i class="fa fa-print" aria-hidden="true"></i> Print</a>' +
+											'<a id="zy_open-print-popup" href="#"><i class="fa fa-print" aria-hidden="true" role="none"></i> Print</a>' +
 										'</div>' +
 										
 										'<div class="zy_vitural-tour">' +
@@ -1155,9 +1155,9 @@ var zppr={
 				i++;
 			}
 			html += 									'</div>' +
-														'<div class="left-nav"><i class="icon-left-arrow"></i>' +
+														'<div class="left-nav"><i class="icon-left-arrow" role="none"></i>' +
 														'</div>' +
-														'<div class="right-nav"><i class="icon-right-arrow"></i>' +
+														'<div class="right-nav"><i class="icon-right-arrow" role="none"></i>' +
 														'</div>' +
 													'</div>' +
 													'<div class="carousel-controller-wrapper">' +
@@ -1575,7 +1575,7 @@ var zppr={
 									merge:true,
 									slideBy: 5,
 									smartSpeed: 200,
-									navText:['<i class="icon-left-arrow"></i>', '<i class="icon-right-arrow"></i>'],
+									navText:['<i class="icon-left-arrow" role="none"></i>', '<i class="icon-right-arrow" role="none"></i>'],
 									autoplay: $carouselController.hasClass("carousel-autoplay"),
 									autoplayTimeout: 3500,
 									responsiveRefreshRate: 100,
@@ -1802,7 +1802,7 @@ var zppr={
 												tempMainSlider.owlCarousel({
 													loop:false,
 													nav:true,
-													navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right"></i></span></a>'],
+													navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
 													lazyLoad:true,
 													items:1,
 													dots: false,
@@ -2237,7 +2237,7 @@ var zppr={
 							'<div class="col-xs-12">' +
 								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
 									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
-									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
+									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
 									'<a class="property_url" href="'+ prop_url +'"></a>' +
 									'<a class="property_url" href="'+ prop_url +'"><span class="zpa-for-sale-price"> '+ zppr.moneyFormat(price) +' </span> </a>' +
 								'</div>' +
@@ -2263,7 +2263,7 @@ var zppr={
 									'</div>' +
 								'</div>' +
 								'<div class="'+ ( column==4 ? 'col-xs-5 nopaddingleft' : 'col-xs-4' ) +'">' +
-									'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true"></i> '+ days +' Day(s)  </span>' +
+									'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true" role="none"></i> '+ days +' Day(s)  </span>' +
 								'</div>' +
 							'</div>' +
 							
@@ -2481,7 +2481,7 @@ var zppr={
 							'<div class="col-xs-12">' +
 								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
 									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
-									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true"></i></a>' +
+									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
 									'<a class="property_url" href="#to_'+ property.listno +'"></a>' +
 									'<a class="property_url" href="#to_'+ property.listno +'"><span class="zpa-for-sale-price"> '+ zppr.moneyFormat(price) +' </span> </a>' +
 								'</div>' +
@@ -2506,7 +2506,7 @@ var zppr={
 									'</div>' +
 								'</div>' +
 								'<div class="col-xs-5 nopaddingleft">' +
-									'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true"></i> '+ days +' Day(s)  </span>' +
+									'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true" role="none"></i> '+ days +' Day(s)  </span>' +
 								'</div>' +
 							'</div>' +
 							openhouses +
@@ -2552,7 +2552,7 @@ var zppr={
 							'<div class="mb-10">' +
 								'<h1 class="uk-h2 mb-5 listing-address" itemprop="address" itemtype="http://schema.org/PostalAddress"><a class="zy-text-default view_full_details" href="'+ prop_url +'"><span itemprop="streetAddress">' + ( property.hasOwnProperty('streetno') ? property.streetno :'-' ) +' '+ ( property.hasOwnProperty('streetname') ? zppr.streetname_fix_comma( property.streetname ) :'-' ) +'</span></a><div class="uk-text-muted zy-text-reset"><span itemprop="addressLocality"><!-- react-text: 1375 -->' + ( property.hasOwnProperty('lngTOWNSDESCRIPTION')? property.lngTOWNSDESCRIPTION :'-' ) +' <!-- /react-text --><!-- react-text: 1376 -->,&nbsp;<!-- /react-text --></span><span itemprop="addressRegion"><!-- react-text: 1378 -->' + ( property.hasOwnProperty('provinceState')? property.provinceState :'-' ) + '<!-- /react-text --><!-- react-text: 1379 -->&nbsp;<!-- /react-text --></span><span itemprop="postalCode"><!-- react-text: 1381 -->' + ( property.hasOwnProperty('zipcode')? property.zipcode :'-' ) + '<!-- /react-text --><!-- react-text: 1382 -->&nbsp;<!-- /react-text --></span></div></h1>' +
 								'<div class="grid grid-xs--full grid-md--thirds grid-lg--halves">' +
-									'<div class="cell"><i class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +' zy-sash py-5 px-10 zy-listing-single__sash">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</i></div>' +
+									'<div class="cell"><i class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +' zy-sash py-5 px-10 zy-listing-single__sash" role="none">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</i></div>' +
 								'</div>' +
 							'</div>' +
 							'<div class="uk-position-relative text-xs--center">' +
@@ -2581,8 +2581,8 @@ var zppr={
 												
 												'<!--Navigation Links For the Main Items' +
 												'<div class="slider-controls"> ' +
-													'<a class="slider-left" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left"></i></span></a>' + 
-													'<a class="slider-right" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right"></i></span></a>' + 
+													'<a class="slider-left" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>' + 
+													'<a class="slider-right" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>' + 
 												'</div> --> ' +
 											'</div>' +
 										   
@@ -2771,7 +2771,7 @@ var zppr={
 										'<span class="text-center d-block">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</span>' +
 									'</div>' +
 									'<div class="zy_pt-days">' +
-										'<span class="pull-right">'+ ( days ? '<i class="fa fa-calendar" aria-hidden="true"></i>'+ days +' Day(s)' : '' ) + '</span>' +
+										'<span class="pull-right">'+ ( days ? '<i class="fa fa-calendar" aria-hidden="true" role="none"></i>'+ days +' Day(s)' : '' ) + '</span>' +
 										'<div class="clearfix"></div>' +
 									'</div>' +
 								'</div>' +
@@ -3674,12 +3674,12 @@ var zppr={
 			
 			if(is_possible_popup){
 				html+= '<a href="#" content-iframe=\''+ embed +'\' class="virtual-tour-open">' +
-						  '<i class="fa fa-camera"></i>' +
+						  '<i class="fa fa-camera" role="none"></i>' +
 						  '<span> Virtual Tour&nbsp;#'+ (parseInt(virtual_index) + 1) +'</span>' +
 						'</a>';
 			}else{
 				html+= '<a href="'+ original_virtual_tour_url +'" class="virtual-tour-open-direct" target="_blank">' +
-						  '<i class="fa fa-camera"></i>' +
+						  '<i class="fa fa-camera" role="none"></i>' +
 						  '<span> Virtual Tour&nbsp;#'+ (parseInt(virtual_index) + 1) +'</span>' +
 						'</a>';
 			}

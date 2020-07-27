@@ -89,25 +89,25 @@ class ET_Builder_Module_Za_Highlight extends ET_Builder_Module {
 			<div class="za-container">
 				<div class="top-meta-wrap">
 					<div class="topmeta centertext">
-						<h3><i class="fa fa-home"></i></h3>
+						<h3><i class="fa fa-home" role="none"></i></h3>
 						<h3 class="caps redtext"><strong><?php echo $za_proptype; ?></strong></h3>
 						<hr>
 						<h4 class="caps">Property Type</h4>
 					</div>
 					<div class="topmeta centertext">
-						<h3><i class="fa fa-usd"></i></h3>
+						<h3><i class="fa fa-usd" role="none"></i></h3>
 						<h3 class="caps redtext"><strong><?php echo $price; ?></strong></h3>
 						<hr>
 						<h4 class="caps">List Price</h4>
 					</div>
 					<div class="topmeta centertext">
-						<h3><i class="fa fa-bed"></i></h3>
+						<h3><i class="fa fa-bed" role="none"></i></h3>
 						<h3 class="caps redtext"><strong><?php echo $za_bedrooms; ?></strong></h3>
 						<hr>
 						<h4 class="caps"># of Bedrooms</h4>
 					</div>
 					<div class="topmeta centertext">
-						<h3><i class="fa fa-tint"></i></h3>
+						<h3><i class="fa fa-tint" role="none"></i></h3>
 						<h3 class="caps redtext"><strong><?php echo $za_bathrooms; ?></strong></h3>
 						<hr>
 						<h4 class="caps"># of Bathrooms</h4>

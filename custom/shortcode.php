@@ -1161,7 +1161,7 @@ class Zipperagent_Shortcodes{
 		}
 		
 		$html = '<div class="fluid-width-video-wrapper artVideo '.$class.'">';
-		$html .= '<a class="showvid" href="#" style="background-image:url('.$a['image'].');"><span><i class="fa fa-play-circle"></i></span></a>';
+		$html .= '<a class="showvid" href="#" style="background-image:url('.$a['image'].');"><span><i class="fa fa-play-circle" role="none"></i></span></a>';
 		$frame = wp_oembed_get( $a['url'] );
 		$frame = str_replace('?feature', '?enablejsapi=1&modestbranding=1&rel=0&showinfo=0&feature', $frame);
 		$frame = str_replace('<iframe', '<iframe id="player-'.$id.'" class="art-player"', $frame);

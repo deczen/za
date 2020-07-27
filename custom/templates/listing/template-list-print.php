@@ -99,7 +99,7 @@ foreach( $list as $option ): ?>
 							<span class="text-center d-block"><?php echo strtoupper($converted_status) ?></span>
 						</div>
 						<div class="zy_pt-days">
-							<span class="pull-right"> <?php if(isset($property->dayssincelisting)): ?><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo isset($property->dayssincelisting)?$property->dayssincelisting:'-'; ?> Day(s) <?php endif; ?> </span>
+							<span class="pull-right"> <?php if(isset($property->dayssincelisting)): ?><i class="fa fa-calendar" aria-hidden="true" role="none"></i> <?php echo isset($property->dayssincelisting)?$property->dayssincelisting:'-'; ?> Day(s) <?php endif; ?> </span>
 							<div class="clearfix"></div>
 						</div>
 					</div>

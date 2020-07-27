@@ -92,7 +92,7 @@ global $requests;
                     </div>
                     <div class="col-xs-12 col-sm-1">
                         <label for="zpa-select-baths-homes" class="field-label">&nbsp;</label>
-                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
                     </div>
 					
                     <input id="openHomesMode" name="openHomesMode" type="hidden" value="true">

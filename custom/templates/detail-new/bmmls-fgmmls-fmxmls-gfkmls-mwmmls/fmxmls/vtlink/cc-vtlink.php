@@ -26,7 +26,7 @@
 	?>
 	
 	<a href="#" content-iframe='<?php echo $embed ?>' class="virtual-tour-open">
-	  <i class="fa fa-camera"></i>
+	  <i class="fa fa-camera" role="none"></i>
 	  <span> Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?></span>
 	</a>
 	
@@ -61,7 +61,7 @@
 	?>
 	
 	<a href="#" content-iframe='<?php echo $embed ?>' class="virtual-tour-open">
-	  <i class="fa fa-camera"></i>
+	  <i class="fa fa-camera" role="none"></i>
 	  <span> Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?></span>
 	</a>
 	<?php endforeach; ?>
@@ -95,7 +95,7 @@
 	?>
 	
 	<a href="#" content-iframe='<?php echo $embed; ?>' class="virtual-tour-open">
-	  <i class="fa fa-camera"></i>
+	  <i class="fa fa-camera" role="none"></i>
 	  <span> Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?></span>
 	</a>
 	

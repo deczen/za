@@ -27,9 +27,9 @@ $query_args=array();
 			<div class="col-xs-8">
 				<?php if( $enable_filter && isset($requests['save_search']) && $requests['save_search']==1 ): ?>
 					<div class="pull-right">
-						<button id="savedSearchButton" class="btn btn-sm btn-primary disabled pull-right" style="display: none"> <i class="glyphicon glyphicon-star"></i> Saved </button>
+						<button id="savedSearchButton" class="btn btn-sm btn-primary disabled pull-right" style="display: none"> <i class="glyphicon glyphicon-star" role="none"></i> Saved </button>
 					</div>
-					<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"> <i class="glyphicon glyphicon-star"></i> Save This Search </button>
+					<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary pull-right" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"> <i class="glyphicon glyphicon-star" role="none"></i> Save This Search </button>
 				<?php endif; ?>
 			</div>
 		</div>		
@@ -48,7 +48,7 @@ $query_args=array();
 		<?php if( $listing_disclaimer ): ?>
 		<div class="row">
 			<div class="col-xs-12">
-				<span class="listing-disclaimer"><?php echo $listing_disclaimer ?></span>
+				<span class="listing-disclaimer" role="none"><?php echo $listing_disclaimer ?></span>
 			</div>
 			<!--col-->
 		</div>

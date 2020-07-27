@@ -51,7 +51,7 @@ $maxListPrice		= $requests['maxlistprice'];
 										</div>
 										<div class="field-wrap">
 											<div class="field-section all">
-												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name=""/>
+												<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="" aria-label="search" />
 												<input id="zpa-all-input-address" type="hidden" value="" />
 												<input id="zpa-all-input-address-values" type="hidden" value="" />
 												<div style="display:none;" class="input-fields"></div>
@@ -116,7 +116,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								</div>							
 								
 								<div class="col-sm-2 hidden-xs hidden-sm">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>							
 							</div>
 							<div class="row">
@@ -231,7 +231,7 @@ $maxListPrice		= $requests['maxlistprice'];
 							</div>
 							<div class="row">	
 								<div class="col-xs-12 hidden-md hidden-lg">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>
 							</div>
 						</div>
@@ -250,7 +250,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								</div>
 								
 								<div class="col-xs-12 col-md-2 col-sm-2">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 								</div>
 							</div>
 							
@@ -263,7 +263,7 @@ $maxListPrice		= $requests['maxlistprice'];
 								</div>						
 								
 								<div class="col-xs-12 col-md-2 col-sm-2">
-									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									<button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
 									
 								</div>
 							</div>

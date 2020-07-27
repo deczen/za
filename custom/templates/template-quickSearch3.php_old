@@ -8,7 +8,7 @@
 						<input class="zpa-area-input-hidden" name="" type="hidden">
 					</div>
 					<div class="col-sm-2 hidden-xs hidden-sm">
-                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
                     </div>
 				</div>
 				
@@ -62,7 +62,7 @@
                 </div>
 				<div class="row">					
 					<div class="col-xs-12 hidden-md hidden-lg">
-                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        <button id="zpa-quicksearch-submit3" class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search" aria-hidden="true" role="none"></i> </button>
                     </div>
 				</div>
             </fieldset>

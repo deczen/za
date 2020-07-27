@@ -54,9 +54,9 @@ if(!$single_property){
 						} ?>
 						<?php endif; ?>
 					</div>
-					<div class="left-nav"><i class="icon-left-arrow"></i>
+					<div class="left-nav"><i class="icon-left-arrow" role="none"></i>
 					</div>
-					<div class="right-nav"><i class="icon-right-arrow"></i>
+					<div class="right-nav"><i class="icon-right-arrow" role="none"></i>
 					</div>
 				</div>
 				<div class="carousel-controller-wrapper">

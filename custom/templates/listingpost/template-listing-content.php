@@ -173,7 +173,7 @@
 			<?php foreach( $topmeta as $m ) : ?>
 				<?php if ( $m[ 'content' ] && $m[ 'content' ] != '$' ) : ?>
 					<div class="topmeta centertext">
-						<h3><i class="fa fa-<?php echo $m[ 'icon' ]; ?>"></i></h3>
+						<h3><i class="fa fa-<?php echo $m[ 'icon' ]; ?>" role="none"></i></h3>
 						<h3 class="caps redtext"><strong><?php echo $m[ 'content' ]; ?></strong></h3>
 						<hr />
 						<h4 class="caps"><?php echo $m[ 'title' ]; ?></h4>

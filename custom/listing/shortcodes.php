@@ -105,7 +105,7 @@ function art_vid_func( $atts ) {
 	}
 	
 	$html .= '<div class="fluid-width-video-wrapper artVideo '.$class.'">';
-	$html .= '<a class="showvid" href="#" style="background-image:url('.$a['image'].');"><span><i class="fa fa-play-circle"></i></span></a>';
+	$html .= '<a class="showvid" href="#" style="background-image:url('.$a['image'].');"><span><i class="fa fa-play-circle" role="none"></i></span></a>';
 	$frame = wp_oembed_get( $a['url'] );
 	$frame = str_replace('?feature', '?enablejsapi=1&modestbranding=1&rel=0&showinfo=0&feature', $frame);
 	$frame = str_replace('<iframe', '<iframe id="player-'.$id.'" class="art-player"', $frame);
@@ -316,7 +316,7 @@ function stat_func( $atts ) {
 	), $atts );
 	
 	$html .= '<div class="stat-box centertext"><div>';
-	$html .= '<h3><i class="fa fa-'.$a[ 'icon' ].'"></i></h3>';
+	$html .= '<h3><i class="fa fa-'.$a[ 'icon' ].'" role="none"></i></h3>';
 	$html .= '<h2 class="redtext caps"><strong>'.$a[ 'value' ].'</strong></h2>';
 	$html .= '<hr />';
 	$html .= '<h4>'.$a[ 'title' ].'</h4>';
@@ -374,7 +374,7 @@ function typebox_func( $atts ) {
 	$html .= '<a href="'.$a[ 'link' ].'">';
 	$html .= '<div class="type-box-inner">';
 	$html .= '<h3 class="caps">'.$a[ 'title' ].'</h3>';
-	$html .= '<p class="caps"><strong>SEARCH NOW <i class="fa fa-angle-double-right"></i></strong></p>';
+	$html .= '<p class="caps"><strong>SEARCH NOW <i class="fa fa-angle-double-right" role="none"></i></strong></p>';
 	$html .= '</div>';
 	$html .= '</a>';
 	$html .= '</div>';
@@ -396,7 +396,7 @@ function areabox_func( $atts ) {
 	$html .= '<div class="area-box col-md-3 col-sm-6 '.$a[ 'class' ].'">';
 	$html .= '<a href="'.$a[ 'link' ].'">';
 	$html .= '<div class="area-box-inner" style="background-image: url( '.$a[ 'img' ].' );">';
-	$html .= '<div><h3 class="caps"><i class="fa fa-map-marker"></i><br /><span><strong>'.$a[ 'title' ].'</strong></span></h3></div>';
+	$html .= '<div><h3 class="caps"><i class="fa fa-map-marker" role="none"></i><br /><span><strong>'.$a[ 'title' ].'</strong></span></h3></div>';
 	$html .= '<p class="btn">Search Now</p>';
 	$html .= '</div>';
 	$html .= '</a>';
@@ -415,7 +415,7 @@ function team_social_func( $atts ) {
 		'link' => ''
 	), $atts );	
 	
-	$html .= '<a class="team-social-link '.$a[ 'class' ].'" href="'.$a[ 'link' ].'"><i class="fa fa-'.$a[ 'icon' ].'"></i></a>';
+	$html .= '<a class="team-social-link '.$a[ 'class' ].'" href="'.$a[ 'link' ].'"><i class="fa fa-'.$a[ 'icon' ].'" role="none"></i></a>';
 	
 	return $html;
 	
@@ -476,8 +476,8 @@ function listing_query_func( $atts ) {
 		'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 		'format' => '?paged=%#%',
 		'current' => max( 1, get_query_var('paged') ),
-		'prev_text' => __('<i class="fa fa-angle-left"></i>'),
-		'next_text' => __('<i class="fa fa-angle-right"></i>'),
+		'prev_text' => __('<i class="fa fa-angle-left" role="none"></i>'),
+		'next_text' => __('<i class="fa fa-angle-right" role="none"></i>'),
 		'total' => $l_query->max_num_pages
 	) );
 		echo '</div></div><!-- /pagination -->';

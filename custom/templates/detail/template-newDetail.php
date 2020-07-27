@@ -7,7 +7,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		<div class="uk-sticky-placeholder" style="margin: 0px;">
 			<header class="zy-listing__header js-listing__header uk-active" data-uk-sticky="{media: 768}">
 				<div class="grid--wrapper uk-position-relative">
-					<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true"></i></a>
+					<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true" role="none"></i></a>
 					<div class="grid grid--noWrap zy-header__inner">
 						<div class="cell">
 							<div class="grid grid--gutters">
@@ -63,7 +63,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 
 										<div class="grid grid-xs--full grid-md--halves grid-xl--thirds my-5">
 											<div class="cell">
-												<i class="zy-sash py-5 px-10 zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?> zy-listing-single__sash undercontract">[status]</i>
+												<i class="zy-sash py-5 px-10 zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?> zy-listing-single__sash undercontract" role="none">[status]</i>
 											</div>
 											<?php if( isset($single_property->syncTime) ){ ?>
 											<div class="update-info">
@@ -81,18 +81,18 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 								<div class="zy-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
 									<div class="grid grid-xs--full py-15">
 										<div class="cell">
-											<button style="width:100%" class="<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button> 	
+											<button style="width:100%" class="<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12" role="none"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button> 	
 										</div>
 										<div class="cell top-action-buttons btn-group mt-10 " role="group" aria-label="Share options and option to view property on a map">
 											
 											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
 												<span class="zy-icon--stack">
-													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true" role="none"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
 											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="zy-icon--stack">
-													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true" role="none"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
 											</button>
 										</div>
@@ -106,7 +106,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					</div>
 					<div class="js-details-fav__container zy-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
 						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
-							<i class="zy-icon fa fa-heart" aria-hidden="true"></i>
+							<i class="zy-icon fa fa-heart" aria-hidden="true" role="none"></i>
 						</button>
 					</div>
 				</div>
@@ -142,9 +142,9 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 												}
 											} ?>
 										</div>
-										<div class="left-nav"><i class="icon-left-arrow"></i>
+										<div class="left-nav"><i class="icon-left-arrow" role="none"></i>
 										</div>
-										<div class="right-nav"><i class="icon-right-arrow"></i>
+										<div class="right-nav"><i class="icon-right-arrow" role="none"></i>
 										</div>
 									</div>
 									<div class="carousel-controller-wrapper">
@@ -341,7 +341,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						
 							<a target="_blank" href="<?php echo $virtual_tour_url ?>" class="zy-listing__virtual-tour__link js-vtour">
 							  <div class="uk-float-left">
-								<i class="fa fa-camera"></i>
+								<i class="fa fa-camera" role="none"></i>
 							  </div>
 							  <div class="uk-float-right zy-listing__virtual-tour__text">
 								Virtual Tour&nbsp;#<?php echo $virtual_index + 1 ?>

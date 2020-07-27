@@ -6,7 +6,7 @@
 		<div class="filter-column col-sm-12">
 			<div class="row">
 			<div class="col-xs-6 padding-lite-right">
-				<button id="mobile-filter" class="btn-large btn-primary width-1-1" type="button" aria-pressed="false"><i class="zy-icon fa fa-search" aria-hidden="true"></i> Search </button>
+				<button id="mobile-filter" class="btn-large btn-primary width-1-1" type="button" aria-pressed="false"><i class="zy-icon fa fa-search" aria-hidden="true" role="none"></i> Search </button>
 				
 			</div>
 			<div class="col-xs-6 padding-lite-left">

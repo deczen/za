@@ -163,9 +163,9 @@ if(file_exists($template_path) && $template_name ){
 				<div class="grid--wrapper uk-position-relative">
 					<?php /* 
 					<a href="<?php echo $back_url; ?>" class="zy-back-to-search js-back-to-search" data-uk-tooltip="" title="Return to Previous Page">
-						<i class="zy-icon fa fa-chevron-left" aria-hidden="true"></i>
+						<i class="zy-icon fa fa-chevron-left" aria-hidden="true" role="none"></i>
 					</a> */ ?>
-					<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true"></i></a>
+					<a class="zy-back-to-search js-back-to-search" href="javascript:history.back()"><i class="zy-icon fa fa-chevron-left" aria-hidden="true" role="none"></i></a>
 					<div class="grid grid--noWrap zy-header__inner">
 						<div class="cell">
 							<div class="grid grid--gutters">
@@ -209,7 +209,7 @@ if(file_exists($template_path) && $template_name ){
 
 										<div class="grid grid-xs--full grid-md--halves grid-xl--thirds my-5">
 											<div class="cell">
-												<i class="zy-sash py-5 px-10 zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?> zy-listing-single__sash undercontract">[status]</i>
+												<i class="zy-sash py-5 px-10 zpa-status <?php echo is_numeric($single_property->status)? 'status_'.$single_property->status : $single_property->status; ?> zy-listing-single__sash undercontract" role="none">[status]</i>
 											</div>
 											<?php if( isset($single_property->syncTime) ){ ?>
 											<div class="update-info">
@@ -232,14 +232,14 @@ if(file_exists($template_path) && $template_name ){
 								<div class="zy-listing__header-cta cell cell-md-4 cell-lg-3 cell-xs-12 hideonprint">
 									<div class="grid grid-xs--full py-15">
 										<div class="cell">
-											<button style="width:100%" class="<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button>	
+											<button style="width:100%" class="<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?> schedule-showing-btn | at-request-show-btn zy-listing__header-cta__btn width-1-1 btn-primary js-listing-request-showing" afterAction="schedule_show"> <span class="hidden-xs"> <i class="glyphicon glyphicon-time fs-12" role="none"></i> Request Showing </span> <span class="visible-xs fs-12"> Request Showing </span> </button>	
 										</div>
 										<div class="cell top-action-buttons btn-group mt-10 " role="group" aria-label="Share options and option to view property on a map">
 											<?php /*
 											<div class="zy-ccomp zy-ccomp__dropdown width-1-2" data-zy-ccomp="dropdown">
 												<button type="button" class="at-share-btn js-listing-share width-1-1 height-1-1 btn-small" data-zy-ccomp-trigger="">
 													<span class="zy-icon--stack">
-														<i class="zy-icon zy-icon--larger fa fa-share-square-o" aria-hidden="true"></i>
+														<i class="zy-icon zy-icon--larger fa fa-share-square-o" aria-hidden="true" role="none"></i>
 													</span> Share
 												</button>
 												<div class="zy-ccomp__content zy-dropdown--center zy-dropdown--small--mobile">
@@ -296,7 +296,7 @@ if(file_exists($template_path) && $template_name ){
 											<!-- end .zy-ccomp -->
 											<button type="button" class="btn-small js-listing-map width-1-2" style="width:100%">
 												<span class="zy-icon--stack">
-													<i class="zy-icon zy-icon--larger fa fa-map-marker" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-map-marker" aria-hidden="true" role="none"></i>
 												</span> Map
 											</button>
 											 */
@@ -310,14 +310,14 @@ if(file_exists($template_path) && $template_name ){
 											 
 											 <button type="button" class="btn-small request-info-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="request_info">
 												<span class="zy-icon--stack">
-													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-info" aria-hidden="true" role="none"></i>
 												</span> <span class="hidden-md text">Request Info</span><span class="visible-md text"> Info </span>
 											</button>
 											<?php /*
 											<div class="info-share">
 												<button type="button" class="btn-small share-btn width-1-2 dropdown-toggle" id="dropdownShare" data-toggle="dropdown">
 													<span class="zy-icon--stack">
-														<i class="zy-icon zy-icon--larger fa fa-share-square-o" aria-hidden="true"></i>
+														<i class="zy-icon zy-icon--larger fa fa-share-square-o" aria-hidden="true" role="none"></i>
 													</span> <span class="hidden-md text">Share</span><span class="visible-md text"> Share </span>
 												</button>
 												<?php //0url_encode( $url ) ?>
@@ -325,31 +325,31 @@ if(file_exists($template_path) && $template_name ){
 													<ul class="menu-list">
 														<li>
 															<a class="share-item" href="https://pinterest.com/pin/create/button/?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-																<i class="zy-icon zy-icon--larger fa fa-pinterest" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--larger fa fa-pinterest" aria-hidden="true" role="none"></i>
 																<span>Share on Pinterest</span>
 															</a>
 														</li>
 														<li>
 															<a class="share-item" href="https://plus.google.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-																<i class="zy-icon zy-icon--larger fa fa-google-plus" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--larger fa fa-google-plus" aria-hidden="true" role="none"></i>
 																<span>Share on Google+</span>
 															</a>
 														</li>
 														<li>
 															<a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'facebook-share-dialog', 'width=626,height=436'); return false;">
-																<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--larger fa fa-facebook" aria-hidden="true" role="none"></i>
 																<span>Share on Facebook</span>
 															</a>
 														</li>
 														<li>
 															<a class="share-item" href="https://twitter.com/share?url=<?php echo $current_url; ?>" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=626,height=436'); return false;">
-																<i class="zy-icon zy-icon--larger fa fa-twitter" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--larger fa fa-twitter" aria-hidden="true" role="none"></i>
 																<span>Share on Twitter</span>
 															</a>
 														</li>
 														<li>
 															<a class="share-item" href="#" onClick="window.print()" target="_blank">
-																<i class="zy-icon zy-icon--larger fa fa-print" aria-hidden="true"></i>
+																<i class="zy-icon zy-icon--larger fa fa-print" aria-hidden="true" role="none"></i>
 																<span>Print this listing</span>
 															</a>
 														</li>
@@ -359,7 +359,7 @@ if(file_exists($template_path) && $template_name ){
 											*/ ?>
 											<button type="button" class="btn-small save-property-btn width-1-2 <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" afterAction="save_property" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
 												<span class="zy-icon--stack">
-													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true"></i>
+													<i class="zy-icon zy-icon--larger fa fa-floppy-o" aria-hidden="true" role="none"></i>
 												</span> <span class="hidden-md text">Save Property</span><span class="visible-md text"> Save </span>
 											</button>
 											
@@ -374,7 +374,7 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 					<div class="js-details-fav__container zy-listing__favorite-container hideonprint <?php echo zipperagent_is_favorite($single_property->id)?"favorited":""; ?>">
 						<button class="zy-listing__favorite-button at-fav-btn js-details-fav" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" afterAction="save_favorite" value="Add this property to your favorites" contactid="<?php echo implode(',',$contactIds) ?>" searchid="<?php echo $searchId ?>">
-							<i class="zy-icon fa fa-heart" aria-hidden="true"></i>
+							<i class="zy-icon fa fa-heart" aria-hidden="true" role="none"></i>
 						</button>
 					</div>
 				</div>
@@ -402,7 +402,7 @@ if(file_exists($template_path) && $template_name ){
 					<div class="width-1-2 zy-ccomp zy-ccomp__dropdown" data-zy-ccomp="dropdown">
 						<button type="button" class="btn-small js-listing-share at-share-btn width-1-1 height-1-1" data-zy-ccomp-trigger="">
 							<span class="zy-icon--stack">
-								<i class="zy-icon zy-icon--larger fa fa-share-square-o" aria-hidden="true"></i>
+								<i class="zy-icon zy-icon--larger fa fa-share-square-o" aria-hidden="true" role="none"></i>
 							</span> Share
 						</button>
 						<div class="zy-ccomp__content zy-dropdown--center zy-dropdown--small--mobile">
@@ -459,7 +459,7 @@ if(file_exists($template_path) && $template_name ){
 					<!-- end .zy-ccomp -->
 					<button type="button" class="width-1-2 btn-small js-listing-map">
 						<span class="zy-icon--stack">
-							<i class="zy-icon zy-icon--larger fa fa-map-marker" aria-hidden="true"></i>
+							<i class="zy-icon zy-icon--larger fa fa-map-marker" aria-hidden="true" role="none"></i>
 						</span> Map
 					</button>
 				</div>
@@ -494,9 +494,9 @@ if(file_exists($template_path) && $template_name ){
 												}
 											} ?>
 										</div>
-										<div class="left-nav"><i class="icon-left-arrow"></i>
+										<div class="left-nav"><i class="icon-left-arrow" role="none"></i>
 										</div>
-										<div class="right-nav"><i class="icon-right-arrow"></i>
+										<div class="right-nav"><i class="icon-right-arrow" role="none"></i>
 										</div>
 									</div>
 									<div class="carousel-controller-wrapper">

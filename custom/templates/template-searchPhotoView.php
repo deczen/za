@@ -41,7 +41,7 @@ if( $list ): ?>
 			<div class="mb-10">
 				<h1 class="uk-h2 mb-5 listing-address" itemprop="address" itemtype="http://schema.org/PostalAddress"><a class="zy-text-default view_full_details" href="<?php echo $single_url; ?>"><span itemprop="streetAddress"><?php echo isset($property->streetno)? $property->streetno :'-'; ?> <?php echo isset($property->streetname)? zipperagent_fix_comma( $property->streetname ) :'-'; ?></span></a><div class="uk-text-muted zy-text-reset"><span itemprop="addressLocality"><!-- react-text: 1375 --><?php echo isset($property->lngTOWNSDESCRIPTION)? $property->lngTOWNSDESCRIPTION :'-'; ?><!-- /react-text --><!-- react-text: 1376 -->,&nbsp;<!-- /react-text --></span><span itemprop="addressRegion"><!-- react-text: 1378 --><?php echo isset($property->provinceState)? $property->provinceState :'-'; ?><!-- /react-text --><!-- react-text: 1379 -->&nbsp;<!-- /react-text --></span><span itemprop="postalCode"><!-- react-text: 1381 --><?php echo isset($property->zipcode)? $property->zipcode :'-'; ?><!-- /react-text --><!-- react-text: 1382 -->&nbsp;<!-- /react-text --></span></div></h1>
 				<div class="grid grid-xs--full grid-md--thirds grid-lg--halves">
-					<div class="cell"><i class="zpa-status <?php echo is_numeric($property->status)? 'status_'.str_replace(' ','',$property->status) : str_replace(' ','',$property->status); ?> zy-sash py-5 px-10 zy-listing-single__sash"><?php echo isset($property->status)? zipperagent_get_status_name($property->status,isset($property->sourceid)?$property->sourceid:'') :'-'; ?></i></div>
+					<div class="cell"><i class="zpa-status <?php echo is_numeric($property->status)? 'status_'.str_replace(' ','',$property->status) : str_replace(' ','',$property->status); ?> zy-sash py-5 px-10 zy-listing-single__sash" role="none"><?php echo isset($property->status)? zipperagent_get_status_name($property->status,isset($property->sourceid)?$property->sourceid:'') :'-'; ?></i></div>
 				</div>
 			</div>
 			<div class="uk-position-relative text-xs--center">
@@ -70,8 +70,8 @@ if( $list ): ?>
 								
 								<!--Navigation Links For the Main Items
 								<div class="slider-controls"> 
-									<a class="slider-left" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left"></i></span></a> 
-									<a class="slider-right" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right"></i></span></a> 
+									<a class="slider-left" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a> 
+									<a class="slider-right" href="javascript:;"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a> 
 								</div> --> 
 							</div>
 						   
@@ -211,7 +211,7 @@ if( $list ): ?>
 	<?php if( $listing_disclaimer ): ?>
 	<div class="row">
 		<div class="col-xs-12">
-			<span class="listing-disclaimer"><?php echo $listing_disclaimer ?></span>
+			<span class="listing-disclaimer" role="none"><?php echo $listing_disclaimer ?></span>
 		</div>
 		<!--col-->
 	</div>
@@ -274,7 +274,7 @@ jQuery(document).ready(function ($) {
 		tempMainSlider.owlCarousel({
 			loop:false,
 			nav:true,
-			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right"></i></span></a>'],
+			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
 			lazyLoad:true,
 			items:1,
 			dots: false,

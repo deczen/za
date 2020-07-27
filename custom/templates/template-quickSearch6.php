@@ -33,7 +33,7 @@ global $requests;
 						</div>
 						<div class="field-wrap">
 							<div class="field-section all">
-								<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name=""/>
+								<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code" name="" aria-label="search" />
 								<input id="zpa-all-input-address" type="hidden" value="" />
 								<input id="zpa-all-input-address-values" type="hidden" value="" />
 								<div style="display:none;" class="input-fields"></div>
@@ -96,7 +96,7 @@ global $requests;
 						</script>
 					</div>
 					<div class="submit-column col-xs-3 col-sm-2">						
-						<button class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search <?php /* visible-xs visible-sm visible-md hidden-lg*/ ?>" aria-hidden="true"></i> <?php /* <span class="hidden-xs hidden-sm hidden-md">Find Your Home</span> */ ?> </button>
+						<button class="btn btn-md btn-block btn-primary btn-form-submit zpa-main-search-form-submit" type="submit"> <i class="fa fa-search <?php /* visible-xs visible-sm visible-md hidden-lg*/ ?>" aria-hidden="true" role="none"></i> <?php /* <span class="hidden-xs hidden-sm hidden-md">Find Your Home</span> */ ?> </button>
 						
 					</div>
 				</div>
