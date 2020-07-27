@@ -2112,7 +2112,7 @@ var zppr={
 		var albums='';
 		
 		if(photoList.length){
-			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
+			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera" role="none"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
 					'<div id="modal-'+ listingid +'" class="modal">' +
 						'<div class="modal-dialog">' +
 							'<div class="modal-content">' +
@@ -2128,7 +2128,7 @@ var zppr={
 						'</div>' +
 					'</div>';
 		}else{
-			albums+='<i class="glyphicon glyphicon-camera"></i> <span class="photo-count">(0)</span>';
+			albums+='<i class="glyphicon glyphicon-camera" role="none"></i> <span class="photo-count">(0)</span>';
 		}
 		
 		var openhouses='';
@@ -2355,7 +2355,7 @@ var zppr={
 		var albums='';
 		
 		if(photoList.length){
-			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
+			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera" role="none"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
 					'<div id="modal-'+ listingid +'" class="modal">' +
 						'<div class="modal-dialog">' +
 							'<div class="modal-content">' +
@@ -2371,7 +2371,7 @@ var zppr={
 						'</div>' +
 					'</div>';
 		}else{
-			albums+='<i class="glyphicon glyphicon-camera"></i> <span class="photo-count">(0)</span>';
+			albums+='<i class="glyphicon glyphicon-camera" role="none"></i> <span class="photo-count">(0)</span>';
 		}
 		
 		var openhouses='';
