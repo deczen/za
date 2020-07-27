@@ -42,7 +42,7 @@ foreach( $list as $option ): ?>
 			<div class="zy_pt-property">
 				<div class="zy_pt-border">
 					<div class="zy_pt-prop-img">
-						<img src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" />
+						<img src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>"  alt="property photo" />
 					</div>
 					<div class="zy_pt-price zy_pt-wrap">
 						<span class="zy_pt-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span>

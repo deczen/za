@@ -147,7 +147,7 @@ $userdata = $userdata[0]; //get first index record
 												<div class="row">
 													<div class="col-xs-12">
 														<div class="zpa-results-photo">
-															<a href="<?php echo $single_url; ?>"> <img class="media-object zpa-center" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl): ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" onerror="this.onerror=null;this.src='<?php echo ZIPPERAGENTURL . "images/no-photo.jpg"; ?>';" alt=""> </a>
+															<a href="<?php echo $single_url; ?>"> <img class="media-object zpa-center" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl): ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" onerror="this.onerror=null;this.src='<?php echo ZIPPERAGENTURL . "images/no-photo.jpg"; ?>';" alt="property photo"> </a>
 														</div>
 														<div class="zpa-results-property-info">
 															<div class="zpa-results-price"> <span class=""> <?php echo isset( $property->listprice ) ? '$'.number_format_i18n( $property->listprice, 0 ) : '-'; ?> </span> </div>
@@ -384,7 +384,7 @@ $userdata = $userdata[0]; //get first index record
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="zpa-results-photo">
-                            <a href="<?php echo $single_url; ?>"> <img class="media-object zpa-center" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl): ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" onerror="this.onerror=null;this.src='<?php echo ZIPPERAGENTURL . "images/no-photo.jpg"; ?>';" alt=""> </a>
+                            <a href="<?php echo $single_url; ?>"> <img class="media-object zpa-center" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl): ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" onerror="this.onerror=null;this.src='<?php echo ZIPPERAGENTURL . "images/no-photo.jpg"; ?>';" alt="property photo"> </a>
                         </div>
                         <div class="zpa-results-property-info">
                             <div class="zpa-results-price"> <span class=""> <?php echo isset( $property->listprice ) ? '$'.number_format_i18n( $property->listprice, 0 ) : '-'; ?> </span> </div>

@@ -48,7 +48,7 @@ if(get_query_var('page')){
 				<div class="container-fluid">				
 					<div id="" class="row sticky-container" style="position:relative;">      
 						<div id="small-property" class="col-lg-4 col-md-4 col-xs-12 bg-light ">
-							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />
 						</div>
 						<div class="col-lg-8 col-md-8 col-xs-12 ml-auto" id="photos">
 						
@@ -198,7 +198,7 @@ if(get_query_var('page')){
 								</form>
 							</div>	
 							
-							<div id="zipperagent-content" class=""><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
+							<div id="zipperagent-content" class=""><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" /></div>
 						</div>
 						<div class="clearfix"></div>
 					</div>
@@ -342,7 +342,7 @@ if(get_query_var('page')){
 				var data = jQuery(this).serialize();
 				var request = jQuery(this).serializeArray();
 				var url = $form.attr('action') + '?' + data;
-				var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />';
+				var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />';
 				var valueToPush={};
 				valueToPush = {"name":"actual_link", "value":url};
 				request.push(valueToPush);

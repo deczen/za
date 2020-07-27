@@ -161,8 +161,8 @@
 	
 	<?php if ( !empty($himages) ) : ?>
 	<div class="carousel-nextprev carousel-nav-box">
-		<a class="left carousel-control" href="#list-carousel" role="button" data-slide="prev"><img src="<?php echo ZIPPERAGENTURL; ?>images/arrow-left.svg" /></a>
-		<a class="right carousel-control" href="#list-carousel" role="button" data-slide="next"><img src="<?php echo ZIPPERAGENTURL; ?>images/arrow-right.svg" /></a>
+		<a class="left carousel-control" href="#list-carousel" role="button" data-slide="prev"><img src="<?php echo ZIPPERAGENTURL; ?>images/arrow-left.svg" alt="left arrow" /></a>
+		<a class="right carousel-control" href="#list-carousel" role="button" data-slide="next"><img src="<?php echo ZIPPERAGENTURL; ?>images/arrow-right.svg" alt="right arrow" /></a>
 	</div>
 	<?php endif; ?>
 </header>

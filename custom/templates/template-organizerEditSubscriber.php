@@ -138,36 +138,38 @@ $userdata = $userdata[0]; //get first index record
 												</div>
 											</div>
 										</div>
-										<ul class="uk-list" id="zpa-edit-subscribe-tabs">
-											<li class="link-list__item at-main-menu__account <?php if(isset($_GET['menu']) && $_GET['menu']=='') echo 'active'; ?>">
-												<a href="#za-edit-subscriber" class="py-10 link-list__target" data-toggle="tab">
-													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
-													</svg>-->
-													<div class="uk-text-truncate">Profile</div>
-												</a>
-											</li>
-											<li class="link-list__item at-main-menu__favs <?php if($_GET['menu']=='my-favorite') echo 'active'; ?>">
-												<a href="#za-saved-listing-list" class="py-10 link-list__target" data-toggle="tab">
-													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
-													</svg>-->
-													<div class="uk-text-truncate">My Favorites (<?php echo $count; ?>)</div>
-												</a>
-											</li>
-											<li class="link-list__item at-main-menu__notification <?php if(isset($_GET['menu']) && $_GET['menu']=='my-search') echo 'active'; ?>">
-												<a href="#za-saved-search-list" class="py-10 link-list__target" data-toggle="tab">
-													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
-													</svg>-->
-													<div class="uk-text-truncate">My Saved Searches (<?php echo $dataCount; ?>)</div>
-												</a>
-											</li>
-											<li class="link-list__item at-main-menu__logout">
-												<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
-													<!--<svg class="zy-icon zy-icon--larger link-list__icon">
-													</svg>-->
-													<div class="uk-text-truncate">Logout</div>
-												</a>
-											</li>
-										</ul>
+										<nav class="uk-list" id="zpa-edit-subscribe-tabs">
+											<ul>
+												<li class="link-list__item at-main-menu__account <?php if(isset($_GET['menu']) && $_GET['menu']=='') echo 'active'; ?>">
+													<a href="#za-edit-subscriber" class="py-10 link-list__target" data-toggle="tab">
+														<!--<svg class="zy-icon zy-icon--larger link-list__icon">
+														</svg>-->
+														<div class="uk-text-truncate">Profile</div>
+													</a>
+												</li>
+												<li class="link-list__item at-main-menu__favs <?php if($_GET['menu']=='my-favorite') echo 'active'; ?>">
+													<a href="#za-saved-listing-list" class="py-10 link-list__target" data-toggle="tab">
+														<!--<svg class="zy-icon zy-icon--larger link-list__icon">
+														</svg>-->
+														<div class="uk-text-truncate">My Favorites (<?php echo $count; ?>)</div>
+													</a>
+												</li>
+												<li class="link-list__item at-main-menu__notification <?php if(isset($_GET['menu']) && $_GET['menu']=='my-search') echo 'active'; ?>">
+													<a href="#za-saved-search-list" class="py-10 link-list__target" data-toggle="tab">
+														<!--<svg class="zy-icon zy-icon--larger link-list__icon">
+														</svg>-->
+														<div class="uk-text-truncate">My Saved Searches (<?php echo $dataCount; ?>)</div>
+													</a>
+												</li>
+												<li class="link-list__item at-main-menu__logout">
+													<a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout') ?>" class="py-10 link-list__target link-list__target">
+														<!--<svg class="zy-icon zy-icon--larger link-list__icon">
+														</svg>-->
+														<div class="uk-text-truncate">Logout</div>
+													</a>
+												</li>
+											</ul>
+										</nav>
 										
 										<script>
 											jQuery('#zpa-edit-subscribe-tabs a').click(function(){
@@ -322,7 +324,7 @@ $userdata = $userdata[0]; //get first index record
 														<div class="row">
 															<div class="col-xs-12">
 																<div class="zpa-results-photo">
-																	<a href="<?php echo $single_url; ?>"> <img class="media-object zpa-center" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl): ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" onerror="this.onerror=null;this.src='<?php echo ZIPPERAGENTURL . "images/no-photo.jpg"; ?>';" alt=""> </a>
+																	<a href="<?php echo $single_url; ?>"> <img class="media-object zpa-center" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl): ZIPPERAGENTURL . "images/no-photo.jpg"; ?>" onerror="this.onerror=null;this.src='<?php echo ZIPPERAGENTURL . "images/no-photo.jpg"; ?>';" alt="property photo"> </a>
 																</div>
 																<div class="zpa-results-property-info">
 																	<div class="zpa-results-price"> <span class=""> <?php echo isset( $property->listprice ) ? '$'.number_format_i18n( $property->listprice, 0 ) : '-'; ?> </span> </div>

@@ -35,7 +35,7 @@ $query_args=array();
 		</div>		
 		
 		<div class="row props">
-			<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+			<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />
 		</div>
 		
 		<?php if( $showPagination ): ?>			

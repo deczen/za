@@ -76,7 +76,7 @@ unset($alstid); */
 		<?php endif; ?>
 	</div>
 	
-	<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
+	<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" /></div>
 
 </div>
 
@@ -99,7 +99,7 @@ unset($alstid); */
 			valueToPush = {"name":"action", "value":"search_results_view"};
 			request.push(valueToPush);
 			var url = $form.attr('action') + '?' + data;
-			var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />';			
+			var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />';			
 			valueToPush = {"name":"actual_link", "value":url};
 			request.push(valueToPush);
 			window.history.pushState("", "", url);
@@ -191,7 +191,7 @@ unset($alstid); */
 			'contactId': '<?php echo implode(',',$contactIds) ?>',                      
 		};
 		
-		jQuery('#modal-'+listingId+' .modal-body').html('<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/tenor.gif"; ?>" />');
+		jQuery('#modal-'+listingId+' .modal-body').html('<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/tenor.gif"; ?>" alt="tenor" />');
 		
 		console.time('generate slides');
 		jQuery.ajax({

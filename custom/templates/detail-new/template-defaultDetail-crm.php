@@ -58,7 +58,7 @@ var ws_height = '300';
 
 <div id="zipperagent-content">
 	
-	<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+	<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />
 	
 </div>
 <script>

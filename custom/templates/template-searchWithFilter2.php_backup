@@ -382,7 +382,7 @@ if(get_query_var('page')){
 						</div>
 						
 						<div class="loading-wrap">
-							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+							<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />
 						</div>
 						<?php
 						$markers = zipperagent_get_map_markers();
@@ -705,7 +705,7 @@ if(get_query_var('page')){
 				var data = jQuery(this).serialize();
 				var request = jQuery(this).serializeArray();
 				var url = $form.attr('action') + '?' + data;
-				<?php /* var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />'; */ ?>
+				<?php /* var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />'; */ ?>
 				var valueToPush={};
 				valueToPush = {"name":"view_type", "value":"map"};
 				request.push(valueToPush);

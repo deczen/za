@@ -102,7 +102,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		<?php zipperagent_omnibar($requests); ?>
 		
 		<?php if( $is_search_apply ): ?>
-		<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" /></div>
+		<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" /></div>
 		<?php else: 
 		
 		if(in_array($single_property->status, explode(',',zipperagent_sold_status()))){
@@ -426,7 +426,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 				var data = jQuery(this).serialize();
 				var request = jQuery(this).serializeArray();				
 				var url = $form.attr('action') + '?' + data;
-				var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />';
+				var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />';
 				var valueToPush={};
 				valueToPush = {"name":"action", "value":"search_results_view"};
 				request.push(valueToPush);

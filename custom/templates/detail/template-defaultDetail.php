@@ -772,7 +772,7 @@ if(file_exists($template_path) && $template_name ){
 						<?php endif; ?>
 						
 						<?php if(!isset($is_doing_ajax) && $property_cache): //only show on ajax mode, hide after ajax finished ?>
-						<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" />
+						<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />
 						<?php endif; ?>
 					
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) $description_section = ob_get_clean(); //end save description section ?>

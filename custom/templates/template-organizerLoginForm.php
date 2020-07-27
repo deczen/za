@@ -61,7 +61,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 										<div id="status"></div>
 
 										<!-- Facebook login or logout button -->
-										<a href="javascript:void(0);" onclick="fbLogin()" id="fbLink"><img src="<?php echo ZIPPERAGENTURL ?>images/fb-login-btn.png"/></a>
+										<a href="javascript:void(0);" onclick="fbLogin()" id="fbLink"><img src="<?php echo ZIPPERAGENTURL ?>images/fb-login-btn.png" alt="facebook login"/></a>
 
 										<!-- Display user profile data -->
 										<div id="userdata"></div>
