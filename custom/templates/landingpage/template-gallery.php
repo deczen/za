@@ -25,7 +25,7 @@ if(!$single_property){
 		<div class="col-xs-12 zpa-property-photo">
 			<div class="owl-carousel-container">
 				<div class="top-head-carousel-wrapper">
-					<div class="owl-carousel top-head-carousel">
+					<div class="owl-carousel top-head-carousel" aria-label="carousel">
 						<?php if( !$is_listing): ?>
 						<?php
 						$i=0;
@@ -60,7 +60,7 @@ if(!$single_property){
 					</div>
 				</div>
 				<div class="carousel-controller-wrapper">
-					<div class="owl-carousel carousel-controller carousel-autoplay">
+					<div class="owl-carousel carousel-controller carousel-autoplay" aria-label="carousel">
 						<?php if( !$is_listing): ?>
 						<?php
 						$i=0;

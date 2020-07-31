@@ -590,7 +590,7 @@ var zppr={
 															'</a>' +
 														'</div>' +
 														 /* < div class="owl-carousel top-head-carousel '+ (zppr.data.is_login==0?"needLogin":"") +'"> */
-														'<div class="owl-carousel top-head-carousel">';
+														'<div class="owl-carousel top-head-carousel" aria-label="carousel">';
 														
 			var i=0;
 			for (const [key, pic] of Object.entries(single_property.photoList)) {
@@ -608,7 +608,7 @@ var zppr={
 														'</div>' +
 													'</div>' +
 													'<div class="carousel-controller-wrapper">' +
-														'<div class="owl-carousel carousel-controller">';
+														'<div class="owl-carousel carousel-controller" aria-label="carousel">';
 		
 		
 			i=0;
@@ -1143,7 +1143,7 @@ var zppr={
 														
 													'<div class="top-head-carousel-wrapper">' +
 														 /* < div class="owl-carousel top-head-carousel '+ (zppr.data.is_login==0?"needLogin":"") +'"> */
-														'<div class="owl-carousel top-head-carousel">';
+														'<div class="owl-carousel top-head-carousel" aria-label="carousel">';
 														
 			var i=0;
 			for (const [key, pic] of Object.entries(single_property.photoList)) {
@@ -1161,7 +1161,7 @@ var zppr={
 														'</div>' +
 													'</div>' +
 													'<div class="carousel-controller-wrapper">' +
-														'<div class="owl-carousel carousel-controller">';
+														'<div class="owl-carousel carousel-controller" aria-label="carousel">';
 		
 		
 			i=0;
@@ -2561,7 +2561,7 @@ var zppr={
 										'<div class="photo-slider col-xs-12">' +
 											'<div class="slider-container">' + 
 												'<!--Main Slider Start--> ' +
-												'<div id="slider" class="slider main-slider owl-carousel"> ';
+												'<div id="slider" class="slider main-slider owl-carousel" aria-label="carousel"> ';
 												
 		if( property.hasOwnProperty('photoList') && property.photoList.length ){
 			var i=0;
@@ -2588,7 +2588,7 @@ var zppr={
 										   
 										  '<!--Thumbnail slider container-->' + 
 										  '<div class="thumbnail-slider-container">' +											   
-												'<div id="thumbnailSlider" class="thumbnail-slider owl-carousel">';
+												'<div id="thumbnailSlider" class="thumbnail-slider owl-carousel" aria-label="carousel">';
 												
 		if( property.hasOwnProperty('photoList') && property.photoList.length ){
 			var i=0;
@@ -4122,14 +4122,14 @@ var zppr={
 							'<div class="row row-group">' +
 								'<div id="zy_homeprice" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Home Price</label>' +
-									'<input type="text" name="home_price" class="price-format" id="mortgage-homeprice" value="'+ formatted_homeprice +'">' +
+									'<input type="text" name="home_price" class="price-format form-control" id="mortgage-homeprice" value="'+ formatted_homeprice +'">' +
 									'<input type="hidden" id="zy-mortgage-homeprice" />' +
 								'</div>' +
 								'<div id="zy_downpayment" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Down Payment</label>' +
 									'<div class="col-2-group">' +
-										'<input type="text" name="down_payment" class="price-format" id="mortgage-downpayment" value="'+ formatted_downpayment +'">' +
-										'<input type="text" name="down_payment_percent" class="percent-format" id="mortgage-downpayment-percent" value="'+ formatted_downpayment_percent +'">' +
+										'<input type="text" name="down_payment" class="price-format form-control" id="mortgage-downpayment" value="'+ formatted_downpayment +'">' +
+										'<input type="text" name="down_payment_percent" class="percent-format form-control" id="mortgage-downpayment-percent" value="'+ formatted_downpayment_percent +'">' +
 									'</div>' +
 									'<input type="hidden" id="zy-mortgage-downpayment" />' +
 								'</div>' +
@@ -4138,39 +4138,39 @@ var zppr={
 								'<div id="zy_property-taxes" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Property Taxes</label>' +
 									'<div class="col-2-group">' +
-										'<input type="text" name="zy_property-taxes" class="price-format" id="mortgage-property-taxes" value="'+ formatted_taxes +'">' +
-										'<input type="text" name="zy_property_taxes_percent" class="percent-format" id="mortgage-property-taxes-percent" value="'+ formatted_taxes_percent +'">' +
+										'<input type="text" name="zy_property-taxes" class="price-format form-control" id="mortgage-property-taxes" value="'+ formatted_taxes +'">' +
+										'<input type="text" name="zy_property_taxes_percent" class="percent-format form-control" id="mortgage-property-taxes-percent" value="'+ formatted_taxes_percent +'">' +
 									'</div>' +
 								'</div>' +
 								'<div id="zy_hoa-dues" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>HOA Dues</label>' +
-									'<input type="text" name="hoa_dues" class="price-format" id="mortgage-hoa-dues" value="'+ formatted_hoadues +'">' +
+									'<input type="text" name="hoa_dues" class="price-format form-control" id="mortgage-hoa-dues" value="'+ formatted_hoadues +'">' +
 								'</div>' +			
 							'</div>' +
 							'<div class="row row-group">' +
 								'<div id="zy_mortgage-insurance" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Mortgage Insurance</label>' +
 									'<div class="col-2-group">' +
-										'<input type="text" name="mortgage_insurance" class="price-format" id="mortgage-insurance" value="'+ formatted_mortgage_insurance +'">' +
-										'<input type="text" name="mortgage_insurance_percent" class="percent-format" id="mortgage-insurance-percent" value="'+ formatted_mortgage_insurance_percent +'">' +
+										'<input type="text" name="mortgage_insurance" class="price-format form-control" id="mortgage-insurance" value="'+ formatted_mortgage_insurance +'">' +
+										'<input type="text" name="mortgage_insurance_percent" class="percent-format form-control" id="mortgage-insurance-percent" value="'+ formatted_mortgage_insurance_percent +'">' +
 									'</div>' +
 								'</div>' +
 								'<div id="zy_homeowners-insurance" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Homeowners\' Insurance</label>' +
 									'<div class="col-2-group">' +
-										'<input type="text" name="homeowners_insurance" class="price-format" id="mortgage-homeowners-insurance" value="'+ formatted_homeowners_insurance +'">' +
-										'<input type="text" name="homeowners_insurance_percent" class="percent-format" id="mortgage-homeowners-insurance-percent" value="'+ formatted_homeowners_insurance_percent +'">' +
+										'<input type="text" name="homeowners_insurance" class="price-format form-control" id="mortgage-homeowners-insurance" value="'+ formatted_homeowners_insurance +'">' +
+										'<input type="text" name="homeowners_insurance_percent" class="percent-format form-control" id="mortgage-homeowners-insurance-percent" value="'+ formatted_homeowners_insurance_percent +'">' +
 									'</div>' +
 								'</div>' +
 							'</div>' +
 							'<div class="row row-group">' +
 								'<div id="zy_interest-rate" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Interest Rate</label>' +
-									'<input type="text" name="interest_rate" class="percent-format" id="mortgage-interest-rate" value="'+ formatted_interestrate +'">' +
+									'<input type="text" name="interest_rate" class="percent-format form-control" id="mortgage-interest-rate" value="'+ formatted_interestrate +'">' +
 								'</div>' +
 								'<div id="zy_loan-type" class="col-xs-12 col-sm-6 mb-6">' +
 									'<label>Loan Type</label>' +
-									'<select name="loan_type" id="mortgage-loan-type">' +
+									'<select name="loan_type" class="form-control" id="mortgage-loan-type">' +
 										'<option '+ (default_loan_type=='30yrs'?'selected':'') +' value="30yrs">30 Years Fixed</option>' +
 										'<option '+ (default_loan_type=='15yrs'?'selected':'') +' value="15yrs">15 Years Fixed</option>' +
 										'<option '+ (default_loan_type=='5-1arm'?'selected':'') +' value="5-1arm">5/1 ARM</option>' +

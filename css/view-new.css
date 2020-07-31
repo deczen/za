@@ -219,9 +219,18 @@
 }
 
 .widget-slider .owl-nav>div {
+    background:none !important;
+    padding:0 !important;
+}
+.widget-slider .owl-nav button {
 	background: #800;
 	color: #fff;
-	border-radius: 3px
+	border-radius: 3px;
+	border:1px solid #fff;
+	padding:0px 15px;
+}
+.widget-slider .owl-nav button:focus{
+	border:1px solid #000;
 }
 
 .widget-slider .owl-img-wrap span {

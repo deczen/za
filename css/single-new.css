@@ -118,9 +118,11 @@
 .zpa-listing-detail form input[type]:focus,
 .zpa-listing-detail form select:focus,
 .zpa-listing-detail form textarea:focus {
-	border-color: rgba(200, 200, 200, .5);
-	box-shadow: 0 0 0 1px #1d8acb;
-	outline: 0
+	border-color: #66afe9 !important;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+
 }
 .zpa-listing-detail form:-ms-input-placeholder,
 .zpa-listing-detail form::-moz-placeholder,

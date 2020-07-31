@@ -53,7 +53,7 @@ $properties = $single_luxury->properties;
 								<div class="col-xs-12 zpa-property-photo" style="margin-top:0">
 									<div class="owl-carousel-container">
 										<div class="top-head-carousel-wrapper">
-											<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+											<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" aria-label="carousel">
 												<?php
 												$i=0;
 												foreach ($images as $pic ){ ?>
@@ -73,7 +73,7 @@ $properties = $single_luxury->properties;
 											</div>
 										</div>
 										<div class="carousel-controller-wrapper" style="padding:0">
-											<div class="owl-carousel carousel-controller carousel-autoplay" style="padding:1em">
+											<div class="owl-carousel carousel-controller carousel-autoplay" style="padding:1em" aria-label="carousel">
 												<?php
 												$i=0;
 												foreach ($images as $pic ){ ?>
