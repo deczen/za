@@ -1264,7 +1264,7 @@ function get_property_slides(){
 		<div id="zpa-main-container" class="zpa-container " style="display: inline;" > 
 			<div class="row">
 				<div class="col-xs-12 zpa-property-photo">
-					<div id="carousel-<?php echo $listingId ?>" class="zpa-main-image zpa-image-carousel carousel slide zpa-center" data-interval="false" >
+					<div id="carousel-<?php echo $listingId ?>" class="zpa-main-image zpa-image-carousel carousel slide zpa-center" data-interval="false" aria-label="carousel">
 						<div style="display:block" class="owl-carousel carousel-inner">
 							<?php
 							if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){

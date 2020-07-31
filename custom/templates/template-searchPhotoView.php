@@ -50,7 +50,7 @@ if( $list ): ?>
 						<div class="photo-slider col-xs-12">
 							<div class="slider-container"> 
 								<!--Main Slider Start--> 
-								<div id="slider" class="slider main-slider owl-carousel"> 
+								<div id="slider" class="slider main-slider owl-carousel" aria-label="carousel"> 
 								<?php
 								if( isset( $property->photoList ) && sizeof( $property->photoList ) ){
 									$i=0;
@@ -77,7 +77,7 @@ if( $list ): ?>
 						   
 						   <!--Thumbnail slider container--> 
 						   <div class="thumbnail-slider-container">											   
-								<div id="thumbnailSlider" class="thumbnail-slider owl-carousel"> 
+								<div id="thumbnailSlider" class="thumbnail-slider owl-carousel" aria-label="carousel"> 
 									<?php
 									if( isset( $property->photoList ) && sizeof( $property->photoList ) ){
 										$i=0;

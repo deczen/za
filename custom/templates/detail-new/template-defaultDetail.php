@@ -547,7 +547,7 @@ if(file_exists($template_path) && $template_name ){
 											</a>
 										</div>
 										<?php /* < div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>"> */ ?>
-										<div class="owl-carousel top-head-carousel">
+										<div class="owl-carousel top-head-carousel" aria-label="carousel">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 												$i=0;
@@ -568,7 +568,7 @@ if(file_exists($template_path) && $template_name ){
 										</div>
 									</div>
 									<div class="carousel-controller-wrapper">
-										<div class="owl-carousel carousel-controller">
+										<div class="owl-carousel carousel-controller" aria-label="carousel">
 											<?php
 											if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 												$i=0;

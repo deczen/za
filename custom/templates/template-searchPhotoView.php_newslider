@@ -47,7 +47,7 @@ if( $list ): ?>
 						<div class="photo-slider col-xs-12">
 							<div class="owl-carousel-container">
 								<div class="top-head-carousel-wrapper">
-									<div class="owl-carousel top-head-carousel carousel-autoplay">
+									<div class="owl-carousel top-head-carousel carousel-autoplay" aria-label="carousel">
 										<?php
 										if( isset( $property->photoList ) && sizeof( $property->photoList ) ){
 											$i=0;
@@ -68,7 +68,7 @@ if( $list ): ?>
 									</div>
 								</div>
 								<div class="carousel-controller-wrapper">
-									<div class="owl-carousel carousel-controller carousel-autoplay">
+									<div class="owl-carousel carousel-controller carousel-autoplay" aria-label="carousel">
 										<?php
 										if( isset( $property->photoList ) && sizeof( $property->photoList ) ){
 											$i=0;

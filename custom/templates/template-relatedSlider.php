@@ -277,7 +277,7 @@ if( sizeof($list) ){
 
 	<div class="slider-container"> 
 		<!--Main Slider Start--> 
-		<div class="slider widget-slider owl-carousel"> 
+		<div class="slider widget-slider owl-carousel" aria-label="carousel"> 
 		<?php
 		foreach( $list as $property ){
 			// echo "<pre>"; print_r( $property ); echo "</pre>";
@@ -346,6 +346,11 @@ if( sizeof($list) ){
 			}
 		}
 		?>
+		<div class="slider_nav">
+			<button class="am-next"><i class="fa fa-caret-left" aria-hidden="true" role="none"></i></button>
+			<button class="am-prev"><i class="fa fa-caret-right" aria-hidden="true" role="none"></i></button>
+		</div>
+		
 		</div>
 		<!--Main Slider End-->
 	</div>
@@ -374,7 +379,8 @@ if( sizeof($list) ){
 				tempMainSlider.owlCarousel({
 					loop: <?php echo $loop ?>,
 					nav:true,
-					navText: ['<i class="fa fa-caret-left" aria-hidden="true" role="none"></i>','<i class="fa fa-caret-right" aria-hidden="true" role="none"></i>'],
+					// navText: ['<i class="fa fa-caret-left" aria-hidden="true" role="none"></i>','<i class="fa fa-caret-right" aria-hidden="true" role="none"></i>'],
+					navText: [$('.am-next'),$('.am-prev')],
 					lazyLoad:true,
 					margin:15,
 					controlsClass:"owl-controls",

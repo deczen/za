@@ -526,7 +526,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 							<div class="owl-carousel-container">
 								
 								<div class="top-head-carousel-wrapper">
-									<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>">
+									<div class="owl-carousel top-head-carousel <?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ) echo "needLogin"; ?>" aria-label="carousel">
 									<?php /* <div class="owl-carousel top-head-carousel"> */ ?>
 										<?php
 										if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
@@ -548,7 +548,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 									</div>
 								</div>
 								<div class="carousel-controller-wrapper">
-									<div class="owl-carousel carousel-controller">
+									<div class="owl-carousel carousel-controller" aria-label="carousel">
 										<?php
 										if( isset( $single_property->photoList ) && sizeof( $single_property->photoList ) ){
 											$i=0;
