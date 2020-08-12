@@ -1,11 +1,9 @@
 <?php
 
-add_action( 'wp_enqueue_scripts', 'za_enqueue_script', 11 );
- 
-function za_enqueue_script(){
-	
+add_action( 'wp_head', 'generate_zipperagent_variables' );
+
+function generate_zipperagent_variables(){
 	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-	
 	$args['ajaxurl']=admin_url().'admin-ajax.php';
     $args['ZIPPERAGENTPATH']=ZIPPERAGENTPATH;
     $args['ZIPPERAGENTURL']=ZIPPERAGENTURL;
@@ -59,7 +57,77 @@ function za_enqueue_script(){
 	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
 	$args['is_enable_save']=zipperagent_is_enable_save();
     $localize = $args;
-    wp_localize_script('jquery','zipperagent',$localize);
+	
+	?>
+	
+	<script>
+		var zipperagent = <?php echo json_encode($localize); ?>
+	</script>
+	
+	<?php
+}
+
+add_action( 'wp_enqueue_scripts', 'za_enqueue_script', 11 );
+ 
+function za_enqueue_script(){
+	
+	$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+	
+	/*
+	$args['ajaxurl']=admin_url().'admin-ajax.php';
+    $args['ZIPPERAGENTPATH']=ZIPPERAGENTPATH;
+    $args['ZIPPERAGENTURL']=ZIPPERAGENTURL;
+    $args['currency']=zipperagent_currency();
+	
+	$listing_url = '';
+	if( interface_exists( 'zipperAgentConstants' ) ){
+		$endpoint = get_option(zipperAgentConstants::OPTION_VIRTUAL_PAGE_PERMALINK_TEXT_DETAIL, null);
+		$endpoint = !empty($endpoint)?$endpoint:'listing';
+		$listing_url = site_url("/{$endpoint}/");	
+	}
+	$args['listingurl']=$listing_url;
+	$args['sold_status']=explode(',',zipperagent_sold_status());
+	$args['active_status']=explode(',',zipperagent_active_status());
+    $args['long_excludes']=get_long_excludes();
+	$args['distance']=zipperagent_distance();
+    $args['page']=get_query_var('page');
+    $args['root']=base64_encode(json_encode($rb));
+	$args['contactIds']=get_contact_id();
+	$args['is_login']=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
+	$args['listing_disclaimer']=zipperagent_get_listing_disclaimer();
+	$fields = get_field_list();
+	$args['status_list']=isset($fields->STATUS)?$fields->STATUS:array();
+	$args['source_cached']=zipperagent_get_source_details_cached();
+	$args['is_show_agent_name']=is_show_agent_name();
+	$args['property_types_refenrence']=get_field_reference_property_type();
+	$args['property_types']=get_property_type();
+	$proptypes = zipperagent_get_proptype_codes();
+	$args['rental_code']=isset($proptypes['rental'])?explode(',',$proptypes['rental']):array('RNT');
+	$args['detailpage_group']=ZipperagentGlobalFunction()->zipperagent_detailpage_group();
+	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
+	$args['browser_timezone']=date_default_timezone_get() ? date_default_timezone_get() : zipperagent_timezone();
+	
+	$args['company_name']=zipperagent_company_name();	
+	$args['agent_list']=zipperagent_get_agent_list();	
+	$args['searchId']=isset($_GET['searchid'])?$_GET['searchid']:'';
+	$args['field_list']=get_field_list();
+	$asrc=$rb['web']['asrc'];
+	$sources=explode(',', $asrc);
+	if($asrc!=''){
+		foreach($sources as $sourceid){
+			$args['field_list_'.$sourceid]=get_field_list('detail', $sourceid);
+		}
+	}
+	
+	$args['za_image_clicked']=isset($_SESSION['za_image_clicked']) ? (int) $_SESSION['za_image_clicked'] : 0;
+	$args['za_slider_limit_popup']=zipperagent_slider_limit_popup();
+	$args['za_signup_optional']=zipperagent_signup_optional();
+	$args['is_great_school_enabled']=is_great_school_enabled();
+	$args['is_walkscore_enabled']=is_walkscore_enabled();
+	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
+	$args['is_enable_save']=zipperagent_is_enable_save();
+    $localize = $args;
+    wp_localize_script('jquery','zipperagent',$localize); */
 	
 	if( function_exists( 'conall_edge_options' ) ){
 		$conall_google_api_key = conall_edge_options()->getOptionValue('google_maps_api_key');

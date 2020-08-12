@@ -865,6 +865,32 @@ if( ! function_exists('get_lot_descriptions') ){
 	}
 }
 
+if( ! function_exists('get_lake_names') ){
+	function get_lake_names(){	
+	
+		if(!isset($_SESSION['za_lakename']) || ( isset($_SESSION['za_lakename']) && !$_SESSION['za_lakename'] )){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/lakename.php";
+			$json=ob_get_clean();
+			$data=json_decode($json);
+			
+			$_SESSION['za_lakename'] = $data;
+		}else{
+			$data = $_SESSION['za_lakename'];
+		}
+		
+		$arr=array();
+		
+		if($data){
+			foreach($data as $entity){			
+				$arr[$entity->shortDescription]=$entity->longDescription;			
+			}
+		}
+		
+		return $arr;
+	}
+}
+
 if( ! function_exists('zipperagent_location_field_label') ){
 	function zipperagent_location_field_label($code){
 		$label=$code;
