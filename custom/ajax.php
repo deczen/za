@@ -1750,7 +1750,10 @@ function load_more_properties(){
 			);
 			
 			if($alstid){
-				unset($search['asts']);
+				// unset($search['asts']);
+				$stattmp[]=zipperagent_active_status();
+				$stattmp[]=zipperagent_sold_status();				
+				$search['asts']=implode(',',$stattmp);
 			}
 			
 			//set states

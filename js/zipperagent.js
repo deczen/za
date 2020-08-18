@@ -290,7 +290,11 @@ var zppr={
 				// search = Object.values(search); //convert obj to array
 				
 				if(alstid){
-					delete search.asts;
+					// delete search.asts;
+					var stattmp=[];
+					stattmp.push(zppr.data.active_status);
+					stattmp.push(zppr.data.sold_status);
+					search.asts = stattmp.join(',');
 				}
 				// if(o){
 					// delete advSearch.o;

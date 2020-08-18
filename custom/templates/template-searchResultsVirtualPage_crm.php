@@ -99,7 +99,6 @@ unset($alstid); */
 
 </div>
 
-<?php if( $top_search_enabled ): ?>
 <script>
 	jQuery(document).ready(function(){
 		
@@ -195,7 +194,7 @@ unset($alstid); */
 	});
 	
 </script>
-<?php endif; ?>
+
 <script>
 	
 	jQuery(document).ready(function(){
