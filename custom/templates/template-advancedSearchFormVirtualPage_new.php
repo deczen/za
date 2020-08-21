@@ -451,9 +451,9 @@ global $requests;
 						<div class="col-xs-12 col-sm-3 mb-10"> 
 							<span id="zpa-lake-name-fields"> 
 								<label for="zpa-lakename" class="field-label zpa-lakename-label"> Lake Name </label> 
-								<?php /* <input id="zpa-lakename" name="LakeChainName" placeholder="Any" type="text" class="form-control zpa-search-form-input" value=""> */ ?>
+								<?php /* <input id="zpa-lakename" name="alkChnNm" placeholder="Any" type="text" class="form-control zpa-search-form-input" value=""> */ ?>
 															
-								<select id="zpa-lakename" name="LakeChainName" class="form-control">
+								<select id="zpa-lakename" name="alkChnNm" class="form-control">
 									<option value="">Select</option>
 									<?php								
 									foreach( $lakeNames as $fieldCode=>$fieldName ){
