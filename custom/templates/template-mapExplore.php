@@ -333,7 +333,7 @@ if($requests['lat'] && $requests['lng']){
 					);
 					
 					// saved_markers.push(marker);    
-					saved_markers[index]=marker;				
+					saved_markers[curr_index]=marker;				
 				}			
 				
 				//map clustering
