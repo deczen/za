@@ -5,6 +5,7 @@ global $requests, $is_ajax_count, $is_map_explore;
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 $micro = isset($requests['micro'])&&!$requests['micro']?0:1; // default always on
 $listlimit = $requests['listinapage'] ? $requests['listinapage'] : ( $micro ? 1000 : 100 );
+// $listlimit = 2;
 extract(zipperagent_get_map_centre());
 
 $is_map_explore=1;
@@ -307,13 +308,14 @@ if($requests['lat'] && $requests['lng']){
 				
 				// infoWindowContent = infoWindows;
 				jQuery.each( infoWindows, function( key, value ) {
-				  infoWindowContent[key]=value;
+				  curr_index = value[1];
+				  infoWindowContent[curr_index]=value;
 				});
 				
 				// Loop through our array of markers & place each one on the map  
 				for( i = 0; i < markers.length; i++ ) {
 					
-					index = markers[i][8];					
+					curr_index = markers[i][8];					
 					var position = new google.maps.LatLng(markers[i][1], markers[i][2]);		
 					
 					bounds.extend(position);
@@ -327,13 +329,13 @@ if($requests['lat'] && $requests['lng']){
 							shortprice: markers[i][5],
 							bedrooms: markers[i][6],
 							bath: markers[i][7],
-							index: index,
+							index: curr_index,
 							proptype: markers[i][9],
 						}
 					);
 					
 					// saved_markers.push(marker);    
-					saved_markers[index]=marker;				
+					saved_markers[curr_index]=marker;				
 				}			
 				
 				//map clustering
@@ -381,7 +383,8 @@ if($requests['lat'] && $requests['lng']){
 			}
 			
 			initialize('<?php echo $za_lat; ?>', '<?php echo $za_lng; ?>', <?php echo $requests['map_zoom']; ?>, 1); // show map
-						
+			
+			var index=0;			
 			var looplimit = 5;
 			var listlimit = <?php echo $listlimit; ?>;
 			
@@ -426,7 +429,6 @@ if($requests['lat'] && $requests['lng']){
 							response=JSON.parse(this.responseText);
 							if(response.responseCode===200){
 								
-								var index=0;
 								if(response.result.hasOwnProperty('filteredList')){
 									for (const [key, value] of Object.entries(response.result.filteredList)) {
 										
@@ -475,7 +477,7 @@ if($requests['lat'] && $requests['lng']){
 												'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\" role=\"none\"></i> Favorite</a></p>' +
 												'<p class=\"info\">'+ beds_html +  bath_html + sqft_html + '</p>' +
 											'</div>' + '<a class="link-cover" href=\"'+ prop_url +'\"></a>' +
-										'</div>']);
+										'</div>', index]);
 										
 										index++;
 									}
@@ -537,7 +539,6 @@ if($requests['lat'] && $requests['lng']){
 							response=JSON.parse(this.responseText);
 							if(response.responseCode===200){
 								
-								var index=0;
 								if(response.result.hasOwnProperty('filteredList')){
 									for (const [key, value] of Object.entries(response.result.filteredList)) {
 										
@@ -586,7 +587,7 @@ if($requests['lat'] && $requests['lng']){
 												'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\" role=\"none\"></i> Favorite</a></p>' +
 												'<p class=\"info\">'+ beds_html +  bath_html + sqft_html + '</p>' +
 											'</div>' +
-										'</div>']);
+										'</div>', index]);
 										
 										index++;
 									}

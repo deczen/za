@@ -61,6 +61,7 @@ $searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
 $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 $column 			= ( isset($requests['column'])?$requests['column']:'' );
 $school 			= ( isset($requests['school'])?$requests['school']:'' );
+$alkchnnm 			= ( isset($requests['alkchnnm'])?$requests['alkchnnm']:'' );
 
 //distance search variables
 $searchDistance 	= ( isset($requests['searchdistance'])?$requests['searchdistance']:'' );
@@ -212,6 +213,9 @@ if( $alagt )
 
 if( $aloff )
 	$advSearch['aloff']=$aloff;
+
+if( $alkchnnm )
+	$advSearch['alkChnNm']=$alkchnnm;
 
 //generate school variables
 if( $school  ){

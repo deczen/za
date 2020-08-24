@@ -925,6 +925,9 @@ $contactIds = get_contact_id();
 						case "status": //disable label text
 							newLabel = '';	
 							break;
+						case "alkchnnm": //disable label text
+							newLabel = '';	
+							break;
 						default:
 							switch(name){
 								case "alstid":

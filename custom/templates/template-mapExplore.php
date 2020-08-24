@@ -313,7 +313,7 @@ if($requests['lat'] && $requests['lng']){
 				// Loop through our array of markers & place each one on the map  
 				for( i = 0; i < markers.length; i++ ) {
 					
-					index = markers[i][8];					
+					curr_index = markers[i][8];					
 					var position = new google.maps.LatLng(markers[i][1], markers[i][2]);		
 					
 					bounds.extend(position);
@@ -327,7 +327,7 @@ if($requests['lat'] && $requests['lng']){
 							shortprice: markers[i][5],
 							bedrooms: markers[i][6],
 							bath: markers[i][7],
-							index: index,
+							index: curr_index,
 							proptype: markers[i][9],
 						}
 					);

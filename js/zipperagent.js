@@ -90,6 +90,7 @@ var zppr={
 		var alstid 				= ( requests.hasOwnProperty('alstid')?requests['alstid']:'' );
 		var column 				= ( requests.hasOwnProperty('column')?requests['column']:'' );
 		var school 				= ( requests.hasOwnProperty('school')?requests['school']:'' );
+		var alkchnnm 			= ( requests.hasOwnProperty('alkchnnm')?requests['alkchnnm']:'' );
 
 		//distance search variables
 		var searchDistance 		= ( requests.hasOwnProperty('searchdistance')?requests['searchdistance']:'' );
@@ -206,6 +207,9 @@ var zppr={
 
 		if( aloff )
 			advSearch['aloff']=aloff;
+		
+		if( alkchnnm )
+        	advSearch['alkChnNm']=alkchnnm;
 
 		//generate school variables
 		if( school  ){
