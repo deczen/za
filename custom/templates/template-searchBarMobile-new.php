@@ -494,7 +494,8 @@
 					<button class="btn btn-secondary dropdown-toggle" type="button">Water Front</button>
 					<div class="sub-menu col-xs-12">
 						<ul class="waterfront">
-							<?php							
+							<?php
+							echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtrf\" value=''> Any </label></li>";
 							foreach($fields as $field){
 								echo '<li><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="radio" name="awtrf" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></li>';
 							}

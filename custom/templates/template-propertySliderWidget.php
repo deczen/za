@@ -178,7 +178,7 @@ if( $aloff )
 	$advSearch['aloff']=$aloff;
 
 if( $alkchnnm )
-	$advSearch['alkChnNm']=$alkchnnm;
+	$advSearch['alkChnNm']=is_array($alkchnnm)?implode(',',$alkchnnm):$alkchnnm;
 
 //generate school variables
 if( $school  ){

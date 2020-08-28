@@ -452,7 +452,7 @@ global $requests;
 							<span id="zpa-lake-name-fields"> 
 								<label for="zpa-lakename" class="field-label zpa-lakename-label"> Lake Name </label> 
 								<?php /* <input id="zpa-lakename" name="alkChnNm" placeholder="Any" type="text" class="form-control zpa-search-form-input" value=""> */ ?>
-															
+								<?php /*							
 								<select id="zpa-lakename" name="alkChnNm" class="form-control">
 									<option value="">Select</option>
 									<?php								
@@ -461,7 +461,21 @@ global $requests;
 										echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";										
 									}
 									?>
-								</select>
+								</select> */ ?>
+								<div class="dropdown cq-dropdown">
+									<button class="btn btn-default dropdown-toggle form-control" type="button" id="lakename-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+									<ul class="dropdown-menu" aria-labelledby="lakename-dropdown">
+										<?php
+										
+										foreach( $lakeNames as $fieldCode=>$fieldName ){
+											
+											$checked="";
+												
+											echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkChnNm[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";									
+										}
+										?>
+									</ul>
+								</div>
 							</span> 
 						</div>						
 						<?php endif; ?>

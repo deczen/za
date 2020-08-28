@@ -597,6 +597,7 @@ $contactIds = get_contact_id();
 														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
 														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
 															<?php
+															echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtrf\" value=''> Any </label></li>";
 															foreach( $fields as $field ){
 																
 																$checked="";
@@ -928,6 +929,16 @@ $contactIds = get_contact_id();
 						case "alkchnnm": //disable label text
 							newLabel = '';	
 							break;
+						<?php
+						$fields = get_references_field('LAKECHAINNAME');
+						foreach($fields as $field){
+						echo "\r\n" .
+						'case "alkchnnm_'.$field->shortDescription.'":'."\r\n" .
+							// "newLabel = '{$field->longDescription}'"."\r\n" .
+							"newLabel = ''"."\r\n" . //disable label text
+							'break;'."\r\n";
+						}
+						?>
 						default:
 							switch(name){
 								case "alstid":
