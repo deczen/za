@@ -445,7 +445,7 @@ $excludes = get_new_filter_excludes();
 									<div class="checkbox-row row">
 										<?php										
 										foreach($fields as $field){
-											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtrf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
+											echo '<span class="col-xs-4"><label for="'. $field->longDescription .'"><input id="'. $field->longDescription .'" type="checkbox" name="awtf[]" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</label></span>'."\r\n";
 										}
 										?>
 									</div>
@@ -599,7 +599,7 @@ $excludes = get_new_filter_excludes();
 						$fields = get_references_field('WATERFRONT');
 						foreach($fields as $field){
 						echo "\r\n" .
-						'case "awtrf_'.$field->shortDescription.'":'."\r\n" .
+						'case "awtf_'.$field->shortDescription.'":'."\r\n" .
 							"newLabel = '{$field->longDescription}'"."\r\n" .
 							'break;'."\r\n";
 						}

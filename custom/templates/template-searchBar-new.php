@@ -586,7 +586,7 @@ $contactIds = get_contact_id();
 												if($fields): ?>
 												<div class="propwaterfront">
 													<h3>Water Front</h3>
-													<?php /* <select name="awtrf[]" multiple="multiple">
+													<?php /* <select name="awtf[]" multiple="multiple">
 														<?php										
 														foreach($fields as $field){
 															echo '<option id="'. $field->longDescription .'" value="'. $field->shortDescription .'" /> '. $field->longDescription .'</option>';
@@ -597,12 +597,12 @@ $contactIds = get_contact_id();
 														<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdownx" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
 														<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
 															<?php
-															echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtrf\" value=''> Any </label></li>";
+															echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtf\" value=''> Any </label></li>";
 															foreach( $fields as $field ){
 																
 																$checked="";
 																	
-																echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtrf\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
+																echo "<li><label class=\"radio-btn\"><input type=\"radio\" name=\"awtf\" value='{$field->shortDescription}' $checked> {$field->longDescription} </label></li>";																		
 															}
 															?>
 														</ul>
@@ -796,12 +796,12 @@ $contactIds = get_contact_id();
 						$fields = get_references_field('WATERFRONT');
 						/* foreach($fields as $field){
 						echo "\r\n" .
-						'case "awtrf_'.$field->shortDescription.'":'."\r\n" .
+						'case "awtf_'.$field->shortDescription.'":'."\r\n" .
 							"newLabel = '{$field->longDescription}'"."\r\n" .
 							'break;'."\r\n";
 						} */
 						echo "\r\n";
-						echo 'case "awtrf":' .
+						echo 'case "awtf":' .
 							 "switch(value){" . "\r\n";
 						foreach($fields as $field){
 							echo 'case "'.$field->shortDescription.'":'."\r\n" .
