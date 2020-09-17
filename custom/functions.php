@@ -2310,6 +2310,27 @@ if( ! function_exists('populate_counties_with_option') ){
 	}
 }
 
+if( ! function_exists('populate_lakes_with_option') ){
+	function populate_lakes_with_option(){
+		
+		$lakes = get_lake_names();
+		
+		$arr=array();
+		
+		foreach( $lakes as $code => $lake ){
+			$code = 'alkchnnm_'.$code;
+			$arr[]=array(
+					'group'=>'Lake',
+					'name'=>$lake,
+					'code'=> $code,
+					'type'=>'lake',
+				);
+		}
+		
+		return $arr;
+	}
+}
+
 if( ! function_exists('populate_zipcodes') ){
 	function populate_zipcodes(){
 		
@@ -3678,6 +3699,18 @@ if( ! function_exists('is_show_agent_name') ){
 	}
 }
 
+if( ! function_exists('is_show_extra_proptype') ){
+	function is_show_extra_proptype(){
+				
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$enabled = isset($rb['web']['extra_proptype'])?$rb['web']['extra_proptype']:'';
+		
+		$enabled=$enabled?true:false;
+		// $enabled=1;
+		return $enabled;
+	}
+}
+
 if( ! function_exists('luxury_get_variables') ){
 	function luxury_get_variables($properties){
 		
@@ -4198,14 +4231,17 @@ if( ! function_exists('global_new_omnibar_script') ){
 				$counties = isset($data->counties)?$data->counties:array();
 				$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
 				$tenants = isset($data->tenants)?$data->tenants:array();
+				$lakes = populate_lakes_with_option();
 				?>
 				
 				var towns = <?php echo json_encode($towns); ?>;
 				var areas = <?php echo json_encode($areas); ?>;
 				var counties = <?php echo json_encode($counties); ?>;
+				var lakes = <?php echo json_encode($lakes); ?>;
 				var zipcodes = <?php echo json_encode($zipcodes); ?>;
 				var all = $.merge(towns, areas);
 					all = $.merge(all, counties);
+					all = $.merge(all, lakes);
 					all = $.merge(all, zipcodes);
 					
 				var tenants = <?php echo json_encode($tenants); ?>;
@@ -4379,6 +4415,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 					for(i=0; i<values.length; i++){
 						
 						is_location=0;
+						is_lake=0;
 						is_address=0;
 						is_mls=0;
 						is_add=0;
@@ -4392,6 +4429,8 @@ if( ! function_exists('global_new_omnibar_script') ){
 							is_location=1;
 						}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
 							is_location=1;
+						}else if (value.toLowerCase().indexOf("alkchnnm_") >= 0){ //lake
+							is_lake=1;
 						}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
 							is_address=1;
 						}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
@@ -4400,6 +4439,11 @@ if( ! function_exists('global_new_omnibar_script') ){
 						
 						if(is_location){							
 							name = 'location[]';
+							is_add=1;
+						}else if(is_lake){
+							name = 'alkChnNm[]';
+							linked_name = value.replace('alkchnnm_','');
+							value = value.replace('alkchnnm_','');
 							is_add=1;
 						}else if(is_address){
 							name = '';

@@ -31,6 +31,7 @@ class Zipperagent_Shortcodes{
 		'office_listing' => 'display_office_listing',
 		'open_house' => 'display_open_house',
 		'search_distance' => 'display_search_distance',
+		'off_market' => 'display_off_market',
 		// 'own_listing' => 'display_own_listing',
 		'za_basic_search' => 'getAdvancedSearch',
 		'za_advanced_search' => 'getAdvancedSearch',
@@ -874,6 +875,21 @@ class Zipperagent_Shortcodes{
 		
 		ob_start();	
 		echo do_shortcode('[search_properties searchDistance="true" '. implode( ' ', $vars ) .']');
+		$html=ob_get_clean();
+		
+		return $html;
+	}
+	
+	function display_off_market($atts){
+		$vars=array();
+		if(is_array($atts)){
+			foreach( $atts as $var=>$val ){
+				$vars[]= $var.'="'.$val.'"';
+			}
+		}
+		
+		ob_start();	
+		echo do_shortcode('[search_properties offmarket="true" '. implode( ' ', $vars ) .']');
 		$html=ob_get_clean();
 		
 		return $html;

@@ -33,6 +33,7 @@ $contactIds = get_contact_id();
 						<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
 						<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
 						<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
+						<!-- <li><a id="lake" href="#"><input type="radio" name="search_category" /> Lake</a></li> -->
 						<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
 						<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
 						<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
@@ -64,6 +65,9 @@ $contactIds = get_contact_id();
 					</div>
 					<div class="field-section county hide">
 						<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
+					</div>
+					<div class="field-section lake hide">
+						<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
 					</div>
 					<div class="field-section listid hide">
 						<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/>
@@ -164,6 +168,10 @@ $contactIds = get_contact_id();
 										$propSubTypeFields = get_property_sub_type();
 										foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
 											echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
+										}
+										
+										if(is_show_extra_proptype()){
+											echo '<li><label for="alkchn"><input id="alkchn" name="alkchn" type="checkbox" value="Y" /> Lake Lots </label></li>';
 										}
 										?>
 									</ul>									
@@ -917,6 +925,9 @@ $contactIds = get_contact_id();
 						case "school":
 							newLabel = value;	
 							break;
+						case "alkchn":
+							newLabel = 'Lake Lots';	
+							break;
 						case "awvf": //disable label text
 							newLabel = '';	
 							break;
@@ -1024,14 +1035,17 @@ $contactIds = get_contact_id();
 			$counties = isset($data->counties)?$data->counties:array();
 			$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
 			$tenants = isset($data->tenants)?$data->tenants:array();
+			$lakes = populate_lakes_with_option();
 			?>
 			
 			var towns = <?php echo json_encode($towns); ?>;
 			var areas = <?php echo json_encode($areas); ?>;
-			var counties = <?php echo json_encode($counties); ?>;
+			var counties = <?php echo json_encode($counties); ?>;			
+			var lakes = <?php echo json_encode($lakes); ?>;
 			var zipcodes = <?php echo json_encode($zipcodes); ?>;
 			var all = $.merge(towns, areas);
 				all = $.merge(all, counties);
+				all = $.merge(all, lakes);
 				all = $.merge(all, zipcodes);
 				
 			var tenants = <?php echo json_encode($tenants); ?>;
@@ -1081,6 +1095,27 @@ $contactIds = get_contact_id();
 			var ms_county = $('#zpa-county-input').magicSuggest({
 				
 				data: counties,
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + data.name + '</div>';
+				},				
+			});
+			
+			var ms_lake = $('#zpa-lake-input').magicSuggest({
+				
+				data: lakes,
 				valueField: 'code',
 				displayField: 'name',
 				hideTrigger: true,
@@ -1284,6 +1319,29 @@ $contactIds = get_contact_id();
 				jQuery('#zpa-search-filter-form').submit();
 			});
 			
+			$(ms_lake).on('selectionchange', function(e,m){		
+				var values = this.getValue();
+				var value  = values[0];
+				var data   = this.getData();
+				var label;
+				
+				for(i=0; i<data.length; i++){
+					if(data[i].code==value){
+						label = data[i].name;
+					}
+				}
+				
+				var name = 'alkChnNm[]';
+				var linked_name = value.replace('alkchnnm_','');
+				var value = value.replace('alkchnnm_','');
+				
+				this.removeFromSelection(this.getSelection(), true);
+				addFilterLabel(name, value, linked_name, label);
+				addFormField(name,value,linked_name);
+				
+				jQuery('#zpa-search-filter-form').submit();
+			});
+			
 			$(ms_zip).on('selectionchange', function(e,m){		
 				var values = this.getValue();
 				var value  = values[0];
@@ -1334,7 +1392,7 @@ $contactIds = get_contact_id();
 				var data   = this.getData();
 				var label  = '';
 				var name, linked_name;
-				var is_add, is_location, is_address, is_mls = 0;
+				var is_add, is_location, is_lake, is_address, is_mls = 0;
 								
 				for(i=0; i<data.length; i++){
 					if(data[i].code==value){
@@ -1349,6 +1407,8 @@ $contactIds = get_contact_id();
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
 					is_location=1;
+				}else if (value.toLowerCase().indexOf("alkchnnm_") >= 0){ //lake
+					is_lake=1;
 				}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
 					is_address=1;
 				}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
@@ -1358,6 +1418,11 @@ $contactIds = get_contact_id();
 				if(is_location){							
 					name = 'location[]';
 					linked_name = 'location_'+value;
+					is_add=1;
+				}else if(is_lake){
+					name = 'alkChnNm[]';
+					linked_name = value.replace('alkchnnm_','');
+					value = value.replace('alkchnnm_','');
 					is_add=1;
 				}else if(is_address){
 					name = '';
@@ -2076,6 +2141,92 @@ $contactIds = get_contact_id();
 					ms_county__afterDelete=1;
 				}else{
 					ms_county__afterDelete=0;
+				}
+			});
+			
+			/* auto select dropdown function (ms_lake) */
+			var ms_lake__rawValue='';
+			var ms_lake__afterDelete=0;
+			var ms_lake__recentSelected=[];
+			var ms_lake__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_lake).on('keyup', function(){
+				ms_lake__rawValue = ms_lake.getRawValue();
+				ms_lake__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_lake).on('focus', function(c){
+				ms_lake__recentSelected = ms_lake.getValue();
+				ms_lake__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_lake).on('blur', function(c, e){
+				var data = ms_lake.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_lake__currentSelected = ms_lake.getValue();
+				
+				if( ms_lake__rawValue!="" && ! ms_lake__afterDelete && ms_lake__recentSelected.length == ms_lake__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_lake.setValue([firstData.code]);
+					}
+					
+					ms_lake__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_lake).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_lake.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_lake__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_lake.setValue([firstData.code]);
+						}
+					}
+					
+					ms_lake.collapse();
+				}
+			});
+			
+			//select value on tab key pressed
+			$('#zpa-lake-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_lake.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_lake__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_lake.setValue([firstData.code]);
+						}
+					}
+					
+					ms_lake.empty();
+					$('#zpa-lake-input input').focus();
+					
+					ms_lake.collapse();
+					
+					e.preventDefault();
+				}
+			});
+			
+			//set after delete state
+			$(ms_lake).on('selectionchange', function(e,m,r){
+				
+				ms_lake.empty();
+				ms_lake__rawValue="";
+				
+				if(r.length==ms_lake__recentSelected.length && r.length==ms_lake__currentSelected.length){
+					ms_lake__afterDelete=1;
+				}else{
+					ms_lake__afterDelete=0;
 				}
 			});
 			

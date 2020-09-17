@@ -457,14 +457,18 @@ if(get_query_var('page')){
 			$areas = isset($data->areas)?$data->areas:array();
 			$counties = isset($data->counties)?$data->counties:array();
 			$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
+			$tenants = isset($data->tenants)?$data->tenants:array();
+			$lakes = populate_lakes_with_option();
 			?>
 			
 			var towns = <?php echo json_encode($towns); ?>;
 			var areas = <?php echo json_encode($areas); ?>;
-			var counties = <?php echo json_encode($counties); ?>;
+			var counties = <?php echo json_encode($counties); ?>;			
+			var lakes = <?php echo json_encode($lakes); ?>;
 			var zipcodes = <?php echo json_encode($zipcodes); ?>;
 			var all = $.merge(towns, areas);
 				all = $.merge(all, counties);
+				all = $.merge(all, lakes);
 				all = $.merge(all, zipcodes);
 			
 			var ms_all = $('#zpa-all-input').magicSuggest({
@@ -509,6 +513,8 @@ if(get_query_var('page')){
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
 					is_location=1;
+				}else if (value.toLowerCase().indexOf("alkchnnm_") >= 0){ //lake
+					is_lake=1;
 				}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
 					is_address=1;
 				}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
@@ -518,6 +524,11 @@ if(get_query_var('page')){
 				if(is_location){							
 					name = 'location[]';
 					linked_name = 'location_'+value;
+					is_add=1;
+				}else if(is_lake){
+					name = 'alkChnNm[]';
+					linked_name = value.replace('alkchnnm_','');
+					value = value.replace('alkchnnm_','');
 					is_add=1;
 				}else if(is_address){
 					name = '';

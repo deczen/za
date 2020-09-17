@@ -200,6 +200,10 @@
 							foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
 								echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
 							}
+							
+							if(is_show_extra_proptype()){
+								echo '<li><label for="alkchn"><input id="alkchn" name="alkchn" type="checkbox" value="Y" /> Lake Lots </label></li>';
+							}
 							?>
 						</ul>
 					</div>

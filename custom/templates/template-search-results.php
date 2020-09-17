@@ -62,6 +62,8 @@ $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 $column 			= ( isset($requests['column'])?$requests['column']:'' );
 $school 			= ( isset($requests['school'])?$requests['school']:'' );
 $alkchnnm 			= ( isset($requests['alkchnnm'])?$requests['alkchnnm']:'' );
+$alkchn 			= ( isset($requests['alkchn'])?$requests['alkchn']:'' );
+$offmarket 			= ( isset($requests['offmarket'])?$requests['offmarket']:'' );
 
 //distance search variables
 $searchDistance 	= ( isset($requests['searchdistance'])?$requests['searchdistance']:'' );
@@ -218,6 +220,10 @@ if( $aloff )
 
 if( $alkchnnm ){
 	$advSearch['alkChnNm']=is_array($alkchnnm)?implode(',',$alkchnnm):$alkchnnm;
+}
+
+if( $alkchn ){
+	$advSearch['alkChn']=is_array($alkchn)?implode(',',$alkchn):$alkchn;
 }
 
 //generate school variables
@@ -537,6 +543,23 @@ if( $openHomesMode ){ // open houses mode
 		$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
 	}
 	
+}else if( $offmarket ){
+	
+	$vars=array(
+		'sidx'=>$index,
+		'ps'=>$num,
+		'd'=>'adverti:yes',
+		'l'=>'all',
+	);
+	
+	$result = zipperagent_run_curl( "/api/estate/list1", $vars );	
+	// echo "<pre>"; print_r($result); echo "</pre>";
+	$list=isset($result['filteredList'])?$result['filteredList']:$result;
+	// $count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+	
+	$is_ajax_count=0;
+
 }else{
 	
 	$search=array(

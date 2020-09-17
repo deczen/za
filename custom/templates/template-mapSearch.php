@@ -94,6 +94,10 @@ if($is_redirect && !is_admin()){
 										
 									echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";																		
 								}
+								
+								if(is_show_extra_proptype()){
+									echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkchn\" value='Y'>Lake Lots </label></li>";
+								}
 								?>
 							</ul>
 						</div>

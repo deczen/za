@@ -43,6 +43,7 @@ global $requests;
 														<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
 														<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
 														<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
+														<li><a id="lake" href="#"><input type="radio" name="search_category" /> Lake</a></li>
 														<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
 														<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
 														<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
@@ -75,6 +76,9 @@ global $requests;
 													</div>
 													<div class="field-section county hide">
 														<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
+													</div>
+													<div class="field-section lake hide">
+														<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
 													</div>
 													<div class="field-section listid hide">
 														<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name=""/>
