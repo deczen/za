@@ -201,8 +201,10 @@
 								echo '<li><label for="'.$fieldCode.'"><input id="'.$fieldCode.'" name="propsubtype[]" type="checkbox" value="'. $fieldCode .'" /> '. $fieldName .'</label></li>';											
 							}
 							
-							if(is_show_extra_proptype()){
-								echo '<li><label for="alkchn"><input id="alkchn" name="alkchn" type="checkbox" value="Y" /> Lake Lots </label></li>';
+							if($extra_proptypes = zipperagent_extra_proptype()){
+								foreach($extra_proptypes as $key=>$extra_proptype){
+									echo '<li><label for="'. strtolower($extra_proptype['abbrev']) .'"><input id="'. strtolower($extra_proptype['abbrev']) .'" name="'. strtolower($extra_proptype['abbrev']) .'" type="checkbox" value="'. $extra_proptype['selectValue'] .'" /> '. $extra_proptype['displayName'] .' </label></li>';
+								}
 							}
 							?>
 						</ul>

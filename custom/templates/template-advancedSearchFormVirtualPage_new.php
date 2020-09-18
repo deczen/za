@@ -252,8 +252,10 @@ global $requests;
 													echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked disabled>{$fieldName} </label></li>";																		
 												}
 												
-												if(is_show_extra_proptype()){
-													echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkchn\" value='Y' disabled>Lake Lots </label></li>";
+												if($extra_proptypes = zipperagent_extra_proptype()){
+													foreach($extra_proptypes as $key=>$extra_proptype){
+														echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"". strtolower($extra_proptype['abbrev']) ."\" value='". $extra_proptype['selectValue'] ."' disabled>". $extra_proptype['displayName'] ." </label></li>";
+													}
 												}
 												?>
 											</ul>
@@ -433,8 +435,10 @@ global $requests;
 										echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";																		
 									}
 									
-									if(is_show_extra_proptype()){
-										echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkChn\" value='Y'>Lake Lots </label></li>";
+									if($extra_proptypes = zipperagent_extra_proptype()){
+										foreach($extra_proptypes as $key=>$extra_proptype){
+											echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"". strtolower($extra_proptype['abbrev']) ."\" value='". $extra_proptype['selectValue'] ."'>". $extra_proptype['displayName'] ." </label></li>";
+										}
 									}
 									?>
 								</ul>

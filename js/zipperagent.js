@@ -23,6 +23,7 @@ var zppr={
 		detailpage_group: zipperagent.detailpage_group,
 		states: zipperagent.states,
 		browser_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+		extra_proptype: zipperagent.extra_proptype,
 		
 		/* single property */
 		company_name: zipperagent.company_name,
@@ -210,7 +211,22 @@ var zppr={
 		
 		if( alkchnnm )
         	advSearch['alkChnNm']=alkchnnm;
-
+		
+		//generate extra proptype variables
+		var extra_proptypes = zppr.data.extra_proptype;
+		if(extra_proptypes){
+			
+			for (const [key, extra_proptype] of Object.entries(extra_proptypes)) {
+				
+				if(typeof requests[extra_proptype['abbrev'].toLowerCase()] !== 'undefined'){
+					
+					var tempval=requests[extra_proptype['abbrev'].toLowerCase()];
+					delete requests[extra_proptype['abbrev'].toLowerCase()];					
+					requests[extra_proptype['abbrev']]=tempval;
+				}
+			}
+		}
+		
 		//generate school variables
 		if( school  ){
 			for (const [key, scl] of Object.entries(school)) {
@@ -232,6 +248,7 @@ var zppr={
 		if( requests.hasOwnProperty('alstid') && ! Array.isArray(requests['alstid']) )
 			requests['alstid']=requests['alstid'].replace(/ /g,'');
 		
+		//generate rest of variables
 		for (const [key, val] of Object.entries(requests)) {
 			if( excludes.indexOf(key.toLowerCase()) === -1 ){
 				if(Array.isArray(val)){

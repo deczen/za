@@ -191,8 +191,10 @@ $maxListPrice		= $requests['maxlistprice'];
 												echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";																		
 											}
 											
-											if(is_show_extra_proptype()){
-												echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkchn\" value='Y'>Lake Lots </label></li>";
+											if($extra_proptypes = zipperagent_extra_proptype()){
+												foreach($extra_proptypes as $key=>$extra_proptype){
+													echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"". strtolower($extra_proptype['abbrev']) ."\" value='". $extra_proptype['selectValue'] ."'>". $extra_proptype['displayName'] ." </label></li>";
+												}
 											}
 											?>
 										</ul>

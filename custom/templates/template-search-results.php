@@ -62,7 +62,6 @@ $alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
 $column 			= ( isset($requests['column'])?$requests['column']:'' );
 $school 			= ( isset($requests['school'])?$requests['school']:'' );
 $alkchnnm 			= ( isset($requests['alkchnnm'])?$requests['alkchnnm']:'' );
-$alkchn 			= ( isset($requests['alkchn'])?$requests['alkchn']:'' );
 $offmarket 			= ( isset($requests['offmarket'])?$requests['offmarket']:'' );
 
 //distance search variables
@@ -222,8 +221,16 @@ if( $alkchnnm ){
 	$advSearch['alkChnNm']=is_array($alkchnnm)?implode(',',$alkchnnm):$alkchnnm;
 }
 
-if( $alkchn ){
-	$advSearch['alkChn']=is_array($alkchn)?implode(',',$alkchn):$alkchn;
+//generate extra proptype variables
+if($extra_proptypes = zipperagent_extra_proptype()){
+	foreach($extra_proptypes as $key=>$extra_proptype){
+		
+		if(isset($requests[strtolower($extra_proptype['abbrev'])])){
+			$tempval=$requests[strtolower($extra_proptype['abbrev'])];
+			unset($requests[strtolower($extra_proptype['abbrev'])]);
+			$requests[$extra_proptype['abbrev']]=$tempval;
+		}
+	}
 }
 
 //generate school variables
@@ -244,6 +251,7 @@ if( $school  ){
 if( isset($requests['alstid']) )
 	$requests['alstid']=str_replace(' ','', $requests['alstid']);
 
+//generate rest of variables
 foreach( $requests as $key=>$val ){
 	if( ! in_array( strtolower($key), $excludes ) ){
 		if(is_array($val)){

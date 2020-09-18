@@ -36,6 +36,7 @@ function generate_zipperagent_variables(){
 	$args['detailpage_group']=ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
 	$args['browser_timezone']=date_default_timezone_get() ? date_default_timezone_get() : zipperagent_timezone();
+	$args['extra_proptype']=zipperagent_extra_proptype();
 	
 	$args['company_name']=zipperagent_company_name();	
 	$args['agent_list']=zipperagent_get_agent_list();	

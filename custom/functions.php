@@ -3699,15 +3699,13 @@ if( ! function_exists('is_show_agent_name') ){
 	}
 }
 
-if( ! function_exists('is_show_extra_proptype') ){
-	function is_show_extra_proptype(){
+if( ! function_exists('zipperagent_extra_proptype') ){
+	function zipperagent_extra_proptype(){
 				
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		$enabled = isset($rb['web']['extra_proptype'])?$rb['web']['extra_proptype']:'';
+		$extra_properties = isset($rb['web']['extra_proptype'])?$rb['web']['extra_proptype']:array();
 		
-		$enabled=$enabled?true:false;
-		// $enabled=1;
-		return $enabled;
+		return $extra_properties;
 	}
 }
 
