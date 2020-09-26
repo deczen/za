@@ -29,8 +29,7 @@ $contactIds = get_contact_id();
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<ul>
 						<li><a id="all" href="#"><input type="radio" name="search_category" checked /> All Categories</a></li>
-						<!-- <li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li> -->
-						<li><a id="addr2" href="#"><input type="radio" name="search_category" /> Address</a></li>
+						<li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li>
 						<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
 						<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
 						<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
@@ -38,7 +37,6 @@ $contactIds = get_contact_id();
 						<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
 						<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
 						<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
-						<li><a id="school3" href="#"><input type="radio" name="search_category" /> School</a></li>
 						<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
 					</ul>
 				  </div>
@@ -58,9 +56,6 @@ $contactIds = get_contact_id();
 						<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
 						<input type="hidden" id="country" name="advCounties" disabled="true" />
 						<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
-					</div>
-					<div class="field-section addr2 hide">
-						<input type="text" id="zpa-address-key" class="form-control" placeholder="Type any Address" name="location[]"/>
 					</div>
 					<div class="field-section area hide">
 						<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
@@ -83,9 +78,6 @@ $contactIds = get_contact_id();
 					<div class="field-section school2 hide">
 						<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
 					</div>
-					<div class="field-section school3 hide">
-						<input id="zpa-school3-input" class="form-control" placeholder="Type any Address"  name="location[]"/>
-					</div>
 					<div class="field-section zip hide">
 						<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
 					</div>
@@ -96,7 +88,7 @@ $contactIds = get_contact_id();
 						var targetClass = id;
 						jQuery(this).parents('.input-column').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
 						jQuery(this).parents('.input-column').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
-						jQuery(this).find('input').prop('checked', true);
+						jQuery(this).find('input').attr('checked', true);
 						
 						// jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
 						
@@ -1057,8 +1049,6 @@ $contactIds = get_contact_id();
 			$lakes = populate_lakes_with_option();
 			?>
 			
-			var direct = <?php echo isset($requests['direct'])&&$requests['direct']?1:0; ?>;
-			
 			var towns = <?php echo json_encode($towns); ?>;
 			var areas = <?php echo json_encode($areas); ?>;
 			var counties = <?php echo json_encode($counties); ?>;			
@@ -1238,48 +1228,6 @@ $contactIds = get_contact_id();
 					return '<div class="name">' + data.name + '</div>';
 				},				
 			});
-			
-			var ms_school3 = $('#zpa-school3-input').magicSuggest({
-				
-				data: null,
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});
-			
-			var ms_address = $('#zpa-address-key').magicSuggest({
-				
-				data: null,
-				valueField: 'code',
-				displayField: 'name',
-				hideTrigger: true,
-				groupBy: 'group',
-				// maxSelection: 1,
-				allowFreeEntries: false,
-				minChars: 2,
-				renderer: function(data){
-					return '<div class="location">' +
-						'<div class="name '+ data.type +'">' + data.name + '</div>' +
-						'<div style="clear:both;"></div>' +
-					'</div>';
-				},
-				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
-				},				
-			});
 
 			/* magicSuggest actions */
 
@@ -1315,254 +1263,6 @@ $contactIds = get_contact_id();
 					});
 				}, 500);
 			});
-			
-			var xhr_school3;
-			jQuery(ms_school3).on('keyup', function(event){
-				
-				if(! direct){
-					if(xhr_school3 && xhr_school3.readyState != 4){
-						xhr_school3.abort();
-					}
-					
-					event.preventDefault();
-					
-					clearTimeout(timer);
-					//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
-					timer = setTimeout(function () {
-						//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
-						var inputText = ms_school3.getRawValue();
-						
-						console.time('populate schools');
-						xhr_school3 = jQuery.ajax({
-							type: 'POST',
-							dataType : 'json',
-							url: zipperagent.ajaxurl,
-							data: {
-								'key': inputText,
-								'action': 'school3_options',
-							},
-							success: function( response ) {         
-								if( response ){
-									var data = response.schools;
-									ms_school3.setData(data);
-								}
-								console.timeEnd('populate schools');
-							},
-							error: function(){
-								console.timeEnd('populate schools');
-							}
-						});
-					}, 500);
-				}else{
-					console.time('populate schools');
-					
-					var parm=[];
-					var subdomain=zppr.data.root.web.subdomain;
-					var customer_key=zppr.data.root.web.authorization.consumer_key;
-					var ps=5;
-					var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-					var crit = "";
-					var response=false;
-					var gs=1;
-					var ms=1;
-					var hs=1;
-					var sd=1;
-					var addr=0;
-					var inputText = ms_school3.getRawValue();
-					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
-					
-					var xhttp = new XMLHttpRequest();
-					xhttp.onreadystatechange = function() {
-
-						if (this.readyState == 4 ) {
-							if(this.status == 200){
-							
-								response=JSON.parse(this.responseText);
-								if(response.responseCode===200){
-									
-									var data = zppr.populate_schools(response);
-									ms_school3.setData(data);
-									
-									console.timeEnd('populate schools');
-								}
-								
-							}else {
-								console.log("status = " + status + " received");
-							}
-						} else {
-							console.log("status = " + status + " received");
-						}
-					};
-					xhttp.open("GET", guxx(parm), true);
-					xhttp.send();
-				}
-			});		
-			
-			var xhr_address;
-			jQuery(ms_address).on('keyup', function(event){
-				
-				if(! direct){				
-					if(xhr_address && xhr_address.readyState != 4){
-						xhr_address.abort();
-					}
-					
-					event.preventDefault();
-					
-					clearTimeout(timer);
-					//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
-					timer = setTimeout(function () {
-						//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
-						var inputText = ms_address.getRawValue();
-						
-						console.time('populate address');
-						xhr_address = jQuery.ajax({
-							type: 'POST',
-							dataType : 'json',
-							url: zipperagent.ajaxurl,
-							data: {
-								'key': inputText,
-								'action': 'address_options',
-							},
-							success: function( response ) {         
-								if( response ){
-									var data = response.addresses;
-									ms_address.setData(data);
-								}
-								console.timeEnd('populate address');
-							},
-							error: function(){
-								console.timeEnd('populate address');
-							}
-						});
-					}, 500);
-				}else{
-					console.time('populate address');
-					
-					var parm=[];
-					var subdomain=zppr.data.root.web.subdomain;
-					var customer_key=zppr.data.root.web.authorization.consumer_key;
-					var ps=10;
-					var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-					var crit = "";
-					var response=false;
-					var gs=0;
-					var ms=0;
-					var hs=0;
-					var sd=0;
-					var addr=1;
-					var inputText = ms_address.getRawValue();
-					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
-					
-					var xhttp = new XMLHttpRequest();
-					xhttp.onreadystatechange = function() {
-
-						if (this.readyState == 4 ) {
-							if(this.status == 200){
-							
-								response=JSON.parse(this.responseText);
-								if(response.responseCode===200){
-									
-									var data = zppr.populate_addresses(response);
-									ms_address.setData(data);
-									
-									console.timeEnd('populate address');
-								}
-								
-							}else {
-								console.log("status = " + status + " received");
-							}
-						} else {
-							console.log("status = " + status + " received");
-						}
-					};
-					xhttp.open("GET", guxx(parm), true);
-					xhttp.send();
-				}
-			});
-
-			var xhr_all;
-				jQuery(ms_all).on('keyup', function(event){
-					
-					if(! direct){
-						if(xhr_all && xhr_all.readyState != 4){
-							xhr_all.abort();
-						}
-						
-						event.preventDefault();
-						
-						clearTimeout(timer);
-						//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
-						timer = setTimeout(function () {
-							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
-							var inputText = ms_all.getRawValue();
-							
-							console.time('populate address & school');
-							xhr_all = jQuery.ajax({
-								type: 'POST',
-								dataType : 'json',
-								url: zipperagent.ajaxurl,
-								data: {
-									'key': inputText,
-									'action': 'address_and_school_options',
-								},
-								success: function( response ) {         
-									if( response ){
-										var data = response.addresses;
-										var combined = jQuery.merge(data, all);
-										ms_all.setData(combined);
-									}
-									console.timeEnd('populate address & school');
-								},
-								error: function(){
-									console.timeEnd('populate address & school');
-								}
-							});
-						}, 500);
-					}else{
-						console.time('populate address & school');
-						
-						var parm=[];
-						var subdomain=zppr.data.root.web.subdomain;
-						var customer_key=zppr.data.root.web.authorization.consumer_key;
-						var ps=5;
-						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-						var crit = "";
-						var response=false;
-						var gs=1;
-						var ms=1;
-						var hs=1;
-						var sd=1;
-						var addr=1;
-						var inputText = ms_all.getRawValue();
-						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
-						
-						var xhttp = new XMLHttpRequest();
-						xhttp.onreadystatechange = function() {
-
-							if (this.readyState == 4 ) {
-								if(this.status == 200){
-								
-									response=JSON.parse(this.responseText);
-									if(response.responseCode===200){
-										
-										var data = zppr.populate_addresses_and_schools(response);
-										var combined = jQuery.merge(data, all);
-										ms_all.setData(combined);
-										
-										console.timeEnd('populate address & school');
-									}
-									
-								}else {
-									console.log("status = " + status + " received");
-								}
-							} else {
-								console.log("status = " + status + " received");
-							}
-						};
-						xhttp.open("GET", guxx(parm), true);
-						xhttp.send();
-					}
-				});	
 			
 			$(ms_town).on('selectionchange', function(e,m){		
 				var values = this.getValue();
@@ -1697,50 +1397,6 @@ $contactIds = get_contact_id();
 				jQuery('#zpa-search-filter-form').submit();
 			});
 			
-			$(ms_school3).on('selectionchange', function(e,m){		
-				var values = this.getValue();
-				var value  = values[0];
-				var data   = this.getData();
-				var label;
-				
-				for(i=0; i<data.length; i++){
-					if(data[i].code==value){
-						label = data[i].name;
-					}
-				}
-				
-				var name = 'location[]';
-				var linked_name = 'location_'+value;
-				
-				this.removeFromSelection(this.getSelection(), true);
-				addFilterLabel(name, value, linked_name, label);
-				addFormField(name,value,linked_name);
-				
-				jQuery('#zpa-search-filter-form').submit();
-			});
-			
-			$(ms_address).on('selectionchange', function(e,m){		
-				var values = this.getValue();
-				var value  = values[0];
-				var data   = this.getData();
-				var label;
-				
-				for(i=0; i<data.length; i++){
-					if(data[i].code==value){
-						label = data[i].name;
-					}
-				}
-				
-				var name = 'location[]';
-				var linked_name = 'location_'+value;
-				
-				this.removeFromSelection(this.getSelection(), true);
-				addFilterLabel(name, value, linked_name, label);
-				addFormField(name,value,linked_name);
-				
-				jQuery('#zpa-search-filter-form').submit();
-			});
-			
 			$(ms_all).on('selectionchange', function(e,m){		
 				var values = this.getValue();
 				var value  = values[0];
@@ -1761,16 +1417,6 @@ $contactIds = get_contact_id();
 				}else if (value.toLowerCase().indexOf("acnty_") >= 0){ //county
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
-					is_location=1;
-				}else if (value.toLowerCase().indexOf("aflladdr_") >= 0){ //crm address
-					is_location=1;
-				}else if (value.toLowerCase().indexOf("hschl_") >= 0){ //high school
-					is_location=1;
-				}else if (value.toLowerCase().indexOf("mschl_") >= 0){ //middle school
-					is_location=1;
-				}else if (value.toLowerCase().indexOf("gschl_") >= 0){ //grade school
-					is_location=1;
-				}else if (value.toLowerCase().indexOf("aschdt_") >= 0){ //grade school
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("alkchnnm_") >= 0){ //lake
 					is_lake=1;
@@ -1938,7 +1584,7 @@ $contactIds = get_contact_id();
 			$(ms_all).on('keydown', function(e,m,v){
 				var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
 				var magicSuggest_option_exists = data.length;
-				var google_option_exists = 0;
+				var google_option_exists = $('body .pac-container.pac-logo').html().length;
 				
 				if(magicSuggest_option_exists){
 					ms_all__google_autocomplete=0;

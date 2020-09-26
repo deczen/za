@@ -99,7 +99,10 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	
 	<div class="zpa-listing-detail">	
 		
-		<?php zipperagent_omnibar($requests); ?>
+		<?php 
+		$omnibar_params=$requests;
+		$omnibar_params['direct']=1;
+		zipperagent_omnibar($omnibar_params); ?>
 		
 		<?php if( $is_search_apply ): ?>
 		<div id="zipperagent-content"><img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" /></div>

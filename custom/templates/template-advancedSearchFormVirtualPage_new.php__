@@ -14,8 +14,7 @@ global $requests;
 		?>
         <form id="zpa-main-search-form" class="form-inline" action="<?php echo $actionUrl ?>" method="GET" target="_self" novalidate="novalidate">
             <fieldset>
-				
-				<div class="row">
+                <div class="row">
                     <div class="col-xs-12" id="zpa-search-tabs">
 						<ul class="nav nav-tabs" id="zpa-search-location-tabs">
                             <li class=" active "> <a id="zpa-location-tab" href="#zpa-search-location-tab" data-toggle="tab" data-zpa-search-tab="location"> Location </a> </li>
@@ -27,140 +26,341 @@ global $requests;
 								jQuery(this).tab('show');
 							})
 						</script>
+                        <div class="tab-content">
+							<div id="zpa-search-location-tab" class="tab-pane active">
+								<div>
+									<div class="row mt-10" id="areaPickerContainer">										
+										<div class="col-xs-12">
+											<label for="zpa-area-input" class="field-label"> Location </label>
+											<?php /* <input id="zpa-area-input" class="zpa-area-input form-control" placeholder="Enter City / County / Zip"  name="location[]"/>
+											<input class="zpa-area-input-hidden" name="" type="hidden"> */ ?>
+											<div id="zpa-search-location" class="zpa-search-location col-xs-9 col-sm-10">
+												<div class="search-by dropdown">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Search By
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+													<ul>
+														<li><a id="all" href="#"><input type="radio" name="search_category" checked /> All Categories</a></li>
+														<li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li>
+														<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
+														<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
+														<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
+														<!-- <li><a id="lake" href="#"><input type="radio" name="search_category" /> Lake</a></li> -->
+														<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
+														<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
+														<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
+														<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
+													</ul>
+												  </div>
+												</div>
+												<div class="field-wrap">
+													<div class="field-section all">
+														<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="" aria-label="search" />
+														<input id="zpa-all-input-address" type="hidden" value="" />
+														<input id="zpa-all-input-address-values" type="hidden" value="" />
+														<div style="display:none;" class="input-fields"></div>
+													</div>
+													<div class="field-section addr hide">
+														<input type="text" id="zpa-area-address" class="form-control" placeholder="Type any Address" />
+																																										
+														<input type="hidden" id="street_number" name="advStNo" disabled="true" />
+														<input type="hidden" id="route" name="advStName" disabled="true" />
+														<input type="hidden" id="locality" name="advTownNm" disabled="true" />
+														<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
+														<input type="hidden" id="country" name="advCounties" disabled="true" />
+														<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
+													</div>
+													<div class="field-section area hide">
+														<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
+													</div>
+													<div class="field-section town hide">
+														<input id="zpa-town-input" class="form-control" placeholder="Type any City or Town"  name="location[]"/>
+													</div>
+													<div class="field-section county hide">
+														<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
+													</div>
+													<div class="field-section lake hide">
+														<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
+													</div>
+													<div class="field-section listid hide">
+														<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name=""/>
+														<div style="display:none;" class="input-fields"></div>
+													</div>
+													<div class="field-section school hide">
+														<input type="text" id="zpa-school" class="form-control" placeholder="Type any Address" />
+														
+														<input type="hidden" id="lat" name="lat" />
+														<input type="hidden" id="lng" name="lng" />
+													</div>
+													<div class="field-section school2 hide">
+														<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
+													</div>
+													<div class="field-section zip hide">
+														<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
+													</div>
+												</div>
+												<script>
+													jQuery('body').on('click', '.zpa-search-location .search-by .dropdown-menu a', function(){
+														var id = jQuery(this).attr('id');
+														var targetClass = id;
+														
+														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +') input').prop('disabled',true);
+														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass+' input').prop('disabled',false);
+														
+														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
+														jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
+														
+														jQuery(this).find('input').attr('checked', true);
+														
+														jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
+														
+														jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' ); //force google autocomplete dropdown visible
+														
+														return false;
+													});
+												</script>
+											</div>
+										</div>
+										<?php /*
+										<div class="col-xs-12">
+											<div class="input-group"> <span class="input-group-addon" style="margin:2px;"> <span class="fs-12 hidden-xs areaPickerExpandAllButtonClass"> View All </span> <span class="glyphicon glyphicon-align-justify fs-12 hidden-xs areaPickerExpandAllButtonClass"></span> </span>
+												<div class="form-control" id="areaPickerInputWrapper"> <span id="zpa-selectedAreas" style="float:left;"></span> <span style="float:left;"> <input name="location" id="areaPicker" type="text" size="30" placeholder="" autocomplete="off" class="areaPickerDefaultText"> </span> </div>
+											</div>
+										</div>										
+											
+										<div class="col-xs-12"> <span id="zpa-selectedAreasLabel" style="display:none;"></span>
+											<div id="autocompleteMatch">
+												<div id="autocompleteMatchValues"></div>
+												<div class="areaPickerExpandAllButtonClass">
+													<button type="button" class="btn-link"> View All </button>
+												</div>
+											</div>
+											<div id="areaPickerExpandAll">
+												<div class="areaPickerExpandAllTopBar btn-primary">
+													<div id="areaPickerCustomListToggle" style="cursor: pointer; display: none;">&nbsp;+&nbsp;More</div>
+													<div id="areaPickerClearAll" style="cursor:pointer;"> <span class="glyphicon glyphicon-remove-circle" style="font-size:12px;color:#999;"></span> Clear </div>
+													<div id="areaPickerExpandAllCloseButton" class="areaPickerExpandAllButtonClass"> <span class="badge"> Close </span> </div>
+												</div>
+												<div id="areaPickerExpandAllContainer">
+													<div id="areaPickerExpandAllResults"></div>
+												</div>
+											</div>
+										</div>
+										 */ ?>
+									</div>
+								</div>
+									
+							</div>	
+							<?php /* if($addressSearch): ?>
+							<div id="zpa-search-address-tab" class="tab-pane">
+								<div>									
+									 <div class="row mt-10">							
+									
+										 <div id="locationField" class="col-xs-12">
+											<label for="zpa-area-address" class="field-label"> Address </label>
+											<input type="text" id="zpa-area-address" class="zpa-area-address form-control" placeholder="Type address here" onFocus="geolocate()" name="address" disabled />
+																																	
+											<input type="hidden" id="street_number" name="advStNo" disabled="true" />
+											<input type="hidden" id="route" name="advStName" disabled="true" />
+											<input type="hidden" id="locality" name="advTownNm" disabled="true" />
+											<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
+											<input type="hidden" id="country" name="advCounties" disabled="true" />
+											<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
+										</div>
+									</div>
+								</div>
+									
+							</div>
+							<?php endif; 													
+							<div id="zpa-search-listingids-tab" class="tab-pane">
+								<div>									
+									<div class="row mt-10">				
+										<div class="col-xs-12">
+											<label for="zpa-listingids" class="field-label"> Listing Id </label>
+											<input id="zpa-listingids" class="zpa-area-input form-control" placeholder="Comma separted listing ids"  name="alstid" disabled />
+										</div>
+									</div>
+								</div>
+							</div> */ ?>
+							<div id="zpa-search-polygon-tab" class="tab-pane">
+								<div id="map-fields" class="row mt-10">
+									 <div class="col-xs-12 col-sm-4 mb-10">
+										<label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
+										<div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
+										<?php /*
+										<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple" disabled>
+											<?php
+											$propTypeFields = get_property_type();
+											$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
+											$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+										
+											foreach( $propTypeFields as $fieldCode=>$fieldName ){
+												if($propTypeOption){
+													if(in_array($fieldCode, $propTypeOption)){
+														echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+													}
+												}else{
+													// echo $propDefaultOption . " == " . $fieldCode. "<br>";
+													// if(in_array($fieldCode, $propDefaultOption))
+														// $selected="selected";
+													// else
+														// $selected="";
+													
+													echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+												}										
+											}
+											?>
+										</select> */ ?>
+										
+										<div class="dropdown cq-dropdown">
+											<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+											<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
+												<?php
+												$propTypeFields = get_property_type();
+												$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
+												$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
+												
+												//generate proptype options
+												foreach( $propTypeFields as $fieldCode=>$fieldName ){
+													// echo $propDefaultOption . " == " . $fieldCode. "<br>";
+													if(in_array($fieldCode, $propDefaultOption))
+														$checked="checked";
+													else
+														$checked="";
+														
+													if($propTypeOption){
+														if(in_array($fieldCode, $propTypeOption)){
+															echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
+															echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";
+														}
+													}else{									
+														echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked disabled>{$fieldName} </label></li>";
+													}										
+												}
+												
+												$propSubTypeFields = get_property_sub_type();
+												
+												//generate propsubtype options
+												foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
+													
+													if(in_array($fieldCode, $propDefaultOption))
+														$checked="checked";
+													else
+														$checked="";
+														
+													echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked disabled>{$fieldName} </label></li>";																		
+												}
+												
+												if($extra_proptypes = zipperagent_extra_proptype()){
+													foreach($extra_proptypes as $key=>$extra_proptype){
+														echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"". strtolower($extra_proptype['abbrev']) ."\" value='". $extra_proptype['selectValue'] ."' disabled>". $extra_proptype['displayName'] ." </label></li>";
+													}
+												}
+												?>
+											</ul>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-2 mb-10">
+										<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
+										<div class="" style="position:relative;">
+											<div class="zpa-label-overlay-money"> $ </div>
+											<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>" disabled /> </div>
+									</div>
+									<div class="col-xs-12 col-sm-2 mb-10">
+										<label for="zpa-maxprice-homes" class="field-label zpa-maxprice-label"> Max. Price </label>
+										<div class="" style="position:relative;">
+											<div class="zpa-label-overlay-money"> $ </div>
+											<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>" disabled /> </div>
+									</div>
+									<div class="col-xs-12 col-sm-2 mb-10">
+										<label for="zpa-select-bedrooms-homes" class="field-label zpa-select-bedrooms-label"> Beds </label>
+										<select id="zpa-select-bedrooms-homes" name="bedrooms" class="form-control zpa-chosen-select-width">
+											<option value="">Any</option>
+											<option value="1">1+</option>
+											<option value="2">2+</option>
+											<option value="3">3+</option>
+											<option value="4">4+</option>
+											<option value="5">5+</option>
+										</select>
+									</div>
+									<div class="col-xs-12 col-sm-2 mb-10">
+										<label for="zpa-select-baths-homes" class="field-label zpa-select-baths-label"> Baths </label>
+										<select id="zpa-select-baths-homes" name="bathCount" class="form-control zpa-chosen-select-width">
+											<option value="">Any</option>
+											<option value="1">1+</option>
+											<option value="2">2+</option>
+											<option value="3">3+</option>
+											<option value="4">4+</option>
+											<option value="5">5+</option>
+										</select>
+									</div>
+								</div>
+								<div class="row mb-10">
+									<div class="col-xs-12 mt-10"> Click or tap on the map to begin. To edit your completed polygon, drag any point to a new location. </div>
+									<div class="col-xs-12">
+										<div id="panel">
+										  <div id="color-palette" style="display:none"></div>
+										  <div class="pull-left" id="div-maps">
+											<?php $get_map_centre = zipperagent_get_map_centre(); ?>
+											<ul class="map-lists">
+												<?php if( (!empty($get_map_centre['za_lat_2']) && !empty($get_map_centre['za_lng_2'])) 
+													|| (!empty($get_map_centre['za_lat_3']) && !empty($get_map_centre['za_lng_3'])) 
+													|| (!empty($get_map_centre['za_lat_4']) && !empty($get_map_centre['za_lng_4'])) 
+													|| (!empty($get_map_centre['za_lat_5']) && !empty($get_map_centre['za_lng_5'])) 
+													|| (!empty($get_map_centre['za_lat_6']) && !empty($get_map_centre['za_lng_6'])) 
+													|| (!empty($get_map_centre['za_lat_7']) && !empty($get_map_centre['za_lng_7'])) 
+													|| (!empty($get_map_centre['za_lat_8']) && !empty($get_map_centre['za_lng_8'])) 
+													|| (!empty($get_map_centre['za_lat_9']) && !empty($get_map_centre['za_lng_9'])) 
+													|| (!empty($get_map_centre['za_lat_10']) && !empty($get_map_centre['za_lng_10'])) ): ?>
+													<li class="map-item map-item-1"><?php echo $get_map_centre['za_label']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_2']) && !empty($get_map_centre['za_lng_2'])): ?>
+													<li class="map-item map-item-2"><?php echo $get_map_centre['za_label_2']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_3']) && !empty($get_map_centre['za_lng_3'])): ?>	
+													<li class="map-item map-item-3"><?php echo $get_map_centre['za_label_3']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_4']) && !empty($get_map_centre['za_lng_4'])): ?>
+													<li class="map-item map-item-4"><?php echo $get_map_centre['za_label_4']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_5']) && !empty($get_map_centre['za_lng_5'])): ?>
+													<li class="map-item map-item-5"><?php echo $get_map_centre['za_label_5']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_6']) && !empty($get_map_centre['za_lng_6'])): ?>
+													<li class="map-item map-item-6"><?php echo $get_map_centre['za_label_6']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_7']) && !empty($get_map_centre['za_lng_7'])): ?>
+													<li class="map-item map-item-7"><?php echo $get_map_centre['za_label_7']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_8']) && !empty($get_map_centre['za_lng_8'])): ?>
+													<li class="map-item map-item-8"><?php echo $get_map_centre['za_label_8']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_9']) && !empty($get_map_centre['za_lng_9'])): ?>
+													<li class="map-item map-item-9"><?php echo $get_map_centre['za_label_9']; ?></li>
+												<?php endif; ?>
+												<?php if(!empty($get_map_centre['za_lat_10']) && !empty($get_map_centre['za_lng_10'])): ?>
+													<li class="map-item map-item-10"><?php echo $get_map_centre['za_label_10']; ?></li>
+												<?php endif; ?>
+											</ul>
+										  </div>
+										  <div class="pull-right">
+											<button id="delete-button">Delete Selected Shape</button>
+										  </div>
+										</div>
+										<div id="map" style="height: 400px; width: 100%"></div>
+										<div id="zpa-map-canvas" style="height: 400px; width: 100%"></div>
+									</div>
+								</div>
+								<input id="zpa-boundary" name="boundaryWKT" type="hidden" value="" disabled="disabled">
+								
+							</div>	
+						</div>
 					</div>
-				</div>
+                </div>
 				
-				<?php /* <div id="location-fields"> */ ?>
-				<div id="main-fields">
-					<div class="row mt-10" id="areaPickerContainer">										
-						<div class="col-xs-12">
-							<label for="zpa-area-input" class="field-label"> Location </label>
-							<?php /* <input id="zpa-area-input" class="zpa-area-input form-control" placeholder="Enter City / County / Zip"  name="location[]"/>
-							<input class="zpa-area-input-hidden" name="" type="hidden"> */ ?>
-							<div id="zpa-search-location" class="zpa-search-location col-xs-9 col-sm-10">
-								<div class="search-by dropdown">
-								  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Search By
-								  </button>
-								  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<ul>
-										<li><a id="all" href="#"><input type="radio" name="search_category" checked /> All Categories</a></li>
-										<!-- <li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li> -->
-										<li><a id="addr2" href="#"><input type="radio" name="search_category" /> Address</a></li>
-										<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
-										<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
-										<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
-										<!-- <li><a id="lake" href="#"><input type="radio" name="search_category" /> Lake</a></li> -->
-										<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
-										<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
-										<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
-										<li><a id="school3" href="#"><input type="radio" name="search_category" /> School</a></li>
-										<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
-									</ul>
-								  </div>
-								</div>
-								<div class="field-wrap">
-									<div class="field-section all">
-										<input id="zpa-all-input" class="zpa-area-input form-control" placeholder="Type any Address, Area, City, County, MLS# or Zip Code"  name="" aria-label="search" />
-										<input id="zpa-all-input-address" type="hidden" value="" />
-										<input id="zpa-all-input-address-values" type="hidden" value="" />
-										<div style="display:none;" class="input-fields"></div>
-									</div>
-									<div class="field-section addr hide">
-										<input type="text" id="zpa-area-address" class="form-control" placeholder="Type any Address" />
-																																						
-										<input type="hidden" id="street_number" name="advStNo" disabled="true" />
-										<input type="hidden" id="route" name="advStName" disabled="true" />
-										<input type="hidden" id="locality" name="advTownNm" disabled="true" />
-										<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
-										<input type="hidden" id="country" name="advCounties" disabled="true" />
-										<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
-									</div>
-									<div class="field-section addr2 hide">
-										<input type="text" id="zpa-address-key" class="form-control" placeholder="Type any Address" name="location[]"/>
-									</div>
-									<div class="field-section area hide">
-										<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
-									</div>
-									<div class="field-section town hide">
-										<input id="zpa-town-input" class="form-control" placeholder="Type any City or Town"  name="location[]"/>
-									</div>
-									<div class="field-section county hide">
-										<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
-									</div>
-									<div class="field-section lake hide">
-										<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
-									</div>
-									<div class="field-section listid hide">
-										<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name=""/>
-										<div style="display:none;" class="input-fields"></div>
-									</div>
-									<div class="field-section school hide">
-										<input type="text" id="zpa-school" class="form-control" placeholder="Type any Address" />
-										
-										<input type="hidden" id="lat" name="lat" />
-										<input type="hidden" id="lng" name="lng" />
-									</div>
-									<div class="field-section school2 hide">
-										<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
-									</div>
-									<div class="field-section school3 hide">
-										<input id="zpa-school3-input" class="form-control" placeholder="Type any Address"  name="location[]"/>
-									</div>
-									<div class="field-section zip hide">
-										<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
-									</div>
-								</div>
-								<script>
-									jQuery('body').on('click', '.zpa-search-location .search-by .dropdown-menu a', function(){
-										var id = jQuery(this).attr('id');
-										var targetClass = id;
-										
-										jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +') input').prop('disabled',true);
-										jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass+' input').prop('disabled',false);
-										
-										jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
-										jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
-										
-										jQuery(this).find('input').prop('checked', true);
-										
-										jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
-										
-										jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' ); //force google autocomplete dropdown visible
-										
-										return false;
-									});
-								</script>
-							</div>
-						</div>
-						<?php /*
-						<div class="col-xs-12">
-							<div class="input-group"> <span class="input-group-addon" style="margin:2px;"> <span class="fs-12 hidden-xs areaPickerExpandAllButtonClass"> View All </span> <span class="glyphicon glyphicon-align-justify fs-12 hidden-xs areaPickerExpandAllButtonClass"></span> </span>
-								<div class="form-control" id="areaPickerInputWrapper"> <span id="zpa-selectedAreas" style="float:left;"></span> <span style="float:left;"> <input name="location" id="areaPicker" type="text" size="30" placeholder="" autocomplete="off" class="areaPickerDefaultText"> </span> </div>
-							</div>
-						</div>										
-							
-						<div class="col-xs-12"> <span id="zpa-selectedAreasLabel" style="display:none;"></span>
-							<div id="autocompleteMatch">
-								<div id="autocompleteMatchValues"></div>
-								<div class="areaPickerExpandAllButtonClass">
-									<button type="button" class="btn-link"> View All </button>
-								</div>
-							</div>
-							<div id="areaPickerExpandAll">
-								<div class="areaPickerExpandAllTopBar btn-primary">
-									<div id="areaPickerCustomListToggle" style="cursor: pointer; display: none;">&nbsp;+&nbsp;More</div>
-									<div id="areaPickerClearAll" style="cursor:pointer;"> <span class="glyphicon glyphicon-remove-circle" style="font-size:12px;color:#999;"></span> Clear </div>
-									<div id="areaPickerExpandAllCloseButton" class="areaPickerExpandAllButtonClass"> <span class="badge"> Close </span> </div>
-								</div>
-								<div id="areaPickerExpandAllContainer">
-									<div id="areaPickerExpandAllResults"></div>
-								</div>
-							</div>
-						</div>
-						 */ ?>
-					</div>
-					<div class="row mt-25">
+				<div id="location-fields">
+					<div class="row mt-25 filter">
 						<div class="col-xs-12 col-sm-6 mb-10">
 							<label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
 							<div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
@@ -300,7 +500,7 @@ global $requests;
 						<div class="col-xs-12 col-sm-3 mb-10"> <span id="zpa-status-fields"> <label for="zpa-status" class="field-label zpa-status-label"> Status </label> <div> <label class="radio-inline"> <input class="radio" name="status" value="" type="radio" checked> Active </label>  <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_sold_status(); ?>" type="radio"> Sold </label> <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_pending_status(); ?>" type="radio"> Pending </label> </div> </span> </div>
 					</div>
 					<div id="zpa-house-condo-search-fields" class="">
-						<div class="row mt-25 zpa-home-search-fields">
+						<div class="row mt-25 zpa-home-search-fields filter">
 							<div class="col-xs-12 col-sm-3">
 								<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
@@ -342,7 +542,7 @@ global $requests;
 						</div>
 					</div>
 					<div id="zpa-lots-land-search-fields" class="hide">
-						<div class="row mt-10 zpa-lot-land-search-fields">
+						<div class="row mt-10 zpa-lot-land-search-fields filter">
 							<div class="col-xs-12 col-sm-4 col-lg-4 mb-10">
 								<label for="zpa-minprice-lots-land" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
@@ -363,7 +563,7 @@ global $requests;
 						</div>
 					</div>
 					<div id="zpa-commercial-search-fields" class="hide">
-						<div class="row mt-10 zpa-commercial-search-fields">
+						<div class="row mt-10 zpa-commercial-search-fields filter">
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-minprice-commercial" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
@@ -384,7 +584,7 @@ global $requests;
 					</div>
 					<?php /*
 					<div id="zpa-residential-income-search-fields" class="hide">
-						<div class="row mt-10 zpa-residential-income-search-fields">
+						<div class="row mt-10 zpa-residential-income-search-fields filter">
 							<div class="col-xs-12 col-sm-4 col-lg-4">
 								<label for="zpa-minprice-res-income" class="field-label zpa-minprice-label"> Min. Price </label>
 								<div class="" style="position:relative;">
@@ -406,7 +606,7 @@ global $requests;
 						</div>
 					</div>
 					*/ ?>
-					<div class="row mt-25">
+					<div class="row mt-25 filter">
 						<div class="col-xs-12 col-sm-3 mb-10">
 							<label for="zpa-select-order-by" class="field-label zpa-select-order-by-label"> Sort by </label>
 							<?php 
@@ -470,29 +670,29 @@ global $requests;
 					<div class="row mt-25">
 						<div class="col-xs-8">
 							<?php if(is_show_extra_search_feature()): ?>
-							<div class="checkbox">
+							<div class="checkbox filter">
 								<label class="field-label zpa-featured-only-label">
 									<input id="zpa-open-homes-only" name="featuredOnlyYn" type="checkbox" value="true">
 									<?php /* <input type="hidden" name="_featuredOnlyYn" value="on"> */ ?> Featured </label>
 							</div>
 							
-							<div class="checkbox">
+							<div class="checkbox filter">
 								<label class="field-label zpa-open-homes-only-label">
 									<input id="zpa-open-homes-only" name="openHomesOnlyYn" type="checkbox" value="true"> Open Houses </label>
 							</div>
-							<div class="checkbox">
+							<div class="checkbox filter">
 								<label class="field-label zpa-has-virtual-tour-label">
 									<input id="zpa-has-virtual-tour" name="hasVirtualTour" type="checkbox" value="true"> Virtual Tour </label>
 							</div>
-							<div class="checkbox">
+							<div class="checkbox filter">
 								<label class="field-label zpa-with-image-label">
 									<input id="zpa-with-image" name="withImage" type="checkbox" value="true"> With Image </label>
 							</div>
-							<div class="checkbox">
+							<div class="checkbox filter">
 								<label class="field-label zpa-with-image-label">
 									<input id="zpa-with-image" name="apold" type="checkbox" value="$$ISNOTNULL$$"> Pool Description </label>
 							</div>
-							<div class="checkbox">
+							<div class="checkbox filter">
 								<label class="field-label zpa-with-image-label">
 									<input id="zpa-with-image" name="awtrf" type="checkbox" value="1"> Waterfront Flag </label>
 							</div>
@@ -506,6 +706,9 @@ global $requests;
 							*/ ?>
 							<?php endif; ?>
 						</div>
+						<div class="col-xs-4" style="text-align:right;">
+							<button id="zpa-main-search-form-submit" type="submit" class="btn btn-lg btn-block btn-primary btn-form-submit"> Search </button>
+						</div>
 					</div>
 					<?php /*
 					<div class="row mt-25">
@@ -513,229 +716,6 @@ global $requests;
 					</div>
 					*/ ?>
 				</div>
-				
-                <div class="row">
-                    <div class="col-xs-12" id="zpa-tab-content">
-                        <div class="tab-content">
-							<div id="zpa-search-location-tab" class="tab-pane active">
-								
-									
-							</div>	
-							<?php /* if($addressSearch): ?>
-							<div id="zpa-search-address-tab" class="tab-pane">
-								<div>									
-									 <div class="row mt-10">							
-									
-										 <div id="locationField" class="col-xs-12">
-											<label for="zpa-area-address" class="field-label"> Address </label>
-											<input type="text" id="zpa-area-address" class="zpa-area-address form-control" placeholder="Type address here" onFocus="geolocate()" name="address" disabled />
-																																	
-											<input type="hidden" id="street_number" name="advStNo" disabled="true" />
-											<input type="hidden" id="route" name="advStName" disabled="true" />
-											<input type="hidden" id="locality" name="advTownNm" disabled="true" />
-											<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
-											<input type="hidden" id="country" name="advCounties" disabled="true" />
-											<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
-										</div>
-									</div>
-								</div>
-									
-							</div>
-							<?php endif; 													
-							<div id="zpa-search-listingids-tab" class="tab-pane">
-								<div>									
-									<div class="row mt-10">				
-										<div class="col-xs-12">
-											<label for="zpa-listingids" class="field-label"> Listing Id </label>
-											<input id="zpa-listingids" class="zpa-area-input form-control" placeholder="Comma separted listing ids"  name="alstid" disabled />
-										</div>
-									</div>
-								</div>
-							</div> */ ?>
-							<div id="zpa-search-polygon-tab" class="tab-pane">
-								<?php /*
-								<div id="map-fields" class="row mt-10">
-									 <div class="col-xs-12 col-sm-4 mb-10">
-										<label for="zpa-select-property-type" class="field-label zpa-select-property-type-label"> Property Type </label>
-										<div class="zpa-property-type-message" style="display: none;"> <small> Some selected areas can be used only in residential property searches </small> </div>
-										<?php /*
-										<select id="zpa-select-property-type" name="propertyType[]" class="form-control multiselect" multiple="multiple" disabled>
-											<?php
-											$propTypeFields = get_property_type();
-											$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
-											$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
-										
-											foreach( $propTypeFields as $fieldCode=>$fieldName ){
-												if($propTypeOption){
-													if(in_array($fieldCode, $propTypeOption)){
-														echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
-													}
-												}else{
-													// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-													// if(in_array($fieldCode, $propDefaultOption))
-														// $selected="selected";
-													// else
-														// $selected="";
-													
-													echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
-												}										
-											}
-											?>
-										</select> * ?>
-										
-										<div class="dropdown cq-dropdown">
-											<button class="btn btn-default dropdown-toggle form-control" type="button" id="proptype-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
-											<ul class="dropdown-menu" aria-labelledby="proptype-dropdown">
-												<?php
-												$propTypeFields = get_property_type();
-												$propTypeOption = !empty($requests['property_type_option']) ? explode( ',', $requests['property_type_option'] ) : array();
-												$propDefaultOption = !empty($requests['property_type_default']) ? explode(',',$requests['property_type_default']) : za_get_default_proptype();
-												
-												//generate proptype options
-												foreach( $propTypeFields as $fieldCode=>$fieldName ){
-													// echo $propDefaultOption . " == " . $fieldCode. "<br>";
-													if(in_array($fieldCode, $propDefaultOption))
-														$checked="checked";
-													else
-														$checked="";
-														
-													if($propTypeOption){
-														if(in_array($fieldCode, $propTypeOption)){
-															echo "<option value='{$fieldCode}'>{$fieldName}</option>"."\r\n";
-															echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";
-														}
-													}else{									
-														echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propertyType[]\" value='{$fieldCode}' $checked disabled>{$fieldName} </label></li>";
-													}										
-												}
-												
-												$propSubTypeFields = get_property_sub_type();
-												
-												//generate propsubtype options
-												foreach( $propSubTypeFields as $fieldCode=>$fieldName ){
-													
-													if(in_array($fieldCode, $propDefaultOption))
-														$checked="checked";
-													else
-														$checked="";
-														
-													echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"propSubType[]\" value='{$fieldCode}' $checked disabled>{$fieldName} </label></li>";																		
-												}
-												
-												if($extra_proptypes = zipperagent_extra_proptype()){
-													foreach($extra_proptypes as $key=>$extra_proptype){
-														echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"". strtolower($extra_proptype['abbrev']) ."\" value='". $extra_proptype['selectValue'] ."' disabled>". $extra_proptype['displayName'] ." </label></li>";
-													}
-												}
-												?>
-											</ul>
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-2 mb-10">
-										<label for="zpa-minprice-homes" class="field-label zpa-minprice-label"> Min. Price </label>
-										<div class="" style="position:relative;">
-											<div class="zpa-label-overlay-money"> $ </div>
-											<input id="zpa-minprice-homes" name="minListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['minlistprice']; ?>" disabled /> </div>
-									</div>
-									<div class="col-xs-12 col-sm-2 mb-10">
-										<label for="zpa-maxprice-homes" class="field-label zpa-maxprice-label"> Max. Price </label>
-										<div class="" style="position:relative;">
-											<div class="zpa-label-overlay-money"> $ </div>
-											<input id="zpa-maxprice-homes" name="maxListPrice" placeholder="" type="text" class="form-control zpa-search-form-input input-number" value="<?php echo $requests['maxlistprice']; ?>" disabled /> </div>
-									</div>
-									<div class="col-xs-12 col-sm-2 mb-10">
-										<label for="zpa-select-bedrooms-homes" class="field-label zpa-select-bedrooms-label"> Beds </label>
-										<select id="zpa-select-bedrooms-homes" name="bedrooms" class="form-control zpa-chosen-select-width">
-											<option value="">Any</option>
-											<option value="1">1+</option>
-											<option value="2">2+</option>
-											<option value="3">3+</option>
-											<option value="4">4+</option>
-											<option value="5">5+</option>
-										</select>
-									</div>
-									<div class="col-xs-12 col-sm-2 mb-10">
-										<label for="zpa-select-baths-homes" class="field-label zpa-select-baths-label"> Baths </label>
-										<select id="zpa-select-baths-homes" name="bathCount" class="form-control zpa-chosen-select-width">
-											<option value="">Any</option>
-											<option value="1">1+</option>
-											<option value="2">2+</option>
-											<option value="3">3+</option>
-											<option value="4">4+</option>
-											<option value="5">5+</option>
-										</select>
-									</div>
-								</div> */ ?>
-								<div class="row mb-10 mt-30">
-									<div class="col-xs-12 mt-10"><em>Click or tap on the map to begin. To edit your completed polygon, drag any point to a new location.</em></div>
-									<div class="col-xs-12">
-										<div id="panel">
-										  <div id="color-palette" style="display:none"></div>
-										  <div class="pull-left" id="div-maps">
-											<?php $get_map_centre = zipperagent_get_map_centre(); ?>
-											<ul class="map-lists">
-												<?php if( (!empty($get_map_centre['za_lat_2']) && !empty($get_map_centre['za_lng_2'])) 
-													|| (!empty($get_map_centre['za_lat_3']) && !empty($get_map_centre['za_lng_3'])) 
-													|| (!empty($get_map_centre['za_lat_4']) && !empty($get_map_centre['za_lng_4'])) 
-													|| (!empty($get_map_centre['za_lat_5']) && !empty($get_map_centre['za_lng_5'])) 
-													|| (!empty($get_map_centre['za_lat_6']) && !empty($get_map_centre['za_lng_6'])) 
-													|| (!empty($get_map_centre['za_lat_7']) && !empty($get_map_centre['za_lng_7'])) 
-													|| (!empty($get_map_centre['za_lat_8']) && !empty($get_map_centre['za_lng_8'])) 
-													|| (!empty($get_map_centre['za_lat_9']) && !empty($get_map_centre['za_lng_9'])) 
-													|| (!empty($get_map_centre['za_lat_10']) && !empty($get_map_centre['za_lng_10'])) ): ?>
-													<li class="map-item map-item-1"><?php echo $get_map_centre['za_label']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_2']) && !empty($get_map_centre['za_lng_2'])): ?>
-													<li class="map-item map-item-2"><?php echo $get_map_centre['za_label_2']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_3']) && !empty($get_map_centre['za_lng_3'])): ?>	
-													<li class="map-item map-item-3"><?php echo $get_map_centre['za_label_3']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_4']) && !empty($get_map_centre['za_lng_4'])): ?>
-													<li class="map-item map-item-4"><?php echo $get_map_centre['za_label_4']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_5']) && !empty($get_map_centre['za_lng_5'])): ?>
-													<li class="map-item map-item-5"><?php echo $get_map_centre['za_label_5']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_6']) && !empty($get_map_centre['za_lng_6'])): ?>
-													<li class="map-item map-item-6"><?php echo $get_map_centre['za_label_6']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_7']) && !empty($get_map_centre['za_lng_7'])): ?>
-													<li class="map-item map-item-7"><?php echo $get_map_centre['za_label_7']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_8']) && !empty($get_map_centre['za_lng_8'])): ?>
-													<li class="map-item map-item-8"><?php echo $get_map_centre['za_label_8']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_9']) && !empty($get_map_centre['za_lng_9'])): ?>
-													<li class="map-item map-item-9"><?php echo $get_map_centre['za_label_9']; ?></li>
-												<?php endif; ?>
-												<?php if(!empty($get_map_centre['za_lat_10']) && !empty($get_map_centre['za_lng_10'])): ?>
-													<li class="map-item map-item-10"><?php echo $get_map_centre['za_label_10']; ?></li>
-												<?php endif; ?>
-											</ul>
-										  </div>
-										  <div class="pull-right">
-											<button id="delete-button">Delete Selected Shape</button>
-										  </div>
-										</div>
-										<div id="map" style="height: 400px; width: 100%"></div>
-										<div id="zpa-map-canvas" style="height: 400px; width: 100%"></div>
-									</div>
-								</div>
-								<input id="zpa-boundary" name="boundaryWKT" type="hidden" value="" disabled="disabled">
-								
-							</div>	
-						</div>
-					</div>
-                </div>
-				
-				<div class="row mt-25">
-					<div class="col-xs-8"></div>
-					<div class="col-xs-4" style="text-align:right;">
-						<button id="zpa-main-search-form-submit" type="submit" class="btn btn-lg btn-block btn-primary btn-form-submit"> Search </button>
-					</div>
-				</div>
-				
             </fieldset>
 			
 			
@@ -1299,7 +1279,7 @@ global $requests;
 	  });
     </script>
 	
-	<?php echo global_new_omnibar_script_v2(0, isset($requests['direct'])&&$requests['direct']?$requests['direct']:0); ?>
+	<?php echo global_new_omnibar_script(); ?>
 	
 	<script>
 		jQuery(document).ready(function($){

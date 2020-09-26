@@ -691,6 +691,33 @@ if( ! function_exists('populate_static_references') ){
 		return $obj;
 	}
 }
+
+if( ! function_exists('zipperagent_populate_new_autocomplete') ){
+	function zipperagent_populate_new_autocomplete($args=array()){
+		
+		$defaults=array(
+			// 'crit'=>'crit=asrc:0;asts:ACT',
+			'crit'=>'',
+			'text'=>'',
+			'gs'=>1,
+			'ms'=>1,
+			'hs'=>1,
+			'sd'=>1,
+			'addr'=>1,
+			'ps'=>5,
+		);
+		
+		$params = wp_parse_args( $args, $defaults );
+		
+		// echo "<pre>"; print_r($params); echo "</pre>";
+		
+		$obj = zipperagent_run_curl('/api/mls/autocompleteSchoolNdAddress', $params);
+		
+		return $obj;
+	}
+}
+
+
 if( ! function_exists('get_meta_fields') ){
 	function get_meta_fields(){
 		
@@ -2494,6 +2521,220 @@ if( ! function_exists('populate_schools') ){
 	}
 }
 
+if( ! function_exists('populate_schools3') ){
+	function populate_schools3($text,$limit=5){
+		
+		$args=array(
+			'text'=>$text,
+			'gs'=>1,
+			'ms'=>1,
+			'hs'=>1,
+			'sd'=>1,
+			'addr'=>0,
+			'ps'=>$limit,
+		);
+
+		$obj = zipperagent_populate_new_autocomplete($args);
+		
+		$includes = array(
+			'GRADESCHOOL',
+			'MIDDLESCHOOL',			
+			'HIGHSCHOOL',			
+			'SCHOOLDISTRICT',			
+		);
+		
+		$arr=array();
+		
+		foreach( $obj as $line ){
+				
+			if(!in_array($line->field, $includes))
+				continue;
+			
+			if(isset($line->buckets) && sizeof($line->buckets)){
+				
+				$type = strtolower($line->field);
+				$group = ucwords($type);
+				
+				foreach($line->buckets as $field){
+					
+					$prefix='';
+					switch($line->field){
+						case 'GRADESCHOOL':
+								$prefix='gschl';
+							break;
+						case 'MIDDLESCHOOL':
+								$prefix='mschl';
+							break;
+						case 'HIGHSCHOOL':
+								$prefix='hschl';
+							break;
+						case 'SCHOOLDISTRICT':
+								$prefix='aschdt';
+							break;
+					}
+					
+					$name = trim($field->value);
+					$value = trim($field->value);
+					$code = $prefix.'_'.$value;
+					
+					$arr[]=array(
+						'group'=>$group,
+						'name'=>$name,
+						'code'=>$code,
+						'type'=>$type,
+					);
+				}
+			}
+		}
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('populate_addresses') ){
+	function populate_addresses($text,$limit=10){
+		
+		$args=array(
+			'text'=>$text,
+			'gs'=>0,
+			'ms'=>0,
+			'hs'=>0,
+			'sd'=>0,
+			'addr'=>1,
+			'ps'=>$limit,
+		);
+
+		$obj = zipperagent_populate_new_autocomplete($args);
+		
+		$includes = array(
+			'FULLADDRESS',		
+		);
+		
+		$arr=array();
+		
+		foreach( $obj as $line ){
+				
+			if(!in_array($line->field, $includes))
+				continue;
+			
+			if(isset($line->buckets) && sizeof($line->buckets)){
+				
+				$type = strtolower($line->field);
+				$group = ucwords($type);
+				
+				foreach($line->buckets as $field){
+					
+					$prefix='';
+					switch($line->field){
+						case 'FULLADDRESS':
+								$prefix='aflladdr';
+							break;
+					}
+					
+					$name = trim($field->value);
+					$value = trim($field->value);
+					$code = $prefix.'_'.$value;
+					
+					$arr[]=array(
+						'group'=>$group,
+						'name'=>$name,
+						'code'=>$code,
+						'type'=>$type,
+					);
+				}
+			}
+		}
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('populate_addresses_and_schools') ){
+	function populate_addresses_and_schools($text,$limit=5){
+		
+		$args=array(
+			'text'=>$text,
+			'gs'=>1,
+			'ms'=>1,
+			'hs'=>1,
+			'sd'=>1,
+			'addr'=>1,
+			'ps'=>$limit,
+		);
+
+		$obj = zipperagent_populate_new_autocomplete($args);
+		
+		$includes = array(
+			'GRADESCHOOL',
+			'MIDDLESCHOOL',			
+			'HIGHSCHOOL',
+			'SCHOOLDISTRICT',
+			'FULLADDRESS',		
+		);
+		
+		$arr=array();
+		$arr_addr=array();
+		
+		foreach( $obj as $line ){
+				
+			if(!in_array($line->field, $includes))
+				continue;
+			
+			if(isset($line->buckets) && sizeof($line->buckets)){
+				
+				$type = strtolower($line->field);
+				$group = ucwords($type);
+				
+				foreach($line->buckets as $field){
+					
+					$prefix='';
+					switch($line->field){
+						case 'GRADESCHOOL':
+								$prefix='gschl';
+							break;
+						case 'MIDDLESCHOOL':
+								$prefix='mschl';
+							break;
+						case 'HIGHSCHOOL':
+								$prefix='hschl';
+							break;
+						case 'SCHOOLDISTRICT':
+								$prefix='aschdt';
+							break;
+						case 'FULLADDRESS':
+								$prefix='aflladdr';
+							break;
+					}
+					
+					$name = trim($field->value);
+					$value = trim($field->value);
+					$code = $prefix.'_'.$value;
+					
+					if($type=='fulladdress'){
+						$arr_addr[]=array(
+							'group'=>$group,
+							'name'=>$name,
+							'code'=>$code,
+							'type'=>$type,
+						);
+					}else{
+						$arr[]=array(
+						'group'=>$group,
+						'name'=>$name,
+						'code'=>$code,
+						'type'=>$type,
+					);
+					}
+				}
+			}
+		}
+		
+		$arr = array_merge_recursive( $arr_addr, $arr );
+		
+		return $arr;
+	}
+}
+
 if( ! function_exists('populate_countries') ){
 	function populate_countries($meta){
 		
@@ -4177,6 +4418,9 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 								case "azip":
 										$index='zipcodes';
 									break;
+								default:
+										$index=0;
+									break;
 								
 							}
 							
@@ -4186,6 +4430,8 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 										$label = $ety->name;
 									}
 								}					
+							}else{
+								$label = $code;
 							}
 							
 							echo 'addFilterLabel("'. strtolower($key) .'[]", "'. $value .'","'. strtolower($key) .'_'. $value .'", "'. $label .'");'."\r\n";
@@ -4213,6 +4459,7 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 	}
 }
 
+/*
 if( ! function_exists('global_new_omnibar_script') ){
 	function global_new_omnibar_script($auto_submit=0){
 	?>
@@ -4370,7 +4617,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 					},				
 				});
 				
-				/* magicSuggest actions */
+				/* magicSuggest actions *
 				
 				<?php if($auto_submit): ?>
 				//auto submit on change
@@ -4518,7 +4765,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 					}, 500);
 				});				
 				
-				/* Combine ms_all and google autocomplete */
+				/* Combine ms_all and google autocomplete *
 				var ms_all__rawValue='';
 				var ms_all__google_autocomplete;
 				var google_autocomplete_selected=0;
@@ -4618,7 +4865,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 							};
 							
 							console.log("xxx: " + type);
-						} */
+						} *
 
 						// add the modified listener
 						_addEventListener.apply(inp, [type, listener]);
@@ -4664,7 +4911,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 					// Create the autocomplete object, restricting the search to geographical
 					// location types.
 					autocomplete = new google.maps.places.Autocomplete(
-					/** @type {!HTMLInputElement} */(input), options);
+					/** @type {!HTMLInputElement} *(input), options);
 
 					// When the user selects an address from the dropdown, populate the address
 					// fields in the form.
@@ -4678,7 +4925,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 						google.maps.event.trigger(autocomplete, 'keydown', {
 							keyCode: 13
 						});
-					}) */
+					}) *
 				}
 
 				function fillInAddress() {
@@ -4752,6 +4999,1382 @@ if( ! function_exists('global_new_omnibar_script') ){
 					}
 				});
 				<?php endif; ?>
+				
+				/* auto select dropdown function (ms_all) *
+				var ms_all__afterDelete=0;
+				var ms_all__recentSelected=[];
+				var ms_all__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_all).on('keyup', function(){
+					ms_all__rawValue = ms_all.getRawValue();
+					ms_all__afterDelete=0;
+					
+					//set data on 
+					if(ms_all__rawValue.length===1)
+						ms_all.setData(all);
+				});
+				
+				//get current selected value
+				$(ms_all).on('focus', function(c){
+					ms_all__recentSelected = ms_all.getValue();
+					ms_all__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_all.expand();
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_all).on('blur', function(c, e){
+					var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_all__currentSelected = ms_all.getValue();
+					
+					// console.log(ms_all__recentSelected);
+					// console.log(ms_all__currentSelected);
+					// console.log('ms_all__rawValue: ' + ms_all__rawValue);
+					// console.log('ms_all__afterDelete: ' + ms_all__afterDelete);
+					
+					// if( ms_all__rawValue!="" && ms_all__currentSelected.length && ! ms_all__afterDelete && (ms_all__recentSelected.length == ms_all__currentSelected.length || !ms_all__recentSelected.length) ){
+					// if( ms_all__rawValue!="" && ! ms_all__afterDelete && ms_all__recentSelected.length == ms_all__currentSelected.length ){
+					if( ms_all__rawValue!="" && ! ms_all__afterDelete ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_all.setValue([firstData.code]);
+						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+							var val = ms_all__rawValue;
+							var prefix = 'alstid_';
+							var code = prefix + val;							
+							var label = 'MLS#' + val;
+							var push = {group:'Mls', name: label, code: code, type: 'mls' };
+							ms_all.setValue([push]);
+						}
+						
+						ms_all__afterDelete=0;
+						
+						$('#zpa-all-input input').focus();
+					}
+					
+					//reset data to tenants
+					if(tenants) ms_all.setData(tenants);
+				});
+				
+				//select value on enter key pressed
+				$(ms_all).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_all__rawValue!=""){
+							
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_all.setValue([firstData.code]);
+							}else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
+								var val = ms_all__rawValue;
+								var prefix = 'alstid_';
+								var code = prefix + val;							
+								var label = 'MLS#' + val;
+								var push = {group:'Mls', name: label, code: code, type: 'mls' };
+								ms_all.setValue([push]);
+							}
+						}
+						
+						ms_all.collapse();
+						
+						$('#zpa-all-input input').focus();
+					}
+				});				
+				
+				//select value on tab key pressed
+				$('#zpa-all-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_all__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_all.setValue([firstData.code]);
+							}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+								var val = ms_all__rawValue;
+								var prefix = 'alstid_';
+								var code = prefix + val;							
+								var label = 'MLS#' + val;
+								var push = {group:'Mls', name: label, code: code, type: 'mls' };
+								ms_all.setValue([push]);
+							}
+						}
+						
+						ms_all.empty();
+						$('#zpa-all-input input').focus();
+						
+						ms_all.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_all).on('selectionchange', function(e,m,r){					
+					
+					ms_all.empty();
+					ms_all__rawValue="";
+					
+					if(r.length==ms_all__recentSelected.length && r.length==ms_all__currentSelected.length){
+						ms_all__afterDelete=1;
+					}else{
+						ms_all__afterDelete=0;
+					}
+				});					 
+				
+				/* auto select dropdown function (ms_town) *
+				var ms_town__rawValue='';
+				var ms_town__afterDelete=0;
+				var ms_town__recentSelected=[];
+				var ms_town__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_town).on('keyup', function(){
+					ms_town__rawValue = ms_town.getRawValue();
+					ms_town__afterDelete=0;
+					
+					//set data on 
+					if(ms_town__rawValue.length===1)
+						ms_town.setData(towns);
+				});
+				
+				//get current selected value
+				$(ms_town).on('focus', function(c){
+					ms_town__recentSelected = ms_town.getValue();
+					ms_town__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_town.expand();
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_town).on('blur', function(c, e){
+					var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_town__currentSelected = ms_town.getValue();
+					
+					if( ms_town__rawValue!="" && ! ms_town__afterDelete && ms_town__recentSelected.length == ms_town__currentSelected.length ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_town.setValue([firstData.code]);
+						}
+						
+						ms_town__afterDelete=0;
+					}
+					
+					//reset data to tenants
+					if(tenants) ms_town.setData(tenants);
+				});
+				
+				//select value on enter key pressed
+				$(ms_town).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_town__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_town.setValue([firstData.code]);
+							}
+						}
+						
+						ms_town.collapse();
+					}
+				});
+				
+				//select value on tab key pressed
+				$('#zpa-town-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_town__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_town.setValue([firstData.code]);
+							}
+						}
+						
+						ms_town.empty();
+						$('#zpa-town-input input').focus();
+						
+						ms_town.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_town).on('selectionchange', function(e,m,r){
+					
+					ms_town.empty();
+					ms_town__rawValue="";
+					
+					if(r.length==ms_town__recentSelected.length && r.length==ms_town__currentSelected.length){
+						ms_town__afterDelete=1;
+					}else{
+						ms_town__afterDelete=0;
+					}
+				});
+				
+				/* auto select dropdown function (ms_area) *
+				var ms_area__rawValue='';
+				var ms_area__afterDelete=0;
+				var ms_area__recentSelected=[];
+				var ms_area__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_area).on('keyup', function(){
+					ms_area__rawValue = ms_area.getRawValue();
+					ms_area__afterDelete=0;
+					
+					//set data on 
+					if(ms_area__rawValue.length===1)
+						ms_area.setData(areas);
+				});
+				
+				//get current selected value
+				$(ms_area).on('focus', function(c){
+					ms_area__recentSelected = ms_area.getValue();
+					ms_area__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_area.expand();
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_area).on('blur', function(c, e){
+					var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_area__currentSelected = ms_area.getValue();
+					
+					if( ms_area__rawValue!="" && ! ms_area__afterDelete && ms_area__recentSelected.length == ms_area__currentSelected.length ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_area.setValue([firstData.code]);
+						}
+						
+						ms_area__afterDelete=0;
+					}
+					
+					//reset data to tenants
+					if(tenants) ms_area.setData(tenants);
+				});
+				
+				//select value on enter key pressed
+				$(ms_area).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_area__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_area.setValue([firstData.code]);
+							}
+						}
+						
+						ms_area.collapse();
+					}
+				});
+				
+				//select value on tab key pressed
+				$('#zpa-areas-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_area__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_area.setValue([firstData.code]);
+							}
+						}
+						
+						ms_area.empty();
+						$('#zpa-areas-input input').focus();
+						
+						ms_area.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_area).on('selectionchange', function(e,m,r){
+					
+					ms_area.empty();
+					ms_area__rawValue="";
+					
+					if(r.length==ms_area__recentSelected.length && r.length==ms_area__currentSelected.length){
+						ms_area__afterDelete=1;
+					}else{
+						ms_area__afterDelete=0;
+					}
+				});
+				
+				/* auto select dropdown function (ms_county) *
+				var ms_county__rawValue='';
+				var ms_county__afterDelete=0;
+				var ms_county__recentSelected=[];
+				var ms_county__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_county).on('keyup', function(){
+					ms_county__rawValue = ms_county.getRawValue();
+					ms_county__afterDelete=0;
+				});
+				
+				//get current selected value
+				$(ms_county).on('focus', function(c){
+					ms_county__recentSelected = ms_county.getValue();
+					ms_county__afterDelete=1;
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_county).on('blur', function(c, e){
+					var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_county__currentSelected = ms_county.getValue();
+					
+					if( ms_county__rawValue!="" && ! ms_county__afterDelete && ms_county__recentSelected.length == ms_county__currentSelected.length ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_county.setValue([firstData.code]);
+						}
+						
+						ms_county__afterDelete=0;
+					}
+				});
+				
+				//select value on enter key pressed
+				$(ms_county).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_county__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_county.setValue([firstData.code]);
+							}
+						}
+						
+						ms_county.collapse();
+					}
+				});
+				
+				//select value on tab key pressed
+				$('#zpa-county-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_county__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_county.setValue([firstData.code]);
+							}
+						}
+						
+						ms_county.empty();
+						$('#zpa-county-input input').focus();
+						
+						ms_county.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_county).on('selectionchange', function(e,m,r){
+					
+					ms_county.empty();
+					ms_county__rawValue="";
+					
+					if(r.length==ms_county__recentSelected.length && r.length==ms_county__currentSelected.length){
+						ms_county__afterDelete=1;
+					}else{
+						ms_county__afterDelete=0;
+					}
+				});
+				
+				/* auto select dropdown function (ms_zip) *
+				var ms_zip__rawValue='';
+				var ms_zip__afterDelete=0;
+				var ms_zip__recentSelected=[];
+				var ms_zip__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_zip).on('keyup', function(){
+					ms_zip__rawValue = ms_zip.getRawValue();
+					ms_zip__afterDelete=0;
+				});
+				
+				//get current selected value
+				$(ms_zip).on('focus', function(c){
+					ms_zip__recentSelected = ms_zip.getValue();
+					ms_zip__afterDelete=1;
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_zip).on('blur', function(c, e){
+					var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_zip__currentSelected = ms_zip.getValue();
+					
+					if( ms_zip__rawValue!="" && ! ms_zip__afterDelete && ms_zip__recentSelected.length == ms_zip__currentSelected.length ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_zip.setValue([firstData.code]);
+						}
+						
+						ms_zip__afterDelete=0;
+					}
+				});
+				
+				//select value on enter key pressed
+				$(ms_zip).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_zip__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_zip.setValue([firstData.code]);
+							}
+						}
+						
+						ms_zip.collapse();
+					}
+				});
+				
+				//select value on tab key pressed
+				$('#zpa-zipcode-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_zip__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_zip.setValue([firstData.code]);
+							}
+						}
+						
+						ms_zip.empty();
+						$('#zpa-zipcode-input input').focus();
+						
+						ms_zip.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_zip).on('selectionchange', function(e,m,r){
+					
+					ms_zip.empty();
+					ms_zip__rawValue="";
+					
+					if(r.length==ms_zip__recentSelected.length && r.length==ms_zip__currentSelected.length){
+						ms_zip__afterDelete=1;
+					}else{
+						ms_zip__afterDelete=0;
+					}
+				});
+			});
+		</script>
+		<script>  
+		  <?php
+		  $rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
+		  $states=array_map('trim', explode(',', $states));
+		  $states=sizeof($states)===1?implode(' | ',$states):'';
+		  ?>
+		  jQuery(document).ready(function(){
+			  var placeSearch, autocomplete;
+			  var componentForm = {
+				street_number: 'short_name',
+				route: 'long_name',
+				locality: 'long_name',
+				administrative_area_level_1: 'short_name',
+				// country: 'short_name',
+				postal_code: 'short_name'
+			  };
+			  var input = document.getElementById('zpa-area-address');
+			  
+			  (function pacSelectFirst(inp){
+				// store the original event binding function
+				var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
+
+				function addEventListenerWrapper(type, listener) {
+					// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+					// and then trigger the original listener.
+
+					if (type == "keydown") {
+						var orig_listener = listener;
+						listener = function (event) {
+							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+							if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+								orig_listener.apply(inp, [simulated_downarrow]);													
+								
+								if(ms_all__google_autocomplete)
+									google_autocomplete_selected=1;
+							}
+
+							orig_listener.apply(inp, [event]);
+						};
+					}
+
+					// add the modified listener
+					_addEventListener.apply(inp, [type, listener]);
+				}
+
+				if (inp.addEventListener)
+				inp.addEventListener = addEventListenerWrapper;
+				else if (inp.attachEvent)
+				inp.attachEvent = addEventListenerWrapper;
+
+			  })(input);
+			  
+			  function initAutocomplete() {
+				var options = {
+					types: ['geocode'],  // or '(cities)' if that's what you want?
+					componentRestrictions: {country: ["us","ca","in"]},
+				};
+				// Create the autocomplete object, restricting the search to geographical
+				// location types.
+				autocomplete = new google.maps.places.Autocomplete(
+					/** @type {!HTMLInputElement} *(input), options);
+
+				// When the user selects an address from the dropdown, populate the address
+				// fields in the form.
+				autocomplete.addListener('place_changed', fillInAddress);
+			  }
+
+			  function fillInAddress() {
+				// Get the place details from the autocomplete object.
+				var place = autocomplete.getPlace();
+				
+				for (var component in componentForm) {
+				  document.getElementById(component).value = '';
+				  document.getElementById(component).disabled = false;
+				}
+
+				// Get each component of the address from the place details
+				// and fill the corresponding field on the form.
+				for (var i = 0; i < place.address_components.length; i++) {
+				  var addressType = place.address_components[i].types[0];
+				  if (componentForm[addressType]) {
+					var val = place.address_components[i][componentForm[addressType]];
+					var field = jQuery('#'+addressType);
+					document.getElementById(addressType).value = val;
+				  }
+				}
+			  }
+
+			  // Bias the autocomplete object to the user's geographical location,
+			  // as supplied by the browser's 'navigator.geolocation' object.
+			  function geolocate() {
+				if (navigator.geolocation) {
+				  navigator.geolocation.getCurrentPosition(function(position) {
+					var geolocation = {
+					  lat: position.coords.latitude,
+					  lng: position.coords.longitude
+					};
+					var circle = new google.maps.Circle({
+					  center: geolocation,
+					  radius: position.coords.accuracy
+					});
+					autocomplete.setBounds(circle.getBounds());
+				  });
+				}
+			  }
+			  
+			  jQuery('#zpa-area-address').on('focus', function(){
+				  geolocate();
+			  });
+			  
+			  initAutocomplete();
+			  
+			  <?php if($states): ?>
+			  jQuery(input).on('input',function(){
+				var str = input.value;
+				var prefix = '<?php echo $states; ?> | ';
+				if(str.indexOf(prefix) == 0) {
+					// console.log(input.value);
+				} else {
+					if (prefix.indexOf(str) >= 0) {
+						input.value = prefix;
+					} else {
+						input.value = prefix+str;
+					}
+				}
+
+			  });
+			  <?php endif; ?>
+		  });
+		  
+		  jQuery(document).ready(function(){
+			  var placeSearch, autocomplete;
+			  var input = document.getElementById('zpa-school');
+			  
+			  (function pacSelectFirst(inp){
+				// store the original event binding function
+				var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
+
+				function addEventListenerWrapper(type, listener) {
+					// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+					// and then trigger the original listener.
+
+					if (type == "keydown") {
+						var orig_listener = listener;
+						listener = function (event) {
+							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+							if (event.which == 9 || event.which == 13 && !suggestion_selected) {
+								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
+								orig_listener.apply(inp, [simulated_downarrow]);													
+								
+								if(ms_all__google_autocomplete)
+									google_autocomplete_selected=1;
+							}
+
+							orig_listener.apply(inp, [event]);
+						};
+					}
+
+					// add the modified listener
+					_addEventListener.apply(inp, [type, listener]);
+				}
+
+				if (inp.addEventListener)
+				inp.addEventListener = addEventListenerWrapper;
+				else if (inp.attachEvent)
+				inp.attachEvent = addEventListenerWrapper;
+
+			  })(input);
+			  
+			  function initAutocomplete() {
+				var options = {
+					types: ['establishment'],  // or '(cities)' if that's what you want?
+					componentRestrictions: {country: ["us","ca","in"]},
+				};
+				// Create the autocomplete object, restricting the search to geographical
+				// location types.
+				autocomplete = new google.maps.places.Autocomplete(
+					/** @type {!HTMLInputElement} *(input), options);
+
+				// When the user selects an address from the dropdown, populate the address
+				// fields in the form.
+				autocomplete.addListener('place_changed', fillInAddress);
+			  }
+
+			  function fillInAddress() {
+				// Get the place details from the autocomplete object.
+				var place = autocomplete.getPlace();
+				
+				var lat=place['geometry']['location'].lat();
+				var lng=place['geometry']['location'].lng();
+				
+				jQuery('#lat').val(lat);
+				jQuery('#lng').val(lng);
+			  }
+
+			  // Bias the autocomplete object to the user's geographical location,
+			  // as supplied by the browser's 'navigator.geolocation' object.
+			  function geolocate() {
+				if (navigator.geolocation) {
+				  navigator.geolocation.getCurrentPosition(function(position) {
+					var geolocation = {
+					  lat: position.coords.latitude,
+					  lng: position.coords.longitude
+					};
+					var circle = new google.maps.Circle({
+					  center: geolocation,
+					  radius: position.coords.accuracy
+					});
+					autocomplete.setBounds(circle.getBounds());
+				  });
+				}
+			  }
+			  
+			  jQuery('#zpa-school').on('focus', function(){
+				  geolocate();
+			  });
+			  
+			  initAutocomplete();
+			  
+			  <?php if($states): ?>
+			  jQuery(input).on('input',function(){
+				var str = input.value;
+				var prefix = '<?php echo $states; ?> | ';
+				if(str.indexOf(prefix) == 0) {
+					// console.log(input.value);
+				} else {
+					if (prefix.indexOf(str) >= 0) {
+						input.value = prefix;
+					} else {
+						input.value = prefix+str;
+					}
+				}
+
+			  });
+			  <?php endif; ?>
+		  });
+		</script>
+	<?php
+	}
+} */
+
+if( ! function_exists('global_new_omnibar_script_v2') ){
+	function global_new_omnibar_script_v2($auto_submit=0, $direct=0){
+		
+		if($direct):
+		?>
+		<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+		<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script><?php
+		endif;
+		?>
+		<script>		
+			jQuery(document).ready(function($) {
+				
+				var timer;
+				
+				<?php 
+				$data = get_autocomplete_data();
+				
+				$towns = isset($data->towns)?$data->towns:array();
+				$areas = isset($data->areas)?$data->areas:array();
+				$counties = isset($data->counties)?$data->counties:array();
+				$zipcodes = isset($data->zipcodes)?$data->zipcodes:array();
+				$tenants = isset($data->tenants)?$data->tenants:array();
+				$lakes = populate_lakes_with_option();
+				?>
+				
+				var direct=<?php echo $direct; ?>;
+				
+				var towns = <?php echo json_encode($towns); ?>;
+				var areas = <?php echo json_encode($areas); ?>;
+				var counties = <?php echo json_encode($counties); ?>;
+				var lakes = <?php echo json_encode($lakes); ?>;
+				var zipcodes = <?php echo json_encode($zipcodes); ?>;
+				var all = $.merge(towns, areas);
+					all = $.merge(all, counties);
+					all = $.merge(all, lakes);
+					all = $.merge(all, zipcodes);
+					
+				var tenants = <?php echo json_encode($tenants); ?>;
+				
+				var ms_town = $('#zpa-town-input').magicSuggest({
+					
+					data: tenants ? tenants : towns,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_area = $('#zpa-areas-input').magicSuggest({
+					
+					data: tenants ? tenants : areas,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_county = $('#zpa-county-input').magicSuggest({
+					
+					data: counties,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_zip = $('#zpa-zipcode-input').magicSuggest({
+					
+					data: zipcodes,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_all = $('#zpa-all-input').magicSuggest({
+					
+					data: tenants ? tenants : all,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});	
+				
+				var ms_school = $('#zpa-school-input').magicSuggest({
+					
+					data: null,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_school3 = $('#zpa-school3-input').magicSuggest({
+					
+					data: null,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_address = $('#zpa-address-key').magicSuggest({
+					
+					data: null,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				/* magicSuggest actions */
+				
+				<?php if($auto_submit): ?>
+				//auto submit on change
+				$(ms_all).on('selectionchange', function(e,m){
+					setTimeout(function() {					
+						m.container.parents('#omnibar-wrap form.omnibar').submit();						
+					}, 500);
+				});
+				$(ms_county).on('selectionchange', function(e,m){						
+					setTimeout(function() {					
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
+					}, 500);
+				});
+				$(ms_area).on('selectionchange', function(e,m){						
+					setTimeout(function() {					
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
+					}, 500);
+				});
+				$(ms_town).on('selectionchange', function(e,m){		
+					setTimeout(function() {			
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
+					}, 500);
+				});
+				$(ms_zip).on('selectionchange', function(e,m){						
+					setTimeout(function() {					
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
+					}, 500);
+				});
+				<?php endif; ?>
+				
+				
+				$(ms_all).on('selectionchange', function(e,m){		
+					var values = this.getValue();
+					var value, check, name, add;
+					var fields = $('.field-wrap .field-section.all .input-fields');
+					
+					fields.html(''); //clear all fields
+					
+					for(i=0; i<values.length; i++){
+						
+						is_location=0;
+						is_lake=0;
+						is_address=0;
+						is_mls=0;
+						is_add=0;
+						value  = values[i];
+						
+						if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("acnty_") >= 0){ //county
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("aflladdr_") >= 0){ //crm address
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("hschl_") >= 0){ //high school
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("mschl_") >= 0){ //middle school
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("gschl_") >= 0){ //grade school
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("aschdt_") >= 0){ //grade school
+							is_location=1;
+						}else if (value.toLowerCase().indexOf("alkchnnm_") >= 0){ //lake
+							is_lake=1;
+						}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
+							is_address=1;
+						}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
+							is_mls=1;
+						}
+						
+						if(is_location){							
+							name = 'location[]';
+							is_add=1;
+						}else if(is_lake){
+							name = 'alkChnNm[]';
+							linked_name = value.replace('alkchnnm_','');
+							value = value.replace('alkchnnm_','');
+							is_add=1;
+						}else if(is_address){
+							name = '';
+							is_add=0;
+						}else if(is_mls){
+							name = 'alstid[]';
+							value = value.replace('alstid_','');
+							is_add=1;
+						}
+						
+						if(is_add){
+							add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
+							fields.append(add);
+						}else if(is_address){
+							var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
+							if(saved_address){
+								$.each(saved_address, function(key, value) {
+									jQuery('.field-section.addr #'+ key).val(value);
+									jQuery('.field-section.addr #'+ key).prop('disabled',false);
+								});
+							}
+						}
+					}
+				});
+				
+				jQuery('body').on( 'change', '.field-wrap .field-section.listid #listid', function(){
+					 
+					var values=jQuery.unique(jQuery(this).val().split(','));
+					var name='alstid[]';
+					var value, add;
+					var fields = $('.field-wrap .field-section.listid .input-fields');
+					
+					fields.html(''); //clear all fields
+					for(i=0; i<values.length; i++){		
+						value=jQuery.trim(values[i]);
+						
+						if(!value) continue;
+						
+						add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
+						fields.append(add);
+					};
+				});
+
+				jQuery(ms_school).on('keyup', function(event){
+					
+					event.preventDefault();
+					
+					clearTimeout(timer);
+					//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+					timer = setTimeout(function () {
+						//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+						var inputText = ms_school.getRawValue();
+						
+						console.time('populate schools');
+						jQuery.ajax({
+							type: 'POST',
+							dataType : 'json',
+							url: zipperagent.ajaxurl,
+							data: {
+								'key': inputText,
+								'action': 'school_options',
+							},
+							success: function( response ) {         
+								if( response ){
+									var data = response.schools;
+									ms_school.setData(data);
+								}
+								console.timeEnd('populate schools');
+							},
+							error: function(){
+								console.timeEnd('populate schools');
+							}
+						});
+					}, 500);
+				});
+				
+				var xhr_school3;
+				jQuery(ms_school3).on('keyup', function(event){
+					
+					if(! direct){
+						if(xhr_school3 && xhr_school3.readyState != 4){
+							xhr_school3.abort();
+						}
+						
+						event.preventDefault();
+						
+						clearTimeout(timer);
+						//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+						timer = setTimeout(function () {
+							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+							var inputText = ms_school3.getRawValue();
+							
+							console.time('populate schools');
+							xhr_school3 = jQuery.ajax({
+								type: 'POST',
+								dataType : 'json',
+								url: zipperagent.ajaxurl,
+								data: {
+									'key': inputText,
+									'action': 'school3_options',
+								},
+								success: function( response ) {         
+									if( response ){
+										var data = response.schools;
+										ms_school3.setData(data);
+									}
+									console.timeEnd('populate schools');
+								},
+								error: function(){
+									console.timeEnd('populate schools');
+								}
+							});
+						}, 500);
+					}else{
+						console.time('populate schools');
+						
+						var parm=[];
+						var subdomain=zppr.data.root.web.subdomain;
+						var customer_key=zppr.data.root.web.authorization.consumer_key;
+						var ps=5;
+						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
+						var crit = "";
+						var response=false;
+						var gs=1;
+						var ms=1;
+						var hs=1;
+						var sd=1;
+						var addr=0;
+						var inputText = ms_school3.getRawValue();
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+						
+						var xhttp = new XMLHttpRequest();
+						xhttp.onreadystatechange = function() {
+
+							if (this.readyState == 4 ) {
+								if(this.status == 200){
+								
+									response=JSON.parse(this.responseText);
+									if(response.responseCode===200){
+										
+										var data = zppr.populate_schools(response);
+										ms_school3.setData(data);
+										
+										console.timeEnd('populate schools');
+									}
+									
+								}else {
+									console.log("status = " + status + " received");
+								}
+							} else {
+								console.log("status = " + status + " received");
+							}
+						};
+						xhttp.open("GET", guxx(parm), true);
+						xhttp.send();
+					}
+				});
+				
+				var xhr_address;
+				jQuery(ms_address).on('keyup', function(event){
+					
+					
+					if(! direct){
+						if(xhr_address && xhr_address.readyState != 4){
+							xhr_address.abort();
+						}
+						
+						event.preventDefault();
+						
+						clearTimeout(timer);
+						//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+						timer = setTimeout(function () {
+							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+							var inputText = ms_address.getRawValue();
+							
+							console.time('populate address');
+							xhr_address = jQuery.ajax({
+								type: 'POST',
+								dataType : 'json',
+								url: zipperagent.ajaxurl,
+								data: {
+									'key': inputText,
+									'action': 'address_options',
+								},
+								success: function( response ) {         
+									if( response ){
+										var data = response.addresses;
+										ms_address.setData(data);
+									}
+									console.timeEnd('populate address');
+								},
+								error: function(){
+									console.timeEnd('populate address');
+								}
+							});
+						}, 500);
+					}else{
+						console.time('populate address');
+						
+						var parm=[];
+						var subdomain=zppr.data.root.web.subdomain;
+						var customer_key=zppr.data.root.web.authorization.consumer_key;
+						var ps=10;
+						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
+						var crit = "";
+						var response=false;
+						var gs=0;
+						var ms=0;
+						var hs=0;
+						var sd=0;
+						var addr=1;
+						var inputText = ms_address.getRawValue();
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+						
+						var xhttp = new XMLHttpRequest();
+						xhttp.onreadystatechange = function() {
+
+							if (this.readyState == 4 ) {
+								if(this.status == 200){
+								
+									response=JSON.parse(this.responseText);
+									if(response.responseCode===200){
+										
+										var data = zppr.populate_addresses(response);
+										ms_address.setData(data);
+										
+										console.timeEnd('populate address');
+									}
+									
+								}else {
+									console.log("status = " + status + " received");
+								}
+							} else {
+								console.log("status = " + status + " received");
+							}
+						};
+						xhttp.open("GET", guxx(parm), true);
+						xhttp.send();
+					}
+				});
+				
+				var xhr_all;
+				jQuery(ms_all).on('keyup', function(event){
+					
+					if(! direct){
+						if(xhr_all && xhr_all.readyState != 4){
+							xhr_all.abort();
+						}
+						
+						event.preventDefault();
+						
+						clearTimeout(timer);
+						//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+						timer = setTimeout(function () {
+							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+							var inputText = ms_all.getRawValue();
+							
+							console.time('populate address & school');
+							xhr_all = jQuery.ajax({
+								type: 'POST',
+								dataType : 'json',
+								url: zipperagent.ajaxurl,
+								data: {
+									'key': inputText,
+									'action': 'address_and_school_options',
+								},
+								success: function( response ) {         
+									if( response ){
+										var data = response.addresses;
+										var combined = jQuery.merge(data, all);
+										ms_all.setData(combined);
+									}
+									console.timeEnd('populate address & school');
+								},
+								error: function(){
+									console.timeEnd('populate address & school');
+								}
+							});
+						}, 500);
+					
+					}else{
+						console.time('populate address & school');
+						
+						var parm=[];
+						var subdomain=zppr.data.root.web.subdomain;
+						var customer_key=zppr.data.root.web.authorization.consumer_key;
+						var ps=5;
+						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
+						var crit = "";
+						var response=false;
+						var gs=1;
+						var ms=1;
+						var hs=1;
+						var sd=1;
+						var addr=1;
+						var inputText = ms_all.getRawValue();
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+						
+						var xhttp = new XMLHttpRequest();
+						xhttp.onreadystatechange = function() {
+
+							if (this.readyState == 4 ) {
+								if(this.status == 200){
+								
+									response=JSON.parse(this.responseText);
+									if(response.responseCode===200){
+										
+										var data = zppr.populate_addresses_and_schools(response);
+										var combined = jQuery.merge(data, all);
+										ms_all.setData(combined);
+										
+										console.timeEnd('populate address & school');
+									}
+									
+								}else {
+									console.log("status = " + status + " received");
+								}
+							} else {
+								console.log("status = " + status + " received");
+							}
+						};
+						xhttp.open("GET", guxx(parm), true);
+						xhttp.send();
+					}
+				});	
+				
+				/* Combine ms_all and google autocomplete */
+				var ms_all__rawValue='';
+				var ms_all__google_autocomplete;
+				var google_autocomplete_selected=0;
+				
+				//select value on enter key pressed
+				$(ms_all).on('keydown', function(e,m,v){
+					var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
+					// var data = $('.field-wrap .all .dropdown-menu');
+					var magicSuggest_option_exists = data.length;
+					var google_option_exists = 0;
+					
+					if(magicSuggest_option_exists){
+						ms_all__google_autocomplete=0;
+						jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
+					}else if(google_option_exists && ms_all__rawValue.length >= 2){
+						ms_all__google_autocomplete=1;
+						jQuery('body .pac-container.pac-logo').css( 'visibility', 'visible' );
+					}else{
+						ms_all__google_autocomplete=0;
+						jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
+					}
+					
+					$('#zpa-all-input-address').val('');
+				});
 				
 				/* auto select dropdown function (ms_all) */
 				var ms_all__afterDelete=0;
@@ -5245,245 +6868,6 @@ if( ! function_exists('global_new_omnibar_script') ){
 					}
 				});
 			});
-		</script>
-		<script>  
-		  <?php
-		  $rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		  $states=isset($rb['web']['states'])?$rb['web']['states']:'';
-		  $states=array_map('trim', explode(',', $states));
-		  $states=sizeof($states)===1?implode(' | ',$states):'';
-		  ?>
-		  jQuery(document).ready(function(){
-			  var placeSearch, autocomplete;
-			  var componentForm = {
-				street_number: 'short_name',
-				route: 'long_name',
-				locality: 'long_name',
-				administrative_area_level_1: 'short_name',
-				// country: 'short_name',
-				postal_code: 'short_name'
-			  };
-			  var input = document.getElementById('zpa-area-address');
-			  
-			  (function pacSelectFirst(inp){
-				// store the original event binding function
-				var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
-
-				function addEventListenerWrapper(type, listener) {
-					// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
-					// and then trigger the original listener.
-
-					if (type == "keydown") {
-						var orig_listener = listener;
-						listener = function (event) {
-							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
-							if (event.which == 9 || event.which == 13 && !suggestion_selected) {
-								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
-								orig_listener.apply(inp, [simulated_downarrow]);													
-								
-								if(ms_all__google_autocomplete)
-									google_autocomplete_selected=1;
-							}
-
-							orig_listener.apply(inp, [event]);
-						};
-					}
-
-					// add the modified listener
-					_addEventListener.apply(inp, [type, listener]);
-				}
-
-				if (inp.addEventListener)
-				inp.addEventListener = addEventListenerWrapper;
-				else if (inp.attachEvent)
-				inp.attachEvent = addEventListenerWrapper;
-
-			  })(input);
-			  
-			  function initAutocomplete() {
-				var options = {
-					types: ['geocode'],  // or '(cities)' if that's what you want?
-					componentRestrictions: {country: ["us","ca","in"]},
-				};
-				// Create the autocomplete object, restricting the search to geographical
-				// location types.
-				autocomplete = new google.maps.places.Autocomplete(
-					/** @type {!HTMLInputElement} */(input), options);
-
-				// When the user selects an address from the dropdown, populate the address
-				// fields in the form.
-				autocomplete.addListener('place_changed', fillInAddress);
-			  }
-
-			  function fillInAddress() {
-				// Get the place details from the autocomplete object.
-				var place = autocomplete.getPlace();
-				
-				for (var component in componentForm) {
-				  document.getElementById(component).value = '';
-				  document.getElementById(component).disabled = false;
-				}
-
-				// Get each component of the address from the place details
-				// and fill the corresponding field on the form.
-				for (var i = 0; i < place.address_components.length; i++) {
-				  var addressType = place.address_components[i].types[0];
-				  if (componentForm[addressType]) {
-					var val = place.address_components[i][componentForm[addressType]];
-					var field = jQuery('#'+addressType);
-					document.getElementById(addressType).value = val;
-				  }
-				}
-			  }
-
-			  // Bias the autocomplete object to the user's geographical location,
-			  // as supplied by the browser's 'navigator.geolocation' object.
-			  function geolocate() {
-				if (navigator.geolocation) {
-				  navigator.geolocation.getCurrentPosition(function(position) {
-					var geolocation = {
-					  lat: position.coords.latitude,
-					  lng: position.coords.longitude
-					};
-					var circle = new google.maps.Circle({
-					  center: geolocation,
-					  radius: position.coords.accuracy
-					});
-					autocomplete.setBounds(circle.getBounds());
-				  });
-				}
-			  }
-			  
-			  jQuery('#zpa-area-address').on('focus', function(){
-				  geolocate();
-			  });
-			  
-			  initAutocomplete();
-			  
-			  <?php if($states): ?>
-			  jQuery(input).on('input',function(){
-				var str = input.value;
-				var prefix = '<?php echo $states; ?> | ';
-				if(str.indexOf(prefix) == 0) {
-					// console.log(input.value);
-				} else {
-					if (prefix.indexOf(str) >= 0) {
-						input.value = prefix;
-					} else {
-						input.value = prefix+str;
-					}
-				}
-
-			  });
-			  <?php endif; ?>
-		  });
-		  
-		  jQuery(document).ready(function(){
-			  var placeSearch, autocomplete;
-			  var input = document.getElementById('zpa-school');
-			  
-			  (function pacSelectFirst(inp){
-				// store the original event binding function
-				var _addEventListener = (inp.addEventListener) ? inp.addEventListener : inp.attachEvent;
-
-				function addEventListenerWrapper(type, listener) {
-					// Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
-					// and then trigger the original listener.
-
-					if (type == "keydown") {
-						var orig_listener = listener;
-						listener = function (event) {
-							var suggestion_selected = jQuery(".pac-item-selected").length > 0;
-							if (event.which == 9 || event.which == 13 && !suggestion_selected) {
-								var simulated_downarrow = jQuery.Event("keydown", {keyCode:40, which:40})
-								orig_listener.apply(inp, [simulated_downarrow]);													
-								
-								if(ms_all__google_autocomplete)
-									google_autocomplete_selected=1;
-							}
-
-							orig_listener.apply(inp, [event]);
-						};
-					}
-
-					// add the modified listener
-					_addEventListener.apply(inp, [type, listener]);
-				}
-
-				if (inp.addEventListener)
-				inp.addEventListener = addEventListenerWrapper;
-				else if (inp.attachEvent)
-				inp.attachEvent = addEventListenerWrapper;
-
-			  })(input);
-			  
-			  function initAutocomplete() {
-				var options = {
-					types: ['establishment'],  // or '(cities)' if that's what you want?
-					componentRestrictions: {country: ["us","ca","in"]},
-				};
-				// Create the autocomplete object, restricting the search to geographical
-				// location types.
-				autocomplete = new google.maps.places.Autocomplete(
-					/** @type {!HTMLInputElement} */(input), options);
-
-				// When the user selects an address from the dropdown, populate the address
-				// fields in the form.
-				autocomplete.addListener('place_changed', fillInAddress);
-			  }
-
-			  function fillInAddress() {
-				// Get the place details from the autocomplete object.
-				var place = autocomplete.getPlace();
-				
-				var lat=place['geometry']['location'].lat();
-				var lng=place['geometry']['location'].lng();
-				
-				jQuery('#lat').val(lat);
-				jQuery('#lng').val(lng);
-			  }
-
-			  // Bias the autocomplete object to the user's geographical location,
-			  // as supplied by the browser's 'navigator.geolocation' object.
-			  function geolocate() {
-				if (navigator.geolocation) {
-				  navigator.geolocation.getCurrentPosition(function(position) {
-					var geolocation = {
-					  lat: position.coords.latitude,
-					  lng: position.coords.longitude
-					};
-					var circle = new google.maps.Circle({
-					  center: geolocation,
-					  radius: position.coords.accuracy
-					});
-					autocomplete.setBounds(circle.getBounds());
-				  });
-				}
-			  }
-			  
-			  jQuery('#zpa-school').on('focus', function(){
-				  geolocate();
-			  });
-			  
-			  initAutocomplete();
-			  
-			  <?php if($states): ?>
-			  jQuery(input).on('input',function(){
-				var str = input.value;
-				var prefix = '<?php echo $states; ?> | ';
-				if(str.indexOf(prefix) == 0) {
-					// console.log(input.value);
-				} else {
-					if (prefix.indexOf(str) >= 0) {
-						input.value = prefix;
-					} else {
-						input.value = prefix+str;
-					}
-				}
-
-			  });
-			  <?php endif; ?>
-		  });
 		</script>
 	<?php
 	}

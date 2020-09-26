@@ -127,6 +127,11 @@ var zppr={
 			loc_town=[];
 			loc_area=[];
 			loc_zipcode=[];
+			loc_address=[];
+			loc_hs=[];
+			loc_ms=[];
+			loc_gs=[];
+			loc_sd=[];
 			
 			// towns = get_town_list();
 			for (const [key, value] of Object.entries(location)) {
@@ -142,6 +147,16 @@ var zppr={
 						loc_area.push(temp.substring(5));
 					}else if( temp.substring(0, 5) == 'azip_' ){
 						loc_zipcode.push(temp.substring(5));
+					}else if( temp.substring(0, 9) == 'aflladdr_' ){
+						loc_address.push(temp.substring(9));
+					}else if( temp.substring(0, 6) == 'hschl_' ){
+						loc_hs.push(temp.substring(6));
+					}else if( temp.substring(0, 6) == 'mschl_' ){
+						loc_ms.push(temp.substring(6));
+					}else if( temp.substring(0, 6) == 'gschl_' ){
+						loc_gs.push(temp.substring(6));
+					}else if( temp.substring(0, 7) == 'aschdt_' ){
+						loc_sd.push(temp.substring(7));
 					}else{
 						loc_zipcode.push(temp);
 					}
@@ -153,6 +168,11 @@ var zppr={
 			if(loc_town) locqry['atwns']=loc_town.join();
 			if(loc_area) locqry['aars']=loc_area.join();
 			if(loc_zipcode) locqry['azip']=loc_zipcode.join();
+			if(loc_address) locqry['aflladdr']=loc_address.join();
+			if(loc_hs) locqry['hschl']=loc_hs.join();
+			if(loc_ms) locqry['mschl']=loc_ms.join();
+			if(loc_gs) locqry['gschl']=loc_gs.join();
+			if(loc_sd) locqry['aschdt']=loc_sd.join();
 			
 			// die( locqry );
 		}else if( advStNo || advStName || advStZip || advStates || advTownNm || advCounties ){
@@ -210,7 +230,7 @@ var zppr={
 			advSearch['aloff']=aloff;
 		
 		if( alkchnnm )
-        	advSearch['alkChnNm']=alkchnnm;
+        	advSearch['alkChnNm']=Array.isArray(alkchnnm)?alkchnnm.join(','):alkchnnm;		
 		
 		//generate extra proptype variables
 		var extra_proptypes = zppr.data.extra_proptype;
@@ -979,8 +999,8 @@ var zppr={
 		if( zppr.data.is_great_school_enabled==1 && single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
 			html +=				'<div class="row zy-widget greatschool-widget">' +
 									'<div class="col-xs-12 col-md-12 col-lg-6">' +
-										'<h3 class="">Greatshools</h3>' +
-										'<div id="greatshools"></div>' +										
+										'<h3 class="">GreatSchools</h3>' +
+										'<div id="greatschools"></div>' +										
 									'</div>' +
 								'</div>';
 		}
@@ -1282,9 +1302,9 @@ var zppr={
 								
 								if( zppr.data.is_great_school_enabled==1 && single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
 									jQuery(document).ready(function(){
-										var curr_width = jQuery('.greatschool-widget #greatshools').width();
+										var curr_width = jQuery('.greatschool-widget #greatschools').width();
 										var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat='+ single_property.lat +'&lon='+ single_property.lng +'&cityName='+ (single_property.hasOwnProperty('lngTOWNSDESCRIPTION')?single_property.lngTOWNSDESCRIPTION:'') +'&state='+ (single_property.hasOwnProperty('provinceState') ? single_property.provinceState:'') +'&normalizedAddress='+ encodeURI( zppr.getAddress(single_property) ) +'&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
-										jQuery('#greatshools').html(gs_iframe);
+										jQuery('#greatschools').html(gs_iframe);
 									});
 								}
 							})(jQuery);
@@ -4766,5 +4786,190 @@ var zppr={
 		var is_contains_protocol = str.toString().indexOf('http://') !== -1 || str.toString().indexOf('https://') !== -1
 		
 		return is_valid && is_contains_protocol;
+	},
+	populate_schools:function(obj){
+		
+		var includes = [
+			'GRADESCHOOL',
+			'MIDDLESCHOOL',			
+			'HIGHSCHOOL',
+			'SCHOOLDISTRICT',	
+		];
+		
+		var arr=[];
+		
+		if(obj.hasOwnProperty('result')){
+			for (const [key, line] of Object.entries(obj.result)) {
+				
+				if(jQuery.inArray(line.field, includes) < 0)
+					continue;
+				
+				if( line.hasOwnProperty('buckets') && line.buckets.length){
+					
+					var type = line.field.toLowerCase();
+					var group = type.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+									return letter.toUpperCase();
+								});
+					
+					for (const [key2, field] of Object.entries(line.buckets)) {	
+						
+						var prefix='';
+						switch(line.field){
+							case 'GRADESCHOOL':
+									prefix='gschl';
+								break;
+							case 'MIDDLESCHOOL':
+									prefix='mschl';
+								break;
+							case 'HIGHSCHOOL':
+									prefix='hschl';
+								break;
+							case 'SCHOOLDISTRICT':
+									prefix='aschdt';
+								break;
+						}
+						
+						var name = field.value.trim();
+						var value = field.value.trim();
+						var code = prefix+'_'+value;
+						
+						arr.push({
+							'group':group,
+							'name':name,
+							'code':code,
+							'type':type,
+						});
+					}
+				}
+				
+			}
+		}
+		
+		return arr;
+	},
+	populate_addresses:function(obj){
+		
+		var includes = [
+			'FULLADDRESS',	
+		];
+		
+		var arr=[];
+		
+		if(obj.hasOwnProperty('result')){
+			
+			for (const [key, line] of Object.entries(obj.result)) {
+				
+				if(jQuery.inArray(line.field, includes) < 0)
+					continue;
+				
+				if( line.hasOwnProperty('buckets') && line.buckets.length){
+					
+					var type = line.field.toLowerCase();
+					var group = type.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+									return letter.toUpperCase();
+								});
+					
+					for (const [key2, field] of Object.entries(line.buckets)) {	
+						
+						var prefix='';
+						switch(line.field){
+							case 'FULLADDRESS':
+									prefix='aflladdr';
+								break;
+						}
+						
+						var name = field.value.trim();
+						var value = field.value.trim();
+						var code = prefix+'_'+value;
+						
+						arr.push({
+							'group':group,
+							'name':name,
+							'code':code,
+							'type':type,
+						});
+					}
+				}
+				
+			}
+		}
+		
+		return arr;
+	},
+	populate_addresses_and_schools:function(obj){
+		
+		var includes = [
+			'GRADESCHOOL',
+			'MIDDLESCHOOL',			
+			'HIGHSCHOOL',
+			'SCHOOLDISTRICT',
+			'FULLADDRESS',		
+		];
+		
+		var arr=[];
+		var arr_addr=[];
+		
+		if(obj.hasOwnProperty('result')){
+			for (const [key, line] of Object.entries(obj.result)) {
+				
+				if(jQuery.inArray(line.field, includes) < 0)
+					continue;
+				
+				if( line.hasOwnProperty('buckets') && line.buckets.length){
+					
+					var type = line.field.toLowerCase();
+					var group = type.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+									return letter.toUpperCase();
+								});
+					
+					for (const [key2, field] of Object.entries(line.buckets)) {	
+						
+						var prefix='';
+						switch(line.field){
+							case 'GRADESCHOOL':
+									prefix='gschl';
+								break;
+							case 'MIDDLESCHOOL':
+									prefix='mschl';
+								break;
+							case 'HIGHSCHOOL':
+									prefix='hschl';
+								break;
+							case 'SCHOOLDISTRICT':
+									prefix='aschdt';
+								break;
+							case 'FULLADDRESS':
+									prefix='aflladdr';
+								break;
+						}
+						
+						var name = field.value.trim();
+						var value = field.value.trim();
+						var code = prefix+'_'+value;
+						
+						if(type=='fulladdress'){
+							arr_addr.push({
+								'group':group,
+								'name':name,
+								'code':code,
+								'type':type,
+							});
+						}else{
+							arr.push({
+								'group':group,
+								'name':name,
+								'code':code,
+								'type':type,
+							});
+						}
+					}
+				}
+				
+			}
+		}
+		
+		arr = jQuery.merge( arr_addr, arr );
+		
+		return arr;
 	}
 };
