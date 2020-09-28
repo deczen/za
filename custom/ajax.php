@@ -1437,6 +1437,11 @@ function load_more_properties(){
 			$loc_town=array();
 			$loc_area=array();
 			$loc_zipcode=array();
+			$loc_address=array();
+			$loc_hs=array();
+			$loc_ms=array();
+			$loc_gs=array();
+			$loc_sd=array();
 			
 			// $towns = get_town_list();
 			foreach( $location as $var ){
@@ -1450,6 +1455,16 @@ function load_more_properties(){
 					$loc_area[]=substr($temp, 5);
 				}else if( substr($temp, 0, 5) == 'azip_' ){
 					$loc_zipcode[]=substr($temp, 5);
+				}else if( substr($temp, 0, 9) == 'aflladdr_' ){
+					$loc_address[]=substr($temp, 9);
+				}else if( substr($temp, 0, 6) == 'hschl_' ){
+					$loc_hs[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'mschl_' ){
+					$loc_ms[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'gschl_' ){
+					$loc_gs[]=substr($temp, 6);
+				}else if( substr($temp, 0, 7) == 'aschdt_' ){
+					$loc_sd[]=substr($temp, 7);
 				}else{
 					$loc_zipcode[]=$temp;
 				}
@@ -1460,6 +1475,11 @@ function load_more_properties(){
 			if(sizeof($loc_town)) $locqry['atwns']=implode(',',$loc_town);
 			if(sizeof($loc_area)) $locqry['aars']=implode(',',$loc_area);
 			if(sizeof($loc_zipcode)) $locqry['azip']=implode(',',$loc_zipcode);
+			if(sizeof($loc_address)) $locqry['aflladdr']=implode(',',$loc_address);
+			if(sizeof($loc_hs)) $locqry['hschl']=implode(',',$loc_hs);
+			if(sizeof($loc_ms)) $locqry['mschl']=implode(',',$loc_ms);
+			if(sizeof($loc_gs)) $locqry['gschl']=implode(',',$loc_gs);
+			if(sizeof($loc_sd)) $locqry['aschdt']=implode(',',$loc_sd);
 			
 			// die( $locqry );
 		}else if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties ){
@@ -1897,6 +1917,60 @@ function get_school_options(){
 		$schools = populate_schools($key);
 		
 		$result['schools']=$schools;
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
+add_action( 'wp_ajax_school3_options', 'get_school3_options' );
+add_action( 'wp_ajax_nopriv_school3_options', 'get_school3_options' );
+
+function get_school3_options(){
+	
+	if ( isset($_REQUEST) ) {
+				
+		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		
+		$schools = populate_schools3($key);
+		
+		$result['schools']=$schools;
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
+add_action( 'wp_ajax_address_options', 'get_address_options' );
+add_action( 'wp_ajax_nopriv_address_options', 'get_address_options' );
+
+function get_address_options(){
+	
+	if ( isset($_REQUEST) ) {
+				
+		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		
+		$addresses = populate_addresses($key);
+		
+		$result['addresses']=$addresses;
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
+add_action( 'wp_ajax_address_and_school_options', 'get_address_and_school_options' );
+add_action( 'wp_ajax_nopriv_address_and_school_options', 'get_address_and_school_options' );
+
+function get_address_and_school_options(){
+	
+	if ( isset($_REQUEST) ) {
+				
+		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		
+		$addresses = populate_addresses_and_schools($key);
+		
+		$result['addresses']=$addresses;
 		echo json_encode($result);
          
         die();
