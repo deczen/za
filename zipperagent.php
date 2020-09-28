@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zipperagent
 Description: Adds MLS / IDX property search and listings to your site. Includes search and listing pages, widgets and shortcodes.
-Version: 2.0.1.79
+Version: 2.0.1.80
 Author: Decz
 License: GPL
 */
