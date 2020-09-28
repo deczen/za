@@ -38,8 +38,7 @@ $maxListPrice		= $requests['maxlistprice'];
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 											<ul>
 												<li><a id="all" href="#"><input type="radio" name="search_category" checked /> All Categories</a></li>
-												<!-- <li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li> -->
-												<li><a id="addr2" href="#"><input type="radio" name="search_category" /> Address</a></li>
+												<li><a id="addr" href="#"><input type="radio" name="search_category" /> Address</a></li>
 												<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
 												<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
 												<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
@@ -47,7 +46,6 @@ $maxListPrice		= $requests['maxlistprice'];
 												<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
 												<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
 												<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
-												<li><a id="school3" href="#"><input type="radio" name="search_category" /> School</a></li>
 												<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
 											</ul>
 										  </div>
@@ -68,9 +66,6 @@ $maxListPrice		= $requests['maxlistprice'];
 												<input type="hidden" id="administrative_area_level_1" name="advStates" disabled="true"  />
 												<input type="hidden" id="country" name="advCounties" disabled="true" />
 												<input type="hidden" id="postal_code" name="advStZip" disabled="true" />
-											</div>
-											<div class="field-section addr2 hide">
-												<input type="text" id="zpa-address-key" class="form-control" placeholder="Type any Address" name="location[]"/>
 											</div>
 											<div class="field-section area hide">
 												<input id="zpa-areas-input" class="form-control" placeholder="Type any Area"  name="location[]"/>
@@ -97,9 +92,6 @@ $maxListPrice		= $requests['maxlistprice'];
 											<div class="field-section school2 hide">
 												<input id="zpa-school-input" class="form-control" placeholder="Type any Address"  name="school[]"/>
 											</div>
-											<div class="field-section school3 hide">
-												<input id="zpa-school3-input" class="form-control" placeholder="Type any Address"  name="location[]"/>
-											</div>
 											<div class="field-section zip hide">
 												<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
 											</div>
@@ -115,7 +107,7 @@ $maxListPrice		= $requests['maxlistprice'];
 												jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section:not(.'+ targetClass +')').addClass('hide');
 												jQuery(this).parents('.zpa-search-location').find('.field-wrap .field-section.'+targetClass).removeClass('hide');
 												
-												jQuery(this).find('input').prop('checked', true);
+												jQuery(this).find('input').attr('checked', true);
 												
 												jQuery(this).closest(".dropdown").removeClass('open'); //close dropdown
 												
@@ -466,7 +458,7 @@ $maxListPrice		= $requests['maxlistprice'];
 		
 	</script> */ ?>
 	
-	<?php echo global_new_omnibar_script_v2(0, isset($requests['direct'])&&$requests['direct']?$requests['direct']:0); ?>
+	<?php echo global_new_omnibar_script(); ?>
 	
 	<script>
 		var $range = jQuery("#qs-price-slider-range-4");

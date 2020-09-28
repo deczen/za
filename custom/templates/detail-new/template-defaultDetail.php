@@ -939,13 +939,13 @@ if(file_exists($template_path) && $template_name ){
 				<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
 				<div class="row zy-widget greatschool-widget">
 					<div class="col-xs-12 col-md-12 col-lg-6">
-						<h3 class="">GreatSchools</h3>
-						<div id="greatschools"></div>
+						<h3 class="">Greatshools</h3>
+						<div id="greatshools"></div>
 						<script>
 							jQuery(document).ready(function(){
-								var curr_width = jQuery('.greatschool-widget #greatschools').width();
+								var curr_width = jQuery('.greatschool-widget #greatshools').width();
 								var gs_iframe = '<iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=DDDDDD&lat=<?php echo $single_property->lat; ?>&lon=<?php echo $single_property->lng; ?>&cityName=<?php echo isset($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION:'' ?>&state=<?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?>&normalizedAddress=<?php echo urlencode( zipperagent_get_address($single_property) ); ?>&width='+curr_width+'&height=368&zoom=1" width="'+curr_width+'" height="368" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe>'
-								jQuery('#greatschools').html(gs_iframe);
+								jQuery('#greatshools').html(gs_iframe);
 							});
 						</script>
 					</div>

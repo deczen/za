@@ -78,11 +78,6 @@ if( $location ){
 	$loc_town=array();
 	$loc_area=array();
 	$loc_zipcode=array();
-	$loc_address=array();
-	$loc_hs=array();
-	$loc_ms=array();
-	$loc_gs=array();
-	$loc_sd=array();
 	
 	// $towns = get_town_list();
 	foreach( $location as $var ){
@@ -96,16 +91,6 @@ if( $location ){
 			$loc_area[]=substr($temp, 5);
 		}else if( substr($temp, 0, 5) == 'azip_' ){
 			$loc_zipcode[]=substr($temp, 5);
-		}else if( substr($temp, 0, 9) == 'aflladdr_' ){
-			$loc_address[]=substr($temp, 9);
-		}else if( substr($temp, 0, 6) == 'hschl_' ){
-			$loc_hs[]=substr($temp, 6);
-		}else if( substr($temp, 0, 6) == 'mschl_' ){
-			$loc_ms[]=substr($temp, 6);
-		}else if( substr($temp, 0, 6) == 'gschl_' ){
-			$loc_gs[]=substr($temp, 6);
-		}else if( substr($temp, 0, 7) == 'aschdt_' ){
-			$loc_sd[]=substr($temp, 7);
 		}else{
 			$loc_zipcode[]=$temp;
 		}
@@ -116,11 +101,6 @@ if( $location ){
 	if(sizeof($loc_town)) $locqry['atwns']=implode(',',$loc_town);
 	if(sizeof($loc_area)) $locqry['aars']=implode(',',$loc_area);
 	if(sizeof($loc_zipcode)) $locqry['azip']=implode(',',$loc_zipcode);
-	if(sizeof($loc_address)) $locqry['aflladdr']=implode(',',$loc_address);
-	if(sizeof($loc_hs)) $locqry['hschl']=implode(',',$loc_hs);
-	if(sizeof($loc_ms)) $locqry['mschl']=implode(',',$loc_ms);
-	if(sizeof($loc_gs)) $locqry['gschl']=implode(',',$loc_gs);
-	if(sizeof($loc_sd)) $locqry['aschdt']=implode(',',$loc_sd);
 	
 	// die( $locqry );
 }else if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties ){
