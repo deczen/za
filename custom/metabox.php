@@ -51,6 +51,27 @@ function zipperagent_landing_page( $meta_boxes ) {
 		)
 	);
 	
+	 $meta_boxes[] = array(
+        'id'         => 'listing-header',
+        'title'      => __( 'Template Option', 'zipperagent' ),
+        'post_types' => array( 'page', 'zipperagent-listing' ),
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields' => array(
+            array(
+				'name'            => __( 'Hide header & footer?', 'zipperagent' ),
+				'id'              => '_lp_hide_header_footer',
+				'type'            => 'radio',
+				'options'         => array(
+					1 => 'Yes',
+					0 => 'No',
+				),
+				'inline' 		  => true,
+				'std' 			  => 0
+			),
+		)
+	);
+	
     $meta_boxes[] = array(
         'id'         => 'listing-info',
         'title'      => __( 'Listing Info', 'zipperagent' ),
@@ -319,15 +340,21 @@ add_action( 'admin_footer', 'generate_listing_by_id' );
 function generate_listing_by_id(){
 ?>
 <script>
-
+	
+	var xhr;
+	
 	jQuery('#_lp_listid').on('change', function(){
+		
+		if(xhr && xhr.readyState != 4){
+			xhr.abort();
+		}
 		
 		var listid = jQuery(this).val();
 		
 		if(listid!=''){
 			
 			console.time('generate fields');
-			jQuery.ajax({
+			xhr = jQuery.ajax({
 				type: 'POST',
 				dataType : 'json',
 				url: '<?php echo admin_url('/admin-ajax.php'); ?>',

@@ -68,8 +68,8 @@ if( ! function_exists('zipperagent_run_curl') ){
 		$server_output = json_decode($json);
 		
 		if( (isset($server_output->status) && $server_output->status=='FAIL' )
-			|| ( $server_output->responseCode >= 200 && $server_output->responseCode <= 299 && $server_output->status != 'SUCCESS')
-			|| ! ( $server_output->responseCode >= 200 && $server_output->responseCode <= 299 ) ){
+			|| ( isset($server_output->responseCode) && $server_output->responseCode >= 200 && $server_output->responseCode <= 299 && $server_output->status != 'SUCCESS')
+			|| ! ( isset($server_output->responseCode) && $server_output->responseCode >= 200 && $server_output->responseCode <= 299 ) ){
 			if(isset($server_output->errors)){
 				foreach($server_output->errors as $error){
 					$log=new ZipperAgentLog('error','functions.php');

@@ -39,12 +39,17 @@ function za_divi_builder_scripts(){
 	?>
 	<script>
 
+		var xhr;
+		
 		jQuery('body').on('click', '.et_pb_generate_remarks, .et_pb_generate_details', function(){
 			
+			if(xhr && xhr.readyState != 4){
+				xhr.abort();
+			}
 			var listid = jQuery('#_lp_listid').val();
 			
 			if(listid!=''){
-				jQuery.ajax({
+				xhr = jQuery.ajax({
 					type: 'POST',
 					dataType : 'json',
 					url: '<?php echo admin_url('/admin-ajax.php'); ?>',

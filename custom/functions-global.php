@@ -14,12 +14,12 @@ class ZipperagentGlobalFunction{
 	public function zipperagent_user_slug(){
 		
 		$fullname='My Account';
-		$userdata=$this->getCurrentUserContactLogin();
-		$firstUser=isset($userdata[0])?$userdata[0]:false;
+		// $userdata=$this->getCurrentUserContactLogin();
+		// $firstUser=isset($userdata[0])?$userdata[0]:false;
 		
-		if(isset($firstUser->firstName)){
-			$fullname=$firstUser->firstName . ( isset($firstUser->lastName) ? ' ' . $firstUser->lastName : '' );
-		}
+		// if(isset($firstUser->firstName)){
+			// $fullname=$firstUser->firstName . ( isset($firstUser->lastName) ? ' ' . $firstUser->lastName : '' );
+		// }
 		
 		// if($_GET['debug']==1){
 			// echo "<pre>"; print_r($_SESSION); echo "</pre>";
@@ -27,7 +27,7 @@ class ZipperagentGlobalFunction{
 			// echo "<pre>"; print_r($fullname); echo "</pre>";			
 		// }
 		
-		flush_rewrite_rules();
+		// flush_rewrite_rules();
 		
 		return sanitize_title($fullname);
 	}
