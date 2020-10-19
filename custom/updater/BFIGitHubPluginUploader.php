@@ -34,17 +34,22 @@ class BFIGitHubPluginUpdater {
         if ( !empty( $this->githubAPIResult ) ) {
             return;
         }
+		
+		$params=array();
 
         // Query the GitHub API
         $url = "https://api.github.com/repos/{$this->username}/{$this->repo}/releases";
 		
         // We need the access token for private repos
         if ( !empty( $this->accessToken ) ) {
-            $url = add_query_arg( array( "access_token" => $this->accessToken ), $url );
+            // $url = add_query_arg( array( "access_token" => $this->accessToken ), $url );
+			$params['headers']=array(
+				'Authorization' => 'token '. $this->accessToken,
+			);
         }
 
         // Get the results
-        $this->githubAPIResult = wp_remote_retrieve_body( wp_remote_get( $url ) );
+        $this->githubAPIResult = wp_remote_retrieve_body( wp_remote_get( $url, $params ) );
         if ( !empty( $this->githubAPIResult ) ) {
             $this->githubAPIResult = @json_decode( $this->githubAPIResult );
         }
