@@ -1,5 +1,6 @@
 <?php
 global $is_detail_page, $is_map_explore, $is_view_save_search, $is_search_apply, $is_shortcode;
+global $uniqueClass, $uniqueClassWithDot;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 $contactIds = get_contact_id();
@@ -938,6 +939,9 @@ $contactIds = get_contact_id();
 						case "alkchn":
 							newLabel = 'Lake Lots';	
 							break;
+						case "aflladdr":
+							newLabel = value;	
+							break;
 						<?php
 						if($extra_proptypes = zipperagent_extra_proptype()){
 							foreach($extra_proptypes as $key=>$extra_proptype){
@@ -1442,8 +1446,9 @@ $contactIds = get_contact_id();
 					var subdomain=zppr.data.root.web.subdomain;
 					var customer_key=zppr.data.root.web.authorization.consumer_key;
 					var ps=10;
-					var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-					var crit = "";
+					var requests = zppr.get_form_inputs(jQuery('<?php echo $uniqueClassWithDot; ?> #zpa-search-filter-form'));
+					var params = zppr.generate_api_params(requests);
+					var crit = params.crit;
 					var response=false;
 					var gs=0;
 					var ms=0;
@@ -1481,88 +1486,173 @@ $contactIds = get_contact_id();
 			});
 
 			var xhr_all;
-				jQuery(ms_all).on('keyup', function(event){
+			jQuery(ms_all).on('keyup', function(event){
+				
+				if(! direct){
+					if(xhr_all && xhr_all.readyState != 4){
+						xhr_all.abort();
+					}
 					
-					if(! direct){
-						if(xhr_all && xhr_all.readyState != 4){
-							xhr_all.abort();
-						}
-						
-						event.preventDefault();
-						
-						clearTimeout(timer);
-						//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
-						timer = setTimeout(function () {
-							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
-							var inputText = ms_all.getRawValue();
-							
-							console.time('populate address & school');
-							xhr_all = jQuery.ajax({
-								type: 'POST',
-								dataType : 'json',
-								url: zipperagent.ajaxurl,
-								data: {
-									'key': inputText,
-									'action': 'address_and_school_options',
-								},
-								success: function( response ) {         
-									if( response ){
-										var data = response.addresses;
-										var combined = jQuery.merge(data, all);
-										ms_all.setData(combined);
-									}
-									console.timeEnd('populate address & school');
-								},
-								error: function(){
-									console.timeEnd('populate address & school');
-								}
-							});
-						}, 500);
-					}else{
-						console.time('populate address & school');
-						
-						var parm=[];
-						var subdomain=zppr.data.root.web.subdomain;
-						var customer_key=zppr.data.root.web.authorization.consumer_key;
-						var ps=5;
-						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-						var crit = "";
-						var response=false;
-						var gs=1;
-						var ms=1;
-						var hs=1;
-						var sd=1;
-						var addr=1;
+					event.preventDefault();
+					
+					clearTimeout(timer);
+					//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+					timer = setTimeout(function () {
+						//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
 						var inputText = ms_all.getRawValue();
-						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
 						
-						var xhttp = new XMLHttpRequest();
-						xhttp.onreadystatechange = function() {
-
-							if (this.readyState == 4 ) {
-								if(this.status == 200){
-								
-									response=JSON.parse(this.responseText);
-									if(response.responseCode===200){
-										
-										var data = zppr.populate_addresses_and_schools(response);
-										var combined = jQuery.merge(data, all);
-										ms_all.setData(combined);
-										
-										console.timeEnd('populate address & school');
-									}
-									
-								}else {
-									console.log("status = " + status + " received");
+						console.time('populate address & school');
+						xhr_all = jQuery.ajax({
+							type: 'POST',
+							dataType : 'json',
+							url: zipperagent.ajaxurl,
+							data: {
+								'key': inputText,
+								'action': 'address_and_school_options',
+							},
+							success: function( response ) {         
+								if( response ){
+									var data = response.addresses;
+									var combined = jQuery.merge(data, all);
+									ms_all.setData(combined);
 								}
-							} else {
+								console.timeEnd('populate address & school');
+							},
+							error: function(){
+								console.timeEnd('populate address & school');
+							}
+						});
+					}, 500);
+				}else{
+					console.time('populate address & school');
+					
+					var parm=[];
+					var subdomain=zppr.data.root.web.subdomain;
+					var customer_key=zppr.data.root.web.authorization.consumer_key;
+					var ps=5;
+					var requests = zppr.get_form_inputs(jQuery('<?php echo $uniqueClassWithDot; ?> #zpa-search-filter-form'));
+					var params = zppr.generate_api_params(requests);
+					var crit = params.crit;
+					var response=false;
+					var gs=1;
+					var ms=1;
+					var hs=1;
+					var sd=1;
+					var addr=1;
+					var inputText = ms_all.getRawValue();
+					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+					
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+
+						if (this.readyState == 4 ) {
+							if(this.status == 200){
+							
+								response=JSON.parse(this.responseText);
+								if(response.responseCode===200){
+									
+									var data = zppr.populate_addresses_and_schools(response);
+									var combined = jQuery.merge(data, all);
+									ms_all.setData(combined);
+									
+									console.timeEnd('populate address & school');
+								}
+								
+							}else {
 								console.log("status = " + status + " received");
 							}
-						};
-						xhttp.open("GET", guxx(parm), true);
-						xhttp.send();
+						} else {
+							console.log("status = " + status + " received");
+						}
+					};
+					xhttp.open("GET", guxx(parm), true);
+					xhttp.send();
+				}
+			});	
+			
+			jQuery(ms_all_mobile).on('keyup', function(event){
+				
+				if(! direct){
+					if(xhr_all && xhr_all.readyState != 4){
+						xhr_all.abort();
 					}
-				});	
+					
+					event.preventDefault();
+					
+					clearTimeout(timer);
+					//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+					timer = setTimeout(function () {
+						//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+						var inputText = ms_all_mobile.getRawValue();
+						
+						console.time('populate address & school');
+						xhr_all = jQuery.ajax({
+							type: 'POST',
+							dataType : 'json',
+							url: zipperagent.ajaxurl,
+							data: {
+								'key': inputText,
+								'action': 'address_and_school_options',
+							},
+							success: function( response ) {         
+								if( response ){
+									var data = response.addresses;
+									var combined = jQuery.merge(data, all);
+									ms_all_mobile.setData(combined);
+								}
+								console.timeEnd('populate address & school');
+							},
+							error: function(){
+								console.timeEnd('populate address & school');
+							}
+						});
+					}, 500);
+				}else{
+					console.time('populate address & school');
+					
+					var parm=[];
+					var subdomain=zppr.data.root.web.subdomain;
+					var customer_key=zppr.data.root.web.authorization.consumer_key;
+					var ps=5;
+					var requests = zppr.get_form_inputs(jQuery('<?php echo $uniqueClassWithDot; ?> #zpa-search-filter-form'));
+					var params = zppr.generate_api_params(requests);
+					var crit = params.crit;
+					var response=false;
+					var gs=1;
+					var ms=1;
+					var hs=1;
+					var sd=1;
+					var addr=1;
+					var inputText = ms_all_mobile.getRawValue();
+					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+					
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+
+						if (this.readyState == 4 ) {
+							if(this.status == 200){
+							
+								response=JSON.parse(this.responseText);
+								if(response.responseCode===200){
+									
+									var data = zppr.populate_addresses_and_schools(response);
+									var combined = jQuery.merge(data, all);
+									ms_all_mobile.setData(combined);
+									
+									console.timeEnd('populate address & school');
+								}
+								
+							}else {
+								console.log("status = " + status + " received");
+							}
+						} else {
+							console.log("status = " + status + " received");
+						}
+					};
+					xhttp.open("GET", guxx(parm), true);
+					xhttp.send();
+				}
+			});
 			
 			$(ms_town).on('selectionchange', function(e,m){		
 				var values = this.getValue();
@@ -1747,7 +1837,7 @@ $contactIds = get_contact_id();
 				var data   = this.getData();
 				var label  = '';
 				var name, linked_name;
-				var is_add, is_location, is_lake, is_address, is_mls = 0;
+				var is_add, is_location, is_aflladdr, is_lake, is_address, is_mls = 0;
 								
 				for(i=0; i<data.length; i++){
 					if(data[i].code==value){
@@ -1763,7 +1853,7 @@ $contactIds = get_contact_id();
 				}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("aflladdr_") >= 0){ //crm address
-					is_location=1;
+					is_aflladdr=1;
 				}else if (value.toLowerCase().indexOf("hschl_") >= 0){ //high school
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("mschl_") >= 0){ //middle school
@@ -1783,6 +1873,11 @@ $contactIds = get_contact_id();
 				if(is_location){							
 					name = 'location[]';
 					linked_name = 'location_'+value;
+					is_add=1;
+				}else if(is_aflladdr){							
+					name = 'aflladdr';
+					linked_name = name;
+					value = value.replace('aflladdr_','');
 					is_add=1;
 				}else if(is_lake){
 					name = 'alkChnNm[]';
@@ -1885,7 +1980,9 @@ $contactIds = get_contact_id();
 				var values = this.getValue();
 				var value  = values[0];
 				var data   = this.getData();
-				var label;
+				var label  = '';
+				var name, linked_name;
+				var is_add, is_location, is_aflladdr, is_lake, is_address, is_mls = 0;
 				
 				for(i=0; i<data.length; i++){
 					if(data[i].code==value){
@@ -1893,17 +1990,106 @@ $contactIds = get_contact_id();
 					}
 				}
 				
-				if(label){
-					var name = 'location[]';
-					var linked_name = 'location_'+value;
-				}else{
-					var name = 'alstid[]';
-					var linked_name = 'alstid_'+value;
+				if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("acnty_") >= 0){ //county
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("aflladdr_") >= 0){ //crm address
+					is_aflladdr=1;
+				}else if (value.toLowerCase().indexOf("hschl_") >= 0){ //high school
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("mschl_") >= 0){ //middle school
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("gschl_") >= 0){ //grade school
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("aschdt_") >= 0){ //grade school
+					is_location=1;
+				}else if (value.toLowerCase().indexOf("alkchnnm_") >= 0){ //lake
+					is_lake=1;
+				}else if (value.toLowerCase().indexOf("addr_") >= 0){ //google address
+					is_address=1;
+				}else if (value.toLowerCase().indexOf("alstid_") >= 0){ //mls
+					is_mls=1;
+				}
+				
+				if(is_location){							
+					name = 'location[]';
+					linked_name = 'location_'+value;
+					is_add=1;
+				}else if(is_aflladdr){							
+					name = 'aflladdr';
+					linked_name = name;
+					value = value.replace('aflladdr_','');
+					is_add=1;
+				}else if(is_lake){
+					name = 'alkChnNm[]';
+					linked_name = value.replace('alkchnnm_','');
+					value = value.replace('alkchnnm_','');
+					is_add=1;
+				}else if(is_address){
+					name = '';
+					is_add=0;
+				}else if(is_mls){
+					name = 'alstid[]';
+					linked_name = value;
+					value = value.replace('alstid_','');
+					// linked_name = 'alstid_'+value;
+					is_add=1;
 				}
 				
 				this.removeFromSelection(this.getSelection(), true);
-				addFilterLabel(name, value, linked_name, label);
-				addFormField(name,value,linked_name);
+				
+				clearGoogleAddressFields();
+				
+				if(is_add){
+					addFilterLabel(name, value, linked_name, label);
+					addFormField(name,value,linked_name);
+				}else if(is_address){
+					var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
+					if(saved_address){
+						$.each(saved_address, function(key, value) {
+							jQuery('.field-section.addr #'+ key).val(value);
+							jQuery('.field-section.addr #'+ key).prop('disabled',false);
+							label="";
+							
+							switch(key){
+								case "street_number":
+										name="advStNo";
+										linked_name="";
+									break;
+								case "route":
+										name="advStName";
+										linked_name="";
+									break;
+								case "locality":
+										name="advTownNm";
+										linked_name="";
+									break;
+								case "administrative_area_level_1":
+										name="advStates";
+										linked_name="";
+									break;
+								case "country":
+										name="advCounties";
+										linked_name="";
+									break;
+								case "postal_code":
+										name="advStZip";
+										linked_name="";
+									break;
+							}
+							name=name.toLowerCase();
+							linked_name=name;
+							
+							addFilterLabel(name, value, linked_name, label);
+							addFormField(name,value,linked_name);
+						});
+					}
+				}
 				
 				jQuery('#zpa-search-filter-form').submit();
 			});
@@ -2103,6 +2289,11 @@ $contactIds = get_contact_id();
 			});
 			<?php endif; ?>
 			
+			/* Combine ms_all_mobile and google autocomplete */
+			var ms_all_mobile__rawValue='';
+			var ms_all_mobile__google_autocomplete;
+			var google_autocomplete_selected=0;
+			
 			/* auto select dropdown function (ms_all) */
 			var ms_all__afterDelete=0;
 			var ms_all__recentSelected=[];
@@ -2183,6 +2374,91 @@ $contactIds = get_contact_id();
 					}
 					
 					ms_all.collapse();
+					
+					$('#zpa-all-input input').focus();
+				}
+			});
+			
+			/* auto select dropdown function (ms_all_mobile) */
+			var ms_all_mobile__afterDelete=0;
+			var ms_all_mobile__recentSelected=[];
+			var ms_all_mobile__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_all_mobile).on('keyup', function(){
+				ms_all_mobile__rawValue = ms_all_mobile.getRawValue();
+				ms_all_mobile__afterDelete=0;
+				
+				//set data on 
+				if(ms_all_mobile__rawValue.length===1)
+					ms_all_mobile.setData(all);
+			});
+			
+			//get current selected value
+			$(ms_all_mobile).on('focus', function(c){
+				ms_all_mobile__recentSelected = ms_all_mobile.getValue();
+				ms_all_mobile__afterDelete=1;
+				
+				//auto open dropdown
+				if(tenants) ms_all_mobile.expand();
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_all_mobile).on('blur', function(c, e){
+				var data = ms_all_mobile.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_all_mobile__currentSelected = ms_all_mobile.getValue();
+				
+				// console.log(ms_all_mobile__recentSelected);
+				// console.log(ms_all_mobile__currentSelected);
+				// console.log('ms_all_mobile__rawValue: ' + ms_all_mobile__rawValue);
+				// console.log('ms_all_mobile__afterDelete: ' + ms_all_mobile__afterDelete);
+				
+				if( ms_all_mobile__rawValue!="" && ! ms_all_mobile__afterDelete ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_all_mobile.setValue([firstData.code]);
+					}else if(!ms_all_mobile__google_autocomplete && !google_autocomplete_selected){
+						var val = ms_all_mobile__rawValue;
+						var prefix = 'alstid_';
+						var code = prefix + val;							
+						var label = 'MLS#' + val;
+						
+						var push = {group:'Mls', name: label, code: code, type: 'mls' };
+						ms_all_mobile.setValue([push]);
+					}
+					
+					ms_all_mobile__afterDelete=0;
+					
+					$('#zpa-all-input input').focus();
+				}
+				
+				//reset data to tenants
+				if(tenants) ms_all_mobile.setData(tenants);
+			});
+			
+			//select value on enter key pressed
+			$(ms_all_mobile).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_all_mobile.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_all_mobile__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_all_mobile.setValue([firstData.code]);
+						}else if(!ms_all_mobile__google_autocomplete && !google_autocomplete_selected && ms_all_mobile__rawValue.indexOf(" ") < 0){
+							var val = ms_all_mobile__rawValue;
+							var prefix = 'alstid_';
+							var code = prefix + val;							
+							var label = 'MLS#' + val;
+							
+							var push = {group:'Mls', name: label, code: code, type: 'mls' };
+							ms_all_mobile.setValue([push]);
+						}
+					}
+					
+					ms_all_mobile.collapse();
 					
 					$('#zpa-all-input input').focus();
 				}

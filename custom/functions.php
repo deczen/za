@@ -240,9 +240,15 @@ if( ! function_exists('zipperagent_get_address') ){
 		$provinceState = isset($property->provinceState)?$property->provinceState:'';
 		$zipcode = isset($property->zipcode)?$property->zipcode:'';
 		$streetno = isset($property->streetno)?$property->streetno:'';
+		$fulladdress = isset($property->fulladdress)?$property->fulladdress:'';
+		$formattedAddress = isset($property->formattedAddress)?$property->formattedAddress:'';
 		
 		if($hide_streetnumber){
 			$address = $streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
+		}else if($fulladdress){
+			$address = $fulladdress;
+		}else if($formattedAddress){
+			$address = $formattedAddress;
 		}else{
 			$address = $streetno.' '.$streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
 		}
@@ -5984,11 +5990,12 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					
 					for(i=0; i<values.length; i++){
 						
-						is_location=0;
-						is_lake=0;
-						is_address=0;
-						is_mls=0;
-						is_add=0;
+						var is_location=0;
+						var is_aflladdr=0;
+						var is_lake=0;
+						var is_address=0;
+						var is_mls=0;
+						var is_add=0;
 						value  = values[i];
 						
 						if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
@@ -6000,7 +6007,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}else if (value.toLowerCase().indexOf("azip_") >= 0){ //zip
 							is_location=1;
 						}else if (value.toLowerCase().indexOf("aflladdr_") >= 0){ //crm address
-							is_location=1;
+							is_aflladdr=1;
 						}else if (value.toLowerCase().indexOf("hschl_") >= 0){ //high school
 							is_location=1;
 						}else if (value.toLowerCase().indexOf("mschl_") >= 0){ //middle school
@@ -6019,6 +6026,11 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						
 						if(is_location){							
 							name = 'location[]';
+							is_add=1;
+						}else if(is_aflladdr){							
+							name = 'aflladdr';
+							linked_name = name;
+							value = value.replace('aflladdr_','');
 							is_add=1;
 						}else if(is_lake){
 							name = 'alkChnNm[]';

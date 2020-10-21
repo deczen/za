@@ -93,7 +93,7 @@
 				</div>
 				<div class="search-wrap search-type">
 					<div class="field-section all">
-						<input id="zpa-mobile-all-input" class="zpa-area-input location-input form-control" placeholder="Enter Town / Area / County / Zip"  name="search-fild"/>
+						<input id="zpa-mobile-all-input" class="zpa-area-input location-input form-control" placeholder="Address / Area / City / County / MLS# / Zip Code"  name="search-fild"/>
 					</div>
 				</div>
 				<div class="field-wrap price-type">

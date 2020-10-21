@@ -1931,8 +1931,9 @@ function get_school3_options(){
 	if ( isset($_REQUEST) ) {
 				
 		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		$crit = isset($_REQUEST['crit'])?wp_strip_all_tags($_REQUEST['crit']):'';
 		
-		$schools = populate_schools3($key);
+		$schools = populate_schools3($key, $crit);
 		
 		$result['schools']=$schools;
 		echo json_encode($result);
@@ -1967,8 +1968,9 @@ function get_address_and_school_options(){
 	if ( isset($_REQUEST) ) {
 				
 		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		$crit = isset($_REQUEST['crit'])?wp_strip_all_tags($_REQUEST['crit']):'';
 		
-		$addresses = populate_addresses_and_schools($key);
+		$addresses = populate_addresses_and_schools($key, $crit);
 		
 		$result['addresses']=$addresses;
 		echo json_encode($result);
