@@ -414,7 +414,7 @@ if(file_exists($template_path) && $template_name ){
 				<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">
 					<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 						<h1>
-							<p class="zy_address-style"><span itemprop="streetAddress">[streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php echo isset($single_property->unitno)?zipperagent_fix_comma($single_property->unitno):'' ?></span></p>
+							<p class="zy_address-style"><span itemprop="streetAddress">[streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php echo isset($single_property->unitno)?'#'.zipperagent_fix_comma($single_property->unitno):'' ?></span></p>
 							<p class="zy_subaddress-style">
 								<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 								<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>

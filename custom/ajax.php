@@ -472,8 +472,10 @@ function prop_result_and_pagination(){
 		
 		$tmp = explode(';',$vars['crit']);
 		foreach($tmp as $val){
-			$var=explode(':',$val);
-			$requests[$var[0]]=$var[1];
+			if($val!=''){
+				$var=explode(':',$val);
+				$requests[$var[0]]=$var[1];
+			}
 		}
 		
 		$proptypes = explode(',', isset($requests['apt'])?$requests['apt']:'');
@@ -1931,9 +1933,9 @@ function get_school3_options(){
 	if ( isset($_REQUEST) ) {
 				
 		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
-		$crit = isset($_REQUEST['crit'])?wp_strip_all_tags($_REQUEST['crit']):'';
+		$requests = isset($_REQUEST['requests'])?wp_strip_all_tags($_REQUEST['requests']):'';
 		
-		$schools = populate_schools3($key, $crit);
+		$schools = populate_schools3($key, $requests);
 		
 		$result['schools']=$schools;
 		echo json_encode($result);
@@ -1950,8 +1952,9 @@ function get_address_options(){
 	if ( isset($_REQUEST) ) {
 				
 		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		$requests = isset($_REQUEST['requests'])?wp_strip_all_tags($_REQUEST['requests']):'';
 		
-		$addresses = populate_addresses($key);
+		$addresses = populate_addresses($key, $requests);
 		
 		$result['addresses']=$addresses;
 		echo json_encode($result);
@@ -1968,9 +1971,9 @@ function get_address_and_school_options(){
 	if ( isset($_REQUEST) ) {
 				
 		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
-		$crit = isset($_REQUEST['crit'])?wp_strip_all_tags($_REQUEST['crit']):'';
+		$requests = isset($_REQUEST['requests'])?wp_strip_all_tags($_REQUEST['requests']):'';
 		
-		$addresses = populate_addresses_and_schools($key, $crit);
+		$addresses = populate_addresses_and_schools($key, $requests);
 		
 		$result['addresses']=$addresses;
 		echo json_encode($result);

@@ -536,7 +536,7 @@ var zppr={
 								'<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">' +
 									'<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">' +
 										'<h1>' +
-											'<p class="zy_address-style"><span itemprop="streetAddress">{{streetno}} '+ (single_property.hasOwnProperty('streetname')?zppr.streetname_fix_comma(single_property.streetname):'') +' '+ (single_property.hasOwnProperty('unitno')?zppr.streetname_fix_comma(single_property.unitno):'') +'</span></p>' +
+											'<p class="zy_address-style"><span itemprop="streetAddress">{{streetno}} '+ (single_property.hasOwnProperty('streetname')?zppr.streetname_fix_comma(single_property.streetname):'') +' '+ (single_property.hasOwnProperty('unitno')?'#'+zppr.streetname_fix_comma(single_property.unitno):'') +'</span></p>' +
 											'<p class="zy_subaddress-style">' +
 												'<span itemprop="addressLocality"> '+ ( single_property.hasOwnProperty('lngTOWNSDESCRIPTION') && single_property.lngTOWNSDESCRIPTION ? single_property.lngTOWNSDESCRIPTION + ',':'' ) +' </span>' +
 												'<span itemprop="addressRegion"> '+ (single_property.hasOwnProperty('provinceState')?single_property.provinceState:'') +'</span>' +

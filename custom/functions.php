@@ -121,6 +121,736 @@ if (!function_exists('get_ipaddress')){
 	}
 }
 
+if( ! function_exists('zipperagent_generate_list') ){
+	function zipperagent_generate_list($requests, $is_ajax=0, $generate_list=1){
+		
+		$requests=key_to_lowercase($requests); //convert all key to lowercase
+		$excludes = get_long_excludes();
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
+		/**
+		 * VARIABLES
+		 * @ set values for each variables
+		 */	 
+
+		$is_shortcode 		= (isset($requests['is_shortcode'])?$requests['is_shortcode']:'');
+		 
+		$o 					= ( isset($requests['o'])?$requests['o']:'' );
+		$location 			= ( isset($requests['location'])?$requests['location']:'' );
+		$address 			= ( isset($requests['address'])?$requests['address']:'' );
+		$advStNo 			= ( isset($requests['advstno'])?$requests['advstno']:'' );
+		$advStName 			= ( isset($requests['advstname'])?$requests['advstname']:'' );
+		$advTownNm 			= ( isset($requests['advtownnm'])?$requests['advtownnm']:'' );
+		$advStates 			= ( isset($requests['advstates'])?$requests['advstates']:'' );
+		$advCounties 		= ( isset($requests['advcounties'])?$requests['advcounties']:'' );
+		$advStZip 			= str_replace( ' ', '', ( isset($requests['advstzip'])?$requests['advstzip']:'' ) );
+		$boundaryWKT 		= ( isset($requests['boundarywkt'])?$requests['boundarywkt']:'' );
+		$propertyType 		= ( isset($requests['propertytype'])?(!is_array($requests['propertytype'])?array($requests['propertytype']):$requests['propertytype']):array() );
+		$propSubType 		= ( isset($requests['propsubtype'])?(!is_array($requests['propsubtype'])?array($requests['propsubtype']):$requests['propsubtype']):array() );
+		$status 			= ( isset($requests['status'])?$requests['status']:'' );
+		$minListPrice 		= ( isset($requests['minlistprice'])?$requests['minlistprice']:'' );
+		$maxListPrice		= ( isset($requests['maxlistprice'])?$requests['maxlistprice']:'' );
+		$squareFeet			= ( isset($requests['squarefeet'])?$requests['squarefeet']:'' );
+		$bedrooms 			= ( isset($requests['bedrooms'])?$requests['bedrooms']:'' );
+		$bathCount 			= ( isset($requests['bathcount'])?$requests['bathcount']:'' );
+		$lotAcres 			= ( isset($requests['lotacres'])?$requests['lotacres']:'' );
+		$minDate 			= ( isset($requests['mindate'])?$requests['mindate']:'' );
+		$maxDate 			= ( isset($requests['maxdate'])?$requests['maxdate']:'' );
+		$startTime 			= ( isset($requests['starttime'])?$requests['starttime']:'' );
+		$endTime 			= ( isset($requests['endtime'])?$requests['endtime']:'' );
+		$openHomesMode 		= ( isset($requests['openhomesmode'])?$requests['openhomesmode']:'' );
+		$openHomesOnlyYn 	= ( isset($requests['openhomesonlyyn'])?$requests['openhomesonlyyn']:'' );
+		$maxDaysListed 		= ( isset($requests['maxdayslisted'])?$requests['maxdayslisted']:'' );
+		$featuredOnlyYn 	= ( isset($requests['featuredonlyyn'])?$requests['featuredonlyyn']:'' );
+		$hasVirtualTour 	= ( isset($requests['hasvirtualtour'])?$requests['hasvirtualtour']:'' );
+		$withImage 			= ( isset($requests['withimage'])?$requests['withimage']:'' );
+		$dateRange 			= ( isset($requests['daterange'])?$requests['daterange']:'' );
+		$year 				= ( isset($requests['yearbuilt'])?$requests['yearbuilt']:'' );
+		$alagt 				= ( isset($requests['alagt'])?$requests['alagt']:'' );
+		$aloff 				= ( isset($requests['aloff'])?$requests['aloff']:'' );
+		$showPagination 	= ( isset($requests['pagination'])?$requests['pagination']:1 );
+		$showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
+		$crit	 			= ( isset($requests['crit'])?$requests['crit']:'' );
+		$anycrit	 		= ( isset($requests['anycrit'])?$requests['anycrit']:'' );
+		$searchId			= ( isset($requests['searchid'])?$requests['searchid']:'' );
+		$alstid 			= ( isset($requests['alstid'])?$requests['alstid']:'' );
+		$column 			= ( isset($requests['column'])?$requests['column']:'' );
+		$school 			= ( isset($requests['school'])?$requests['school']:'' );
+		$alkchnnm 			= ( isset($requests['alkchnnm'])?$requests['alkchnnm']:'' );
+		$offmarket 			= ( isset($requests['offmarket'])?$requests['offmarket']:'' );
+
+		//distance search variables
+		$searchDistance 	= ( isset($requests['searchdistance'])?$requests['searchdistance']:'' );
+		$distance 			= ( isset($requests['distance'])?$requests['distance']:zipperagent_distance() );
+		$lat 				= ( isset($requests['lat'])?$requests['lat']:'' );
+		$lng 				= ( isset($requests['lng'])?$requests['lng']:'' );
+
+		//list view type
+		$view 				= ( isset($requests['view'])?$requests['view']:'' );
+
+		/**
+		 * PREPARATION
+		 * @ prepare the arguments before API process
+		 */
+
+		if( $is_ajax )
+			$actual_link = $requests['actual_link'];
+		else
+			$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+		/* set count variable */
+		$is_ajax_count=0;
+
+		/* default status */
+		$status = empty($status)?zipperagent_active_status():$status;
+
+		/* set column number */
+		$default_column=3;
+		$column = empty($column)?$default_column:$column;
+		$column = $column > 4 || $column < 1 ? $default_column : $column;
+		switch( $column ){
+			case 4:
+					$columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
+				break;
+			case 1:
+					$columns_code = 'col-lg-12 col-sm-12 col-md-12 col-xs-12';
+				break;
+			case 2:
+					$columns_code = 'col-lg-6 col-sm-6 col-md-6 col-xs-12';
+				break;
+			case 3:
+			default:
+					$columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
+				break;
+		}
+
+		/* generate mls_state_map */
+		$arr=array();
+		$mls_state_map=isset($rb['web']['mls_state_map']) ? $rb['web']['mls_state_map'] : array();
+		foreach( $mls_state_map as $source => $param ){
+
+			$arr=array(
+				'ascr'=>$source,
+				'astt'=>$param,
+			);
+			$anycrit.='('. proces_crit($arr) .')';
+		}
+
+		/* get town list */
+		$locqry=array();
+		$coords=null;
+		if( $location ){
+			
+			$location=!is_array($location)?array($location):$location;
+			$loc_country=array();
+			$loc_town=array();
+			$loc_area=array();
+			$loc_zipcode=array();
+			$loc_address=array();
+			$loc_hs=array();
+			$loc_ms=array();
+			$loc_gs=array();
+			$loc_sd=array();
+			
+			// $towns = get_town_list();
+			foreach( $location as $var ){
+				$temp = urldecode($var);
+				
+				if( substr($temp, 0, 6) == 'acnty_' ){
+					$loc_country[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'atwns_' ){
+					$loc_town[]=substr($temp, 6);
+				}else if( substr($temp, 0, 5) == 'aars_' ){
+					$loc_area[]=substr($temp, 5);
+				}else if( substr($temp, 0, 5) == 'azip_' ){
+					$loc_zipcode[]=substr($temp, 5);
+				}else if( substr($temp, 0, 9) == 'aflladdr_' ){
+					$loc_address[]=substr($temp, 9);
+				}else if( substr($temp, 0, 6) == 'hschl_' ){
+					$loc_hs[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'mschl_' ){
+					$loc_ms[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'gschl_' ){
+					$loc_gs[]=substr($temp, 6);
+				}else if( substr($temp, 0, 7) == 'aschdt_' ){
+					$loc_sd[]=substr($temp, 7);
+				}else{
+					$loc_zipcode[]=$temp;
+				}
+			}
+			
+			/* convert array to string */
+			if(sizeof($loc_country)) $locqry['acnty']=implode(',',$loc_country);
+			if(sizeof($loc_town)) $locqry['atwns']=implode(',',$loc_town);
+			if(sizeof($loc_area)) $locqry['aars']=implode(',',$loc_area);
+			if(sizeof($loc_zipcode)) $locqry['azip']=implode(',',$loc_zipcode);
+			if(sizeof($loc_address)) $locqry['aflladdr']=implode(',',$loc_address);
+			if(sizeof($loc_hs)) $locqry['hschl']=implode(',',$loc_hs);
+			if(sizeof($loc_ms)) $locqry['mschl']=implode(',',$loc_ms);
+			if(sizeof($loc_gs)) $locqry['gschl']=implode(',',$loc_gs);
+			if(sizeof($loc_sd)) $locqry['aschdt']=implode(',',$loc_sd);
+			
+			// die( $locqry );
+		}else if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties ){
+			
+			$loc_advStNo=array();
+			$loc_advStName=array();
+			$loc_advStZip=array();
+			$loc_advStates=array();
+			$loc_advTownNm=array();
+			$loc_advAreas=array();
+				
+			if(sizeof($advStNo)) $locqry['astno']=($advStNo);
+			if(sizeof($advStName)) $locqry['astnmf']=($advStName);
+			if(sizeof($advStZip)) $locqry['azip']=($advStZip);
+			if(sizeof($advStates)) $locqry['astt']=($advStates);
+			if(sizeof($advTownNm)) $locqry['atwnnm']=($advTownNm);
+			// if(sizeof($advCounties)) $locqry['acnty']=($advCounties);
+			
+		}else if($boundaryWKT){
+			// preg_match( '/POLYGON \(\((.*?)\)\)/', $boundaryWKT, $match );
+			preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode($boundaryWKT), $match );
+			$coor_string = isset($match[1])?'('.$match[1].')':'';
+			preg_match_all( "/\(([^)]+)\)/", $coor_string, $match );
+			// $polygons = array_map('trim', explode( ',', $match[1] ));
+			$polygons = $match[1];
+			$added_polygons=array();
+			foreach( $polygons as $index=>&$polygon ){
+				$polygon= str_replace(' ','',$polygon);
+				$temp = explode(',',$polygon);
+				
+				// $polygon= str_replace(', ',':',$polygon); 
+				$polygon = $temp[1].':'.$temp[0];
+				$added_polygons[]=$polygon;
+			}
+			$added_polygons[]=$added_polygons[0];
+			$coords=implode(',',$added_polygons );
+			// $coords="-71.057083:42.361145,-71.057083:41,-70:41,-70:42,-71.057083:42.361145";
+		}
+
+		/* get advanced search */
+		$advSearch=array();	
+		if( $openHomesOnlyYn || $maxDaysListed ){
+			$days = 14;
+			$advSearch['hasoh']=!empty($maxDaysListed)?$maxDaysListed:$days;
+		}
+		if( $withImage )
+			$advSearch['hasp']="true";
+
+		if( $hasVirtualTour )
+			$advSearch['hasvt']="true";
+
+		if( $year )
+			$advSearch['ayblt']=$year;
+
+		if( $squareFeet )
+			$advSearch['acarea']=$squareFeet;
+
+		if( $alagt )
+			$advSearch['alagt']=$alagt;
+
+		if( $aloff )
+			$advSearch['aloff']=$aloff;
+
+		if( $alkchnnm ){
+			$advSearch['alkChnNm']=is_array($alkchnnm)?implode(',',$alkchnnm):$alkchnnm;
+		}
+
+		//generate extra proptype variables
+		if($extra_proptypes = zipperagent_extra_proptype()){
+			foreach($extra_proptypes as $key=>$extra_proptype){
+				
+				if(isset($requests[strtolower($extra_proptype['abbrev'])])){
+					$tempval=$requests[strtolower($extra_proptype['abbrev'])];
+					unset($requests[strtolower($extra_proptype['abbrev'])]);
+					$requests[$extra_proptype['abbrev']]=$tempval;
+				}
+			}
+		}
+
+		//generate school variables
+		if( $school  ){
+			foreach($school as $scl){
+				$school_tmp = explode('_', $scl);
+				$school_code=isset($school_tmp[0])?$school_tmp[0]:$scl;
+				$school_name=isset($school_tmp[1])?$school_tmp[1]:'';
+				
+				if($school_code && $school_name)
+					$requests['aschlnm'][]=$school_code.'$'.$school_name;
+				else
+					$requests['aschlnm'][]=$school_code;
+			}
+		}
+
+		//remove space from alstid (listing id search)
+		if( isset($requests['alstid']) )
+			$requests['alstid']=str_replace(' ','', $requests['alstid']);
+
+		//generate rest of variables
+		foreach( $requests as $key=>$val ){
+			if( ! in_array( strtolower($key), $excludes ) ){
+				if(is_array($val)){
+					$advSearch[$key]=implode(',',$val);
+				}else{			
+					$advSearch[$key]=($val);
+				}
+			}
+		}
+
+
+		/* get order */
+		// $o='ud:DESC;'.$o;
+		// $order='&o='.$o;
+
+		/* get page number */
+		$page = (get_query_var('page')) ? get_query_var('page') : 1;
+		$page = isset($requests['page']) ? $requests['page'] : $page;
+
+		$num=isset($requests['listinapage']) ? $requests['listinapage'] : ($view=='map'?10:24);
+		$maxtotal=isset($requests['maxlist']) ? $requests['maxlist'] : 0;
+
+		/* page correction */
+		if( $maxtotal > 0 ){
+			$maxpage=ceil($maxtotal/$num);
+			if( $page > $maxpage )
+				$page = $maxpage;
+		}
+
+		$index=$page*$num-$num;
+
+		$open=0;
+
+		/**
+		 * API CALL
+		 * @ call method and get properties
+		 */
+
+		if( $openHomesMode ){ // open houses mode
+			
+			$current_date = current_time( 'Y-m-d' );
+			$daytoadd = isset($daysfromnow)?$daysfromnow:"14";
+			// echo $current_date;
+			if( $minDate )
+			$startDate = date( 'm/d/Y', strtotime ( $minDate ) ); 
+			else
+			$startDate = date( 'm/d/Y', strtotime( $current_date ) ); 	
+			
+			if( $maxDate )
+			$endDate = date( 'm/d/Y', strtotime ( $maxDate ) );
+			else
+			$endDate = date( 'm/d/Y', strtotime ( $current_date . ' + '. $daytoadd .' days' ) );
+			
+			$search=array(
+				'asrc'=>$rb['web']['asrc'],
+				// 'aloff'=>$rb['web']['aloff'],
+				'abeds'=>$bedrooms,
+				'abths'=>$bathCount,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
+				'asts'=>$status,
+				'apmin'=>za_correct_money_format($minListPrice),
+				'apmax'=>za_correct_money_format($maxListPrice),
+				'aacr'=>$lotAcres,
+			);
+			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
+			
+			$search= array_merge($search, $locqry, $advSearch);
+			
+			$vars=array(
+				'crit'=>proces_crit($search),
+				'startDate'=>$startDate,
+				'endDate'=>$endDate,
+				'sidx'=>$index,
+				'ps'=>$num,
+				'o'=>$o,
+			);	
+			
+			if($startTime){
+				$vars['startTime']=$startTime;
+			}
+			if($endTime){
+				$vars['endTime']=$endTime;
+			}	
+			if( $crit ){
+				$vars['crit'] = $crit;
+			}
+			if( $anycrit ){
+				$vars['anycrit'] = $anycrit;
+			}
+			
+			if($view=='map' || $view=='marker'){
+				
+				$maplimit=100;
+				$mapvars=$vars;
+				$mapindex=floor($index / $maplimit);
+				$mapindex=$mapindex<0?0:$mapindex;
+				$mapvars['sidx']=$mapindex;
+				$mapvars['ps']=$maplimit;
+				
+				if($generate_list){
+					$mapresult = zipperagent_run_curl( "/api/mls/getopenhouses", $mapvars);
+					$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+					
+					//get properties from maplist
+					$mappedIndex=$index % $maplimit;
+					$mappedLimit=$mappedIndex + $num > $maplimit ? $maplimit : $mappedIndex + $num;
+					$list=array();
+					for($i=$mappedIndex; $i<$mappedLimit; $i++){
+						
+						if(isset($maplist[$i]))
+							$list[]=$maplist[$i];
+					}
+						
+					$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult);
+				}
+			}else{
+			
+				if($generate_list){
+					$result = zipperagent_run_curl( "/api/mls/getopenhouses", $vars);
+					
+					$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+					$list=isset($result['filteredList'])?$result['filteredList']:$result;
+				}
+			}
+			
+			$open=1;
+		}else if( isset($coords) ){ // map mode
+			
+			$search=array(
+				'asrc'=>$rb['web']['asrc'],
+				// 'aloff'=>$rb['web']['aloff'],
+				'abeds'=>$bedrooms,
+				'abths'=>$bathCount,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
+				'asts'=>$status,
+				'apmin'=>za_correct_money_format($minListPrice),
+				'apmax'=>za_correct_money_format($maxListPrice),
+				'aacr'=>$lotAcres,
+			);
+			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
+			
+			$search= array_merge($search, $locqry, $advSearch);
+			
+			// $search=array(
+				// 'asrc'=>$rb['web']['asrc'],
+				// 'asts'=>$status,
+			// );
+			
+			$vars=array(
+				'coords'=>$coords,
+				'crit'=>proces_crit($search),
+				'sidx'=>$index,
+				'ps'=>$num,
+				'o'=>$o,
+			);
+			
+			if( $crit ){
+				$vars['crit'] = $crit;
+			}
+			if( $anycrit ){
+				$vars['anycrit'] = $anycrit;
+			}
+			
+			if($view=='map'){
+				$maplimit=100;
+				$mapvars=$vars;
+				$mapindex=floor($index / $maplimit);
+				$mapindex=$mapindex<0?0:$mapindex;
+				$mapvars['sidx']=$mapindex;
+				$mapvars['ps']=$maplimit;
+				
+				if($generate_list){
+					$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+				
+					$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+							
+					//get properties from maplist
+					$mappedIndex=$index % $maplimit;
+					$mappedLimit=$mappedIndex + $num > $maplimit ? $maplimit : $mappedIndex + $num;
+					$list=array();
+					for($i=$mappedIndex; $i<$mappedLimit; $i++){
+						
+						if(isset($maplist[$i]))
+							$list[]=$maplist[$i];
+					}
+					
+					if(!$is_ajax){
+						$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
+						$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+					}else{		
+						$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
+					}
+				}
+				
+			}else if($view=='marker'){
+				
+				$loop=1;
+				$maplist=array();
+				$mapindex=$index;
+				$maplimit=5000;
+				$mapvars=$vars;
+				unset($mapvars['coords']); //remove coords from variables, search all locations
+				// $mapvars['coords']='';
+				$mapvars['micro']=true;
+				// $mapvars['o']='ud:DESC';
+				$maplisttemp=array();
+				
+				if($generate_list){
+					for($i=0; $i<$loop; $i++){
+						if($i>0 && empty($maplisttemp))
+							break;
+						
+						$mapvars['sidx']=$mapindex;
+						$mapvars['ps']=$maplimit;
+						
+						$mapresult = zipperagent_run_curl( "/api/mls/withinWoCnt", $mapvars );
+						// $mapresult = zipperagent_run_curl( "/api/mls/withinBoxWoCnt", $mapvars );
+						
+						// print_r($mapvars);
+						
+						$maplisttemp=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+						$maplist=array_merge($maplist, $maplisttemp);
+						
+						$mapindex+=($maplimit-1);
+					}
+					
+					if(!$is_ajax){			
+						$resultCount = zipperagent_run_curl( "/api/mls/withinOnlyCnt", $mapvars, 0, '', true );
+						// $resultCount = zipperagent_run_curl( "/api/mls/withinBoxOnlyCnt", $mapvars, 0, '', true );
+						$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+					}else{		
+						$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
+					}
+				}
+				
+			}else{
+				if($generate_list){
+					$result = zipperagent_run_curl( "/api/mls/within", $vars );
+					$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
+					$list=isset($result['filteredList'])?$result['filteredList']:$result;
+				}
+			}
+			
+		}else if( $searchDistance=="true" || $searchDistance=="1" || ($lat && $lng) ){ // map mode
+			
+			$search=array(
+				'asrc'=>$rb['web']['asrc'],
+				// 'aloff'=>$rb['web']['aloff'],
+				'abeds'=>$bedrooms,
+				'abths'=>$bathCount,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
+				'asts'=>$status,
+				'apmin'=>za_correct_money_format($minListPrice),
+				'apmax'=>za_correct_money_format($maxListPrice),
+				'aacr'=>$lotAcres,
+			);
+			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
+			
+			$search= array_merge($search, $locqry, $advSearch);
+			
+			// $search=array(
+				// 'asrc'=>$rb['web']['asrc'],
+				// 'asts'=>$status,
+			// );
+			
+			$vars=array(
+				'crit'=>proces_crit($search),
+				'distance'=>$distance,
+				'lat'=>$lat,
+				'lng'=>$lng,
+				'sidx'=>$index,
+				'ps'=>$num,
+			);
+			
+			if( $crit ){
+				$vars['crit'] = $crit;
+			}
+			if( $anycrit ){
+				$vars['anycrit'] = $anycrit;
+			}
+			
+			// $crit="crit=acnty:LINC,CATA,GASTON;asts:ACT,UCS,CS;apt:SFR,CND;alotd:WTRVIEW,WTRFRNT;awbn:Lake Norman";
+			// $xxx="?o=alstp:ASC&distance=402.336&lat=0.00000&lng=0.00000&sidx=0&ps=20";
+			
+			if($generate_list){
+				$result = zipperagent_run_curl( "/api/mls/distanceWoCnt", $vars );	
+				$list=isset($result['filteredList'])?$result['filteredList']:$result;
+				
+				if(!$is_ajax){
+					$resultCount = zipperagent_run_curl( "/api/mls/distanceOnlyCnt", $vars, 0, '', true );
+					$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?(isset($resultCount['result']->dataCount)?$resultCount['result']->dataCount:0):0;
+				}else{		
+					$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+				}
+			}
+			
+		}else if( $offmarket ){
+			
+			$vars=array(
+				'sidx'=>$index,
+				'ps'=>$num,
+				'd'=>'adverti:yes',
+				'l'=>'all',
+			);
+			
+			if($generate_list){
+				$result = zipperagent_run_curl( "/api/estate/list1", $vars );	
+				// echo "<pre>"; print_r($result); echo "</pre>";
+				$list=isset($result['filteredList'])?$result['filteredList']:$result;
+				// $count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+				$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+			}
+			
+			$is_ajax_count=0;
+
+		}else{
+			
+			$search=array(
+				'asrc'=>$rb['web']['asrc'],
+				// 'aloff'=>$rb['web']['aloff'],
+				'abeds'=>$bedrooms,
+				'abths'=>$bathCount,
+				'apt'=>implode( ',', array_map("trim",$propertyType) ),
+				'apts'=>implode( ',', array_map("trim",$propSubType) ),
+				'asts'=>$status,
+				'apmin'=>za_correct_money_format($minListPrice),
+				'apmax'=>za_correct_money_format($maxListPrice),
+				'aacr'=>$lotAcres,
+			);
+			
+			if($alstid){
+				// unset($search['asts']);
+				$stattmp[]=zipperagent_active_status();
+				$stattmp[]=zipperagent_sold_status();				
+				$search['asts']=implode(',',$stattmp);
+			}
+			
+			//set states
+			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
+			if($states){
+				$search['astt']=str_replace(' ','',$states);
+			}
+			
+			$search= array_merge($search, $locqry, $advSearch);
+			
+			$vars=array(
+				'crit'=>proces_crit($search),
+				'sidx'=>$index,
+				'ps'=>$num,
+				'o'=>$o,
+			);
+			// echo "<pre>"; print_r( $vars ); echo "</pre>";
+			if( $crit ){
+				$vars['crit'] = $crit;
+			}
+			if( $anycrit ){
+				$vars['anycrit'] = $anycrit;
+			}
+			
+			$contactIds=get_contact_id();
+			if( $contactIds )
+				$vars['contactId'] = implode(',',$contactIds);
+			
+			if($view=='map'){
+				$maplimit=100;
+				$mapvars=$vars;
+				$mapindex=floor($index / $maplimit);
+				$mapindex=$mapindex<0?0:$mapindex;
+				$mapvars['sidx']=$mapindex;
+				$mapvars['ps']=$maplimit;
+				
+				if($generate_list){
+					$mapresult = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $mapvars );
+					$maplist=isset($mapresult['filteredList'])?$mapresult['filteredList']:$mapresult;
+					
+					//get properties from maplist
+					$mappedIndex=$index % $maplimit;
+					$mappedLimit=$mappedIndex + $num > $maplimit ? $maplimit : $mappedIndex + $num;
+					$list=array();
+					for($i=$mappedIndex; $i<$mappedLimit; $i++){
+						
+						if(isset($maplist[$i]))
+							$list[]=$maplist[$i];
+					}
+					
+					if(!$is_ajax){
+						$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+						$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+					}else{		
+						$count=isset($mapresult['dataCount'])?$mapresult['dataCount']:sizeof($mapresult); //unused, always show 0
+					}
+				}
+			}else{
+				if($generate_list){
+					$result = zipperagent_run_curl( "/api/mls/advSearchWoCnt", $vars );	
+					if(!$is_ajax){
+						$resultCount = zipperagent_run_curl( "/api/mls/advSearchOnlyCnt", $vars, 0, '', true );
+						$count=isset($resultCount['status']) && $resultCount['status']==='SUCCESS'?$resultCount['result']:0;
+					}else{		
+						$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result); //unused, always show 0
+					}
+					
+					$list=isset($result['filteredList'])?$result['filteredList']:$result;
+				}
+			}
+			
+			$is_ajax_count=1;
+		}
+		
+		$variables=array(
+			'list' => $list,
+			'view' => $view,
+			'vars' => $vars,
+			'crit' => $crit,
+			'search' => $search,
+			'locqry' => $locqry,
+			'advSearch' => $advSearch,
+			'openHomesMode' => $openHomesMode,
+			'boundaryWKT' => $boundaryWKT,
+			'is_ajax_count' => $is_ajax_count,
+			'page' => $page,
+			'num' => $num,
+			'maxtotal' => $maxtotal,
+			'actual_link' => $actual_link,
+			'is_ajax' => $is_ajax,
+			'count'=>$count,
+			'is_shortcode'=>$is_shortcode,
+			'open' => $open,
+			'column' => $column,
+			
+			'searchId'=>$searchId,
+			'columns_code'=>$columns_code,
+			'bedrooms'=>$bedrooms,
+			'bathCount'=>$bathCount,
+			'propertyType'=>$propertyType,
+			'propSubType'=>$propSubType,
+			'status'=>$status,
+			'minListPrice'=>$minListPrice,
+			'maxListPrice'=>$maxListPrice,
+			'lotAcres'=>$lotAcres,
+		);
+		
+		return $variables;
+	}
+}
+
 if( ! function_exists('zipperagent_save_session_result') ){
 	function zipperagent_save_session_result($index, $result){
 		
@@ -2528,7 +3258,11 @@ if( ! function_exists('populate_schools') ){
 }
 
 if( ! function_exists('populate_schools3') ){
-	function populate_schools3($text,$limit=5){
+	function populate_schools3($text,$requests="",$limit=5){
+		
+		$variables = zipperagent_generate_list($requests, 0, 0);
+		
+		$crit = $variables['crit'];
 		
 		$args=array(
 			'text'=>$text,
@@ -2538,6 +3272,7 @@ if( ! function_exists('populate_schools3') ){
 			'sd'=>1,
 			'addr'=>0,
 			'ps'=>$limit,
+			'crit'=>$crit,
 		);
 
 		$obj = zipperagent_populate_new_autocomplete($args);
@@ -2598,7 +3333,11 @@ if( ! function_exists('populate_schools3') ){
 }
 
 if( ! function_exists('populate_addresses') ){
-	function populate_addresses($text,$limit=10){
+	function populate_addresses($text,$requests="",$limit=10){
+		
+		$variables = zipperagent_generate_list($requests, 0, 0);
+		
+		$crit = $variables['crit'];
 		
 		$args=array(
 			'text'=>$text,
@@ -2608,6 +3347,7 @@ if( ! function_exists('populate_addresses') ){
 			'sd'=>0,
 			'addr'=>1,
 			'ps'=>$limit,
+			'crit'=>$crit,
 		);
 
 		$obj = zipperagent_populate_new_autocomplete($args);
@@ -2656,7 +3396,11 @@ if( ! function_exists('populate_addresses') ){
 }
 
 if( ! function_exists('populate_addresses_and_schools') ){
-	function populate_addresses_and_schools($text,$limit=5){
+	function populate_addresses_and_schools($text,$requests="",$limit=5){
+		
+		$variables = zipperagent_generate_list($requests, 0, 0);
+		
+		$crit = $variables['vars']['crit'];
 		
 		$args=array(
 			'text'=>$text,
@@ -2666,6 +3410,7 @@ if( ! function_exists('populate_addresses_and_schools') ){
 			'sd'=>1,
 			'addr'=>1,
 			'ps'=>$limit,
+			'crit'=>$crit,
 		);
 
 		$obj = zipperagent_populate_new_autocomplete($args);
@@ -6305,7 +7050,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								success: function( response ) {         
 									if( response ){
 										var data = response.addresses;
-										var combined = jQuery.merge(data, all);
+										var combined = jQuery.merge(all, data);
 										ms_all.setData(combined);
 									}
 									console.timeEnd('populate address & school');
@@ -6344,7 +7089,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									if(response.responseCode===200){
 										
 										var data = zppr.populate_addresses_and_schools(response);
-										var combined = jQuery.merge(data, all);
+										var combined = jQuery.merge(all, data);
 										ms_all.setData(combined);
 										
 										console.timeEnd('populate address & school');
