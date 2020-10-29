@@ -254,6 +254,34 @@
 #zy_related-properties .disclaimer{font-size: 13px;min-height: 65px;border-top: 1px solid #ddd;padding-top: 4px;}
 #zy_related-properties .disclaimer img{max-height: 23px;margin-left: 1px;margin-right: 1px;width: auto;display: inline;}
 
+/* sibor custom agent widget */
+#zipperagent-content .sibor .zy_single-agent{
+	background-color:#f4f4f4;
+	color:#205a24;
+	padding:10px;
+	border-radius:2px
+}
+#zipperagent-content .sibor .zy_agent-title{
+	display:block;
+}
+#zipperagent-content .sibor .zy_agent-info h3{	
+	color:#205a24;
+}
+#zipperagent-content .sibor .zy_agent-info imgx {
+  width: 160px;
+  height: 80px;
+  background: #a84909;
+  border-radius: 50%;
+}
+#zipperagent-content .sibor .zy_agent-prop-title{
+	font-weight:600;
+	display:inline-block;
+	padding-right:6px;
+}
+#zipperagent-content .sibor p.zy_agent-email a{
+	display:inline-block;
+}
+/* end custom style */
 
 @media only screen and (max-width: 1200px){
 	.zy_address-style{text-align: center;}

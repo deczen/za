@@ -2663,19 +2663,33 @@ if( ! function_exists('zipperagent_get_listing_disclaimer') ){
 		$sources = zipperagent_get_source_details_cached();
 		$text='';
 		if(is_array($sources) && sizeof($sources)){
-			foreach( $sources as $source ){	
-			
-				// unset($source['discComingle']);
-				if(isset($source['logo_path']) && file_exists($source['logo_path'])){
-					$text.='<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />' . ' ';
-					
-					if( ( ! isset($source['discComingle']) || empty($source['discComingle']) ) && isset($source['copyrightUrl'])){
-						$text.= '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>' . ' ';
-					}
-				}
+			foreach( $sources as $sourceid => $source ){
 				
-				$text .= (isset($source['discComingle']) && !empty($source['discComingle'])) ? $source['discComingle'] : ( isset($source['discList']) ? $source['discList'] : '' );
-				$text .= "<br/><br/>";
+				if($sourceid==="NERENMLS"){
+					// unset($source['discComingle']);
+					if(isset($source['logo_path']) && file_exists($source['logo_path'])){
+						$text.= '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
+						
+						if(isset($source['copyrightUrl']) && $source['copyrightUrl']){
+							$text.=' ' . '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>';
+						}
+					}
+					$text.= ' '. 'via ' . $source['name'];
+					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? '<br />' . $source['discComingle'] : (isset($source['discDetail']) ? '<br />' . $source['discDetail'] : '' );
+					$text .= "<br/><br/>";
+				}else{
+					// unset($source['discComingle']);
+					if(isset($source['logo_path']) && file_exists($source['logo_path'])){
+						$text.='<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />' . ' ';
+						
+						if( ( ! isset($source['discComingle']) || empty($source['discComingle']) ) && isset($source['copyrightUrl'])){
+							$text.= '<a target="_blank" href="'. $source['copyrightUrl'] .'">click here</a>' . ' ';
+						}
+					}
+					
+					$text .= (isset($source['discComingle']) && !empty($source['discComingle'])) ? $source['discComingle'] : ( isset($source['discList']) ? $source['discList'] : '' );
+					$text .= "<br/><br/>";
+				}
 			}
 		}
 		
@@ -2817,6 +2831,14 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						$text.="<br /><b><i>© 2020 of the Greater Las Vegas Association of REALTORS® MLS. All rights reserved.</i></b>";
 						$text.="<br /><a href=\"http://www.idxre.com/docs/idxdocs/nvglvar-dmca.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">GLVAR DMCA Notice</a>";
 						$text.="<br />GLVAR (Las Vegas) data last updated at April 29, 2020 10:00 AM PT";
+					}else if($sourceid=='NERENMLS'){
+						if($updatedate){
+							$mlstz = zipperagent_browser_timezone();
+							$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
+							$dt->setTimestamp($updatedate/1000); //adjust the object to correct timestamp
+							$datetime = $dt->format('m/d/Y');							
+							$text.=' Data last updated ' . $datetime;
+						}
 					}
 					
 				break;

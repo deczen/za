@@ -405,7 +405,7 @@ if(file_exists($template_path) && $template_name ){
 <?php /* <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/bootstrap.min.css'; ?>">	*/ ?>
 
 <div id="zipperagent-content">
-	<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">
+	<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint <?php echo $groupname; ?>" itemtype="http://schema.org/Residence">
 		<article class="container-fluid">
 			<div id="zy_header-section" class="row zyapp_main-style" style="max-width:none;">
 				
@@ -414,7 +414,7 @@ if(file_exists($template_path) && $template_name ){
 				<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">
 					<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 						<h1>
-							<p class="zy_address-style"><span itemprop="streetAddress">[streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php echo isset($single_property->unitno)?'#'.zipperagent_fix_comma($single_property->unitno):'' ?></span></p>
+							<p class="zy_address-style"><span itemprop="streetAddress">[streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php echo isset($single_property->unitno)?'#'.$single_property->unitno:'' ?></span></p>
 							<p class="zy_subaddress-style">
 								<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 								<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>
@@ -750,6 +750,7 @@ if(file_exists($template_path) && $template_name ){
 					</ul>
 					
 					<ul class="zy_agent-info">
+					
 						<?php $user_default = ZipperagentGlobalFunction()->zipperagent_url() . 'images/user-default.png'; ?>
 						
 						<?php if( isset($single_property->listingAgent) ): 
@@ -760,7 +761,24 @@ if(file_exists($template_path) && $template_name ){
 						$agentPhone = isset( $single_property->listingAgent->phoneMobile )? $single_property->listingAgent->phoneMobile : ( isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '');
 						$agentEmail = isset( $single_property->listingAgent->email )? $single_property->listingAgent->email : '';
 						
-						?>
+						switch($groupname):
+						
+							case "sibor":
+							?>
+							<li>
+								<div class="zy_single-agent">
+									<span class="zy_agent-title">Listing Agent</span>
+									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
+									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
+									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
+									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<div class="clearfix"></div>
+								</div>
+							</li>							
+							<?php break; ?>
+							
+							<?php default: ?>
 							<li>Listing Agent</li>
 							<li>
 								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
@@ -770,6 +788,9 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
+							<?php break; ?>
+							
+						<?php endswitch; ?>
 						<?php /* elseif( isset($single_property->listAgent) ): 
 						$agentFullName = isset( $single_property->listAgent->fullName ) ? $single_property->listAgent->fullName : '';
 						$agentFullNameArr = explode( ' ',  $agentFullName );
@@ -797,7 +818,25 @@ if(file_exists($template_path) && $template_name ){
 						$agentImage = isset( $single_property->coListingAgent->imageURL )? $single_property->coListingAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->coListingAgent->phoneMobile )? $single_property->coListingAgent->phoneMobile : ( isset($single_property->coListingAgent->phoneOffice) ? $single_property->coListingAgent->phoneOffice : '');
 						$agentEmail = isset( $single_property->coListingAgent->email )? $single_property->coListingAgent->email : '';
-						?>
+						
+						switch($groupname):
+						
+							case "sibor":
+							?>
+							<li>
+								<div class="zy_single-agent">
+									<span class="zy_agent-title">CoListing Agent</span>
+									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
+									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
+									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
+									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<div class="clearfix"></div>
+								</div>
+							</li>							
+							<?php break; ?>
+							
+							<?php default: ?>
 							<li>CoListing Agent</li>
 							<li>
 								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
@@ -807,6 +846,9 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
+							<?php break; ?>
+							
+						<?php endswitch; ?>
 						<?php /* elseif( isset($single_property->coListAgent) ):
 						$agentFullName = isset( $single_property->coListAgent->fullName ) ? $single_property->coListAgent->fullName : '';
 						$agentFullNameArr = explode( ' ',  $agentFullName );
@@ -833,7 +875,25 @@ if(file_exists($template_path) && $template_name ){
 						$agentImage = isset( $single_property->salesAgent->imageURL )? $single_property->salesAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
 						$agentEmail = isset( $single_property->salesAgent->email )? $single_property->salesAgent->email : '';
-						?>
+						
+						switch($groupname):
+						
+							case "sibor":
+							?>
+							<li>
+								<div class="zy_single-agent">
+									<span class="zy_agent-title">Sales Agent</span>
+									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
+									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
+									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
+									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<div class="clearfix"></div>
+								</div>
+							</li>							
+							<?php break; ?>
+							
+							<?php default: ?>
 							<li>Sales Agent</li>
 							<li>
 								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
@@ -843,6 +903,9 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
+							<?php break; ?>
+							
+						<?php endswitch; ?>
 						<?php endif; ?>
 						
 						<?php if( isset($single_property->coSalesAgent) ):
@@ -852,7 +915,25 @@ if(file_exists($template_path) && $template_name ){
 						$agentImage = isset( $single_property->coSalesAgent->imageURL )? $single_property->coSalesAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->coSalesAgent->phoneMobile )? $single_property->coSalesAgent->phoneMobile : ( isset($single_property->coSalesAgent->phoneOffice) ? $single_property->coSalesAgent->phoneOffice : '');
 						$agentEmail = isset( $single_property->coSalesAgent->email )? $single_property->coSalesAgent->email : '';
-						?>
+						
+						switch($groupname):
+						
+							case "sibor":
+							?>
+							<li>
+								<div class="zy_single-agent">
+									<span class="zy_agent-title">CoSales Agent</span>
+									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
+									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
+									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
+									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<div class="clearfix"></div>
+								</div>
+							</li>							
+							<?php break; ?>
+							
+							<?php default: ?>						
 							<li>CoSales Agent</li>
 							<li>
 								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
@@ -862,6 +943,9 @@ if(file_exists($template_path) && $template_name ){
 								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
+							<?php break; ?>
+							
+						<?php endswitch; ?>
 						<?php endif; ?>
 						
 					</ul>
