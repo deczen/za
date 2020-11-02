@@ -419,7 +419,7 @@ if(file_exists($template_path) && $template_name ){
 								<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 								<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>
 								<span itemprop="postalCode"> <?php echo isset($single_property->zipcode)?$single_property->zipcode:'' ?> </span>
-							</p>
+							</p>							
 						</h1>
 					</div>
 				</div>
@@ -529,6 +529,15 @@ if(file_exists($template_path) && $template_name ){
 			</div>
 			
 			<div class="row zy_highlight-section">
+				
+				
+				<?php if( strpos($asrc, 'NERENMLS') !== false ): ?>
+				<div class="col-xs-12">
+					<div class="full-details-disclaimer">
+						<?php echo $source_details; ?>
+					</div>
+				</div>
+				<?php endif; ?>
 				<div class="col-lg-8 col-sm-12 col-md-12 col-xl-8"> 
 					<div id="gallery-column" style="display: block !important;">
 						
@@ -730,6 +739,7 @@ if(file_exists($template_path) && $template_name ){
 					
 					<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save sidebar section ?>
 					
+					<?php ob_start(); ?>
 					<ul class="zy_prop-details">						
 						
 						
@@ -748,6 +758,9 @@ if(file_exists($template_path) && $template_name ){
 						}
 						?>					
 					</ul>
+					<?php $property_detail=ob_get_clean(); ?>
+					
+					<?php echo strpos($asrc, 'NERENMLS') === false ?$property_detail:''; ?>
 					
 					<ul class="zy_agent-info">
 					
@@ -950,6 +963,8 @@ if(file_exists($template_path) && $template_name ){
 						
 					</ul>
 					
+					<?php echo strpos($asrc, 'NERENMLS') !== false ?$property_detail:''; ?>
+					
 					<?php if(isset($is_doing_ajax) && $is_doing_ajax) $sidebar_section = ob_get_clean(); //end save sidebar section ?>
 					
 				</div>
@@ -984,7 +999,7 @@ if(file_exists($template_path) && $template_name ){
 							<br> 
 							<?php
 							$excludes=array('gsmls');
-							if(!in_array($groupname,$excludes)){
+							if(!in_array($groupname,$excludes) && strpos($asrc, 'NERENMLS') === false ){
 								if( $source_details ){
 									echo $source_details;
 									

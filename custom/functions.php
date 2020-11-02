@@ -834,6 +834,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			'is_shortcode'=>$is_shortcode,
 			'open' => $open,
 			'column' => $column,
+			'maplist' => $maplist,
 			
 			'searchId'=>$searchId,
 			'columns_code'=>$columns_code,
@@ -2833,7 +2834,8 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						$text.="<br />GLVAR (Las Vegas) data last updated at April 29, 2020 10:00 AM PT";
 					}else if($sourceid=='NERENMLS'){
 						if($updatedate){
-							$mlstz = zipperagent_browser_timezone();
+							// $mlstz = zipperagent_browser_timezone();
+							$mlstz = zipperagent_mls_timezone($sourceid);
 							$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 							$dt->setTimestamp($updatedate/1000); //adjust the object to correct timestamp
 							$datetime = $dt->format('m/d/Y');							

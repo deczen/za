@@ -504,6 +504,8 @@ var zppr={
 	},
 	detail:function(single_property, actual_link){
 		
+		var source_details=single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'detail_source' ) : false;	
+		
 		agent = {};
 		if( single_property.hasOwnProperty('listagent') || single_property.hasOwnProperty('saleagent') ){
 			mlsid = single_property.hasOwnProperty('saleagent') ? single_property.saleagent : '';
@@ -618,8 +620,17 @@ var zppr={
 								
 							'</div>' +
 							
-							'<div class="row zy_highlight-section">' +
-								'<div class="col-lg-8 col-sm-12 col-md-12 col-xl-8">' + 
+							'<div class="row zy_highlight-section">';
+		
+		if(zppr.data.root.web.asrc.indexOf('NERENMLS') !== -1){
+			html+=				'<div class="col-xs-12">' +
+									'<div class="full-details-disclaimer">' +
+										source_details +
+									'</div>' +
+								'</div>';
+		}
+		
+		html+=					'<div class="col-lg-8 col-sm-12 col-md-12 col-xl-8">' + 
 									'<div id="gallery-column" style="display: block !important;">';										
 										
 		if( single_property.hasOwnProperty('photoList') && single_property.photoList.length ){
@@ -767,23 +778,26 @@ var zppr={
 										
 								'</div>' +			
 								
-								'<div id="zy_sidebar" class="col-lg-4 col-sm-12 col-md-12 col-xl-4">' +					
+								'<div id="zy_sidebar" class="col-lg-4 col-sm-12 col-md-12 col-xl-4">';				
 																		
-									'<ul class="zy_prop-details">';
+		var property_detail =		'<ul class="zy_prop-details">';
 										
 		if( single_property.hasOwnProperty('syncTime') ){
-			html+=						'<li><label class="update-info col-xs-12 zy_nopadding"> Last Checked for Updates on {{syncTime}} </label></li>';
+			property_detail+=			'<li><label class="update-info col-xs-12 zy_nopadding"> Last Checked for Updates on {{syncTime}} </label></li>';
 		}else if( single_property.hasOwnProperty('syncAge') ){
-			html+=						'<li><label class="update-info col-xs-12 zy_nopadding"> Last Checked for Updates: {{syncAge}} minutes ago </label></li>';
-		}
-										
+			property_detail+=			'<li><label class="update-info col-xs-12 zy_nopadding"> Last Checked for Updates: {{syncAge}} minutes ago </label></li>';
+		}					
 								
 		/* incldue sidebar template */
-		html+=							zppr.sidebar_template(single_property) +
+		property_detail+=				zppr.sidebar_template(single_property) +
 														
-									'</ul>' +
+									'</ul>';
 									
-									'<ul class="zy_agent-info">';
+		if(zppr.data.root.web.asrc.indexOf('NERENMLS') === -1){
+			html+=					property_detail;
+		}							
+									
+		html+=						'<ul class="zy_agent-info">';
 									
 		var user_default = zppr.data.plugin_url + 'images/user-default.png';
 		
@@ -929,9 +943,13 @@ var zppr={
 										'</li>';
 		}
 										
-		html+=						'</ul>' +
+		html+=						'</ul>';
+		
+		if(zppr.data.root.web.asrc.indexOf('NERENMLS') !== -1){
+			html+=					property_detail;
+		}	
 									
-								'</div>' +
+		html+=					'</div>' +
 								
 							'</div>' +
 							
@@ -957,9 +975,8 @@ var zppr={
 											'<br> ';
 											
 		var excludes=['gsmls'];
-		if(!zppr.in_array(zppr.data.detailpage_group,excludes)){
+		if(!zppr.in_array(zppr.data.detailpage_group,excludes) && zppr.data.root.web.asrc.indexOf('NERENMLS') === -1){
 			
-			var source_details=single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'detail_source' ) : false;	
 			if( source_details!='' ){
 				html+=						source_details;
 				
@@ -1146,7 +1163,7 @@ var zppr={
 										'<div class="full-details-disclaimer">' +
 											'<br> ';
 		
-		source_disclaimer = single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'detail_disclaimer') : false;		
+		source_disclaimer = single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName, 'updatedate': single_property.updatedate}, 'detail_disclaimer') : false;		
 		if(source_disclaimer!=''){
 			html+= 							source_disclaimer;
 		}
@@ -3025,6 +3042,7 @@ var zppr={
 		
 		var listAgentName = params['listAgentName'];
 		var listOfficeName = params['listOfficeName'];
+		var updatedate = params['updatedate'];
 		
 		switch(type){
 			case "list":
@@ -3117,6 +3135,25 @@ var zppr={
 					text+='<br />';
 					text+= source['discComingle'] ? source['discComingle'] : ( source['discDetail'] ? source['discDetail'] : '' );
 					// text+='<br /><br />' + defaultDisc;
+					
+					if(sourceid=='LVMLS'){
+						text+="<br /><br />";
+						text+="<img style=\"max-height:none;\" src=\""+ zppr.data.plugin_url + 'custom/logo/IDX.png' + "\" /><br />";
+						text+="The data related to real estate for sale on this website comes in part from the INTERNET DATA EXCHANGE (IDX) program of the Greater Las Vegas Association of REALTORS® MLS. Real estate listings held by brokerage firms other than this site owner are marked with the IDX logo. IDX information is for consumers' personal, non-commercial use and may not be used for any purpose other than to identify prospective properties consumers may be interested in purchasing.";
+						text+="<br /><b>GLVAR deems information reliable but not guaranteed.</b>";
+						text+="<br /><b><i>© 2020 of the Greater Las Vegas Association of REALTORS® MLS. All rights reserved.</i></b>";
+						text+="<br /><a href=\"http://www.idxre.com/docs/idxdocs/nvglvar-dmca.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">GLVAR DMCA Notice</a>";
+						text+="<br />GLVAR (Las Vegas) data last updated at April 29, 2020 10:00 AM PT";
+					}else if(sourceid=='NERENMLS'){
+						if(updatedate){
+
+							var mlstz = zppr.mls_timezone(sourceid);
+							var ld = new Date(updatedate).toLocaleString("en-US", {timeZone: mlstz});
+							var dt = new Date(ld);
+							var datetime = dt.format('m/d/Y');
+							text+=' Data last updated ' + datetime;
+						}
+					}
 				break;
 		}
 		
