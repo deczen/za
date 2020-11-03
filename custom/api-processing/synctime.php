@@ -2,30 +2,35 @@
 	if( ! defined('ABSPATH') )
 		include "../../../../../wp-load.php";
 	
+	$domainName = str_replace( 'https://', '', get_site_url() );
+	$domainName = str_replace( 'http://', '', $domainName );
+	
 	// define the path and name of cached file
-	$dir = ZIPPERAGENTPATH . '/custom/caches/';
-	$filename = 'countries-' . date('M-d-Y').'.php';
+	$dir = ZIPPERAGENTPATH . '/custom/caches/' . $domainName . '/';
+	if (!file_exists($dir)) {
+		mkdir($dir, 0777, true);
+	}
+	$filename = 'synctime-' . date('M-d-Y').'.php';
 	$cachefile = $dir.$filename;
 	
 	$files = scandir($dir);
 	foreach($files as $file) {
-		if( is_file( $dir . $file ) && $file!=$filename && strpos($file, 'countries-') !== false )
+		if( is_file( $dir . $file ) && $file!=$filename && strpos($file, 'synctime-') !== false )
 			@unlink( $dir . $file );
 	}
 	
 	// define how long we want to keep the file in seconds. I set mine to 24 hours.
 	$cachetime = 86400;
 	// Check if the cached file is still fresh. If it is, serve it up and exit.
-	if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
-   	include($cachefile);
+	if (file_exists($cachefile) && filesize($cachefile) > 10 && time() - $cachetime < filemtime($cachefile)) {
+		include($cachefile);
     	return;
 	}
 	// if there is either no file OR the file to too old, render the page and capture the HTML.
 	ob_start();
 	
 	/** CONTENT HERE **/
-	$meta = zipperagent_area_town();
-	$data = populate_countries($meta);
+	$data = populate_synctime();
 		
 	echo json_encode( $data );
 	/** CONTENT END **/

@@ -1288,6 +1288,23 @@ if( ! function_exists('zipperagent_get_status_name') ){
 	}
 }
 
+if( ! function_exists('zipperagent_get_synctime') ){
+	function zipperagent_get_synctime(){
+		
+		if(!isset($_SESSION['za_synctime']) || ( isset($_SESSION['za_synctime']) && !$_SESSION['za_synctime'] )){
+			ob_start();
+			include ZIPPERAGENTPATH . "/custom/api-processing/synctime.php";
+			$json=ob_get_clean();
+			$obj=json_decode($json);
+			$_SESSION['za_synctime'] = $obj;
+		}else{
+			$obj = $_SESSION['za_synctime'];
+		}	
+		
+		return $obj;
+	}
+}
+
 if( ! function_exists('proces_crit') ){
 	function proces_crit($args){
 		$temp=array();
@@ -1418,6 +1435,16 @@ if( ! function_exists('get_static_references') ){
 		}
 		
 		return $arr;
+	}
+}
+
+if( ! function_exists('populate_synctime') ){
+	function populate_synctime(){
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$asrc=$rb['web']['asrc'];
+		$obj = zipperagent_run_curl('/api/mls/getSyncTime?sources=' . $asrc);
+		
+		return $obj;
 	}
 }
 
@@ -2677,6 +2704,17 @@ if( ! function_exists('zipperagent_get_listing_disclaimer') ){
 					}
 					$text.= ' '. 'via ' . $source['name'];
 					$text.= (isset($source['discComingle']) && !empty($source['discComingle'])) ? '<br />' . $source['discComingle'] : (isset($source['discDetail']) ? '<br />' . $source['discDetail'] : '' );
+					
+					$synctime = zipperagent_get_synctime();
+					if(isset($synctime->NERENMLS)){
+						// $mlstz = zipperagent_browser_timezone();
+						$mlstz = zipperagent_mls_timezone($sourceid);
+						$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
+						$dt->setTimestamp($synctime->NERENMLS/1000); //adjust the object to correct timestamp
+						$datetime = $dt->format('m/d/Y');							
+						$text.=' Data last updated ' . $datetime;
+					}
+					
 					$text .= "<br/><br/>";
 				}else{
 					// unset($source['discComingle']);

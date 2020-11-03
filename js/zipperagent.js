@@ -24,6 +24,7 @@ var zppr={
 		states: zipperagent.states,
 		browser_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		extra_proptype: zipperagent.extra_proptype,
+		// synctime: zipperagent.synctime,
 		
 		/* single property */
 		company_name: zipperagent.company_name,
@@ -807,22 +808,68 @@ var zppr={
 			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
 			var agentImage = zppr.checkNested(single_property,'listingAgent','imageURL') ? single_property.listingAgent.imageURL : user_default;
 			var agentPhone = zppr.checkNested(single_property,'listingAgent','phoneMobile') ? single_property.listingAgent.phoneMobile : zppr.checkNested(single_property,'listingAgent','phoneOffice') ? single_property.listingAgent.phoneOffice : '';
+			var agentPhoneMobile = zppr.checkNested(single_property,'listingAgent','phoneMobile') ? single_property.listingAgent.phoneMobile : '';
+			var agentPhoneOffice = zppr.checkNested(single_property,'listingAgent','phoneOffice') ? single_property.listingAgent.phoneOffice : '';
+			var agentPhoneFax = zppr.checkNested(single_property,'listingAgent','phoneFax') ? single_property.listingAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'listingAgent','email') ? single_property.listingAgent.email : '';
 			
-			html+=						'<li>Listing Agent</li>' +
+			switch(zppr.data.detailpage_group){
+				
+				case "sibor":
+				
+					html+=				'<li>' +
+											'<div class="zy_single-agent">' +
+												'<span class="zy_agent-title">Listing Agent</span>' +
+												
+												'<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3>'+ agentFullName +'</h3>';
+												
+					if(agentImage){
+						html+=				'<div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					
+					if(agentEmail){
+						html+=					'<p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:'+ agentEmail +'">'+ agentEmail +'</a></p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span>'+ agentPhoneFax +'</p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span>'+ agentPhoneFax +'</p>';
+					}
+						
+					if(agentPhoneMobile){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span>'+ agentPhoneMobile +'</p>';
+					}							
+												
+					if( agent.id ){
+						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+						html+=					'</span>' +
+												'<div class="clearfix"></div>' +
+											'</div>' +
+										'</li>';
+					break;
+					
+				default:
+				
+					html+=				'<li>Listing Agent</li>' +
 										'<li>';
-			if(agentImage){
-				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
-			}
-			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+					if(agentImage){
+						html+=				'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					html+=					'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.id ){
-				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
-			}
-			html+=							'</span>' +
+					if( agent.id ){
+						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
+					break;
+			}
 		}/* else if( single_property.hasOwnProperty('listAgent') ){
 			var agentFullName = zppr.checkNested(single_property,'listAgent','fullName') ? single_property.listAgent.fullName : '';
 			var agentFullNameArr = agentFullName.split(' ');
@@ -854,22 +901,68 @@ var zppr={
 			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
 			var agentImage = zppr.checkNested(single_property,'coListingAgent','imageURL') ? single_property.coListingAgent.imageURL : user_default;
 			var agentPhone = zppr.checkNested(single_property,'coListingAgent','phoneMobile') ? single_property.coListingAgent.phoneMobile : zppr.checkNested(single_property,'coListingAgent','phoneOffice') ? single_property.coListingAgent.phoneOffice : '';
+			var agentPhoneMobile = zppr.checkNested(single_property,'coListingAgent','phoneMobile') ? single_property.coListingAgent.phoneMobile : '';
+			var agentPhoneOffice = zppr.checkNested(single_property,'coListingAgent','phoneOffice') ? single_property.coListingAgent.phoneOffice : '';
+			var agentPhoneFax = zppr.checkNested(single_property,'coListingAgent','phoneFax') ? single_property.coListingAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'coListingAgent','email') ? single_property.coListingAgent.email : '';
 			
-			html+=						'<li>CoListing Agent</li>' +
+			switch(zppr.data.detailpage_group){
+				
+				case "sibor":
+				
+					html+=				'<li>' +
+											'<div class="zy_single-agent">' +
+												'<span class="zy_agent-title">CoListing Agent</span>' +
+												
+												'<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3>'+ agentFullName +'</h3>';
+												
+					if(agentImage){
+						html+=				'<div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					
+					if(agentEmail){
+						html+=					'<p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:'+ agentEmail +'">'+ agentEmail +'</a></p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span>'+ agentPhoneFax +'</p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span>'+ agentPhoneFax +'</p>';
+					}
+						
+					if(agentPhoneMobile){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span>'+ agentPhoneMobile +'</p>';
+					}							
+												
+					if( agent.id ){
+						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+						html+=					'</span>' +
+												'<div class="clearfix"></div>' +
+											'</div>' +
+										'</li>';
+					break;
+					
+				default:
+				
+					html+=				'<li>CoListing Agent</li>' +
 										'<li>';
-			if(agentImage){
-				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
-			}
-			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+					if(agentImage){
+						html+=				'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					html+=					'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.id ){
-				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
-			}
-			html+=							'</span>' +
+					if( agent.id ){
+						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
+					break;
+			}
 		} /* else if( single_property.hasOwnProperty('coListAgent') ){
 			
 			var agentFullName = zppr.checkNested(single_property,'coListAgent','fullName') ? single_property.coListAgent.fullName : '';
@@ -901,22 +994,68 @@ var zppr={
 			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
 			var agentImage = zppr.checkNested(single_property,'salesAgent','imageURL') ? single_property.salesAgent.imageURL : user_default;
 			var agentPhone = zppr.checkNested(single_property,'salesAgent','phoneMobile') ? single_property.salesAgent.phoneMobile : zppr.checkNested(single_property,'salesAgent','phoneOffice') ? single_property.salesAgent.phoneOffice : '';
+			var agentPhoneMobile = zppr.checkNested(single_property,'salesAgent','phoneMobile') ? single_property.salesAgent.phoneMobile : '';
+			var agentPhoneOffice = zppr.checkNested(single_property,'salesAgent','phoneOffice') ? single_property.salesAgent.phoneOffice : '';
+			var agentPhoneFax = zppr.checkNested(single_property,'salesAgent','phoneFax') ? single_property.salesAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'salesAgent','email') ? single_property.salesAgent.email : '';
 			
-			html+=						'<li>Sales Agent</li>' +
+			switch(zppr.data.detailpage_group){
+				
+				case "sibor":
+				
+					html+=				'<li>' +
+											'<div class="zy_single-agent">' +
+												'<span class="zy_agent-title">Sales Agent</span>' +
+												
+												'<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3>'+ agentFullName +'</h3>';
+												
+					if(agentImage){
+						html+=				'<div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					
+					if(agentEmail){
+						html+=					'<p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:'+ agentEmail +'">'+ agentEmail +'</a></p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span>'+ agentPhoneFax +'</p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span>'+ agentPhoneFax +'</p>';
+					}
+						
+					if(agentPhoneMobile){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span>'+ agentPhoneMobile +'</p>';
+					}							
+												
+					if( agent.id ){
+						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+						html+=					'</span>' +
+												'<div class="clearfix"></div>' +
+											'</div>' +
+										'</li>';
+					break;
+					
+				default:
+				
+					html+=				'<li>Sales Agent</li>' +
 										'<li>';
-			if(agentImage){
-				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
-			}
-			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+					if(agentImage){
+						html+=				'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					html+=					'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.id ){
-				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
-			}
-			html+=							'</span>' +
+					if( agent.id ){
+						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
+					break;
+			}
 		}
 		
 		if( single_property.hasOwnProperty('coSalesAgent') ){
@@ -925,22 +1064,68 @@ var zppr={
 			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
 			var agentImage = zppr.checkNested(single_property,'coSalesAgent','imageURL') ? single_property.coSalesAgent.imageURL : user_default;
 			var agentPhone = zppr.checkNested(single_property,'coSalesAgent','phoneMobile') ? single_property.coSalesAgent.phoneMobile : zppr.checkNested(single_property,'coSalesAgent','phoneOffice') ? single_property.coSalesAgent.phoneOffice : '';
+			var agentPhoneMobile = zppr.checkNested(single_property,'coSalesAgent','phoneMobile') ? single_property.coSalesAgent.phoneMobile : '';
+			var agentPhoneOffice = zppr.checkNested(single_property,'coSalesAgent','phoneOffice') ? single_property.coSalesAgent.phoneOffice : '';
+			var agentPhoneFax = zppr.checkNested(single_property,'coSalesAgent','phoneFax') ? single_property.coSalesAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'coSalesAgent','email') ? single_property.coSalesAgent.email : '';
 			
-			html+=						'<li>CoSales Agent</li>' +
+			switch(zppr.data.detailpage_group){
+				
+				case "sibor":
+				
+					html+=				'<li>' +
+											'<div class="zy_single-agent">' +
+												'<span class="zy_agent-title">CoSales Agent</span>' +
+												
+												'<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3>'+ agentFullName +'</h3>';
+												
+					if(agentImage){
+						html+=				'<div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					
+					if(agentEmail){
+						html+=					'<p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:'+ agentEmail +'">'+ agentEmail +'</a></p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span>'+ agentPhoneFax +'</p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span>'+ agentPhoneFax +'</p>';
+					}
+						
+					if(agentPhoneMobile){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span>'+ agentPhoneMobile +'</p>';
+					}							
+												
+					if( agent.id ){
+						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+						html+=					'</span>' +
+												'<div class="clearfix"></div>' +
+											'</div>' +
+										'</li>';
+					break;
+					
+				default:
+				
+					html+=				'<li>CoSales Agent</li>' +
 										'<li>';
-			if(agentImage){
-				html+=						'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
-			}
-			html+=							'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+					if(agentImage){
+						html+=				'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					html+=					'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
-			if( agent.id ){
-				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
-			}
-			html+=							'</span>' +
+					if( agent.id ){
+						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
 										'</li>';
+					break;
+			}
 		}
 										
 		html+=						'</ul>';

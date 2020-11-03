@@ -772,6 +772,9 @@ if(file_exists($template_path) && $template_name ){
 						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentImage = isset( $single_property->listingAgent->imageURL )? $single_property->listingAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->listingAgent->phoneMobile )? $single_property->listingAgent->phoneMobile : ( isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '');
+						$agentPhoneMobile = isset( $single_property->listingAgent->phoneMobile )? $single_property->listingAgent->phoneMobile : '';
+						$agentPhoneOffice = isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '';
+						$agentPhoneFax = isset( $single_property->listingAgent->phoneFax )? $single_property->listingAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->listingAgent->email )? $single_property->listingAgent->email : '';
 						
 						switch($groupname):
@@ -783,8 +786,10 @@ if(file_exists($template_path) && $template_name ){
 									<span class="zy_agent-title">Listing Agent</span>
 									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
 									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
-									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
 									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
+									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
+									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
 									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
@@ -830,6 +835,9 @@ if(file_exists($template_path) && $template_name ){
 						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentImage = isset( $single_property->coListingAgent->imageURL )? $single_property->coListingAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->coListingAgent->phoneMobile )? $single_property->coListingAgent->phoneMobile : ( isset($single_property->coListingAgent->phoneOffice) ? $single_property->coListingAgent->phoneOffice : '');
+						$agentPhoneMobile = isset( $single_property->coListingAgent->phoneMobile )? $single_property->coListingAgent->phoneMobile : '';
+						$agentPhoneOffice = isset($single_property->coListingAgent->phoneOffice) ? $single_property->coListingAgent->phoneOffice : '';
+						$agentPhoneFax = isset( $single_property->coListingAgent->phoneFax )? $single_property->coListingAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->coListingAgent->email )? $single_property->coListingAgent->email : '';
 						
 						switch($groupname):
@@ -841,8 +849,10 @@ if(file_exists($template_path) && $template_name ){
 									<span class="zy_agent-title">CoListing Agent</span>
 									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
 									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
-									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
 									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
+									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
+									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
 									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
@@ -887,6 +897,9 @@ if(file_exists($template_path) && $template_name ){
 						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentImage = isset( $single_property->salesAgent->imageURL )? $single_property->salesAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : ( isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '');
+						$agentPhoneMobile = isset( $single_property->salesAgent->phoneMobile )? $single_property->salesAgent->phoneMobile : '';
+						$agentPhoneOffice = isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '';
+						$agentPhoneFax = isset( $single_property->salesAgent->phoneFax )? $single_property->salesAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->salesAgent->email )? $single_property->salesAgent->email : '';
 						
 						switch($groupname):
@@ -898,8 +911,10 @@ if(file_exists($template_path) && $template_name ){
 									<span class="zy_agent-title">Sales Agent</span>
 									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
 									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
-									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
 									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
+									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
+									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
 									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
@@ -927,6 +942,9 @@ if(file_exists($template_path) && $template_name ){
 						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
 						$agentImage = isset( $single_property->coSalesAgent->imageURL )? $single_property->coSalesAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->coSalesAgent->phoneMobile )? $single_property->coSalesAgent->phoneMobile : ( isset($single_property->coSalesAgent->phoneOffice) ? $single_property->coSalesAgent->phoneOffice : '');
+						$agentPhoneMobile = isset( $single_property->coSalesAgent->phoneMobile )? $single_property->coSalesAgent->phoneMobile : '';
+						$agentPhoneOffice = isset($single_property->coSalesAgent->phoneOffice) ? $single_property->coSalesAgent->phoneOffice : '';
+						$agentPhoneFax = isset( $single_property->coSalesAgent->phoneFax )? $single_property->coSalesAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->coSalesAgent->email )? $single_property->coSalesAgent->email : '';
 						
 						switch($groupname):
@@ -938,8 +956,10 @@ if(file_exists($template_path) && $template_name ){
 									<span class="zy_agent-title">CoSales Agent</span>
 									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
 									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
-									<?php if($agentPhone): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Phone: </span><?php echo $agentPhone; ?></p><?php endif; ?>
 									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
+									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
+									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
 									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
