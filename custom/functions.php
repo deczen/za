@@ -203,6 +203,9 @@ if( ! function_exists('zipperagent_generate_list') ){
 
 		/* default status */
 		$status = empty($status)?zipperagent_active_status():$status;
+		if($view=='map'){
+			$status = isset($requests['status']) && $requests['status'] ? $status : zipperagent_get_map_default_status();
+		}
 
 		/* set column number */
 		$default_column=3;
@@ -521,6 +524,8 @@ if( ! function_exists('zipperagent_generate_list') ){
 			$open=1;
 		}else if( isset($coords) ){ // map mode
 			
+			$default_asts = zipperagent_get_map_default_status();
+			
 			$search=array(
 				'asrc'=>$rb['web']['asrc'],
 				// 'aloff'=>$rb['web']['aloff'],
@@ -528,7 +533,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 				'abths'=>$bathCount,
 				'apt'=>implode( ',', array_map("trim",$propertyType) ),
 				'apts'=>implode( ',', array_map("trim",$propSubType) ),
-				'asts'=>$status,
+				'asts'=>isset($requests['status']) && $requests['status'] ? $status : $default_asts,
 				'apmin'=>za_correct_money_format($minListPrice),
 				'apmax'=>za_correct_money_format($maxListPrice),
 				'aacr'=>$lotAcres,
@@ -835,6 +840,9 @@ if( ! function_exists('zipperagent_generate_list') ){
 			'open' => $open,
 			'column' => $column,
 			'maplist' => $maplist,
+			'showResults' => $showResults,
+			'featuredOnlyYn' => $featuredOnlyYn,
+			'showPagination' => $showPagination,
 			
 			'searchId'=>$searchId,
 			'columns_code'=>$columns_code,
@@ -846,6 +854,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			'minListPrice'=>$minListPrice,
 			'maxListPrice'=>$maxListPrice,
 			'lotAcres'=>$lotAcres,
+			'o'=>$o,
 		);
 		
 		return $variables;
@@ -1091,6 +1100,14 @@ if( ! function_exists('zipperagent_get_default_status') ){
 		$field_name = 'status_' . $status;
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		$field_value = isset($rb['web'][$field_name])?$rb['web'][$field_name]:0;
+		return $field_value;
+	}
+}
+
+if( ! function_exists('zipperagent_get_map_default_status') ){
+	function zipperagent_get_map_default_status(){
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$field_value = isset($rb['web']['map_default_status'])?$rb['web']['map_default_status']:zipperagent_get_default_status('active');
 		return $field_value;
 	}
 }
@@ -5060,7 +5077,8 @@ if( ! function_exists('zipperagent_company_name') ){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			
 		// $company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:get_bloginfo('name');
-		$company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:'This property was shared to you';
+		// $company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:'This property was shared to you';
+		$company_name = isset($rb['web']['company_name'])?$rb['web']['company_name']:'';
 		
 		return $company_name;
 	}

@@ -133,7 +133,7 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 				isset($property->id) && isset( $property->lngTOWNSDESCRIPTION ) ? zipperagent_field_value('lngTOWNSDESCRIPTION',$property->lngTOWNSDESCRIPTION, $property->proptype, (isset($property->sourceid)?$property->sourceid:'')) : '',
 				
 				isset($property->id) ? zipperagent_property_url( $property->id, zipperagent_get_address($property) ) : '',
-				zipperagent_company_name().', '.$this->getTitle(),
+				zipperagent_company_name() ? zipperagent_company_name().', '.$this->getTitle() : $this->getTitle(),
 				isset($property->id) ? ( isset( $property->remarks ) ? $property->remarks : '' ) : '',
 				isset($rb['facebook']['appid'])?$rb['facebook']['appid']:'',
 			);

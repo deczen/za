@@ -78,6 +78,9 @@ $is_ajax_count=0;
 
 /* default status */
 $status = empty($status)?zipperagent_active_status():$status;
+if($view=='map'){
+	$status = isset($requests['status']) && $requests['status'] ? $status : zipperagent_get_map_default_status();
+}
 
 /* set column number */
 $default_column=3;
@@ -367,6 +370,8 @@ if( $openHomesMode ){ // open houses mode
 	$open=1;
 }else if( isset($coords) ){ // map mode
 	
+	$default_asts = zipperagent_get_map_default_status();
+	
 	$search=array(
 		'asrc'=>$rb['web']['asrc'],
 		// 'aloff'=>$rb['web']['aloff'],
@@ -374,7 +379,7 @@ if( $openHomesMode ){ // open houses mode
 		'abths'=>$bathCount,
 		'apt'=>implode( ',', array_map("trim",$propertyType) ),
 		'apts'=>implode( ',', array_map("trim",$propSubType) ),
-		'asts'=>$status,
+		'asts'=>isset($requests['status']) && $requests['status'] ? $status : $default_asts,
 		'apmin'=>za_correct_money_format($minListPrice),
 		'apmax'=>za_correct_money_format($maxListPrice),
 		'aacr'=>$lotAcres,

@@ -79,6 +79,7 @@
 	if(isset($rb['web']['status_active']))  				$data['web']['status_active'] = $rb['web']['status_active'];
 	if(isset($rb['web']['status_sold']))  					$data['web']['status_sold'] = $rb['web']['status_sold'];
 	if(isset($rb['web']['status_pending']))  				$data['web']['status_pending'] = $rb['web']['status_pending'];
+	if(isset($rb['web']['map_default_status']))  			$data['web']['map_default_status'] = $rb['web']['map_default_status'];
 	if(isset($rb['web']['states']))  						$data['web']['states'] = $rb['web']['states'];
 	if(isset($rb['web']['signup_optional']))  				$data['web']['signup_optional'] = $rb['web']['signup_optional'];
 	if(isset($rb['web']['map_centre']['lat']))  			$data['web']['map_centre']['lat'] = $rb['web']['map_centre']['lat'];
