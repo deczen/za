@@ -3749,6 +3749,7 @@ var zppr={
 			case "MULTI FAMILY": //Multi-family
 			case "MULT": //Multi-family
 			case "MUNT": //Multi unit
+			case "MULTI UNIT 2-4": //Multi unit
 				// template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 				template_features='mf-features-crm.php';
 				template_print='mf-print-crm.php';
@@ -3757,7 +3758,8 @@ var zppr={
 				break;
 			case "MH": //Mobile Home	
 			case "MOBILEHOMES": //Mobile Home	
-			case "MOB": //Mobile Home	
+			case "MOB": //Mobile Home
+			case "MOBILE/FLOATING HOME": //Mobile Home	
 				// template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
 				template_features='mh-features-crm.php';
 				template_print='mh-print-crm.php';
@@ -3820,6 +3822,7 @@ var zppr={
 			case "COMMERCIAL": //Commercial		
 			case "COMI": //Commercial	
 			case "Commercial_Sale": //Commercial Sale			
+			case "Commercial": //Commercial			
 				// template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 				template_features='ci-features-crm.php';
 				template_print='ci-print-crm.php';
@@ -3834,6 +3837,7 @@ var zppr={
 			case "BUSI": //Business		
 			case "BUSINESS": //Business		
 			case "BUSO": //Business		
+			case "BUSINESS OPPORTUNITY": //Business Opportunity		
 				// template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 				template_features='bu-features-crm.php';
 				template_print='bu-print-crm.php';

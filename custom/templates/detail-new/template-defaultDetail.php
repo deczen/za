@@ -208,6 +208,8 @@ switch($property_type){
 	case "MULTI FAMILY": //Multi-family
 	case "MULT": //Multi-family
 	case "MUNT": //Multi unit
+	case "MULTI UNIT 2-4": //Multi unit
+	case "MULTI UNIT 5+": //Multi unit
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -217,6 +219,7 @@ switch($property_type){
 	case "MH": //Mobile Home	
 	case "MOBILEHOMES": //Mobile Home	
 	case "MOB": //Mobile Home	
+	case "MOBILE/FLOATING HOME": //Mobile Home	
 		$template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
 		$template_features='mh-features.php';
 		$template_print='mh-print.php';
@@ -279,6 +282,7 @@ switch($property_type){
 	case "COMMERCIAL": //Commercial		
 	case "COMI": //Commercial		
 	case "Commercial_Sale": //Commercial Sale	
+	case "Commercial": //Commercial	
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';
@@ -293,6 +297,7 @@ switch($property_type){
 	case "BUSI": //Business		
 	case "BUSINESS": //Business		
 	case "BUSO": //Business		
+	case "BUSINESS OPPORTUNITY": //Business Opportunity		
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';

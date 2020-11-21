@@ -1529,7 +1529,8 @@ $contactIds = get_contact_id();
 							success: function( response ) {         
 								if( response ){
 									var data = response.addresses;
-									var combined = jQuery.merge(all, data);
+									var tempAll = all.slice();
+									var combined = jQuery.merge(tempAll, data);
 									ms_all.setData(combined);
 								}
 								console.timeEnd('populate address & school');
@@ -1568,7 +1569,8 @@ $contactIds = get_contact_id();
 								if(response.responseCode===200){
 									
 									var data = zppr.populate_addresses_and_schools(response);
-									var combined = jQuery.merge(all, data);
+									var tempAll = all.slice();
+									var combined = jQuery.merge(tempAll, data);
 									ms_all.setData(combined);
 									
 									console.timeEnd('populate address & school');
@@ -1618,7 +1620,8 @@ $contactIds = get_contact_id();
 							success: function( response ) {         
 								if( response ){
 									var data = response.addresses;
-									var combined = jQuery.merge(all, data);
+									var tempAll = all.slice();
+									var combined = jQuery.merge(tempAll, data);
 									ms_all_mobile.setData(combined);
 								}
 								console.timeEnd('populate address & school');
@@ -1657,7 +1660,8 @@ $contactIds = get_contact_id();
 								if(response.responseCode===200){
 									
 									var data = zppr.populate_addresses_and_schools(response);
-									var combined = jQuery.merge(all, data);
+									var tempAll = all.slice();
+									var combined = jQuery.merge(tempAll, data);
 									ms_all_mobile.setData(combined);
 									
 									console.timeEnd('populate address & school');
