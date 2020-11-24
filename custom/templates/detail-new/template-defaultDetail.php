@@ -178,6 +178,25 @@ else if($single_property->sourceid == 'NWMLS'){
 			break;
 	}
 }
+//custom case for MFRMLS
+else if($single_property->sourceid == 'MFRMLS'){
+	switch($property_type){
+		case "RESIDENTIAL":
+				
+				switch($property_subtype){
+					case "SINGLE FAMILY RESIDENCE":
+							$property_type='RESIDENTIAL';
+						break;
+					case "CONDOMINIUM":
+							$property_type='CONDOMINIUM';
+						break;
+					case "TOWNHOUSE":
+							$property_type='RESIDENTIAL';
+						break;
+				}
+			break;
+	}
+}
 
 //Template selection
 switch($property_type){
@@ -298,6 +317,7 @@ switch($property_type){
 	case "BUSINESS": //Business		
 	case "BUSO": //Business		
 	case "BUSINESS OPPORTUNITY": //Business Opportunity		
+	case "BUSINESS_OPPORTUNITY": //Business Opportunity		
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';

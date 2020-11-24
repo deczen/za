@@ -1245,7 +1245,7 @@ if( ! function_exists('zipperagent_get_status_name') ){
 				
 				$shortDescription = array_filter( explode('$',$entity->shortDescription) );
 				
-				if(in_array($status, $shortDescription) || $status==$entity->mediumDescription && ( $sourceid!='' && $entity->sourceId==$sourceid || $sourceid=='' )){
+				if(in_array($status, $shortDescription) || ( isset($entity->mediumDescription) && $status==$entity->mediumDescription ) && ( $sourceid!='' && $entity->sourceId==$sourceid || $sourceid=='' )){
 					$converted_status = $entity->longDescription;
 					break;
 				}

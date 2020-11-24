@@ -3719,6 +3719,25 @@ var zppr={
 					break;
 			}
 		}
+		//custom case for MFRMLS
+		else if(single_property.sourceid == 'MFRMLS'){
+			switch(property_type){
+				case "RESIDENTIAL":
+						
+						switch(property_subtype){
+							case "SINGLE FAMILY RESIDENCE":
+									property_type='RESIDENTIAL';
+								break;
+							case "CONDOMINIUM":
+									property_type='CONDOMINIUM';
+								break;
+							case "TOWNHOUSE":
+									property_type='RESIDENTIAL';
+								break;
+						}
+					break;
+			}
+		}
 
 		//Template selection
 		switch(property_type){
@@ -3837,7 +3856,8 @@ var zppr={
 			case "BUSI": //Business		
 			case "BUSINESS": //Business		
 			case "BUSO": //Business		
-			case "BUSINESS OPPORTUNITY": //Business Opportunity		
+			case "BUSINESS OPPORTUNITY": //Business Opportunity	
+			case "BUSINESS_OPPORTUNITY": //Business Opportunity	
 				// template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 				template_features='bu-features-crm.php';
 				template_print='bu-print-crm.php';
