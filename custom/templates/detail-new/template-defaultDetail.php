@@ -302,6 +302,7 @@ switch($property_type){
 	case "COMI": //Commercial		
 	case "Commercial_Sale": //Commercial Sale	
 	case "Commercial": //Commercial	
+	case "COMMERCIAL_SALE": //Commercial	
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';
@@ -329,6 +330,7 @@ switch($property_type){
 	case "RLSE": //Residential
 	case "A": //Residential
 	case "RLse": //Residential Lease
+	case "RESIDENTIAL_LEASE": //Residential Lease
 		$template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 		$template_features='rd-features.php';
 		$template_print='rd-print.php';
