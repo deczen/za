@@ -744,6 +744,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 				// unset($search['asts']);
 				$stattmp[]=zipperagent_active_status();
 				$stattmp[]=zipperagent_sold_status();				
+				$stattmp[]=zipperagent_pending_status();				
 				$search['asts']=implode(',',$stattmp);
 			}
 			

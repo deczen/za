@@ -5,8 +5,9 @@ var zppr={
 		currency: zipperagent.currency,
 		ajaxurl: zipperagent.ajaxurl,
 		listingurl: zipperagent.listingurl,
-		sold_status: zipperagent.sold_status,
 		active_status: zipperagent.active_status,
+		sold_status: zipperagent.sold_status,
+		pending_status: zipperagent.pending_status,
 		long_excludes: zipperagent.long_excludes,
 		distance: zipperagent.distance,
 		page: zipperagent.page,
@@ -336,6 +337,7 @@ var zppr={
 					var stattmp=[];
 					stattmp.push(zppr.data.active_status);
 					stattmp.push(zppr.data.sold_status);
+					stattmp.push(zppr.data.pending_status);
 					search.asts = stattmp.join(',');
 				}
 				// if(o){

@@ -16,8 +16,9 @@ function generate_zipperagent_variables(){
 		$listing_url = site_url("/{$endpoint}/");	
 	}
 	$args['listingurl']=$listing_url;
-	$args['sold_status']=explode(',',zipperagent_sold_status());
 	$args['active_status']=explode(',',zipperagent_active_status());
+	$args['sold_status']=explode(',',zipperagent_sold_status());
+	$args['pending_status']=explode(',',zipperagent_pending_status());
     $args['long_excludes']=get_long_excludes();
 	$args['distance']=zipperagent_distance();
     $args['page']=get_query_var('page');
