@@ -1203,7 +1203,7 @@ var zppr={
 		if( zppr.data.is_great_school_enabled==1 && single_property.hasOwnProperty('lat') && single_property.hasOwnProperty('lng') && single_property.lat && single_property.lng ){
 			html +=				'<div class="row zy-widget greatschool-widget">' +
 									'<div class="col-xs-12 col-md-12 col-lg-6">' +
-										'<h3 class="">GreatSchools</h3>' +
+										'<h3 class="">Great Schools</h3>' +
 										'<div id="greatschools"></div>' +										
 									'</div>' +
 								'</div>';
@@ -1470,7 +1470,10 @@ var zppr={
 						var real_price = zppr.moneyFormat(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
 						var gallery = zppr.gallery_template(single_property);
 						var address = zppr.getAddress(single_property);
-						var share_subject = zppr.data.company_name+ ', ' + address;
+						if(zppr.data.company_name!='')
+							var share_subject = zppr.data.company_name+ ', ' + address;
+						else
+							var share_subject = address;
 						
 						jQuery('#zpa-modal-share-email-form .listing-price > span').html(real_price);
 						jQuery('#zpa-modal-share-email-form #share-subject').val(share_subject);

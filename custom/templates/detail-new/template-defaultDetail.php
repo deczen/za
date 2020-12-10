@@ -1085,7 +1085,7 @@ if(file_exists($template_path) && $template_name ){
 				<?php if( is_great_school_enabled() && isset($single_property->lat) && isset($single_property->lng) && !empty($single_property->lat) && !empty($single_property->lng) ): ?>
 				<div class="row zy-widget greatschool-widget">
 					<div class="col-xs-12 col-md-12 col-lg-6">
-						<h3 class="">GreatSchools</h3>
+						<h3 class="">Great Schools</h3>
 						<div id="greatschools"></div>
 						<script>
 							jQuery(document).ready(function(){
