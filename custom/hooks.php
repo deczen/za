@@ -149,7 +149,7 @@ function za_enqueue_script(){
 add_action( 'init', 'cookie_generator' );
 
 function cookie_generator(){
-	if(session_id() == '') {
+	if(session_id() === "" || (function_exists("session_status") && session_status() === PHP_SESSION_NONE)) {
 		session_start();
 	}
 	// echo "<pre>"; print_r( $_SESSION ); echo "</pre>"; die();

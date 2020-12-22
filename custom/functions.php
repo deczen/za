@@ -1108,7 +1108,7 @@ if( ! function_exists('zipperagent_get_default_status') ){
 if( ! function_exists('zipperagent_get_map_default_status') ){
 	function zipperagent_get_map_default_status(){
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
-		$field_value = isset($rb['web']['map_default_status'])?$rb['web']['map_default_status']:zipperagent_get_default_status('active');
+		$field_value = isset($rb['web']['map_default_status'])?$rb['web']['map_default_status']:zipperagent_active_status();
 		return $field_value;
 	}
 }
