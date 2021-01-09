@@ -363,7 +363,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	</script>
 	<script>
 
-		jQuery( '#zpa-modal-contact-agent-form' ).on( 'submit', function(){
+		jQuery( 'body' ).on( 'submit', '#zpa-modal-contact-agent-form', function(){
 			
 			var data = jQuery(this).serialize();
 			

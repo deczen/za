@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zipperagent
 Description: Adds MLS / IDX property search and listings to your site. Includes search and listing pages, widgets and shortcodes.
-Version: 2.0.1.92
+Version: 2.0.1.93
 Author: Decz
 License: GPL
 */
@@ -194,3 +194,17 @@ add_action("wp_ajax_za_area_autocomplete", array($ajaxHandler, "getAutocompleteM
 
 //Disable canonical urls, because we use a single page to display all results and WordPress creates a single canonical url for all of the virtual urls like the detail page and featured results.
 remove_action("wp_head", "rel_canonical");
+
+add_action( 'wp_footer', 'zipperagent_disable_input_autocomplete' );
+
+function zipperagent_disable_input_autocomplete(){
+?>
+<script>
+	jQuery(document).ready(function($){
+		setTimeout(function () { 
+			$('#zpa-main-container input[type=text]').attr('autocomplete','none');
+		}, 8000)
+	});
+</script>
+<?php
+}

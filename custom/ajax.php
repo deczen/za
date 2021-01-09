@@ -142,8 +142,12 @@ function regist_user(){
 		$propertyAlerts = isset($_REQUEST['propertyAlerts'])?"true":"false";;
 		$note = $_REQUEST['note'];
 		$url = urlencode($_REQUEST['actual_link']);
+		$ref_page_url = $_REQUEST['ref_page_url'];
 		$alertType = $_REQUEST['alertType'] ? $_REQUEST['alertType'] : 'NONE';
 		
+		if($ref_page_url == 1 ){
+			$note .= "\r\n\r\n" . "Reference Property URL : " . urldecode($url);
+		}
 		//force ID cannot be empty
 		/*
 		if(!$id){
@@ -328,6 +332,13 @@ function contact_agent(){
     if ( isset($_REQUEST) ) {
         $contactId = $_REQUEST['contactId'];     
 		$note = $_REQUEST['note'];
+		$url = urlencode($_REQUEST['actual_link']);
+		$ref_page_url = $_REQUEST['ref_page_url'];
+		
+		if($ref_page_url == 1 ){
+			$note .= "\r\n\r\n" . "Reference Property URL : " . urldecode($url);
+		}
+		
 		$vars=array(		
 			'notes'=>$note,			
 		);

@@ -1149,7 +1149,7 @@ if(file_exists($template_path) && $template_name ){
 								</div>
 								<div class="col-md-6 hidden-on-login">
 									<div>
-										<label for="listing-contact-phone">phoneMobile</label>
+										<label for="listing-contact-phone">Mobile</label>
 										<input type="text" id="listing-contact-phone" name="phone" required="">
 									</div><span></span>
 								</div>
@@ -1205,6 +1205,7 @@ if(file_exists($template_path) && $template_name ){
 							<input type="hidden" name="contactId" value="<?php echo implode(',',$contactIds) ?>" />
 							<input type="hidden" name="agent" value="<?php echo $agent->login ?>" />
 							<input type="hidden" name="actual_link" value="<?php echo $actual_link; ?>" />
+							<input type="hidden" name="ref_page_url" value="<?php echo isset($rb['web']['ref_page_url']) ? $rb['web']['ref_page_url'] : 0; ?>" />
 							<input type="hidden" name="leadSource" value="<?php echo ZipperagentGlobalFunction()->get_lead_source(); ?>" />
 							<?php if( ! ZipperagentGlobalFunction()->getCurrentUserContactLogin() ): //only for non logged in user ?>
 							<input type="hidden" name="action" value="regist_user" >

@@ -145,6 +145,7 @@
 	if(isset($rb['web']['enable_save_button']))  			$data['web']['enable_save_button'] = $rb['web']['enable_save_button'];
 	if(isset($rb['web']['mls_state_map']))  				$data['web']['mls_state_map'] = $rb['web']['mls_state_map'];
 	if(isset($rb['web']['extra_proptype']))  				$data['web']['extra_proptype'] = $rb['web']['extra_proptype'];
+	if(isset($rb['web']['ref_page_url']))  					$data['web']['ref_page_url'] = $rb['web']['ref_page_url'];
 	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
