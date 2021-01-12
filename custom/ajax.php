@@ -146,7 +146,7 @@ function regist_user(){
 		$alertType = $_REQUEST['alertType'] ? $_REQUEST['alertType'] : 'NONE';
 		
 		if($ref_page_url == 1 ){
-			$note .= "\r\n\r\n" . "Reference Property URL : " . urldecode($url);
+			$note .= "</ br></ br>" . " Property URL: " . urldecode($url);
 		}
 		//force ID cannot be empty
 		/*
@@ -336,7 +336,7 @@ function contact_agent(){
 		$ref_page_url = $_REQUEST['ref_page_url'];
 		
 		if($ref_page_url == 1 ){
-			$note .= "\r\n\r\n" . "Reference Property URL : " . urldecode($url);
+			$note .= "</ br></ br>" . " Property URL: " . urldecode($url);
 		}
 		
 		$vars=array(		
