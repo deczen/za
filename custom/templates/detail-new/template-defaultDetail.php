@@ -229,6 +229,7 @@ switch($property_type){
 	case "MUNT": //Multi unit
 	case "MULTI UNIT 2-4": //Multi unit
 	case "MULTI UNIT 5+": //Multi unit
+	case "MULTI UNIT/INCOME": //Multi unit
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
