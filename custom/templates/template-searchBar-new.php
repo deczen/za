@@ -479,7 +479,7 @@ $contactIds = get_contact_id();
 										</div>
 									</div>
 									<div class="stories col-xs-12">
-										<h3>Storeys</h3>
+										<h3>Stories</h3>
 										<div class="two-field-wrap">
 											<select id="searchStoriesMin" name="aminstor">
 												<option value="">Any</option>
@@ -928,10 +928,10 @@ $contactIds = get_contact_id();
 							newLabel = 'Max SqFt ' + value;	
 							break;
 						case "aminstor":
-							newLabel = 'Min Storeys ' + value;	
+							newLabel = 'Min Stories ' + value;	
 							break;
 						case "amaxstor":
-							newLabel = 'Max Storeys ' + value;	
+							newLabel = 'Max Stories ' + value;	
 							break;
 						case "school":
 							newLabel = value;	

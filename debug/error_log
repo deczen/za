@@ -1,6 +1,0 @@
-[28-Aug-2020 13:22:53 UTC] PHP Fatal error:  Uncaught Adoy\ICU\ResourceBundle\ParsingException: Parse error: expected T_QUOTED, T_INT, T_TERM or T_RRANGEEX got T_RRANGEEX (}) in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt:43
-Stack trace:
-#0 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(122): Adoy\ICU\ResourceBundle\Parser->parseError('T_QUOTED, T_INT...')
-#1 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Parser->valueStatement()
-#2 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(118): Adoy\ICU\ResourceBundle\Parser->tableValueStatement()
-#3 /home/blpcfvhi/public_html/business/wpsitedemo.com/zipperagent/wp-content/plugins/zipperagent/custom/lib/Adoy/ICU/ResourceBundle/Parser.php(279): Adoy\ICU\ResourceBundle\Par in /home/blpcfvhi/public_html/business/zipperagent/zipperagent.wpsitedemo.com/root.txt on line 43

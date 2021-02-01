@@ -406,7 +406,7 @@
 									</div>
 								</div>
 								<div class="stories col-xs-4">
-									<span class="field-label">Storeys</span>
+									<span class="field-label">Stories</span>
 									<div class="two-field-wrap grid">
 										<div class="cell">
 											<select id="searchStoriesMin" name="aminstor">
