@@ -3376,8 +3376,8 @@ var zppr={
 	mls_timezone:function(sourceid){
 		timezone=zppr.data.root.tenant.mls_timezone;
 		
-		if(sourceid){
-			timezone=typeof timezone === 'object'&&'sourceid' in timezone ?timezone.sourceid:timezone;
+		if(sourceid!=""){
+			timezone=typeof timezone === 'object'&& sourceid in timezone ?timezone[sourceid]:timezone;
 		}
 		
 		if(!timezone || typeof timezone === 'object')
