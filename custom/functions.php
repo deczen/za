@@ -2284,6 +2284,7 @@ if( ! function_exists('zipperagent_save_search') ){
 	function zipperagent_save_search($vars){
 		// $result = zipperagent_run_curl( "/api/mls/saveSearch/", $vars, 1 );
 		$result = zipperagent_run_curl( "/api/mls/multi/saveSearch", $vars, 1 );
+		// $result = zipperagent_run_curl( "/api/mls/multi/saveSearch", $vars, 1, '', 1 );
 		
 		return $result;
 	}
