@@ -443,9 +443,14 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$buyer = isset($_REQUEST['buyer'])?$_REQUEST['buyer']:(strpos(strtolower($lookfor), 'buy') !== false?1:0);
 		$seller = isset($_REQUEST['seller'])?$_REQUEST['seller']:(strpos(strtolower($lookfor), 'sell') !== false?1:0);
 		$your_interest = isset($_REQUEST['your-interest']) ? (is_array( $_REQUEST['your-interest'] ) ? implode(', ',  $_REQUEST['your-interest']) : sanitize_text_field($_REQUEST['your-interest']) ) : '';
+		$planning = isset($_REQUEST['planning']) ? (is_array( $_REQUEST['planning'] ) ? implode(', ',  $_REQUEST['planning']) : sanitize_text_field($_REQUEST['planning']) ) : '';
 		
 		if($your_interest){
 			$message .= "</ br></ br>".'Your Interest: ' . $your_interest;
+		}
+		
+		if($planning){
+			$message .= "</ br></ br>".'Move Planning: ' . $planning;
 		}
 		
 		$vars=array(
