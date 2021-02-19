@@ -4,6 +4,7 @@ global $single_property;
 $contactIds=get_contact_id();
 $searchId = isset($_GET['searchId'])?$_GET['searchId']:'';
 $listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 $login='';
 
@@ -57,6 +58,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 									<input name="login" value="<?php echo $login ?>" type="hidden">
 									<?php /* <input name="crit[asrc]" value="<?php echo $rb['web']['asrc'] ?>" type="hidden"> */ ?>
 									<input name="action" value="request_info" type="hidden">
+									<input name="actual_link" value="<?php echo $actual_link; ?>" type="hidden">
 									<?php /*
 									<div class="row mt-10">
 										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

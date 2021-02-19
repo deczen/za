@@ -449,7 +449,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$hidden_subject = isset($_REQUEST['hidden_subject']) ? sanitize_text_field( $_REQUEST['hidden_subject'] ) : '';
 		
 		if($hidden_subject){
-			$message = 'Subject: ' . $hidden_subject . "</ br></ br>". $message;
+			$message = 'Subject: ' . $hidden_subject . "</ br></ br>". ' ' . $message;
 		}
 		
 		if($address){
@@ -477,7 +477,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 			'phone'=>($phone),					
 			'subject'=>($subject),			
 			'notes'=>($message),			
-			'url'=>($url),			
+			'url'=>($source_url),			
 		);
 		
 		if($za_assignedTo){

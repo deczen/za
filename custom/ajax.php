@@ -1094,9 +1094,14 @@ function schedule_show_func(){
 		$assignedTo = isset($_REQUEST['agent'])?$_REQUEST['agent']:'';
 		$prefTime = isset($_REQUEST['prefTime'])?$_REQUEST['prefTime']:'';
 		$prefDate = isset($_REQUEST['prefDate'])?$_REQUEST['prefDate']:'';
+		$actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:'';
 		// $prefDate = "12/12/2017";
 		$slot = isset($_REQUEST['slot'])?$_REQUEST['slot']:'';
 		$message = isset($_REQUEST['message'])?$_REQUEST['message']:'';
+		
+		// if($actual_link){
+			// $message .= "</ br></ br>".' Source URL: ' . $actual_link;
+		// }
 		
 		$date = date('Y-m-d', strtotime("$prefDate"));
 		$time = date('H:i:s', strtotime("$prefTime"));
@@ -1148,6 +1153,12 @@ function request_info_func(){
 		$question = isset($_REQUEST['question'])?$_REQUEST['question']:'';
 		$crit = isset( $_REQUEST['crit'] ) ? $_REQUEST['crit']:array();
 		$searchId = isset($_REQUEST['searchId'])?$_REQUEST['searchId']:'';
+		$actual_link = isset($_REQUEST['actual_link'])?$_REQUEST['actual_link']:'';
+		
+		if($actual_link){
+			$question .= "</ br></ br>".' Source URL: ' . $actual_link;
+		}
+		
 		$result = zipperagent_request_info($listingId, $contactIds, $login, $question, $crit, $searchId);
 		// echo "<pre>"; print_r( $_REQUEST ); echo "</pre>";
 		// echo "<pre>"; print_r( $result ); echo "</pre>";

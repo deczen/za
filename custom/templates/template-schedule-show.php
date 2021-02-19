@@ -3,6 +3,7 @@
 $contactIds=get_contact_id();
 $searchId = isset($_GET['searchId'])?$_GET['searchId']:'';
 $listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
+$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 if(zp_using_criteria()){	
 	$criteriaBase64 = isset($_GET['criteria'])?$_GET['criteria']:'';
@@ -36,6 +37,7 @@ $saved_crit = !empty($criteriaBase64)?unserialize(base64_decode($criteriaBase64)
 									<input name="listingId" value="<?php echo $listingId; ?>" type="hidden">
 									<input name="contactId" value="<?php echo implode(',',$contactIds) ?>" type="hidden">
 									<input name="searchId" value="<?php echo $searchId ?>" type="hidden">
+									<input name="actual_link" value="<?php echo $actual_link; ?>" type="hidden">
 									<div class="row mt-10">
 										<?php /* <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> */ ?>
 										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
