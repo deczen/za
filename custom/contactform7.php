@@ -429,6 +429,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		}
 		$phone = sanitize_text_field( $_REQUEST['phone'] );
 		$phone = ! $phone ? sanitize_text_field( $_REQUEST['your-phone'] ) : $phone;
+		$address = isset($_REQUEST['address']) ? sanitize_text_field( $_REQUEST['address'] ) : '';
 		$city = isset($_REQUEST['city']) ? sanitize_text_field( $_REQUEST['city'] ) : '';
 		$state = isset($_REQUEST['state']) ? sanitize_text_field( $_REQUEST['state'] ) : '';
 		$zipCode = isset($_REQUEST['zipCode']) ? sanitize_text_field( $_REQUEST['zipCode'] ) : '';
@@ -444,13 +445,27 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 		$seller = isset($_REQUEST['seller'])?$_REQUEST['seller']:(strpos(strtolower($lookfor), 'sell') !== false?1:0);
 		$your_interest = isset($_REQUEST['your-interest']) ? (is_array( $_REQUEST['your-interest'] ) ? implode(', ',  $_REQUEST['your-interest']) : sanitize_text_field($_REQUEST['your-interest']) ) : '';
 		$planning = isset($_REQUEST['planning']) ? (is_array( $_REQUEST['planning'] ) ? implode(', ',  $_REQUEST['planning']) : sanitize_text_field($_REQUEST['planning']) ) : '';
+		$source_url = isset($_REQUEST['source_url']) ? sanitize_text_field( $_REQUEST['source_url'] ) : '';
+		$hidden_subject = isset($_REQUEST['hidden_subject']) ? sanitize_text_field( $_REQUEST['hidden_subject'] ) : '';
+		
+		if($hidden_subject){
+			$message = 'Subject: ' . $hidden_subject . "</ br></ br>". $message;
+		}
+		
+		if($address){
+			$message .= "</ br></ br>".' Address: ' . $address;
+		}
 		
 		if($your_interest){
-			$message .= "</ br></ br>".'Your Interest: ' . $your_interest;
+			$message .= "</ br></ br>".' Your Interest: ' . $your_interest;
 		}
 		
 		if($planning){
-			$message .= "</ br></ br>".'Move Planning: ' . $planning;
+			$message .= "</ br></ br>".' Move Planning: ' . $planning;
+		}
+		
+		if($source_url){
+			$message .= "</ br></ br>".' Source URL: ' . $source_url;
 		}
 		
 		$vars=array(
@@ -564,6 +579,7 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 	}
 }
 
+add_filter('wpcf7_form_tag', 'enable_pipe_cf7_select_values', 10);
 function enable_pipe_cf7_select_values($tag)
 {
     if ($tag['basetype'] != 'select' && $tag['basetype'] != 'checkbox' && $tag['basetype'] != 'radio') {
@@ -596,4 +612,22 @@ function enable_pipe_cf7_select_values($tag)
 
     return $tag;
 }
-add_filter('wpcf7_form_tag', 'enable_pipe_cf7_select_values', 10);
+
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_current_url' );
+function wpcf7_add_form_tag_current_url() {
+    // Add shortcode for the form [source_url]
+    wpcf7_add_form_tag( 'source_url',
+        'wpcf7_current_url_form_tag_handler',
+        array(
+            'name-attr' => true
+        )
+    );
+}
+
+// Parse the shortcode in the frontend
+function wpcf7_current_url_form_tag_handler( $tag ) {
+    global $wp;
+    $url = home_url( $wp->request );
+	$tagname = isset($tag['name']) && !empty($tag['name']) ? $tag['name'] : 'source_url';
+    return '<input type="hidden" name="'.$tagname.'" value="'.$url.'" />';
+}
