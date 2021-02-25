@@ -488,6 +488,10 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 			$vars['leadSource']=$za_leadSource;
 		}
 		
+		if($hidden_subject){
+			$vars['websiteLeadFrom']=$hidden_subject;
+		}
+		
 		if($city){
 			$vars['city']=$city;
 		}
