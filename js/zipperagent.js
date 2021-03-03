@@ -771,10 +771,10 @@ var zppr={
 		html+=							'<h2>Description</h2>' +
 										'<p>{{remarks}}</p>';
 										
-		if(single_property.hasOwnProperty('direction')){
-			html+=						'<h2>Direction</h2>' +
-										'<p>{{direction}}</p>';
-		}
+		// if(single_property.hasOwnProperty('direction')){
+			// html+=						'<h2>Directions</h2>' +
+										// '<p>{{direction}}</p>';
+		// }
 									
 											
 		html+=						'</div>' +
@@ -1152,9 +1152,23 @@ var zppr={
 										zppr.feature_template(single_property) +
 										
 									'</div>' +
-								'</div>' +
+								'</div>';
 								
-								'<div class="row">' +
+								
+		if(single_property.hasOwnProperty('direction')){
+			
+			html+=				'<div class="row">' +
+									
+									'<div class="col-xs-12">' +
+										
+										'<h2>Directions</h2>' +
+										'<p>{{direction}}</p>' +
+										
+									'</div>' +
+								'</div>';
+		}								
+								
+		html+=					'<div class="row">' +
 									
 									'<div class="col-xs-12">' +
 

@@ -751,11 +751,6 @@ if(file_exists($template_path) && $template_name ){
 						
 						<h2>Description</h2>
 						<p>[remarks]</p>
-						
-						<?php if(isset($single_property->direction)): ?>	
-						<h2>Direction</h2>
-						<p>[direction]</p>
-						<?php endif; ?>
 					
 						<?php if(isset($is_doing_ajax) && $is_doing_ajax) $description_section = ob_get_clean(); //end save description section ?>
 						
@@ -1038,6 +1033,17 @@ if(file_exists($template_path) && $template_name ){
 						?>
 					</div>
 				</div>
+				
+				<?php if(isset($single_property->direction)): ?>	
+				<div class="row">
+					
+					<div class="col-xs-12">						
+						
+						<h2>Directions</h2>
+						<p>[direction]</p>
+					</div>
+				</div>
+				<?php endif; ?>
 				
 				<div class="row">
 					

@@ -1,6 +1,8 @@
 <?php
 global $requests;
 // $addressSearch=1;
+
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css'; ?>">
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
@@ -257,7 +259,8 @@ global $requests;
 								<input id="zpa-available-to" name="aavldtt" placeholder="" type="text" class="form-control zpa-search-form-input datepicker" value="" disabled>
 							</div>
 								
-						</div>
+						</div>						
+						
 						<?php if($requests['enable_lakename']): 
 						
 						$lakeNames = get_lake_names();
@@ -407,7 +410,7 @@ global $requests;
 					</div>
 					*/ ?>
 					<div class="row mt-25">
-						<div class="col-xs-12 col-sm-3 mb-10">
+						<div class="col-xs-12 col-sm-2 mb-10">
 							<label for="zpa-select-order-by" class="field-label zpa-select-order-by-label"> Sort by </label>
 							<?php 
 							$default_order = isset($requests['o']) ? $requests['o'] : za_get_default_order(); ?>
@@ -424,7 +427,7 @@ global $requests;
 							</select>
 						</div>
 						
-						<div class="col-xs-12 col-sm-3">
+						<div class="col-xs-12 col-sm-2">
 							<?php
 							
 							$lotDescriptions = get_lot_descriptions();
@@ -444,6 +447,25 @@ global $requests;
 							</select>
 							<?php endif; ?>
 						</div>
+						
+						
+						<?php
+						$states=isset($rb['web']['states'])?explode(',', $rb['web']['states']):'';
+						
+						if( $states ):
+						?>
+						<div class="col-xs-12 col-sm-2 rental-field">
+							<label for="zpa-states" class="field-label zpa-available-to-label"> States </label>
+							<div class="" style="position:relative;">
+								<select id="zpa-states" name="astt" class="form-control">
+									<option value="">Any</option>
+									<?php foreach( $states as $state ): ?>
+									<option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>								
+						</div>
+						<?php endif; ?>
 						
 						<div class="col-xs-12 col-sm-2">
 							<label for="zpa-max-days-listed" class="field-label zpa-max-days-listed-label"># Days on Market</label>

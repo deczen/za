@@ -418,7 +418,10 @@ function search_results_view(){
 		$is_view_save_search = 0;
 		
 		if(isset($_REQUEST['is_view_save_search']) && !empty($_REQUEST['is_view_save_search'])){
-			$is_view_save_search=1;
+			$is_enable_update = isset($rb['web']['enable_update_search'])?$rb['web']['enable_update_search']:0;
+			if($is_enable_update){
+				$is_view_save_search=1;
+			}
 		}
 		
 		ob_start();
@@ -446,12 +449,17 @@ function prop_result_and_pagination(){
 		
 		global $requests, $is_ajax, $is_view_save_search;
 		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
 		$requests = $_REQUEST;
 		$is_ajax = 1;
 		$is_view_save_search = 0;
 		
 		if(isset($_REQUEST['is_view_save_search']) && !empty($_REQUEST['is_view_save_search'])){
-			$is_view_save_search=1;
+			$is_enable_update = isset($rb['web']['enable_update_search'])?$rb['web']['enable_update_search']:0;
+			if($is_enable_update){
+				$is_view_save_search=1;
+			}
 		}
 		
 		$vars = $_REQUEST['vars'];

@@ -4,6 +4,8 @@ global $uniqueClass, $uniqueClassWithDot;
 $currency = zipperagent_currency();
 $excludes = get_new_filter_excludes();
 $contactIds = get_contact_id();
+
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css'; ?>">
 <div id="omnibar-tools" class="<?php echo !$is_detail_page&&!$is_map_explore||$is_search_apply? 'fixedheader' : ''; ?>">
@@ -322,6 +324,22 @@ $contactIds = get_contact_id();
 											<?php //<option id="o-6" value="alstid%3AASC">Listing Number</option> ?>
 										</select>
 									</div>
+									<?php
+									$states=isset($rb['web']['states'])?explode(',', $rb['web']['states']):'';
+									
+									if( $states ):
+									?>
+									<div class="states col-xs-12">
+										<h3>States</h3>
+										<select id="zpa-states" name="astt">
+											<option value="">Any</option>
+											<?php foreach( $states as $state ): ?>
+											<option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+									<?php endif; ?>
+									
 									<div class="square-footage col-xs-12">
 										<h3>Square Footage</h3>
 										<div class="two-field-wrap">
@@ -941,6 +959,9 @@ $contactIds = get_contact_id();
 							break;
 						case "aflladdr":
 							newLabel = value;	
+							break;
+						case "astt":
+							newLabel = 'State ' + value;	
 							break;
 						<?php
 						if($extra_proptypes = zipperagent_extra_proptype()){

@@ -458,7 +458,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			
 			//set states
 			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
-			if($states){
+			if($states && isset($advSearch['astt']) && $advSearch['astt']){
 				$search['astt']=str_replace(' ','',$states);
 			}
 			
@@ -541,7 +541,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			
 			//set states
 			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
-			if($states){
+			if($states && isset($advSearch['astt']) && $advSearch['astt']){
 				$search['astt']=str_replace(' ','',$states);
 			}
 			
@@ -664,7 +664,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			
 			//set states
 			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
-			if($states){
+			if($states && isset($advSearch['astt']) && $advSearch['astt']){
 				$search['astt']=str_replace(' ','',$states);
 			}
 			
@@ -750,7 +750,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			
 			//set states
 			$states=isset($rb['web']['states'])?$rb['web']['states']:'';
-			if($states){
+			if($states && isset($advSearch['astt']) && $advSearch['astt']){
 				$search['astt']=str_replace(' ','',$states);
 			}
 			
