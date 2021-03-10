@@ -282,7 +282,9 @@ class zipperAgentRequestor {
 						$property_cache  = $this->property_cache;
 						if(ZipperagentGlobalFunction()->is_facebook_bot()){
 							echo "facebook scrapper mode!";
-						}else if(!isset($single_property->id) && !isset($property_cache->id)){
+						}else if(!isset($single_property->id) && !isset($property_cache->id) || 
+								  isset($single_property->status) && $single_property->status=='ZA-Del' ||
+								  isset($property_cache->status) && $property_cache->status=='ZA-Del' ){
 							echo "<h2>Property Not Found!</h2>";
 						}else{
 							include ZIPPERAGENTPATH . "/custom/templates/template-social-share.php";
