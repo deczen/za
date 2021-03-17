@@ -53,7 +53,7 @@
 			<li>Pet: [petrestrictionsallow]</li>
 			<?php endif; ?>		
 			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>YGL data: [reqdownassociation]</li>
+			<li>Fee Paid By Owner: [reqdownassociation]</li>
 			<?php endif; ?>		
 			<?php if( isset($single_property->dateavailableformatted)): ?>
 			<li>Avail Date: [dateavailableformatted]</li>

@@ -56,7 +56,7 @@
 			<li>Rent Includes: [rentfeeincludes]</li>
 			<?php endif; ?>			
 			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>YGL data: [reqdownassociation]</li>
+			<li>Fee Paid By Owner: [reqdownassociation]</li>
 			<?php endif; ?>			
 			<?php if( isset($single_property->laundryfeatures)): ?>
 			<li>Laundry: [laundryfeatures]</li>
