@@ -39,22 +39,13 @@
 			{/if}
 			
 			{ygl}
-				
-				{if field="single_property.status"}
-				<li>Status: [status]</li>
-				{/if}
+			
 				{if field="single_property.rentprice"}
 				<li>Rent Amount: [rentprice]</li>
 				{/if}
 				{if field="single_property.unitlevel"}
 				<li>Unit Level: [unitlevel]</li>
-				{/if}
-				{if field="single_property.nobaths"}
-				<li>Baths: [nobaths]</li>
-				{/if}
-				{if field="single_property.nobedrooms"}
-				<li>Beds: [nobedrooms]</li>
-				{/if}
+				{/if}				
 				{if field="single_property.parkingfeature"}
 				<li>Parking: [parkingfeature]</li>
 				{/if}			
@@ -65,7 +56,7 @@
 				<li>Rent Includes: [rentfeeincludes]</li>
 				{/if}			
 				{if field="single_property.reqdownassociation"}
-				<li>Fee Paid By Owner: [reqdownassociation]</li>
+				<li>YGL data: [reqdownassociation]</li>
 				{/if}			
 				{if field="single_property.laundryfeatures"}
 				<li>Laundry: [laundryfeatures]</li>
@@ -75,10 +66,7 @@
 				{/if}			
 				{if field="single_property.dateavailableformatted"}
 				<li>Avail Date: [dateavailableformatted]</li>
-				{/if}			
-				{if field="single_property.butype"}
-				<li>Building Type: [butype]</li>
-				{/if}			
+				{/if}		
 			
 			{/ygl}
 		</ul>

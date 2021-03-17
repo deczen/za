@@ -4,66 +4,57 @@
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
 
+		
+			{if field="single_property.cultivationacres"}
+			<li>Cultivation Acres: {{cultivationacres}}</li>
+			{/if}
+			{if field="single_property.pastureacres"}
+			<li>Pasture Acres: {{pastureacres}}</li>
+			{/if}
+			{if field="single_property.timberacres"}
+			<li>Timber Acres: {{timberacres}}</li>
+			{/if}
+			{if field="single_property.ldtype"}
+			<li>Land Style: {{ldtype}}</li>
+			{/if}
+			{if field="single_property.frontage"}
+			<li>Street Frontage: {{frontage}}</li>
+			{/if}
 			
-				{if field="single_property.cultivationacres"}
-				<li>Cultivation Acres: {{cultivationacres}}</li>
+			{ygl}
+			
+				{if field="single_property.rentprice"}
+				<li>Rent Amount: [rentprice]</li>
 				{/if}
-				{if field="single_property.pastureacres"}
-				<li>Pasture Acres: {{pastureacres}}</li>
-				{/if}
-				{if field="single_property.timberacres"}
-				<li>Timber Acres: {{timberacres}}</li>
-				{/if}
-				{if field="single_property.ldtype"}
-				<li>Land Style: {{ldtype}}</li>
-				{/if}
-				{if field="single_property.frontage"}
-				<li>Street Frontage: {{frontage}}</li>
-				{/if}
-				
-				{ygl}
-				
-					{if field="single_property.status"}
-					<li>Status: [status]</li>
-					{/if}
-					{if field="single_property.rentprice"}
-					<li>Rent Amount: [rentprice]</li>
-					{/if}
-					{if field="single_property.unitlevel"}
-					<li>Unit Level: [unitlevel]</li>
-					{/if}
-					{if field="single_property.nobaths"}
-					<li>Baths: [nobaths]</li>
-					{/if}
-					{if field="single_property.nobedrooms"}
-					<li>Beds: [nobedrooms]</li>
-					{/if}
-					{if field="single_property.parkingfeature"}
-					<li>Parking: [parkingfeature]</li>
-					{/if}			
-					{if field="single_property.petrestrictionsallow"}
-					<li>Pet: [petrestrictionsallow]</li>
-					{/if}			
-					{if field="single_property.rentfeeincludes"}
-					<li>Rent Includes: [rentfeeincludes]</li>
-					{/if}			
-					{if field="single_property.reqdownassociation"}
-					<li>Fee Paid By Owner: [reqdownassociation]</li>
-					{/if}			
-					{if field="single_property.laundryfeatures"}
-					<li>Laundry: [laundryfeatures]</li>
-					{/if}			
-					{if field="single_property.heating"}
-					<li>Heat Source: [heating]</li>
-					{/if}			
-					{if field="single_property.dateavailableformatted"}
-					<li>Avail Date: [dateavailableformatted]</li>
-					{/if}			
-					{if field="single_property.butype"}
-					<li>Building Type: [butype]</li>
-					{/if}			
-				
-				{/ygl}
+				{if field="single_property.unitlevel"}
+				<li>Unit Level: [unitlevel]</li>
+				{/if}				
+				{if field="single_property.parkingfeature"}
+				<li>Parking: [parkingfeature]</li>
+				{/if}			
+				{if field="single_property.petrestrictionsallow"}
+				<li>Pet: [petrestrictionsallow]</li>
+				{/if}			
+				{if field="single_property.rentfeeincludes"}
+				<li>Rent Includes: [rentfeeincludes]</li>
+				{/if}			
+				{if field="single_property.reqdownassociation"}
+				<li>YGL data: [reqdownassociation]</li>
+				{/if}			
+				{if field="single_property.laundryfeatures"}
+				<li>Laundry: [laundryfeatures]</li>
+				{/if}			
+				{if field="single_property.heating"}
+				<li>Heat Source: [heating]</li>
+				{/if}			
+				{if field="single_property.dateavailableformatted"}
+				<li>Avail Date: [dateavailableformatted]</li>
+				{/if}			
+				{if field="single_property.butype"}
+				<li>Building Type: [butype]</li>
+				{/if}			
+			
+			{/ygl}
 			
 		</ul>
 	</li>						

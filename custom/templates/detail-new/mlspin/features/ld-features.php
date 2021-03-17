@@ -22,21 +22,12 @@
 			
 			<?php if( $single_property->sourceid == 1 ): ?>
 			
-			<?php if( isset($single_property->status)): ?>
-			<li>Status: [status]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->rentprice)): ?>
 			<li>Rent Amount: [rentprice]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unitlevel)): ?>
 			<li>Unit Level: [unitlevel]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->nobaths)): ?>
-			<li>Baths: [nobaths]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->nobedrooms)): ?>
-			<li>Beds: [nobedrooms]</li>
-			<?php endif; ?>
+			<?php endif; ?>			
 			<?php if( isset($single_property->parkingfeature)): ?>
 			<li>Parking: [parkingfeature]</li>
 			<?php endif; ?>			
@@ -47,7 +38,7 @@
 			<li>Rent Includes: [rentfeeincludes]</li>
 			<?php endif; ?>			
 			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>Fee Paid By Owner: [reqdownassociation]</li>
+			<li>YGL data: [reqdownassociation]</li>
 			<?php endif; ?>			
 			<?php if( isset($single_property->laundryfeatures)): ?>
 			<li>Laundry: [laundryfeatures]</li>
@@ -62,7 +53,7 @@
 			<li>Building Type: [butype]</li>
 			<?php endif; ?>			
 			
-			<?php endif; ?>		
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>

@@ -51,90 +51,78 @@
 		<h3 class="zy-feature-title">Property Details</h3>
 		<ul class="zy-sub-list">
 
+		
+			{if field="single_property.basement"}
+			<li>Basement: {{basement}}</li>
+			{/if}
+			{if field="single_property.citype"}
+			<li>Commercial Type: {{citype}}</li>
+			{/if}
+			{if field="single_property.construction"}
+			<li>Construction: {{construction}}</li>
+			{/if}
+			{if field="single_property.dividable"}
+			<li>Dividable: {{dividable}}</li>
+			{/if}
+			{if field="single_property.noofdrivingdoors"}
+			<li>Drive in Doors: {{noofdrivingdoors}}</li>
+			{/if}
+			{if field="single_property.elevator"}
+			<li>Elevator: {{elevator}}</li>
+			{/if}
+			{if field="single_property.expandable"}
+			<li>Expandable: {{expandable}}</li>
+			{/if}
+			{if field="single_property.facilities"}
+			<li>Facilities: {{facilities}}</li>
+			{/if}
+			{if field="single_property.handicapaccess"}
+			<li>Handicap Access: {{handicapaccess}}</li>
+			{/if}
+			{if field="single_property.noofloadingdocks"}
+			<li>Loading Docks : {{noofloadingdocks}}</li>
+			{/if}
+			{if field="single_property.noofrestrooms"}
+			<li>Restrooms: {{noofrestrooms}}</li>
+			{/if}
+			{if field="single_property.sprinklers"}
+			<li>Sprinklers: {{sprinklers}}</li>
+			{/if}
+			{if field="single_property.utilities"}
+			<li>Utilities: {{utilities}}</li>
+			{/if}
 			
-				{if field="single_property.basement"}
-				<li>Basement: {{basement}}</li>
+			{ygl}
+			
+				{if field="single_property.rentprice"}
+				<li>Rent Amount: [rentprice]</li>
 				{/if}
-				{if field="single_property.citype"}
-				<li>Commercial Type: {{citype}}</li>
-				{/if}
-				{if field="single_property.construction"}
-				<li>Construction: {{construction}}</li>
-				{/if}
-				{if field="single_property.dividable"}
-				<li>Dividable: {{dividable}}</li>
-				{/if}
-				{if field="single_property.noofdrivingdoors"}
-				<li>Drive in Doors: {{noofdrivingdoors}}</li>
-				{/if}
-				{if field="single_property.elevator"}
-				<li>Elevator: {{elevator}}</li>
-				{/if}
-				{if field="single_property.expandable"}
-				<li>Expandable: {{expandable}}</li>
-				{/if}
-				{if field="single_property.facilities"}
-				<li>Facilities: {{facilities}}</li>
-				{/if}
-				{if field="single_property.handicapaccess"}
-				<li>Handicap Access: {{handicapaccess}}</li>
-				{/if}
-				{if field="single_property.noofloadingdocks"}
-				<li>Loading Docks : {{noofloadingdocks}}</li>
-				{/if}
-				{if field="single_property.noofrestrooms"}
-				<li>Restrooms: {{noofrestrooms}}</li>
-				{/if}
-				{if field="single_property.sprinklers"}
-				<li>Sprinklers: {{sprinklers}}</li>
-				{/if}
-				{if field="single_property.utilities"}
-				<li>Utilities: {{utilities}}</li>
-				{/if}
-				
-				{ygl}
-				
-					{if field="single_property.status"}
-					<li>Status: [status]</li>
-					{/if}
-					{if field="single_property.rentprice"}
-					<li>Rent Amount: [rentprice]</li>
-					{/if}
-					{if field="single_property.unitlevel"}
-					<li>Unit Level: [unitlevel]</li>
-					{/if}
-					{if field="single_property.nobaths"}
-					<li>Baths: [nobaths]</li>
-					{/if}
-					{if field="single_property.nobedrooms"}
-					<li>Beds: [nobedrooms]</li>
-					{/if}
-					{if field="single_property.parkingfeature"}
-					<li>Parking: [parkingfeature]</li>
-					{/if}			
-					{if field="single_property.petrestrictionsallow"}
-					<li>Pet: [petrestrictionsallow]</li>
-					{/if}			
-					{if field="single_property.rentfeeincludes"}
-					<li>Rent Includes: [rentfeeincludes]</li>
-					{/if}			
-					{if field="single_property.reqdownassociation"}
-					<li>Fee Paid By Owner: [reqdownassociation]</li>
-					{/if}			
-					{if field="single_property.laundryfeatures"}
-					<li>Laundry: [laundryfeatures]</li>
-					{/if}			
-					{if field="single_property.heating"}
-					<li>Heat Source: [heating]</li>
-					{/if}			
-					{if field="single_property.dateavailableformatted"}
-					<li>Avail Date: [dateavailableformatted]</li>
-					{/if}			
-					{if field="single_property.butype"}
-					<li>Building Type: [butype]</li>
-					{/if}			
-				
-				{/ygl}
+				{if field="single_property.unitlevel"}
+				<li>Unit Level: [unitlevel]</li>
+				{/if}		
+				{if field="single_property.petrestrictionsallow"}
+				<li>Pet: [petrestrictionsallow]</li>
+				{/if}			
+				{if field="single_property.rentfeeincludes"}
+				<li>Rent Includes: [rentfeeincludes]</li>
+				{/if}			
+				{if field="single_property.reqdownassociation"}
+				<li>YGL data: [reqdownassociation]</li>
+				{/if}			
+				{if field="single_property.laundryfeatures"}
+				<li>Laundry: [laundryfeatures]</li>
+				{/if}			
+				{if field="single_property.heating"}
+				<li>Heat Source: [heating]</li>
+				{/if}			
+				{if field="single_property.dateavailableformatted"}
+				<li>Avail Date: [dateavailableformatted]</li>
+				{/if}			
+				{if field="single_property.butype"}
+				<li>Building Type: [butype]</li>
+				{/if}			
+			
+			{/ygl}
 			
 			
 		</ul>

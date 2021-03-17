@@ -545,8 +545,14 @@ var zppr={
 											'<p class="zy_subaddress-style">' +
 												'<span itemprop="addressLocality"> '+ ( single_property.hasOwnProperty('lngTOWNSDESCRIPTION') && single_property.lngTOWNSDESCRIPTION ? single_property.lngTOWNSDESCRIPTION + ',':'' ) +' </span>' +
 												'<span itemprop="addressRegion"> '+ (single_property.hasOwnProperty('provinceState')?single_property.provinceState:'') +'</span>' +
-												'<span itemprop="postalCode"> '+ (single_property.hasOwnProperty('zipcode')?single_property.zipcode:'') +' </span>' +
-											'</p>' +
+												'<span itemprop="postalCode"> '+ (single_property.hasOwnProperty('zipcode')?single_property.zipcode:'') +' </span>';
+		
+			
+		if( single_property.hasOwnProperty('sourceid') && single_property.sourceid == 1 && single_property.hasOwnProperty('shrtAREACODE') ){
+			html +=								'<span>('+ single_property.shrtAREACODE +')</span>';
+		}
+												
+		html +=								'</p>' +
 										'</h1>' +
 									'</div>' +
 								'</div>' +
@@ -4840,6 +4846,9 @@ var zppr={
 						case "customtype":	
 								var custom_key = single_property.hasOwnProperty('propsubtype')?'propsubtype':'proptype';
 								$replaces.push(zppr.field_value( custom_key, $v, single_property.proptype, single_property.sourceid, 'detail' ));
+							break;
+						case "reqdownassociation":
+								$replaces.push( ( parseFloat( $v ) * 100 ).toString() + '% month' );
 							break;
 						default:								
 								$replaces.push(zppr.field_value( $k, $v, single_property.proptype, single_property.sourceid, 'detail' ));

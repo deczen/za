@@ -447,6 +447,9 @@ if(file_exists($template_path) && $template_name ){
 								<span itemprop="addressLocality"> <?php echo isset($single_property->lngTOWNSDESCRIPTION) && !empty($single_property->lngTOWNSDESCRIPTION)?$single_property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 								<span itemprop="addressRegion"> <?php echo isset($single_property->provinceState)?$single_property->provinceState:'' ?> </span>
 								<span itemprop="postalCode"> <?php echo isset($single_property->zipcode)?$single_property->zipcode:'' ?> </span>
+								<?php if( isset( $single_property->sourceid ) && $single_property->sourceid == 1 && isset( $single_property->shrtAREACODE ) ): ?>
+								<span>([shrtAREACODE"])</span>
+								<?php endif; ?>
 							</p>							
 						</h1>
 					</div>

@@ -1982,6 +1982,9 @@ if( ! function_exists('zipperagent_property_fields') ){
 								$k=isset($single_property->propsubtype)?'propsubtype':'proptype';
 								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid, 'detail' );
 							break;
+						case "reqdownassociation":
+								$replaces[]=(float) $v * 100 . '% month';
+							break;
 						default:								
 								$replaces[]=zipperagent_field_value( $k, $v, $single_property->proptype, $sourceid, 'detail' );
 							break;
