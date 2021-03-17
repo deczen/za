@@ -1,5 +1,5 @@
 {if field="single_property.style"}<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">House Style</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{style}}</span></li>{/if}
-{if field="single_property.totalrooms"}<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">Total Units</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{totalrooms}}</span></li>{/if}
+{if field="single_property.totalrooms"}<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">Total Rooms</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{totalrooms}}</span></li>{/if}
 {if field="single_property.nobedrooms"}<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">Beds</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{nobedrooms}}</span></li>{/if}
 {if field="single_property.nofullbaths"}<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">Full Baths</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{nofullbaths}}</span></li>{/if}
 {if field="single_property.nohalfbaths"}<li><label class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">1/2 Baths</label> <span class="col-lg-6 col-sm-6 col-md-6 col-xs-6 col zy_nopadding">{{nohalfbaths}}</span></li>{/if}

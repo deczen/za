@@ -78,9 +78,12 @@ if( ! function_exists('zipperagent_run_curl') ){
 			}else if(isset($server_output->result)){
 				$log=new ZipperAgentLog('error','functions.php');
 				$log->log_msg("[url= {$url}, status={$server_output->status}, responseCode={$server_output->responseCode}, error_message=\"{$server_output->result}\"]");	
-			}else{
+			}else if( is_object( $server_output ) ){
 				$log=new ZipperAgentLog('error','functions.php');
 				$log->log_msg("[url= {$url}, status={$server_output->status}, responseCode={$server_output->responseCode}, error_message=\"no error message\"]");	
+			}else{
+				$log=new ZipperAgentLog('error','functions.php');
+				$log->log_msg("[url= {$url}, status=\"no status\", responseCode=\"no response code\", error_message=\"no error message\"]");	
 			}
 		}
 		

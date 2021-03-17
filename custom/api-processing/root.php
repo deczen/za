@@ -175,6 +175,10 @@
 	if(isset($rb['credentials']['username'])) 				$data['credentials']['username'] = $rb['credentials']['username'];
 	if(isset($rb['credentials']['key'])) 					$data['credentials']['key'] = $rb['credentials']['key'];
 	
+	if(isset($rb['text']['signup_success'])) 				$data['text']['signup_success'] = $rb['text']['signup_success'];
+	if(isset($rb['text']['thankyou_to_previous'])) 			$data['text']['thankyou_to_previous'] = $rb['text']['thankyou_to_previous'];
+	if(isset($rb['text']['thankyou_to_profile'])) 			$data['text']['thankyou_to_profile'] = $rb['text']['thankyou_to_profile'];
+	
 	//convert zero text to 0
 	if(isset($data['web']['mls_state_map']['zero'])){
 		

@@ -4208,6 +4208,38 @@ var zppr={
 		} while (matches);
 		
 		html = html.allReplace(find,replaces);
+				
+		regex = /{ygl}([^\x05]*?){\/ygl}/g;
+		// regex = new RegExp(/{if field="(\S*)"}(.*?){\/if}/, 'g');
+		find = [];
+		replaces = [];
+		
+		do {
+			matches = regex.exec(html);
+			if (matches) {
+				full = matches[0];
+				content = matches[1];
+				
+				state=0;
+				
+				if( single_property.hasOwnProperty('sourceid') && single_property.sourceid == 1 ){
+					state=true;
+				}
+			}
+			
+				
+			if(!state){
+				find.push(full);
+				replaces.push('');
+			}else{
+				find.push(full);
+				replaces.push(content);
+			}	
+				
+			
+		} while (matches);
+		
+		html = html.allReplace(find,replaces);
 		
 		return html;
 	},

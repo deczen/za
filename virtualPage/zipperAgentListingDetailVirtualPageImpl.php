@@ -43,8 +43,8 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			}
 			
 			/*custom field */
-			if($single_property)
-				$single_property->customtype = isset($single_property->propsubtype)?$single_property->propsubtype : $single_property->proptype;
+			if($single_property && is_object( $single_property ))
+				$single_property->customtype = ( isset($single_property->propsubtype)?$single_property->propsubtype : ( isset($single_property->proptype) ? $single_property->proptype : '' ) );
 			
 			$this->property_cache = $property_cache;
 			$this->single_property = $single_property;
@@ -77,7 +77,9 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 		
 		$property = $this->property_cache ? $this->property_cache : $this->single_property;
 		
-		if( $property )
+		if( isset($property->status) && $property->status=='ZA-Del' )
+			$default = 'Not Found';
+		else if( $property )
 			$default = isset($property->id) ? zipperagent_get_address( $property) : 'Not Found';
 		else
 			$default = $this->getText(zipperAgentConstants::OPTION_VIRTUAL_PAGE_TITLE_DETAIL, "Property Title");
@@ -111,6 +113,11 @@ class zipperAgentListingDetailVirtualPageImpl extends zipperAgentAbstractVirtual
 			$rb = ZipperagentGlobalFunction()->zipperagent_rb();	
 				
 			$property = $this->property_cache ? $this->property_cache : $this->single_property;
+			
+			if( isset($property->status) && $property->status=='ZA-Del' ){
+				
+				$property = null;
+			}
 			
 			$find = array(
 				'{listingPhotoUrl}',

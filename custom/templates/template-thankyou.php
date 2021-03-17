@@ -3,6 +3,12 @@ $code=isset($_GET['action'])&&isset($_GET['code'])&&$_GET['action']=='verify'?$_
 $email=isset($_GET['email'])?$_GET['email']:'';
 $previous_url=isset($_GET['previous_url'])?$_GET['previous_url']:'';
 
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
+$signup_success_text = isset( $rb['text']['signup_success'] ) && $rb['text']['signup_success'] ? $rb['text']['signup_success'] : '<strong>THANK YOU!</strong> for signing up.';
+$thankyou_previous_text = isset( $rb['text']['thankyou_to_previous'] ) && $rb['text']['thankyou_to_previous'] ? $rb['text']['thankyou_to_previous'] : 'You are being redirected to the previous page...';
+$thankyou_profile_text = isset( $rb['text']['thankyou_to_profile'] ) && $rb['text']['thankyou_to_profile'] ? $rb['text']['thankyou_to_profile'] : 'You are being redirected to your profile page...';
+
 if(!$code && !$email){
 	echo "<span class='user-verification failed'>No action</span>";
 	return;
@@ -20,8 +26,8 @@ if( isset($result->status) && $result->status==='SUCCESS' && !isset($result->cau
 	echo "<img src='". ZIPPERAGENTURL . "images/thankyou-padlock.png' alt='padlock' />";
 	// echo "<h2 class='user-verification verification-success'><strong>THANK YOU!</strong> for verfying you account.</h2>";
 	// echo "<h3 class='user-verification verification-success'>Please click <a href='". $loginurl ."'>here</a> to manage your account.</h3>";
-	echo "<h2 class='user-verification verification-success'><strong>THANK YOU!</strong> for signing up.</h2>";
-	echo "<h3 class='user-verification verification-success'>You are being redirected to your profile page...</h3>";
+	echo "<h2 class='user-verification verification-success'>". $signup_success_text ."</h2>";
+	echo "<h3 class='user-verification verification-success'>". $thankyou_profile_text ."</h3>";
 	echo "</div>";
 	
 	// if(isset($result->result->email)){
@@ -60,9 +66,9 @@ if( isset($result->status) && $result->status==='SUCCESS' && !isset($result->cau
 	echo "<img src='". ZIPPERAGENTURL . "images/thankyou-padlock.png' alt='padlock' />";
 	echo "<h2 class='user-verification verification-success'><strong>THANK YOU!</strong> for signing up.</h2>";
 	if($previous_url)
-		echo "<h3 class='user-verification verification-success'>You are being redirected to the previous page...</h3>";
+		echo "<h3 class='user-verification verification-success'>". $thankyou_previous_text ."</h3>";
 	else
-		echo "<h3 class='user-verification verification-success'>You are being redirected to your profile page...</h3>";		
+		echo "<h3 class='user-verification verification-success'>". $thankyou_profile_text ."</h3>";		
 	echo "</div>";
 	
 	$isLogin = userContactLogin($email);

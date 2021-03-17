@@ -3,24 +3,66 @@
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
-
 			
-				<?php if( isset($single_property->cultivationacres)): ?>
-				<li>Cultivation Acres: [cultivationacres]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->pastureacres)): ?>
-				<li>Pasture Acres: [pastureacres]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->timberacres)): ?>
-				<li>Timber Acres: [timberacres]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->ldtype)): ?>
-				<li>Land Style: [ldtype]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->frontage)): ?>
-				<li>Street Frontage: [frontage]</li>
-				<?php endif; ?>
+			<?php if( isset($single_property->cultivationacres)): ?>
+			<li>Cultivation Acres: [cultivationacres]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->pastureacres)): ?>
+			<li>Pasture Acres: [pastureacres]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->timberacres)): ?>
+			<li>Timber Acres: [timberacres]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->ldtype)): ?>
+			<li>Land Style: [ldtype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->frontage)): ?>
+			<li>Street Frontage: [frontage]</li>
+			<?php endif; ?>
 			
+			<?php if( $single_property->sourceid == 1 ): ?>
+			
+			<?php if( isset($single_property->status)): ?>
+			<li>Status: [status]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->rentprice)): ?>
+			<li>Rent Amount: [rentprice]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unitlevel)): ?>
+			<li>Unit Level: [unitlevel]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->nobaths)): ?>
+			<li>Baths: [nobaths]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->nobedrooms)): ?>
+			<li>Beds: [nobedrooms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->parkingfeature)): ?>
+			<li>Parking: [parkingfeature]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->petrestrictionsallow)): ?>
+			<li>Pet: [petrestrictionsallow]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->rentfeeincludes)): ?>
+			<li>Rent Includes: [rentfeeincludes]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->reqdownassociation)): ?>
+			<li>Fee Paid By Owner: [reqdownassociation]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->laundryfeatures)): ?>
+			<li>Laundry: [laundryfeatures]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->heating)): ?>
+			<li>Heat Source: [heating]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->dateavailableformatted)): ?>
+			<li>Avail Date: [dateavailableformatted]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->butype)): ?>
+			<li>Building Type: [butype]</li>
+			<?php endif; ?>			
+			
+			<?php endif; ?>		
 		</ul>
 	</li>						
 	<?php endif; ?>

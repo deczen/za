@@ -3,44 +3,87 @@
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
-
 			
-				<?php if( isset($single_property->amenities)): ?>
-				<li>Amenities: [amenities]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->basement)): ?>
-				<li>Basement: [basement]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->rntype)): ?>
-				<li>Rental Style: [rntype]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->exteriorfeatures)): ?>
-				<li>Exterior Features: [exteriorfeatures]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->exterior)): ?>
-				<li>Exterior: [exterior]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->fireplaces)): ?>
-				<li>Fireplaces: [fireplaces]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->flooring)): ?>
-				<li>Floor: [flooring]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->laundryfeatures)): ?>
-				<li>Laundry: [laundryfeatures]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unitlevel)): ?>
-				<li>Unit Level: [unitlevel]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->waterviewfeatures)): ?>
-				<li>Waterview: [waterviewfeatures]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->waterfront)): ?>
-				<li>Waterfront: [waterfront]</li>
-				<?php endif; ?>
+			<?php if( isset($single_property->amenities)): ?>
+			<li>Amenities: [amenities]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->basement)): ?>
+			<li>Basement: [basement]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->rntype)): ?>
+			<li>Rental Style: [rntype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->exteriorfeatures)): ?>
+			<li>Exterior Features: [exteriorfeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->exterior)): ?>
+			<li>Exterior: [exterior]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->fireplaces)): ?>
+			<li>Fireplaces: [fireplaces]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->flooring)): ?>
+			<li>Floor: [flooring]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->laundryfeatures)): ?>
+			<li>Laundry: [laundryfeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->petsallowed)): ?>
+			<li>Pets Allowed: [petsallowed]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unitlevel)): ?>
+			<li>Unit Level: [unitlevel]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterviewfeatures)): ?>
+			<li>Waterview: [waterviewfeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterfront)): ?>
+			<li>Waterfront: [waterfront]</li>
+			<?php endif; ?>
+			
+			<?php if( $single_property->sourceid == 1 ): ?>
+			
+			<?php if( isset($single_property->status)): ?>
+			<li>Status: [status]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->rentprice)): ?>
+			<li>Rent Amount: [rentprice]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unitlevel)): ?>
+			<li>Unit Level: [unitlevel]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->nobaths)): ?>
+			<li>Baths: [nobaths]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->nobedrooms)): ?>
+			<li>Beds: [nobedrooms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->parkingfeature)): ?>
+			<li>Parking: [parkingfeature]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->petrestrictionsallow)): ?>
+			<li>Pet: [petrestrictionsallow]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->rentfeeincludes)): ?>
+			<li>Rent Includes: [rentfeeincludes]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->reqdownassociation)): ?>
+			<li>Fee Paid By Owner: [reqdownassociation]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->laundryfeatures)): ?>
+			<li>Laundry: [laundryfeatures]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->heating)): ?>
+			<li>Heat Source: [heating]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->dateavailableformatted)): ?>
+			<li>Avail Date: [dateavailableformatted]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->butype)): ?>
+			<li>Building Type: [butype]</li>
+			<?php endif; ?>			
+			
+			<?php endif; ?>
 			
 		</ul>
 	</li>						
