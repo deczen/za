@@ -192,6 +192,8 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						if( isset($atts['assignedto']) && $atts['assignedto'] ){
 							// echo "<pre>"; print_r($atts); echo "</pre>";
 							echo '<input type="hidden" name="assignedTo" value="'. $atts['assignedto'] .'" />';
+						}else if( $assignedto = ZipperagentGlobalFunction()->get_assignedto() ){
+							echo '<input type="hidden" name="assignedTo" value="'. $assignedto .'" />';							
 						}
 					
 					endif; ?>				
