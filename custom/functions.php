@@ -6960,6 +6960,11 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						timer = setTimeout(function () {
 							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
 							var inputText = ms_school3.getRawValue();
+							var requests = {};
+							var element = jQuery(ms_school3.container[0]).parents('#zpa-main-search-form, #searchProfile');
+							jQuery.map( element.serializeArray(), function( el, i ) {
+								requests[el.name]=el.value
+							});
 							
 							console.time('populate schools');
 							xhr_school3 = jQuery.ajax({
@@ -6969,6 +6974,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								data: {
 									'key': inputText,
 									'action': 'school3_options',
+									'requests': requests,
 								},
 								success: function( response ) {         
 									if( response ){
@@ -6989,8 +6995,10 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var subdomain=zppr.data.root.web.subdomain;
 						var customer_key=zppr.data.root.web.authorization.consumer_key;
 						var ps=5;
-						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-						var crit = "";
+						var element = jQuery(ms_school3.container[0]).parents('#zpa-main-search-form, #searchProfile');
+						var requests = zppr.get_form_inputs(element);
+						var params = zppr.generate_api_params(requests);
+						var crit = params.crit;
 						var response=false;
 						var gs=1;
 						var ms=1;
@@ -7043,6 +7051,11 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						timer = setTimeout(function () {
 							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
 							var inputText = ms_address.getRawValue();
+							var requests = {};
+							var element = jQuery(ms_address.container[0]).parents('#zpa-main-search-form, #searchProfile');							
+							jQuery.map( element.serializeArray(), function( el, i ) {
+								requests[el.name]=el.value
+							});
 							
 							console.time('populate address');
 							xhr_address = jQuery.ajax({
@@ -7052,6 +7065,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								data: {
 									'key': inputText,
 									'action': 'address_options',
+									'requests': requests,
 								},
 								success: function( response ) {         
 									if( response ){
@@ -7072,8 +7086,10 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var subdomain=zppr.data.root.web.subdomain;
 						var customer_key=zppr.data.root.web.authorization.consumer_key;
 						var ps=10;
-						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-						var crit = "";
+						var element = jQuery(ms_address.container[0]).parents('#zpa-main-search-form, #searchProfile');
+						var requests = zppr.get_form_inputs(element);
+						var params = zppr.generate_api_params(requests);
+						var crit = params.crit;
 						var response=false;
 						var gs=0;
 						var ms=0;
@@ -7125,6 +7141,11 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						timer = setTimeout(function () {
 							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
 							var inputText = ms_all.getRawValue();
+							var requests = {};
+							var element = jQuery(ms_all.container[0]).parents('#zpa-main-search-form, #searchProfile');							
+							jQuery.map( element.serializeArray(), function( el, i ) {
+								requests[el.name]=el.value
+							});
 							
 							console.time('populate address & school');
 							xhr_all = jQuery.ajax({
@@ -7134,6 +7155,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								data: {
 									'key': inputText,
 									'action': 'address_and_school_options',
+									'requests': requests,
 								},
 								success: function( response ) {         
 									if( response ){
@@ -7157,8 +7179,10 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var subdomain=zppr.data.root.web.subdomain;
 						var customer_key=zppr.data.root.web.authorization.consumer_key;
 						var ps=5;
-						var crit = "asrc:0;asts:ACT,NEW,PCG,BOM,EXT,RAC";
-						var crit = "";
+						var element = jQuery(ms_all.container[0]).parents('#zpa-main-search-form, #searchProfile');
+						var requests = zppr.get_form_inputs(element);
+						var params = zppr.generate_api_params(requests);
+						var crit = params.crit;
 						var response=false;
 						var gs=1;
 						var ms=1;

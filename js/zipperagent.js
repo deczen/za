@@ -3967,7 +3967,8 @@ var zppr={
 		
 		for (const [virtual_index, original_virtual_tour_url] of Object.entries(virtual_tours)) {
 			
-			is_possible_popup = 1;
+			// is_possible_popup = 1;
+			is_possible_popup = 0;
 			virtual_tour_url=original_virtual_tour_url;
 			if(!zppr.is_valid_url(virtual_tour_url) && virtual_tour_url.toString().substring(0, 2) != '//'){
 				virtual_tour_url='//'+virtual_tour_url;
@@ -3977,24 +3978,28 @@ var zppr={
 			
 			if(virtual_tour_url.toString().indexOf('iframe') !== -1){ //iframe
 				embed = virtual_tour_url;
+				is_possible_popup = 1;
 			}else if(virtual_tour_url.toString().indexOf('youtube.com') !== -1 || virtual_tour_url.toString().indexOf('youtu.be') !== -1){ //youtube url
 				embed = virtual_tour_url.replace( /\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i, "<iframe id=\"matterportFrame\" width=\"853\" height=\"480\" src=\"//www.youtube.com/embed/$2\" frameborder=\"0\" allowfullscreen></iframe>");
+				is_possible_popup = 1;
 			}else if(virtual_tour_url.toString().indexOf('vimeo.com') !== -1){ //vimeo url
 				
 				vimeos = virtual_tour_url.split('vimeo.com/');
 				vimeo_id = vimeos[1];
 				
 				embed = "<iframe src=\"https://player.vimeo.com/video/"+ vimeo_id +"?color=ffffff\" width=\"853\" height=\"480\" frameborder=\"0\" allow=\"autoplay; fullscreen\" allowfullscreen></iframe>";
-					
-			}else if(virtual_tour_url.toString().indexOf('exite-listings.com') !== -1){
+				is_possible_popup = 1;	
+			} /* else if(virtual_tour_url.toString().indexOf('exite-listings.com') !== -1){
 				is_possible_popup = 0;
 			}else if(virtual_tour_url.toString().indexOf('video214.com') !== -1){
 				is_possible_popup = 0;
 			}else if(virtual_tour_url.toString().indexOf('getopenframe.com') !== -1){
 				is_possible_popup = 0;
+			}else if(virtual_tour_url.toString().indexOf('walkthruhomes.com') !== -1){
+				is_possible_popup = 0;
 			}else{ //normal url
 				embed= "<iframe id=\"matterportFrame\" width=\"853\" height=\"480\" src=\""+ virtual_tour_url +"\" frameborder=\"0\" allowfullscreen></iframe>";
-			}
+			} */
 			
 			if(is_possible_popup){
 				html+= '<a href="#" content-iframe=\''+ embed +'\' class="virtual-tour-open">' +
