@@ -189,7 +189,6 @@
 				  isset($single_property->unmapped->OpenParkingSpaces) ):?>
 		
 		<h3 class="zy-feature-title">Parking Information</h3>
-		<h3 class="zy-feature-title">Parking Information</h3>
 		<ul class="zy-sub-list">
 			
 			<?php if( isset($single_property->garagespaces)): ?>
