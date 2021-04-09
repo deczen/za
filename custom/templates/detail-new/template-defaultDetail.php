@@ -230,6 +230,7 @@ switch($property_type){
 	case "MULTI UNIT 2-4": //Multi unit
 	case "MULTI UNIT 5+": //Multi unit
 	case "MULTI UNIT/INCOME": //Multi unit
+	case "CommercialSale": //Multi Family
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -272,6 +273,7 @@ switch($property_type){
 	case "REL": //Rental		
 	case "E": //Rental		
 	case "LEASE/RENT": //Rental		
+	case "ResidentialIncome": //Rental		
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -320,6 +322,7 @@ switch($property_type){
 	case "BUSO": //Business		
 	case "BUSINESS OPPORTUNITY": //Business Opportunity		
 	case "BUSINESS_OPPORTUNITY": //Business Opportunity		
+	case "BusinessOpportunity": //Business Opportunity		
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';

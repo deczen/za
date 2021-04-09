@@ -44,7 +44,7 @@ var zppr={
 		
 		var generatedCrit="";
 		var excludes = zppr.data.long_excludes;
-		var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
+			requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
 		/**
 		 * VARIABLES
 		 * @ set values for each variables
@@ -3797,6 +3797,7 @@ var zppr={
 			case "MULTI UNIT 2-4": //Multi unit
 			case "MULTI UNIT 5+": //Multi unit
 			case "MULTI UNIT/INCOME": //Multi unit
+			case "CommercialSale": //Multi Family
 				// template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 				template_features='mf-features-crm.php';
 				template_print='mf-print-crm.php';
@@ -3838,7 +3839,8 @@ var zppr={
 			case "REN": //Rental		
 			case "REL": //Rental		
 			case "E": //Rental		
-			case "LEASE/RENT": //Rental		
+			case "LEASE/RENT": //Rental
+			case "ResidentialIncome": //Rental
 				// template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 				template_features='rn-features-crm.php';
 				template_print='rn-print-crm.php';
@@ -3870,6 +3872,7 @@ var zppr={
 			case "COMI": //Commercial	
 			case "Commercial_Sale": //Commercial Sale			
 			case "Commercial": //Commercial			
+			case "COMMERCIAL_SALE": //Commercial		
 				// template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 				template_features='ci-features-crm.php';
 				template_print='ci-print-crm.php';
@@ -3885,7 +3888,8 @@ var zppr={
 			case "BUSINESS": //Business		
 			case "BUSO": //Business		
 			case "BUSINESS OPPORTUNITY": //Business Opportunity	
-			case "BUSINESS_OPPORTUNITY": //Business Opportunity	
+			case "BUSINESS_OPPORTUNITY": //Business Opportunity
+			case "BusinessOpportunity": //Business Opportunity
 				// template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 				template_features='bu-features-crm.php';
 				template_print='bu-print-crm.php';
@@ -3897,6 +3901,7 @@ var zppr={
 			case "RLSE": //Residential
 			case "A": //Residential
 			case "RLse": //Residential Lease
+			case "RESIDENTIAL_LEASE": //Residential Lease
 				// template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 				template_features='rd-features-crm.php';
 				template_print='rd-print-crm.php';
