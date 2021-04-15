@@ -7,6 +7,7 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['phoneOffice']=$_POST['phone'];
 	$vars['propertyAlerts']=isset($_POST['propertyAlerts'])?"true":"false";
 	$vars['alertType']=$_POST['alertType'];
+	$vars['assignedTo']=ZipperagentGlobalFunction()->get_assignedto();
 	$result=saveUserContact($vars);
 	// echo "<pre>"; print_r( $vars); echo "</pre>"; 
 	// echo "<pre>"; print_r( $result); echo "</pre>";
