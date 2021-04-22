@@ -1,4 +1,14 @@
 <?php
+//add saved cookies to account
+add_saved_cookies_to_account();
+
+$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+// echo "<pre>"; print_r( $userdata); echo "</pre>";
+if( ! $userdata || ! sizeof($userdata)){
+	wp_safe_redirect( site_url('/property-organizer-login') );
+	die();
+}
+
 if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['id']=$_POST['contactId'];
 	$vars['firstName']=$_POST['firstName'];
@@ -7,20 +17,11 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['phoneOffice']=$_POST['phone'];
 	$vars['propertyAlerts']=isset($_POST['propertyAlerts'])?"true":"false";
 	$vars['alertType']=$_POST['alertType'];
-	$vars['assignedTo']=ZipperagentGlobalFunction()->get_assignedto();
+	// $vars['assignedTo']=isset( $userdata[0]['assignedTo'] ) ? $userdata[0]['assignedTo'] : ZipperagentGlobalFunction()->get_assignedto();
+	$vars['assignedTo']=isset( $userdata[0]->assignedTo ) ? $userdata[0]->assignedTo : '';
 	$result=saveUserContact($vars);
 	// echo "<pre>"; print_r( $vars); echo "</pre>"; 
 	// echo "<pre>"; print_r( $result); echo "</pre>";
-}
-
-//add saved cookies to account
-add_saved_cookies_to_account();
-
-$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
-
-if( ! $userdata || ! sizeof($userdata)){
-	wp_safe_redirect( site_url('/property-organizer-login') );
-	die();
 }
 
 /*
