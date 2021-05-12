@@ -1,5 +1,7 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->waterviewfeatures)  ):?>
+	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->waterviewfeatures) ||
+			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->feeinterval) || isset($single_property->lotsize) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
+			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->zoning) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>	
 		<ul class="zy-sub-list">
@@ -135,7 +137,32 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->SpaYN)): ?>
 			<li>Spa YN: [unmapped_SpaYN]</li>
-			<?php endif; ?>		
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->PublicSurveySection)): ?>
+			<li>Public Survey Section: [unmapped_PublicSurveySection]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->feeinterval)): ?>
+			<li>Association Fee Freqency: [feeinterval]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotFeatures)): ?>
+			<li>Lot Features: [unmapped_LotFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ConstructionMaterials)): ?>
+			<li>Construction Materials: [unmapped_ConstructionMaterials]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeAcres)): ?>
+			<li>Lot Size Acres: [unmapped_LotSizeAcres]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Size Units: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
+			<li>laundry Features: [unmapped_laundryFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->zoning)): ?>
+			<li>Zoning: [zoning]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>

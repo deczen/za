@@ -6,7 +6,9 @@
 			  isset($single_property->unmapped->ViewYN) || isset($single_property->waterfrontflag) || isset($single_property->appliances) || isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->flooring) || 
 			  isset($single_property->interiorfeatures) || isset($single_property->reqdownassociation) || isset($single_property->unmapped->AssociationFee2) || isset($single_property->termsfeature) || isset($single_property->unmapped->ElectricOnPropertyYN) || 
 			  isset($single_property->unmapped->NumberOfSeparateElectricMeters) || isset($single_property->unmapped->ElectricExpense) || isset($single_property->electricfeature) || isset($single_property->greencertified) || isset($single_property->nostories) || 
-			  isset($single_property->sitecondition) || isset($single_property->possession) || isset($single_property->unmapped->HorseYN) || isset($single_property->assocsecurity) || isset($single_property->yearbuiltdescrp) ):?>
+			  isset($single_property->sitecondition) || isset($single_property->possession) || isset($single_property->unmapped->HorseYN) || isset($single_property->assocsecurity) || isset($single_property->yearbuiltdescrp) ||
+			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->unmapped->ListingTerms) || isset($single_property->feeinterval) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
+			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->zoning) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -138,6 +140,30 @@
 			<?php endif; ?>			
 			<?php if( isset($single_property->yearbuiltdescrp)): ?>
 			<li>Year Built Details: [yearbuiltdescrp]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PublicSurveySection)): ?>
+			<li>Public Survey Section: [unmapped_PublicSurveySection]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
+			<li>Listing Terms: [unmapped_ListingTerms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->feeinterval)): ?>
+			<li>Association Fee Freqency: [feeinterval]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotFeatures)): ?>
+			<li>Lot Features: [unmapped_LotFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ConstructionMaterials)): ?>
+			<li>Construction Materials: [unmapped_ConstructionMaterials]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeAcres)): ?>
+			<li>Lot Size Acres: [unmapped_LotSizeAcres]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
+			<li>laundry Features: [unmapped_laundryFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->zoning)): ?>
+			<li>Zoning: [zoning]</li>
 			<?php endif; ?>
 			
 		</ul>

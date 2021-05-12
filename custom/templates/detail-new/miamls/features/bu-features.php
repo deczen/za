@@ -1,6 +1,9 @@
 <ul class="zy-features-grid">
 	
-	<?php if( isset($single_property->basement) || isset($single_property->nobuildings) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->parkingspaces) || isset($single_property->noofrestrooms) || isset($single_property->system) || isset($single_property->utilities) ):?>
+	<?php if( isset($single_property->basement) || isset($single_property->nobuildings) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->facilities) || 
+			  isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->parkingspaces) || isset($single_property->noofrestrooms) || isset($single_property->system) || isset($single_property->utilities) ||
+			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->feeinterval) || isset($single_property->lotsize) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
+			  isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->zoning) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Details</h3>
 		<ul class="zy-sub-list">
@@ -96,6 +99,36 @@
 			<li>SpaYN: [unmapped_SpaYN]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->PublicSurveySection)): ?>
+			<li>Public Survey Section: [unmapped_PublicSurveySection]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
+			<li>Listing Terms: [unmapped_ListingTerms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->feeinterval)): ?>
+			<li>Association Fee Freqency: [feeinterval]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->lotsize)): ?>
+			<li>Squarefeet: [lotsize]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotFeatures)): ?>
+			<li>Lot Features: [unmapped_LotFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ConstructionMaterials)): ?>
+			<li>Construction Materials: [unmapped_ConstructionMaterials]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeAcres)): ?>
+			<li>Lot Size Acres: [unmapped_LotSizeAcres]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Size Units: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
+			<li>laundry Features: [unmapped_laundryFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->zoning)): ?>
+			<li>Zoning: [zoning]</li>
+			<?php endif; ?>
 
 		</ul>
 	</li>
