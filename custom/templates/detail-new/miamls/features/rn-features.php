@@ -149,7 +149,7 @@
 			<li>Public Survey Section: [unmapped_PublicSurveySection]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->feeinterval)): ?>
-			<li>Association Fee Freqency: [feeinterval]</li>
+			<li>Association Fee Frequency: [feeinterval]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->lotsize)): ?>
 			<li>Squarefeet: [lotsize]</li>

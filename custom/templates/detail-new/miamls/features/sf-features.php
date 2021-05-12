@@ -148,7 +148,7 @@
 			<li>Listing Terms: [unmapped_ListingTerms]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->feeinterval)): ?>
-			<li>Association Fee Freqency: [feeinterval]</li>
+			<li>Association Fee Frequency: [feeinterval]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->LotFeatures)): ?>
 			<li>Lot Features: [unmapped_LotFeatures]</li>
