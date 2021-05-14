@@ -1,7 +1,7 @@
 <ul class="zy-features-grid">
 	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->rntype) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundryfeatures) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) ||
 			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->feeinterval) || isset($single_property->lotsize) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
-			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->zoning) ):?>
+			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) /* || isset($single_property->zoning) */ || isset($single_property->ZoningDescription) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -169,8 +169,11 @@
 			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
 			<li>laundry Features: [unmapped_laundryFeatures]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->zoning)): ?>
+			<?php /* if( isset($single_property->zoning)): ?>
 			<li>Zoning: [zoning]</li>
+			<?php endif; */ ?>
+			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+			<li>Zoning: [unmapped_ZoningDescription]</li>
 			<?php endif; ?>
 			
 			

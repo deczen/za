@@ -88,12 +88,25 @@ function cf7_auto_populate($atts){
 									$('.wpcf7-form input[type=text][name=last-name]').css("opacity", 0.5);											
 									$('.wpcf7-form input[type=text][name=last-name]').parent().addClass('hide-alert');
 								}
-								if(userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!=''){
-									$('.wpcf7-form input[type=tel][name=phone]').val(userdata.phoneOffice);
+								if(userdata.hasOwnProperty('phoneMobile') && userdata.phoneMobile.length && userdata.phoneMobile!='' ||
+								   userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!='' ||
+								   userdata.hasOwnProperty('phoneOther') && userdata.phoneOther.length && userdata.phoneOther!='' ){
+									
+									var phone = '';
+									
+									if( userdata.hasOwnProperty('phoneMobile') && userdata.phoneMobile.length && userdata.phoneMobile!='' ){
+										phone = userdata.phoneMobile;
+									}else if( userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!='' ){
+										phone = userdata.phoneOffice;
+									}else if( userdata.hasOwnProperty('phoneOther') && userdata.phoneOther.length && userdata.phoneOther!='' ){
+										phone = userdata.phoneOther;
+									}
+									   
+									$('.wpcf7-form input[type=tel][name=phone]').val(phone);
 									$('.wpcf7-form input[type=tel][name=phone]').prop("readonly", true);
 									$('.wpcf7-form input[type=tel][name=phone]').css("opacity", 0.5);				
 									$('.wpcf7-form input[type=tel][name=phone]').parent().addClass('hide-alert');
-									$('.wpcf7-form input[name=your-phone]').val(userdata.phoneOffice);
+									$('.wpcf7-form input[name=your-phone]').val(phone);
 									$('.wpcf7-form input[name=your-phone]').prop("readonly", true);
 									$('.wpcf7-form input[name=your-phone]').css("opacity", 0.5);				
 									$('.wpcf7-form input[name=your-phone]').parent().addClass('hide-alert');

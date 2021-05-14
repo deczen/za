@@ -219,8 +219,21 @@ class ET_Builder_Module_Za_Contact extends ET_Builder_Module {
 											$('.za-lp-contact input[type=text][name=lastName]').prop("readonly", true);
 											$('.za-lp-contact input[type=text][name=lastName]').css("opacity", 0.5);
 										}
-										if(userdata.phoneOffice!=''){
-											$('.za-lp-contact input[type=tel][name=phone]').val(userdata.phoneOffice);
+										if(userdata.hasOwnProperty('phoneMobile') && userdata.phoneMobile.length && userdata.phoneMobile!='' ||
+									       userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!='' ||
+										   userdata.hasOwnProperty('phoneOther') && userdata.phoneOther.length && userdata.phoneOther!='' ){
+											
+											var phone = '';
+									
+											if( userdata.hasOwnProperty('phoneMobile') && userdata.phoneMobile.length && userdata.phoneMobile!='' ){
+												phone = userdata.phoneMobile;
+											}else if( userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!='' ){
+												phone = userdata.phoneOffice;
+											}else if( userdata.hasOwnProperty('phoneOther') && userdata.phoneOther.length && userdata.phoneOther!='' ){
+												phone = userdata.phoneOther;
+											}
+											   
+											$('.za-lp-contact input[type=tel][name=phone]').val(phone);
 											$('.za-lp-contact input[type=tel][name=phone]').prop("readonly", true);
 											$('.za-lp-contact input[type=tel][name=phone]').css("opacity", 0.5);			
 										}

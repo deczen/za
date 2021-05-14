@@ -8,7 +8,7 @@
 			  isset($single_property->unmapped->NumberOfSeparateElectricMeters) || isset($single_property->unmapped->ElectricExpense) || isset($single_property->electricfeature) || isset($single_property->greencertified) || isset($single_property->nostories) || 
 			  isset($single_property->sitecondition) || isset($single_property->possession) || isset($single_property->unmapped->HorseYN) || isset($single_property->assocsecurity) || isset($single_property->yearbuiltdescrp) ||
 			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->unmapped->ListingTerms) || isset($single_property->feeinterval) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
-			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->zoning) ):?>
+			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->laundryFeatures) /* || isset($single_property->zoning) */ || isset($single_property->unmapped->ZoningDescription) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -162,8 +162,11 @@
 			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
 			<li>laundry Features: [unmapped_laundryFeatures]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->zoning)): ?>
+			<?php /* if( isset($single_property->zoning)): ?>
 			<li>Zoning: [zoning]</li>
+			<?php endif; */ ?>
+			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+			<li>Zoning: [unmapped_ZoningDescription]</li>
 			<?php endif; ?>
 			
 		</ul>

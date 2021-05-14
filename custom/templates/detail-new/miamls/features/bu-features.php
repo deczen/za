@@ -3,7 +3,7 @@
 	<?php if( isset($single_property->basement) || isset($single_property->nobuildings) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->facilities) || 
 			  isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->parkingspaces) || isset($single_property->noofrestrooms) || isset($single_property->system) || isset($single_property->utilities) ||
 			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->feeinterval) || isset($single_property->lotsize) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
-			  isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->zoning) ):?>
+			  isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) /* || isset($single_property->zoning) */ || isset($single_property->ZoningDescription) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Details</h3>
 		<ul class="zy-sub-list">
@@ -65,9 +65,9 @@
 			<?php if( isset($single_property->unmapped->IrrigationWaterRightsAcres)): ?>
 			<li>Irrigation Water Rights Acres: [unmapped_IrrigationWaterRightsAcres]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+			<?php /* if( isset($single_property->unmapped->ZoningDescription)): ?>
 			<li>Zoning Description: [unmapped_ZoningDescription]</li>
-			<?php endif; ?>
+			<?php endif; */ ?>
 			<?php if( isset($single_property->unmapped->HorseYN)): ?>
 			<li>Horse YN: [unmapped_HorseYN]</li>
 			<?php endif; ?>
@@ -126,8 +126,11 @@
 			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
 			<li>laundry Features: [unmapped_laundryFeatures]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->zoning)): ?>
+			<?php /* if( isset($single_property->zoning)): ?>
 			<li>Zoning: [zoning]</li>
+			<?php endif; */ ?>
+			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+			<li>Zoning: [unmapped_ZoningDescription]</li>
 			<?php endif; ?>
 
 		</ul>

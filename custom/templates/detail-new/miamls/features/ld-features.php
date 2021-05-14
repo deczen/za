@@ -1,7 +1,7 @@
 <ul class="zy-features-grid">
 	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) ||
 			  isset($single_property->unmapped->PublicSurveySection) || isset($single_property->feeinterval) || isset($single_property->lotsize) || isset($single_property->unmapped->LotFeatures) || isset($single_property->unmapped->ConstructionMaterials) ||
-			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) ):?>
+			  isset($single_property->unmapped->LotSizeAcres) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->laundryFeatures) || isset($single_property->unmapped->ZoningDescription) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
@@ -151,6 +151,11 @@
 			<?php if( isset($single_property->unmapped->laundryFeatures)): ?>
 			<li>laundry Features: [unmapped_laundryFeatures]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+			<li>Zoning: [unmapped_ZoningDescription]</li>
+			<?php endif; ?>
+			
+			
 		</ul>
 	</li>						
 	<?php endif; ?>
