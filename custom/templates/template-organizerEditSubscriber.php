@@ -14,7 +14,8 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['firstName']=$_POST['firstName'];
 	$vars['lastName']=$_POST['lastName'];
 	$vars['emailWork1']=$_POST['emailWork1'];
-	$vars['phoneOffice']=$_POST['phone'];
+	// $vars['phoneOffice']=$_POST['phone'];
+	$vars['phoneMobile']=$_POST['phone'];
 	$vars['propertyAlerts']=isset($_POST['propertyAlerts'])?"true":"false";
 	$vars['alertType']=$_POST['alertType'];
 	// $vars['assignedTo']=isset( $userdata[0]['assignedTo'] ) ? $userdata[0]['assignedTo'] : ZipperagentGlobalFunction()->get_assignedto();
@@ -83,6 +84,9 @@ $dataCount = isset($result['dataCount'])?$result['dataCount']:0;
 // echo "<pre>"; print_r( $userdata ); echo "</pre>";
 // echo "<pre>"; print_r( $_SESSION['userdata'] ); echo "</pre>";
 $userdata = $userdata[0]; //get first index record
+$phone = isset($userdata->phoneMobile) ? $userdata->phoneMobile : '';
+$phone = !$phone && isset($userdata->phoneOffice) ? $userdata->phoneOffice : $phone;
+$phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phone;
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZIPPERAGENTURL . 'css/my-account.css'; ?>">
 <style>
@@ -136,7 +140,7 @@ $userdata = $userdata[0]; //get first index record
 												<div><div class="user-avatar at-account__avatar"><?php echo $av; ?></div>
 													<div><?php echo isset($userdata->firstName)?$userdata->firstName:''; ?> <?php echo isset($userdata->lastName)?$userdata->lastName:''; ?></div>
 													<div class="uk-text-small uk-text-muted"><?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?></div>
-													<div><?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?></div>
+													<div><?php echo $phone; ?></div>
 												</div>
 											</div>
 										</div>
@@ -229,7 +233,7 @@ $userdata = $userdata[0]; //get first index record
 																	<div class="mb-10">
 																		<div>
 																			<label for="accountPhoneNumber">Phone Number&nbsp;</label>
-																			<input id="accountPhoneNumber" class="at-phonenumber-txt" type="text" name="phone" autocomplete="tel" value="<?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?>">
+																			<input id="accountPhoneNumber" class="at-phonenumber-txt" type="text" name="phone" autocomplete="tel" value="<?php echo $phone; ?>">
 																		</div>
 																	</div>
 																</div>
@@ -546,7 +550,7 @@ $userdata = $userdata[0]; //get first index record
                     <div class="form-group">
                         <label for="zpaOrgProfile_Phone" class="col-md-3 col-lg-3 control-label"> Phone </label>
                         <div class="col-md-9 col-lg-9">
-                            <input id="zpaOrgProfile_Phone" name="phone" type="text" class="form-control" value="<?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?>" maxlength="30"> </div>
+                            <input id="zpaOrgProfile_Phone" name="phone" type="text" class="form-control" value="<?php echo $phone; ?>" maxlength="30"> </div>
                     </div>
 					<div class="form-group">
                         <label for="zpaOrgProfile_DailyDigest" class="col-md-3 col-lg-3 control-label"></label>

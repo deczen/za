@@ -6,7 +6,9 @@ if( ! $userdata ){
 	die();
 }
 $userdata = $userdata[0]; //get first index record
-
+$phone = isset($userdata->phoneMobile) ? $userdata->phoneMobile : '';
+$phone = !$phone && isset($userdata->phoneOffice) ? $userdata->phoneOffice : $phone;
+$phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phone;
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZIPPERAGENTURL . 'css/my-account.css'; ?>">
 <style>
@@ -42,7 +44,7 @@ $userdata = $userdata[0]; //get first index record
 											<div><div  class="user-avatar at-account__avatar"><?php echo $av; ?></div>
 												<div><?php echo isset($userdata->firstName)?$userdata->firstName:''; ?> <?php echo isset($userdata->lastName)?$userdata->lastName:''; ?></div>
 												<div class="uk-text-small uk-text-muted"><?php echo isset($userdata->emailWork1)?$userdata->emailWork1:''; ?></div>
-												<div><?php echo isset($userdata->phoneOffice)?$userdata->phoneOffice:''; ?></div>
+												<div><?php echo $phone; ?></div>
 											</div>
 										</div>
 									</div>
