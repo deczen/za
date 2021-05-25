@@ -22,7 +22,7 @@
 	// define how long we want to keep the file in seconds. I set mine to 24 hours.
 	$cachetime = 86400;
 	// Check if the cached file is still fresh. If it is, serve it up and exit.
-	if (file_exists($cachefile) && filesize($cachefile) > 10 && time() - $cachetime < filemtime($cachefile)) {
+	if (file_exists($cachefile) /* && filesize($cachefile) > 10 */ && time() - $cachetime < filemtime($cachefile)) {
 		include($cachefile);
     	return;
 	}

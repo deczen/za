@@ -23,6 +23,8 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$result=saveUserContact($vars);
 	// echo "<pre>"; print_r( $vars); echo "</pre>"; 
 	// echo "<pre>"; print_r( $result); echo "</pre>";
+	
+	$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
 }
 
 /*

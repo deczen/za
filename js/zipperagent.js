@@ -1476,11 +1476,28 @@ var zppr={
 			if (this.readyState == 4 ) {
 				if(this.status == 200){
 					response=JSON.parse(this.responseText);
-					if(response.responseCode===200){					
+					if(response.responseCode===200){
+						
+						//validate property
+						if( ! response.result.hasOwnProperty('property') ){
+							var notfound = '<h2>Property Not Found!</h2>';
+							jQuery(targetElement).html( notfound );
+							document.title = 'Not Found';
+							return;
+						}
+						
 						zppr.declare_date_format();
 						
 						// console.log(response);
 						var single_property = response.result.property;
+						
+						// validate property
+						if( single_property.status=='ZA-Del' ){
+							var notfound = '<h2>Property Not Found!</h2>';
+							jQuery(targetElement).html( notfound );
+							document.title = 'Not Found';
+							return;
+						}
 						
 						//custom field
 						if(single_property){
