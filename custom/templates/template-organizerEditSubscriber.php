@@ -14,12 +14,17 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['firstName']=$_POST['firstName'];
 	$vars['lastName']=$_POST['lastName'];
 	$vars['emailWork1']=$_POST['emailWork1'];
-	// $vars['phoneOffice']=$_POST['phone'];
 	$vars['phoneMobile']=$_POST['phone'];
 	$vars['propertyAlerts']=isset($_POST['propertyAlerts'])?"true":"false";
 	$vars['alertType']=$_POST['alertType'];
 	// $vars['assignedTo']=isset( $userdata[0]['assignedTo'] ) ? $userdata[0]['assignedTo'] : ZipperagentGlobalFunction()->get_assignedto();
 	$vars['assignedTo']=isset( $userdata[0]->assignedTo ) ? $userdata[0]->assignedTo : '';
+	
+	if( isset( $userdata[0]->phoneOffice ) )
+		$vars['phoneOffice']= $userdata[0]->phoneOffice;
+	if( isset( $userdata[0]->phoneOther ) )
+		$vars['phoneOther']= $userdata[0]->phoneOther;
+	
 	$result=saveUserContact($vars);
 	// echo "<pre>"; print_r( $vars); echo "</pre>"; 
 	// echo "<pre>"; print_r( $result); echo "</pre>";
