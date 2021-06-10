@@ -678,8 +678,14 @@ class Zipperagent_Shortcodes{
 			$requests[$key]=$val;
 		}
 		
+		$is_direct = isset( $requests['direct'] ) ? $requests['direct'] : 0;
+		unset($requests['direct']);
+		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/templates/template-relatedSlider.php";
+		if( $is_direct )
+			include ZIPPERAGENTPATH . "/custom/templates/template-relatedSlider-crm.php";
+		else	
+			include ZIPPERAGENTPATH . "/custom/templates/template-relatedSlider.php";
 		$html=ob_get_clean();
 		
 		/* Reset variables */
@@ -713,8 +719,14 @@ class Zipperagent_Shortcodes{
 			$requests[$key]=$val;
 		}
 		
+		$is_direct = isset( $requests['direct'] ) ? $requests['direct'] : 0;
+		unset($requests['direct']);
+		
 		ob_start();
-		include ZIPPERAGENTPATH . "/custom/templates/template-propertySliderWidget.php";
+		if( $is_direct )
+			include ZIPPERAGENTPATH . "/custom/templates/template-propertySliderWidget-crm.php";
+		else	
+			include ZIPPERAGENTPATH . "/custom/templates/template-propertySliderWidget.php";
 		$html=ob_get_clean();
 		
 		/* Reset variables */

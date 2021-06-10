@@ -56,6 +56,10 @@ $column 			= ( isset($requests['column'])?$requests['column']:'' );
 $school 			= ( isset($requests['school'])?$requests['school']:'' );
 $alkchnnm 			= ( isset($requests['alkchnnm'])?$requests['alkchnnm']:'' );
 
+$uniqid = uniqid();
+$uniqueClass = 'result_'.$uniqid;
+$uniqueClassWithDot = '.'.$uniqueClass;
+
 /**
  * PREPARATION
  * @ prepare the arguments before API process
@@ -328,8 +332,7 @@ $top_search_enabled = ! $boundaryWKT && ! $openHomesMode;
 
 if( sizeof($list) ){		
 	?>
-
-	<div class="slider-container"> 
+	<div class="slider-container <?php echo $uniqueClass; ?>"> 
 		<!--Main Slider Start--> 
 		<div class="slider widget-slider owl-carousel" aria-label="carousel"> 
 		<?php
@@ -418,14 +421,14 @@ if( sizeof($list) ){
 			var index=0;
 			
 			index=0;
-			$('.widget-slider').each(function(){
+			$('<?php echo $uniqueClassWithDot; ?> .widget-slider').each(function(){
 				var slider = $(this);
 				mainSlider.push(slider);
 			});
 			
 			// carousel function for main slider
 			index=0;
-			$('.widget-slider').each(function(){
+			$('<?php echo $uniqueClassWithDot; ?> .widget-slider').each(function(){
 				
 				var tempMainSlider = mainSlider[index];
 				

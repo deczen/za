@@ -1010,8 +1010,9 @@ function display_related_properties(){
 		ob_start();
 		$html='';
 		if(shortcode_exists('listing_slider')){
+			$is_direct = ZipperagentGlobalFunction()->zipperagent_is_direct_detailpage() ? 1 : 0;
 			$html='<h3>Related Properties</h3>'."\r\n";
-			$html=$html.do_shortcode('[listing_slider mobile_item="1" tablet_item="3" desktop_item="4" listinapage="10" '. implode( ' ', $params ) .']');;
+			$html=$html.do_shortcode('[listing_slider direct="'. $is_direct .'" mobile_item="1" tablet_item="3" desktop_item="4" listinapage="10" '. implode( ' ', $params ) .']');;
 		}
 		$result['html']=$html;
 		

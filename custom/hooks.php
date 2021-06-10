@@ -39,6 +39,21 @@ function generate_zipperagent_variables(){
 	$args['browser_timezone']=date_default_timezone_get() ? date_default_timezone_get() : zipperagent_timezone();
 	$args['extra_proptype']=zipperagent_extra_proptype();	
 	// $args['synctime']=zipperagent_get_synctime();
+	$args['map_default_status']=zipperagent_get_map_default_status();
+	
+	$markers = zipperagent_get_map_markers();
+	//echo '<pre>'; print_r($markers); echo '</pre>';
+	
+	if($markers){
+	foreach($markers as $key => &$value){
+		
+		$proptype = zipperagent_property_type( $key );
+		$value=array(
+			'name' => $proptype,
+			'url' => $value,
+		);
+	}}
+	$args['map_markers']=$markers;
 	
 	$args['company_name']=zipperagent_company_name();	
 	$args['agent_list']=zipperagent_get_agent_list();	

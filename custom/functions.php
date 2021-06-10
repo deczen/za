@@ -709,7 +709,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 				}
 			}
 			
-		}else if( $offmarket ){
+		}else if( $offmarket ){ // offmarket mode
 			
 			$vars=array(
 				'sidx'=>$index,
@@ -4243,7 +4243,8 @@ if( ! function_exists('get_long_excludes') ){
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
 					'fbclid','newsearchbar','school','search_category','coords','direct','view',
-					'disableviewbar','vars','fixed_search_form','anycrit','micro','alkchnnm',
+					'disableviewbar','vars','fixed_search_form','anycrit','micro',
+					'alkchnnm','autoplay',
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());

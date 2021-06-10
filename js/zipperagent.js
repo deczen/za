@@ -25,6 +25,8 @@ var zppr={
 		states: zipperagent.states,
 		browser_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		extra_proptype: zipperagent.extra_proptype,
+		map_default_status: zipperagent.map_default_status,
+		map_markers: zipperagent.map_markers,
 		// synctime: zipperagent.synctime,
 		
 		/* single property */
@@ -94,13 +96,16 @@ var zppr={
 		var column 				= ( requests.hasOwnProperty('column')?requests['column']:'' );
 		var school 				= ( requests.hasOwnProperty('school')?requests['school']:'' );
 		var alkchnnm 			= ( requests.hasOwnProperty('alkchnnm')?requests['alkchnnm']:'' );
+		var offmarket 			= ( requests.hasOwnProperty('offmarket')?requests['offmarket']:'' );
 
 		//distance search variables
 		var searchDistance 		= ( requests.hasOwnProperty('searchdistance')?requests['searchdistance']:'' );
 		var distance 			= ( requests.hasOwnProperty('distance')?requests['distance']:zppr.data.distance );
 		var lat 				= ( requests.hasOwnProperty('lat')?requests['lat']:'' );
 		var lng 				= ( requests.hasOwnProperty('lng')?requests['lng']:'' );
-
+		
+		//list view type
+		var view 				= ( requests.hasOwnProperty('view')?requests['view']:'' );
 
 		/**
 		 * PREPARATION
@@ -109,6 +114,9 @@ var zppr={
 
 		/* default status */
 		status = !status?zppr.data.active_status:status;
+		if(view=='map'){
+			status = requests.hasOwnProperty('status') && requests['status'] ? status : zppr.data.map_default_status;
+		}
 		
 		/* generate mls_state_map */
 		var mls_state_map=zppr.data.root.web.hasOwnProperty('mls_state_map')?zppr.data.root.web.mls_state_map:{};
@@ -285,7 +293,7 @@ var zppr={
 		page = parseInt(zppr.data.page) ? parseInt(zppr.data.page) : 1;
 		page = requests.hasOwnProperty('page') ? requests['page'] : page;
 
-		num=requests.hasOwnProperty('listinapage') ? requests['listinapage'] : 24;
+		num=requests.hasOwnProperty('listinapage') ? requests['listinapage'] : (view=='map'?10:24);
 		maxtotal=requests.hasOwnProperty('maxlist') ? requests['maxlist'] : 0;
 		/* page correction */
 		if( maxtotal > 0 ){
@@ -314,6 +322,10 @@ var zppr={
 		}else if( searchDistance=="true" || searchDistance=="1" ){ // map mode
 			
 			//no action			
+		}else if( offmarket ){ // offmarket mode
+			
+			// no action
+
 		}else{ //if( featuredOnlyYn=="true" || status=='SLD' ){ //featured mode
 			
 			if(!crit){
@@ -359,11 +371,20 @@ var zppr={
 				generatedCrit = crit;
 			}
 			
+			response['searchType'] = 0; // advSearchWoCnt 
 			response['crit'] = generatedCrit;
 			response['anycrit'] = anycrit;
-			response['ps'] = num;
-			response['sidx'] = index;
 			response['o'] = o;
+			if(view=='map_marker'){
+				var maplimit=100;
+				var mapindex=Math.floor(index / maplimit);
+				mapindex=mapindex<0?0:mapindex;
+				response['sidx']=mapindex;
+				response['ps']=maplimit;
+			}else{
+				response['ps'] = num;
+				response['sidx'] = index;
+			}
 		}		
 		console.log(response);
 		return response;
@@ -430,6 +451,730 @@ var zppr={
 		
 		return html;
 	},
+	list_map_view_template:function(requests, list_html, is_view_save_search){
+		
+		var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
+		var boundaryWKT 		= ( requests.hasOwnProperty('boundarywkt')?requests['boundarywkt']:'' );
+		var openHomesMode 		= ( requests.hasOwnProperty('openhomesmode')?requests['openhomesmode']:'' );
+		var openHomesOnlyYn 	= ( requests.hasOwnProperty('openhomesonlyyn')?requests['openhomesonlyyn']:'' );
+		var showPagination 		= ( requests.hasOwnProperty('pagination')?parseInt(requests['pagination']):1 );
+		var showResults	 		= ( requests.hasOwnProperty('result')?parseInt(requests['result']):1 );
+		var searchId			= ( requests.hasOwnProperty('searchid')?requests['searchid']:'' );
+		
+		enable_filter= boundaryWKT || openHomesMode == "true" || openHomesMode == 1 ? false : true;
+		
+		var html = '';
+		
+		html += '<div class="zpa-listing-search-results hideonprint">'+				
+					'<div class="container-fluid">' +			
+						'<div class="row sticky-container" style="position:relative;">' +
+						
+							'<div class="property-results mb-25 mt-25">';
+							
+		if( parseInt(showResults) ){			
+			html+= 				'<div class="col-xs-12 prop-total">'+String.fromCharCode(160)+'</div>';
+		}
+		
+		html+=				'</div>';					
+		
+		var markers = zppr.data.map_markers;
+			
+		if(markers){
+			
+			html+= 			'<div class="proptype-markers col-lg-12 col-md-12"><ul>';
+			for (const [key, val] of Object.entries(markers)) {
+				html+=			'<li class="proptype-marker"><img src="'+ val.url +'" alt=" '+ val.name +'" title=""><span>'+ val.name +'</span></li>';
+			}
+			html+=			'</ul></div>';
+		}					
+		html+=				'<div id="map" class="col-lg-5 col-md-6 ml-auto">' +
+								'<div id="map_wrapper">' +								
+									'<div id="color-palette" style="display:none"></div>' +
+									'<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>' +
+								'</div>' +
+							'</div>' +
+							
+							'<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">' +
+								'<div id="map-list-content" class="row">';
+		
+		if(!list_html){
+		
+			html+= 					'<div id="map-content" class="row">' +
+
+										'<div class="col-md-12">' +
+											'<div class="col-md-12 mb-10 mt-25">' +
+												'<span>No Properties Found </span>' +
+											'</div>' +
+											'<div class="col-md-12 pagination-wrap">' +
+												'<ul class="pagination">' +
+													'<li class="disabled"><a href="#">&laquo;</a>' +
+													'</li>' +
+													'<li class="disabled"><a href="#">1 of 0</a>' +
+													'</li>' +
+													'<li class="disabled"><a href="#">&raquo;</a>' +
+													'</li>' +
+												'</ul>' +
+											'</div>	' +	
+											'<!--col-->' +
+										'</div>' +
+										'<!--row-->' +
+									'</div>';	
+		}else{
+			html+=					'<div id="map-content">' + list_html;	
+									   
+			if( showPagination ){	
+		
+				html+=					'<div class="clearfix"></div>' +
+										'<div class="col-md-12 pagination-wrap prop-pagination"></div>';				
+			}			
+										
+			if( zppr.data.listing_disclaimer!='' ){
+			
+				html+= 					'<div class="row">'+
+											'<div class="col-xs-12">'+
+												'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
+											'</div>'+
+										'</div>';
+			}
+									
+			html+=					'</div>';
+		}	
+						
+				
+								
+		html+=					'</div>' +
+							'</div>' +
+							'<div class="clearfix"></div>' +
+						'</div>' +
+					'</div>' +				
+				'</div>';
+		
+		return html;
+	},
+	list_map_view_generate_markers:function(targetElement, actual_link, requests){
+		
+		requests.view = 'map_marker';
+	
+		var subdomain=zppr.data.root.web.subdomain;
+		var customer_key=zppr.data.root.web.authorization.consumer_key;	
+		var params = zppr.generate_api_params(requests);
+		var ps=params.ps;
+		var sidx=params.sidx;
+		var crit = params.crit;
+		var anycrit = params.anycrit;
+		var order=params.o;
+		var contactId=zppr.data.contactIds.join();
+		
+		var args={
+			searchType:params.searchType,
+			subdomain:subdomain,
+			customer_key:customer_key,
+			crit:crit,
+			anycrit:anycrit,
+			model:order,
+			sidx:sidx,
+			ps:ps,
+			contactId:contactId,
+		};
+
+		zppr.search(targetElement, 'map_marker', requests, args, actual_link, 0);
+	},
+	list_map_marker_script:function(response){
+		
+		jQuery(document).ready(function(){ 
+
+			var map;
+			var saved_markers=new Array();
+			var infoWindow = new google.maps.InfoWindow({
+				disableAutoPan: true,
+			});
+			var infoWindowContent = [];
+
+			//search polygons functions
+			var drawingManager;
+			var selectedShape;
+			var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
+			var selectedColor;
+			var colorButtons = {};
+
+			function clearSelection() {
+				if (selectedShape) {
+					selectedShape.setEditable(false);
+					selectedShape = null;
+				}
+			}
+
+			function setSelection(shape) {
+				clearSelection();
+				selectedShape = shape;
+				shape.setEditable(true);
+				selectColor(shape.get('fillColor') || shape.get('strokeColor'));
+			}
+
+			function selectColor(color) {
+				selectedColor = color;
+				for (var i = 0; i < colors.length; ++i) {
+					var currColor = colors[i];
+					colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';
+				}
+
+				// Retrieves the current options from the drawing manager and replaces the
+				// stroke or fill color as appropriate.
+				var polylineOptions = drawingManager.get('polylineOptions');
+				polylineOptions.strokeColor = color;
+				drawingManager.set('polylineOptions', polylineOptions);
+
+				var rectangleOptions = drawingManager.get('rectangleOptions');
+				rectangleOptions.fillColor = color;
+				drawingManager.set('rectangleOptions', rectangleOptions);
+
+				var circleOptions = drawingManager.get('circleOptions');
+				circleOptions.fillColor = color;
+				drawingManager.set('circleOptions', circleOptions);
+
+				var polygonOptions = drawingManager.get('polygonOptions');
+				polygonOptions.fillColor = color;
+				drawingManager.set('polygonOptions', polygonOptions);
+			}
+
+			function setSelectedShapeColor(color) {
+				if (selectedShape) {
+					if (selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
+						selectedShape.set('strokeColor', color);
+					} else {
+						selectedShape.set('fillColor', color);
+					}
+				}
+			}
+
+			function makeColorButton(color) {
+				var button = document.createElement('span');
+				button.className = 'color-button';
+				button.style.backgroundColor = color;
+				google.maps.event.addDomListener(button, 'click', function() {
+					selectColor(color);
+					setSelectedShapeColor(color);
+				});
+
+				return button;
+			}
+
+			function buildColorPalette() {
+				var colorPalette = document.getElementById('color-palette');
+				for (var i = 0; i < colors.length; ++i) {
+					var currColor = colors[i];
+					var colorButton = makeColorButton(currColor);
+					colorPalette.appendChild(colorButton);
+					colorButtons[currColor] = colorButton;
+				}
+				selectColor(colors[0]);
+			}
+			//end polygon functions
+
+			function initialize() {
+				var bounds = new google.maps.LatLngBounds();
+				var mapOptions = {
+					mapTypeId: 'roadmap',
+					gestureHandling: 'greedy',
+				};
+								
+				// Display a map on the page
+				map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+				map.setTilt(45);
+					
+				// Multiple Markers		[
+				var markers = [];		
+				if(response.result.hasOwnProperty('filteredList')){
+					
+					for (const [key, property] of Object.entries(response.result.filteredList)) {
+						
+						if( ! property.hasOwnProperty('id') )
+							continue;
+						
+						if( ! property.hasOwnProperty('lat') || property.lat == '' || ! property.hasOwnProperty('lng') || property.lng == '' )
+							continue;
+						
+						var index = property.id;
+						var fulladdress = zppr.getAddress(property);
+						var lat = property.lat;
+						var lng = property.lng;
+						var listingId = property.id;
+						var beds = property.hasOwnProperty('nobedrooms')?property.nobedrooms:'';
+						var bath = property.hasOwnProperty('nobaths')?property.nobaths:'';
+						var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+						var longprice =  zppr.moneyFormat(price);
+						var shortprice =  zppr.moneyShorten(price);
+						var proptype = property.proptype;
+						
+						markers.push([fulladdress.replace( "'", "\'" ), lat, lng, listingId,longprice, shortprice, beds, bath, index, proptype]);
+					}
+				}
+									
+				// Info Window Content				
+				if(response.result.hasOwnProperty('filteredList')){
+					
+					var index=0;
+					for (const [key, property] of Object.entries(response.result.filteredList)) {		
+																	
+						var fulladdress = zppr.getAddress(property);
+						var lat = property.lat;
+						var lng = property.lng;
+						var listingId = property.id;
+						var beds = zppr.get_nobedrooms(property);
+						var bath = zppr.get_nobaths(property);
+						var sqft = zppr.get_sqft(property);
+						var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+							price =  zppr.moneyFormat(price);
+							
+						if( property.photoList[0].imgurl.indexOf('mlspin.com') > -1){
+							src = "//media.mlspin.com/photo.aspx?mls="+ property.listno +"&w=100&h=100&n=0";
+						}else
+							src = property.photoList[0].imgurl.replace('http://','//');
+						
+						// $saved_crit=$search;
+						// $critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
+						// if(!empty($searchId)){
+							// $query_args['searchId']= $searchId;
+						// }
+						// if(zp_using_criteria() && !empty($critBase64)){
+							// $query_args['criteria']= $critBase64;
+						// }
+						// if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+							// $query_args['newsearchbar']= 1;
+						// }
+						single_url = zppr.getPropUrl(listingId,address);
+						
+						is_login=zppr.data.is_login;
+						// $is_active=zipperagent_is_favorite($property->id)?"active":"";
+						is_active='';
+						searchId='';
+						str_contactIds=zppr.data.contactIds.join();
+						
+						needBorder=0;
+						if(beds)
+							needBorder++;
+						if(bath)
+							needBorder++;
+						if(sqft)
+							needBorder++;
+						
+						needBorder_html = needBorder > 1 ? " | ": "";
+					
+						beds_html = beds ? beds +" BEDS" : ""; 
+						bath_html = bath ? needBorder_html + bath + " BATH" : ""; 
+						sqft_html = sqft ? needBorder_html + sqft + " SQFT" : ""; 
+						
+						infoWindowContent[listingId]='<div class=\"info_content\">' +
+								'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"'+ src +'\" /></div>' +
+								'<div class=\"content\">' +				
+									'<a href=\"'+ single_url +'\"><strong>"'+ fulladdress.replace( "'", "\'" ) +'"</strong></a>' +
+									'<p class=\"price\">'+ price +'</p>' +
+									'<p class=\"favorite\"><a class=\"listing-'+ listingId +' save-favorite-btn '+ is_active +'\" isLogin=\"'+ is_login +'\" listingId=\"'+ listingId +'\" searchId=\"'+ searchId +'\" contactId=\"'+ str_contactIds +'\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\" role=\"none\"></i> Favorite</a></p>' +
+									'<p class=\"info\">'+ beds_html + bath_html + sqft_html +'</p>' +
+								'</div>' + '<a class=\"link-cover\" href=\"'+ single_url +'\"></a>' +
+							'</div>';
+					}
+				}
+					
+				// Display multiple markers on a map		
+				var marker, i;
+				
+				// Loop through our array of markers & place each one on the map  
+				for( i = 0; i < markers.length; i++ ) {
+					
+					//marker
+					var icon1 = zppr.plugin_url + "images/marker.png";
+					var icon2 = zppr.plugin_url + "images/marker-hover.png";
+					
+					var position = new google.maps.LatLng(markers[i][1], markers[i][2]);	
+
+					var listingId = markers[i][3];
+					
+					bounds.extend(position);
+					
+					marker = new CustomMarker(
+						position, 
+						map,
+						{
+							marker_id: markers[i][3],
+							price: markers[i][4],
+							shortprice: markers[i][5],
+							bedrooms: markers[i][6],
+							bath: markers[i][7],
+							index: markers[i][8],
+							proptype: markers[i][9],
+						}
+					);
+					
+					saved_markers[listingId]=marker;
+					
+					// Automatically center the map fitting all markers on the screen
+					map.fitBounds(bounds);        
+				}
+				
+				//map clustering
+				var markerCluster = new MarkerClusterer(map, saved_markers,
+				{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+				
+				/*
+				<?php		
+				//map highlight
+				ob_start();
+				include ZIPPERAGENTPATH . '/custom/options.php';
+				$jsonData=ob_get_clean();				
+				$data = json_decode($jsonData);
+				$boundaryWKT=isset($requests['boundarywkt'])?$requests['boundarywkt']:'';
+				if($boundaryWKT){
+					preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode($boundaryWKT), $match );
+					$coor_string = isset($match[1])?'('.$match[1].')':'';
+					preg_match_all( "/\(([^)]+)\)/", $coor_string, $match );
+					// $polygons = array_map('trim', explode( ',', $match[1] ));
+					$polygons = $match[1];
+					$added_polygons=array();
+					foreach( $polygons as $index=>&$polygon ){
+						$polygon= str_replace(' ','',$polygon);
+						$temp = explode(',',$polygon);
+						
+						// $polygon= str_replace(', ',':',$polygon); 
+						$polygon = array(
+							'lat'=> $temp[0],
+							'lng'=> $temp[1],
+						);
+						$added_polygons[]=$polygon;
+					}
+					$added_polygons[]=$added_polygons[0];
+					if($added_polygons):
+					?>
+					
+					// Define the LatLng coordinates for the polygon's path.
+					var areaCoords = [
+					<?php
+					  foreach($added_polygons as $coordinate){
+							echo '{lat: '. $coordinate['lat'] .', lng: '. $coordinate['lng']. '},'."\r\n";
+					  } ?>
+					];
+
+					// Construct the polygon.
+					var highlight_area = new google.maps.Polygon({
+					  paths: areaCoords,
+					  strokeColor: '#FF0000',
+					  strokeOpacity: 0.8,
+					  strokeWeight: 2,
+					  fillColor: '#FF0000',
+					  fillOpacity: 0.35
+					});
+					highlight_area.setMap(map); 
+					<?php 
+					endif; 
+				}
+				
+				
+				$codes=$requests['location'];
+				if(is_array($codes)){			
+					$search=array();
+					foreach($data as $area){
+						if(in_array($area->code,$codes)){
+							$search[]=$area->name;
+						}
+					}					
+					
+					$i=1;
+					// echo "search: ";
+					// print_r($search);
+					foreach($search as $search_query){	
+						$coordinates=array();
+						$areas = get_map_coordinate($search_query);
+						// echo "<pre>"; print_r($areas); echo "</pre>";
+						if(isset($areas[0]->geojson->coordinates[0])){
+							foreach($areas[0]->geojson->coordinates[0] as $coordinate){
+								if(isset($coordinate[0]) && $coordinate[0] && isset($coordinate[1]) && $coordinate[1]){
+									$coordinates[]=array(
+										'lat'=> $coordinate[1],
+										'lng'=> $coordinate[0],
+									);
+								}
+							}
+						}
+						
+						if($coordinates):
+						?>
+						
+						// Define the LatLng coordinates for the polygon's path.
+						var areaCoords_<?php echo $i; ?> = [
+						<?php
+						  foreach($coordinates as $coordinate){
+								echo '{lat: '. $coordinate['lat'] .', lng: '. $coordinate['lng']. '},'."\r\n";
+						  } ?>
+						];
+
+						// Construct the polygon.
+						var highlight_area_<?php echo $i; ?> = new google.maps.Polygon({
+						  paths: areaCoords_<?php echo $i; ?>,
+						  strokeColor: '#FF0000',
+						  strokeOpacity: 0.8,
+						  strokeWeight: 2,
+						  fillColor: '#FF0000',
+						  fillOpacity: 0.35
+						});
+						highlight_area_<?php echo $i; ?>.setMap(map); 
+						<?php 
+						endif; 
+						$i++;
+					}
+				}
+				?> */
+				
+				// search polygon function
+				
+				var polyOptions = {
+				  strokeWeight: 0,
+				  fillOpacity: 0.45,
+				  editable: true
+				};
+				// Creates a drawing manager attached to the map that allows the user to draw
+				// markers, lines, and shapes.
+				drawingManager = new google.maps.drawing.DrawingManager({
+				  // drawingMode: google.maps.drawing.OverlayType.POLYGON,
+				  drawingControl: true,
+				  drawingControlOptions: {
+					position: google.maps.ControlPosition.TOP_LEFT,
+					drawingModes: ['polygon']
+				  },
+				  markerOptions: {
+					draggable: true
+				  },
+				  polylineOptions: {
+					editable: true
+				  },
+				  rectangleOptions: polyOptions,
+				  circleOptions: polyOptions,
+				  polygonOptions: polyOptions,
+				  map: map
+				});
+
+				google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+					if (e.type != google.maps.drawing.OverlayType.MARKER) {
+					// Switch back to non-drawing mode after drawing a shape.
+					drawingManager.setDrawingMode(null);
+
+					// Add an event listener that selects the newly-drawn shape when the user
+					// mouses down on it.
+					var newShape = e.overlay;
+					newShape.type = e.type;
+					google.maps.event.addListener(newShape, 'click', function() {
+					  setSelection(newShape);
+					});
+					setSelection(newShape);
+				  }
+				}); 
+
+				// Clear the current selection when the drawing mode is changed, or when the
+				// map is clicked.
+				google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+				google.maps.event.addListener(map, 'click', clearSelection);
+				
+				google.maps.event.addListener(drawingManager, 'polygoncomplete', function(line) {
+					var coordinates = line.getPath().getArray().toString();
+					var name ='boundarywkt';
+					var value='POLYGON ('+ coordinates +')';
+					addFormField(name,value,'');
+					jQuery('#zpa-search-filter-form').submit();
+					jQuery( '.gmnoprint > div:not(:last-child)' ).click();
+				});
+				
+				buildColorPalette();
+			}
+
+			function CustomMarker(latlng, map, args) {
+				this.latlng = latlng;	
+				this.args = args;	
+				this.setMap(map);	
+			}
+
+			CustomMarker.prototype = new google.maps.OverlayView();
+
+			CustomMarker.prototype.draw = function() {
+				
+				var self = this;
+				
+				var div = this.div;
+				
+				var price = this.args.price;
+				var shortprice = this.args.shortprice;
+				var bedrooms = this.args.bedrooms;
+				var bath = this.args.bath;
+				var index = this.args.index;
+				var proptype = this.args.proptype;
+				
+				if (!div) {
+				
+					div = this.div = document.createElement('div');
+					
+					div.className = 'zpa-marker';
+					
+					div.style.position = 'absolute';
+					div.style.cursor = 'pointer';
+					// div.style.width = '100px';
+					// div.style.height = '20px';
+					div.style.background = 'white';
+					div.setAttribute("index", index)
+					
+					if (typeof(self.args.marker_id) !== 'undefined') {
+						div.dataset.marker_id = self.args.marker_id;
+					}
+					
+					var bedrooms_html = bedrooms ? "&nbsp;|&nbsp;<span class=\"beds\">Beds&nbsp;"+ bedrooms +"</span>" : '';
+					var bath_html = bedrooms ? "&nbsp;|&nbsp;<span class=\"bath\">Baths&nbsp;"+ bath +"</span>" : '';					
+									
+					div.innerHTML = "<div class=\"short-info\"><span class=\"price\">"+ price +"</span>"+ bedrooms_html + bath_html +"</div>";
+									
+					var markers = zppr.data.map_markers;
+					
+					if(markers){
+						
+						var mark=0;
+						for (const [key, val] of Object.entries(markers)) {
+							
+							if( proptype == key ){
+								div.className = 'zpa-marker zpa-image-marker';
+								div.innerHTML += "<span class=\"short-price-marker\">"+ shortprice +"<img src=\""+ val.url +"\" /></span>";
+								mark=1;
+							}
+						}
+						if( ! mark ){
+							div.innerHTML += "<span class=\"short-price\">"+ shortprice +"</span>";
+						}
+					}else{ 
+						div.innerHTML += "<span class=\"short-price\">"+ shortprice +"</span>";					
+					}
+					
+					google.maps.event.addDomListener(div, "click", function(event) {
+						// alert('You clicked on a custom marker!');		
+						google.maps.event.trigger(self, "click");
+						infoWindow.setContent(infoWindowContent[index]);
+						infoWindow.open(map, self);
+					});
+					
+					var panes = this.getPanes();
+					panes.overlayImage.appendChild(div);
+				}
+				
+				var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+				
+				if (point) {
+					div.style.left = (point.x - 20) + 'px';
+					div.style.top = (point.y - 0) + 'px';
+				}
+			};
+
+			CustomMarker.prototype.remove = function() {
+				if (this.div) {
+					this.div.parentNode.removeChild(this.div);
+					this.div = null;
+				}	
+			};
+
+			CustomMarker.prototype.getPosition = function() {
+				return this.latlng;	
+			};
+
+
+			function scrollToMarker(index) {
+				map.panTo(saved_markers[index].getPosition());
+			}	
+
+			jQuery(".zpa-grid-result").mouseover( function(){
+				var index = jQuery(this).find('a[listingid]').attr('listingid');	
+				google.maps.event.trigger(saved_markers[index], 'mouseover');
+				// scrollToMarker(index); //scroll to location
+				infoWindow.setContent(infoWindowContent[index]);
+				infoWindow.setPosition(saved_markers[index].position);
+				infoWindow.open(map, saved_markers[index]);
+			});
+
+			jQuery(".zpa-grid-result").mouseleave( function(){
+				var index = jQuery(this).find('a[listingid]').attr('listingid');	
+				google.maps.event.trigger(saved_markers[index], 'mouseout');
+				infoWindow.close();
+			});
+
+			initialize();
+		});
+	},
+	list_map_scroll_script:function(){
+		jQuery(window).scroll(function() {
+			
+			var $sticky = jQuery('#map');
+			var $mapWrapper = $sticky.find('#map_wrapper');
+			var $top = 0;
+			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
+				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+					$top = $top + $headerHeight;
+			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else{
+				var $headerHeight = 0;
+					$top = $top + $headerHeight;
+			}
+			if(jQuery('#wpadminbar').length){
+				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+					$top = $top + $wpadminbarHeight;
+			}
+			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			
+			$top = $top + $searchBarHeight;
+			
+			$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+			
+			var $stickyH = $sticky.outerHeight();
+			var $stickyContainer = jQuery('.sticky-container');
+			var $stickyContainerOffset = $stickyContainer.offset();
+			var $start = $stickyContainer.length?$stickyContainerOffset.top:0;
+			var $limit = $start + $stickyContainer.outerHeight();
+			var $padding = 15; // padding size;
+			var $maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
+			
+			var $searchBar = jQuery('#map');
+			
+			if(jQuery(window).width() > 768){
+			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+					$sticky.css({
+						'position':'fixed', 
+						'top': $top,
+						'max-width' : $maxWidth
+					});
+					if($searchBar.length){
+						$searchBar.css({
+						   // 'padding-top': jQuery(window).outerHeight() - $top
+						});
+					}
+			   }
+			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+				   $sticky.css({
+						   'position': 'absolute',
+						   'top'     : 'auto',
+						   'bottom'  : 0
+					   });
+			   }
+			   else {
+					$sticky.css({
+						'position' : 'static',
+						'max-width' : '100%'
+					});
+					if($searchBar.length){
+						$searchBar.find('.zpa-listing-list').css({
+						   // 'padding-top': 0
+						});
+					}
+					$maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
+					$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+			   }
+			}
+		});
+	},
 	list_photo_view_template:function(requests, main_html, sidebar_html, is_view_save_search){
 		
 		var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
@@ -479,6 +1224,70 @@ var zppr={
 				'</div>';
 		
 		return html;
+	},
+	list_photo_scroll_script:function(){
+		jQuery(document).ready(function(){
+			
+			jQuery(window).scroll(function() {	
+				var $sticky = jQuery('#small-property');
+				var $mapWrapper = $sticky;
+				var $top = 0;
+				var $stickyH;
+				if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
+					var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+						$top = $top + $headerHeight;
+						$stickyH = jQuery(window).outerHeight() - $headerHeight;
+				}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+					var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+					var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+						$top = $top + $topheaderHeight + $headerHeight;
+						$stickyH = jQuery(window).outerHeight() - $topheaderHeight - $headerHeight;
+				}else{
+					$stickyH = jQuery(window).outerHeight();		
+				}
+				if(jQuery('#wpadminbar').length){
+					var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+						$top = $top + $wpadminbarHeight;
+				}
+				
+				var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			
+				$top = $top + $searchBarHeight;
+				
+				$mapWrapper.css('height', jQuery(window).outerHeight() - $top);	
+				
+				var $stickyContainer = jQuery('.sticky-container');
+				var $stickyContainerOffset = $stickyContainer.offset();
+				var $start = $stickyContainer.length?$stickyContainerOffset.top:0;
+				var $limit = $start + $stickyContainer.outerHeight();
+				var $padding = 0; // padding size;
+				var $maxWidth = $sticky.outerWidth() + $padding;	
+				
+				if(jQuery(window).width() > 768){
+				   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+					   $sticky.css({
+					   'position':'fixed', 
+					   'top': $top,
+					   'max-width' : $maxWidth
+					   });
+				   }
+				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+					   $sticky.css({
+							   'position': 'absolute',
+							   'top'     : 'auto',
+							   'bottom'  : 0
+						   });
+				   }
+				   else {
+					   $sticky.css({
+						'position' : 'static',
+						'max-width' : '100%'});
+					   $maxWidth = $sticky.outerWidth() + $padding;
+					   $mapWrapper.css('height', jQuery(window).outerHeight() - $top);
+				   }
+				}
+			});
+		});
 	},
 	list_print:function(requests, list_html){
 		
@@ -1461,6 +2270,28 @@ var zppr={
 		
 		return html;
 	},
+	slider_template:function(requests, slider_html){
+		
+		var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
+		
+		var html = '';
+		
+		html+= '<div class="slider widget-slider owl-carousel" aria-label="carousel"> ';			
+				
+		if(slider_html){		
+			html+= 	slider_html;
+		}
+		
+		html+= 		'<div class="slider_nav">' +
+						'<button class="am-next"><i class="fa fa-caret-left" aria-hidden="true" role="none"></i></button>' +
+						'<button class="am-prev"><i class="fa fa-caret-right" aria-hidden="true" role="none"></i></button>' +
+					'</div>';
+			
+			
+		html+= '</div>';
+		
+		return html;
+	},
 	anonget:function(targetElement,listid,actual_link){
 				
 		var response=false;
@@ -1981,6 +2812,12 @@ var zppr={
 			case "list":			
 				console.time('generate list');
 				break;
+			case "map_marker":			
+				console.time('generate map markers');
+				break;
+			case "slider":			
+				console.time('generate slider');
+				break;
 			case "count":				
 				console.time('generate list count/pagination');
 				break;
@@ -2005,7 +2842,72 @@ var zppr={
 								switch(view){
 									
 									case "map":
-									
+										var html='';
+										var html_print='';
+										
+										if(response.result.hasOwnProperty('filteredList')){
+											var column = 2;									
+											var wrapOpen=0;
+											var i=0;
+											
+											var prt_column = 2;
+											var prt_wrapOpen = 0;
+
+											for (const [key, value] of Object.entries(response.result.filteredList)) {
+												
+												/* for listing */
+												if(i % column ==0 && ! wrapOpen){
+													html += '<div class="zpa-grid-wrap">';
+													wrapOpen=1;
+												}
+												
+												html += zppr.one_property(value, column);
+												
+												if( ((i % column) >= (column-1) && wrapOpen  //if one line has reach prop limit close the div
+													  || (i+1==response.result.filteredList.length && wrapOpen ) ) //if last prop reached close the div
+													  && ! zppr.is_mobile() ){
+													
+													html +=		'<div class="clearfix"></div>' +
+															'</div>';
+															
+													wrapOpen=0;
+												}
+												
+												/* for print view */
+												if(i % prt_column ==0 && ! prt_wrapOpen && ! zppr.is_mobile()){
+													html_print += '<div class="zy_row">';
+													prt_wrapOpen=1;
+												}
+												
+												html_print += zppr.one_print(value);
+												
+												if( ((i % prt_column) >= (prt_column-1) && prt_wrapOpen  //if one line has reach prop limit close the div
+													  || (i+1==response.result.filteredList.length && prt_wrapOpen ) ) ){ //if last prop reached close the div
+													
+													html_print +=	'<div class="clearfix"></div>' +
+															'</div>';
+															
+													prt_wrapOpen=0;
+												}
+												
+												i++;
+											}
+											
+											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
+										}
+										
+										html = zppr.list_map_view_template(requests, html, is_view_save_search);
+										html_print = zppr.list_print(requests, html_print);
+										
+										jQuery(targetElement).html( html );
+										jQuery(targetElement).append( html_print );
+										
+										zppr.list_map_view_generate_markers('#map_canvas', actual_link, requests);
+										
+										args.searchType=1;
+										zppr.search('.zpa-listing-search-results', 'count', requests, args, actual_link, is_view_save_search);
+										
+										console.timeEnd('generate list');
 										break;
 									case "photo":
 											
@@ -2048,7 +2950,7 @@ var zppr={
 												i++;
 											}
 											
-											zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
+											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 										}
 										
 										html = zppr.list_photo_view_template(requests, html_main, html_sidebar, is_view_save_search);
@@ -2056,6 +2958,8 @@ var zppr={
 										
 										jQuery(targetElement).html( html );
 										jQuery(targetElement).append( html_print );
+										
+										zppr.list_photo_scroll_script();
 										
 										args.searchType=1;
 										zppr.search('.zpa-listing-search-results', 'count', requests, args, actual_link, is_view_save_search);
@@ -2201,7 +3105,7 @@ var zppr={
 												i++;
 											}
 											
-											zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
+											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 										}
 										
 										html = zppr.list_template(requests, html, is_view_save_search);
@@ -2216,7 +3120,96 @@ var zppr={
 										console.timeEnd('generate list');
 										break;
 								}
-							break;							
+							break;	
+							case "slider":								
+																			
+								var html='';
+								var mobile_item = requests.hasOwnProperty('mobile_item') ? parseInt(requests.mobile_item) : 1;
+								var tablet_item = requests.hasOwnProperty('tablet_item') ? parseInt(requests.tablet_item) : 1;
+								var desktop_item = requests.hasOwnProperty('desktop_item') ? parseInt(requests.desktop_item) : 1;
+								var loop = requests.hasOwnProperty('loop') ? parseInt(requests.loop) : 0;
+								var autoplay = requests.hasOwnProperty('autoplay') ? parseInt(requests.autoplay) : 0;
+								
+								if(response.result.hasOwnProperty('filteredList')){
+
+									for (const [key, value] of Object.entries(response.result.filteredList)) {
+										
+										html += zppr.one_slider(value);
+									}
+									
+									zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
+								}
+								
+								if( ! html ){
+									if( requests.hasOwnProperty('aloff') && requests.aloff ){			
+										html = '<p class="no-property">There is no featured Properties</p>';				
+									}else{			
+										html = '<p class="no-property">no related properties</p>';										
+									}
+								}else{
+									html = zppr.slider_template(requests, html);
+								}
+								
+								jQuery(targetElement).html( html );
+								
+								jQuery(document).ready(function ($) {
+									// reference for main items
+									var mainSlider=new Array();
+									//transition time in ms
+									var duration = 500;
+									var index=0;
+									
+									index=0;
+									$('.widget-slider').each(function(){
+										var slider = $(this);
+										mainSlider.push(slider);
+									});
+									
+									// carousel function for main slider
+									index=0;
+									$('.widget-slider').each(function(){
+										
+										var tempMainSlider = mainSlider[index];
+										
+										tempMainSlider.owlCarousel({
+											loop: loop,
+											nav:true,
+											navText: [$('.am-next'),$('.am-prev')],
+											lazyLoad:true,
+											margin:15,
+											controlsClass:"owl-controls",
+											responsive:{
+												0:{
+													items: mobile_item,
+												},
+												768:{
+													items: tablet_item,
+												},
+												1200:{
+													items: desktop_item,
+												}
+											},
+											autoplay: autoplay,
+										})
+										
+										index++;
+									});
+								});
+								
+								console.timeEnd('generate slider');
+							break;								
+							case "map_marker":								
+								
+								if(response.result.hasOwnProperty('filteredList')){
+									
+									zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
+								}
+								
+								html = zppr.list_map_marker_script(response);
+								html = zppr.list_map_scroll_script();
+								
+								console.timeEnd('generate map markers');
+							break;								
 							case "poc":
 									
 								var html='';
@@ -2283,7 +3276,7 @@ var zppr={
 										prt_wrapOpen=0;
 									}
 									
-									zppr.save_session('/api/mls/advSearchWoCnt', response.result, actual_link);
+									zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 								}
 								
 								// html = zppr.list_template(requests, html, is_view_save_search);
@@ -3080,6 +4073,61 @@ var zppr={
 		
 		return html;
 	},
+	one_slider:function(property){
+		
+		var listingid = property.id;
+		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
+		var address = zppr.getAddress(property);
+		var prop_url = zppr.getPropUrl(listingid,address);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName}, 'list' ) : false;
+		
+		var html = '<div class="impress-carousel-property">'+
+						'<div class="owl-img-wrap">'+
+							'<a href="'+ prop_url +'" class="impress-carousel-photo" target="_self">';
+		if( img_url.indexOf('mlspin.com') !== -1 ){
+			html += 			'<img class="lazyOwl" alt="'+ ( property.hasOwnProperty('remarks') ? property.remarks : '' ) +'" title="'+ address +'" style="display: block;" src="//media.mlspin.com/photo.aspx?mls='+ property.listno +'&amp;h=400&amp;w=512&amp;n=0">';
+		}else{
+			html += 			'<span style="background:url(\''+ img_url +'\');"></span>';
+		}
+		html += 			'</a>'+
+						'</div>'+
+						'<a href="'+ prop_url +'" class="impress-carousel-photo" target="_self">	'+							
+							'<span class="impress-price text-bold">'+ zppr.moneyFormat(price) +'</span>'+
+						'</a>'+
+						'<a href="'+ prop_url +'" target="_self">'+
+							'<p class="impress-address">'+
+								'<span class="impress-street">' + ( property.hasOwnProperty('streetno') ? property.streetno :'-' ) +' '+ ( property.hasOwnProperty('streetname') ? zppr.streetname_fix_comma( property.streetname ) :'-' ) +'</span> '+
+								'<span class="impress-cityname">' + ( property.hasOwnProperty('lngTOWNSDESCRIPTION')? property.lngTOWNSDESCRIPTION :'-' ) +'</span>, '+
+								'<span class="impress-state"> ' + ( property.hasOwnProperty('provinceState')? property.provinceState :'-' ) + '</span>'+
+							'</p>'+
+						'</a>'+
+						'<p class="impress-beds-baths-sqft">';
+		if(property.hasOwnProperty('nobedrooms')){
+			html +=			'<span class="impress-beds">' + ( property.hasOwnProperty('nobedrooms')? property.nobedrooms :'-' ) + ' Beds</span> ';
+		}
+		if(property.hasOwnProperty('nobaths')){
+			html +=			'<span class="impress-baths">' + ( property.hasOwnProperty('nobaths')? property.nobaths :'-' ) + ' Baths</span> ';
+		}
+		if(property.hasOwnProperty('squarefeet')){
+			html +=			'<span class="impress-sqft">' + ( property.hasOwnProperty('squarefeet')? property.squarefeet :'-' ) + ' SqFt</span>';
+		}
+		html +=			'</p>'+
+						'<p class="impress-listingid">';
+		if(property.hasOwnProperty('listno')){
+			html +=			'<span class="impress-listno">'+ property.displaySource +'#' + ( property.hasOwnProperty('listno')? property.listno :'-' ) + '</span>';
+		}
+		html +=			'</p>'+
+						'<div class="disclaimer">';
+						
+		if(source_details){
+			html +=			source_details;
+		}
+		html +=			'</div>'+
+					'</div>';
+		
+		return html;
+	},
 	formatNumber:function(num) {
 	   return (typeof num !== 'undefined') ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 	},
@@ -3545,10 +4593,31 @@ var zppr={
 		return this;
 	  }
 		
-	}
-	,enableSaveSearchButton:function(){
+	},
+	enableSaveSearchButton:function(){
 		jQuery('.saveSearchButton').show();
 		jQuery('.savedSearchButton').hide();
+	},
+	api_path:function(searchType){
+		
+		switch(searchType){
+			case 0:
+				return '/api/mls/advSearchWoCnt';
+			case 1:
+				return '/api/mls/advSearchOnlyCnt';
+			case 2:
+				return '/api/mls/withinWoCnt';
+			case 3:
+				return '/api/mls/withinOnlyCnt';
+			case 4:
+				return '/api/mls/distanceWoCnt';
+			case 5:
+				return '/api/mls/distanceOnlyCnt';
+			case 6:
+				return '/api/mls/withinBoxWoCnt';
+			case 7:
+				return '/api/mls/withinBoxOnlyCnt';
+		}
 	},
 	save_session:function(index, result, actual_link){
 		var data = {

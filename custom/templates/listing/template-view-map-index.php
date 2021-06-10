@@ -237,7 +237,6 @@ function initialize() {
 	// Multiple Markers
 	var markers = [
 	<?php
-		$index=0;
 		foreach( $maplist as $option ){			
 								
 			if( $open )
@@ -251,27 +250,27 @@ function initialize() {
 			if( !isset($property->lat) || empty($property->lat) || !isset($property->lng) || empty($property->lng) )
 				continue;
 			
+			$index = $property->id;
 			$fulladdress = zipperagent_get_address($property);
 			$lat = $property->lat;
 			$lng = $property->lng;
 			$listingId = $property->id;
-			$beds = isset($property->nobedrooms)?$property->nobedrooms:'';
-			$bath = isset($property->nobaths)?$property->nobaths:'';
+			$beds = zipperagent_get_nobedrooms($property);
+			$bath = zipperagent_get_nobaths($property);
 			$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 			$longprice = zipperagent_currency() . number_format_i18n( $price, 0 );
 			$shortprice = zipperagent_currency() . number_format_short( $price, 0 );
 			$proptype = $property->proptype;
 			
 			
-			echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$longprice}','{$shortprice}','{$beds}','{$bath}',{$index},'{$proptype}'],"."\r\n";
+			echo "['". str_replace( "'", "\'", $fulladdress ) ."', {$lat},{$lng},'{$listingId}','{$longprice}','{$shortprice}','{$beds}','{$bath}','{$index}','{$proptype}'],"."\r\n";
 			
-			$index++;
 		}
 	?>
 	];
 						
 	// Info Window Content
-	infoWindowContent = [
+	infoWindowContent = {
 		<?php
 		 foreach( $maplist as $option ){			
 								
@@ -289,6 +288,7 @@ function initialize() {
 			$fulladdress = zipperagent_get_address($property);
 			$lat = $property->lat;
 			$lng = $property->lng;
+			$listingId = $property->id;
 			$beds = zipperagent_get_nobedrooms($property);
 			$bath = zipperagent_get_nobaths($property);
 			$sqft = zipperagent_get_sqft($property);
@@ -330,7 +330,7 @@ function initialize() {
 			$bath_html = $bath ? " {$needBorder_html}{$bath} BATH" : ""; 
 			$sqft_html = $sqft ? " {$needBorder_html}{$sqft} SQFT" : ""; 
 			
-			echo "['<div class=\"info_content\">' +
+			echo "'{$listingId}':'<div class=\"info_content\">' +
 					'<div class=\"pic\"><img style=\"display: block; margin: 0 auto;\" src=\"{$src}\" /></div>' +
 					'<div class=\"content\">' +				
 						'<a href=\"{$single_url}\"><strong>". str_replace( "'", "\'", $fulladdress )  ."</strong></a>' +
@@ -338,10 +338,10 @@ function initialize() {
 						'<p class=\"favorite\"><a class=\"listing-{$property->id} save-favorite-btn {$is_active}\" isLogin=\"{$is_login}\" listingId=\"{$property->id}\" searchId=\"{$searchId}\" contactId=\"{$str_contactIds}\" href=\"#\" afteraction=\"save_favorite_listing\"><i class=\"fa fa-heart\" aria-hidden=\"true\" role=\"none\"></i> Favorite</a></p>' +
 						'<p class=\"info\">{$beds_html}{$bath_html}{$sqft_html}</p>' +
 					'</div>' + '<a class=\"link-cover\" href=\"{$single_url}\"></a>' +
-				'</div>'],"."\r\n";
+				'</div>',"."\r\n";
 		}
 		?>
-	];
+	};
 		
 	// Display multiple markers on a map		
 	var marker, i;
@@ -353,7 +353,9 @@ function initialize() {
 		var icon1 = "<?php echo ZIPPERAGENTURL . "images/marker.png"; ?>";
 		var icon2 = "<?php echo ZIPPERAGENTURL . "images/marker-hover.png"; ?>";
 		
-		var position = new google.maps.LatLng(markers[i][1], markers[i][2]);		
+		var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+
+		var listingId = markers[i][3];
 		
 		bounds.extend(position);
 		
@@ -379,7 +381,7 @@ function initialize() {
 			}
 		);
 		
-		saved_markers.push(marker);
+		saved_markers[listingId] = marker;
 		
 		<?php /*
 		// Allow each marker to have an info window    
@@ -674,8 +676,8 @@ CustomMarker.prototype.draw = function() {
 			// alert('You clicked on a custom marker!');		
 			google.maps.event.trigger(self, "click");
 			// console.log(event);
-			infoWindow.setContent(infoWindowContent[index][0]);
-			// console.log(infoWindowContent[index][0]);
+			infoWindow.setContent(infoWindowContent[index]);
+			// console.log(infoWindowContent[index]);
 			// console.log(map);
 			infoWindow.open(map, self);
 		});
@@ -709,16 +711,16 @@ function scrollToMarker(index) {
 }	
 
 jQuery(".zpa-grid-result").mouseover( function(){
-	var index = jQuery(this).attr('index');	
+	var index = jQuery(this).find('a[listingid]').attr('listingid');		
 	google.maps.event.trigger(saved_markers[index], 'mouseover');
 	// scrollToMarker(index); //scroll to location
-	infoWindow.setContent(infoWindowContent[index][0]);
+	infoWindow.setContent(infoWindowContent[index]);
 	infoWindow.setPosition(saved_markers[index].position);
 	infoWindow.open(map, saved_markers[index]);
 });
 
 jQuery(".zpa-grid-result").mouseleave( function(){
-	var index = jQuery(this).attr('index');	
+	var index = jQuery(this).find('a[listingid]').attr('listingid');	
 	google.maps.event.trigger(saved_markers[index], 'mouseout');
 	infoWindow.close();
 });

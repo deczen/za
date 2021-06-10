@@ -130,7 +130,8 @@ unset($alstid); */
 			var view				= ( requests.hasOwnProperty('view')?requests['view']:'' );
 			
 			// var is_direct 			= direct && view != 'map' && view != 'photo';
-			var is_direct 			= direct && view != 'map';
+			// var is_direct 			= direct && view != 'map';
+			var is_direct 			= direct;
 			
 			if(!is_direct || openHomesMode || boundaryWKT || searchDistance || lat && lng){
 				if(xhr && xhr.readyState != 4){
@@ -216,7 +217,8 @@ unset($alstid); */
 		var view			= '<?php echo $view; ?>';		
 		
 		// var is_direct		= direct && view != 'map' && view != 'photo';
-		var is_direct		= direct && view != 'map';
+		// var is_direct		= direct && view != 'map';
+		var is_direct		= direct;
 		
 		if(!is_direct || openHomesMode || boundaryWKT || searchDistance || lat && lng){
 			var data = {
@@ -275,7 +277,8 @@ unset($alstid); */
 			var actual_link="<?php echo $actual_link; ?>";
 			
 			var args={
-				searchType:0,
+				// searchType:0,
+				searchType:params.searchType,
 				subdomain:subdomain,
 				customer_key:customer_key,
 				crit:crit,
