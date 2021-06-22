@@ -4694,6 +4694,23 @@ if( ! function_exists('za_is_show_popup') ){
 	}
 }
 
+if( ! function_exists('za_is_ygl') ){
+	function za_is_ygl( $single_property ){
+		
+		$is_ygl = 0;
+		
+		if( ! is_object( $single_property ) ){
+			return 0;
+		}
+		
+		if( $single_property->sourceid == 1 || $single_property->sourceid == 3 || $single_property->sourceid == 4 ){
+			$is_ygl = 1;
+		}
+		
+		return $is_ygl;
+	}
+}
+
 if( ! function_exists('SignUpPopupVisitCounter') ){
 	function SignUpPopupVisitCounter(){
 				

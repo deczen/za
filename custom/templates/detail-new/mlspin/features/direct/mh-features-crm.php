@@ -63,7 +63,16 @@
 				{/if}			
 				{if field="single_property.butype"}
 				<li>Building Type: {{butype}}</li>
-				{/if}			
+				{/if}
+				{if field="single_property.student"}
+				<li>Student: {{student}}</li>
+				{/if}
+				{if field="single_property.vtlink"}
+				<li>Virtual Tour/Media: {{vtlink}}</li>
+				{/if}
+				{if field="single_property.facilities"}
+				<li>Features: {{facilities}}</li>
+				{/if}
 			
 			{/ygl}
 			

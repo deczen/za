@@ -66,7 +66,13 @@
 				{/if}			
 				{if field="single_property.dateavailableformatted"}
 				<li>Avail Date: {{dateavailableformatted}}</li>
-				{/if}		
+				{/if}
+				{if field="single_property.student"}
+				<li>Student: {{student}}</li>
+				{/if}
+				{if field="single_property.vtlink"}
+				<li>Virtual Tour/Media: {{vtlink}}</li>
+				{/if}					
 			
 			{/ygl}
 		</ul>

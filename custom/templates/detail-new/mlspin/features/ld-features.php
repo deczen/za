@@ -20,7 +20,7 @@
 			<li>Street Frontage: [frontage]</li>
 			<?php endif; ?>
 			
-			<?php if( $single_property->sourceid == 1 ): ?>
+			<?php if( za_is_ygl( $single_property ) ): ?>
 			
 			<?php if( isset($single_property->rentprice)): ?>
 			<li>Rent Amount: [rentprice]</li>
@@ -52,6 +52,15 @@
 			<?php if( isset($single_property->butype)): ?>
 			<li>Building Type: [butype]</li>
 			<?php endif; ?>			
+			<?php if( isset($single_property->student)): ?>
+			<li>Student: [student]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->vtlink)): ?>
+			<li>Virtual Tour/Media: [vtlink]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->facilities)): ?>
+			<li>Features: [facilities]</li>
+			<?php endif; ?>	
 			
 			<?php endif; ?>
 		</ul>

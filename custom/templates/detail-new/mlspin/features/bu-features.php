@@ -38,7 +38,7 @@
 			<li>Utilities: [utilities]</li>
 			<?php endif; ?>
 			
-			<?php if( $single_property->sourceid == 1 ): ?>
+			<?php if( za_is_ygl( $single_property ) ): ?>
 			
 			<?php if( isset($single_property->rentprice)): ?>
 			<li>Rent Amount: [rentprice]</li>
@@ -67,6 +67,12 @@
 			<?php if( isset($single_property->dateavailableformatted)): ?>
 			<li>Avail Date: [dateavailableformatted]</li>
 			<?php endif; ?>			
+			<?php if( isset($single_property->student)): ?>
+			<li>Student: [student]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->vtlink)): ?>
+			<li>Virtual Tour/Media: [vtlink]</li>
+			<?php endif; ?>	
 			
 			<?php endif; ?>
 		</ul>
