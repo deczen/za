@@ -2276,6 +2276,10 @@ var zppr={
 		
 		var html = '';
 		
+		html+= '<div id="zpa-main-container">';
+		
+		html+= '<div class="zpa-grid-result slider-container">';
+		
 		html+= '<div class="slider widget-slider owl-carousel" aria-label="carousel"> ';			
 				
 		if(slider_html){		
@@ -2288,6 +2292,10 @@ var zppr={
 					'</div>';
 			
 			
+		html+= '</div>';
+		
+		html+= '</div>';
+		
 		html+= '</div>';
 		
 		return html;
@@ -4118,7 +4126,7 @@ var zppr={
 			html +=			'<span class="impress-listno">'+ property.displaySource +'#' + ( property.hasOwnProperty('listno')? property.listno :'-' ) + '</span>';
 		}
 		html +=			'</p>'+
-						'<div class="disclaimer">';
+						'<div class="property-source disclaimer">';
 						
 		if(source_details){
 			html +=			source_details;
