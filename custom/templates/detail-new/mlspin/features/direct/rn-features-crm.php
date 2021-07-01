@@ -55,7 +55,10 @@
 				{/if}		
 				{if field="single_property.reqdownassociation"}
 				<li>Fee Paid By Owner: {{reqdownassociation}}</li>
-				{/if}		
+				{/if}
+				{if field="single_property.heating"}
+				<li>Heat Source: {{heating}}</li>
+				{/if}	
 				{if field="single_property.dateavailableformatted"}
 				<li>Avail Date: {{dateavailableformatted}}</li>
 				{/if}			
@@ -64,9 +67,6 @@
 				{/if}
 				{if field="single_property.student"}
 				<li>Student: {{student}}</li>
-				{/if}
-				{if field="single_property.vtlink"}
-				<li>Virtual Tour/Media: {{vtlink}}</li>
 				{/if}
 				{if field="single_property.facilities"}
 				<li>Features: {{facilities}}</li>

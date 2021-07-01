@@ -66,10 +66,7 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->student)): ?>
 			<li>Student: [student]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->vtlink)): ?>
-			<li>Virtual Tour/Media: [vtlink]</li>
-			<?php endif; ?>			
+			<?php endif; ?>	
 			<?php if( isset($single_property->facilities)): ?>
 			<li>Features: [facilities]</li>
 			<?php endif; ?>	

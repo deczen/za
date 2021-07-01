@@ -69,9 +69,6 @@
 				{/if}
 				{if field="single_property.student"}
 				<li>Student: {{student}}</li>
-				{/if}
-				{if field="single_property.vtlink"}
-				<li>Virtual Tour/Media: {{vtlink}}</li>
 				{/if}					
 			
 			{/ygl}

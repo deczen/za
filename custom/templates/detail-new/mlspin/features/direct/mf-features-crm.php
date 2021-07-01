@@ -53,7 +53,7 @@
 				{/if}			
 				{if field="single_property.laundryfeatures"}
 				<li>Laundry: {{laundryfeatures}}</li>
-				{/if}		
+				{/if}
 				{if field="single_property.dateavailableformatted"}
 				<li>Avail Date: {{dateavailableformatted}}</li>
 				{/if}			
@@ -62,9 +62,6 @@
 				{/if}
 				{if field="single_property.student"}
 				<li>Student: {{student}}</li>
-				{/if}
-				{if field="single_property.vtlink"}
-				<li>Virtual Tour/Media: {{vtlink}}</li>
 				{/if}
 				{if field="single_property.facilities"}
 				<li>Features: {{facilities}}</li>
@@ -86,7 +83,7 @@
 			<li>Cool Zones: {{coolingzones}}</li>
 			{/if}
 			{if field="single_property.heating"}
-			<li>Heating: {{heating}}</li>
+			<li>Heat Source: {{heating}}</li>
 			{/if}
 			{if field="single_property.heatzones"}
 			<li>Heat Zones: {{heatzones}}</li>
