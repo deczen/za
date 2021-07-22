@@ -5064,16 +5064,18 @@ var zppr={
 			}	
 		}
 		
-		for (const [virtual_index, original_virtual_tour_url] of Object.entries(virtual_tours)) {
+		for (const [virtual_index, virtual_tour_url] of Object.entries(virtual_tours)) {
 			
 			// is_possible_popup = 1;
 			is_possible_popup = 0;
-			virtual_tour_url=original_virtual_tour_url;
+			
 			if(!zppr.is_valid_url(virtual_tour_url) && virtual_tour_url.toString().substring(0, 2) != '//'){
 				virtual_tour_url='//'+virtual_tour_url;
 			}
 			virtual_tour_url=virtual_tour_url.replace('http://','//');
 			virtual_tour_url=virtual_tour_url.replace('https://','//');
+			
+			original_virtual_tour_url=virtual_tour_url;
 			
 			if(virtual_tour_url.toString().indexOf('iframe') !== -1){ //iframe
 				embed = virtual_tour_url;

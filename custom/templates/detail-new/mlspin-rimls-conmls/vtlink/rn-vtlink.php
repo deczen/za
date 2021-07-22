@@ -50,13 +50,14 @@ foreach( $virtual_tours as $virtual_index => $virtual_tour_url ):
 	/* $is_possible_popup = 0; */ 
 	$is_possible_popup = 0;
 	
-	$original_virtual_tour_url = $virtual_tour_url;
 	if (filter_var($virtual_tour_url, FILTER_VALIDATE_URL) === FALSE && substr($virtual_tour_url,0,2)!=='//') {
 		$virtual_tour_url = '//' . $virtual_tour_url;
 	}
 	
 	$virtual_tour_url=str_replace('http://','//',$virtual_tour_url);
 	$virtual_tour_url=str_replace('https://','//',$virtual_tour_url);
+	
+	$original_virtual_tour_url = $virtual_tour_url;
 	
 	if (stripos($virtual_tour_url, "iframe") !== false){ //iframe
 		$embed = $virtual_tour_url;
