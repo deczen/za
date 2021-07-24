@@ -381,14 +381,14 @@ if(get_query_var('page')){
 						<?php } ?>
 						</div>
 						
-						<div id="map" class="col-lg-5 col-md-6 ml-auto">
+						<div id="map" class="col-lg-7 col-md-6 ml-auto">
 							<div id="map_wrapper">								
 								<div id="color-palette" style="display:none"></div>
 								<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
 							</div>
 						</div>
 						
-						<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">
+						<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">
 							<div id="zipperagent-content" class="row"></div>
 						</div>
 						<div class="clearfix"></div>

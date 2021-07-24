@@ -10,6 +10,27 @@
 	font-weight: 400
 }
 #zipperagent-content #map{z-index: 0;}
+@media screen and (min-width:1024px){
+	#map-list-content{
+		margin-right:0 !important;
+
+	}
+	#map-list-content .zpa-grid-wrap .zpa-grid-result{
+		padding-right:0 !important;
+	}
+	#map-list-content .save-favorite-btn{
+		margin-right:0;
+	}
+	#map-list-content .zpa-grid-result-basic-info-container span{
+        display:none;
+	}
+	#map-list-content .za-container .row .col-xs-10{
+		width:75%;
+	}
+	#map-list-content .zpa-grid-result-photocount{
+		width:25%;
+	}
+}
 #map-view {
 	margin-top: 30px
 }
@@ -2126,6 +2147,10 @@
 }
 
 /* Map Legend */
+.map-legend-wrap{
+	background:#fff;
+	z-index:1;
+}
 .proptype-markers .proptype-marker {
 	display: inline-block;
 	margin-right: 10px;

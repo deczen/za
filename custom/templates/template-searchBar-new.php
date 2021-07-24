@@ -3617,7 +3617,10 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			if(jQuery('#omnibar-tools.fixedheader').length){
 			
 				var $sticky = jQuery('#omnibar-tools');
+				var $sticky_map_legend = jQuery('.map-legend-wrap');
 				var $top = 0;
+				var $topMapLegend = 0;
+				
 				if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
 					// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
 					var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
@@ -3634,6 +3637,8 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
 						$top = $top + $wpadminbarHeight;
 				}
+				
+				$topMapLegend = jQuery('#omnibar-tools').length ? $top + jQuery('#omnibar-tools').outerHeight() : 0;
 				
 				var $stickyH = $sticky.outerHeight();
 				var $stickyContainer = jQuery('#zpa-main-container');
@@ -3652,16 +3657,36 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						   'max-width': $maxWidth,
 						   'bottom':'auto',
 					   });
-					   $sticky.find('.zy_filter-wrap').css({
-							'border-bottom': '1px solid #ddd',					   
-							'padding-bottom': '10px'
-					   });
+					   if( ! jQuery('.map-legend-wrap').length ){							
+						   $sticky.find('.zy_filter-wrap').css({
+								'border-bottom': '1px solid #ddd',					   
+								'padding-bottom': '10px'
+						   });
+						}
 					   $stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
 						   'padding-top': $stickyH
+					   });
+					   
+					   $sticky_map_legend.css({
+						   'position':'fixed', 
+						   'top': $topMapLegend,
+						   'width': '100%',
+						   'max-width': $maxWidth,
+						   'bottom':'auto',
+						   'margin-left':'15px',
+					   });
+					   $sticky_map_legend.css({
+							'border-bottom': '1px solid #ddd',
 					   });
 				   }
 				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
 					   $sticky.css({
+						   'position': 'absolute',
+						   'top'     : 'auto',
+						   'bottom'  : 0,
+					   });
+					   
+					   $sticky_map_legend.css({
 						   'position': 'absolute',
 						   'top'     : 'auto',
 						   'bottom'  : 0,
@@ -3672,12 +3697,24 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							'position' : 'static',
 							'max-width' : '100%',
 						});
-						$sticky.find('.zy_filter-wrap').css({
-							'border-bottom': 0,
-							'padding-bottom': 0
-						});
+						if( ! jQuery('.map-legend-wrap').length ){
+							$sticky.find('.zy_filter-wrap').css({
+								'border-bottom': 0,
+								'padding-bottom': 0
+							});
+						}
 						$stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
 							'padding-top': 0
+						});
+						
+						$sticky_map_legend.css({
+							'position' : 'static',
+							'max-width' : '100%',
+							'margin-left': 0,
+						});
+						$sticky_map_legend.css({
+							'border-bottom': 0,
+							'padding-bottom': 0
 						});
 						
 						$maxWidth = $stickyContainer.outerWidth() + $padding;
@@ -3687,4 +3724,6 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		});
 	</script>
 	<?php endif; ?>
+	
+	
 </div>

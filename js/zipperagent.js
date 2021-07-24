@@ -469,6 +469,7 @@ var zppr={
 					'<div class="container-fluid">' +			
 						'<div class="row sticky-container" style="position:relative;">' +
 						
+							'<div class="map-legend-wrap">' +
 							'<div class="property-results mb-25 mt-25">';
 							
 		if( parseInt(showResults) ){			
@@ -487,14 +488,15 @@ var zppr={
 			}
 			html+=			'</ul></div>';
 		}					
-		html+=				'<div id="map" class="col-lg-5 col-md-6 ml-auto">' +
+		html+=				'</div>' +
+							'<div id="map" class="col-lg-7 col-md-6 ml-auto">' +
 								'<div id="map_wrapper">' +								
 									'<div id="color-palette" style="display:none"></div>' +
 									'<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>' +
 								'</div>' +
 							'</div>' +
 							
-							'<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">' +
+							'<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">' +
 								'<div id="map-list-content" class="row">';
 		
 		if(!list_html){
@@ -579,7 +581,7 @@ var zppr={
 
 		zppr.search(targetElement, 'map_marker', requests, args, actual_link, 0);
 	},
-	list_map_marker_script:function(response){
+	list_map_marker_script:function(response, requests){
 		
 		jQuery(document).ready(function(){ 
 
@@ -866,63 +868,19 @@ var zppr={
 					highlight_area.setMap(map); 
 					<?php 
 					endif; 
-				}
+				} */
 				
-				
-				$codes=$requests['location'];
-				if(is_array($codes)){			
-					$search=array();
-					foreach($data as $area){
-						if(in_array($area->code,$codes)){
-							$search[]=$area->name;
-						}
+				codes=requests['location'];
+				if(Array.isArray(codes)){			
+					search=[];
+					for (const [key, code] of Object.entries(codes)) {
+						search.push( jQuery('#zpa-selected-filter [attribute-value="'+ code +'"] .name').html() );
 					}					
 					
-					$i=1;
-					// echo "search: ";
-					// print_r($search);
-					foreach($search as $search_query){	
-						$coordinates=array();
-						$areas = get_map_coordinate($search_query);
-						// echo "<pre>"; print_r($areas); echo "</pre>";
-						if(isset($areas[0]->geojson->coordinates[0])){
-							foreach($areas[0]->geojson->coordinates[0] as $coordinate){
-								if(isset($coordinate[0]) && $coordinate[0] && isset($coordinate[1]) && $coordinate[1]){
-									$coordinates[]=array(
-										'lat'=> $coordinate[1],
-										'lng'=> $coordinate[0],
-									);
-								}
-							}
-						}
-						
-						if($coordinates):
-						?>
-						
-						// Define the LatLng coordinates for the polygon's path.
-						var areaCoords_<?php echo $i; ?> = [
-						<?php
-						  foreach($coordinates as $coordinate){
-								echo '{lat: '. $coordinate['lat'] .', lng: '. $coordinate['lng']. '},'."\r\n";
-						  } ?>
-						];
-
-						// Construct the polygon.
-						var highlight_area_<?php echo $i; ?> = new google.maps.Polygon({
-						  paths: areaCoords_<?php echo $i; ?>,
-						  strokeColor: '#FF0000',
-						  strokeOpacity: 0.8,
-						  strokeWeight: 2,
-						  fillColor: '#FF0000',
-						  fillOpacity: 0.35
-						});
-						highlight_area_<?php echo $i; ?>.setMap(map); 
-						<?php 
-						endif; 
-						$i++;
+					for (const [key, search_query] of Object.entries(search)) {
+						areas = zppr.set_map_coordinate( map, search_query );
 					}
 				}
-				?> */
 				
 				// search polygon function
 				
@@ -1124,8 +1082,12 @@ var zppr={
 					$top = $top + $wpadminbarHeight;
 			}
 			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			var $searchCount = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.property-results').outerHeight() : 0;
+			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.proptype-markers').outerHeight() : 0;
 			
 			$top = $top + $searchBarHeight;
+			$top = $top + $searchCount + 25 + 25;
+			$top = $top + $searchMapMarkers + 10;
 			
 			$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
 			
@@ -3213,7 +3175,7 @@ var zppr={
 									zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 								}
 								
-								html = zppr.list_map_marker_script(response);
+								html = zppr.list_map_marker_script(response, requests);
 								html = zppr.list_map_scroll_script();
 								
 								console.timeEnd('generate map markers');
@@ -3343,9 +3305,9 @@ var zppr={
 		var nobedrooms = zppr.get_nobedrooms(property);
 		var nobaths = zppr.get_nobaths(property);
 		var sqft = zppr.get_sqft(property);
-		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> beds </div>';
-		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> baths </div>'
-		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> sqft </div>';
+		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> <span> beds </span> </div>';
+		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> <span> baths </span> </div>'
+		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> <span> sqft </span> </div>';
 		
 		var columns_code='';
 		switch( column ){
@@ -3603,9 +3565,9 @@ var zppr={
 		var nobedrooms = zppr.get_nobedrooms(property);
 		var nobaths = zppr.get_nobaths(property);
 		var sqft = zppr.get_sqft(property);
-		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> beds </div>';
-		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> baths </div>'
-		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> sqft </div>';
+		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> <span> beds </span> </div>';
+		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> <span> baths </span> </div>'
+		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> <span> sqft </span> </div>';
 		
 		var is_favorite=''; //'active'
 		var searchid='';
@@ -3989,9 +3951,9 @@ var zppr={
 		var displaySource = property.displaySource;
 		var proptype = property.proptype;
 		var img_count =  property.hasOwnProperty('photoList') ? property.photoList.length : 0;
-		var beds_html = property.nobedrooms ? '<div class="zpa-grid-result-basic-info-item1"> <b>'+ property.nobedrooms +'</b> beds </div>' : '&nbsp;';
-		var bath_html = property.nobaths ? '<div class="zpa-grid-result-basic-info-item2"> <b>'+ property.nobaths +' </b> baths </div>' : '&nbsp;';
-		var sqft_html = property.squarefeet ? '<div class="zpa-grid-result-basic-info-item3"> <b> '+ zppr.formatNumber( property.squarefeet ) +' </b> sqft </div>' : '&nbsp;';
+		var beds_html = property.nobedrooms ? '<div class="zpa-grid-result-basic-info-item1"> <b>'+ property.nobedrooms +'</b> <span> beds </span> </div>' : '&nbsp;';
+		var bath_html = property.nobaths ? '<div class="zpa-grid-result-basic-info-item2"> <b>'+ property.nobaths +' </b> <span> baths </span> </div>' : '&nbsp;';
+		var sqft_html = property.squarefeet ? '<div class="zpa-grid-result-basic-info-item3"> <b> '+ zppr.formatNumber( property.squarefeet ) +' </b> <span> sqft </span> </div>' : '&nbsp;';
 		
 		var columns_code='';
 		
@@ -6391,5 +6353,40 @@ var zppr={
 		arr = jQuery.merge( arr_addr, arr );
 		
 		return arr;
+	},
+	set_map_coordinate:function( map, area ){
+		
+		jQuery.get( "https://nominatim.openstreetmap.org/search?q="+ area +"&format=json&polygon=1&addressdetails=0&polygon_geojson=1", function( areas ) {
+			
+			var coordinates = [];
+			
+			if( zppr.checkNested(areas[0],'geojson','coordinates') ){
+				
+				for (const [key, coordinate] of Object.entries( areas[0].geojson.coordinates[0] )) {
+					if( coordinate[0] && coordinate[1] ){
+						coordinates.push({
+							'lat': coordinate[1],
+							'lng': coordinate[0],
+						});
+					}
+				}
+			}
+			
+			if(coordinates){
+			
+				// Define the LatLng coordinates for the polygon's path.
+				var areaCoords = coordinates;
+				// Construct the polygon.
+				var highlight_area = new google.maps.Polygon({
+				  paths: areaCoords,
+				  strokeColor: '#FF0000',
+				  strokeOpacity: 0.8,
+				  strokeWeight: 2,
+				  fillColor: '#FF0000',
+				  fillOpacity: 0.35
+				});
+				highlight_area.setMap(map); 
+			}
+		});
 	}
 };

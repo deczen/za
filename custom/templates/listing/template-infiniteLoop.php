@@ -112,7 +112,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 								<div class="col-xs-4 nopaddingleft nopaddingright"> 
 									<div class="zpa-grid-result-basic-info-container">
 										<div class="zpa-grid-result-basic-info-item1"> <b><?php echo zipperagent_get_nobedrooms($property); ?></b>
-											beds </div>
+											<span> beds </span> </div>
 										<?php $infoscount++; ?>
 									</div>
 								</div>
@@ -121,7 +121,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 								<div class="col-xs-4 nopaddingleft nopaddingright"> 
 									<div class="zpa-grid-result-basic-info-container">
 										<div class="zpa-grid-result-basic-info-item2"> <b><?php echo zipperagent_get_nobaths($property); ?> </b>
-											baths </div>
+											<span> baths </span> </div>
 										<?php $infoscount++; ?>
 									</div>
 								</div>
@@ -130,7 +130,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 								<div class="col-xs-4 nopaddingleft nopaddingright"> 
 									<div class="zpa-grid-result-basic-info-container">
 										<?php if( isset($property->unmapped->BathsTotal ) && $property->unmapped->BathsTotal > 0 ): ?><div class="zpa-grid-result-basic-info-item2"> <b><?php echo $property->unmapped->BathsTotal ?> </b>
-											baths </div>
+											<span> baths </span> </div>
 										<?php $infoscount++; ?>
 										<?php else: ?>
 											&nbsp;
@@ -142,7 +142,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 								<div class="col-xs-4 nopaddingleft nopaddingright"> 
 									<div class="zpa-grid-result-basic-info-container">
 										<div class="zpa-grid-result-basic-info-item3"> <b> <?php echo zipperagent_get_sqft($property); ?> </b>
-											sqft </div>
+											<span> sqft </span> </div>
 										<?php $infoscount++; ?>
 									</div>
 								</div>

@@ -15,39 +15,41 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 <div class="zpa-listing-search-results hideonprint">					
 	<div class="container-fluid">				
 		<div class="row sticky-container" style="position:relative;">
-		
-			<div class="property-results mb-25 mt-25">
-			<?php
-			if( $showResults ){ ?>
-				<div class="col-xs-12 prop-total">&nbsp;</div>
-			<?php } ?>
+			
+			<div class="map-legend-wrap">
+				<div class="property-results mb-25 mt-25">
+				<?php
+				if( $showResults ){ ?>
+					<div class="col-xs-12 prop-total">&nbsp;</div>
+				<?php } ?>
+				</div>
+				
+				<?php
+				$markers = zipperagent_get_map_markers();
+				//echo '<pre>'; print_r($markers); echo '</pre>';
+				
+				if($markers):
+					echo '<div class="proptype-markers col-lg-12 col-md-12"><ul>';
+					foreach($markers as $key => $value){
+						
+						$proptype = zipperagent_property_type( $key );
+						
+						echo '<li class="proptype-marker"><img src="' . $value . '" alt=" ' . $proptype . '" title=""><span>' . $proptype . '</span></li>';
+					}
+					echo '</ul></div>';
+					
+				endif;
+				?>
 			</div>
 			
-			<?php
-			$markers = zipperagent_get_map_markers();
-			//echo '<pre>'; print_r($markers); echo '</pre>';
-			
-			if($markers):
-				echo '<div class="proptype-markers col-lg-12 col-md-12"><ul>';
-				foreach($markers as $key => $value){
-					
-					$proptype = zipperagent_property_type( $key );
-					
-					echo '<li class="proptype-marker"><img src="' . $value . '" alt=" ' . $proptype . '" title=""><span>' . $proptype . '</span></li>';
-				}
-				echo '</ul></div>';
-				
-			endif;
-			?>
-			
-			<div id="map" class="col-lg-5 col-md-6 ml-auto">
+			<div id="map" class="col-lg-7 col-md-6 ml-auto">
 				<div id="map_wrapper">								
 					<div id="color-palette" style="display:none"></div>
 					<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>
 				</div>
 			</div>
 			
-			<div id="property-sidebar" class="col-lg-7 col-md-6 bg-light">
+			<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">
 				<div id="map-list-content" class="row">
 					<?php include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map.php"; ?>
 				</div>
@@ -81,8 +83,12 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 				$top = $top + $wpadminbarHeight;
 		}
 		var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+		var $searchCount = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.property-results').outerHeight() : 0;
+		var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.proptype-markers').outerHeight() : 0;
 		
 		$top = $top + $searchBarHeight;
+		$top = $top + $searchCount;
+		$top = $top + $searchMapMarkers;
 		
 		$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
 		

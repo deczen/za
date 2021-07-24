@@ -58,7 +58,7 @@ foreach( $list as $option ): ?>
 						<div class="zy_pt-feature"> 
 							<div class="zpa-grid-result-basic-info-container">
 								<div class="zpa-grid-result-basic-info-item1"> <b><?php echo zipperagent_get_nobedrooms($property); ?></b>
-									beds </div>
+									<span> beds </span> </div>
 								<?php $infoscount++; ?>
 							</div>
 						</div>
@@ -67,7 +67,7 @@ foreach( $list as $option ): ?>
 						<div class="zy_pt-feature"> 
 							<div class="zpa-grid-result-basic-info-container">
 								<div class="zpa-grid-result-basic-info-item2"> <b><?php echo zipperagent_get_nobaths($property); ?> </b>
-									baths </div>
+									<span> baths </span> </div>
 								<?php $infoscount++; ?>
 							</div>
 						</div>
@@ -76,7 +76,7 @@ foreach( $list as $option ): ?>
 						<div class="zy_pt-feature"> 
 							<div class="zpa-grid-result-basic-info-container">
 								<div class="zpa-grid-result-basic-info-item3"> <b> <?php echo zipperagent_get_sqft($property); ?> </b>
-									sqft </div>
+									<span> sqft </span> </div>
 								<?php $infoscount++; ?>
 							</div>
 						</div>
