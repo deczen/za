@@ -1082,12 +1082,12 @@ var zppr={
 					$top = $top + $wpadminbarHeight;
 			}
 			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
-			var $searchCount = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.property-results').outerHeight() : 0;
-			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.proptype-markers').outerHeight() : 0;
+			var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
+			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
 			
 			$top = $top + $searchBarHeight;
-			$top = $top + $searchCount + 25 + 25;
-			$top = $top + $searchMapMarkers + 10;
+			$top = $top + $searchCount;
+			$top = $top + $searchMapMarkers;
 			
 			$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
 			

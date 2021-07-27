@@ -83,12 +83,14 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 				$top = $top + $wpadminbarHeight;
 		}
 		var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
-		var $searchCount = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.property-results').outerHeight() : 0;
-		var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length ? jQuery('.proptype-markers').outerHeight() : 0;
+		var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
+		var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
 		
 		$top = $top + $searchBarHeight;
 		$top = $top + $searchCount;
 		$top = $top + $searchMapMarkers;
+		
+		console.log( $top );
 		
 		$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
 		

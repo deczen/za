@@ -650,6 +650,8 @@ if( ! function_exists('zipperagent_generate_list') ){
 				}
 			}
 			
+			$is_ajax_count=1;
+			
 		}else if( $searchDistance=="true" || $searchDistance=="1" || ($lat && $lng) ){ // map mode
 			
 			$search=array(
