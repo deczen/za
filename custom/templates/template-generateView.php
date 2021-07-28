@@ -169,7 +169,8 @@ if( $location ){
 	if(sizeof($loc_sd)) $locqry['aschdt']=implode(',',$loc_sd);
 	
 	// die( $locqry );
-}else if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties ){
+}
+if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties ){
 	
 	$loc_advStNo=array();
 	$loc_advStName=array();
@@ -185,7 +186,8 @@ if( $location ){
 	if(sizeof($advTownNm)) $locqry['atwnnm']=($advTownNm);
 	// if(sizeof($advCounties)) $locqry['acnty']=($advCounties);
 	
-}else if($boundaryWKT){
+}
+if($boundaryWKT){
 	// preg_match( '/POLYGON \(\((.*?)\)\)/', $boundaryWKT, $match );
 	preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode($boundaryWKT), $match );
 	$coor_string = isset($match[1])?'('.$match[1].')':'';

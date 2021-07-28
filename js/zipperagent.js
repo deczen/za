@@ -728,9 +728,9 @@ var zppr={
 						var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
 							price =  zppr.moneyFormat(price);
 							
-						if( property.photoList[0].imgurl.indexOf('mlspin.com') > -1){
+						if( property.hasOwnProperty('photoList') && property.photoList[0].imgurl.indexOf('mlspin.com') > -1){
 							src = "//media.mlspin.com/photo.aspx?mls="+ property.listno +"&w=100&h=100&n=0";
-						}else
+						}else if( property.hasOwnProperty('photoList') )
 							src = property.photoList[0].imgurl.replace('http://','//');
 						
 						// $saved_crit=$search;
