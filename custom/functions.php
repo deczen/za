@@ -317,8 +317,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 		}
 		if($boundaryWKT){
 			// preg_match( '/POLYGON \(\((.*?)\)\)/', $boundaryWKT, $match );
-			preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode($boundaryWKT), $match );		
-			
+			preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode($boundaryWKT), $match );
 			$coor_string = isset($match[1])?'('.$match[1].')':'';
 			preg_match_all( "/\(([^)]+)\)/", $coor_string, $match );
 			// $polygons = array_map('trim', explode( ',', $match[1] ));
@@ -4708,7 +4707,7 @@ if( ! function_exists('za_is_ygl') ){
 			return 0;
 		}
 		
-		if( $single_property->sourceid == 1 || $single_property->sourceid == 3 || $single_property->sourceid == 4 ){
+		if( isset( $single_property->sourceid ) && $single_property->sourceid > 0 ){
 			$is_ygl = 1;
 		}
 		

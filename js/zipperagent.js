@@ -5296,7 +5296,7 @@ var zppr={
 				
 				state=0;
 				
-				if( single_property.hasOwnProperty('sourceid') && single_property.sourceid == 1 || single_property.sourceid == 3 || single_property.sourceid == 4 ){
+				if( single_property.hasOwnProperty('sourceid') && single_property.sourceid > 0 ){
 					state=true;
 				}
 			}

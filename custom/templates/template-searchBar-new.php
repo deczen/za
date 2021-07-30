@@ -8,7 +8,7 @@ $contactIds = get_contact_id();
 $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css'; ?>">
-<div id="omnibar-tools" class="<?php echo !$is_detail_page&&!$is_map_explore||$is_search_apply? 'fixedheader' : ''; ?>">
+<div id="omnibar-tools" class="<?php echo ( !$is_detail_page&&!$is_map_explore||$is_search_apply ) && ( !isset($requests['fixed_search_form']) || isset($requests['fixed_search_form']) && $requests['fixed_search_form'] )? 'fixedheader' : ''; ?>">
 	<?php
 	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
 	$saved_results_url = zipperagent_get_session('/api/mls/advSearchWoCnt_url');
