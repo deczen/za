@@ -78,6 +78,8 @@ if(isset($_GET['groupname']))
 	$excParamCount++;
 if(isset($_GET['custom_proptype']))
 	$excParamCount++;
+if(isset($_GET['cid']))
+	$excParamCount++;
 	
 	
 if( sizeof($_GET)==$excParamCount ){

@@ -1044,3 +1044,35 @@ function regal_tag( $tag, $handle, $src ) {
 	
 	return $tag;
 }
+
+add_action( 'init', 'zipperagent_cid_login' );
+
+function zipperagent_cid_login(){
+	
+	if( isset( $_GET['cid'] ) ){
+		$cid = $_GET['cid'];
+		$rememberMe = 0;
+		$result = userContactLogin( $cid, $rememberMe, 'cid' );
+		
+		if( $result ){
+			$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+			wp_safe_redirect( strip_param_from_url( $actual_link, 'cid' ) );
+			die();
+		}
+	}	
+}
+
+function strip_param_from_url( $url, $param ) {
+    $base_url = strtok($url, '?');              // Get the base url
+    $parsed_url = parse_url($url);              // Parse it 
+    $query = $parsed_url['query'];              // Get the query string
+    parse_str( $query, $parameters );           // Convert Parameters into array
+    unset( $parameters[$param] );               // Delete the one you want
+    $new_query = http_build_query($parameters); // Rebuilt query string
+	
+	if( $new_query ){
+		return $base_url.'?'.$new_query;            // Finally url is ready		
+	}else{
+		return $base_url;
+	}	
+}

@@ -9,6 +9,9 @@ if( ! $userdata || ! sizeof($userdata)){
 	die();
 }
 
+$errors = array();
+$messages = array();
+
 if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['id']=$_POST['contactId'];
 	$vars['firstName']=$_POST['firstName'];
@@ -29,7 +32,14 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	// echo "<pre>"; print_r( $vars); echo "</pre>"; 
 	// echo "<pre>"; print_r( $result); echo "</pre>";
 	
+	if( isset( $result['id'] ) ){		
+		$messages[] = 'Setting Saved';
+	}else{
+		$errors[] = 'Setting Save failed';
+	}
+	
 	$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+	
 }
 
 /*
@@ -126,6 +136,18 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 				<section class="zy-content-wrapper px--safe">
 					<div class="za-container">
 						<div class="grid grid--gutters">
+							<div class="cell cell-md-12 user-message">
+								<?php foreach( $messages as $message ): ?>
+								<div class="message success">
+									<?php echo $message; ?>
+								</div>
+								<?php endforeach; ?>
+								<?php foreach( $errors as $error ): ?>
+								<div class="message error">
+									<?php echo $error; ?>
+								</div>
+								<?php endforeach; ?>
+							</div>
 							<div class="cell cell-lg-3 cell-md-12 cell-sm-12 cell-xs-12">
 								<div class="card">
 									<div class="card__body">

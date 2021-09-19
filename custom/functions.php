@@ -1762,8 +1762,10 @@ if( ! function_exists('save_contact_id') ){
 }
 
 if( ! function_exists('userContactLogin') ){
-	function userContactLogin($email, $remember=1){
-		$userdata=getUserContact($email);
+	function userContactLogin($email, $remember=1, $type="email"){
+		
+		$assign = '';
+		$userdata=getUserContact($email, $assign, $type);
 		
 		if( $userdata ){
 			
@@ -1771,8 +1773,14 @@ if( ! function_exists('userContactLogin') ){
 				$contactIds[]=$contact->id;
 			}
 			
+			if( $type=="cid" ){
+				$userMail = $userdata[0]->emailWork1;
+			}else{
+				$userMail = $email;
+			}
+			
 			$_SESSION['contactId']=$contactIds;
-			$_SESSION['userMail']=$email;
+			$_SESSION['userMail']=$userMail;
 			$_SESSION['userRemember']=$remember;
 			$_SESSION['userdata']=$userdata;
 			
@@ -1816,14 +1824,25 @@ if( ! function_exists('get_current_user_assigned_agent') ){
 }
 
 if( ! function_exists('getUserContact') ){
-	function getUserContact($email, $assign=''){
+	function getUserContact($id, $assign='', $type='email'){
 		
-		if(!$email)
+		if(!$id)
 			return array();
 		
-		$search=array(
-			'pe' => $email
-		);		
+		if( $type == 'cid' ){
+			$search=array(
+				'id' => $id
+			);			
+		}else if( $type == 'email' ){
+			$search=array(
+				'pe' => $id
+			);		
+		}else{
+			$search=array(
+				'pe' => $id
+			);		
+		}
+		// 5f94b96a-2c74-4008-8db0-86065805da53
 		
 		//set assign
 		if($assign){
@@ -4226,7 +4245,7 @@ if( ! function_exists('get_wp_var_excludes') ){
 
 if( ! function_exists('get_short_excludes') ){
 	function get_short_excludes(){
-		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid','newsearchbar','is_shortcode','search_category');
+		$excludes = array('location', 'propertytype', 'status', 'minlistprice', 'maxlistprice', 'bedrooms', 'bathcount', 'o', 'action', 'search_form_enabled', 'view_type', 'starttime', 'endtime', 'afteraction', 'listingparams', 'fbclid','newsearchbar','is_shortcode','search_category','cid');
 		$excludes=array_merge($excludes,get_wp_var_excludes());
 		return $excludes;
 	}
@@ -4248,7 +4267,7 @@ if( ! function_exists('get_long_excludes') ){
 					'location_option','criteria','afteraction','listingparams',
 					'fbclid','newsearchbar','school','search_category','coords','direct','view',
 					'disableviewbar','vars','fixed_search_form','anycrit','micro',
-					'alkchnnm','autoplay',
+					'alkchnnm','autoplay','cid'
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -4267,7 +4286,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
 			'lat','lng','search_category','map_zoom','direct','view','disableviewbar','fixed_search_form','aloff',
-			'micro',
+			'micro','cid'
 		);
 		
 		$excludes=array_merge($excludes,get_wp_var_excludes());
@@ -4284,7 +4303,8 @@ if( ! function_exists('get_old_filter_excludes') ){
 					'search_form_enabled', 'listinapage', 'page', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
-					'location_option','criteria','afteraction','listingparams','fbclid','search_category','direct','view',
+					'location_option','criteria','afteraction','listingparams','fbclid',
+					'search_category','direct','view','cid'
 				);
 				
 		$excludes=array_merge($excludes,get_wp_var_excludes());
