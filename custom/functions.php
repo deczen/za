@@ -1774,7 +1774,7 @@ if( ! function_exists('userContactLogin') ){
 			}
 			
 			if( $type=="cid" ){
-				$userMail = $userdata[0]->emailWork1;
+				$userMail = isset( $userdata[0]->emailWork1 ) ? $userdata[0]->emailWork1 : $userdata[0]->id;
 			}else{
 				$userMail = $email;
 			}
