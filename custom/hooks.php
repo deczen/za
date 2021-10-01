@@ -1054,6 +1054,8 @@ function zipperagent_cid_login(){
 		$rememberMe = 0;
 		$result = userContactLogin( $cid, $rememberMe, 'cid' );
 		
+		// echo "<pre>"; print_r( $result ); echo "</pre>"; die();
+		
 		if( $result ){
 			$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			wp_safe_redirect( strip_param_from_url( $actual_link, 'cid' ) );

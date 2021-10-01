@@ -1779,6 +1779,8 @@ if( ! function_exists('userContactLogin') ){
 				$userMail = $email;
 			}
 			
+			// echo 'usermail: '. $userMail . '<br />';
+			
 			$_SESSION['contactId']=$contactIds;
 			$_SESSION['userMail']=$userMail;
 			$_SESSION['userRemember']=$remember;
@@ -1830,42 +1832,45 @@ if( ! function_exists('getUserContact') ){
 			return array();
 		
 		if( $type == 'cid' ){
-			$search=array(
-				'id' => $id
-			);			
+			// 5f94b96a-2c74-4008-8db0-86065805da53
+			
+			$result=zipperagent_run_curl('/api/lite/contact/get/' . $id);			
+			
+			if( is_array( $result ) && sizeof( $result ) ){
+				return array( (object) $result );
+			}else{
+				return array();
+			}
+			
 		}else if( $type == 'email' ){
 			$search=array(
 				'pe' => $id
 			);		
-		}else{
-			$search=array(
-				'pe' => $id
-			);		
-		}
-		// 5f94b96a-2c74-4008-8db0-86065805da53
-		
-		//set assign
-		if($assign){
-			$search['login']=$assign;
-		}
-		
-		$vars=array(
-			'crit'=>proces_crit($search),
-			'o' => 'ls:WEBST:TOP;uo:DESC',
-			'sidx'=>0,
-			'ps'=>1,
-		);
 			
-		$result=zipperagent_run_curl('/api/lite/contact/list', $vars);
-		// echo "<pre>"; print_r( $result ); echo "</pre>";
-		
-		if( $result['dataCount'] ){
-			$userdata = $result['filteredList'];
-		}else{
-			$userdata = array();
+			
+			//set assign
+			if($assign){
+				$search['login']=$assign;
+			}
+			
+			$vars=array(
+				'crit'=>proces_crit($search),
+				'o' => 'ls:WEBST:TOP;uo:DESC',
+				'sidx'=>0,
+				'ps'=>1,
+			);
+				
+			$result=zipperagent_run_curl('/api/lite/contact/list', $vars);
+			// echo "<pre>"; print_r( $result ); echo "</pre>";
+			
+			if( $result['dataCount'] ){
+				$userdata = $result['filteredList'];
+			}else{
+				$userdata = array();
+			}
+			
+			return $userdata;
 		}
-		
-		return $userdata;
 	}
 }
 
