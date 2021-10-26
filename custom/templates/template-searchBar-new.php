@@ -841,8 +841,8 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						echo 'case "awtf":' .
 							 "switch(value){" . "\r\n";
 						foreach($fields as $field){
-							echo 'case "'.$field->shortDescription.'":'."\r\n" .
-									"newLabel = '{$field->longDescription}'"."\r\n" .
+							echo 'case "'.addslashes($field->shortDescription).'":'."\r\n" .
+									"newLabel = '". addslashes($field->longDescription) ."'"."\r\n" .
 									'break;'."\r\n";
 						}
 						echo '}' .
