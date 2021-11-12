@@ -20,6 +20,7 @@ if( !empty($_POST) && $_POST['actionType']=='update' ){
 	$vars['phoneMobile']=$_POST['phone'];
 	$vars['propertyAlerts']=isset($_POST['propertyAlerts'])?"true":"false";
 	$vars['alertType']=$_POST['alertType'];
+	$vars['title']=$_POST['title'];
 	// $vars['assignedTo']=isset( $userdata[0]['assignedTo'] ) ? $userdata[0]['assignedTo'] : ZipperagentGlobalFunction()->get_assignedto();
 	$vars['assignedTo']=isset( $userdata[0]->assignedTo ) ? $userdata[0]->assignedTo : '';
 	
@@ -309,6 +310,8 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 															<div class="grid grid--gutters grid--justifycenter">
 																<div class="cell cell-md-6">
 																	<input type="hidden" name="contactId" value="<?php echo $userdata->id; ?>" />
+																	<input type="hidden" name="title" value="<?php echo isset($userdata->title) ? $userdata->title : ''; ?>" />
+																	
 																	<button class="at-edit-account-info-submit-btn sc-htpNat eMrTXM sc-bwzfXH dPWOJK width-1-1" type="submit" form="subscriberForm" aria-pressed="false">Save Contact Changes</button>
 																</div>
 															</div>

@@ -366,12 +366,14 @@ function zipperagent_panel_additional_settings( $post ) {
 	if( isset($post->id) ){
 		$za_contact_form = get_post_meta( $post->id, 'za_contact_form', true);
 		$za_save_form = get_post_meta( $post->id, 'za_save_form', true);
+		$za_contact_save = get_post_meta( $post->id, 'za_contact_save', true);
 		$za_agent_login = get_post_meta( $post->id, 'za_agent_login', true);
 		$za_assignedTo = get_post_meta( $post->id, 'za_assignedTo', true);
 		$za_leadSource = get_post_meta( $post->id, 'za_leadSource', true);
 	}else{
 		$za_contact_form = get_post_meta( $post->id(), 'za_contact_form', true);
 		$za_save_form = get_post_meta( $post->id(), 'za_save_form', true);
+		$za_contact_save = get_post_meta( $post->id(), 'za_contact_save', true);
 		$za_agent_login = get_post_meta( $post->id(), 'za_agent_login', true);
 		$za_assignedTo = get_post_meta( $post->id(), 'za_assignedTo', true);
 		$za_leadSource = get_post_meta( $post->id(), 'za_leadSource', true);
@@ -388,6 +390,10 @@ function zipperagent_panel_additional_settings( $post ) {
 	<p><label>Enable Zipperagent Save Form 
 	<input type="hidden" name="za_save_form" value="0" />
 	<input type="checkbox" name="za_save_form" value="1" <?php checked($za_save_form, 1); ?> /></label></p>	
+	<hr />
+	<p><label>Enable Zipperagent Contact Save
+	<input type="hidden" name="za_contact_save" value="0" />
+	<input type="checkbox" name="za_contact_save" value="1" <?php checked($za_contact_save, 1); ?> /></label></p>	
 	<?php /* <p><label>	Agent Login
 	<input type="text" name="za_agent_login" value="<?php echo $za_agent_login; ?>" /> </label>	</p> */
 }
@@ -399,22 +405,25 @@ function zipperagent_save_contact_form($contact_form, $args, $context){
 	if( isset($contact_form->id) ){
 		update_post_meta( $contact_form->id, 'za_contact_form', sanitize_text_field( $_REQUEST['za_contact_form'] ) );
 		update_post_meta( $contact_form->id, 'za_save_form', sanitize_text_field( $_REQUEST['za_save_form'] ) );
+		update_post_meta( $contact_form->id, 'za_contact_save', sanitize_text_field( $_REQUEST['za_contact_save'] ) );
 		update_post_meta( $contact_form->id, 'za_agent_login', sanitize_text_field( $_REQUEST['za_agent_login'] ) );
 		update_post_meta( $contact_form->id, 'za_assignedTo', sanitize_text_field( $_REQUEST['za_assignedTo'] ) );
 		update_post_meta( $contact_form->id, 'za_leadSource', sanitize_text_field( $_REQUEST['za_leadSource'] ) );
 	}else{
 		update_post_meta( $contact_form->id(), 'za_contact_form', sanitize_text_field( $_REQUEST['za_contact_form'] ) );
 		update_post_meta( $contact_form->id(), 'za_save_form', sanitize_text_field( $_REQUEST['za_save_form'] ) );
+		update_post_meta( $contact_form->id(), 'za_contact_save', sanitize_text_field( $_REQUEST['za_contact_save'] ) );
 		update_post_meta( $contact_form->id(), 'za_agent_login', sanitize_text_field( $_REQUEST['za_agent_login'] ) );
 		update_post_meta( $contact_form->id(), 'za_assignedTo', sanitize_text_field( $_REQUEST['za_assignedTo'] ) );
 		update_post_meta( $contact_form->id(), 'za_leadSource', sanitize_text_field( $_REQUEST['za_leadSource'] ) );
 	}
 }
  
-add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit', 2);
+add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_form', 2);
+add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_save', 2);
 // add_action('wpcf7_mail_failed', 'zipperagent_cf7_submit', 2);
 
-function zipperagent_cf7_submit($contact_form, $cfresult=null){
+function zipperagent_cf7_submit_contact_form($contact_form, $cfresult=null){
 	
 	if(isset($contact_form->id)){
 		$za_contact_form = get_post_meta( $contact_form->id, 'za_contact_form', true);
@@ -592,6 +601,53 @@ function zipperagent_cf7_submit($contact_form, $cfresult=null){
 				// print_r($result);
 				// die();
 			}
+		}
+	}
+}
+
+function zipperagent_cf7_submit_contact_save($contact_form, $cfresult=null){
+	
+	if(isset($contact_form->id)){
+		$za_contact_save = get_post_meta( $contact_form->id, 'za_contact_save', true);
+	}else{	
+		$za_contact_save = get_post_meta( $contact_form->id(), 'za_contact_save', true);
+	}
+	
+	if( $za_contact_save ){		
+		// $contactIds=get_contact_id();
+		
+		$email = $_REQUEST['your-email'];
+		if( isset($_REQUEST['your-name']) ){
+			$fullname = explode(' ', sanitize_text_field( $_REQUEST['your-name'] ));
+			$firstName = sanitize_text_field( $fullname[0] );
+			$lastName = substr( sanitize_text_field( $_REQUEST['your-name'] ), strlen ($firstName) + 1 );
+		}else{
+			$firstName = $_REQUEST['first-name'] ? sanitize_text_field( $_REQUEST['first-name'] ) : '';
+			$lastName = $_REQUEST['last-name'] ? sanitize_text_field( $_REQUEST['last-name'] ) : '';
+		}
+		$phone = sanitize_text_field( $_REQUEST['phone'] );
+		$phone = ! $phone ? sanitize_text_field( $_REQUEST['your-phone'] ) : $phone;
+		
+		$role = sanitize_text_field( $_REQUEST['role'] );
+		$role = ! $role ? sanitize_text_field( $_REQUEST['your-role'] ) : $role;
+		
+		
+		$vars=array(
+			'emailWork1'=>($email),
+			'firstName'=>($firstName),
+			'lastName'=>($lastName),
+			'phoneMobile'=>($phone),	
+			'title' => $role,		
+		);
+		
+        $result = zipperagent_run_curl("/api/lite/contact/save", array(), 1, $vars);
+		
+		// $result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
+		
+		if($result){
+			// echo 'result';
+			// print_r($vars);
+			// print_r($result);
 		}
 	}
 }

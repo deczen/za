@@ -9,72 +9,66 @@
 			isset($single_property->unmapped->termsfeature) || 
 			isset($single_property->unmapped->watershares) || 
 			isset($single_property->unmapped->waterviewfeatures) || 
-			isset($single_property->zoning) ||
-			isset($single_property->unmapped->CoveredSpaces) ||
+			isset($single_property->zoning) ||						
+			isset($single_property->unmapped->CoveredSpaces) ||			
 			isset($single_property->unmapped->FrontageLength) ||
 			isset($single_property->unmapped->HorseYN) ||
 			isset($single_property->lotdescription) ||
 			isset($single_property->unmapped->LotSizeDimensions) ||
 			isset($single_property->unmapped->MobileLength) ||
-			isset($single_property->unmapped->MobileWidth) ||
+			isset($single_property->unmapped->MobileWidth) ||			
+			isset($single_property->unmapped->PoolPrivateYN) ||			
 			isset($single_property->unmapped->SpaYN) ||
 			isset($single_property->unmapped->ViewYN) ||
 			isset($single_property->waterfrontflag) ||
-			isset($single_property->landdesc) ||
-			isset($single_property->unmapped->View) ||
 			isset($single_property->unmapped->AboveGradeFinishedArea) ||
 			isset($single_property->unmapped->BasementFinished) ||
 			isset($single_property->unmapped->BathroomsPartial) ||
-			isset($single_property->unmapped->BuildingAreaTotal) ||
+			isset($single_property->unmapped->BuildingAreaTotal) ||			
 			isset($single_property->unmapped->MainLevelBedrooms) ||
 			isset($single_property->totalrooms) ||
 			isset($single_property->unmapped->CapRate) ||
-			isset($single_property->unmapped->CurrentUse) ||
+			isset($single_property->unmapped->CrossStreet) ||
 			isset($single_property->unmapped->IrrigationWaterRightsAcres) ||
 			isset($single_property->unmapped->LeaseAmount) ||
 			isset($single_property->unmapped->ListingTerms) ||
 			isset($single_property->sitecondition) ||
-			isset($single_property->zoning) ||
-			isset($single_property->unmapped->ZoningDescription)
-			
-			
-			
+			isset($single_property->unmapped->ZoningDescription)			
 			):?>
 	
 	<li class="cell">
 		
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
-
 			
-				<?php if( isset($single_property->propsubtype)): ?>
-				<li>Farm Type: [propsubtype]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->improvements)): ?> <!-- -->
-				<li>Improvements: [unmapped_improvements]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->irrigation)): ?>
-				<li>Irrigation : [unmapped_irrigation]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->ownertype)): ?>
-				<li>Owner Type: [unmapped_ownertype]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->taxes)): ?>
-				<li>Taxes: [taxes]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->termsfeature)): ?> <!-- -->
-				<li>Terms: [unmapped_termsfeature]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->watershares)): ?>
-				<li>Water Shares: [unmapped_watershares]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->waterviewfeatures)): ?> <!-- -->
-				<li>Water Source: [unmapped_waterviewfeatures]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->zoning)): ?>
-				<li>Zoning: [zoning]</li>
-				<?php endif; ?>
-				
+			<?php if( isset($single_property->propsubtype)): ?>
+			<li>Farm Type: [propsubtype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->improvements)): ?> <!-- -->
+			<li>Improvements: [unmapped_improvements]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->irrigation)): ?>
+			<li>Irrigation : [unmapped_irrigation]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ownertype)): ?>
+			<li>Owner Type: [unmapped_ownertype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->taxes)): ?>
+			<li>Taxes: [taxes]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->termsfeature)): ?> <!-- -->
+			<li>Terms: [unmapped_termsfeature]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->watershares)): ?>
+			<li>Water Shares: [unmapped_watershares]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->waterviewfeatures)): ?> <!-- -->
+			<li>Water Source: [unmapped_waterviewfeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->zoning)): ?>
+			<li>Zoning: [zoning]</li>
+			<?php endif; ?>
+			
 			<?php if( isset($single_property->unmapped->CoveredSpaces)): ?>
 				<li>Covered Spaces: [unmapped_CoveredSpaces]</li>
 			<?php endif; ?>	
@@ -82,19 +76,22 @@
 				<li>Frontage Length: [unmapped_FrontageLength]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->HorseYN)): ?>
-				<li>Horse Property Y/N: [unmapped_HorseYN]</li>
-			<?php endif; ?>
+				<li>Horse Property YN: [unmapped_HorseYN]</li>
+			<?php endif; ?>	
 			<?php if( isset($single_property->lotdescription)): ?>
 				<li>Lot Features: [lotdescription]</li>
-			<?php endif; ?>			
+			<?php endif; ?>				
 			<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
 				<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
-			<?php endif; ?>
+			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->MobileLength)): ?>
 				<li>Mobile Length: [unmapped_MobileLength]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->MobileWidth)): ?>
 				<li>Mobile Width: [unmapped_MobileWidth]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->PoolPrivateYN)): ?>
+				<li>Pool Private YN: [unmapped_PoolPrivateYN]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->SpaYN)): ?>
 				<li>Spa Y/N: [unmapped_SpaYN]</li>
@@ -103,23 +100,17 @@
 				<li>View Y/N: [unmapped_ViewYN]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->waterfrontflag)): ?>
-				<li>Waterfront YN: [waterfrontflag]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->landdesc)): ?>
-				<li>Topography: [landdesc]</li>
-			<?php endif; ?>				
-			<?php if( isset($single_property->unmapped->View)): ?>
-				<li>View: [unmapped_View]</li>
+				<li>Waterfront Y/N: [waterfrontflag]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->AboveGradeFinishedArea)): ?>
 				<li>Above Grade Finished Area: [unmapped_AboveGradeFinishedArea]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->BasementFinished)): ?>
-				<li>Basement Finished Percentage: [unmapped_BasementFinished]</li>
+				<li>Basement Finished: [unmapped_BasementFinished]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->BathroomsPartial)): ?>
 				<li>Bathrooms Partial: [unmapped_BathroomsPartial]</li>
-			<?php endif; ?>	
+			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->BuildingAreaTotal)): ?>
 				<li>Building Area Total: [unmapped_BuildingAreaTotal]</li>
 			<?php endif; ?>	
@@ -130,11 +121,11 @@
 				<li>Rooms Total: [totalrooms]</li>
 			<?php endif; ?>				
 			<?php if( isset($single_property->unmapped->CapRate)): ?>
-				<li>Capitalization Rate: [unmapped_CapRate]</li>
+				<li>Cap Rate: [unmapped_CapRate]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->CurrentUse)): ?>
-				<li>Current Use: [unmapped_CurrentUse]</li>
-			<?php endif; ?>		
+			<?php if( isset($single_property->unmapped->CrossStreet)): ?>
+				<li>Cross Street: [unmapped_CrossStreet]</li>
+			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->IrrigationWaterRightsAcres)): ?>
 				<li>Irrigation Water Rights Acres: [unmapped_IrrigationWaterRightsAcres]</li>
 			<?php endif; ?>	
@@ -152,7 +143,7 @@
 			<?php endif; ?>				
 			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
 				<li>Zoning Description: [unmapped_ZoningDescription]</li>
-			<?php endif; ?>	
+			<?php endif; ?>
 
 		</ul>
 	

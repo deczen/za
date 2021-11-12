@@ -9,10 +9,30 @@
 		isset($single_property->possession) || 
 		isset($single_property->unmapped->subleasefrom) || 
 		isset($single_property->unmapped->subleaseto) || 
-		isset($single_property->unmapped->zoningchar) ||
+		isset($single_property->unmapped->zoningchar) ||		
 		
-		isset($single_property->unmapped->ConstStatus) ||
+		isset($single_property->unmapped->reqdownassociation) ||
+		isset($single_property->unmapped->CapRate) ||
+		isset($single_property->unmapped->CurrentUse) ||
+		isset($single_property->unmapped->IrrigationWaterRightsAcres) ||
+		isset($single_property->unmapped->LeaseAmount) ||
+		isset($single_property->unmapped->LeaseConsideredYN) ||
 		isset($single_property->unmapped->NewConstructionYN) ||
+		isset($single_property->unmapped->NumberOfPads) ||
+		isset($single_property->unmapped->NumberOfUnitsLeased) ||
+		isset($single_property->unmapped->PropertyAttachedYN) ||
+		isset($single_property->sitecondition) ||
+		isset($single_property->propsubtype) ||
+		isset($single_property->unmapped->SeniorCommunityYN) ||
+		isset($single_property->unmapped->AboveGradeFinishedArea) ||
+		isset($single_property->handicapaccess) ||
+		isset($single_property->unmapped->BasementFinished) ||
+		isset($single_property->unmapped->BathroomsOneQuarter) ||
+		isset($single_property->unmapped->BathroomsPartial) ||
+		isset($single_property->unmapped->BuildingAreaTotal) ||
+		isset($single_property->unmapped->MainLevelBedrooms) ||
+		isset($single_property->totalrooms) ||
+		isset($single_property->unmapped->ConstStatus) ||
 		isset($single_property->unmapped->CoveredSpaces) ||
 		isset($single_property->unmapped->FrontageLength) ||
 		isset($single_property->unmapped->HorseYN) ||
@@ -22,29 +42,7 @@
 		isset($single_property->unmapped->PoolPrivateYN) ||
 		isset($single_property->unmapped->SpaYN) ||
 		isset($single_property->unmapped->ViewYN) ||
-		isset($single_property->waterfrontflag) ||
-		isset($single_property->unmapped->AboveGradeFinishedArea) ||
-		isset($single_property->unmapped->BasementFinished) ||
-		isset($single_property->unmapped->BathroomsPartial) ||
-		isset($single_property->unmapped->BuildingAreaTotal) ||
-		isset($single_property->totalrooms) ||
-		isset($single_property->hoafee) ||
-		isset($single_property->reqdownassociation) ||
-		isset($single_property->unmapped->CapRate) ||
-		isset($single_property->unmapped->CrossStreet) ||
-		isset($single_property->unmapped->CurrentUse) ||
-		isset($single_property->unmapped->IrrigationWaterRightsAcres) ||
-		isset($single_property->unmapped->LeaseAmount) ||
-		isset($single_property->unmapped->LeaseConsideredYN) ||
-		isset($single_property->unmapped->NumberOfUnitsLeased) ||
-		isset($single_property->unmapped->NewConstructionYN) ||
-		isset($single_property->unmapped->NumberOfPads) ||
-		isset($single_property->unmapped->PowerProductionSolarYearInstall) ||
-		isset($single_property->unmapped->PropertyAttachedYN) ||
-		isset($single_property->sitecondition) ||
-		isset($single_property->propsubtype) ||
-		isset($single_property->unmapped->SeniorCommunityYN)
-		
+		isset($single_property->waterfrontflag)		
 	):?>
 	
 	<li class="cell">
@@ -80,27 +78,87 @@
 			<li>Zoning Code: [unmapped_zoningchar]</li>
 			<?php endif; ?>
 			
-			<?php if( isset($single_property->unmapped->ConstStatus)): ?>
-				<li>Construction Status: [unmapped_ConstStatus]</li>
+			<?php if( isset($single_property->unmapped->reqdownassociation)): ?>
+				<li>Association Y/N: [reqdownassociation]</li>
+			<?php endif; ?>				
+			<?php if( isset($single_property->unmapped->CapRate)): ?>
+				<li>Capitalization Rate: [unmapped_CapRate]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->CurrentUse)): ?>
+				<li>Current Use: [unmapped_CurrentUse]</li>
+			<?php endif; ?>		
+			<?php if( isset($single_property->unmapped->IrrigationWaterRightsAcres)): ?>
+				<li>Irrigation Water Rights Acres: [unmapped_IrrigationWaterRightsAcres]</li>
+			<?php endif; ?>				
+			<?php if( isset($single_property->unmapped->LeaseAmount)): ?>
+				<li>Lease Amount: [unmapped_LeaseAmount]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->LeaseConsideredYN)): ?>
+				<li>Lease Considered Y/N: [unmapped_LeaseConsideredYN]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->NewConstructionYN)): ?>
 				<li>New Construction Y/N: [unmapped_NewConstructionYN]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->NumberOfPads)): ?>
+				<li>Number Of Pads: [unmapped_NumberOfPads]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->NumberOfUnitsLeased)): ?>
+				<li>Number Of Units Leased: [unmapped_NumberOfUnitsLeased]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->PropertyAttachedYN)): ?>
+				<li>Property Attached Y/N: [unmapped_PropertyAttachedYN]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->sitecondition)): ?>
+				<li>Property Condition: [sitecondition]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->propsubtype)): ?>
+				<li>Property Sub Type: [propsubtype]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->SeniorCommunityYN)): ?>
+				<li>Senior Community Y/N: [unmapped_SeniorCommunityYN]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->AboveGradeFinishedArea)): ?>
+				<li>Above Grade Finished Area: [unmapped_AboveGradeFinishedArea]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->handicapaccess)): ?>
+				<li>Accessibility Features: [handicapaccess]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->BasementFinished)): ?>
+				<li>Basement Finished Percentage: [unmapped_BasementFinished]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->BathroomsOneQuarter)): ?>
+				<li>Basement Finished Percentage: [unmapped_BasementFinishedPercentage]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->BathroomsPartial)): ?>
+				<li>Bathrooms Partial: [unmapped_BathroomsPartial]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->BuildingAreaTotal)): ?>
+				<li>Building Area Total: [unmapped_BuildingAreaTotal]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->MainLevelBedrooms)): ?>
+				<li>Main Level Bedrooms: [unmapped_MainLevelBedroomsl]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->totalrooms)): ?>
+				<li>Rooms Total: [totalrooms]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->ConstStatus)): ?>
+				<li>Construction Status: [unmapped_ConstStatus]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->CoveredSpaces)): ?>
 				<li>Covered Spaces: [unmapped_CoveredSpaces]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->FrontageLength)): ?>
-				<li>Frontage Length: [unmapped_FrontageLength]</li>
-			<?php endif; ?>
+				<li>Front age Length: [unmapped_FrontageLength]</li>
+			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->HorseYN)): ?>
 				<li>Horse Y/N: [unmapped_HorseYN]</li>
-			<?php endif; ?>
+			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
 				<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
-			<?php endif; ?>
+			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->MobileLength)): ?>
 				<li>Mobile Length: [unmapped_MobileLength]</li>
-			<?php endif; ?>
+			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->MobileWidth)): ?>
 				<li>Mobile Width: [unmapped_MobileWidth]</li>
 			<?php endif; ?>	
@@ -116,69 +174,6 @@
 			<?php if( isset($single_property->waterfrontflag)): ?>
 				<li>Waterfront Y/N: [waterfrontflag]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->AboveGradeFinishedArea)): ?>
-				<li>Above Grade Finished Area: [unmapped_AboveGradeFinishedArea]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->BasementFinished)): ?>
-				<li>Basement Finished: [unmapped_BasementFinished]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->BathroomsPartial)): ?>
-				<li>Bathrooms Partial: [unmapped_BathroomsPartial]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->BuildingAreaTotal)): ?>
-				<li>Building Area Total: [unmapped_BuildingAreaTotal]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->totalrooms)): ?>
-				<li>Rooms Total: [totalrooms]</li>
-			<?php endif; ?>		
-			<?php if( isset($single_property->hoafee)): ?>
-				<li>Hoa Fee: [hoafee]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->reqdownassociation)): ?>
-				<li>Association Y/N: [reqdownassociation]</li>
-			<?php endif; ?>				
-			<?php if( isset($single_property->unmapped->CapRate)): ?>
-				<li>Cap Rate: [unmapped_CapRate]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->CrossStreet)): ?>
-				<li>Cross Street: [unmapped_CrossStreet]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->CurrentUse)): ?>
-				<li>Current Use: [unmapped_CurrentUse]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->IrrigationWaterRightsAcres)): ?>
-				<li>Irrigation Water Rights Acres: [unmapped_IrrigationWaterRightsAcres]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->LeaseAmount)): ?>
-				<li>Lease Amount: [unmapped_LeaseAmount]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->LeaseConsideredYN)): ?>
-				<li>Lease Considered Y/N: [unmapped_LeaseConsideredYN]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->NumberOfUnitsLeased)): ?>
-				<li>Number Of Units Leased: [unmapped_NumberOfUnitsLeased]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->NewConstructionYN)): ?>
-				<li>New Construction Y/N: [unmapped_NewConstructionYN]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->NumberOfPads)): ?>
-				<li>Number Of Pads: [unmapped_NumberOfPads]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->PowerProductionSolarYearInstall)): ?>
-				<li>Power Production Solar Year Install: [unmapped_PowerProductionSolarYearInstall]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->PropertyAttachedYN)): ?>
-				<li>Property Attached Y/N: [unmapped_PropertyAttachedYN]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->sitecondition)): ?>
-				<li>Property Condition: [sitecondition]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->propsubtype)): ?>
-				<li>Property Sub Type: [propsubtype]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->SeniorCommunityYN)): ?>
-				<li>Senior Community Y/N: [unmapped_SeniorCommunityYN]</li>
-			<?php endif; ?>		
 			
 		</ul>
 	
