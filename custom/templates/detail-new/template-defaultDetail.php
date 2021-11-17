@@ -584,7 +584,7 @@ if(file_exists($template_path) && $template_name ){
 							<?php
 							$sale_office='';
 							if( isset($single_property->saleOfficeName) ){
-								$sale_office.= $single_property->saleOfficeName;							
+								$sale_office.= 'Selling Office ' . $single_property->saleOfficeName;							
 							}
 							
 							echo $sale_office;

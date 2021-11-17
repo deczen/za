@@ -1411,7 +1411,7 @@ var zppr={
 				html+=					'<div class="zy_sale-office">';
 				var sale_office='';
 				if( single_property.hasOwnProperty('saleOfficeName') ){
-					sale_office+= single_property.saleOfficeName;							
+					sale_office+= 'Selling Office ' + single_property.saleOfficeName;							
 				}
 				html+=					sale_office +
 										'</div>';
