@@ -38,7 +38,7 @@ function generate_zipperagent_variables(){
 	$args['states']=isset($rb['web']['states'])?$rb['web']['states']:'';
 	$args['browser_timezone']=date_default_timezone_get() ? date_default_timezone_get() : zipperagent_timezone();
 	$args['extra_proptype']=zipperagent_extra_proptype();	
-	// $args['synctime']=zipperagent_get_synctime();
+	$args['synctime']=zipperagent_get_synctime();
 	$args['map_default_status']=zipperagent_get_map_default_status();
 	
 	$markers = zipperagent_get_map_markers();
