@@ -4412,7 +4412,7 @@ var zppr={
 						
 						var synctime = zppr.data.synctime;
 						
-						if(synctime.hasOwnProperty('NERENMLS')){
+						if(syncTime && synctime.hasOwnProperty('NERENMLS')){
 							var mlstz = zppr.mls_timezone(sourceid);
 							var ld = new Date(synctime.NERENMLS).toLocaleString("en-US", {timeZone: mlstz});
 							var dt = new Date(ld);
