@@ -27,7 +27,7 @@ var zppr={
 		extra_proptype: zipperagent.extra_proptype,
 		map_default_status: zipperagent.map_default_status,
 		map_markers: zipperagent.map_markers,
-		// synctime: zipperagent.synctime,
+		synctime: zipperagent.synctime,
 		
 		/* single property */
 		company_name: zipperagent.company_name,
@@ -1405,8 +1405,18 @@ var zppr={
 		if(zppr.data.root.web.asrc.indexOf('NERENMLS') !== -1){
 			html+=				'<div class="col-xs-12">' +
 									'<div class="full-details-disclaimer">' +
-										source_details +
-									'</div>' +
+										source_details ;
+			if(zppr.data.sold_status.indexOf(single_property.status) !== -1){
+				
+				html+=					'<div class="zy_sale-office">';
+				var sale_office='';
+				if( single_property.hasOwnProperty('saleOfficeName') ){
+					sale_office+= single_property.saleOfficeName;							
+				}
+				html+=					sale_office +
+										'</div>';
+			}
+			html+=					'</div>' +
 								'</div>';
 		}
 		
@@ -4391,12 +4401,22 @@ var zppr={
 						text+="<br /><a href=\"http://www.idxre.com/docs/idxdocs/nvglvar-dmca.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">GLVAR DMCA Notice</a>";
 						text+="<br />GLVAR (Las Vegas) data last updated at April 29, 2020 10:00 AM PT";
 					}else if(sourceid=='NERENMLS'){
-						if(updatedate){
+						/* if(updatedate){
 
 							var mlstz = zppr.mls_timezone(sourceid);
 							var ld = new Date(updatedate).toLocaleString("en-US", {timeZone: mlstz});
 							var dt = new Date(ld);
-							var datetime = dt.format('m/d/Y');
+							var datetime = dt.format('m/d/y');
+							text+=' Data last updated ' + datetime;
+						} */
+						
+						var synctime = zppr.data.synctime;
+						
+						if(synctime.hasOwnProperty('NERENMLS')){
+							var mlstz = zppr.mls_timezone(sourceid);
+							var ld = new Date(synctime.NERENMLS).toLocaleString("en-US", {timeZone: mlstz});
+							var dt = new Date(ld);
+							var datetime = dt.format('m/d/y');
 							text+=' Data last updated ' + datetime;
 						}
 					}

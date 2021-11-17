@@ -578,6 +578,19 @@ if(file_exists($template_path) && $template_name ){
 				<div class="col-xs-12">
 					<div class="full-details-disclaimer">
 						<?php echo $source_details; ?>
+						
+						<?php if( strpos(zipperagent_sold_status(), $single_property->status) !== false ): ?>
+						<div class="zy_sale-office">
+							<?php
+							$sale_office='';
+							if( isset($single_property->saleOfficeName) ){
+								$sale_office.= $single_property->saleOfficeName;							
+							}
+							
+							echo $sale_office;
+							?>
+						</div>
+						<?php endif; ?>
 					</div>
 				</div>
 				<?php endif; ?>

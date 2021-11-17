@@ -2764,7 +2764,7 @@ if( ! function_exists('zipperagent_get_listing_disclaimer') ){
 						$mlstz = zipperagent_mls_timezone($sourceid);
 						$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 						$dt->setTimestamp($synctime->NERENMLS/1000); //adjust the object to correct timestamp
-						$datetime = $dt->format('m/d/Y');							
+						$datetime = $dt->format('m/d/y');							
 						$text.=' Data last updated ' . $datetime;
 					}
 					
@@ -2924,12 +2924,23 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						$text.="<br /><a href=\"http://www.idxre.com/docs/idxdocs/nvglvar-dmca.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">GLVAR DMCA Notice</a>";
 						$text.="<br />GLVAR (Las Vegas) data last updated at April 29, 2020 10:00 AM PT";
 					}else if($sourceid=='NERENMLS'){
-						if($updatedate){
+						/* if($updatedate){
 							// $mlstz = zipperagent_browser_timezone();
 							$mlstz = zipperagent_mls_timezone($sourceid);
 							$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
 							$dt->setTimestamp($updatedate/1000); //adjust the object to correct timestamp
-							$datetime = $dt->format('m/d/Y');							
+							$datetime = $dt->format('m/d/y');							
+							$text.=' Data last updated ' . $datetime;							
+						} */
+						
+						$synctime = zipperagent_get_synctime();
+						
+						if(isset($synctime->NERENMLS)){
+							// $mlstz = zipperagent_browser_timezone();
+							$mlstz = zipperagent_mls_timezone($sourceid);
+							$dt = new DateTime("now", new DateTimeZone($mlstz)); //first argument "must" be a string
+							$dt->setTimestamp($synctime->NERENMLS/1000); //adjust the object to correct timestamp
+							$datetime = $dt->format('m/d/y');							
 							$text.=' Data last updated ' . $datetime;
 						}
 					}
