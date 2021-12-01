@@ -2828,7 +2828,22 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					
 					if(isset($listOfficeName) && !empty($listOfficeName)){
 						$text.= ' '. "<strong>$listOfficeName</strong>";
-					}		
+					}
+
+					if($sourceid=='GOWENMLS'){
+						$contact_text = array();
+						if(isset($property->unmapped->{"LO Email"})){
+							$contact_text[]= 'email:' . $property->unmapped->{"LO Email"};
+						}
+						if(isset($property->unmapped->{"LO Phone1"})){
+							$contact_text[]= 'ph:' . $property->unmapped->{"LO Phone1"};
+						}
+						
+						if( $contact_text ){
+							
+							$text.= ' ('. implode( ', ', $contact_text) .')';
+						}
+					}
 					
 					if(file_exists($source['logo_path'])){
 						$text.= '<img src="'. $source['logo_url'] .'" alt="'. $source['name'] .'" />';
@@ -2896,6 +2911,21 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					
 					if(isset($listOfficeName) && !empty($listOfficeName)){
 						$text.= sprintf( "Listing Provided Courtesy of <strong>%s</strong>", $listOfficeName);
+					}
+					
+					if($sourceid=='GOWENMLS'){
+						$contact_text = array();
+						if(isset($property->unmapped->{"LO Email"})){
+							$contact_text[]= 'email:' . $property->unmapped->{"LO Email"};
+						}
+						if(isset($property->unmapped->{"LO Phone1"})){
+							$contact_text[]= 'ph:' . $property->unmapped->{"LO Phone1"};
+						}
+						
+						if( $contact_text ){
+							
+							$text.= ' ('. implode( ', ', $contact_text) .')';
+						}
 					}
 					
 					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){

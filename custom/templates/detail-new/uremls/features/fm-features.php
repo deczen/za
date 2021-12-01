@@ -9,7 +9,9 @@
 			isset($single_property->unmapped->termsfeature) || 
 			isset($single_property->unmapped->watershares) || 
 			isset($single_property->unmapped->waterviewfeatures) || 
-			isset($single_property->zoning) ||						
+			isset($single_property->zoning) ||		
+
+			isset($single_property->area) ||			
 			isset($single_property->unmapped->CoveredSpaces) ||			
 			isset($single_property->unmapped->FrontageLength) ||
 			isset($single_property->unmapped->HorseYN) ||
@@ -69,6 +71,9 @@
 			<li>Zoning: [zoning]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->area)): ?>
+				<li>Area: [area]</li>
+			<?php endif; ?>				
 			<?php if( isset($single_property->unmapped->CoveredSpaces)): ?>
 				<li>Covered Spaces: [unmapped_CoveredSpaces]</li>
 			<?php endif; ?>	

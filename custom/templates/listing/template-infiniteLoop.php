@@ -300,7 +300,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 						<div style="clear:both"></div>
 					</div>
 					<?php						
-					$source_details = isset($property->sourceid) ? zipperagent_get_source_text($property->sourceid, array('listOfficeName'=>isset($property->listOfficeName)?$property->listOfficeName:'', 'listAgentName'=>isset($property->listAgentName)?$property->listAgentName:''), 'list') : false;
+					$source_details = isset($property->sourceid) ? zipperagent_get_source_text($property->sourceid, array('listOfficeName'=>isset($property->listOfficeName)?$property->listOfficeName:'', 'listAgentName'=>isset($property->listAgentName)?$property->listAgentName:'', 'property'=>$property), 'list') : false;
 					?>
 					<?php if($source_details): ?>
 					<div class="property-source">

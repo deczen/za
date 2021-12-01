@@ -17,7 +17,9 @@
 		isset($single_property->unmapped->yearremodeled) || 
 		isset($single_property->zoning) || 
 		isset($single_property->unmapped->zoningchar) ||		
-		
+
+		isset($single_property->area) ||
+		isset($single_property->no34BATHS) ||		
 		isset($single_property->construction) ||
 		isset($single_property->unmapped->ConstStatus) ||
 		isset($single_property->unmapped->CoveredSpaces) ||
@@ -101,7 +103,13 @@
 			<?php if( isset($single_property->unmapped->zoningchar)): ?>
 			<li>Zoning Code: [unmapped_zoningchar]</li>
 			<?php endif; ?>
-				
+
+			<?php if( isset($single_property->no34BATHS)): ?>
+				<li>No. of 3/4 Baths: [no34BATHS]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->area)): ?>
+				<li>Area: [area]</li>
+			<?php endif; ?>					
 			<?php if( isset($single_property->construction)): ?>
 				<li>Construction Materials: [construction]</li>
 			<?php endif; ?>	

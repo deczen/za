@@ -18,6 +18,8 @@
 		isset($single_property->zoning) || 
 		isset($single_property->unmapped->zoningchar) ||
 		
+		isset($single_property->area) ||
+		isset($single_property->unmapped->LivingArea) ||
 		isset($single_property->construction) ||
 		isset($single_property->unmapped->ConstStatus) ||
 		isset($single_property->unmapped->CoveredSpaces) ||
@@ -113,6 +115,13 @@
 		<li>Zoning Code: [unmapped_zoningchar]</li>
 		<?php endif; ?>
 
+
+		<?php if( isset($single_property->unmapped->LivingArea)): ?>
+			<li>SQFT: [unmapped_LivingArea]</li>
+		<?php endif; ?>
+		<?php if( isset($single_property->area)): ?>
+			<li>Area: [area]</li>
+		<?php endif; ?>			
 		<?php if( isset($single_property->construction)): ?>
 			<li>Construction Materials: [construction]</li>
 		<?php endif; ?>	
@@ -617,7 +626,7 @@
 				<li>Fireplace Features: [unmapped_FireplaceFeatures]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->PowerProductionSolarYearInstall)): ?>
-				<li>FPower Production Solar Year Install: [unmapped_PowerProductionSolarYearInstall]</li>
+				<li>Power Production Solar Year Install: [unmapped_PowerProductionSolarYearInstall]</li>
 			<?php endif; ?>				
 			<?php if( isset($single_property->utilities)): ?>
 				<li>Utilities: [utilities]</li>

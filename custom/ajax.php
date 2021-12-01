@@ -945,9 +945,9 @@ function display_property_detail(){
 			$single_property->customtype = isset($single_property->propsubtype)?$single_property->propsubtype : $single_property->proptype;
 		
 		//get source details
-		// $source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail') : false;
-		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'' ), 'detail_source') : false;
-		$source_disclaimer = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'', 'updatedate'=>isset($single_property->updatedate)?$single_property->updatedate:'' ), 'detail_disclaimer') : false;
+		// $source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'', 'property'=>$single_property ), 'detail') : false;
+		$source_details = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'', 'property'=>$single_property ), 'detail_source') : false;
+		$source_disclaimer = isset($single_property->sourceid) ? zipperagent_get_source_text($single_property->sourceid, array( 'listOfficeName'=>isset($single_property->listOfficeName)?$single_property->listOfficeName:'', 'listAgentName'=>isset($single_property->listAgentName)?$single_property->listAgentName:'', 'updatedate'=>isset($single_property->updatedate)?$single_property->updatedate:'', 'property'=>$single_property ), 'detail_disclaimer') : false;
 
 		//get agent
 		$agent=array();

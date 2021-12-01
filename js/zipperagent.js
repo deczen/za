@@ -1278,7 +1278,7 @@ var zppr={
 	},
 	detail:function(single_property, actual_link){
 		
-		var source_details=single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'detail_source' ) : false;	
+		var source_details=single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName, 'property': single_property}, 'detail_source' ) : false;	
 		
 		agent = {};
 		if( single_property.hasOwnProperty('listagent') || single_property.hasOwnProperty('saleagent') ){
@@ -2152,7 +2152,7 @@ var zppr={
 										'<div class="full-details-disclaimer">' +
 											'<br> ';
 		
-		source_disclaimer = single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName, 'updatedate': single_property.updatedate}, 'detail_disclaimer') : false;		
+		source_disclaimer = single_property.hasOwnProperty('sourceid') ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName, 'updatedate': single_property.updatedate, 'property': single_property}, 'detail_disclaimer') : false;		
 		if(source_disclaimer!=''){
 			html+= 							source_disclaimer;
 		}
@@ -3489,7 +3489,7 @@ var zppr={
 		}
 		
 		var property_source='';
-		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName}, 'list' ) : false;
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
 		if(source_details){
 			property_source+='<div class="property-source">' +
 								source_details +
@@ -3732,7 +3732,7 @@ var zppr={
 		}
 		
 		var property_source='';
-		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName}, 'list' ) : false;
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
 		if(source_details){
 			property_source+='<div class="property-source">' +
 								source_details +
@@ -4008,7 +4008,7 @@ var zppr={
 		openhouses='';
 		
 		var property_source='';
-		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName}, 'list' ) : false;
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
 		if(source_details){
 			property_source+='<div class="zy_pt-property-source">' +
 								source_details +
@@ -4060,7 +4060,7 @@ var zppr={
 		var address = zppr.getAddress(property);
 		var prop_url = zppr.getPropUrl(listingid,address);
 		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
-		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName}, 'list' ) : false;
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
 		
 		var html = '<div class="impress-carousel-property">'+
 						'<div class="owl-img-wrap">'+
@@ -4299,6 +4299,18 @@ var zppr={
 		var listAgentName = params['listAgentName'];
 		var listOfficeName = params['listOfficeName'];
 		var updatedate = params['updatedate'];
+		var property = params['property'];
+		
+		
+		var contact_text = [];
+		if(sourceid=='GOWENMLS'){
+			if(zppr.checkNested(property,'unmapped','LO Email')){
+				contact_text.push('email:' . property.unmapped["LO Email"]);
+			}
+			if(zppr.checkNested(property,'unmapped','LO Phone1')){
+				contact_text.push('ph:' . property.unmapped["LO Phone1"]);
+			}
+		}
 		
 		switch(type){
 			case "list":
@@ -4310,7 +4322,11 @@ var zppr={
 					
 					if(listOfficeName){
 						text+= ' '+ "<strong>"+ listOfficeName +"</strong>";
-					}		
+					}
+			
+					if(contact_text.length){						
+						text+= ' ('+ contact_text.split(', ') +')';
+					}					
 					
 					if(source['logo_path']){
 						text+= '<img src="'+ source['logo_url'] +'" alt="'+ source['name'] +'" />';
@@ -4373,6 +4389,10 @@ var zppr={
 					if(listOfficeName){
 						text+= "Listing Provided Courtesy of <strong>"+ listOfficeName +"</strong>";
 					}	
+					
+					if(contact_text.length){					
+						text+= ' ('+ contact_text.split(', ') +')';
+					}
 					
 					if(listAgentName!='' && zppr.data.is_show_agent_name==1){
 						text+= ", "+ listAgentName;
@@ -5482,7 +5502,7 @@ var zppr={
 						'<div class="row">' +
 							'<div class="zy_prop-disclaimer col-xs-12">';
 							
-		var source_details=single_property.sourceid ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName}, 'list' ) : false;						
+		var source_details=single_property.sourceid ? zppr.get_source_text(single_property.sourceid, {'listOfficeName':single_property.listOfficeName, 'listAgentName': single_property.listAgentName, 'property': single_property}, 'list' ) : false;						
 		if( source_details ){
 			html += 			source_details;
 		}else{

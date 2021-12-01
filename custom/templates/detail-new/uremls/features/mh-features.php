@@ -1,4 +1,5 @@
 <ul class="zy-features-grid">
+
 	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exterior) || isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures) || isset($single_property->facingdirection) || isset($single_property->landdesc) || isset($single_property->zoning) || isset($single_property->schooldistrict) || isset($single_property->construction) || isset($single_property->roofmaterial) || isset($single_property->termsfeature) || isset($single_property->interiorfeatures) || isset($single_property->fireplaces) ):?>
 	<li class="cell">
 	

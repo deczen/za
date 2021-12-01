@@ -11,7 +11,7 @@
 		isset($single_property->unmapped->subleaseto) || 
 		isset($single_property->unmapped->zoningchar) ||		
 		
-		isset($single_property->unmapped->reqdownassociation) ||
+		isset($single_property->reqdownassociation) ||
 		isset($single_property->unmapped->CapRate) ||
 		isset($single_property->unmapped->CurrentUse) ||
 		isset($single_property->unmapped->IrrigationWaterRightsAcres) ||
@@ -78,7 +78,7 @@
 			<li>Zoning Code: [unmapped_zoningchar]</li>
 			<?php endif; ?>
 			
-			<?php if( isset($single_property->unmapped->reqdownassociation)): ?>
+			<?php if( isset($single_property->reqdownassociation)): ?>
 				<li>Association Y/N: [reqdownassociation]</li>
 			<?php endif; ?>				
 			<?php if( isset($single_property->unmapped->CapRate)): ?>
