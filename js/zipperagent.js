@@ -4305,10 +4305,10 @@ var zppr={
 		var contact_text = [];
 		if(sourceid=='GOWENMLS'){
 			if(zppr.checkNested(property,'unmapped','LO Email')){
-				contact_text.push('email:' . property.unmapped["LO Email"]);
+				contact_text.push('email:' + property.unmapped["LO Email"]);
 			}
 			if(zppr.checkNested(property,'unmapped','LO Phone1')){
-				contact_text.push('ph:' . property.unmapped["LO Phone1"]);
+				contact_text.push('ph:' + property.unmapped["LO Phone1"]);
 			}
 		}
 		
@@ -4325,7 +4325,7 @@ var zppr={
 					}
 			
 					if(contact_text.length){						
-						text+= ' ('+ contact_text.split(', ') +')';
+						text+= ' ('+ contact_text.join(', ') +')';
 					}					
 					
 					if(source['logo_path']){
@@ -4391,7 +4391,7 @@ var zppr={
 					}	
 					
 					if(contact_text.length){					
-						text+= ' ('+ contact_text.split(', ') +')';
+						text+= ' ('+ contact_text.join(', ') +')';
 					}
 					
 					if(listAgentName!='' && zppr.data.is_show_agent_name==1){
