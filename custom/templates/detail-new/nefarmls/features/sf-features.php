@@ -16,7 +16,6 @@
 			isset($single_property->nohalfbaths) ||
 			isset($single_property->bathtype) ||
 			isset($single_property->unmapped->Bedrooms) ||
-			isset($single_property->unmapped->{"Approx Parcel Size"}) ||
 			isset($single_property->unmapped->Fencing) ||
 			isset($single_property->lotdescription) ||
 			isset($single_property->unmapped->{"Navigable to Ocean Y/N"}) ||
@@ -56,7 +55,7 @@
 			isset($single_property->lotdescription) ||
 			isset($single_property->unmapped->{"Lot Location"}) ||
 			isset($single_property->unmapped->{"Road Frontage"}) ||
-			isset($single_property->roofmaterial) ||
+			
 			isset($single_property->butype) ||
 			isset($single_property->unmapped->HVAC) ||
 			isset($single_property->unmapped->{"Total Bldg SqFt"}) ||
@@ -77,12 +76,8 @@
 			isset($single_property->unmapped->{"Building Stories"}) ||
 			isset($single_property->lotdescription) ||
 			isset($single_property->unmapped->{"Lot Location"}) ||
-			isset($single_property->location)
-			
-			
-			
-			
-			
+			isset($single_property->location) ||
+			isset($single_property->documentsonfile)
 				
 			):?>
 	<li class="cell">
@@ -141,17 +136,11 @@
 			<?php if( isset($single_property->unmapped->Bedrooms)): ?>
 				<li>Bedrooms: [unmapped_Bedrooms]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->{"Approx Parcel Size"})): ?>
-				<li>Approx Parcel Size: [unmapped_Approx Parcel Size]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->Fencing)): ?>
 				<li>Fencing: [unmapped_Fencing]</li>
 			<?php endif; ?>		
 			<?php if( isset($single_property->lotdescription)): ?>
 				<li>Lot Description: [lotdescription]</li>
-			<?php endif; ?>				
-			<?php if( isset($single_property->unmapped->{"Legal Name of Subdiv"})): ?>
-				<li>Legal Name of Subdiv: [unmapped_Legal Name of Subdiv]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->{"Navigable to Ocean Y/N"})): ?>
 				<li>Navigable to Ocean Y/N: [unmapped_Navigable to Ocean Y/N]</li>
@@ -161,9 +150,6 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->{"Road Frontage"})): //not show?>
 				<li>Road Frontage: [unmapped_Road Frontage]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->roofmaterial)): ?>
-				<li>Roof: [roofmaterial]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->Structure)): ?>
 				<li>Structure: [unmapped_Structure]</li>
@@ -272,7 +258,7 @@
 				<li>Road Frontage: [unmapped_Road Frontage]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->roofmaterial)): ?>
-				<li>roofmaterial: [roofmaterial]</li>
+				<li>Roofmaterial: [roofmaterial]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->butype)): ?>
 				<li>Structure: [butype]</li>
@@ -312,8 +298,8 @@
 			<?php if( isset($single_property->unmapped->{"Development Status"})): ?>
 				<li>Development Status: [unmapped_Development Status]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->documentsonfile)): ?>
-				<li>Documents On File: [unmapped_documentsonfile]</li>
+			<?php if( isset($single_property->documentsonfile)): ?>
+				<li>Documents On File: [documentsonfile]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->{"Max Base Lease Rate"})): //not show?>
 				<li>Max Base Lease Rate: [unmapped_Max Base Lease Rate]</li>
@@ -336,8 +322,8 @@
 			<?php if( isset($single_property->unmapped->HVAC)): ?>
 				<li>HVAC: [unmapped_HVAC]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->amenities)): //not show?>
-				<li>Misc Amenities: [unmapped_amenities]</li>
+			<?php if( isset($single_property->amenities)): ?>
+				<li>Misc Amenities: [amenities]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->{"Total Bldg SqFt"})): ?>
 				<li>Total Bldg Sq Ft: [unmapped_Total Bldg SqFt]</li>
@@ -353,7 +339,9 @@
 			<?php endif; ?>	
 			<?php if( isset($single_property->location)): //not show?>
 				<li>Unit Location: [location]</li>
-			<?php endif; ?>				
+			<?php endif; ?>	
+
+			
 			<?php endif; ?>	
 		<?php endif; ?>			
 
@@ -461,11 +449,36 @@
 			<?php endif; ?>				
 			
 		</ul>
+		
+		<?php if( 
+				isset($single_property->gradeschool) || 
+				isset($single_property->middleschool) || 
+				isset($single_property->highschool) 
+				):?>
+		<h3 class="zy-feature-title">Schools</h3>
+		<ul class="zy-sub-list">
+			<?php if( isset($single_property->gradeschool)): ?>
+				<li>Elementary School: [gradeschool]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->middleschool)): ?>
+				<li>Middle School: [middleschool]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->highschool)): ?>
+				<li>High School: [highschool]</li>
+			<?php endif; ?>
+		</ul>
+		<?php endif; ?>	
+		
 	</li>
 	<?php endif; ?>
 
 	<li class="cell">
-		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
+		<?php if( 
+				isset($single_property->garagespaces) || 
+				isset($single_property->parkingspaces) || 
+				isset($single_property->roadtype) ||
+				isset($single_property->parkingfeature)
+				):?>
 		<h3 class="zy-feature-title">Parking Information</h3>
 		<ul class="zy-sub-list">
 			
@@ -520,7 +533,7 @@
 			<?php endif; ?>				
 			
 		</ul>
-		<?php endif; ?>
+		<?php endif; ?>	
 	</li>					
 
 </ul>

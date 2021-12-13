@@ -749,7 +749,7 @@ function zipperagent_detail_page_lightbox_gallery(){
 					ajax_image_count(count);		
 					// if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
 					if(count>=limit && limit != 0){
-						jQuery('#needLoginModal').modal('show');
+						jQuery('#needLoginModal:not(.loggedIn)').modal('show');
 						<?php if(!zipperagent_signup_optional()): ?>
 						set_popup_is_triggered();
 						<?php endif; ?>

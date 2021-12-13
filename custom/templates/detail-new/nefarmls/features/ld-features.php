@@ -72,9 +72,6 @@
 			<?php if( isset($single_property->documentsonfile)): ?>
 				<li>Documents On File : [documentsonfile]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Legal Name of Subdiv"})): ?>
-				<li>Legal Name of Subdiv : [unmapped_Legal Name of Subdiv]</li>
-			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->Occupancy)): ?>
 				<li>Occupancy : [unmapped_Occupancy]</li>
 			<?php endif; ?>		
@@ -172,6 +169,24 @@
 			<?php endif; ?>					
 			
 		</ul>
+		<?php if( 
+				isset($single_property->gradeschool) || 
+				isset($single_property->middleschool) || 
+				isset($single_property->highschool) 
+				):?>
+		<h3 class="zy-feature-title">Schools</h3>
+		<ul class="zy-sub-list">
+			<?php if( isset($single_property->gradeschool)): ?>
+				<li>Elementary School: [gradeschool]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->middleschool)): ?>
+				<li>Middle School: [middleschool]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->highschool)): ?>
+				<li>High School: [highschool]</li>
+			<?php endif; ?>
+		</ul>
+		<?php endif; ?>	
 	</li>
 	<?php endif; ?>
 	
@@ -195,9 +210,6 @@
 				<?php if( isset($single_property->taxyear)): ?>
 				<li>Tax Year: [taxyear]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->zoning)): ?>
-				<li>Zoning Code: [zoning]</li> <!-- not done -->
-				<?php endif; ?>
 			
 			<?php if( isset($single_property->hoafee)): ?>
 				<li>Hoa Fee : [hoafee]</li>
@@ -215,27 +227,5 @@
 		</ul>
 		<?php endif; ?>
 	</li>
-
-	<li class="cell">
-		<?php if( 
-			isset($single_property->gradeschool) || 
-			isset($single_property->highschool) ||
-			isset($single_property->middleschool)):?>
-		<h3 class="zy-feature-title">Schools</h3>
-		<ul class="zy-sub-list">
-			
-			<?php if( isset($single_property->gradeschool)): ?>
-				<li>Grade School: [gradeschool]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->highschool)): ?>
-				<li>High School: [highschool]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->middleschool)): ?>
-				<li>Middle School: [middleschool]</li> 
-			<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
-	</li>	
 
 </ul>

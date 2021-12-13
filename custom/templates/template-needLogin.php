@@ -210,7 +210,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 			var after_action = jQuery(this).attr('afterAction');
 			var listingId = jQuery(this).attr('listingId');
 			var searchId = jQuery(this).attr('searchId');
-			jQuery('#needLoginModal').modal('show');
+			jQuery('#needLoginModal:not(.loggedIn)').modal('show');
 			jQuery('#needLoginModal #zpa-save-listing-form').find('input[name=afterAction]').val(after_action);		
 			jQuery('#needLoginModal #zpa-save-listing-form').find('input[name=listingId]').val(listingId);		
 			jQuery('#needLoginModal #zpa-save-listing-form').find('input[name=searchId]').val(searchId);		
@@ -311,6 +311,9 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 						
 						//show close button
 						jQuery('#needLoginModal .close').show();
+						
+						//add class to loginModal
+						jQuery('#needLoginModal').addClass('loggedIn');
 						
 						//update zppr data
 						if (typeof zppr != "undefined"){
@@ -660,7 +663,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	<script>
 		jQuery(document).ready(function(){			
 			var show = function(){
-				jQuery('#needLoginModal').modal('show');				
+				jQuery('#needLoginModal:not(.loggedIn)').modal('show');				
 				
 				<?php if(!zipperagent_signup_optional()): ?>
 				set_popup_is_triggered();

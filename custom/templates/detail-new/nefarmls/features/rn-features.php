@@ -29,13 +29,11 @@
 		isset($single_property->unmapped->{"Date Available"}) ||
 		isset($single_property->unmapped->{"Type of Dwelling"}) ||
 		isset($single_property->adultcommunity) ||
-		isset($single_property->unmapped->{"Legal Name of Subdiv"}) ||
 		isset($single_property->unmapped->{"Min Rental Term"}) ||
 		isset($single_property->unmapped->Occupancy) ||
 		isset($single_property->restrictions) ||
 		isset($single_property->squarefeetsource) ||
 		isset($single_property->unmapped->{"Tenant Pays"}) ||
-		isset($single_property->unmapped->{"Type of Dwelling"}) ||
 		isset($single_property->unmapped->{"Parcel Size"}) ||
 		isset($single_property->unmapped->{"Building Stories"}) ||
 		isset($single_property->lotdescription) ||
@@ -140,10 +138,7 @@
 			<?php endif; ?>	
 			<?php if( isset($single_property->adultcommunity)): ?>
 				<li>Gated Community: [adultcommunity]</li>
-			<?php endif; ?>				
-			<?php if( isset($single_property->unmapped->{"Legal Name of Subdiv"})): ?>
-				<li>Legal Name of Subdiv: [unmapped_Legal Name of Subdiv]</li>
-			<?php endif; ?>		
+			<?php endif; ?>					
 			<?php if( isset($single_property->unmapped->{"Min Rental Term"})): ?>
 				<li>Min Rental Term: [unmapped_Min Rental Term]</li>
 			<?php endif; ?>	
@@ -159,9 +154,6 @@
 			<?php if( isset($single_property->unmapped->{"Tenant Pays"})): ?>
 				<li>Tenant Pays: [unmapped_Tenant Pays]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->{"Type of Dwelling"})): ?>
-				<li>Type of Dwelling: [unmapped_Type of Dwelling]</li>
-			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->{"Parcel Size"})): ?>
 				<li>Parcel Size: [unmapped_Parcel Size]</li>
 			<?php endif; ?>		
@@ -175,7 +167,7 @@
 				<li>Lot Location: [unmapped_Lot Location]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->{"Navgble to Ocean Y/N"})): ?>
-				<li>Navgble to Ocean Y/N: [unmapped_Navgble to Ocean Y/N]</li>
+				<li>Navigable To Ocean Y/N: [unmapped_Navgble to Ocean Y/N]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->pooldescription)): ?>
 				<li>Pool Hot Tub: [pooldescription]</li>
@@ -278,6 +270,24 @@
 				<?php endif; ?>					
 			
 		</ul>
+		<?php if( 
+				isset($single_property->gradeschool) || 
+				isset($single_property->middleschool) || 
+				isset($single_property->highschool) 
+				):?>
+		<h3 class="zy-feature-title">Schools</h3>
+		<ul class="zy-sub-list">
+			<?php if( isset($single_property->gradeschool)): ?>
+				<li>Elementary School: [gradeschool]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->middleschool)): ?>
+				<li>Middle School: [middleschool]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->highschool)): ?>
+				<li>High School: [highschool]</li>
+			<?php endif; ?>
+		</ul>
+		<?php endif; ?>	
 	</li>
 	<?php endif; ?>
 
@@ -319,7 +329,12 @@
 				isset($single_property->unmapped->{"Cleaning Fee"}) ||
 				isset($single_property->unmapped->{"% of Tax"}) ||
 				isset($single_property->unmapped->{"Security Deposit"}) ||
-				isset($single_property->unmapped->{"Payment Freq"})
+				isset($single_property->unmapped->{"Payment Freq"}) ||
+				isset($single_property->unmapped->{"Terms/Deposits/Fees: Application Fee"}) ||
+				isset($single_property->unmapped->{"Terms/Deposits/Fees: Min Lease/Rent Term"}) ||
+				isset($single_property->unmapped->{"Terms/Deposits/Fees: Cleaning Fee"}) ||
+				isset($single_property->unmapped->{"Terms/Deposits/Fees: % of Tax"}) ||
+				isset($single_property->unmapped->{"Terms/Deposits/Fees: Security Deposit"})
 				
 				
 				):?>
@@ -362,6 +377,22 @@
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->{"Payment Freq"})): ?>
 				<li>Payment Freq: [unmapped_Payment Freq]</li>
+			<?php endif; ?>	
+			
+			<?php if( isset($single_property->unmapped->{"Terms/Deposits/Fees: Application Fee"})): ?>
+				<li>Terms/Deposits/Fees: Application Fee: [unmapped_Terms/Deposits/Fees: Application Fee]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->{"Terms/Deposits/Fees: Min Lease/Rent Term"})): ?>
+				<li>Terms/Deposits/Fees: Min Lease/Rent Term: [unmapped_Terms/Deposits/Fees: Min Lease/Rent Term]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->{"Terms/Deposits/Fees: Cleaning Fee"})): ?>
+				<li>Terms/Deposits/Fees: Cleaning Fee: [unmapped_Terms/Deposits/Fees: Cleaning Fee]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->{"Terms/Deposits/Fees: % of Tax"})): ?>
+				<li>Terms/Deposits/Fees: % of Tax: [unmapped_Terms/Deposits/Fees: % of Tax]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->{"Terms/Deposits/Fees: Security Deposit"})): ?>
+				<li>Terms/Deposits/Fees: Security Deposit: [unmapped_Terms/Deposits/Fees: Security Deposit]</li>
 			<?php endif; ?>				
 			
 				

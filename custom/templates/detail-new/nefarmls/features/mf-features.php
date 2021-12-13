@@ -18,7 +18,7 @@
 			isset($single_property->unmapped->{"Number of Buildings"}) ||
 			isset($single_property->unmapped->Country) ||
 			isset($single_property->unmapped->{"Historic Area"}) ||
-			isset($single_property->unmapped->{"Legal Name of Subdiv"}) ||
+			
 			isset($single_property->unmapped->Type) ||
 			isset($single_property->unmapped->Occupancy) ||
 			isset($single_property->squarefeetsource) ||
@@ -71,7 +71,7 @@
 				<li>Pool: [pooldescription]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->{"Navgble to Ocean Y/N"})): ?>
-				<li>Navigble to Ocean Y/N: [unmapped_Navgble to Ocean Y/N]</li>
+				<li>Navigable to Ocean Y/N: [unmapped_Navgble to Ocean Y/N]</li>
 			<?php endif; ?>	
 			<?php if( isset($single_property->waterfrontflag)): ?>
 				<li>Waterfront Y/N: [waterfrontflag]</li>
@@ -85,9 +85,7 @@
 			<?php if( isset($single_property->unmapped->{"Historic Area"})): ?>
 				<li>Historic Area: [unmapped_Historic Area]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->{"Legal Name of Subdiv"})): ?>
-				<li>Legal Name of Subdiv: [unmapped_Legal Name of Subdiv]</li>
-			<?php endif; ?>
+
 			<?php if( isset($single_property->unmapped->Type)): ?>
 				<li>Multifamily Type: [unmapped_Type]</li>
 			<?php endif; ?>	

@@ -2708,7 +2708,7 @@ var zppr={
 										ajax_image_count(count);		
 										// if(count>=limit && limit != 0 && $topHeadCarousel.hasClass('needLogin')){
 										if(count>=limit && limit != 0 && zppr.data.is_login == 0){
-											jQuery('#needLoginModal').modal('show');
+											jQuery('#needLoginModal:not(.loggedIn)').modal('show');
 											if(zppr.data.za_signup_optional==1){
 												set_popup_is_triggered();
 											}
