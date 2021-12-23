@@ -1419,6 +1419,24 @@ if( ! function_exists('zipperagent_property_type') ){
 	}
 }
 
+if( ! function_exists('zipperagent_list_prop_type') ){
+	function zipperagent_list_prop_type( $property ){
+		
+		$sourceid = $property->sourceid;
+		
+		switch( $sourceid ){
+			case "NERENMLS":
+					$proptype = isset( $property->propsubtype ) ? $property->propsubtype : zipperagent_property_type( $property->proptype );
+				break;			
+			default:
+					$proptype = zipperagent_property_type( $property->proptype ); 
+				break;
+		}
+	
+		return $proptype;
+	}
+}
+
 if( ! function_exists('alert_type_api_call') ){
 	function alert_type_api_call(){
 		
@@ -3418,7 +3436,9 @@ if( ! function_exists('populate_schools3') ){
 		
 		$variables = zipperagent_generate_list($requests, 0, 0);
 		
-		$crit = $variables['crit'];
+		// echo "<pre>"; print_r( $variables ); echo "</pre>";
+		
+		$crit = $variables['vars']['crit'];
 		
 		$args=array(
 			'text'=>$text,
@@ -3493,7 +3513,10 @@ if( ! function_exists('populate_addresses') ){
 		
 		$variables = zipperagent_generate_list($requests, 0, 0);
 		
-		$crit = $variables['crit'];
+		// echo "<pre>"; print_r( $variables ); echo "</pre>";
+		// echo "<pre>"; print_r( $requests ); echo "</pre>";
+		
+		$crit = $variables['vars']['crit'];
 		
 		$args=array(
 			'text'=>$text,

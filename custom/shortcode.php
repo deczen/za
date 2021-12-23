@@ -51,6 +51,7 @@ class Zipperagent_Shortcodes{
 		'za_map' => 'za_generate_map',
 		'za_seller_saving' => 'display_slide_price',
 		'za_organizer_login' => 'getOrganizerLogin',
+		'za_debug' => 'debug',
 	);
 	
 	private function __construct() {
@@ -1402,6 +1403,26 @@ class Zipperagent_Shortcodes{
 			
 		ob_start();	
 		include ZIPPERAGENTPATH . "/custom/templates/template-slidePrice.php";
+		$html=ob_get_clean();
+		
+		return $html;
+	}
+	
+	function debug(){
+		
+		$mode = isset( $_GET['mode'] ) ? $_GET['mode'] : '';
+		ob_start();	
+		switch( $mode ){
+			case "curl":
+				include ZIPPERAGENTPATH . "/debug/curl.php";
+				break;
+			case "curl2":
+				include ZIPPERAGENTPATH . "/debug/curl_2.php";
+				break;
+			case "rb":
+				include ZIPPERAGENTPATH . "/debug/rb.php";
+				break;
+		}
 		$html=ob_get_clean();
 		
 		return $html;

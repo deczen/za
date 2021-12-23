@@ -3545,7 +3545,7 @@ var zppr={
 						'<div class="za-container">' +
 							'<div class="row">' +
 								'<div class="'+ ( column==4 ? 'col-xs-9' : 'col-xs-10' ) +' pull-left fs-11 ">' +
-									'<div class="zpa-grid-result-mlsnum-proptype">'+ displaySource +'#'+ property.listno +' | '+ zppr.proptype_label(proptype) +' </div>' +
+									'<div class="zpa-grid-result-mlsnum-proptype">'+ displaySource +'#'+ property.listno +' | '+ zppr.list_proptype(property) +' </div>' +
 								'</div>' +
 								'<div class="'+ ( column==4 ? 'col-xs-3' : 'col-xs-2' ) +' pull-right fs-12 zpa-grid-result-photocount nopaddingleft">' +
 									albums +
@@ -4462,6 +4462,22 @@ var zppr={
 		}
 		
 		return propertyType;
+	},
+	list_proptype:function(property){
+		
+		var proptype = '';
+		var sourceid = property.sourceid;
+		
+		switch(sourceid){
+			case "NERENMLS":
+					proptype = property.hasOwnProperty('propsubtype') ? property.propsubtype : zppr.proptype_label(property.proptype);
+				break;			
+			default:
+					proptype = zppr.proptype_label(property.proptype); 
+				break;
+		}
+	
+		return proptype;
 	},
 	is_mobile:function(){
 		var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
