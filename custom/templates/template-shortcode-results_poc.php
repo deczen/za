@@ -12,7 +12,7 @@ $count=$count>=$maxlist?$maxlist:$count;
 $query_args=array();
 ?>
 <link rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/wp-list-property.css" ?>">
-<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutilnew.min.js"></script>
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	

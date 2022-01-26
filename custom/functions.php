@@ -1512,6 +1512,7 @@ if( ! function_exists('zipperagent_populate_new_autocomplete') ){
 			'sd'=>1,
 			'addr'=>1,
 			'ps'=>5,
+			'mls'=>1,
 		);
 		
 		$params = wp_parse_args( $args, $defaults );
@@ -3600,6 +3601,7 @@ if( ! function_exists('populate_addresses_and_schools') ){
 			'HIGHSCHOOL',
 			'SCHOOLDISTRICT',
 			'FULLADDRESS',		
+			'LISTNO',		
 		);
 		
 		$arr=array();
@@ -3633,6 +3635,9 @@ if( ! function_exists('populate_addresses_and_schools') ){
 							break;
 						case 'FULLADDRESS':
 								$prefix='aflladdr';
+							break;
+						case 'LISTNO':
+								$prefix='alstid';
 							break;
 					}
 					
@@ -6691,7 +6696,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 		
 		if($direct):
 		?>
-		<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
+		<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutilnew.min.js"></script>
 		<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script><?php
 		endif;
 		?>
@@ -7300,8 +7305,9 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var hs=1;
 						var sd=1;
 						var addr=1;
+						var mls=1;
 						var inputText = ms_all.getRawValue();
-						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 						
 						var xhttp = new XMLHttpRequest();
 						xhttp.onreadystatechange = function() {

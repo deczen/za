@@ -6379,6 +6379,9 @@ var zppr={
 							case 'FULLADDRESS':
 									prefix='aflladdr';
 								break;
+							case 'LISTNO':
+									prefix='alstid';
+								break;
 						}
 						
 						var name = field.value.trim();
