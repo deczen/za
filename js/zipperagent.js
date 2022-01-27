@@ -6342,6 +6342,7 @@ var zppr={
 			'HIGHSCHOOL',
 			'SCHOOLDISTRICT',
 			'FULLADDRESS',		
+			'LISTNO',		
 		];
 		
 		var arr=[];
