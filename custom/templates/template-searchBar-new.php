@@ -1399,8 +1399,9 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					var hs=1;
 					var sd=1;
 					var addr=0;
+					var mls=0;
 					var inputText = ms_school3.getRawValue();
-					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 					
 					var xhttp = new XMLHttpRequest();
 					xhttp.onreadystatechange = function() {
@@ -1487,8 +1488,9 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					var hs=0;
 					var sd=0;
 					var addr=1;
+					var mls=0;
 					var inputText = ms_address.getRawValue();
-					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 					
 					var xhttp = new XMLHttpRequest();
 					xhttp.onreadystatechange = function() {
@@ -1669,8 +1671,9 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					var hs=1;
 					var sd=1;
 					var addr=1;
+					var mls=1;
 					var inputText = ms_all_mobile.getRawValue();
-					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 					
 					var xhttp = new XMLHttpRequest();
 					xhttp.onreadystatechange = function() {

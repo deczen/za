@@ -6696,7 +6696,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 		
 		if($direct):
 		?>
-		<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutilnew.min.js"></script>
+		<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
 		<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script><?php
 		endif;
 		?>
@@ -7121,8 +7121,9 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var hs=1;
 						var sd=1;
 						var addr=0;
+						var mls=0;
 						var inputText = ms_school3.getRawValue();
-						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 						
 						var xhttp = new XMLHttpRequest();
 						xhttp.onreadystatechange = function() {
@@ -7212,8 +7213,9 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var hs=0;
 						var sd=0;
 						var addr=1;
+						var mls=0;
 						var inputText = ms_address.getRawValue();
-						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr);
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 						
 						var xhttp = new XMLHttpRequest();
 						xhttp.onreadystatechange = function() {

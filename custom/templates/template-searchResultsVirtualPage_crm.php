@@ -71,7 +71,7 @@ unset($alstid); */
 <?php if(isset($requests['direct']) && $requests['direct']): ?>
 <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css'; ?>">	
 <?php /* <script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/date.format.js" ?>"></script> */ ?>
-<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutilnew.min.js"></script>
+<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
 <?php endif; ?>

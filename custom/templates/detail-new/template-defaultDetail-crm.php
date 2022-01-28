@@ -44,7 +44,7 @@ function getDirContents($dir, &$results = array()) {
     return $results;
 }
 ?>
-<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutilnew.min.js"></script>
+<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
 <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/detail.css'; ?>">
 <!-- walkscore variables -->
