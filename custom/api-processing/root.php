@@ -148,6 +148,10 @@
 	if(isset($rb['web']['ref_page_url']))  					$data['web']['ref_page_url'] = $rb['web']['ref_page_url'];
 	if(isset($rb['web']['enable_update_search']))  			$data['web']['enable_update_search'] = $rb['web']['enable_update_search'];
 	
+	if(isset($rb['web']['display.buyerrebate.amount']))  	$data['web']['display.buyerrebate.amount'] = $rb['web']['display.buyerrebate.amount'];
+	if(isset($rb['web']['buyerrebate.amount.prefix']))  	$data['web']['buyerrebate.amount.prefix'] = $rb['web']['buyerrebate.amount.prefix'];
+	if(isset($rb['web']['emptybuyerrebate.amount.text']))  	$data['web']['emptybuyerrebate.amount.text'] = $rb['web']['emptybuyerrebate.amount.text'];
+	
 	if(isset($rb['layout']['listpage_layout']))  			$data['layout']['listpage_layout'] = $rb['layout']['listpage_layout'];
 	if(isset($rb['layout']['detailpage_layout']))  			$data['layout']['detailpage_layout'] = $rb['layout']['detailpage_layout'];
 	if(isset($rb['layout']['detailpage_layout_sf']))  		$data['layout']['detailpage_layout_sf'] = $rb['layout']['detailpage_layout_sf'];

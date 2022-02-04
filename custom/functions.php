@@ -989,9 +989,12 @@ if( ! function_exists('zipperagent_get_address') ){
 		$zipcode = isset($property->zipcode)?$property->zipcode:'';
 		$streetno = isset($property->streetno)?$property->streetno:'';
 		$fulladdress = isset($property->fulladdress)?$property->fulladdress:'';
+		$addressWithoutStreeno = isset($property->addressWithoutStreeno)?$property->addressWithoutStreeno:'';
 		$formattedAddress = isset($property->formattedAddress)?$property->formattedAddress:'';
 		
-		if($hide_streetnumber){
+		if($addressWithoutStreeno && $hide_streetnumber){
+			$address = $addressWithoutStreeno;
+		}else if($hide_streetnumber){
 			$address = $streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
 		}else if($fulladdress){
 			$address = $fulladdress;
@@ -3448,6 +3451,7 @@ if( ! function_exists('populate_schools3') ){
 			'hs'=>1,
 			'sd'=>1,
 			'addr'=>0,
+			'mls'=>0,
 			'ps'=>$limit,
 			'crit'=>$crit,
 		);
@@ -3526,6 +3530,7 @@ if( ! function_exists('populate_addresses') ){
 			'hs'=>0,
 			'sd'=>0,
 			'addr'=>1,
+			'mls'=>0,
 			'ps'=>$limit,
 			'crit'=>$crit,
 		);
@@ -3589,6 +3594,7 @@ if( ! function_exists('populate_addresses_and_schools') ){
 			'hs'=>1,
 			'sd'=>1,
 			'addr'=>1,
+			'mls'=>1,
 			'ps'=>$limit,
 			'crit'=>$crit,
 		);
@@ -3665,6 +3671,70 @@ if( ! function_exists('populate_addresses_and_schools') ){
 		}
 		
 		$arr = array_merge_recursive( $arr_addr, $arr );
+		
+		return $arr;
+	}
+}
+
+if( ! function_exists('populate_listids') ){
+	function populate_listids($text,$requests="",$limit=5){
+		
+		$variables = zipperagent_generate_list($requests, 0, 0);
+		
+		$crit = $variables['vars']['crit'];
+		
+		$args=array(
+			'text'=>$text,
+			'gs'=>0,
+			'ms'=>0,
+			'hs'=>0,
+			'sd'=>0,
+			'addr'=>0,
+			'mls'=>1,
+			'ps'=>$limit,
+			'crit'=>$crit,
+		);
+
+		$obj = zipperagent_populate_new_autocomplete($args);
+		
+		$includes = array(		
+			'LISTNO',		
+		);
+		
+		$arr=array();
+		
+		foreach( $obj as $line ){
+				
+			if(!in_array($line->field, $includes))
+				continue;
+			
+			if(isset($line->buckets) && sizeof($line->buckets)){
+				
+				$type = strtolower($line->field);
+				$group = ucwords($type);
+				
+				foreach($line->buckets as $field){
+					
+					$prefix='';
+					switch($line->field){
+						case 'LISTNO':
+								$prefix='alstid';
+							break;
+					}
+					
+					$name = trim($field->value);
+					$value = trim($field->value);
+					$code = $prefix.'_'.$value;
+					
+					$arr[]=array(
+						'group'=>$group,
+						'name'=>$name,
+						'code'=>$code,
+						'type'=>$type,
+					);
+				}
+			}
+		}
 		
 		return $arr;
 	}
@@ -5269,6 +5339,28 @@ if( ! function_exists('zp_get_credentials') ){
 	}
 }
 
+if( ! function_exists('za_get_rebate_text') ){
+	function za_get_rebate_text( $property ){
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$is_enabled = isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+		$rebate_text = '';
+		
+		if( $is_enabled ){
+			$prefix = isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+			$text = isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
+			
+			if( isset( $property->buyerRebate ) ){
+				
+				$rebate_text = $prefix . ' ' . zipperagent_currency() . number_format_i18n( $property->buyerRebate, 0 );
+			}else{
+				$rebate_text = $prefix . ' ' . $text;
+			}
+		}
+		
+		return $rebate_text;
+	}
+}
+
 if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
 		
@@ -6831,7 +6923,14 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						'</div>';
 					},
 					selectionRenderer: function(data){
-						return '<div class="name">' + data.name + '</div>';
+						
+						var name = data.name;
+						
+						if( data.type == 'listno' ){
+							name = 'MLS#'+data.name;
+						}
+						
+						return '<div class="name">' + name + '</div>';
 					},				
 				});	
 				
@@ -6898,6 +6997,27 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
+				var ms_listid = $('#zpa-listid-input').magicSuggest({
+					
+					data: null,
+					valueField: 'code',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + 'MLS#'+data.name + '</div>';
+					},				
+				});
+				
 				/* magicSuggest actions */
 				
 				<?php if($auto_submit): ?>
@@ -6923,6 +7043,11 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					}, 500);
 				});
 				$(ms_zip).on('selectionchange', function(e,m){						
+					setTimeout(function() {					
+						m.container.parents('#omnibar-wrap form.omnibar').submit();
+					}, 500);
+				});
+				$(ms_listid).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
 						m.container.parents('#omnibar-wrap form.omnibar').submit();
 					}, 500);
@@ -7010,7 +7135,26 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					}
 				});
 				
-				jQuery('body').on( 'change', '.field-wrap .field-section.listid #listid', function(){
+				$(ms_listid).on('selectionchange', function(e,m){		
+					var values = this.getValue();
+					var value, check, name, add;
+					var fields = $('.field-wrap .field-section.all .input-fields');
+					
+					fields.html(''); //clear all fields
+					
+					for(i=0; i<values.length; i++){
+						
+						value  = values[i];
+						
+						name = 'alstid[]';
+						value = value.replace('alstid_','');
+						
+						add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
+						fields.append(add);
+					}
+				});
+				
+				/* jQuery('body').on( 'change', '.field-wrap .field-section.listid #listid', function(){
 					 
 					var values=jQuery.unique(jQuery(this).val().split(','));
 					var name='alstid[]';
@@ -7026,7 +7170,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
 						fields.append(add);
 					};
-				});
+				}); */
 
 				jQuery(ms_school).on('keyup', function(event){
 					
@@ -7244,6 +7388,98 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					}
 				});
 				
+				var xhr_listid;
+				jQuery(ms_listid).on('keyup', function(event){
+					
+					
+					if(! direct){
+						if(xhr_listid && xhr_listid.readyState != 4){
+							xhr_listid.abort();
+						}
+						
+						event.preventDefault();
+						
+						clearTimeout(timer);
+						//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+						timer = setTimeout(function () {
+							//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+							var inputText = ms_listid.getRawValue();
+							var requests = {};
+							var element = jQuery(ms_listid.container[0]).parents('#zpa-main-search-form, #searchProfile');							
+							jQuery.map( element.serializeArray(), function( el, i ) {
+								requests[el.name]=el.value
+							});
+							
+							console.time('populate listid');
+							xhr_listid = jQuery.ajax({
+								type: 'POST',
+								dataType : 'json',
+								url: zipperagent.ajaxurl,
+								data: {
+									'key': inputText,
+									'action': 'listid_options',
+									'requests': requests,
+								},
+								success: function( response ) {         
+									if( response ){
+										var data = response.listids;
+										ms_listid.setData(data);
+									}
+									console.timeEnd('populate listid');
+								},
+								error: function(){
+									console.timeEnd('populate listid');
+								}
+							});
+						}, 500);
+					}else{
+						console.time('populate listid');
+						
+						var parm=[];
+						var subdomain=zppr.data.root.web.subdomain;
+						var customer_key=zppr.data.root.web.authorization.consumer_key;
+						var ps=10;
+						var element = jQuery(ms_listid.container[0]).parents('#zpa-main-search-form, #searchProfile');
+						var requests = zppr.get_form_inputs(element);
+						var params = zppr.generate_api_params(requests);
+						var crit = params.crit;
+						var response=false;
+						var gs=0;
+						var ms=0;
+						var hs=0;
+						var sd=0;
+						var addr=0;
+						var mls=1;
+						var inputText = ms_listid.getRawValue();
+						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
+						
+						var xhttp = new XMLHttpRequest();
+						xhttp.onreadystatechange = function() {
+
+							if (this.readyState == 4 ) {
+								if(this.status == 200){
+								
+									response=JSON.parse(this.responseText);
+									if(response.responseCode===200){
+										
+										var data = zppr.populate_listids(response);
+										ms_listid.setData(data);
+										
+										console.timeEnd('populate listid');
+									}
+									
+								}else {
+									console.log("status = " + status + " received");
+								}
+							} else {
+								console.log("status = " + status + " received");
+							}
+						};
+						xhttp.open("GET", guxx(parm), true);
+						xhttp.send();
+					}
+				});
+				
 				var xhr_all;
 				jQuery(ms_all).on('keyup', function(event){
 					
@@ -7407,14 +7643,14 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all.setValue([firstData.code]);
-						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+						}/* else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
 							var val = ms_all__rawValue;
 							var prefix = 'alstid_';
 							var code = prefix + val;							
 							var label = 'MLS#' + val;
 							var push = {group:'Mls', name: label, code: code, type: 'mls' };
 							ms_all.setValue([push]);
-						}
+						}*/
 						
 						ms_all__afterDelete=0;
 						
@@ -7436,14 +7672,14 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 							if(data.length){
 								firstData=JSON.parse(data[0].dataset.json);
 								ms_all.setValue([firstData.code]);
-							}else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
+							}/* else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
 								var val = ms_all__rawValue;
 								var prefix = 'alstid_';
 								var code = prefix + val;							
 								var label = 'MLS#' + val;
 								var push = {group:'Mls', name: label, code: code, type: 'mls' };
 								ms_all.setValue([push]);
-							}
+							}*/
 						}
 						
 						ms_all.collapse();
@@ -7462,14 +7698,14 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 							if(data.length){
 								firstData=JSON.parse(data[0].dataset.json);
 								ms_all.setValue([firstData.code]);
-							}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+							}/* else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
 								var val = ms_all__rawValue;
 								var prefix = 'alstid_';
 								var code = prefix + val;							
 								var label = 'MLS#' + val;
 								var push = {group:'Mls', name: label, code: code, type: 'mls' };
 								ms_all.setValue([push]);
-							}
+							}*/
 						}
 						
 						ms_all.empty();
@@ -7855,6 +8091,102 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						ms_zip__afterDelete=1;
 					}else{
 						ms_zip__afterDelete=0;
+					}
+				});
+				
+				/* auto select dropdown function (ms_listid) */
+				var ms_listid__rawValue='';
+				var ms_listid__afterDelete=0;
+				var ms_listid__recentSelected=[];
+				var ms_listid__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_listid).on('keyup', function(){
+					ms_listid__rawValue = ms_listid.getRawValue();
+					ms_listid__afterDelete=0;
+					
+					//set data on 
+					if(ms_listid__rawValue.length===1)
+						ms_listid.setData([]);
+				});
+				
+				//get current selected value
+				$(ms_listid).on('focus', function(c){
+					ms_listid__recentSelected = ms_listid.getValue();
+					ms_listid__afterDelete=1;
+					
+					//auto open dropdown
+					if(tenants) ms_listid.expand();
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_listid).on('blur', function(c, e){
+					var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_listid__currentSelected = ms_listid.getValue();
+					
+					if( ms_listid__rawValue!="" && ! ms_listid__afterDelete && ms_listid__recentSelected.length == ms_listid__currentSelected.length ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_listid.setValue([firstData.code]);
+						}
+						
+						ms_listid__afterDelete=0;
+					}
+					
+					//reset data to tenants
+					if(tenants) ms_listid.setData(tenants);
+				});
+				
+				//select value on enter key pressed
+				$(ms_listid).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_listid__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_listid.setValue([firstData.code]);
+							}
+						}
+						
+						ms_listid.collapse();
+					}
+				});
+				
+				//select value on tab key pressed
+				$('#zpa-listid-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_listid__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_listid.setValue([firstData.code]);
+							}
+						}
+						
+						ms_listid.empty();
+						$('#zpa-listid-input input').focus();
+						
+						ms_listid.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_listid).on('selectionchange', function(e,m,r){
+					
+					ms_listid.empty();
+					ms_listid__rawValue="";
+					
+					if(r.length==ms_listid__recentSelected.length && r.length==ms_listid__currentSelected.length){
+						ms_listid__afterDelete=1;
+					}else{
+						ms_listid__afterDelete=0;
 					}
 				});
 			});

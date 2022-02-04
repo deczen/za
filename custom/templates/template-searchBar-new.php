@@ -78,7 +78,8 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
 					</div>
 					<div class="field-section listid hide">
-						<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/>
+						<?php /* <input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/> */ ?>
+						<input id="zpa-listid-input" class="form-control" placeholder="Type any MLS ID #"  name=""/>
 					</div>
 					<div class="field-section school hide">
 						<input type="text" id="zpa-school" class="form-control" placeholder="Type any Address" name="school" />
@@ -1218,7 +1219,12 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					'</div>';
 				},
 				selectionRenderer: function(data){
-					return '<div class="name">' + data.name + '</div>';
+					var name = data.name;
+						
+					if( data.type == 'listno' ){
+						name = 'MLS#'+data.name;
+					}
+					return '<div class="name">' + name + '</div>';
 				},				
 			});
 			
@@ -1303,6 +1309,27 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 				},
 				selectionRenderer: function(data){
 					return '<div class="name">' + data.name + '</div>';
+				},				
+			});
+			
+			var ms_listid = $('#zpa-listid-input').magicSuggest({
+				
+				data: null,
+				valueField: 'code',
+				displayField: 'name',
+				hideTrigger: true,
+				groupBy: 'group',
+				// maxSelection: 1,
+				allowFreeEntries: false,
+				minChars: 2,
+				renderer: function(data){
+					return '<div class="location">' +
+						'<div class="name '+ data.type +'">' + data.name + '</div>' +
+						'<div style="clear:both;"></div>' +
+					'</div>';
+				},
+				selectionRenderer: function(data){
+					return '<div class="name">' + 'MLS#'+data.name + '</div>';
 				},				
 			});
 
@@ -1505,6 +1532,95 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									ms_address.setData(data);
 									
 									console.timeEnd('populate address');
+								}
+								
+							}else {
+								console.log("status = " + status + " received");
+							}
+						} else {
+							console.log("status = " + status + " received");
+						}
+					};
+					xhttp.open("GET", guxx(parm), true);
+					xhttp.send();
+				}
+			});
+			
+			var xhr_listid;
+			jQuery(ms_listid).on('keyup', function(event){
+				
+				if(! direct){				
+					if(xhr_listid && xhr_listid.readyState != 4){
+						xhr_listid.abort();
+					}
+					
+					event.preventDefault();
+					
+					clearTimeout(timer);
+					//create a new timer with a delay of 0.5 seconds, if the keyup is fired before the 2 secs then the timer will be cleared
+					timer = setTimeout(function () {
+						//this will be executed if there is a gap of 0.5 seconds between 2 keyup events
+						var inputText = ms_listid.getRawValue();
+						var requests = {};				
+						jQuery.map( jQuery('<?php echo $uniqueClassWithDot; ?> #zpa-search-filter-form').serializeArray(), function( el, i ) {
+							requests[el.name]=el.value
+						});
+						
+						console.time('populate listid');
+						xhr_listid = jQuery.ajax({
+							type: 'POST',
+							dataType : 'json',
+							url: zipperagent.ajaxurl,
+							data: {
+								'key': inputText,
+								'action': 'listid_options',
+								'requests': requests,
+							},
+							success: function( response ) {         
+								if( response ){
+									var data = response.listids;
+									ms_listid.setData(data);
+								}
+								console.timeEnd('populate listid');
+							},
+							error: function(){
+								console.timeEnd('populate listid');
+							}
+						});
+					}, 500);
+				}else{
+					console.time('populate listid');
+					
+					var parm=[];
+					var subdomain=zppr.data.root.web.subdomain;
+					var customer_key=zppr.data.root.web.authorization.consumer_key;
+					var ps=10;
+					var requests = zppr.get_form_inputs(jQuery('<?php echo $uniqueClassWithDot; ?> #zpa-search-filter-form'));
+					var params = zppr.generate_api_params(requests);
+					var crit = params.crit;
+					var response=false;
+					var gs=0;
+					var ms=0;
+					var hs=0;
+					var sd=0;
+					var addr=0;
+					var mls=1;
+					var inputText = ms_listid.getRawValue();
+					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
+					
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+
+						if (this.readyState == 4 ) {
+							if(this.status == 200){
+							
+								response=JSON.parse(this.responseText);
+								if(response.responseCode===200){
+									
+									var data = zppr.populate_listids(response);
+									ms_listid.setData(data);
+									
+									console.timeEnd('populate listid');
 								}
 								
 							}else {
@@ -1873,6 +1989,28 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 				
 				var name = 'location[]';
 				var linked_name = 'location_'+value;
+				
+				this.removeFromSelection(this.getSelection(), true);
+				addFilterLabel(name, value, linked_name, label);
+				addFormField(name,value,linked_name);
+				
+				jQuery('#zpa-search-filter-form').submit();
+			});
+			
+			$(ms_listid).on('selectionchange', function(e,m){		
+				var values = this.getValue();
+				var value  = values[0].replace('alstid_','');
+				var data   = this.getData();
+				var label;
+				
+				for(i=0; i<data.length; i++){
+					if(data[i].code==value){
+						label = data[i].name;
+					}
+				}
+				
+				var name = 'alstid[]';
+				var linked_name = value;
 				
 				this.removeFromSelection(this.getSelection(), true);
 				addFilterLabel(name, value, linked_name, label);
@@ -2383,7 +2521,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					if(data.length){
 						firstData=JSON.parse(data[0].dataset.json);
 						ms_all.setValue([firstData.code]);
-					}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+					}/*else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
 						var val = ms_all__rawValue;
 						var prefix = 'alstid_';
 						var code = prefix + val;							
@@ -2391,7 +2529,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						
 						var push = {group:'Mls', name: label, code: code, type: 'mls' };
 						ms_all.setValue([push]);
-					}
+					}*/
 					
 					ms_all__afterDelete=0;
 					
@@ -2412,7 +2550,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all.setValue([firstData.code]);
-						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
+						}/*else if(!ms_all__google_autocomplete && !google_autocomplete_selected && ms_all__rawValue.indexOf(" ") < 0){
 							var val = ms_all__rawValue;
 							var prefix = 'alstid_';
 							var code = prefix + val;							
@@ -2420,7 +2558,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							
 							var push = {group:'Mls', name: label, code: code, type: 'mls' };
 							ms_all.setValue([push]);
-						}
+						}*/
 					}
 					
 					ms_all.collapse();
@@ -2468,7 +2606,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					if(data.length){
 						firstData=JSON.parse(data[0].dataset.json);
 						ms_all_mobile.setValue([firstData.code]);
-					}else if(!ms_all_mobile__google_autocomplete && !google_autocomplete_selected){
+					}/*else if(!ms_all_mobile__google_autocomplete && !google_autocomplete_selected){
 						var val = ms_all_mobile__rawValue;
 						var prefix = 'alstid_';
 						var code = prefix + val;							
@@ -2476,7 +2614,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						
 						var push = {group:'Mls', name: label, code: code, type: 'mls' };
 						ms_all_mobile.setValue([push]);
-					}
+					}*/
 					
 					ms_all_mobile__afterDelete=0;
 					
@@ -2497,7 +2635,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all_mobile.setValue([firstData.code]);
-						}else if(!ms_all_mobile__google_autocomplete && !google_autocomplete_selected && ms_all_mobile__rawValue.indexOf(" ") < 0){
+						}/*else if(!ms_all_mobile__google_autocomplete && !google_autocomplete_selected && ms_all_mobile__rawValue.indexOf(" ") < 0){
 							var val = ms_all_mobile__rawValue;
 							var prefix = 'alstid_';
 							var code = prefix + val;							
@@ -2505,7 +2643,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							
 							var push = {group:'Mls', name: label, code: code, type: 'mls' };
 							ms_all_mobile.setValue([push]);
-						}
+						}*/
 					}
 					
 					ms_all_mobile.collapse();
@@ -2524,14 +2662,14 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						if(data.length){
 							firstData=JSON.parse(data[0].dataset.json);
 							ms_all.setValue([firstData.code]);
-						}else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
+						}/*else if(!ms_all__google_autocomplete && !google_autocomplete_selected){
 							var val = ms_all__rawValue;
 							var prefix = 'alstid_';
 							var code = prefix + val;							
 							var label = 'MLS#' + val;
 							var push = {group:'Mls', name: label, code: code, type: 'mls' };
 							ms_all.setValue([push]);
-						}
+						}*/
 					}
 					
 					ms_all.empty();
@@ -3004,6 +3142,92 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					ms_zip__afterDelete=1;
 				}else{
 					ms_zip__afterDelete=0;
+				}
+			});
+			
+			/* auto select dropdown function (ms_listid) */
+			var ms_listid__rawValue='';
+			var ms_listid__afterDelete=0;
+			var ms_listid__recentSelected=[];
+			var ms_listid__currentSelected=[];
+			
+			//get user input keywords
+			$(ms_listid).on('keyup', function(){
+				ms_listid__rawValue = ms_listid.getRawValue();
+				ms_listid__afterDelete=0;
+			});
+			
+			//get current selected value
+			$(ms_listid).on('focus', function(c){
+				ms_listid__recentSelected = ms_listid.getValue();
+				ms_listid__afterDelete=1;
+			});
+			
+			//select value on blur / mouse leave
+			$(ms_listid).on('blur', function(c, e){
+				var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
+				var firstData = '';
+				ms_listid__currentSelected = ms_listid.getValue();
+				
+				if( ms_listid__rawValue!="" && ! ms_listid__afterDelete && ms_listid__recentSelected.length == ms_listid__currentSelected.length ){
+					if(data.length){
+						firstData=JSON.parse(data[0].dataset.json);
+						ms_listid.setValue([firstData.code]);
+					}
+					
+					ms_listid__afterDelete=0;
+				}
+			});
+			
+			//select value on enter key pressed
+			$(ms_listid).on('keydown', function(e,m,v){
+				if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+					var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_listid__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_listid.setValue([firstData.code]);
+						}
+					}
+					
+					ms_listid.collapse();
+				}
+			});
+			
+			//select value on tab key pressed
+			$('#zpa-listidcode-input input').on( 'keydown', function(e){
+				if(e.keyCode === 9) { //tab pressed 
+					var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					
+					if( ms_listid__rawValue!=""){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_listid.setValue([firstData.code]);
+						}
+					}
+					
+					ms_listid.empty();
+					$('#zpa-listidcode-input input').focus();
+					
+					ms_listid.collapse();
+					
+					e.preventDefault();
+				}
+			});
+			
+			//set after delete state
+			$(ms_listid).on('selectionchange', function(e,m,r){
+				
+				ms_listid.empty();
+				ms_listid__rawValue="";
+				
+				if(r.length==ms_listid__recentSelected.length && r.length==ms_listid__currentSelected.length){
+					ms_listid__afterDelete=1;
+				}else{
+					ms_listid__afterDelete=0;
 				}
 			});
 					  

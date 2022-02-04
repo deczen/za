@@ -103,6 +103,17 @@ switch( $column ){
 								</div>
 							</div>
 							<div class="za-container">
+								<?php
+								$rebate_text = za_get_rebate_text( $property );
+								
+								if( $rebate_text ):
+								?>
+								<div class="row mt-10">
+									<div class="col-xs-12">
+										<span class="zpa-grid-rebate-text"> <?php echo $rebate_text; ?> </span>
+									</div>
+								</div>
+								<?php endif; ?>
 								<div class="row mt-10">
 									<div class="col-xs-12">
 										<a class="property_url" href="<?php echo $single_url ?>"> <span class="zpa-grid-result-address"> <img src="<?php echo ZIPPERAGENTURL . "images/map-marker.png" ?>" title="map marker" alt="map marker" /> <?php echo $fulladdress; ?> </span> </a>

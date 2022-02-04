@@ -94,7 +94,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 										<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
 									</div>
 									<div class="field-section listid hide">
-										<input id="listid" class="form-control" placeholder="Type any MLS ID #"  name=""/>
+										<input id="zpa-listid-input" class="form-control" placeholder="Type any MLS ID #"  name=""/>
 										<div style="display:none;" class="input-fields"></div>
 									</div>
 									<div class="field-section school hide">

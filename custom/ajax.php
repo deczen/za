@@ -2015,6 +2015,25 @@ function get_address_and_school_options(){
     }
 }
 
+add_action( 'wp_ajax_listid_options', 'get_listid_options' );
+add_action( 'wp_ajax_nopriv_listid_options', 'get_listid_options' );
+
+function get_listid_options(){
+	
+	if ( isset($_REQUEST) ) {
+				
+		$key = isset($_REQUEST['key'])?wp_strip_all_tags($_REQUEST['key']):'';
+		$requests = isset($_REQUEST['requests'])?$_REQUEST['requests']:'';
+		
+		$listids = populate_listids($key, $requests);
+		
+		$result['listids']=$listids;
+		echo json_encode($result);
+         
+        die();
+    }
+}
+
 add_action( 'wp_ajax_save_result_session', 'save_result_session' );
 add_action( 'wp_ajax_nopriv_save_result_session', 'save_result_session' );
 

@@ -734,6 +734,14 @@ if(file_exists($template_path) && $template_name ){
 						?>			
 						</div>
 						
+						<?php
+						$rebate_text = za_get_rebate_text( $single_property );
+								
+						if( $rebate_text ): ?>
+						<h2 class="detail-page-rebate-text"> Rebate </h2>
+						<p><?php echo $rebate_text; ?></p>
+						<?php endif; ?>
+						
 						<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>	
 						<h2>Open House</h2>
 						<?php 

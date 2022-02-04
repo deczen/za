@@ -284,7 +284,7 @@
 #omnibar-tools .mobile-omnimbar #zpa-view-selected-filter .ms-sel-ctn{padding-left: 0;}
 #omnibar-tools .mobile-omnimbar #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item{margin: 2px 3px;}
 #omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.addr,
-#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.listid{padding-left: 5px;padding-top: 3px;}
+#omnibar-tools .desktop-omnibar .input-column .field-wrap .field-section.listid{/*padding-left: 5px;padding-top: 3px;*/padding-left: 0;padding-top: 0;}
 #omnibar-tools .desktop-omnibar .filter .dropdown-menu select,
 #omnibar-tools .desktop-omnibar .filter .cq-dropdown button{
 	-webkit-appearance:none;

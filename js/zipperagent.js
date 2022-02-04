@@ -28,6 +28,9 @@ var zppr={
 		map_default_status: zipperagent.map_default_status,
 		map_markers: zipperagent.map_markers,
 		synctime: zipperagent.synctime,
+		display_buyerrebate_amount: zipperagent.display_buyerrebate_amount,
+		buyerrebate_amount_prefix: zipperagent.buyerrebate_amount_prefix,
+		emptybuyerrebate_amount_text: zipperagent.emptybuyerrebate_amount_text,
 		
 		/* single property */
 		company_name: zipperagent.company_name,
@@ -1512,7 +1515,19 @@ var zppr={
 										/* incldue vtlink template */
 										zppr.vtlink_template(single_property) +
 											
-										'</div>';
+										'</div>';		
+		
+		var rebate_text_html = '';
+		
+		var rebate_text = zppr.get_rebate_text(single_property);
+		
+		if(rebate_text){
+			
+			rebate_text_html = '<h2 class="detail-page-rebate-text"> Rebate </h2>' +
+								'<p>' + rebate_text + '</p>';
+		}
+		
+		html+=							rebate_text_html;
 										
 		if(single_property.hasOwnProperty('openHouses') && single_property.openHouses.length){
 			html+=						'<h2>Open House</h2>';
@@ -3496,6 +3511,19 @@ var zppr={
 							'</div>';
 		}
 		
+		var rebate_text_html = '';
+		
+		var rebate_text = zppr.get_rebate_text(property);
+		
+		if(rebate_text){
+			
+			rebate_text_html = '<div class="row mt-10">' +
+									'<div class="col-xs-12">' +
+										'<span class="zpa-grid-rebate-text"> '+ rebate_text +' </span>' +
+									'</div>' +
+								'</div>';
+		}
+		
 		var html = '<div class="zpa-grid-result '+ columns_code +'">' +
 					'<div class="zpa-grid-result-container well">' +
 						'<div class="row">' +
@@ -3509,6 +3537,9 @@ var zppr={
 							'</div>' +
 						'</div>' +
 						'<div class="za-container">' +
+							
+							rebate_text_html +
+							
 							'<div class="row mt-10">' +
 								'<div class="col-xs-12">' +
 									'<a class="property_url" href="'+ prop_url +'">' +
@@ -3739,6 +3770,19 @@ var zppr={
 							'</div>';
 		}
 		
+		var rebate_text_html = '';
+		
+		var rebate_text = zppr.get_rebate_text(property);
+		
+		if(rebate_text){
+			
+			rebate_text_html = '<div class="row mt-10">' +
+									'<div class="col-xs-12">' +
+										'<span class="zpa-grid-rebate-text"> '+ rebate_text +' </span>' +
+									'</div>' +
+								'</div>';
+		}
+		
 		var html = '<div class="zpa-grid-result col-lg-12 col-sm-12 col-md-12 col-xs-12" index="'+ index +'">' +
 							
 					'<div class="zpa-grid-result-container well">' +
@@ -3753,6 +3797,9 @@ var zppr={
 							'</div>' +
 						'</div>' +
 						'<div class="za-container">' +
+							
+							rebate_text_html +
+							
 							'<div class="row mt-10">' +
 								'<div class="col-xs-12">' +
 									'<a class="property_url" href="#to_'+ property.listno +'">' +
@@ -4112,18 +4159,30 @@ var zppr={
 	   return (typeof num !== 'undefined') ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 	},
 	getAddress:function(property){
+		
+		var hide_streetnumber=0;
+		var rnhidestreetno = zppr.data.root.web.hasOwnProperty('rnhidestreetno')?zppr.data.root.web.rnhidestreetno:0;
+		if( rnhidestreetno && property.hasOwnProperty('proptype') && property.proptype=="RN" ){
+			hide_streetnumber=1;
+		}
+		
 		var streetname = property.hasOwnProperty('streetname')?property.streetname:'';
 		var lngTOWNSDESCRIPTION = property.hasOwnProperty('lngTOWNSDESCRIPTION')?property.lngTOWNSDESCRIPTION:'';
 		var provinceState = property.hasOwnProperty('provinceState')?property.provinceState:'';
 		var zipcode = property.hasOwnProperty('zipcode')?property.zipcode:'';
 		var streetno = property.hasOwnProperty('streetno')?property.streetno:'';
 		var fulladdress = property.hasOwnProperty('fulladdress')?property.fulladdress:'';
-		var hide_streetnumber = 0;
+		var addressWithoutStreeno = property.hasOwnProperty('addressWithoutStreeno')?property.addressWithoutStreeno:'';
+		var formattedAddress = property.hasOwnProperty('formattedAddress')?property.formattedAddress:'';
 		
-		if(hide_streetnumber){
+		if(addressWithoutStreeno && hide_streetnumber){
+			address = addressWithoutStreeno;
+		}else if(hide_streetnumber){
 			address = streetname+' '+lngTOWNSDESCRIPTION+', '+provinceState+' '+zipcode;
 		}else if(fulladdress){
 			address = fulladdress;
+		}else if(formattedAddress){
+			address = formattedAddress;
 		}else{
 			address = streetno+' '+streetname+' '+lngTOWNSDESCRIPTION+', '+provinceState+' '+zipcode;
 		}
@@ -4286,6 +4345,24 @@ var zppr={
 		}
 		
 		return inputs;
+	},
+	get_rebate_text:function(property){
+		var is_enabled = zppr.data.display_buyerrebate_amount;
+		var rebate_text = '';
+		
+		if( is_enabled ){
+			var prefix =  zppr.data.buyerrebate_amount_prefix;
+			var text =  zppr.data.emptybuyerrebate_amount_text;
+			
+			if( property.hasOwnProperty('buyerRebate') ){
+				
+				rebate_text = prefix + ' ' + zppr.moneyFormat(property.buyerRebate);
+			}else{
+				rebate_text = prefix + ' ' + text;
+			}
+		}
+		
+		return rebate_text;
 	},
 	get_source_text:function(sourceid, params, type){
 		sources = zppr.data.source_cached;
@@ -6411,6 +6488,55 @@ var zppr={
 		}
 		
 		arr = jQuery.merge( arr_addr, arr );
+		
+		return arr;
+	},
+	populate_listids:function(obj){
+		
+		var includes = [
+			'LISTNO',	
+		];
+		
+		var arr=[];
+		
+		if(obj.hasOwnProperty('result')){
+			
+			for (const [key, line] of Object.entries(obj.result)) {
+				
+				if(jQuery.inArray(line.field, includes) < 0)
+					continue;
+				
+				if( line.hasOwnProperty('buckets') && line.buckets.length){
+					
+					var type = line.field.toLowerCase();
+					var group = type.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+									return letter.toUpperCase();
+								});
+					
+					for (const [key2, field] of Object.entries(line.buckets)) {	
+						
+						var prefix='';
+						switch(line.field){
+							case 'LISTNO':
+									prefix='alstid';
+								break;
+						}
+						
+						var name = field.value.trim();
+						var value = field.value.trim();
+						var code = prefix+'_'+value;
+						
+						arr.push({
+							'group':group,
+							'name':name,
+							'code':code,
+							'type':type,
+						});
+					}
+				}
+				
+			}
+		}
 		
 		return arr;
 	},

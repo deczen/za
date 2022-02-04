@@ -40,6 +40,9 @@ function generate_zipperagent_variables(){
 	$args['extra_proptype']=zipperagent_extra_proptype();	
 	$args['synctime']=zipperagent_get_synctime();
 	$args['map_default_status']=zipperagent_get_map_default_status();
+	$args['display_buyerrebate_amount']=isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+	$args['buyerrebate_amount_prefix']=isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+	$args['emptybuyerrebate_amount_text']=isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
 	
 	$markers = zipperagent_get_map_markers();
 	//echo '<pre>'; print_r($markers); echo '</pre>';
