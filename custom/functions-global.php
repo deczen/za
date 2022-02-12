@@ -83,7 +83,7 @@ class ZipperagentGlobalFunction{
 		$rb = $this->zipperagent_rb();	
 		$detailpage_direct = isset($rb['layout']['detailpage_direct'])?$rb['layout']['detailpage_direct']:0;
 				
-		return $detailpage_direct;
+		return 0;
 	}
 	
 	public function is_zipperagent_new_detail_page(){

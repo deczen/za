@@ -747,7 +747,7 @@ var zppr={
 						// if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 							// $query_args['newsearchbar']= 1;
 						// }
-						single_url = zppr.getPropUrl(listingId,address);
+						single_url = zppr.getPropUrl(listingId,fulladdress);
 						
 						is_login=zppr.data.is_login;
 						// $is_active=zipperagent_is_favorite($property->id)?"active":"";
@@ -1307,12 +1307,40 @@ var zppr={
 								'<button class="zy_save-property '+ (zppr.data.is_login==0?"needLogin":"") +'" isLogin="'+ zppr.data.is_login +'" afterAction="save_property" contactid="'+ zppr.data.contactIds.join() +'" searchid="'+ zppr.data.searchId +'" listingid="'+ single_property.id +'"><i class="fa fa-floppy-o fa-fw" role="none"></i></button>' +
 								'<span>Save</span>' +
 							'</div>';
+							
+		var enable_rebate = zppr.data.display_buyerrebate_amount;
+		var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+		var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
+							
+		var col_length = ! enable_rebate ? 'col-lg-3' : 'col-lg-2';
+		var col_length2 = ! enable_rebate ? 'col-lg-3' : 'col-lg-4';
+		var col_length_sub = ! enable_rebate ? 'col-lg-6' : 'col-lg-4';
+		
+		var rebate_col_html = '';
+		
+		if( enable_rebate ){
+			
+			var rebate_price = '';
+
+			if( single_property.hasOwnProperty('buyerRebate') && single_property.buyerRebate ){				
+				rebate_price = zppr.moneyFormat(single_property.buyerRebate);
+			}else{
+				rebate_price = rebate_default_text;
+			}
+			
+			rebate_col_html = 	'<div class="'+ col_length_sub +' col-sm-12 col-md-12 col zy_nopadding">' +
+											'<h2>' +
+												'<p class="zy_price-style rebate-price">' + rebate_price + '</p>' +
+												'<p class="zy_label-style rebate-prefix">'+ rebate_prefix +'</p>' +
+											'</h2>' +
+										'</div>';
+		}
 		
 		html += 	'<section class="col-lg-12 col-sm-12 col-md-12 col-xl-12 zy_main hideonprint" itemtype="http://schema.org/Residence">' +
 						'<article class="container-fluid">' +
 							'<div id="zy_header-section" class="row zyapp_main-style" style="max-width:none;">' +	
 								
-								'<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">' +
+								'<div class="zy_header-style '+ col_length +' col-sm-12 col-md-12 col-xl-3 zy_nopadding">' +
 									'<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">' +
 										'<h1>' +
 											'<p class="zy_address-style"><span itemprop="streetAddress">{{streetno}} '+ (single_property.hasOwnProperty('streetname')?zppr.streetname_fix_comma(single_property.streetname):'') +' '+ (single_property.hasOwnProperty('unitno')?'#'+single_property.unitno:'') +'</span></p>' +
@@ -1331,15 +1359,18 @@ var zppr={
 									'</div>' +
 								'</div>' +
 								
-								'<div class="zy_price-mls col-lg-3 col-sm-12 col-md-12 col-xl-4 zy_nopadding">' +
+								'<div class="zy_price-mls '+ col_length2 +' col-sm-12 col-md-12 col-xl-4 zy_nopadding">' +
 									'<div class="row">' +
-										'<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">' +
+										'<div class="'+ col_length_sub +' col-sm-12 col-md-12 col zy_nopadding">' +
 											'<h2>' +
 												'<p class="zy_price-style">' + zppr.data.currency +'{{realprice}}</p>' +
 												'<p class="zy_label-style">Price</p>' +
 											'</h2>' +
 										'</div>' +
-										'<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">' +
+										
+										rebate_col_html + 
+										
+										'<div class="'+ col_length_sub +' col-sm-12 col-md-12 col zy_nopadding">' +
 											'<h2>' +
 												'<p class="zy_mlsno">{{listno}}</p>' +
 												'<p class="zy_label-style">{{displaySource}}#</p>' +
@@ -1515,19 +1546,7 @@ var zppr={
 										/* incldue vtlink template */
 										zppr.vtlink_template(single_property) +
 											
-										'</div>';		
-		
-		var rebate_text_html = '';
-		
-		var rebate_text = zppr.get_rebate_text(single_property);
-		
-		if(rebate_text){
-			
-			rebate_text_html = '<h2 class="detail-page-rebate-text"> Rebate </h2>' +
-								'<p>' + rebate_text + '</p>';
-		}
-		
-		html+=							rebate_text_html;
+										'</div>';
 										
 		if(single_property.hasOwnProperty('openHouses') && single_property.openHouses.length){
 			html+=						'<h2>Open House</h2>';
@@ -3511,16 +3530,27 @@ var zppr={
 							'</div>';
 		}
 		
-		var rebate_text_html = '';
+		var enable_rebate = zppr.data.display_buyerrebate_amount;
+		var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+		var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
 		
-		var rebate_text = zppr.get_rebate_text(property);
+		var rebate_badge_html = '';
 		
-		if(rebate_text){
+		if( enable_rebate ){
 			
-			rebate_text_html = '<div class="row mt-10">' +
-									'<div class="col-xs-12">' +
-										'<span class="zpa-grid-rebate-text"> '+ rebate_text +' </span>' +
-									'</div>' +
+			var rebate_price = '';
+
+			if( property.hasOwnProperty('buyerRebate') && property.buyerRebate ){				
+				rebate_price = zppr.moneyFormat(property.buyerRebate);
+			}else{
+				rebate_price = rebate_default_text;
+			}
+			
+			rebate_badge_html = '<div class="badge-rebate">' +
+									'<span class="rebate-price">' +
+										rebate_price +
+									'</span>' +
+									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
 								'</div>';
 		}
 		
@@ -3529,6 +3559,7 @@ var zppr={
 						'<div class="row">' +
 							'<div class="col-xs-12">' +
 								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
+									rebate_badge_html +
 									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
 									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
 									'<a class="property_url" href="'+ prop_url +'"></a>' +
@@ -3537,8 +3568,6 @@ var zppr={
 							'</div>' +
 						'</div>' +
 						'<div class="za-container">' +
-							
-							rebate_text_html +
 							
 							'<div class="row mt-10">' +
 								'<div class="col-xs-12">' +
@@ -3770,16 +3799,27 @@ var zppr={
 							'</div>';
 		}
 		
-		var rebate_text_html = '';
+		var enable_rebate = zppr.data.display_buyerrebate_amount;
+		var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+		var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
 		
-		var rebate_text = zppr.get_rebate_text(property);
+		var rebate_badge_html = '';
 		
-		if(rebate_text){
+		if( enable_rebate ){
 			
-			rebate_text_html = '<div class="row mt-10">' +
-									'<div class="col-xs-12">' +
-										'<span class="zpa-grid-rebate-text"> '+ rebate_text +' </span>' +
-									'</div>' +
+			var rebate_price = '';
+
+			if( property.hasOwnProperty('buyerRebate') && property.buyerRebate ){				
+				rebate_price = zppr.moneyFormat(property.buyerRebate);
+			}else{
+				rebate_price = rebate_default_text;
+			}
+			
+			rebate_badge_html = '<div class="badge-rebate">' +
+									'<span class="rebate-price">' +
+										rebate_price +
+									'</span>' +
+									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
 								'</div>';
 		}
 		
@@ -3789,6 +3829,7 @@ var zppr={
 						'<div class="row">' +
 							'<div class="col-xs-12">' +
 								'<div style="background-image: url(\''+ img_url +'\');" class="zpa-results-grid-photo">' +
+									rebate_badge_html +
 									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
 									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
 									'<a class="property_url" href="#to_'+ property.listno +'"></a>' +
@@ -3796,10 +3837,7 @@ var zppr={
 								'</div>' +
 							'</div>' +
 						'</div>' +
-						'<div class="za-container">' +
-							
-							rebate_text_html +
-							
+						'<div class="za-container">' +							
 							'<div class="row mt-10">' +
 								'<div class="col-xs-12">' +
 									'<a class="property_url" href="#to_'+ property.listno +'">' +
@@ -4124,9 +4162,10 @@ var zppr={
 						'</a>'+
 						'<a href="'+ prop_url +'" target="_self">'+
 							'<p class="impress-address">'+
-								'<span class="impress-street">' + ( property.hasOwnProperty('streetno') ? property.streetno :'-' ) +' '+ ( property.hasOwnProperty('streetname') ? zppr.streetname_fix_comma( property.streetname ) :'-' ) +'</span> '+
-								'<span class="impress-cityname">' + ( property.hasOwnProperty('lngTOWNSDESCRIPTION')? property.lngTOWNSDESCRIPTION :'-' ) +'</span>, '+
-								'<span class="impress-state"> ' + ( property.hasOwnProperty('provinceState')? property.provinceState :'-' ) + '</span>'+
+								// '<span class="impress-street">' + ( property.hasOwnProperty('streetno') ? property.streetno :'-' ) +' '+ ( property.hasOwnProperty('streetname') ? zppr.streetname_fix_comma( property.streetname ) :'-' ) +'</span> '+
+								// '<span class="impress-cityname">' + ( property.hasOwnProperty('lngTOWNSDESCRIPTION')? property.lngTOWNSDESCRIPTION :'-' ) +'</span>, '+
+								// '<span class="impress-state"> ' + ( property.hasOwnProperty('provinceState')? property.provinceState :'-' ) + '</span>'+
+								address +
 							'</p>'+
 						'</a>'+
 						'<p class="impress-beds-baths-sqft">';

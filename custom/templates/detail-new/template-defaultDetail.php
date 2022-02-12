@@ -441,6 +441,16 @@ if(file_exists($template_path) && $template_name ){
 
 /* if there is no template, run default template */
 
+
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+$enable_rebate = isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+$rebate_prefix = isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+$rebate_default_text = isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
+
+$col_length = ! $enable_rebate ? 'col-lg-3' : 'col-lg-2';
+$col_length2 = ! $enable_rebate ? 'col-lg-3' : 'col-lg-4';
+$col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
+
 ?>
 <?php /* <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/bootstrap.min.css'; ?>">	*/ ?>
 
@@ -451,7 +461,7 @@ if(file_exists($template_path) && $template_name ){
 				
 				<?php if(isset($is_doing_ajax) && $is_doing_ajax) ob_start(); //start save header section ?>
 				
-				<div class="zy_header-style col-lg-3 col-sm-12 col-md-12 col-xl-3 zy_nopadding">
+				<div class="zy_header-style <?php echo $col_length; ?> col-sm-12 col-md-12 col-xl-3 zy_nopadding">
 					<div class="zy_address-style" itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
 						<h1>
 							<p class="zy_address-style"><span itemprop="streetAddress">[streetno] <?php echo isset($single_property->streetname)?zipperagent_fix_comma($single_property->streetname):'' ?> <?php echo isset($single_property->unitno)?'#'.$single_property->unitno:'' ?></span></p>
@@ -467,15 +477,31 @@ if(file_exists($template_path) && $template_name ){
 					</div>
 				</div>
 				
-				<div class="zy_price-mls col-lg-3 col-sm-12 col-md-12 col-xl-4 zy_nopadding">
+				<div class="zy_price-mls <?php echo $col_length2; ?> col-sm-12 col-md-12 col-xl-4 zy_nopadding">
 					<div class="row">
-						<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">
+						<div class="<?php echo $col_length_sub; ?> col-sm-12 col-md-12 col zy_nopadding">
 							<h2>
 								<p class="zy_price-style"><?php echo zipperagent_currency(); ?>[realprice]</p>
 								<p class="zy_label-style">Price</p>
 							</h2>
 						</div>
-						<div class="col-lg-6 col-sm-12 col-md-12 col zy_nopadding">
+						<?php 
+						
+						if( isset( $single_property->buyerRebate ) && $single_property->buyerRebate ){
+							$rebate_price = zipperagent_currency() . number_format_i18n( $single_property->buyerRebate, 0 );
+						}else{
+							$rebate_price = $rebate_default_text;
+						}
+						
+						if( $enable_rebate ): ?>
+						<div class="<?php echo $col_length_sub; ?> col-sm-12 col-md-12 col zy_nopadding">
+							<h2>
+								<p class="zy_price-style rebate-price"><?php echo $rebate_price; ?></p>
+								<p class="zy_label-style rebate-prefix"><?php echo $rebate_prefix; ?></p>
+							</h2>
+						</div>
+						<?php endif; ?>
+						<div class="<?php echo $col_length_sub; ?> col-sm-12 col-md-12 col zy_nopadding">
 							<h2>
 								<p class="zy_mlsno">[listno]</p>
 								<p class="zy_label-style">[displaySource]#</p>
@@ -733,14 +759,6 @@ if(file_exists($template_path) && $template_name ){
 						}
 						?>			
 						</div>
-						
-						<?php
-						$rebate_text = za_get_rebate_text( $single_property );
-								
-						if( $rebate_text ): ?>
-						<h2 class="detail-page-rebate-text"> Rebate </h2>
-						<p><?php echo $rebate_text; ?></p>
-						<?php endif; ?>
 						
 						<?php if(isset($single_property->openHouses) && sizeof($single_property->openHouses)): ?>	
 						<h2>Open House</h2>

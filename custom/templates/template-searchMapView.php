@@ -46,6 +46,12 @@ if( $list ): ?>
 		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 		
+		// $rebate_text = za_get_rebate_text( $property );
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$enable_rebate = isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+		$rebate_prefix = isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+		$rebate_default_text = isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
+		
 		if($i % $column ==0 && ! $wrapOpen): ?>
 		<div class="zpa-grid-wrap">
 			<?php 
@@ -57,6 +63,8 @@ if( $list ): ?>
 						<div class="col-xs-12">
 							<div style="background-image: url('<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>');" class="zpa-results-grid-photo" >
 								<img class="printonly" src="<?php echo ( isset($property->photoList[0]) ) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>"  alt="property photo" />
+								<?php if( $enable_rebate ): ?><div class="badge-rebate"><span class="rebate-price"><?php if( isset( $property->buyerRebate ) && $property->buyerRebate ): ?><?php echo zipperagent_currency() . number_format_i18n( $property->buyerRebate, 0 ); ?><?php else: ?><?php echo $rebate_default_text; ?><?php endif; ?></span><span class="rebate-prefix"><?php echo $rebate_prefix; ?></span></div><? endif; ?>
+								<?php if( isset( $option->startDate ) || isset($property->openHouses) ): ?><span class="badge-open-house">Open House</span><?php endif; ?>
 								<a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>
 								<a class="property_url" href="<?php echo $single_url ?>"></a>
 								<a class="property_url" href="<?php echo $single_url ?>"><span class="zpa-for-sale-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?></a>
@@ -64,17 +72,6 @@ if( $list ): ?>
 						</div>
 					</div>
 					<div class="za-container">
-						<?php
-						$rebate_text = za_get_rebate_text( $property );
-						
-						if( $rebate_text ):
-						?>
-						<div class="row mt-10">
-							<div class="col-xs-12">
-								<span class="zpa-grid-rebate-text"> <?php echo $rebate_text; ?> </span>
-							</div>
-						</div>
-						<?php endif; ?>
 						<div class="row mt-10">
 							<div class="col-xs-12">
 								<a class="property_url" href="<?php echo $single_url ?>"> <span class="zpa-grid-result-address"> <img src="<?php echo ZIPPERAGENTURL . "images/map-marker.png" ?>" title="map marker" alt="map marker" /> <?php echo $fulladdress; ?> </span> </a>
