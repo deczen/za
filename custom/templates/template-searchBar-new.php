@@ -973,6 +973,9 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							}
 						}
 						?>
+						case "boundarywkt":
+							newLabel = 'Map Coords';	
+							break;
 						case "awvf": //disable label text
 							newLabel = '';	
 							break;

@@ -4422,7 +4422,7 @@ if( ! function_exists('get_long_excludes') ){
 
 if( ! function_exists('get_new_filter_excludes') ){
 	function get_new_filter_excludes(){
-		$excludes=array( 'address', 'boundarywkt',				
+		$excludes=array( 'address',				
 			'pagination', 'result', 'crit', 'anycrit', 'ajax', 'save_search',
 			'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
 			'search_form_enabled', 'listinapage', 'page', 'maxlist',
