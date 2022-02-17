@@ -328,7 +328,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 				$temp = explode(',',$polygon);
 				
 				// $polygon= str_replace(', ',':',$polygon); 
-				$polygon = $temp[1].':'.$temp[0];
+				$polygon = $temp[0].':'.$temp[1];
 				$added_polygons[]=$polygon;
 			}
 			$added_polygons[]=$added_polygons[0];
@@ -646,7 +646,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 				
 			}else{
 				if($generate_list){
-					$result = zipperagent_run_curl( "/api/mls/within", $vars );
+					$result = zipperagent_run_curl( "/api/mls/withinWoCnt", $vars );
 					$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 					$list=isset($result['filteredList'])?$result['filteredList']:$result;
 				}

@@ -416,7 +416,7 @@ if( $openHomesMode ){ // open houses mode
 		$vars['anycrit'] = $anycrit;
 	}
 	
-	$result = zipperagent_run_curl( "/api/mls/within", $vars );
+	$result = zipperagent_run_curl( "/api/mls/withinWoCnt", $vars );
 	$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 	$list=isset($result['filteredList'])?$result['filteredList']:$result;
 	

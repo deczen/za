@@ -1751,7 +1751,7 @@ function load_more_properties(){
 				$vars['anycrit'] = $anycrit;
 			}
 			
-			$result = zipperagent_run_curl( "/api/mls/within", $vars );
+			$result = zipperagent_run_curl( "/api/mls/withinWoCnt", $vars );
 			$count=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 			$list=isset($result['filteredList'])?$result['filteredList']:$result;
 			

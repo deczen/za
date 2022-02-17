@@ -595,7 +595,11 @@ function initialize() {
 		var coordinates = line.getPath().getArray().toString();
 		var name ='boundarywkt';
 		var value='POLYGON ('+ coordinates +')';
-		addFormField(name,value,'');
+		var label='Map Coords';
+		var linked_name='';
+		addFilterLabel(name, value, linked_name, label);
+		addFormField(name,value,linked_name);
+		// addFormField(name,value,'');
 		jQuery('#zpa-search-filter-form').submit();
 		jQuery( '.gmnoprint > div:not(:last-child)' ).click();
 	});
