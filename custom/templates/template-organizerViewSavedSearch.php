@@ -61,6 +61,21 @@ foreach( $temp as $val ){
 	}
 }
 
+if( isset( $result['mapPolygonString'] ) ){
+	// POLYGON((42.77285043379322,-71.73201591482376),(42.676000433240475,-70.30379325857376),(41.76396592576646,-72.31648262882717),(42.42835096268281,-73.05805977726467))
+	$coords = $result['mapPolygonString'];
+	$coords_arr = explode( ',', $coords );
+	$polygon = array();
+	foreach( $coords_arr as $coord ){
+		$latlng = explode( ':', $coord );
+		$lat = $latlng[0];
+		$lng = $latlng[1];
+		
+		$polygon[]="($lat,$lng)";
+	}
+	$requests['boundarywkt'] = 'POLYGON ('. implode( ',', $polygon ) .')';
+}
+
 //put locations in one element
 if(sizeof($location) && !isset($requests['location'])){
 	$requests['location'] = $location;

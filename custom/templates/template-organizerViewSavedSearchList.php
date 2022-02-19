@@ -147,6 +147,7 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 														<?php /* &nbsp;&nbsp;&nbsp; <strong> State: </strong>  <?php echo $state; ?> */ ?>
 														&nbsp;&nbsp;&nbsp; <strong> Zip: </strong>  <?php echo $zip; ?> 
 														<br> <strong> Property Type: </strong> <?php echo $propertyType; ?> &nbsp;&nbsp;&nbsp; <strong> Min. Price: </strong> <?php echo is_integer($minPrice)?'$'.number_format_i18n($minPrice,0):$minPrice; ?> &nbsp;&nbsp;&nbsp; <strong> Max. Price: </strong> <?php echo is_integer($maxPrice)?'$'.number_format_i18n($maxPrice,0):$maxPrice ?> &nbsp;&nbsp;&nbsp; <strong> Beds: </strong> <?php echo $beds; ?> &nbsp;&nbsp;&nbsp; <strong> Baths: </strong>  <?php echo $baths; ?>
+														<?php if( isset( $saved->mapPolygonString ) ): ?><br /><strong>Map Coords:</strong> <?php echo $saved->mapPolygonString; ?><?php endif; ?>
 													</div>
 													<br />
 													<div class="pull-left"> <a href="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-view-saved-search') . $saved->id ?>" class="btn btn-primary">View Search</a> </div>
