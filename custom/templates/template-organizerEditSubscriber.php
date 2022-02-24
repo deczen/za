@@ -478,8 +478,11 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 														$criteria[$temp2[0]]=isset($temp2[1])?$temp2[1]:'';
 													}
 													// echo "<pre>"; print_r( $criteria); echo "</pre>";
-													$propertyType = isset($criteria['apt'])?$criteria['apt']: 'not specified';
-													$propertyType = zipperagent_property_type($propertyType);      						
+													$apt = isset($criteria['apt'])?$criteria['apt']: 'not specified';
+													$propertyTypes = explode(',', $apt);
+													foreach( $propertyTypes as &$propertyType ){														
+														$propertyType = zipperagent_property_type($propertyType);  
+													}   						
 													
 													$minPrice = isset($criteria['apmin'])?$criteria['apmin']: 'none';
 													$maxPrice = isset($criteria['apmax'])?$criteria['apmax']: 'none';
@@ -504,12 +507,12 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 														<div class="panel-body">
 															<?php /* <div class="pull-left"> <a href="<?php echo site_url('/'); ?>property-organizer-view-saved-search/9250142?" class="btn btn-primary">12 Matches</a> </div> */ ?>
 															
-															<div class="fs-12"> <?php /* <strong> Email Updates: </strong> Yes */ ?>
+															<div class="fs-12" style="overflow-wrap: break-word;"> <?php /* <strong> Email Updates: </strong> Yes */ ?>
 																<?php if($counties): ?><br> <strong> Counties: </strong> <?php echo implode(', ',$counties); ?><?php endif; ?>
 																<?php if($towns): ?><br> <strong> Cities: </strong> <?php echo implode(', ',$towns); ?><?php endif; ?>
 																<?php /* &nbsp;&nbsp;&nbsp; <strong> State: </strong>  <?php echo $state; ?> */ ?>
 																&nbsp;&nbsp;&nbsp; <strong> Zip: </strong>  <?php echo $zip; ?> 
-																<br> <strong> Property Type: </strong> <?php echo $propertyType; ?> &nbsp;&nbsp;&nbsp; <strong> Min. Price: </strong> <?php echo is_integer($minPrice)?'$'.number_format_i18n($minPrice,0):$minPrice; ?> &nbsp;&nbsp;&nbsp; <strong> Max. Price: </strong> <?php echo is_integer($maxPrice)?'$'.number_format_i18n($maxPrice,0):$maxPrice ?> &nbsp;&nbsp;&nbsp; <strong> Beds: </strong> <?php echo $beds; ?> &nbsp;&nbsp;&nbsp; <strong> Baths: </strong>  <?php echo $baths; ?>
+																<br> <strong> Property Type: </strong> <?php echo implode(', ', $propertyTypes); ?> &nbsp;&nbsp;&nbsp; <strong> Min. Price: </strong> <?php echo is_integer($minPrice)?'$'.number_format_i18n($minPrice,0):$minPrice; ?> &nbsp;&nbsp;&nbsp; <strong> Max. Price: </strong> <?php echo is_integer($maxPrice)?'$'.number_format_i18n($maxPrice,0):$maxPrice ?> &nbsp;&nbsp;&nbsp; <strong> Beds: </strong> <?php echo $beds; ?> &nbsp;&nbsp;&nbsp; <strong> Baths: </strong>  <?php echo $baths; ?>
 																<?php if( isset( $saved->mapPolygonString ) ): ?><br /><strong>Map Coords:</strong> <?php echo $saved->mapPolygonString; ?><?php endif; ?>
 															</div>
 															<br />

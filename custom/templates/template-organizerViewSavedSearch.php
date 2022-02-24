@@ -38,7 +38,7 @@ foreach( $temp as $val ){
 	}
 	
 	//set default status
-	if($key=='asts' ){
+	if( $key=='asts' ) {
 		$activeTest=explode(',',$value);
 		$defaultActiveTest=explode(',',zipperagent_active_status());
 		$check=true;
@@ -52,9 +52,12 @@ foreach( $temp as $val ){
 		if($check && !isset($requests[convert_key_name($key)])){
 			$requests[convert_key_name($key)]='';
 		}
-	}
-	
-	if(!in_array($key, $location_array) && $key!='asrc'){
+	}else if ( $key=='apt' ){
+		$propertyTypes = explode( ',', $value );
+		foreach( $propertyTypes as $propertyType ){
+			$requests[convert_key_name($key)][] = $propertyType;
+		}
+	}else if ( !in_array($key, $location_array) ){
 		if(!isset($requests[convert_key_name($key)])){
 			$requests[convert_key_name($key)]=$value;
 		}
