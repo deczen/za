@@ -4423,10 +4423,14 @@ var zppr={
 		
 		var contact_text = [];
 		if(sourceid=='GOWENMLS'){
-			if(zppr.checkNested(property,'unmapped','LO Email')){
+			
+			var showemail = zppr.data.root.web.hasOwnProperty('hideemail') && zppr.data.root.web.hideemail == 1 ? 0 : 1;
+			var showphone = zppr.data.root.web.hasOwnProperty('hidephone') && zppr.data.root.web.hidephone == 1 ? 0 : 1;
+			
+			if(zppr.checkNested(property,'unmapped','LO Email') && showemail){
 				contact_text.push('email:' + property.unmapped["LO Email"]);
 			}
-			if(zppr.checkNested(property,'unmapped','LO Phone1')){
+			if(zppr.checkNested(property,'unmapped','LO Phone1') && showphone){
 				contact_text.push('ph:' + property.unmapped["LO Phone1"]);
 			}
 		}
@@ -4751,7 +4755,7 @@ var zppr={
 			case 1:
 				return '/api/mls/advSearchOnlyCnt';
 			case 2:
-				return '/api/mls/within';
+				return '/api/mls/withinWoCnt';
 			case 3:
 				return '/api/mls/withinOnlyCnt';
 			case 4:

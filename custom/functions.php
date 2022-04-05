@@ -2853,11 +2853,16 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					}
 
 					if($sourceid=='GOWENMLS'){
+						
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$showemail = isset($rb['web']['hideemail']) && $rb['web']['hideemail'] == 1 ? 0 : 1;
+						$showphone = isset($rb['web']['hidephone']) && $rb['web']['hidephone'] == 1 ? 0 : 1;
+						
 						$contact_text = array();
-						if(isset($property->unmapped->{"LO Email"})){
+						if(isset($property->unmapped->{"LO Email"}) && $showemail){
 							$contact_text[]= 'email:' . $property->unmapped->{"LO Email"};
 						}
-						if(isset($property->unmapped->{"LO Phone1"})){
+						if(isset($property->unmapped->{"LO Phone1"}) && $showphone){
 							$contact_text[]= 'ph:' . $property->unmapped->{"LO Phone1"};
 						}
 						
@@ -2936,11 +2941,16 @@ if( ! function_exists('zipperagent_get_source_text') ){
 					}
 					
 					if($sourceid=='GOWENMLS'){
+						
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$showemail = isset($rb['web']['hideemail']) && $rb['web']['hideemail'] == 1 ? 0 : 1;
+						$showphone = isset($rb['web']['hidephone']) && $rb['web']['hidephone'] == 1 ? 0 : 1;
+						
 						$contact_text = array();
-						if(isset($property->unmapped->{"LO Email"})){
+						if(isset($property->unmapped->{"LO Email"}) && $showemail){
 							$contact_text[]= 'email:' . $property->unmapped->{"LO Email"};
 						}
-						if(isset($property->unmapped->{"LO Phone1"})){
+						if(isset($property->unmapped->{"LO Phone1"}) && $showphone){
 							$contact_text[]= 'ph:' . $property->unmapped->{"LO Phone1"};
 						}
 						

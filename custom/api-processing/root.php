@@ -181,7 +181,10 @@
 	
 	if(isset($rb['text']['signup_success'])) 				$data['text']['signup_success'] = $rb['text']['signup_success'];
 	if(isset($rb['text']['thankyou_to_previous'])) 			$data['text']['thankyou_to_previous'] = $rb['text']['thankyou_to_previous'];
-	if(isset($rb['text']['thankyou_to_profile'])) 			$data['text']['thankyou_to_profile'] = $rb['text']['thankyou_to_profile'];
+	if(isset($rb['text']['thankyou_to_profile'])) 			$data['text']['thankyou_to_profile'] = $rb['text']['thankyou_to_profile'];	
+	
+	if(isset($rb['web']['hideemail']))  					$data['web']['hideemail'] = $rb['web']['hideemail'];
+	if(isset($rb['web']['hidephone']))  					$data['web']['hidephone'] = $rb['web']['hidephone'];
 	
 	//convert zero text to 0
 	if(isset($data['web']['mls_state_map']['zero'])){
