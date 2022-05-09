@@ -332,6 +332,10 @@ $list=isset($result['filteredList'])?$result['filteredList']:$result;
 $enable_filter= $coords || $openHomesMode == "true" ? false : true;
 $top_search_enabled = ! $boundaryWKT && ! $openHomesMode;
 
+$enable_rebate = isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+$rebate_prefix = isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+$rebate_default_text = isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
+
 if( sizeof($list) ){		
 	?>
 	<div class="slider-container <?php echo $uniqueClass; ?>"> 
@@ -363,7 +367,8 @@ if( sizeof($list) ){
 					<?php /* <div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=1024&h=768&n={$i}" ?>"> </span> </div> */ ?>
 					<div class="impress-carousel-property">
 						<div class="owl-img-wrap">
-							<a href="<?php echo $single_url; ?>" class="impress-carousel-photo" target="_self">	
+							<a href="<?php echo $single_url; ?>" class="impress-carousel-photo" target="_self">
+								<?php if( $enable_rebate ): ?><div class="badge-rebate"><span class="rebate-price"><?php if( isset( $property->buyerRebate ) && $property->buyerRebate ): ?><?php echo zipperagent_currency() . number_format_i18n( $property->buyerRebate, 0 ); ?><?php else: ?><?php echo $rebate_default_text; ?><?php endif; ?></span><span class="rebate-prefix"><?php echo $rebate_prefix; ?></span></div><? endif; ?>
 								<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
 								<img class="lazyOwl" alt="<?php echo isset($property->remarks)? $property->remarks :''; ?>" title="<?php echo $fulladdress ?>" style="display: block;" src="//media.mlspin.com/photo.aspx?mls=<?php echo $property->listno ?>&amp;h=400&amp;w=512&amp;n=0">
 								<?php else: ?>

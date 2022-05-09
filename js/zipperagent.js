@@ -4150,9 +4150,34 @@ var zppr={
 		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
 		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
 		
+		var enable_rebate = zppr.data.display_buyerrebate_amount;
+		var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+		var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
+		
+		var rebate_badge_html = '';
+		
+		if( enable_rebate ){
+			
+			var rebate_price = '';
+
+			if( property.hasOwnProperty('buyerRebate') && property.buyerRebate ){				
+				rebate_price = zppr.moneyFormat(property.buyerRebate);
+			}else{
+				rebate_price = rebate_default_text;
+			}
+			
+			rebate_badge_html = '<div class="badge-rebate">' +
+									'<span class="rebate-price">' +
+										rebate_price +
+									'</span>' +
+									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
+								'</div>';
+		}
+		
 		var html = '<div class="impress-carousel-property">'+
-						'<div class="owl-img-wrap">'+
-							'<a href="'+ prop_url +'" class="impress-carousel-photo" target="_self">';
+						'<div class="owl-img-wrap">'+						
+							'<a href="'+ prop_url +'" class="impress-carousel-photo" target="_self">'+								
+								rebate_badge_html;
 		if( img_url.indexOf('mlspin.com') !== -1 ){
 			html += 			'<img class="lazyOwl" alt="'+ ( property.hasOwnProperty('remarks') ? property.remarks : '' ) +'" title="'+ address +'" style="display: block;" src="//media.mlspin.com/photo.aspx?mls='+ property.listno +'&amp;h=400&amp;w=512&amp;n=0">';
 		}else{

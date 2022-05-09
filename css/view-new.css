@@ -254,7 +254,7 @@
 	border:1px solid #000;
 }
 
-.widget-slider .owl-img-wrap span {
+.widget-slider .owl-img-wrap .impress-carousel-photo > span {
 	display: block;
 	height: 199px;
 	background-size: cover!important;
