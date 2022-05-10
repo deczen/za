@@ -35,6 +35,45 @@
 			<li>Waterfront: [waterfront]</li>
 			<?php endif; ?>
 			
+			
+			
+			<?php if( isset($single_property->bldgsqfeet)): ?>
+			<li>SqFt: [bldgsqfeet]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->construction)): ?>
+			<li>Construction: [construction]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
+			<li>Attached Garage YN: [unmapped_AttachedGarageYN]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->Levels)): ?>
+			<li>Levels: [unmapped_Levels]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->lotdescription)): ?>
+			<li>Lot Features: [lotdescription]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
+			<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->roofmaterial)): ?>
+			<li>Roof: [roofmaterial]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->WaterfrontYN)): ?>
+			<li>Waterfront YN: [unmapped_WaterfrontYN]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->FireplaceYN)): ?>
+			<li>Fireplace YN: [unmapped_FireplaceYN]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->unmapped->AboveGradeFinishedArea)): ?>
+			<li>Above Grade Finished Area: [unmapped_AboveGradeFinishedArea]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->bldgsqfeet)): ?>
+			<li>Building Area Total: [bldgsqfeet]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->sitecondition)): ?>
+			<li>Special Listing Conditions: [sitecondition]</li>
+			<?php endif; ?>	
+			
 			<?php if( za_is_ygl( $single_property ) ): ?>
 			
 			<?php if( isset($single_property->rentprice)): ?>
@@ -73,43 +112,6 @@
 			<?php if( isset($single_property->facilities)): ?>
 			<li>Features: [facilities]</li>
 			<?php endif; ?>
-			
-			<?php if( isset($single_property->bldgsqfeet)): ?>
-			<li>SqFt: [bldgsqfeet]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->construction)): ?>
-			<li>Construction: [construction]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
-			<li>Attached Garage YN: [unmapped_AttachedGarageYN]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->Levels)): ?>
-			<li>Levels: [unmapped_Levels]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->lotdescription)): ?>
-			<li>Lot Features: [lotdescription]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
-			<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->roofmaterial)): ?>
-			<li>Roof: [roofmaterial]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->WaterfrontYN)): ?>
-			<li>Waterfront YN: [unmapped_WaterfrontYN]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->FireplaceYN)): ?>
-			<li>Fireplace YN: [unmapped_FireplaceYN]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->unmapped->AboveGradeFinishedArea)): ?>
-			<li>Above Grade Finished Area: [unmapped_AboveGradeFinishedArea]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->bldgsqfeet)): ?>
-			<li>Building Area Total: [bldgsqfeet]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->sitecondition)): ?>
-			<li>Special Listing Conditions: [sitecondition]</li>
-			<?php endif; ?>	
 			
 			<?php endif; ?>
 			

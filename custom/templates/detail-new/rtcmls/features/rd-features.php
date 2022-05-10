@@ -35,42 +35,6 @@
 			<li>Waterfront: [waterfront]</li>
 			<?php endif; ?>
 			
-			<?php if( za_is_ygl( $single_property ) ): ?>
-			
-			<?php if( isset($single_property->rentprice)): ?>
-			<li>Rent Amount: [rentprice]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unitlevel)): ?>
-			<li>Unit Level: [unitlevel]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->parkingfeature)): ?>
-			<li>Parking: [parkingfeature]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->petrestrictionsallow)): ?>
-			<li>Pet: [petrestrictionsallow]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->rentfeeincludes)): ?>
-			<li>Rent Includes: [rentfeeincludes]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>Fee Paid By Owner: [reqdownassociation]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->laundryfeatures)): ?>
-			<li>Laundry: [laundryfeatures]</li>
-			<?php endif; ?>		
-			<?php if( isset($single_property->dateavailableformatted)): ?>
-			<li>Avail Date: [dateavailableformatted]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->butype)): ?>
-			<li>Building Type: [butype]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->student)): ?>
-			<li>Student: [student]</li>
-			<?php endif; ?>	
-			<?php if( isset($single_property->facilities)): ?>
-			<li>Features: [facilities]</li>
-			<?php endif; ?>	
-			
 			<?php if( isset($single_property->bldgsqfeet)): ?>
 			<li>SqFt.: [bldgsqfeet]</li>
 			<?php endif; ?>	
@@ -124,6 +88,42 @@
 			<?php endif; ?>	
 			<?php if( isset($single_property->assocsecurity)): ?>
 			<li>Security Features: [assocsecurity]</li>
+			<?php endif; ?>	
+			
+			<?php if( za_is_ygl( $single_property ) ): ?>
+			
+			<?php if( isset($single_property->rentprice)): ?>
+			<li>Rent Amount: [rentprice]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unitlevel)): ?>
+			<li>Unit Level: [unitlevel]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->parkingfeature)): ?>
+			<li>Parking: [parkingfeature]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->petrestrictionsallow)): ?>
+			<li>Pet: [petrestrictionsallow]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->rentfeeincludes)): ?>
+			<li>Rent Includes: [rentfeeincludes]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->reqdownassociation)): ?>
+			<li>Fee Paid By Owner: [reqdownassociation]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->laundryfeatures)): ?>
+			<li>Laundry: [laundryfeatures]</li>
+			<?php endif; ?>		
+			<?php if( isset($single_property->dateavailableformatted)): ?>
+			<li>Avail Date: [dateavailableformatted]</li>
+			<?php endif; ?>			
+			<?php if( isset($single_property->butype)): ?>
+			<li>Building Type: [butype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->student)): ?>
+			<li>Student: [student]</li>
+			<?php endif; ?>	
+			<?php if( isset($single_property->facilities)): ?>
+			<li>Features: [facilities]</li>
 			<?php endif; ?>	
 			
 			<?php endif; ?>
