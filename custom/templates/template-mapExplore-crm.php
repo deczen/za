@@ -660,7 +660,7 @@ if($requests['lat'] && $requests['lng']){
 		});
 	</script>
 	<script>		
-		jQuery(window).scroll(function() {
+		jQuery(window).bind( 'scroll', function() {
 			
 			var $sticky = jQuery('#map .proptype-markers');
 			var $top = 0;

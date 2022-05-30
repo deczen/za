@@ -468,7 +468,7 @@ var zppr={
 		
 		var html = '';
 		
-		html += '<div class="zpa-listing-search-results hideonprint">'+				
+		html += '<div class="zpa-listing-search-results hideonprint zpa-fullwidth">'+				
 					'<div class="container-fluid">' +			
 						'<div class="row sticky-container" style="position:relative;">' +
 						
@@ -1066,81 +1066,83 @@ var zppr={
 		});
 	},
 	list_map_scroll_script:function(){
-		jQuery(window).scroll(function() {
-			
-			var $sticky = jQuery('#map');
-			var $mapWrapper = $sticky.find('#map_wrapper');
-			var $top = 0;
-			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
-				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
-				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
-					$top = $top + $headerHeight;
-			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
-				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
-				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
-					$top = $top + $topheaderHeight + $headerHeight;
-			}else{
-				var $headerHeight = 0;
-					$top = $top + $headerHeight;
-			}
-			if(jQuery('#wpadminbar').length){
-				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
-					$top = $top + $wpadminbarHeight;
-			}
-			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
-			var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
-			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
-			
-			$top = $top + $searchBarHeight;
-			$top = $top + $searchCount;
-			$top = $top + $searchMapMarkers;
-			
-			$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
-			
-			var $stickyH = $sticky.outerHeight();
-			var $stickyContainer = jQuery('.sticky-container');
-			var $stickyContainerOffset = $stickyContainer.offset();
-			var $start = $stickyContainer.length?$stickyContainerOffset.top:0;
-			var $limit = $start + $stickyContainer.outerHeight();
-			var $padding = 15; // padding size;
-			var $maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
-			
-			var $searchBar = jQuery('#map');
-			
-			if(jQuery(window).width() > 768){
-			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
-					$sticky.css({
-						'position':'fixed', 
-						'top': $top,
-						'max-width' : $maxWidth
-					});
-					if($searchBar.length){
-						$searchBar.css({
-						   // 'padding-top': jQuery(window).outerHeight() - $top
+		jQuery(document).ready(function(){
+			jQuery(window).bind( 'scroll', function() {
+				
+				var $sticky = jQuery('#map');
+				var $mapWrapper = $sticky.find('#map_wrapper');
+				var $top = 0;
+				if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
+					// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+					var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+						$top = $top + $headerHeight;
+				}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+					var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+					var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+						$top = $top + $topheaderHeight + $headerHeight;
+				}else{
+					var $headerHeight = 0;
+						$top = $top + $headerHeight;
+				}
+				if(jQuery('#wpadminbar').length){
+					var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+						$top = $top + $wpadminbarHeight;
+				}
+				var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+				var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
+				var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
+				
+				$top = $top + $searchBarHeight;
+				$top = $top + $searchCount;
+				$top = $top + $searchMapMarkers;
+				
+				$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+				
+				var $stickyH = $sticky.outerHeight();
+				var $stickyContainer = jQuery('.sticky-container');
+				var $stickyContainerOffset = $stickyContainer.offset();
+				var $start = $stickyContainer.length?$stickyContainerOffset.top:0;
+				var $limit = $start + $stickyContainer.outerHeight();
+				var $padding = 15; // padding size;
+				var $maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
+				
+				var $searchBar = jQuery('#map');
+				
+				if(jQuery(window).width() > 768){
+				   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+						$sticky.css({
+							'position':'fixed', 
+							'top': $top,
+							'max-width' : $maxWidth
 						});
-					}
-			   }
-			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
-				   $sticky.css({
-						   'position': 'absolute',
-						   'top'     : 'auto',
-						   'bottom'  : 0
-					   });
-			   }
-			   else {
-					$sticky.css({
-						'position' : 'static',
-						'max-width' : '100%'
-					});
-					if($searchBar.length){
-						$searchBar.find('.zpa-listing-list').css({
-						   // 'padding-top': 0
+						if($searchBar.length){
+							$searchBar.css({
+							   // 'padding-top': jQuery(window).outerHeight() - $top
+							});
+						}
+				   }
+				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+					   $sticky.css({
+							   'position': 'absolute',
+							   'top'     : 'auto',
+							   'bottom'  : 0
+						   });
+				   }
+				   else {
+						$sticky.css({
+							'position' : 'static',
+							'max-width' : '100%'
 						});
-					}
-					$maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
-					$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
-			   }
-			}
+						if($searchBar.length){
+							$searchBar.find('.zpa-listing-list').css({
+							   // 'padding-top': 0
+							});
+						}
+						$maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
+						$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+				   }
+				}
+			});
 		});
 	},
 	list_photo_view_template:function(requests, main_html, sidebar_html, is_view_save_search){
@@ -3315,7 +3317,7 @@ var zppr={
 								
 								html_pagination = zppr.html_pagination(page, num, count, actual_link);
 								jQuery(targetElement + ' .prop-total').html( zppr.list_total_text(count, proptypes.length==1?proptypes[0]:'') );
-								jQuery(targetElement + ' .prop-pagination').html( '<div class="col-xs-6">' + html_pagination + '</div>' );
+								jQuery(targetElement + ' .prop-pagination').html( '<div class="col-xs-12">' + html_pagination + '</div>' );
 								console.timeEnd('generate list count/pagination');
 							break;
 						}
@@ -4371,7 +4373,14 @@ var zppr={
 		back_url=page>1?zppr.add_query_arg( 'page',page-1, current_url ):'#';
 		next_url=page<pagescount?zppr.add_query_arg( 'page', page+1, current_url ):'#';
 		
-		html+= '<ul class="pagination">'+
+		limit = 6;
+		center = limit / 2;
+		minpage = page - center > 0 ? page - center : 1;
+		maxpage = page + center > pagescount ? pagescount : page + center;
+		starturl = zppr.add_query_arg( 'page', 1, current_url );
+		endurl = zppr.add_query_arg( 'page', pagescount, current_url );
+		
+		/* html+= '<ul class="pagination">'+
 			
 			'<li class="'+ ( back_url=="#" ? 'disabled' : '' ) +'"><a href="'+ back_url +'" data-page="'+ ( page - 1 ) +'">&laquo;</a>'+
 			'</li>'+
@@ -4379,7 +4388,34 @@ var zppr={
 			'</li>'+
 			'<li class="'+ ( next_url=="#" ? 'disabled' : '' ) +'"><a href="'+ next_url +'" data-page="'+ ( page + 1 ) +'">&raquo;</a>'+
 			'</li>'+
-		'</ul>';
+		'</ul>'; */
+		
+		html+= '<ul class="pagination">';
+			
+		html+=		'<li class="'+ ( back_url=="#" ? 'disabled' : '' ) +'"><a href="'+ back_url +'" data-page="'+ ( page - 1 ) +'">&laquo;</a></li>';
+		
+		if( minpage > 1 ){
+			if( minpage > 2 ){
+				html+= '<li><a href="'+ starturl +'" data-page="1">1</a></li>';
+			}
+			html+=	'<li class="disabled"><a href="#">...</a></li>';
+		}
+		
+		for( p=minpage; p<=maxpage; p++ ){
+			purl = zppr.add_query_arg( 'page', p, current_url );
+			html+=	'<li '+ ( p==page ? 'class="disabled"' : '' ) +'><a href="'+ purl +'" data-page="'+ p +'">'+ p +'</a></li>';
+		}
+		
+		if( maxpage < pagescount ){
+			if( pagescount - maxpage > 1){
+				html+= '<li class="disabled"><a href="#">...</a></li>';
+			}
+			html+= '<li><a href="'+ endurl +'" data-page="'+ pagescount +'">'+ pagescount +'</a></li>';
+		}
+			
+		html+=  '<li class="'+ ( next_url=="#" ? 'disabled' : '' ) +'"><a href="'+ next_url +'" data-page="'+ ( page + 1 ) +'">&raquo;</a></li>';
+		
+		html +=	'</ul>';
 		
 		return html;
 	},

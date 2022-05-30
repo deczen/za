@@ -12,7 +12,7 @@ $contactIds=get_contact_id();
 $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 
 ?>
-<div class="zpa-listing-search-results hideonprint">					
+<div class="zpa-listing-search-results hideonprint zpa-fullwidth">					
 	<div class="container-fluid">				
 		<div class="row sticky-container" style="position:relative;">
 			
@@ -60,84 +60,86 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 </div>
 
 
-<script>		
-	jQuery(window).scroll(function() {
-		
-		var $sticky = jQuery('#map');
-		var $mapWrapper = $sticky.find('#map_wrapper');
-		var $top = 0;
-		if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
-			// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
-			var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
-				$top = $top + $headerHeight;
-		}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
-			var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
-			var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
-				$top = $top + $topheaderHeight + $headerHeight;
-		}else{
-			var $headerHeight = 0;
-				$top = $top + $headerHeight;
-		}
-		if(jQuery('#wpadminbar').length){
-			var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
-				$top = $top + $wpadminbarHeight;
-		}
-		var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
-		var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
-		var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
-		
-		$top = $top + $searchBarHeight;
-		$top = $top + $searchCount;
-		$top = $top + $searchMapMarkers;
-		
-		console.log( $top );
-		
-		$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
-		
-		var $stickyH = $sticky.outerHeight();
-		var $stickyContainer = jQuery('.sticky-container');
-		var $stickyContainerOffset = $stickyContainer.offset();
-		var $start = $stickyContainer.length?$stickyContainerOffset.top:0;
-		var $limit = $start + $stickyContainer.outerHeight();
-		var $padding = 15; // padding size;
-		var $maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
-		
-		var $searchBar = jQuery('#map');
-		
-		if(jQuery(window).width() > 768){
-		   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
-				$sticky.css({
-					'position':'fixed', 
-					'top': $top,
-					'max-width' : $maxWidth
-				});
-				if($searchBar.length){
-					$searchBar.css({
-					   // 'padding-top': jQuery(window).outerHeight() - $top
+<script>	
+	jQuery(document).ready(function(){
+		jQuery(window).bind( 'scroll', function() {
+			
+			var $sticky = jQuery('#map');
+			var $mapWrapper = $sticky.find('#map_wrapper');
+			var $top = 0;
+			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
+				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+					$top = $top + $headerHeight;
+			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else{
+				var $headerHeight = 0;
+					$top = $top + $headerHeight;
+			}
+			if(jQuery('#wpadminbar').length){
+				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+					$top = $top + $wpadminbarHeight;
+			}
+			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
+			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
+			
+			$top = $top + $searchBarHeight;
+			$top = $top + $searchCount;
+			$top = $top + $searchMapMarkers;
+			
+			console.log( $top );
+			
+			$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+			
+			var $stickyH = $sticky.outerHeight();
+			var $stickyContainer = jQuery('.sticky-container');
+			var $stickyContainerOffset = $stickyContainer.offset();
+			var $start = $stickyContainer.length?$stickyContainerOffset.top:0;
+			var $limit = $start + $stickyContainer.outerHeight();
+			var $padding = 15; // padding size;
+			var $maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
+			
+			var $searchBar = jQuery('#map');
+			
+			if(jQuery(window).width() > 768){
+			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+					$sticky.css({
+						'position':'fixed', 
+						'top': $top,
+						'max-width' : $maxWidth
 					});
-				}
-		   }
-		   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
-			   $sticky.css({
-					   'position': 'absolute',
-					   'top'     : 'auto',
-					   'bottom'  : 0
-				   });
-		   }
-		   else {
-				$sticky.css({
-					'position' : 'static',
-					'max-width' : '100%'
-				});
-				if($searchBar.length){
-					$searchBar.find('.zpa-listing-list').css({
-					   // 'padding-top': 0
+					if($searchBar.length){
+						$searchBar.css({
+						   // 'padding-top': jQuery(window).outerHeight() - $top
+						});
+					}
+			   }
+			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+				   $sticky.css({
+						   'position': 'absolute',
+						   'top'     : 'auto',
+						   'bottom'  : 0
+					   });
+			   }
+			   else {
+					$sticky.css({
+						'position' : 'static',
+						'max-width' : '100%'
 					});
-				}
-				$maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
-				$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
-		   }
-		}
+					if($searchBar.length){
+						$searchBar.find('.zpa-listing-list').css({
+						   // 'padding-top': 0
+						});
+					}
+					$maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
+					$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+			   }
+			}
+		});
 	});
 </script>
 <script>

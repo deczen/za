@@ -254,7 +254,7 @@ endforeach; ?>
 <script>		
 	jQuery(document).ready(function(){
 		
-		jQuery(window).scroll(function() {	
+		jQuery(window).bind( 'scroll', function() {
 			var $sticky = jQuery('#small-property');
 			var $mapWrapper = $sticky;
 			var $top = 0;

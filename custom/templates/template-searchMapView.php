@@ -366,7 +366,7 @@ else: ?>
 </div>
 <?php endif; ?>
 <script>		
-	jQuery(window).scroll(function() {
+	jQuery(window).bind( 'scroll', function() {
 		
 		var $sticky = jQuery('#map');
 		var $mapWrapper = $sticky.find('#map_wrapper');

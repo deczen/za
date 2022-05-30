@@ -9,6 +9,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css'; ?>">
 <div id="omnibar-tools" class="<?php echo ( !$is_detail_page&&!$is_map_explore||$is_search_apply ) && ( !isset($requests['fixed_search_form']) || isset($requests['fixed_search_form']) && $requests['fixed_search_form'] )? 'fixedheader' : ''; ?>">
+	<div class="omnibar-bg"></div>
 	<?php
 	$saved_results = zipperagent_get_session('/api/mls/advSearchWoCnt');
 	$saved_results_url = zipperagent_get_session('/api/mls/advSearchWoCnt_url');
@@ -3843,115 +3844,116 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	
 	<?php if(!isset($requests['fixed_search_form']) || isset($requests['fixed_search_form']) && $requests['fixed_search_form']): ?>
 	<script>		
-		jQuery(window).scroll(function() {
-			
-			if(jQuery('#omnibar-tools.fixedheader').length){
-			
-				var $sticky = jQuery('#omnibar-tools');
-				var $sticky_map_legend = jQuery('.map-legend-wrap');
-				var $top = 0;
-				var $topMapLegend = 0;
+		jQuery(document).ready(function(){
+			jQuery(window).bind( 'scroll', function() {
+				if(jQuery('#omnibar-tools.fixedheader').length){
 				
-				if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
-					// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
-					var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
-						$top = $top + $headerHeight;
-				}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
-					var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
-					var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
-						$top = $top + $topheaderHeight + $headerHeight;
-				}else{
-					var $headerHeight = 0;
-						$top = $top + $headerHeight;
-				}
-				if(jQuery('#wpadminbar').length){
-					var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
-						$top = $top + $wpadminbarHeight;
-				}
-				
-				$topMapLegend = jQuery('#omnibar-tools').length ? $top + jQuery('#omnibar-tools').outerHeight() : 0;
-				
-				var $stickyH = $sticky.outerHeight();
-				var $stickyContainer = jQuery('#zpa-main-container');
-				var $stickyContainerOffset = $stickyContainer.offset();
-				var $start = $stickyContainerOffset.top;
-				var $limit = $start + $stickyContainer.outerHeight();
-				var $padding = 0; // padding size;
-				var $maxWidth = $stickyContainer.outerWidth() + $padding;
-				
-				if(jQuery(window).width() > 768){
-				   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
-					   $sticky.css({
-						   'position':'fixed', 
-						   'top': $top,
-						   'width': '100%',
-						   'max-width': $maxWidth,
-						   'bottom':'auto',
-					   });
-					   if( ! jQuery('.map-legend-wrap').length ){							
-						   $sticky.find('.zy_filter-wrap').css({
-								'border-bottom': '1px solid #ddd',					   
-								'padding-bottom': '10px'
+					var $sticky = jQuery('#omnibar-tools');
+					var $sticky_map_legend = jQuery('.map-legend-wrap');
+					var $top = 0;
+					var $topMapLegend = 0;
+					
+					if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
+						// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+						var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+							$top = $top + $headerHeight;
+					}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+						var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+						var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+							$top = $top + $topheaderHeight + $headerHeight;
+					}else{
+						var $headerHeight = 0;
+							$top = $top + $headerHeight;
+					}
+					if(jQuery('#wpadminbar').length){
+						var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+							$top = $top + $wpadminbarHeight;
+					}
+					
+					$topMapLegend = jQuery('#omnibar-tools').length ? $top + jQuery('#omnibar-tools').outerHeight() : 0;
+					
+					var $stickyH = $sticky.outerHeight();
+					var $stickyContainer = jQuery('#zpa-main-container');
+					var $stickyContainerOffset = $stickyContainer.offset();
+					var $start = $stickyContainerOffset.top;
+					var $limit = $start + $stickyContainer.outerHeight();
+					var $padding = 0; // padding size;
+					var $maxWidth = $stickyContainer.outerWidth() + $padding;
+					
+					if(jQuery(window).width() > 768){
+					   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+						   $sticky.css({
+							   'position':'fixed', 
+							   'top': $top,
+							   'width': '100%',
+							   'max-width': $maxWidth,
+							   'bottom':'auto',
 						   });
-						}
-					   $stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
-						   'padding-top': $stickyH
-					   });
-					   
-					   $sticky_map_legend.css({
-						   'position':'fixed', 
-						   'top': $topMapLegend,
-						   'width': '100%',
-						   'max-width': $maxWidth,
-						   'bottom':'auto',
-						   'margin-left':'15px',
-					   });
-					   $sticky_map_legend.css({
-							'border-bottom': '1px solid #ddd',
-					   });
-				   }
-				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
-					   $sticky.css({
-						   'position': 'absolute',
-						   'top'     : 'auto',
-						   'bottom'  : 0,
-					   });
-					   
-					   $sticky_map_legend.css({
-						   'position': 'absolute',
-						   'top'     : 'auto',
-						   'bottom'  : 0,
-					   });
-				   }
-				   else {
-						$sticky.css({
-							'position' : 'static',
-							'max-width' : '100%',
-						});
-						if( ! jQuery('.map-legend-wrap').length ){
-							$sticky.find('.zy_filter-wrap').css({
+						   if( ! jQuery('.map-legend-wrap').length ){							
+							   $sticky.find('.zy_filter-wrap').css({
+									'border-bottom': '1px solid #ddd',					   
+									'padding-bottom': '10px'
+							   });
+							}
+						   $stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
+							   'padding-top': $stickyH
+						   });
+						   
+						   $sticky_map_legend.css({
+							   'position':'fixed', 
+							   'top': $topMapLegend,
+							   'width': '100%',
+							   'max-width': $maxWidth,
+							   'bottom':'auto',
+							   'margin-left':'15px',
+						   });
+						   $sticky_map_legend.css({
+								'border-bottom': '1px solid #ddd',
+						   });
+					   }
+					   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+						   $sticky.css({
+							   'position': 'absolute',
+							   'top'     : 'auto',
+							   'bottom'  : 0,
+						   });
+						   
+						   $sticky_map_legend.css({
+							   'position': 'absolute',
+							   'top'     : 'auto',
+							   'bottom'  : 0,
+						   });
+					   }
+					   else {
+							$sticky.css({
+								'position' : 'static',
+								'max-width' : '100%',
+							});
+							if( ! jQuery('.map-legend-wrap').length ){
+								$sticky.find('.zy_filter-wrap').css({
+									'border-bottom': 0,
+									'padding-bottom': 0
+								});
+							}
+							$stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
+								'padding-top': 0
+							});
+							
+							$sticky_map_legend.css({
+								'position' : 'static',
+								'max-width' : '100%',
+								'margin-left': 0,
+							});
+							$sticky_map_legend.css({
 								'border-bottom': 0,
 								'padding-bottom': 0
 							});
-						}
-						$stickyContainer.find('.zpa-listing-list, .zpa-listing-detail').css({
-							'padding-top': 0
-						});
-						
-						$sticky_map_legend.css({
-							'position' : 'static',
-							'max-width' : '100%',
-							'margin-left': 0,
-						});
-						$sticky_map_legend.css({
-							'border-bottom': 0,
-							'padding-bottom': 0
-						});
-						
-						$maxWidth = $stickyContainer.outerWidth() + $padding;
-				   }
+							
+							$maxWidth = $stickyContainer.outerWidth() + $padding;
+					   }
+					}
 				}
-			}
+			});
 		});
 	</script>
 	<?php endif; ?>

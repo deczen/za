@@ -2179,12 +2179,32 @@ if( ! function_exists('zipperagent_pagination') ){
 			$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
 			$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
 			?>
-			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>" data-page="<?php echo $page - 1; ?>">&laquo;</a>
-			</li>
-			<li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a>
-			</li>
-			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>" data-page="<?php echo $page + 1; ?>">&raquo;</a>
-			</li>
+			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>" data-page="<?php echo $page - 1; ?>">&laquo;</a></li>
+			<?php
+			$limit = 6;
+			$center = $limit / 2;
+			$minpage = $page - $center > 0 ? $page - $center : 1;
+			$maxpage = $page + $center > $pagescount ? $pagescount : $page + $center;
+			$starturl = add_query_arg( array( 'page' => 1 ), $current_url );
+			$endurl = add_query_arg( array( 'page' => $pagescount ), $current_url );
+			// echo 'max: ' . $maxpage;
+			if( $minpage > 1 ){ ?>
+				<?php if( $minpage > 2 ): ?><li><a href="<?php echo $starturl ?>" data-page="1">1</a></li><?php endif; ?>
+				<li class="disabled"><a href="#">...</a></li> <?php
+			}
+			for( $p=$minpage; $p<=$maxpage; $p++ ){
+				$purl = add_query_arg( array( 'page' => $p ), $current_url );
+				?>
+				<li <?php echo $p==$page ? 'class="disabled"' : ''; ?>><a href="<?php echo $purl ?>" data-page="<?php echo $p; ?>"><?php echo $p ?></a></li>
+				<?php
+			}
+			if( $maxpage < $pagescount ){ ?>
+				<?php if( $pagescount - $maxpage > 1): ?><li class="disabled"><a href="#">...</a></li><?php endif; ?>
+				<li><a href="<?php echo $endurl ?>" data-page="<?php echo $pagescount; ?>"><?php echo $pagescount ?></a></li><?php
+			}
+			?>
+			<?php /* <li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a></li> */ ?>
+			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>" data-page="<?php echo $page + 1; ?>">&raquo;</a></li>
 		</ul>		
 		<script>
 			jQuery('body').on( 'click', '.prop-pagination .pagination li:not(.disabled) a', function(){

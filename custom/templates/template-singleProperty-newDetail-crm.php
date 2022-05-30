@@ -451,7 +451,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 	</script>
 	<?php endif; ?>	
 	<script>		
-		jQuery(window).scroll(function() {
+		jQuery(window).bind( 'scroll', function() {
 			
 			var $sticky = jQuery('#zy_header-section');
 			var $top = 0;
