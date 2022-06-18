@@ -197,6 +197,19 @@ else if($single_property->sourceid == 'MFRMLS'){
 			break;
 	}
 }
+//custom case for SAMLS
+else if($single_property->sourceid == 'SAMLS'){
+	switch($property_type){
+		case "FR":
+			$property_type='FARM';
+		break;
+		case "CL":
+			$property_type='BUSINESS';
+		break;
+	}
+}
+
+// die( $property_type );
 
 //Template selection
 switch($property_type){
@@ -289,6 +302,7 @@ switch($property_type){
 	case "COND": //Condo	
 	case "CLSE": //Commercial Lease	
 	case "COMMERCIAL LEASE": //Commercial Lease	
+	case "CO": //Commercial Lease	
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
