@@ -713,6 +713,8 @@ if( ! function_exists('zipperagent_generate_list') ){
 				}
 			}
 			
+			$is_ajax_count=1;
+			
 		}else if( $offmarket ){ // offmarket mode
 			
 			$vars=array(

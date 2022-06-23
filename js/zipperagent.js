@@ -6038,7 +6038,7 @@ var zppr={
 				var $separator=",";
 			}
 			
-			var $values=$val.toString().split($separator);
+			var $values=$val.toString().split($separator).map(item => item.trim());
 			// print_r( "Before: " . $val. "<br />" );
 			for(var i = 0; i < $values.length; i++) {
 				$temp.push(0);
@@ -6049,7 +6049,7 @@ var zppr={
 			for (const [key, $entity] of Object.entries($keyFeatures)) {
 				$version = $entity.hasOwnProperty('version')?$entity.version:'';
 				$fieldName = $entity.hasOwnProperty('fieldName')?$entity.fieldName:'';
-				$shortDescription = $entity.hasOwnProperty('shortDescription')?$entity.shortDescription.split('$'):'';
+				$shortDescription = $entity.hasOwnProperty('shortDescription')?$entity.shortDescription.split('$').map(item => item.trim()):'';
 				$mediumDescription = $entity.hasOwnProperty('mediumDescription')?$entity.mediumDescription:'';
 				$longDescription = $entity.hasOwnProperty('longDescription')?$entity.longDescription:'';
 				$propTypeMask = $entity.hasOwnProperty('propTypeMask')?$entity.propTypeMask:'';
