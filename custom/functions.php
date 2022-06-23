@@ -4148,7 +4148,7 @@ if( ! function_exists('zipperagent_field_value') ){
 				$separator=",";
 			}
 			
-			$values=explode($separator, $val );
+			$values=array_map('trim', explode($separator, $val ));
 			// print_r( "Before: " . $val. "<br />" );
 			foreach( $values as $value ){
 				$temp[]=0;
@@ -4159,24 +4159,31 @@ if( ! function_exists('zipperagent_field_value') ){
 			foreach( $keyFeatures as $entity ){
 				$version = isset($entity->version)?$entity->version:'';
 				$fieldName = isset($entity->fieldName)?$entity->fieldName:'';
-				$shortDescription = isset($entity->shortDescription)?array_filter(explode('$',$entity->shortDescription)):'';
+				$shortDescription = isset($entity->shortDescription)?array_filter(array_map('trim', explode('$',$entity->shortDescription))):'';
 				$mediumDescription = isset($entity->mediumDescription)?$entity->mediumDescription:'';
 				$longDescription = isset($entity->longDescription)?$entity->longDescription:'';
 				$propTypeMask = isset($entity->propTypeMask)?$entity->propTypeMask:'';
 				
+				// if( strtolower($key) == 'amenities' ){
+					// echo "<pre>"; print_r( $temp ); echo "</pre>";
+					// echo "<pre>"; print_r( $values ); echo "</pre>";
+					// echo "<pre>"; print_r( $shortDescription ); echo "</pre>";
+				// }
+				
 				foreach( $temp as $index=>$value ){
 					if( ! $temp[$index] ){
-						if( $mediumDescription == $values[$index] ){
+						if( $mediumDescription == trim($values[$index]) ){
 							$values[$index]=str_replace( $mediumDescription, $longDescription, $values[$index] );
 							$temp[$index]=1;
-						}else if( in_array($values[$index], $shortDescription) ){
+						}else if( in_array(trim($values[$index]), $shortDescription) ){
 							$code='';
 							foreach($shortDescription as $k=>$v){
-								if($v==$values[$index]){
-									$code=$v;
+								if(trim($v)==trim($values[$index])){
+									$code=trim($v);
 									break;
 								}
 							}
+							
 							$values[$index]=str_replace( $code, $longDescription, $values[$index] );
 							$temp[$index]=1;
 						}
@@ -4213,13 +4220,13 @@ if( ! function_exists('zipperagent_field_value') ){
 if( ! function_exists('zipperagent_type_mask') ){
 	function zipperagent_type_mask($fields, $key, $proptype, $sourceid=''){
 		
-		$sourceid=''; // fix wrong label
+		// $sourceid=''; // fix wrong label
 		
-		// if($key=='style'){
+		// if(strtoupper($key)=='AMENITIES'){
 			// echo "key: ".$key."<br />";
 			// echo "proptype: ".$proptype."<br />";
 			// echo "sourceid: ".$sourceid."<br />";
-			// echo "<pre>"; print_r($fields->STYLE); echo "</pre>";
+			// echo "<pre>"; print_r($fields->AMENITIES); echo "</pre>";
 			// die();
 		// }
 		
@@ -4255,13 +4262,17 @@ if( ! function_exists('zipperagent_type_mask') ){
 		} else if (strcmp($p_typ,"SF")== 0){
 			$p_pty_mask = 7;			
 		}
-		foreach($keyFeaturesRaw as $entity){
-			if ( isset($entity->propTypeMask) && ( ($entity->propTypeMask == 255) || ($entity->propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))
-				 && ( $sourceid=='' || $sourceid!='' && $entity->sourceId==$sourceid )){
+		
+		// echo "<pre>"; print_r( $keyFeaturesRaw ); echo "</pre>";
+		
+		foreach($keyFeaturesRaw as $entity){				
+			if ( isset($entity->propTypeMask) && ( ($entity->propTypeMask == 255) || ((int)$entity->propTypeMask & (1 << $p_pty_mask)) == (1 << $p_pty_mask))
+				 && ( $sourceid==='' || $sourceid!=='' && $entity->sourceId==$sourceid )){
+					 
 				array_push($keyFeatures,$entity);
 			}
 		}
-		
+		// echo "<pre>"; print_r( $keyFeatures ); echo "</pre>";
 		return $keyFeatures;
 	}
 }
