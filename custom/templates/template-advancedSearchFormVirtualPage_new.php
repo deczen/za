@@ -3,6 +3,12 @@ global $requests;
 // $addressSearch=1;
 
 $rb = ZipperagentGlobalFunction()->zipperagent_rb();
+
+$uniqid = uniqid();
+$uniqueClass = 'form_'.$uniqid;
+$uniqueClassWithDot = '.'.$uniqueClass;
+$el = $uniqueClassWithDot;
+$direct = isset($requests['direct'])&&$requests['direct']?$requests['direct']:0;
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css'; ?>">
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/pikaday.js'; ?>"></script>
@@ -10,7 +16,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css'; ?>">
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
-    <div>
+    <div class="<?php echo $uniqueClass; ?>">
 		<?php
 		$actionUrl = ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' );
 		?>
@@ -52,7 +58,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 										<li><a id="area" href="#"><input type="radio" name="search_category" /> Area</a></li>
 										<li><a id="town" href="#"><input type="radio" name="search_category" /> City / Town</a></li>
 										<li><a id="county" href="#"><input type="radio" name="search_category" /> County</a></li>
-										<!-- <li><a id="lake" href="#"><input type="radio" name="search_category" /> Lake</a></li> -->
+										<?php /* <li><a id="lake" href="#"><input type="radio" name="search_category" /> Lake</a></li> */ ?>
 										<li><a id="listid" href="#"><input type="radio" name="search_category" /> MLS #ID</a></li>
 										<!-- <li><a id="school" href="#"><input type="radio" name="search_category" /> School</a></li> -->
 										<!-- <li><a id="school2" href="#"><input type="radio" name="search_category" /> School</a></li> -->
@@ -90,9 +96,9 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									<div class="field-section county hide">
 										<input id="zpa-county-input" class="form-control" placeholder="Type any County"  name="location[]"/>
 									</div>
-									<div class="field-section lake hide">
+									<?php /* <div class="field-section lake hide">
 										<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
-									</div>
+									</div> */ ?>
 									<div class="field-section listid hide">
 										<input id="zpa-listid-input" class="form-control" placeholder="Type any MLS ID #"  name=""/>
 										<div style="display:none;" class="input-fields"></div>
@@ -259,49 +265,56 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								<input id="zpa-available-to" name="aavldtt" placeholder="" type="text" class="form-control zpa-search-form-input datepicker" value="" disabled>
 							</div>
 								
-						</div>						
+						</div>	
 						
-						<?php if($requests['enable_lakename']): 
-						
-						$lakeNames = get_lake_names();
-								
-						if($lakeNames):
-						?>
-						<div class="col-xs-12 col-sm-3 mb-10"> 
-							<span id="zpa-lake-name-fields"> 
-								<label for="zpa-lakename" class="field-label zpa-lakename-label"> Lake Name </label> 
-								<?php /* <input id="zpa-lakename" name="alkChnNm" placeholder="Any" type="text" class="form-control zpa-search-form-input" value=""> */ ?>
-								<?php /*							
-								<select id="zpa-lakename" name="alkChnNm" class="form-control">
-									<option value="">Select</option>
-									<?php								
-									foreach( $lakeNames as $fieldCode=>$fieldName ){
-										$selected="";									
-										echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";										
-									}
-									?>
-								</select> */ ?>
-								<div class="dropdown cq-dropdown">
-									<button class="btn btn-default dropdown-toggle form-control" type="button" id="lakename-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
-									<ul class="dropdown-menu" aria-labelledby="lakename-dropdown">
-										<?php
-										
-										foreach( $lakeNames as $fieldCode=>$fieldName ){
-											
-											$checked="";
-												
-											echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkChnNm[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";									
-										}
-										?>
-									</ul>
-								</div>
-							</span> 
-						</div>						
-						<?php endif; ?>
-						
-						<?php endif; ?>
 						<div class="col-xs-12 col-sm-3 mb-10"> <span id="zpa-status-fields"> <label for="zpa-status" class="field-label zpa-status-label"> Status </label> <div> <label class="radio-inline"> <input class="radio" name="status" value="" type="radio" checked> Active </label>  <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_sold_status(); ?>" type="radio"> Sold </label> <label class="radio-inline"> <input class="radio" name="status" value="<?php echo zipperagent_pending_status(); ?>" type="radio"> Pending </label> </div> </span> </div>
 					</div>
+					<?php if($requests['enable_lakename']): 
+					
+					// $lakeNames = get_lake_names();
+							
+					// if(lakeNames):
+					if(1):
+					?>
+					<div id="zpa-lakename-search-field">
+						<div class="row mt-25">
+						
+							<div class="col-xs-12 col-sm-12 mb-10"> 
+								<span id="zpa-lake-name-fields"> 
+									<label for="zpa-lakename" class="field-label zpa-lakename-label"> Lake Name </label> 
+									<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
+									<?php /* <input id="zpa-lakename" name="alkChnNm" placeholder="Any" type="text" class="form-control zpa-search-form-input" value=""> */ ?>
+									<?php /*							
+									<select id="zpa-lakename" name="alkChnNm" class="form-control">
+										<option value="">Select</option>
+										<?php								
+										foreach( $lakeNames as $fieldCode=>$fieldName ){
+											$selected="";									
+											echo "<option $selected value='{$fieldCode}'>{$fieldName}</option>"."\r\n";										
+										}
+										?>
+									</select> */ ?>
+									<?php /* <div class="dropdown cq-dropdown">
+										<button class="btn btn-default dropdown-toggle form-control" type="button" id="lakename-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select <span class="caret"></span> </button>
+										<ul class="dropdown-menu" aria-labelledby="lakename-dropdown">
+											<?php
+											
+											foreach( $lakeNames as $fieldCode=>$fieldName ){
+												
+												$checked="";
+													
+												echo "<li><label class=\"radio-btn\"><input type=\"checkbox\" name=\"alkChnNm[]\" value='{$fieldCode}' $checked>{$fieldName} </label></li>";									
+											}
+											?>
+										</ul>
+									</div> */ ?>
+								</span> 
+							</div>			
+						</div>
+					</div>								
+					<?php endif; ?>
+					
+					<?php endif; ?>
 					<div id="zpa-house-condo-search-fields" class="">
 						<div class="row mt-25 zpa-home-search-fields">
 							<div class="col-xs-12 col-sm-3">
@@ -1321,7 +1334,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 	  });
     </script>
 	
-	<?php echo global_new_omnibar_script_v2(0, isset($requests['direct'])&&$requests['direct']?$requests['direct']:0); ?>
+	<?php echo global_new_omnibar_script_v2(0, $direct, $el); ?>
 	
 	<script>
 		jQuery(document).ready(function($){

@@ -105,9 +105,9 @@
 				<?php if( isset($single_property->handicapaccess)): ?>
 				<li>Handicap Access: [handicapaccess]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->yearbuiltdescrp)): ?>
+				<?php /* if( isset($single_property->yearbuiltdescrp)): ?>
 				<li>Year Built Description: [yearbuiltdescrp]</li>
-				<?php endif; ?>
+				<?php endif; */ ?>
 				<?php if( isset($single_property->waterbodyname)): ?>
 				<li>Water Body Name: [waterbodyname]</li>
 				<?php endif; ?>

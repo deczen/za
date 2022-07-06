@@ -4,9 +4,15 @@ global $requests;
 // $minListPrice 		= $requests['minlistprice'];
 // $maxListPrice		= $requests['maxlistprice'];
 
+$uniqid = uniqid();
+$uniqueClass = 'form_'.$uniqid;
+$uniqueClassWithDot = '.'.$uniqueClass;
+$el = $uniqueClassWithDot;
+$direct = isset($requests['direct'])&&$requests['direct']?$requests['direct']:0;
+
 ?><div id="zpa-main-container" class="zpa-container">
 	<div id="omnibar-wrap">
-		<form id="searchProfile" class="form-inline zpa-quick-search-form omnibar" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET">
+		<form id="searchProfile" class="form-inline zpa-quick-search-form omnibar <?php echo $uniqueClass; ?>" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET">
 			<div class="omnibar">
 				<style>
 					#omnibar-wrap .input-column .field-wrap .field-section .ms-ctn, #zpa-main-container .ms-ctn .ms-sel-ctn input{border:0 !important;}
@@ -138,7 +144,7 @@ global $requests;
 			?>
 		</form>	
 		
-		<?php echo global_new_omnibar_script_v2(0, isset($requests['direct'])&&$requests['direct']?$requests['direct']:0); ?>
+		<?php echo global_new_omnibar_script_v2(0, $direct, $el); ?>
 		
 	</div>
 </div>

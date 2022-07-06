@@ -257,6 +257,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			$loc_ms=array();
 			$loc_gs=array();
 			$loc_sd=array();
+			$loc_ln=array();
 			
 			// $towns = get_town_list();
 			foreach( $location as $var ){
@@ -280,6 +281,8 @@ if( ! function_exists('zipperagent_generate_list') ){
 					$loc_gs[]=substr($temp, 6);
 				}else if( substr($temp, 0, 7) == 'aschdt_' ){
 					$loc_sd[]=substr($temp, 7);
+				}else if( substr($temp, 0, 9) == 'alkchnnm_' ){
+					$loc_ln[]=substr($temp, 9);
 				}else{
 					$loc_zipcode[]=$temp;
 				}
@@ -295,10 +298,11 @@ if( ! function_exists('zipperagent_generate_list') ){
 			if(sizeof($loc_ms)) $locqry['mschl']=implode(',',$loc_ms);
 			if(sizeof($loc_gs)) $locqry['gschl']=implode(',',$loc_gs);
 			if(sizeof($loc_sd)) $locqry['aschdt']=implode(',',$loc_sd);
+			if(sizeof($loc_ln)) $locqry['alkChnNm']=implode(',',$loc_ln);
 			
 			// die( $locqry );
 		}
-		if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties ){
+		if( $advStNo || $advStName || $advStZip || $advStates || $advTownNm || $advCounties || $alkchnnm ){
 			
 			$loc_advStNo=array();
 			$loc_advStName=array();
@@ -312,6 +316,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			if(sizeof($advStZip)) $locqry['azip']=($advStZip);
 			if(sizeof($advStates)) $locqry['astt']=($advStates);
 			if(sizeof($advTownNm)) $locqry['atwnnm']=($advTownNm);
+			if( $alkchnnm ) $locqry['alkChnNm']=is_array($alkchnnm)?implode(',',$alkchnnm):$alkchnnm;
 			// if(sizeof($advCounties)) $locqry['acnty']=($advCounties);
 			
 		}
@@ -358,11 +363,7 @@ if( ! function_exists('zipperagent_generate_list') ){
 			$advSearch['alagt']=$alagt;
 
 		if( $aloff )
-			$advSearch['aloff']=$aloff;
-
-		if( $alkchnnm ){
-			$advSearch['alkChnNm']=is_array($alkchnnm)?implode(',',$alkchnnm):$alkchnnm;
-		}
+			$advSearch['aloff']=$aloff;		
 
 		//generate extra proptype variables
 		if($extra_proptypes = zipperagent_extra_proptype()){
@@ -3291,11 +3292,12 @@ if( ! function_exists('populate_lakes_with_option') ){
 		$arr=array();
 		
 		foreach( $lakes as $code => $lake ){
-			$code = 'alkchnnm_'.$code;
+			$modified_code = 'alkchnnm_'.$code;
 			$arr[]=array(
 					'group'=>'Lake',
 					'name'=>$lake,
-					'code'=> $code,
+					'code'=> $modified_code,
+					'value'=> $code,
 					'type'=>'lake',
 				);
 		}
@@ -6827,7 +6829,7 @@ if( ! function_exists('global_new_omnibar_script') ){
 } */
 
 if( ! function_exists('global_new_omnibar_script_v2') ){
-	function global_new_omnibar_script_v2($auto_submit=0, $direct=0){
+	function global_new_omnibar_script_v2($auto_submit=0, $direct=0, $el=''){
 		
 		if($direct):
 		?>
@@ -6865,7 +6867,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					
 				var tenants = <?php echo json_encode($tenants); ?>;
 				
-				var ms_town = $('#zpa-town-input').magicSuggest({
+				var ms_town = $('<?php echo $el; ?> #zpa-town-input').magicSuggest({
 					
 					data: tenants ? tenants : towns,
 					valueField: 'code',
@@ -6886,7 +6888,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_area = $('#zpa-areas-input').magicSuggest({
+				var ms_area = $('<?php echo $el; ?> #zpa-areas-input').magicSuggest({
 					
 					data: tenants ? tenants : areas,
 					valueField: 'code',
@@ -6907,7 +6909,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_county = $('#zpa-county-input').magicSuggest({
+				var ms_county = $('<?php echo $el; ?> #zpa-county-input').magicSuggest({
 					
 					data: counties,
 					valueField: 'code',
@@ -6928,7 +6930,28 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_zip = $('#zpa-zipcode-input').magicSuggest({
+				var ms_lake = $('<?php echo $el; ?> #zpa-lake-input').magicSuggest({
+					
+					data: lakes,
+					valueField: 'value',
+					displayField: 'name',
+					hideTrigger: true,
+					groupBy: 'group',
+					// maxSelection: 1,
+					allowFreeEntries: false,
+					minChars: 2,
+					renderer: function(data){
+						return '<div class="location">' +
+							'<div class="name '+ data.type +'">' + data.name + '</div>' +
+							'<div style="clear:both;"></div>' +
+						'</div>';
+					},
+					selectionRenderer: function(data){
+						return '<div class="name">' + data.name + '</div>';
+					},				
+				});
+				
+				var ms_zip = $('<?php echo $el; ?> #zpa-zipcode-input').magicSuggest({
 					
 					data: zipcodes,
 					valueField: 'code',
@@ -6949,7 +6972,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_all = $('#zpa-all-input').magicSuggest({
+				var ms_all = $('<?php echo $el; ?> #zpa-all-input').magicSuggest({
 					
 					data: tenants ? tenants : all,
 					valueField: 'code',
@@ -6977,7 +7000,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});	
 				
-				var ms_school = $('#zpa-school-input').magicSuggest({
+				var ms_school = $('<?php echo $el; ?> #zpa-school-input').magicSuggest({
 					
 					data: null,
 					valueField: 'code',
@@ -6998,7 +7021,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_school3 = $('#zpa-school3-input').magicSuggest({
+				var ms_school3 = $('<?php echo $el; ?> #zpa-school3-input').magicSuggest({
 					
 					data: null,
 					valueField: 'code',
@@ -7019,7 +7042,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_address = $('#zpa-address-key').magicSuggest({
+				var ms_address = $('<?php echo $el; ?> #zpa-address-key').magicSuggest({
 					
 					data: null,
 					valueField: 'code',
@@ -7040,7 +7063,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					},				
 				});
 				
-				var ms_listid = $('#zpa-listid-input').magicSuggest({
+				var ms_listid = $('<?php echo $el; ?> #zpa-listid-input').magicSuggest({
 					
 					data: null,
 					valueField: 'code',
@@ -7067,32 +7090,32 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				//auto submit on change
 				$(ms_all).on('selectionchange', function(e,m){
 					setTimeout(function() {					
-						m.container.parents('#omnibar-wrap form.omnibar').submit();						
+						m.container.parents('<?php echo $el; ?> #omnibar-wrap form.omnibar').submit();						
 					}, 500);
 				});
 				$(ms_county).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						m.container.parents('#omnibar-wrap form.omnibar').submit();
+						m.container.parents('<?php echo $el; ?> #omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				$(ms_area).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						m.container.parents('#omnibar-wrap form.omnibar').submit();
+						m.container.parents('<?php echo $el; ?> #omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				$(ms_town).on('selectionchange', function(e,m){		
 					setTimeout(function() {			
-						m.container.parents('#omnibar-wrap form.omnibar').submit();
+						m.container.parents('<?php echo $el; ?> #omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				$(ms_zip).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						m.container.parents('#omnibar-wrap form.omnibar').submit();
+						m.container.parents('<?php echo $el; ?> #omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				$(ms_listid).on('selectionchange', function(e,m){						
 					setTimeout(function() {					
-						m.container.parents('#omnibar-wrap form.omnibar').submit();
+						m.container.parents('<?php echo $el; ?> #omnibar-wrap form.omnibar').submit();
 					}, 500);
 				});
 				<?php endif; ?>
@@ -7167,7 +7190,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 							add = '<input type="hidden" name="'+ name +'" value="'+ value +'" />';
 							fields.append(add);
 						}else if(is_address){
-							var saved_address = jQuery.parseJSON(jQuery('#zpa-all-input-address-values').val());
+							var saved_address = jQuery.parseJSON(jQuery('<?php echo $el; ?> #zpa-all-input-address-values').val());
 							if(saved_address){
 								$.each(saved_address, function(key, value) {
 									jQuery('.field-section.addr #'+ key).val(value);
@@ -7642,7 +7665,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						jQuery('body .pac-container.pac-logo').css( 'visibility', 'hidden' );
 					}
 					
-					$('#zpa-all-input-address').val('');
+					$('<?php echo $el; ?> #zpa-all-input-address').val('');
 				});
 				
 				/* auto select dropdown function (ms_all) */
@@ -7697,7 +7720,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						
 						ms_all__afterDelete=0;
 						
-						$('#zpa-all-input input').focus();
+						$('<?php echo $el; ?> #zpa-all-input input').focus();
 					}
 					
 					//reset data to tenants
@@ -7727,12 +7750,12 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						
 						ms_all.collapse();
 						
-						$('#zpa-all-input input').focus();
+						$('<?php echo $el; ?> #zpa-all-input input').focus();
 					}
 				});				
 				
 				//select value on tab key pressed
-				$('#zpa-all-input input').on( 'keydown', function(e){
+				$('<?php echo $el; ?> #zpa-all-input input').on( 'keydown', function(e){
 					if(e.keyCode === 9) { //tab pressed 
 						var data = ms_all.combobox.children().filter('.ms-res-item-grouped');
 						var firstData = '';
@@ -7752,7 +7775,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}
 						
 						ms_all.empty();
-						$('#zpa-all-input input').focus();
+						$('<?php echo $el; ?> #zpa-all-input input').focus();
 						
 						ms_all.collapse();
 						
@@ -7835,7 +7858,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				});
 				
 				//select value on tab key pressed
-				$('#zpa-town-input input').on( 'keydown', function(e){
+				$('<?php echo $el; ?> #zpa-town-input input').on( 'keydown', function(e){
 					if(e.keyCode === 9) { //tab pressed 
 						var data = ms_town.combobox.children().filter('.ms-res-item-grouped');
 						var firstData = '';
@@ -7848,7 +7871,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}
 						
 						ms_town.empty();
-						$('#zpa-town-input input').focus();
+						$('<?php echo $el; ?> #zpa-town-input input').focus();
 						
 						ms_town.collapse();
 						
@@ -7931,7 +7954,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				});
 				
 				//select value on tab key pressed
-				$('#zpa-areas-input input').on( 'keydown', function(e){
+				$('<?php echo $el; ?> #zpa-areas-input input').on( 'keydown', function(e){
 					if(e.keyCode === 9) { //tab pressed 
 						var data = ms_area.combobox.children().filter('.ms-res-item-grouped');
 						var firstData = '';
@@ -7944,7 +7967,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}
 						
 						ms_area.empty();
-						$('#zpa-areas-input input').focus();
+						$('<?php echo $el; ?> #zpa-areas-input input').focus();
 						
 						ms_area.collapse();
 						
@@ -8017,7 +8040,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				});
 				
 				//select value on tab key pressed
-				$('#zpa-county-input input').on( 'keydown', function(e){
+				$('<?php echo $el; ?> #zpa-county-input input').on( 'keydown', function(e){
 					if(e.keyCode === 9) { //tab pressed 
 						var data = ms_county.combobox.children().filter('.ms-res-item-grouped');
 						var firstData = '';
@@ -8030,7 +8053,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}
 						
 						ms_county.empty();
-						$('#zpa-county-input input').focus();
+						$('<?php echo $el; ?> #zpa-county-input input').focus();
 						
 						ms_county.collapse();
 						
@@ -8048,6 +8071,92 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						ms_county__afterDelete=1;
 					}else{
 						ms_county__afterDelete=0;
+					}
+				});
+				
+				/* auto select dropdown function (ms_lake) */
+				var ms_lake__rawValue='';
+				var ms_lake__afterDelete=0;
+				var ms_lake__recentSelected=[];
+				var ms_lake__currentSelected=[];
+				
+				//get user input keywords
+				$(ms_lake).on('keyup', function(){
+					ms_lake__rawValue = ms_lake.getRawValue();
+					ms_lake__afterDelete=0;
+				});
+				
+				//get current selected value
+				$(ms_lake).on('focus', function(c){
+					ms_lake__recentSelected = ms_lake.getValue();
+					ms_lake__afterDelete=1;
+				});
+				
+				//select value on blur / mouse leave
+				$(ms_lake).on('blur', function(c, e){
+					var data = ms_lake.combobox.children().filter('.ms-res-item-grouped');
+					var firstData = '';
+					ms_lake__currentSelected = ms_lake.getValue();
+					
+					if( ms_lake__rawValue!="" && ! ms_lake__afterDelete && ms_lake__recentSelected.length == ms_lake__currentSelected.length ){
+						if(data.length){
+							firstData=JSON.parse(data[0].dataset.json);
+							ms_lake.setValue([firstData.code]);
+						}
+						
+						ms_lake__afterDelete=0;
+					}
+				});
+				
+				//select value on enter key pressed
+				$(ms_lake).on('keydown', function(e,m,v){
+					if(v.keyCode == 13 || v.keyCode == 188){ // enter pressed or comma pressed
+						var data = ms_lake.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_lake__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_lake.setValue([firstData.code]);
+							}
+						}
+						
+						ms_lake.collapse();
+					}
+				});
+				
+				//select value on tab key pressed
+				$('<?php echo $el; ?> #zpa-lake-input input').on( 'keydown', function(e){
+					if(e.keyCode === 9) { //tab pressed 
+						var data = ms_lake.combobox.children().filter('.ms-res-item-grouped');
+						var firstData = '';
+						
+						if( ms_lake__rawValue!=""){
+							if(data.length){
+								firstData=JSON.parse(data[0].dataset.json);
+								ms_lake.setValue([firstData.code]);
+							}
+						}
+						
+						ms_lake.empty();
+						$('<?php echo $el; ?> #zpa-lake-input input').focus();
+						
+						ms_lake.collapse();
+						
+						e.preventDefault();
+					}
+				});
+				
+				//set after delete state
+				$(ms_lake).on('selectionchange', function(e,m,r){
+					
+					ms_lake.empty();
+					ms_lake__rawValue="";
+					
+					if(r.length==ms_lake__recentSelected.length && r.length==ms_lake__currentSelected.length){
+						ms_lake__afterDelete=1;
+					}else{
+						ms_lake__afterDelete=0;
 					}
 				});
 				
@@ -8103,7 +8212,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				});
 				
 				//select value on tab key pressed
-				$('#zpa-zipcode-input input').on( 'keydown', function(e){
+				$('<?php echo $el; ?> #zpa-zipcode-input input').on( 'keydown', function(e){
 					if(e.keyCode === 9) { //tab pressed 
 						var data = ms_zip.combobox.children().filter('.ms-res-item-grouped');
 						var firstData = '';
@@ -8116,7 +8225,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}
 						
 						ms_zip.empty();
-						$('#zpa-zipcode-input input').focus();
+						$('<?php echo $el; ?> #zpa-zipcode-input input').focus();
 						
 						ms_zip.collapse();
 						
@@ -8199,7 +8308,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				});
 				
 				//select value on tab key pressed
-				$('#zpa-listid-input input').on( 'keydown', function(e){
+				$('<?php echo $el; ?> #zpa-listid-input input').on( 'keydown', function(e){
 					if(e.keyCode === 9) { //tab pressed 
 						var data = ms_listid.combobox.children().filter('.ms-res-item-grouped');
 						var firstData = '';
@@ -8212,7 +8321,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						}
 						
 						ms_listid.empty();
-						$('#zpa-listid-input input').focus();
+						$('<?php echo $el; ?> #zpa-listid-input input').focus();
 						
 						ms_listid.collapse();
 						

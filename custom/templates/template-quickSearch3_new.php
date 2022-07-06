@@ -4,6 +4,12 @@ global $requests;
 $minListPrice 		= $requests['minlistprice'];
 $maxListPrice		= $requests['maxlistprice'];
 
+$uniqid = uniqid();
+$uniqueClass = 'form_'.$uniqid;
+$uniqueClassWithDot = '.'.$uniqueClass;
+$el = $uniqueClassWithDot;
+$direct = isset($requests['direct'])&&$requests['direct']?$requests['direct']:0;
+
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.css'; ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css'; ?>">
@@ -12,7 +18,7 @@ $maxListPrice		= $requests['maxlistprice'];
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/dropdownCheckboxes.min.js'; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
     <div class="zpa-widget mb-25">
-        <form id="searchProfile" class="form-inline zpa-quick-search-form omnibar" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
+        <form id="searchProfile" class="form-inline zpa-quick-search-form omnibar <?php echo $uniqueClass; ?>" action="<?php echo ZipperagentGlobalFunction()->zipperagent_page_url( 'search-results' ) ?>" method="GET" data-zpa-quick-search-bound="true">
             <fieldset>
 				<div class="row mb-10">
 					<?php /*
@@ -459,7 +465,7 @@ $maxListPrice		= $requests['maxlistprice'];
 		
 	</script> */ ?>
 	
-	<?php echo global_new_omnibar_script_v2(0, isset($requests['direct'])&&$requests['direct']?$requests['direct']:0); ?>
+	<?php echo global_new_omnibar_script_v2(0, $direct, $el); ?>
 	
 	<script>
 		var $range = jQuery("#qs-price-slider-range-3");

@@ -458,6 +458,32 @@
 	border: 1px solid #ccc
 }
 
+#searchFormMobile .form-control {
+	min-height:50px;
+	padding:14px;
+}
+#searchFormMobile .field-label{
+	font-size:16px;
+	text-align:center;
+	display: block;
+	width:100%;
+	font-size:bold;
+}
+#searchFormMobile .input-number{
+	text-align: left;
+  padding-left:20px;
+}
+#searchFormMobile .zpa-label-overlay-money{
+	top:16px;
+}
+#searchFormMobile #zpa-quicksearch-submit7{
+  width:100%;
+	font-size:20px;
+	text-transform: uppercase;
+	font-weight: bold;
+  height:50px;
+}
+
 .login-url .link-text,
 .myaccount-url .link-text {
 	text-transform: uppercase

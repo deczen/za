@@ -17,6 +17,7 @@ class Zipperagent_Shortcodes{
 		'za_quick_search4' => 'display_quick_search4',
 		'za_quick_search5' => 'display_quick_search5',
 		'za_quick_search6' => 'display_quick_search6',
+		'za_quick_search7' => 'display_quick_search7',
 		'zpa_mortgage_calculator' => 'display_mortgage_calculator',
 		'za_logout' => 'display_zipperagent_logout',
 		'za_gallery_view' => 'display_zipperagent_gallery_view',
@@ -433,6 +434,30 @@ class Zipperagent_Shortcodes{
 			
 		ob_start();	
 		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch6.php";
+		$html=ob_get_clean();
+		
+		return $html;
+	}
+	
+	function display_quick_search7($atts){
+		global $requests;
+		
+		$atts = shortcode_atts( array(
+			'location_option' => '',
+			'property_type_option' => '',
+			'property_type_default' => '',
+			'minlistprice' => '',
+			'maxlistprice' => '',
+			'column' => '',
+			'o' => '',
+			'newsearchbar' => '',
+			'direct' => '',
+		), $atts, 'quick_search7');
+		
+		$requests = $atts;
+			
+		ob_start();	
+		include ZIPPERAGENTPATH . "/custom/templates/template-quickSearch7.php";
 		$html=ob_get_clean();
 		
 		return $html;
