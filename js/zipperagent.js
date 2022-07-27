@@ -145,6 +145,7 @@ var zppr={
 			loc_ms=[];
 			loc_gs=[];
 			loc_sd=[];
+			loc_ln=[];
 			
 			// towns = get_town_list();
 			for (const [key, value] of Object.entries(location)) {
@@ -170,6 +171,8 @@ var zppr={
 						loc_gs.push(temp.substring(6));
 					}else if( temp.substring(0, 7) == 'aschdt_' ){
 						loc_sd.push(temp.substring(7));
+					}else if( temp.substring(0, 9) == 'alkchnnm_' ){
+						loc_ln.push(temp.substring(9));
 					}else{
 						loc_zipcode.push(temp);
 					}
@@ -186,15 +189,17 @@ var zppr={
 			if(loc_ms) locqry['mschl']=loc_ms.join();
 			if(loc_gs) locqry['gschl']=loc_gs.join();
 			if(loc_sd) locqry['aschdt']=loc_sd.join();
+			if(loc_ln) locqry['alkChnNm']=loc_ln.join();
 			
 			// die( locqry );
-		}else if( advStNo || advStName || advStZip || advStates || advTownNm || advCounties ){
+		}else if( advStNo || advStName || advStZip || advStates || advTownNm || advCounties || alkchnnm ){
 							
 			if(advStNo) locqry['astno']=(advStNo);
 			if(advStName) locqry['astnmf']=(advStName);
 			if(advStZip) locqry['azip']=(advStZip);
 			if(advStates) locqry['astt']=(advStates);
 			if(advTownNm) locqry['atwnnm']=(advTownNm);
+			if(alkchnnm) locqry['alkChnNm']=(alkchnnm);
 			// if(advCounties) locqry['acnty']=(advCounties);
 			
 		} /* else if(boundaryWKT){

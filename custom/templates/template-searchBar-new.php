@@ -994,8 +994,8 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						foreach($fields as $field){
 						echo "\r\n" .
 						'case "alkchnnm_'.$field->shortDescription.'":'."\r\n" .
-							// "newLabel = '{$field->longDescription}'"."\r\n" .
-							"newLabel = ''"."\r\n" . //disable label text
+							"newLabel = '{$field->longDescription}'"."\r\n" .
+							// "newLabel = ''"."\r\n" . //disable label text
 							'break;'."\r\n";
 						}
 						?>
