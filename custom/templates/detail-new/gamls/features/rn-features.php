@@ -1,24 +1,5 @@
 <ul class="zy-features-grid">
 	<li class="cell">
-		<?php if( isset($single_property->unmapped->{"Cumulative Days on Market"}) || isset($single_property->unmapped->{"Virtual Tour Url Unbranded"}) || isset($single_property->unmapped->{"Bathrooms Full"}) || isset($single_property->unmapped->{"Bathrooms Half"}) ):?>
-		<h3 class="zy-feature-title">Main Frame</h3>
-		<ul class="zy-sub-list">
-			
-			<?php if( isset($single_property->unmapped->{"Cumulative Days on Market"})): ?>
-			<li>Days On Market: [unmapped_Cumulative Days on Market]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Virtual Tour Url Unbranded"})): ?>
-			<li>Virtual Tour : [unmapped_Virtual Tour Url Unbranded]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Bathrooms Full"})): ?>
-			<li>Baths: [unmapped_Bathrooms Full]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Bathrooms Half"})): ?>
-			<li>1/2 Baths: [unmapped_Bathrooms Half]</li>
-			<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
 		
 		<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->rntype) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || 
 				  isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundryfeatures) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || 

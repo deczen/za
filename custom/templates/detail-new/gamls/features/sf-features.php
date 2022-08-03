@@ -1,24 +1,5 @@
 <ul class="zy-features-grid">
 	<li class="cell">
-		<?php if( isset($single_property->unmapped->{"Cumulative Days on Market"}) || isset($single_property->unmapped->{"Architectural Style"}) || isset($single_property->unmapped->{"Bathrooms Full"}) || isset($single_property->unmapped->{"Bathrooms Half"}) ):?>
-		<h3 class="zy-feature-title">Main Frame</h3>
-		<ul class="zy-sub-list">
-			
-			<?php if( isset($single_property->unmapped->{"Cumulative Days on Market"})): ?>
-			<li>Days On Market: [unmapped_Cumulative Days on Market]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Architectural Style"})): ?>
-			<li>House Style: [unmapped_Architectural Style]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Bathrooms Full"})): ?>
-			<li>Baths: [unmapped_Bathrooms Full]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Bathrooms Half"})): ?>
-			<li>1/2 Baths: [unmapped_Bathrooms Half]</li>
-			<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
 	
 		<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || 
 				  isset($single_property->flooring) || isset($single_property->waterviewfeatures) || isset($single_property->unmapped->{"Construction Materials"}) || isset($single_property->unmapped->{"Lot Features"}) || isset($single_property->unmapped->{"Lot Size Source"}) ||

@@ -1,18 +1,5 @@
 <ul class="zy-features-grid">
 	<li class="cell">
-		<?php if( isset($single_property->unmapped->{"Bathrooms Full"}) || isset($single_property->unmapped->{"Bathrooms Half"}) ):?>
-	
-		<h3 class="zy-feature-title">Main Frame</h3>
-		<ul class="zy-sub-list">
-			<?php if( isset($single_property->unmapped->{"Bathrooms Full"})): ?>
-			<li>Baths: [unmapped_Bathrooms Full]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->{"Bathrooms Half"})): ?>
-			<li>1/2 Baths: [unmapped_Bathrooms Half]</li>
-			<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
 		
 		<?php if( isset($single_property->basement) || isset($single_property->nobuildings) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->facilities) || 
 				  isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->parkingspaces) || isset($single_property->noofrestrooms) || isset($single_property->system) || 

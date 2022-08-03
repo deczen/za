@@ -17,6 +17,13 @@ if( (isset($single_property->unmapped->VirtualTourURLBranded)) && (isset($single
 	if(is_array($single_property->vtlink)){
 		$virtual_tours = $single_property->vtlink;
 	}	
+}elseif(isset($single_property->unmapped->{"Virtual Tour Url Unbranded"})){
+	
+	if(is_array($single_property->unmapped->{"Virtual Tour Url Unbranded"})){
+		$virtual_tours = $single_property->unmapped->{"Virtual Tour Url Unbranded"};
+	}else{
+		$virtual_tours[] = $single_property->unmapped->{"Virtual Tour Url Unbranded"};
+	}	
 }
 
 foreach( $virtual_tours as $virtual_index => $virtual_tour_url ):
