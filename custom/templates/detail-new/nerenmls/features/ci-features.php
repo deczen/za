@@ -42,7 +42,11 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities)  || isset($single_property->DwellingType) || isset($single_property->foundation) /*|| isset($single_property->style)*/ || isset($single_property->roofmaterial) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->CarStorage) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || isset($single_property->greencertified) || isset($single_property->handicapaccess) ):?>
+	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || 
+			  isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || 
+			  isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities)  || isset($single_property->DwellingType) || isset($single_property->foundation) /*|| isset($single_property->style)*/ || 
+			  isset($single_property->roofmaterial) || isset($single_property->unmapped->Fireplace) || isset($single_property->unmapped->CarStorage) || isset($single_property->unmapped->LotSize) || isset($single_property->lotdescription) || 
+			  isset($single_property->greencertified) || isset($single_property->handicapaccess) || isset($single_property->unmapped->LivingArea) || isset($single_property->zoning) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Details</h3>
 		<ul class="zy-sub-list">
@@ -123,7 +127,15 @@
 				<li>Handicap Access: [handicapaccess]</li>
 				<?php endif; ?>
 			
-			
+				<?php if( isset($single_property->unmapped->LivingArea)): ?>
+				<li>Building Area Total: [unmapped_LivingArea]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->roofmaterial)): ?>
+				<li>Roof Material: [roofmaterial]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->zoning)): ?>
+				<li>Zoning: [zoning]</li>
+				<?php endif; ?>
 		</ul>
 	</li>
 	<?php endif; ?>
@@ -148,7 +160,7 @@
 			endif;
 		?>
 		
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) || isset($single_property->zonedescription) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zonedescription) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
 		<h3 class="zy-feature-title">Taxes & Considerations</h3>
 		<ul class="zy-sub-list">
 			
@@ -157,9 +169,6 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->taxyear)): ?>
 				<li>Tax Year: [taxyear]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->zoning)): ?>
-				<li>Zoning Code: [zoning]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->zonedescription)): ?>
 				<li>Zoning Description: [zonedescription]</li>
