@@ -599,7 +599,9 @@
 #map .zpa-marker:not(.zpa-image-marker) {
 	padding: 5px;
 	border-radius: 5px;
-	box-shadow: 0px 3px 10px;
+	box-shadow: 0px 3px 10px #045D5D;
+	background: #045D5D !important;
+	color: #fff;
 }
 
 #map .zpa-marker:not(.zpa-image-marker):hover {
