@@ -209,7 +209,7 @@ else if($single_property->sourceid == 'SAMLS'){
 	}
 }
 
-// die( $property_type );
+// die( 'proptype: '. $property_type );
 
 //Template selection
 switch($property_type){
@@ -286,7 +286,8 @@ switch($property_type){
 	case "REL": //Rental		
 	case "E": //Rental		
 	case "LEASE/RENT": //Rental		
-	case "RESIDENTIALINCOME": //Rental		
+	case "RESIDENTIALINCOME": //Rental	
+	case "Residential Income": //Residential Income
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -303,6 +304,7 @@ switch($property_type){
 	case "CLSE": //Commercial Lease	
 	case "COMMERCIAL LEASE": //Commercial Lease	
 	case "CO": //Commercial Lease	
+	case "Commercial Lease": //Commercial Lease
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
@@ -322,6 +324,7 @@ switch($property_type){
 	case "Commercial": //Commercial	
 	case "COMMERCIAL_SALE": //Commercial	
 	case "COMMERCIAL SALE": //Commercial Sale	
+	case "Commercial Sale": //Commercial Sale
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';
@@ -346,6 +349,7 @@ switch($property_type){
 	case "BUSINESS OPPORTUNITY": //Business Opportunity		
 	case "BUSINESS_OPPORTUNITY": //Business Opportunity		
 	case "BUSINESSOPPORTUNITY": //Business Opportunity		
+	case "Business Opportunity": //Business Opportunity
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';
@@ -359,6 +363,7 @@ switch($property_type){
 	case "RLse": //Residential Lease
 	case "RESIDENTIAL_LEASE": //Residential Lease
 	case "RESIDENTIAL LEASE": //Residential Lease
+	case "Residential Lease": //Residential Lease
 		$template_name=get_detail_template_filename('rd')?get_detail_template_filename('rd'):'';
 		$template_features='rd-features.php';
 		$template_print='rd-print.php';
@@ -427,10 +432,17 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 $asrc=$rb['web']['asrc'];
 if($groupname=='mlspin' && $asrc=='0,NERENMLS'){
 	$template_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/'. $template_name;
-	$template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/features/nerenmls/'. $template_features;
-	$template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/print/nerenmls/'. $template_print;	
-	$template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/sidebar/nerenmls/'. $template_sidebar;
-	$template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/vtlink/nerenmls/'. $template_vtlink;
+	// $template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/features/nerenmls/'. $template_features;
+	// $template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/print/nerenmls/'. $template_print;	
+	// $template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/sidebar/nerenmls/'. $template_sidebar;
+	// $template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/vtlink/nerenmls/'. $template_vtlink;
+	
+	$template_features_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/nerenmls/features/'. $template_features;
+	$template_print_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/nerenmls/print/'. $template_print;	
+	$template_sidebar_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/nerenmls/sidebar/'. $template_sidebar;
+	$template_vtlink_path = ZIPPERAGENTPATH . '/custom/templates/detail-new'. $group_dir .'/nerenmls/vtlink/'. $template_vtlink;
+	
+	// die('template 1: ' . $template_features_path);
 }
 /* end custom case for NERENMLS in MLSPIN group */
 
@@ -452,7 +464,7 @@ if(file_exists($template_path) && $template_name ){
 	include $template_path;
 	return;
 }	
-
+// die('template 2: ' . $template_features_path);
 /* if there is no template, run default template */
 
 

@@ -46,51 +46,60 @@
 	</li>						
 	{/nested}
 
-	{section fields="single_property.basement,single_property.citype,single_property.construction,single_property.dividable,single_property.noofdrivingdoors,single_property.elevator,single_property.expandable,single_property.facilities,single_property.handicapaccess,single_property.noofloadingdocks,single_property.noofrestrooms,single_property.sprinklers,single_property.utilities"}
+	{section fields="single_property.basement,single_property.citype,single_property.construction,single_property.dividable,single_property.noofdrivingdoors,single_property.elevator,single_property.expandable,single_property.facilities,single_property.handicapaccess,single_property.noofloadingdocks,single_property.noofrestrooms,single_property.sprinklers,single_property.unmapped.LivingArea,single_property.roofmaterial,single_property.utilities,single_property.zoning"}
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Details</h3>
 		<ul class="zy-sub-list">
 
 			
-				{if field="single_property.basement"}
-				<li>Basement: {{basement}}</li>
-				{/if}
-				{if field="single_property.citype"}
-				<li>Commercial Type: {{citype}}</li>
-				{/if}
-				{if field="single_property.construction"}
-				<li>Construction: {{construction}}</li>
-				{/if}
-				{if field="single_property.dividable"}
-				<li>Dividable: {{dividable}}</li>
-				{/if}
-				{if field="single_property.noofdrivingdoors"}
-				<li>Drive in Doors: {{noofdrivingdoors}}</li>
-				{/if}
-				{if field="single_property.elevator"}
-				<li>Elevator: {{elevator}}</li>
-				{/if}
-				{if field="single_property.expandable"}
-				<li>Expandable: {{expandable}}</li>
-				{/if}
-				{if field="single_property.facilities"}
-				<li>Facilities: {{facilities}}</li>
-				{/if}
-				{if field="single_property.handicapaccess"}
-				<li>Handicap Access: {{handicapaccess}}</li>
-				{/if}
-				{if field="single_property.noofloadingdocks"}
-				<li>Loading Docks : {{noofloadingdocks}}</li>
-				{/if}
-				{if field="single_property.noofrestrooms"}
-				<li>Restrooms: {{noofrestrooms}}</li>
-				{/if}
-				{if field="single_property.sprinklers"}
-				<li>Sprinklers: {{sprinklers}}</li>
-				{/if}
-				{if field="single_property.utilities"}
-				<li>Utilities: {{utilities}}</li>
-				{/if}
+			{if field="single_property.basement"}
+			<li>Basement: {{basement}}</li>
+			{/if}
+			{if field="single_property.citype"}
+			<li>Commercial Type: {{citype}}</li>
+			{/if}
+			{if field="single_property.construction"}
+			<li>Construction: {{construction}}</li>
+			{/if}
+			{if field="single_property.dividable"}
+			<li>Dividable: {{dividable}}</li>
+			{/if}
+			{if field="single_property.noofdrivingdoors"}
+			<li>Drive in Doors: {{noofdrivingdoors}}</li>
+			{/if}
+			{if field="single_property.elevator"}
+			<li>Elevator: {{elevator}}</li>
+			{/if}
+			{if field="single_property.expandable"}
+			<li>Expandable: {{expandable}}</li>
+			{/if}
+			{if field="single_property.facilities"}
+			<li>Facilities: {{facilities}}</li>
+			{/if}
+			{if field="single_property.handicapaccess"}
+			<li>Handicap Access: {{handicapaccess}}</li>
+			{/if}
+			{if field="single_property.noofloadingdocks"}
+			<li>Loading Docks : {{noofloadingdocks}}</li>
+			{/if}
+			{if field="single_property.noofrestrooms"}
+			<li>Restrooms: {{noofrestrooms}}</li>
+			{/if}
+			{if field="single_property.sprinklers"}
+			<li>Sprinklers: {{sprinklers}}</li>
+			{/if}
+			{if field="single_property.unmapped.LivingArea"}
+			<li>Building Area Total: {{unmapped_LivingArea}}</li>
+			{/if}
+			{if field="single_property.roofmaterial"}
+			<li>Roof Material: {{roofmaterial}}</li>
+			{/if}
+			{if field="single_property.utilities"}
+			<li>Utilities: {{utilities}}</li>
+			{/if}
+			{if field="single_property.zoning"}
+			<li>Zoning: {{zoning}}</li>
+			{/if}
 			
 			
 		</ul>
