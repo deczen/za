@@ -29,11 +29,11 @@
 		</ul>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->parkingspaces) || isset($single_property->parkingfeature) ):?>
+		<?php if( ( isset($single_property->parkingspaces) && $single_property->parkingspaces ) || isset($single_property->parkingfeature) ):?>
 		<h3 class="zy-feature-title">Parking Information</h3>
 		<ul class="zy-sub-list">
 			
-				<?php if( isset($single_property->parkingspaces)): ?>
+				<?php if( isset($single_property->parkingspaces) && $single_property->parkingspaces ): ?>
 				<li>Parking Spaces: [parkingspaces]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->parkingfeature)): ?>
