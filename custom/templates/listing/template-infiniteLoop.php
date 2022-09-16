@@ -493,9 +493,9 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 				
 					var data = {
 						action: 'load_more_properties',
-						'page': pagenumber,
+						'pagenum': pagenumber,
 						<?php
-						$excludes = array('page','action', 'actual_link');
+						$excludes = array('pagenum','action', 'actual_link');
 						if( isset($requests) && sizeof($requests) ){
 							foreach( $requests as $var=>$val ){
 								
@@ -526,7 +526,7 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 							// console.log(response);
 							if( response['html'] ){
 								listing=response['html'];
-								pagenumber = response['page'];
+								pagenumber = response['pagenum'];
 								
 								// $(listing).insertAfter('#first-section');
 								$("#first-section").append(listing);

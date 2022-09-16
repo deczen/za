@@ -181,8 +181,8 @@ if( $list ): ?>
 			$total = $count;
 			$pagescount = ceil($total/$num);
 			$current_url=$actual_link;
-			$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
-			$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
+			$back_url=$page>1?add_query_arg( array( 'pagenum' => $page-1 ), $current_url ):'#';
+			$next_url=$page<$pagescount?add_query_arg( array( 'pagenum' => $page+1 ), $current_url ):'#';
 			?>
 			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
 			</li>

@@ -283,8 +283,8 @@ foreach( $requests as $key=>$val ){
 // $order='&o='.$o;
 
 /* get page number */
-$page = (get_query_var('page')) ? get_query_var('page') : 1;
-$page = isset($requests['page']) ? $requests['page'] : $page;
+$page = (get_query_var('pagenum')) ? get_query_var('pagenum') : 1;
+$page = isset($requests['pagenum']) ? $requests['pagenum'] : $page;
 
 if( $type=="photo" || $type=="map" ){
 	$num=10;

@@ -30,8 +30,8 @@ $showResults	 	= ( isset($requests['result'])?$requests['result']:1 );
 $excludes = get_short_excludes();
 
 //set page
-if(get_query_var('page')){	
-	$requests['page'] = get_query_var('page');
+if(get_query_var('pagenum')){	
+	$requests['pagenum'] = get_query_var('pagenum');
 }
 ?>
 <?php /* <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css'; ?>"> */ ?>

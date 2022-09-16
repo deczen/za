@@ -430,7 +430,7 @@ function listing_query_func( $atts ) {
 	), $atts );
 	
 	if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
-	elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
+	elseif ( get_query_var('pagenum') ) { $paged = get_query_var('pagenum'); }
 	else { $paged = 1; }
 	
 	if ( $a[ 'cat' ] ) {

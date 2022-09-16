@@ -756,7 +756,7 @@ jQuery(document).ready(function(){
 	var data = {
 		action: 'prop_result_and_pagination',
 		'vars': vars,
-		'page': '<?php echo $page; ?>',
+		'pagenum': '<?php echo $page; ?>',
 		'num': '<?php echo $num; ?>',
 		'maxlist': '<?php echo $maxtotal; ?>',
 		'actual_link': '<?php echo $actual_link; ?>',

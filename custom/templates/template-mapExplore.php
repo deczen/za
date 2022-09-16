@@ -417,7 +417,7 @@ if($requests['lat'] && $requests['lng']){
 					success: function( response ) {         
 						if( response['markers'] ){
 							var vars = response['vars'];
-							var page = response['page'];
+							var page = response['pagenum'];
 							var num = response['num'];
 							var maxtotal = response['maxtotal'];
 							var actual_link = response['actual_link'];
@@ -476,7 +476,7 @@ if($requests['lat'] && $requests['lng']){
 					success: function( response ) {         
 						if( response['markers'] ){
 							var vars = response['vars'];
-							var page = response['page'];
+							var page = response['pagenum'];
 							var num = response['num'];
 							var maxtotal = response['maxtotal'];
 							var actual_link = response['actual_link'];
@@ -510,7 +510,7 @@ if($requests['lat'] && $requests['lng']){
 				var data = {
 					action: 'prop_result_and_pagination',
 					'vars': vars,
-					'page': page,
+					'pagenum': page,
 					'num': num,
 					'maxlist': maxtotal,
 					'actual_link': actual_link,

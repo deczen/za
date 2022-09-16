@@ -463,7 +463,7 @@ function prop_result_and_pagination(){
 		}
 		
 		$vars = $_REQUEST['vars'];
-		$page = $_REQUEST['page'];
+		$page = $_REQUEST['pagenum'];
 		$num = $_REQUEST['num'];
 		$maxtotal = $_REQUEST['maxlist'];
 		$actual_link = $_REQUEST['actual_link'];
@@ -868,7 +868,7 @@ function get_map_markers(){
 		$result['infoWindowContent']=$infoWindows;
 		$result['next_index']=$NextMapIndex;
 		$result['vars']=$mapvars;
-		$result['page']=$page;
+		$result['pagenum']=$page;
 		$result['num']=$num;
 		$result['maxtotal']=$maxtotal;
 		$result['actual_link']=$actual_link;
@@ -914,7 +914,7 @@ function get_map_markers_loop(){
 		$result['infoWindowContent']=$infoWindows;
 		$result['next_index']=$NextMapIndex;
 		$result['vars']=$mapvars;
-		$result['page']='';
+		$result['pagenum']='';
 		$result['num']='';
 		$result['maxtotal']='';
 		$result['actual_link']='';
@@ -1623,7 +1623,7 @@ function load_more_properties(){
 		}
 
 		/* get page number */
-		$page = isset($requests['page']) ? $requests['page'] : 1;
+		$page = isset($requests['pagenum']) ? $requests['pagenum'] : 1;
 
 		$num=isset($requests['listinapage']) ? $requests['listinapage'] : 24;
 		$maxtotal=isset($requests['maxlist']) ? $requests['maxlist'] : 0;
@@ -1876,7 +1876,7 @@ function load_more_properties(){
 		
 		$html=ob_get_clean();
 		$data['html']=$html;
-		$data['page']=$page; //return next page
+		$data['pagenum']=$page; //return next page
 		
 		echo json_encode($data);
          

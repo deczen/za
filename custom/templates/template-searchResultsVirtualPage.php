@@ -25,8 +25,8 @@ $openHomesMode 		= ( isset($requests['openhomesmode'])?$requests['openhomesmode'
 // echo "<pre>"; print_r( $requests ); echo "</pre>";
 
 //set page
-if(get_query_var('page')){	
-	$requests['page'] = get_query_var('page');
+if(get_query_var('pagenum')){	
+	$requests['pagenum'] = get_query_var('pagenum');
 }
 
 if(is_open_house_search_enabled()){

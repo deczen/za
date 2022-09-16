@@ -412,8 +412,8 @@ if( ! function_exists('zipperagent_generate_list') ){
 		// $order='&o='.$o;
 
 		/* get page number */
-		$page = (get_query_var('page')) ? get_query_var('page') : 1;
-		$page = isset($requests['page']) ? $requests['page'] : $page;
+		$page = (get_query_var('pagenum')) ? get_query_var('pagenum') : 1;
+		$page = isset($requests['pagenum']) ? $requests['pagenum'] : $page;
 
 		$num=isset($requests['listinapage']) ? $requests['listinapage'] : ($view=='map'?10:24);
 		$maxtotal=isset($requests['maxlist']) ? $requests['maxlist'] : 0;
@@ -2179,8 +2179,8 @@ if( ! function_exists('zipperagent_pagination') ){
 			$total = $count;
 			$pagescount = ceil($total/$num);
 			$current_url=$actual_link;
-			$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
-			$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
+			$back_url=$page>1?add_query_arg( array( 'pagenum' => $page-1 ), $current_url ):'#';
+			$next_url=$page<$pagescount?add_query_arg( array( 'pagenum' => $page+1 ), $current_url ):'#';
 			?>
 			<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>" data-page="<?php echo $page - 1; ?>">&laquo;</a></li>
 			<?php
@@ -2188,15 +2188,15 @@ if( ! function_exists('zipperagent_pagination') ){
 			$center = $limit / 2;
 			$minpage = $page - $center > 0 ? $page - $center : 1;
 			$maxpage = $page + $center > $pagescount ? $pagescount : $page + $center;
-			$starturl = add_query_arg( array( 'page' => 1 ), $current_url );
-			$endurl = add_query_arg( array( 'page' => $pagescount ), $current_url );
+			$starturl = add_query_arg( array( 'pagenum' => 1 ), $current_url );
+			$endurl = add_query_arg( array( 'pagenum' => $pagescount ), $current_url );
 			// echo 'max: ' . $maxpage;
 			if( $minpage > 1 ){ ?>
 				<?php if( $minpage > 2 ): ?><li><a href="<?php echo $starturl ?>" data-page="1">1</a></li><?php endif; ?>
 				<li class="disabled"><a href="#">...</a></li> <?php
 			}
 			for( $p=$minpage; $p<=$maxpage; $p++ ){
-				$purl = add_query_arg( array( 'page' => $p ), $current_url );
+				$purl = add_query_arg( array( 'pagenum' => $p ), $current_url );
 				?>
 				<li <?php echo $p==$page ? 'class="disabled"' : ''; ?>><a href="<?php echo $purl ?>" data-page="<?php echo $p; ?>"><?php echo $p ?></a></li>
 				<?php
@@ -2208,33 +2208,7 @@ if( ! function_exists('zipperagent_pagination') ){
 			?>
 			<?php /* <li class="disabled"><a href="#"><?php echo $page ?> of <?php echo $pagescount ?></a></li> */ ?>
 			<li class="<?php if( $next_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $next_url ?>" data-page="<?php echo $page + 1; ?>">&raquo;</a></li>
-		</ul>		
-		<script>
-			jQuery('body').on( 'click', '.prop-pagination .pagination li:not(.disabled) a', function(){
-				
-				var page = jQuery(this).attr('data-page');
-				var linked_name = 'page';
-				var name = linked_name;
-				var value = page;
-				var field = jQuery('#zpa-search-filter-form input[linked-name="'+ linked_name +'"]');
-						
-				add='<input type="hidden" linked-name="'+linked_name+'" name="'+name+'" value="'+value+'">';
-				
-				if(!field.length){
-					jQuery('#zpa-search-filter-form').append(add);
-				}else{
-					jQuery(field).replaceWith(add);
-				}
-				
-				jQuery('#zpa-search-filter-form').submit();
-				jQuery([document.documentElement, document.body]).animate({
-					// scrollTop: jQuery("#zipperagent-content").offset().top
-					scrollTop: 0
-				}, 1000);
-				
-				return false;
-			});
-		</script>
+		</ul>
 		<?php
 		return ob_get_clean();
 	}
@@ -4450,7 +4424,7 @@ if( ! function_exists('get_long_excludes') ){
 					'withimage', 'daterange', 'yearbuilt', 'alagt', 'aloff', 
 					'pagination', 'result', 'crit', 'ajax', 'save_search',
 					'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
-					'search_form_enabled', 'listinapage', 'page', 'maxlist',
+					'search_form_enabled', 'listinapage', 'pagenum', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams',
@@ -4470,7 +4444,7 @@ if( ! function_exists('get_new_filter_excludes') ){
 		$excludes=array( 'address',				
 			'pagination', 'result', 'crit', 'anycrit', 'ajax', 'save_search',
 			'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
-			'search_form_enabled', 'listinapage', 'page', 'maxlist',
+			'search_form_enabled', 'listinapage', 'pagenum', 'maxlist',
 			'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 			'starttime','endtime','searchdistance','distance',
 			'location_option','criteria','afteraction','listingparams','fbclid','o','newsearchbar',
@@ -4489,7 +4463,7 @@ if( ! function_exists('get_old_filter_excludes') ){
 		$excludes=array( 'location', 'address', 'boundarywkt',				
 					'pagination', 'result', 'crit', 'anycrit', 'ajax', 'save_search',
 					'action', 'actual_link', 'view_type', 'column', 'is_shortcode',
-					'search_form_enabled', 'listinapage', 'page', 'maxlist',
+					'search_form_enabled', 'listinapage', 'pagenum', 'maxlist',
 					'searchid','is_view_save_search','mobile_item','tablet_item','desktop_item',
 					'starttime','endtime','searchdistance','distance','lat','lng',
 					'location_option','criteria','afteraction','listingparams','fbclid',

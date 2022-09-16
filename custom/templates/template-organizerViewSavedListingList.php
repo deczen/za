@@ -9,8 +9,8 @@ if( ! $userdata ){
 	die();
 }
 
-$page = (get_query_var('page')) ? get_query_var('page') : 1;
-$page = isset($requests['page']) ? $requests['page'] : $page;
+$page = (get_query_var('pagenum')) ? get_query_var('pagenum') : 1;
+$page = isset($requests['pagenum']) ? $requests['pagenum'] : $page;
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 $contactIds=array();
@@ -214,8 +214,8 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 													$total = $count;
 													$pagescount = ceil($total/$num);
 													$current_url=$actual_link;
-													$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
-													$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
+													$back_url=$page>1?add_query_arg( array( 'pagenum' => $page-1 ), $current_url ):'#';
+													$next_url=$page<$pagescount?add_query_arg( array( 'pagenum' => $page+1 ), $current_url ):'#';
 													?>
 													<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
 													</li>
@@ -451,8 +451,8 @@ $phone = !$phone && isset($userdata->phoneOther) ? $userdata->phoneOther : $phon
 					$total = $count;
 					$pagescount = ceil($total/$num);
 					$current_url=$actual_link;
-					$back_url=$page>1?add_query_arg( array( 'page' => $page-1 ), $current_url ):'#';
-					$next_url=$page<$pagescount?add_query_arg( array( 'page' => $page+1 ), $current_url ):'#';
+					$back_url=$page>1?add_query_arg( array( 'pagenum' => $page-1 ), $current_url ):'#';
+					$next_url=$page<$pagescount?add_query_arg( array( 'pagenum' => $page+1 ), $current_url ):'#';
 					?>
 					<li class="<?php if( $back_url=="#" ) echo 'disabled' ?>"><a href="<?php echo $back_url ?>">&laquo;</a>
 					</li>

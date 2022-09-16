@@ -21,7 +21,7 @@ function generate_zipperagent_variables(){
 	$args['pending_status']=explode(',',zipperagent_pending_status());
     $args['long_excludes']=get_long_excludes();
 	$args['distance']=zipperagent_distance();
-    $args['page']=get_query_var('page');
+    $args['pagenum']=get_query_var('pagenum');
     $args['root']=base64_encode(json_encode($rb));
 	$args['contactIds']=get_contact_id();
 	$args['is_login']=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
@@ -111,7 +111,7 @@ function za_enqueue_script(){
 	$args['active_status']=explode(',',zipperagent_active_status());
     $args['long_excludes']=get_long_excludes();
 	$args['distance']=zipperagent_distance();
-    $args['page']=get_query_var('page');
+    $args['pagenum']=get_query_var('pagenum');
     $args['root']=base64_encode(json_encode($rb));
 	$args['contactIds']=get_contact_id();
 	$args['is_login']=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;

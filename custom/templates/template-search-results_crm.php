@@ -286,8 +286,8 @@ foreach( $requests as $key=>$val ){
 // $order='&o='.$o;
 
 /* get page number */
-$page = (get_query_var('page')) ? get_query_var('page') : 1;
-$page = isset($requests['page']) ? $requests['page'] : $page;
+$page = (get_query_var('pagenum')) ? get_query_var('pagenum') : 1;
+$page = isset($requests['pagenum']) ? $requests['pagenum'] : $page;
 
 $num=isset($requests['listinapage']) ? $requests['listinapage'] : 24;
 $maxtotal=isset($requests['maxlist']) ? $requests['maxlist'] : 0;
@@ -633,7 +633,7 @@ if($is_ajax_count): ?>
 		var data = {
 			action: 'prop_result_and_pagination',
 			'vars': vars,
-			'page': '<?php echo $page; ?>',
+			'pagenum': '<?php echo $page; ?>',
 			'num': '<?php echo $num; ?>',
 			'maxlist': '<?php echo $maxtotal; ?>',
 			'actual_link': '<?php echo $actual_link; ?>',

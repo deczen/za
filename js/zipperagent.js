@@ -299,7 +299,7 @@ var zppr={
 
 		/* get page number */
 		page = parseInt(zppr.data.page) ? parseInt(zppr.data.page) : 1;
-		page = requests.hasOwnProperty('page') ? requests['page'] : page;
+		page = requests.hasOwnProperty('pagenum') ? requests['pagenum'] : page;
 
 		num=requests.hasOwnProperty('listinapage') ? requests['listinapage'] : (view=='map'?10:24);
 		maxtotal=requests.hasOwnProperty('maxlist') ? requests['maxlist'] : 0;
@@ -4375,15 +4375,15 @@ var zppr={
 		total = count;
 		pagescount = Math.ceil(total/num);
 		current_url=actual_link;
-		back_url=page>1?zppr.add_query_arg( 'page',page-1, current_url ):'#';
-		next_url=page<pagescount?zppr.add_query_arg( 'page', page+1, current_url ):'#';
+		back_url=page>1?zppr.add_query_arg( 'pagenum',page-1, current_url ):'#';
+		next_url=page<pagescount?zppr.add_query_arg( 'pagenum', page+1, current_url ):'#';
 		
 		limit = 6;
 		center = limit / 2;
 		minpage = page - center > 0 ? page - center : 1;
 		maxpage = page + center > pagescount ? pagescount : page + center;
-		starturl = zppr.add_query_arg( 'page', 1, current_url );
-		endurl = zppr.add_query_arg( 'page', pagescount, current_url );
+		starturl = zppr.add_query_arg( 'pagenum', 1, current_url );
+		endurl = zppr.add_query_arg( 'pagenum', pagescount, current_url );
 		
 		/* html+= '<ul class="pagination">'+
 			
@@ -4407,7 +4407,7 @@ var zppr={
 		}
 		
 		for( p=minpage; p<=maxpage; p++ ){
-			purl = zppr.add_query_arg( 'page', p, current_url );
+			purl = zppr.add_query_arg( 'pagenum', p, current_url );
 			html+=	'<li '+ ( p==page ? 'class="disabled"' : '' ) +'><a href="'+ purl +'" data-page="'+ p +'">'+ p +'</a></li>';
 		}
 		

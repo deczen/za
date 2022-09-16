@@ -39,8 +39,8 @@ if($is_shortcode){
 }
 
 //set page
-if(get_query_var('page')){	
-	$requests['page'] = get_query_var('page');
+if(get_query_var('pagenum')){	
+	$requests['pagenum'] = get_query_var('pagenum');
 }
 
 if(is_open_house_search_enabled()){
@@ -517,7 +517,7 @@ if( $top_search_enabled ):
 	jQuery('body').on( 'click', '.prop-pagination .pagination li:not(.disabled) a', function(){
 		
 		var page = jQuery(this).attr('data-page');
-		var linked_name = 'page';
+		var linked_name = 'pagenum';
 		var name = linked_name;
 		var value = page;
 		var field = jQuery('#zpa-search-filter-form input[linked-name="'+ linked_name +'"]');
@@ -536,13 +536,12 @@ if( $top_search_enabled ):
 			scrollTop: 0
 		}, 1000);
 		
+		jQuery(this).unbind();
 		return false;
 	});
 </script>
 <script>
 	jQuery(window).on('popstate', function(event) {
-		console.log(event);
-		window.location.replace( location.href);
-		return false;
+		window.location.reload();
 	});
 </script>
