@@ -666,6 +666,13 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 			}
 		});
 	</script>
+	<script>
+		jQuery(window).on('popstate', function(event) {
+			console.log(event);
+			window.location.replace( location.href);
+			return false;
+		});
+	</script>
 </div>
 
 <?php detailpage_visit_counter(); ?>

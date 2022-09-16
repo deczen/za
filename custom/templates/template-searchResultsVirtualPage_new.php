@@ -222,3 +222,84 @@ unset($alstid); */
 	});
 	
 </script>
+<script>
+	jQuery(window).on('popstate', function(event) {
+		console.log(event);
+		window.location.replace( location.href);
+		return false;
+	});
+</script>
+<?php /*
+<script>
+	jQuery(window).on('popstate', function(event) {
+		var queryString = window.location.search;
+		var urlParams = new URLSearchParams(queryString);
+		
+		jQuery('#zpa-search-filter-form').html('');
+	
+		for (const [name, value] of urlParams.entries()) {		
+			console.log('name', name);
+			const match =name.toString().match(/(?<=\[)(.+)(?=\])/);	
+			var linked_name;
+			console.log('match', match);
+			if( match!== null && typeof match[0] !== 'undefined' ){
+				name = name.replace(`[${match[0]}]`, '[]');		
+				const clean_name = name.replace(`[${match[0]}]`, '');
+				linked_name = `${clean_name}_${value}`;
+			}else{
+				linked_name = name;
+			}	
+			// addFilterLabel(name, value, linked_name, '');
+			addFormField(name, value, linked_name);
+		}
+		
+		// jQuery('#zpa-search-filter-form').submit();
+		refresh_properties()
+		
+		var xhr;
+		
+		function refresh_properties(){
+			
+			if(xhr && xhr.readyState != 4){
+				xhr.abort();
+			}
+			
+			var $form = jQuery('#zpa-search-filter-form'); //wrap this in jQuery
+			var data = $form.serialize();
+			var request = $form.serializeArray();
+			var valueToPush={};
+			valueToPush = {"name":"action", "value":"search_results_view"};
+			request.push(valueToPush);
+			var url = $form.attr('action') + '?' + data;
+			var loading = '<img style="display:block; margin:0 auto;" src="<?php echo ZIPPERAGENTURL . "images/loading.gif"; ?>" title="properties loading" alt="loading" />';			
+			valueToPush = {"name":"actual_link", "value":url};
+			request.push(valueToPush);
+			// window.history.pushState("", "", url);
+			
+			jQuery( '<?php echo $uniqueClassWithDot; ?> #zipperagent-content' ).html( loading );
+			
+			console.time('generate list');
+			xhr = jQuery.ajax({
+				type: 'POST',
+				dataType : 'json',
+				url: zipperagent.ajaxurl,
+				data: request,
+				success: function( response ) {         
+					if( response['html'] ){
+						jQuery( '<?php echo $uniqueClassWithDot; ?> #zipperagent-content' ).html( response['html'] );
+						
+						if (typeof enableSaveSearchButton === "function") {						
+							enableSaveSearchButton();
+						}
+					}
+					console.timeEnd('generate list');
+				},
+				error: function(){
+					console.timeEnd('generate list');
+				}
+			});
+			
+			return false;
+		}
+	});
+</script> */ ?>

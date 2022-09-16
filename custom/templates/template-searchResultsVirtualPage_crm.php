@@ -539,3 +539,10 @@ if( $top_search_enabled ):
 		return false;
 	});
 </script>
+<script>
+	jQuery(window).on('popstate', function(event) {
+		console.log(event);
+		window.location.replace( location.href);
+		return false;
+	});
+</script>

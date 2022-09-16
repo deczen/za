@@ -527,6 +527,13 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		});
 	</script>
 	<?php endif; ?>
+	<script>
+		jQuery(window).on('popstate', function(event) {
+			console.log(event);
+			window.location.replace( location.href);
+			return false;
+		});
+	</script>
 	
 	<?php // if(!zipperagent_signup_optional()): include "template-registerUser.php"; endif; ?>
 </div>
