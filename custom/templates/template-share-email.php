@@ -111,6 +111,8 @@ $listingId = zipperAgentUtility::getInstance()->getQueryVar("listingNumber");
 	
 	jQuery('body').on('click', '.share-email:not(.needLogin)', function(e){
 		jQuery('#zpaShareEmail').modal('show');
+		
+		return false;
 	});
 	
 	jQuery( '#zpa-modal-share-email-form' ).on( 'submit', function(){
