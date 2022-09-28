@@ -477,14 +477,15 @@ var zppr={
 					'<div class="container-fluid">' +			
 						'<div class="row sticky-container" style="position:relative;">' +
 						
-							'<div class="map-legend-wrap">' +
-							'<div class="property-results mb-25 mt-25">';
+							'<div class="map-legend-wrap">';
+							
+		/* html+=				'<div class="property-results mb-25 mt-25">';
 							
 		if( parseInt(showResults) ){			
 			html+= 				'<div class="col-xs-12 prop-total">'+String.fromCharCode(160)+'</div>';
 		}
 		
-		html+=				'</div>';					
+		html+=				'</div>'; */
 		
 		var markers = zppr.data.map_markers;
 			
@@ -504,8 +505,17 @@ var zppr={
 								'</div>' +
 							'</div>' +
 							
-							'<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">' +
-								'<div id="map-list-content" class="row">';
+							'<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">';
+								
+			html+=				'<div class="property-results small-text mb-15">';
+							
+			if( parseInt(showResults) ){			
+				html+= 				'<div class="col-xs-12 prop-total">'+String.fromCharCode(160)+'</div>';
+			}
+		
+			html+=				'</div>';
+							
+			html+=				'<div id="map-list-content" class="row">';
 		
 		if(!list_html){
 		

@@ -16,12 +16,14 @@ $uniqueClass = 'result_'.$uniqid;
 $uniqueClassWithDot = '.'.$uniqueClass;
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
+
 if( $aloff ):
 	?>
 	<link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css'; ?>">	
 	<?php /* <script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/date.format.js" ?>"></script> */ ?>
 	<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-	<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+	<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js?ver=" . $plugin_data['Version']; ?>"></script>
 	<script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
 
 	<div class="slider-container <?php echo $uniqueClass; ?>">

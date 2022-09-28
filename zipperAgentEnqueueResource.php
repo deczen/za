@@ -22,6 +22,8 @@ class zipperAgentEnqueueResource {
 	public function enqueue() {
 		global $post, $ZaRemoteResponse;
 		
+		$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
+		
 		wp_enqueue_script("jquery");
 		// wp_enqueue_script("jquery-ui-core");
 		// wp_enqueue_script("jquery-ui-tabs");
@@ -43,7 +45,7 @@ class zipperAgentEnqueueResource {
 		// echo "<pre>"; print_r($remoteResponse); echo "</pre>"; 
 		// echo "<pre>"; print_r($remoteResponse->getCss()); echo "</pre>"; die();
 		/* Start modification by Decz */
-		$this->enqueueStyle('za-bundle-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/bundle.css');
+		$this->enqueueStyle('za-bundle-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/bundle.css?ver=' . $plugin_data['Version']);
 		
 		if( method_exists($remoteResponse,'hasCss') && $remoteResponse->hasCss()) {
 			foreach($remoteResponse->getCss() as $css) {
@@ -54,50 +56,50 @@ class zipperAgentEnqueueResource {
 		}
 		
 		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
-			$this->enqueueStyle('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css');
-			// $this->enqueueStyle('omnibar-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css');
-			// $this->enqueueStyle('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css');
-			// $this->enqueueStyle('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css');
-			// $this->enqueueStyle('account-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/account.css');
-			// $this->enqueueStyle('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
+			$this->enqueueStyle('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('omnibar-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/omnibar.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('account-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/account.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css?ver=' . $plugin_data['Version']);
 		}
 		else{			
-			$this->enqueueStyle('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view.css');
-			// $this->enqueueStyle('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css');
-			// $this->enqueueStyle('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css');
+			$this->enqueueStyle('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css?ver=' . $plugin_data['Version']);
 		}
-		// $this->enqueueStyle('account-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/my-account.css');
+		// $this->enqueueStyle('account-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/my-account.css?ver=' . $plugin_data['Version']);
 		
 		if( isset($post->post_type) && $post->post_type == 'zipperagent-listing' )	
-			$this->enqueueStyle('listing-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/listing.css');
+			$this->enqueueStyle('listing-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/listing.css?ver=' . $plugin_data['Version']);
 		
 		$_lp_listid = get_post_meta($post->ID, '_lp_listid', true); //is landing page?
 		if( isset($post->post_type) && $post->post_type == 'zipperagent-lp' || $_lp_listid )
-			$this->enqueueStyle('landingpage-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/landingpage.css');
+			$this->enqueueStyle('landingpage-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/landingpage.css?ver=' . $plugin_data['Version']);
 		
-		// $this->enqueueStyle('owl-animate-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/animate.css');
-		$this->enqueueStyle('magicsuggest-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/magicsuggest.css'); //magicsuggest
-		$this->enqueueStyle('autocomplete-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/autocomplete.css'); //magicsuggest
-		// $this->enqueueStyle('pikaday-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css');
-		// $this->enqueueStyle('social-share', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/social-share.css');
-		// $this->enqueueStyle('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css');
-		// $this->enqueueStyle('dropdownCheckboxes', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css');
-		// $this->enqueueStyle('fSelect-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/fSelect.css');
+		// $this->enqueueStyle('owl-animate-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/animate.css?ver=' . $plugin_data['Version']);
+		$this->enqueueStyle('magicsuggest-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/magicsuggest.css?ver=' . $plugin_data['Version']); //magicsuggest
+		$this->enqueueStyle('autocomplete-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/autocomplete.css?ver=' . $plugin_data['Version']); //magicsuggest
+		// $this->enqueueStyle('pikaday-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/pikaday.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('social-share', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/social-share.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('dropdownCheckboxes', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/dropdownCheckboxes.min.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('fSelect-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/fSelect.css?ver=' . $plugin_data['Version']);
 		
 		if( wp_get_theme() !== "Conall" ){
-			$this->enqueueStyle('owl-carousel-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css');
-			// $this->enqueueStyle('owl-carousel-theme-default-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.theme.default.min.css');
+			$this->enqueueStyle('owl-carousel-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css?ver=' . $plugin_data['Version']);
+			// $this->enqueueStyle('owl-carousel-theme-default-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.theme.default.min.css?ver=' . $plugin_data['Version']);
 		}
 		
-		// $this->enqueueStyle('ion-range-slider-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.css');
-		// $this->enqueueStyle('ion-range-slider-modern-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css');
+		// $this->enqueueStyle('ion-range-slider-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('ion-range-slider-modern-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/ion.rangeSlider.skinModern.css?ver=' . $plugin_data['Version']);
 		
-		// $this->enqueueStyle('rs-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/compiled-styles.css');
-		// $this->enqueueStyle('tabs-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/royalslider-tabs.css');
-		// $this->enqueueStyle('royalslider-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/royalslider.css');
-		// $this->enqueueStyle('default-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/rs-default.css');
-		// $this->enqueueStyle('slidebars-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/slidebars.css');
-		// $this->enqueueStyle('jquery-ui', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/jquery-ui.css');  
+		// $this->enqueueStyle('rs-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/compiled-styles.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('tabs-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/royalslider-tabs.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('royalslider-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/royalslider.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('default-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/rs-default.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('slidebars-slider', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/rs-slider/slidebars.css?ver=' . $plugin_data['Version']);
+		// $this->enqueueStyle('jquery-ui', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/jquery-ui.css?ver=' . $plugin_data['Version']);  
 		/* end modification */
 		
 		/* Start modification by Decz */
@@ -139,8 +141,7 @@ class zipperAgentEnqueueResource {
 		/* end modification */
 	}
 	
-	public function inline_style(){
-		
+	public function inline_style(){		
 		$account = file_get_contents( ZIPPERAGENTPATH . '/css/account.css' );
 		$print = file_get_contents( ZIPPERAGENTPATH . '/css/print-new.css' );
 		?>

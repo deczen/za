@@ -17,12 +17,12 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 		<div class="row sticky-container" style="position:relative;">
 			
 			<div class="map-legend-wrap">
-				<?php /* <div class="property-results mb-25 mt-25">
+				<div class="property-results mb-25 mt-25">
 				<?php
 				if( $showResults ){ ?>
 					<div class="col-xs-12 prop-total">&nbsp;</div>
 				<?php } ?>
-				</div> */ ?>
+				</div>
 				
 				<?php
 				$markers = zipperagent_get_map_markers();
@@ -50,12 +50,6 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 			</div>
 			
 			<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">
-				<div class="property-results small-text mb-15">
-				<?php
-				if( $showResults ){ ?>
-					<div class="col-xs-12 prop-total">&nbsp;</div>
-				<?php } ?>
-				</div>
 				<div id="map-list-content" class="row">
 					<?php include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map.php"; ?>
 				</div>

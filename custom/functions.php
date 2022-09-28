@@ -5384,7 +5384,13 @@ if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
 		
 		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
-			zipperagent_omnibar_new($requests);
+						
+			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
+				zipperagent_omnibar_flat($requests);
+			} else {
+				zipperagent_omnibar_new($requests);
+			}
+			
 			return;
 		}
 		include ZIPPERAGENTPATH. "/custom/templates/template-searchBar.php";
@@ -5394,6 +5400,12 @@ if( ! function_exists('zipperagent_omnibar') ){
 if( ! function_exists('zipperagent_omnibar_new') ){
 	function zipperagent_omnibar_new($requests=array()){
 		include ZIPPERAGENTPATH. "/custom/templates/template-searchBar-new.php";
+	}
+}
+
+if( ! function_exists('zipperagent_omnibar_flat') ){
+	function zipperagent_omnibar_flat($requests=array()){
+		include ZIPPERAGENTPATH. "/custom/templates/template-searchBar-flat.php";
 	}
 }
 
@@ -6806,9 +6818,10 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 	function global_new_omnibar_script_v2($auto_submit=0, $direct=0, $el=''){
 		
 		if($direct):
+		$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
 		?>
 		<script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-		<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script><?php
+		<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js?ver=" . $plugin_data['Version']; ?>"></script><?php
 		endif;
 		?>
 		<script>		

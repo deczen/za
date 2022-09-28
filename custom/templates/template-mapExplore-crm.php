@@ -14,8 +14,10 @@ if($requests['lat'] && $requests['lng']){
 	$za_lat = $requests['lat'];
 	$za_lng = $requests['lng'];
 }
+
+$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css?ver=' . $plugin_data['Version']; ?>">
 <div id="zpa-main-container" class="zpa-container">
 	
 	<div id="zy_map-explore">

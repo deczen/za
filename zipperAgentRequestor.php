@@ -215,6 +215,8 @@ class zipperAgentRequestor {
 		
 		$requests = $_REQUEST;
 		
+		$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
+		
 		switch( $page ){
 			
 			case "searchFormVirtualPage":
@@ -296,15 +298,15 @@ class zipperAgentRequestor {
 					
 					if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css');
-						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css');
-						// $temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css?ver=' . $plugin_data['Version']);
+						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css?ver=' . $plugin_data['Version']);
+						// $temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css?ver=' . $plugin_data['Version']);
 						$css = (object)$temp;
 
 					}else{
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css');
-						$temp[]=new ZA_Css_Object('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css?ver=' . $plugin_data['Version']);
+						$temp[]=new ZA_Css_Object('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css?ver=' . $plugin_data['Version']);
 						$css = (object) $temp;
 					}
 				break;
@@ -320,15 +322,15 @@ class zipperAgentRequestor {
 
 					if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css');
-						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css');
-						// $temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single-new.css?ver=' . $plugin_data['Version']);
+						$temp[]=new ZA_Css_Object('detail-page-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css?ver=' . $plugin_data['Version']);
+						// $temp[]=new ZA_Css_Object('print-new-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print-new.css?ver=' . $plugin_data['Version']);
 						$css = (object)$temp;
 
 					}else{
 						$temp=array();
-						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css');
-						// $temp[]=new ZA_Css_Object('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css');
+						$temp[]=new ZA_Css_Object('single-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/single.css?ver=' . $plugin_data['Version']);
+						// $temp[]=new ZA_Css_Object('property-print', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/print.css?ver=' . $plugin_data['Version']);
 						$css = (object) $temp;
 					}
 				break;
@@ -339,7 +341,7 @@ class zipperAgentRequestor {
 					$html=ob_get_clean();	
 
 					$temp=array();
-					$temp[]=new ZA_Css_Object('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css');
+					$temp[]=new ZA_Css_Object('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css?ver=' . $plugin_data['Version']);
 					$css = (object) $temp;						
 				break;
 				
@@ -390,7 +392,7 @@ class zipperAgentRequestor {
 					$html=ob_get_clean();	
 
 					$temp=array();
-					$temp[]=new ZA_Css_Object('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css');
+					$temp[]=new ZA_Css_Object('view-css', ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/view-new.css?ver=' . $plugin_data['Version']);
 					$css = (object) $temp;					
 				break;
 				
@@ -431,7 +433,7 @@ class zipperAgentRequestor {
 			/* 'css' => (object) array(
 					'item' => (object) array(												
 							'name' => 'za-bundle-css',
-							'url' => 'http://www.idxhome.com/service/resources/dist/wordpress/bundle.css'
+							'url' => 'http://www.idxhome.com/service/resources/dist/wordpress/bundle.css?ver=' . $plugin_data['Version']
 						)
 					),
 			'javascript' => (object) array(

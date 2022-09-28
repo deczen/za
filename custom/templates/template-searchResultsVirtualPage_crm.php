@@ -67,12 +67,14 @@ if(!empty($is_singleid) && !is_array($is_singleid)){
 	}
 }
 unset($alstid); */
+
+$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
 ?>
 <?php if(isset($requests['direct']) && $requests['direct']): ?>
 <link rel="stylesheet" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/owl.carousel.min.css'; ?>">	
 <?php /* <script type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/date.format.js" ?>"></script> */ ?>
 <script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js?ver=" . $plugin_data['Version']; ?>"></script>
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
 <?php endif; ?>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>

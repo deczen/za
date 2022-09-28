@@ -10,10 +10,12 @@ $column = isset( $requests['column'] ) ? $requests['column'] : 3;
 $maxlist=isset($requests['maxlist']) ? $requests['maxlist'] : $count;
 $count=$count>=$maxlist?$maxlist:$count;
 $query_args=array();
+
+$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );
 ?>
 <link rel="stylesheet" href="<?php echo ZIPPERAGENTURL . "css/wp-list-property.css" ?>">
 <script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
-<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js" ?>"></script>
+<script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js?ver=" . $plugin_data['Version']; ?>"></script>
 <div id="zpa-main-container" class="zpa-container " style="display: inline;">
 	
 	<div class="zpa-listing-search-results <?php echo $uniqueClass; ?>">

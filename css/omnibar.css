@@ -295,3 +295,32 @@
 	text-transform:none;
 	background-size: 18px !important;
 }
+
+/* Flat omnibar */
+@media screen and (min-width: 768px) {
+	.omnibar-wrap{
+		padding-left:20px;
+	}
+}
+
+#omnibar-tools.flat-omnibar .desktop-omnibar #zpa-view-selected-filter .ms-sel-ctn{
+	padding-left:0;
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar .filter-column .dropdown-group .dropdown{
+	width:17%;
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar .selected-filter-wrap{
+	/* 	overflow:auto;
+	height:31px; */
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar #zpa-view-selected-filter{
+	margin-top:5px;
+	/* 	width:1000px !important;
+	height:31px !important; */
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar .save-filter-wrap.zy_filter-wrap{
+	margin-top:0;
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar .save-filter-wrap.zy_filter-wrap button{
+	width:100%;
+}
