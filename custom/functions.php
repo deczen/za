@@ -5386,7 +5386,8 @@ if( ! function_exists('zipperagent_omnibar') ){
 		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 						
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				zipperagent_omnibar_flat($requests);
+				// zipperagent_omnibar_flat($requests);
+				zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}
