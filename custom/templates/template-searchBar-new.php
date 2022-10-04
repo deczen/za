@@ -1362,6 +1362,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							if( response ){
 								var data = response.schools;
 								ms_school.setData(data);
+								ms_school.expand();
 							}
 							console.timeEnd('populate schools');
 						},
@@ -1406,6 +1407,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								if( response ){
 									var data = response.schools;
 									ms_school3.setData(data);
+									ms_school3.expand();
 								}
 								console.timeEnd('populate schools');
 							},
@@ -1445,6 +1447,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									
 									var data = zppr.populate_schools(response);
 									ms_school3.setData(data);
+									ms_school3.expand();
 									
 									console.timeEnd('populate schools');
 								}
@@ -1495,6 +1498,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								if( response ){
 									var data = response.addresses;
 									ms_address.setData(data);
+									ms_address.expand();
 								}
 								console.timeEnd('populate address');
 							},
@@ -1534,6 +1538,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									
 									var data = zppr.populate_addresses(response);
 									ms_address.setData(data);
+									ms_address.expand();
 									
 									console.timeEnd('populate address');
 								}
@@ -1584,6 +1589,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								if( response ){
 									var data = response.listids;
 									ms_listid.setData(data);
+									ms_listid.expand();
 								}
 								console.timeEnd('populate listid');
 							},
@@ -1623,6 +1629,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									
 									var data = zppr.populate_listids(response);
 									ms_listid.setData(data);
+									ms_listid.expand();
 									
 									console.timeEnd('populate listid');
 								}
@@ -1675,6 +1682,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all.setData(combined);
+									ms_all.expand();
 								}
 								console.timeEnd('populate address & school');
 							},
@@ -1716,6 +1724,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all.setData(combined);
+									ms_all.expand();
 									
 									console.timeEnd('populate address & school');
 								}
@@ -1767,6 +1776,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all_mobile.setData(combined);
+									ms_all_mobile.expand();
 								}
 								console.timeEnd('populate address & school');
 							},
@@ -1808,6 +1818,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all_mobile.setData(combined);
+									ms_all_mobile.expand();
 									
 									console.timeEnd('populate address & school');
 								}

@@ -7249,6 +7249,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								if( response ){
 									var data = response.schools;
 									ms_school.setData(data);
+									ms_school.expand();
 								}
 								console.timeEnd('populate schools');
 							},
@@ -7294,6 +7295,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									if( response ){
 										var data = response.schools;
 										ms_school3.setData(data);
+										ms_school3.expand();
 									}
 									console.timeEnd('populate schools');
 								},
@@ -7334,6 +7336,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 										
 										var data = zppr.populate_schools(response);
 										ms_school3.setData(data);
+										ms_school3.expand();
 										
 										console.timeEnd('populate schools');
 									}
@@ -7386,6 +7389,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									if( response ){
 										var data = response.addresses;
 										ms_address.setData(data);
+										ms_address.expand();
 									}
 									console.timeEnd('populate address');
 								},
@@ -7426,6 +7430,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 										
 										var data = zppr.populate_addresses(response);
 										ms_address.setData(data);
+										ms_address.expand();
 										
 										console.timeEnd('populate address');
 									}
@@ -7478,6 +7483,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									if( response ){
 										var data = response.listids;
 										ms_listid.setData(data);
+										ms_listid.expand();
 									}
 									console.timeEnd('populate listid');
 								},
@@ -7518,6 +7524,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 										
 										var data = zppr.populate_listids(response);
 										ms_listid.setData(data);
+										ms_listid.expand();
 										
 										console.timeEnd('populate listid');
 									}
@@ -7571,6 +7578,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
+										ms_all.expand();
 									}
 									console.timeEnd('populate address & school');
 								},
@@ -7614,6 +7622,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
+										ms_all.expand();
 										
 										console.timeEnd('populate address & school');
 									}

@@ -1377,6 +1377,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								if( response ){
 									var data = response.schools;
 									ms_school.setData(data);
+									ms_school.expand();
 								}
 								console.timeEnd('populate schools');
 							},
@@ -1421,6 +1422,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									if( response ){
 										var data = response.schools;
 										ms_school3.setData(data);
+										ms_school3.expand();
 									}
 									console.timeEnd('populate schools');
 								},
@@ -1460,6 +1462,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										
 										var data = zppr.populate_schools(response);
 										ms_school3.setData(data);
+										ms_school3.expand();
 										
 										console.timeEnd('populate schools');
 									}
@@ -1510,6 +1513,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									if( response ){
 										var data = response.addresses;
 										ms_address.setData(data);
+										ms_address.expand();
 									}
 									console.timeEnd('populate address');
 								},
@@ -1549,6 +1553,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										
 										var data = zppr.populate_addresses(response);
 										ms_address.setData(data);
+										ms_address.expand();
 										
 										console.timeEnd('populate address');
 									}
@@ -1599,6 +1604,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									if( response ){
 										var data = response.listids;
 										ms_listid.setData(data);
+										ms_listid.expand();
 									}
 									console.timeEnd('populate listid');
 								},
@@ -1638,6 +1644,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										
 										var data = zppr.populate_listids(response);
 										ms_listid.setData(data);
+										ms_listid.expand();
 										
 										console.timeEnd('populate listid');
 									}
@@ -1690,6 +1697,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
+										ms_all.expand();
 									}
 									console.timeEnd('populate address & school');
 								},
@@ -1731,6 +1739,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
+										ms_all.expand();
 										
 										console.timeEnd('populate address & school');
 									}
@@ -1782,6 +1791,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all_mobile.setData(combined);
+										ms_all_mobile.expand();
 									}
 									console.timeEnd('populate address & school');
 								},
@@ -1823,6 +1833,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all_mobile.setData(combined);
+										ms_all_mobile.expand();
 										
 										console.timeEnd('populate address & school');
 									}
