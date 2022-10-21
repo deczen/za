@@ -533,6 +533,47 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		});
 	</script>
 	
+	<script>
+		jQuery(document).ready(function ($) {
+			// reference for main items
+			var mainSlider=new Array();
+			//transition time in ms
+			var duration = 500;
+			var index=0;
+			
+			index=0;
+			$('.photo-carousel').each(function(){
+				var slider = $(this);
+				mainSlider.push(slider);
+			});
+			index=0;
+			
+			// carousel function for main slider
+			index=0;
+			$('.photo-carousel').each(function(){
+				
+				var tempMainSlider = mainSlider[index];
+				
+				// console.log('current index: '+index);
+				tempMainSlider.owlCarousel({
+					loop:false,
+					nav:true,
+					navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
+					lazyLoad:true,
+					items:1,
+					dots: false,
+					slideBy: 1,
+				}).on('changed.owl.carousel', function (e) {
+					//On change of main item to trigger thumbnail item
+					
+					//These two are navigation for main items
+				})
+				
+				index++;
+			});
+		});
+		</script>
+	
 	<?php // if(!zipperagent_signup_optional()): include "template-registerUser.php"; endif; ?>
 </div>
 

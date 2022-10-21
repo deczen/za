@@ -29,7 +29,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 			</style>
 			<div class="row">
 				<div class="input-column col-sm-4">
-					<div class="search-by dropdown">
+					<?php /* <div class="search-by dropdown">
 					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Search
 					  </button>
@@ -49,13 +49,14 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							<li><a id="zip" href="#"><input type="radio" name="search_category" /> Zip Code</a></li>
 						</ul>
 					  </div>
-					</div>
+					</div> */ ?>
 					<div class="field-wrap">
 						<div class="field-section all">
 							<input id="zpa-all-input" class="zpa-all-input form-control" placeholder="Address, Area, City, County, MLS# or Zip Code" name="location[]" aria-label="search" />
 							<input id="zpa-all-input-address" type="hidden" value="" />
 							<input id="zpa-all-input-address-values" type="hidden" value="" />
 						</div>
+						<?php /*
 						<div class="field-section addr hide">
 							<input type="text" id="zpa-area-address" class="form-control" placeholder="Type address here" name="address" />
 																																			
@@ -82,7 +83,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							<input id="zpa-lake-input" class="form-control" placeholder="Type any Lake"  name="alkChnNm[]"/>
 						</div>
 						<div class="field-section listid hide">
-							<?php /* <input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/> */ ?>
+							<?php /* <input id="listid" class="form-control" placeholder="Type any MLS ID #"  name="alstid"/> * ?>
 							<input id="zpa-listid-input" class="form-control" placeholder="Type any MLS ID #"  name=""/>
 						</div>
 						<div class="field-section school hide">
@@ -96,7 +97,10 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 						</div>
 						<div class="field-section zip hide">
 							<input id="zpa-zipcode-input" class="form-control" placeholder="Type any Zip Code"  name="location[]"/>
-						</div>
+						</div> */ ?>
+					</div>
+					<div class="search-action">
+						<button id="submitFilter" class="submitFilter btn btn-sm btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
 					</div>
 					<script>
 						jQuery('body').on('click', '#omnibar-tools .search-by .dropdown-menu a', function(){
@@ -117,7 +121,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 						});
 					</script>
 				</div>
-				<div class="selected-filter-wrap col-sm-4">
+				<div class="selected-filter-wrap col-sm-3">
 					<div class="" id="zpa-view-selected-filter">
 						<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
 							<div class="ms-sel-ctn">
@@ -125,7 +129,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 						</div>
 					</div>
 				</div>
-				<div class="filter-column pc-filter-column col-sm-3">
+				<div class="filter-column pc-filter-column <?php if( $enableViewBar ): ?>col-sm-4<?php else: ?>col-sm-5<?php endif; ?>">
 					<form>
 						<div class="dropdown-group">
 							<div class="dropdown listprice">
@@ -697,17 +701,18 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 						</div>
 					</form>
 				</div>
+				<?php if( $enableViewBar ): ?>
 				<div class="save-filter-wrap zy_filter-wrap col-sm-1">
-					<?php if( $enableViewBar ): ?>
-					<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary" <?php echo $is_detail_page&&isset($is_search_apply)&&!$is_search_apply?'style="display:none;"':''; ?> isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"><?php if($is_view_save_search) echo "Update This Search"; else echo "Save"; ?>  </button>
-					<button id="savedSearchButton" class="savedSearchButton btn btn-sm btn-primary disabled" style="display: none"><?php if($is_view_save_search) echo "Updated"; else echo "Saved"; ?> </button>
-					<?php endif; ?>
+					<button id="saveSearchButton" class="saveSearchButton btn btn-sm btn-primary" <?php echo $is_detail_page&&isset($is_search_apply)&&!$is_search_apply?'style="display:none;"':''; ?> isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" data-toggle="modal" data-target="#zpaSaveSearch" afterAction="save_search" contactId="<?php echo implode(',',$contactIds) ?>"><?php if($is_view_save_search) echo "Update Search"; else echo "Save Search"; ?>  </button>
+					<button id="savedSearchButton" class="savedSearchButton btn btn-sm btn-primary disabled" style="display: none"><?php if($is_view_save_search) echo "Updated"; else echo "Search Saved"; ?> </button>
 				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="mobile-omnimbar">
 			<?php include "template-searchBarMobile-new.php"; ?>
 		</div>
+		<?php /*
 		<div class="zy_filter-wrap hideonprint">			
 			
 			<?php if( ! $enableViewBar ): ?>
@@ -731,7 +736,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 			</div>
 			<?php endif; ?>
 			<div class="clearfix"></div>
-		</div>
+		</div> */ ?>
 		<form id="zpa-search-filter-form" action="" class="form-inline zpa-search-bar-form">
 		<?php
 			foreach($requests as $key=>$value){
@@ -3985,6 +3990,14 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							});
 						}
 					}
+				});
+			});
+		</script>
+		<script>
+			jQuery(document).ready(function(){
+				jQuery('#submitFilter').on( 'click', function(){
+					jQuery('#zpa-search-filter-form').submit();
+					return false;
 				});
 			});
 		</script>
