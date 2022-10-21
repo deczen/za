@@ -4993,6 +4993,44 @@ if( ! function_exists('zipperagent_extra_proptype') ){
 	}
 }
 
+if( ! function_exists('zipperagent_property_grid') ){
+	function zipperagent_property_grid( $property, $params, $requests, $searchId = '', $search = '' ){
+		// echo "<pre>"; print_r( $params ); echo "</pre>";
+		
+		extract( $params );
+		
+		$fulladdress = zipperagent_get_address($property);
+							
+		$saved_crit=$search;
+		$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
+		if(!empty($searchId)){
+			$query_args['searchId']= $searchId;
+		}
+		if(zp_using_criteria() && !empty($critBase64)){
+			$query_args['criteria']= $critBase64;
+		}
+		if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+			$query_args['newsearchbar']= 1;
+		}
+		
+		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
+		
+		// $rebate_text = za_get_rebate_text( $property );
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$enable_rebate = isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+		$rebate_prefix = isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+		$rebate_default_text = isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
+		
+		// include ZIPPERAGENTPATH . '/custom/templates/listing/template-defaultGrid.php';
+		include ZIPPERAGENTPATH . '/custom/templates/listing/grid/template-sliderGrid.php';
+		
+		return array(
+			'wrapOpen' => $wrapOpen,
+		);
+	}
+}
+
 if( ! function_exists('luxury_get_variables') ){
 	function luxury_get_variables($properties){
 		
@@ -5384,10 +5422,15 @@ if( ! function_exists('zipperagent_omnibar') ){
 	function zipperagent_omnibar($requests=array()){
 		
 		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
-						
+			
+			// default is map view 
+			if( ! isset( $_REQUEST['view'] ) ) {
+				$_REQUEST['view'] = 'map';
+			}
+			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				// zipperagent_omnibar_flat($requests);
-				zipperagent_omnibar_new($requests);
+				zipperagent_omnibar_flat($requests);
+				// zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}

@@ -40,6 +40,12 @@
 #map_wrapper.map-explore {
 	height: 600px
 }
+#map_wrapper .gm-style-iw.gm-style-iw-c{
+	background:#ffffff !important;
+}
+#map_wrapper .gm-style-iw-d{
+	background:#ffffff !important;
+}
 #map_canvas {
 	width: 100%;
 	height: 100%
@@ -2177,7 +2183,7 @@
 /* Map Legend */
 .map-legend-wrap{
 	background:#fff;
-	z-index:1;
+	z-index: 10;
 }
 .proptype-markers .proptype-marker {
 	display: inline-block;
@@ -2239,4 +2245,142 @@
 		margin-right: -50vw;
 		z-index:-1;
 	}
+}
+/* grid slider */
+.photo-carousel{
+	position:relative;
+	z-index:3 !important;
+}
+.photo-carousel .owl-nav{
+	display:none;
+}
+.photo-carousel .owl-next .carousel-control {
+    right: 0;
+    left: unset !important;
+}
+.photo-carousel .owl-nav .carousel-control i{
+	top: 40%;
+    position: relative;
+}
+.photo-carousel .owl-nav .disabled {
+	display:none !important;
+}
+.slider-container .badge-rebate,
+.slider-container .badge-open-house,
+.slider-container .zpa-for-sale-price{
+	visibility: visible;
+    opacity: 1;
+	transition: opacity 0.3s, visibility 0.3s;
+}
+.slider-container:hover .badge-rebate,
+.slider-container:hover .badge-open-house,
+.slider-container:hover .zpa-for-sale-price{
+	visibility: hidden;
+    opacity: 0;
+	transition: opacity 0.3s, visibility 0.3s;
+}
+.slider-container:hover .photo-carousel .owl-nav{
+	display:block;
+}
+/* tab selector */
+.view-control{
+	float:right !important;
+	padding-right: 0 !important;
+}
+.view-control .nav-pills>li{
+	width:49%;
+}
+.view-control .nav-pills>li>a{
+	border-radius:0 !important;
+	color: initial !important;
+	font-weight:600;
+	border-bottom:2px solid #fff;
+}
+.view-control .nav-pills>li.active>a{
+	background:none !important;
+	border-bottom:2px solid #000;
+}
+.view-control .nav-pills>li a:hover,.view-control .nav-pills>li a:active,.view-control .nav-pills>li a:focus{
+	background:none !important;
+	border-top:none;
+	outline: none !important;
+    outline-offset: initial !important;
+}
+.result-control .prop-total{
+	text-align:left;
+	padding-top:8px;
+	font-size:14px !important;
+	padding-left: 0 !important;
+}
+body .result-control{
+	border-bottom:1px solid #eee;
+	margin-bottom:0 !important;
+	margin:0 !important;
+}
+/* Photo view */
+#photo-view{
+	padding-top:20px;
+}
+/* Table view */
+#table-view{
+	padding-left:15px !important;
+}
+#table-view .badge-open-house{
+	background: #d539b6;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: UPPERCASE;
+    padding: 4px 5px;
+    font-size: 8px;
+    font-weight: 600;
+    pointer-events: none;
+}
+#table-view table.table-view td{
+	padding: 9px 5px;
+	font-size:12px;
+}
+#table-view table.table-view th{
+	font-size:12px;
+	padding: 12px 5px !important;
+}
+#table-view table.table-view .address-wrap{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width:100px !important;
+	display:block;
+}
+#table-view table.table-view .town-wrap{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width:60px !important;
+	display:block;
+}
+#table-view table.table-view .save-favorite-btn{
+	position:initial;
+	padding:1px 5px !important;
+	line-height: 0 !important;
+	background:#eee;
+}
+#table-view table.table-view .save-favorite-btn i{
+	font-size:9px !important;
+}
+#table-view table.table-view tbody tr:hover{
+	background: #f4f4f4;
+	cursor:pointer;
+	
+}
+#table-view table.table-view tr{
+	position:relative;
+}
+#table-view table.table-view a.url-wrap{
+	position:absolute;
+	top:0;
+	left:0;
+	width:calc( 100% - 50px );
+	height:100%;
+}
+#map-content .listing-disclaimer{
+	padding:0 15px
 }

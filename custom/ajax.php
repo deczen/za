@@ -413,6 +413,11 @@ function search_results_view(){
 		
 		global $requests, $is_ajax, $is_view_save_search;
 		
+		// default is map view 
+		// if( ! isset( $_REQUEST['view'] ) ) {
+			// $_REQUEST['view'] = 'map';
+		// }
+		
 		$requests = $_REQUEST;
 		$is_ajax = 1;
 		$is_view_save_search = 0;

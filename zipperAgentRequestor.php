@@ -213,6 +213,11 @@ class zipperAgentRequestor {
 		//show popup on all zipperagent pages
 		$zpa_show_login_popup=1;
 		
+		// default is map view 
+		if( ! isset( $_REQUEST['view'] ) || $_REQUEST['view'] == '' ) {
+			$_REQUEST['view'] = 'map';
+		}
+		
 		$requests = $_REQUEST;
 		
 		$plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zipperagent.php", false, false );

@@ -36,7 +36,7 @@
 	z-index: 999;
 }
 #omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown{position:relative;width:100% !important; text-align:left;}
-#omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown button{text-align:left;padding:5px;-webkit-appearance: none;-moz-appearance: none; background-image: url(data:image/svg+xml; charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.oÃ¢â‚¬Â¦4%2015.5l-3-6-3%206h3.5zM9.4%2019.5l3%206%203-6h-3.5z%22%2F%3E%3C%2Fsvg%3E); background-repeat: no-repeat;background-position: 100% 50%;text-transform: none;min-height: 35px;}
+#omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown button{text-align:left;padding:5px;-webkit-appearance: none;-moz-appearance: none; background-image: url(data:image/svg+xml; charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.oÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦4%2015.5l-3-6-3%206h3.5zM9.4%2019.5l3%206%203-6h-3.5z%22%2F%3E%3C%2Fsvg%3E); background-repeat: no-repeat;background-position: 100% 50%;text-transform: none;min-height: 35px;}
 #omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown button .caret{display:none;}
 #omnibar-tools .dropdown-group > .dropdown.filter > .dropdown-menu .cq-dropdown > .dropdown-menu{
 	width: 100%;
@@ -320,7 +320,36 @@
 }
 #omnibar-tools.flat-omnibar .desktop-omnibar .save-filter-wrap.zy_filter-wrap{
 	margin-top:0;
+	padding-left:0;
 }
 #omnibar-tools.flat-omnibar .desktop-omnibar .save-filter-wrap.zy_filter-wrap button{
 	width:100%;
+}
+#omnibar-tools.flat-omnibar .input-column .field-wrap {
+	padding-left:0;
+}
+#omnibar-tools.flat-omnibar .input-column .field-wrap{
+	width:calc( 100% - 45px );
+	float:left;
+}
+#omnibar-tools.flat-omnibar .search-action{
+	width: 40px;
+	float:right;
+	display: inline-block;
+}
+#omnibar-tools.flat-omnibar .search-action button{
+	width: 100%;
+}
+#omnibar-tools.flat-omnibar .input-column .field-wrap .field-section {
+	border: 1px solid #ddd;
+	min-height:40px;
+}
+#omnibar-tools.flat-omnibar .input-column .field-wrap .field-section .ms-ctn{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+#omnibar-tools.flat-omnibar button{
+	background:#014AB3;
+	border:none;
+	border-radius:0;
 }
