@@ -50,14 +50,24 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 			</div>
 			
 			<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">
-				<div class="property-results mb-15">
-				<?php
-				if( $showResults ){ ?>
-					<div class="col-xs-12 prop-total">&nbsp;</div>
-				<?php } ?>
+				<div class="property-results result-control small-text mb-15 row">
+					<?php
+					if( $showResults ){ ?>
+						<div class="col-xs-8 prop-total">&nbsp;</div>
+					<?php } ?>
+					<div class="col-xs-4 view-control">
+						<ul  class="nav nav-pills">
+							<li class="active">
+								<a  href="#photo-view" data-toggle="tab">Photos</a>
+							</li>
+							<li>
+								<a href="#table-view" data-toggle="tab">Table</a>
+							</li>
+						</ul>						
+					</div>
 				</div>
 				<div id="map-list-content" class="row">
-					<?php include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map.php"; ?>
+					<?php include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map_new.php"; ?>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -730,7 +740,7 @@ function scrollToMarker(index) {
 	map.panTo(saved_markers[index].getPosition());
 }	
 
-jQuery(".zpa-grid-result").mouseover( function(){
+jQuery(".zpa-grid-result, .table-view tr").mouseover( function(){
 	var index = jQuery(this).find('a[listingid]').attr('listingid');		
 	google.maps.event.trigger(saved_markers[index], 'mouseover');
 	// scrollToMarker(index); //scroll to location
@@ -739,7 +749,7 @@ jQuery(".zpa-grid-result").mouseover( function(){
 	infoWindow.open(map, saved_markers[index]);
 });
 
-jQuery(".zpa-grid-result").mouseleave( function(){
+jQuery(".zpa-grid-result, .table-view tr").mouseleave( function(){
 	var index = jQuery(this).find('a[listingid]').attr('listingid');	
 	google.maps.event.trigger(saved_markers[index], 'mouseout');
 	infoWindow.close();
@@ -791,4 +801,44 @@ jQuery(document).ready(function(){
 });
 </script>
 <?php endif; ?>
+<script>
+jQuery(document).ready(function ($) {
+	// reference for main items
+	var mainSlider=new Array();
+	//transition time in ms
+	var duration = 500;
+	var index=0;
+	
+	index=0;
+	$('.photo-carousel').each(function(){
+		var slider = $(this);
+		mainSlider.push(slider);
+	});
+	index=0;
+	
+	// carousel function for main slider
+	index=0;
+	$('.photo-carousel').each(function(){
+		
+		var tempMainSlider = mainSlider[index];
+		
+		// console.log('current index: '+index);
+		tempMainSlider.owlCarousel({
+			loop:false,
+			nav:true,
+			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
+			lazyLoad:true,
+			items:1,
+			dots: false,
+			slideBy: 1,
+		}).on('changed.owl.carousel', function (e) {
+			//On change of main item to trigger thumbnail item
+			
+			//These two are navigation for main items
+		})
+		
+		index++;
+	});
+});
+</script>
 <?php auto_trigger_button_script(); ?>
