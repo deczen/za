@@ -57,6 +57,11 @@ $contactIds=get_contact_id();
 				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
 					$top = $top + $topheaderHeight + $headerHeight;
 					$stickyH = jQuery(window).outerHeight() - $topheaderHeight - $headerHeight;
+			}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+				var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+				var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+					$stickyH = jQuery(window).outerHeight() - $topheaderHeight - $headerHeight;
 			}else{
 				$stickyH = jQuery(window).outerHeight();		
 			}

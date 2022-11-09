@@ -4,7 +4,7 @@ if( $list ): ?>
 
 	<div class="tab-content clearfix">
 		<div class="tab-pane active" id="photo-view">
-		<?php 
+			<?php 
 			$i=0;
 			$wrapOpen=false;
 			$column=2; //map view only has 2 columns
@@ -39,6 +39,39 @@ if( $list ): ?>
 				$i++;
 			endforeach; ?>			
 		</div>
+		
+		<div class="tab-pane" id="list-view">
+			<?php 
+			$i=0;
+			foreach( $list as $option ): ?>
+				<?php 				
+				
+				if( $open )
+					$property=isset($option->mergedProperty)?$option->mergedProperty:null;
+				else
+					$property=$option;
+				
+				if( !isset($property->id) )
+					continue;
+				
+				$params = zipperagent_property_list( 
+					$property, 
+					array( 
+						'i' => $i,
+						'total_props' => sizeof($list),
+					),
+					$requests, 
+					$searchId, 
+					$search
+				);
+				
+				extract( $params );
+				
+				$i++;
+			endforeach; ?>	
+		</div>
+		
+		<?php /* 
 		<div class="tab-pane" id="table-view">
 			<table class="table-view">
 				<thead>
@@ -100,7 +133,7 @@ if( $list ): ?>
 						<td><?php echo zipperagent_get_nobedrooms($property); ?></td>
 						<td><?php echo zipperagent_get_nobaths($property); ?></td>
 						<td><?php echo zipperagent_get_sqft($property); ?></td>
-						<?php /* <td><?php echo zipperagent_get_sqft($property); ?></td> */ ?>
+						<?php /* <td><?php echo zipperagent_get_sqft($property); ?></td> * ?>
 						<td><?php echo isset($property->dayssincelisting)?($property->dayssincelisting . ' ' . ( $property->dayssincelisting > 1 ? 'days':'day') ):'-'; ?> </td>
 						<td><a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a></td>
 					</tr>
@@ -109,7 +142,7 @@ if( $list ): ?>
 				endforeach; ?>
 				</tbody>
 			</table>
-		</div>
+		</div> */ ?>
 	</div>
    
    

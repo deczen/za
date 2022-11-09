@@ -123,6 +123,10 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 				</div>
 				<div class="selected-filter-wrap col-sm-3">
 					<div class="" id="zpa-view-selected-filter">
+						<div id="zpa-selected-filter-compact" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
+							<div class="ms-sel-ctn">
+							</div>
+						</div>
 						<div id="zpa-selected-filter" class="ms-ctn form-control  ms-ctn-readonly ms-no-trigger">
 							<div class="ms-sel-ctn">
 							</div>
@@ -770,6 +774,33 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 					else
 						jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=radio][name="'+name+'"][value="'+value+'"]').prop("checked", true);			
 					jQuery('#omnibar-tools .mobile-omnimbar .field-wrap input[type=checkbox][name="'+name+'"][value="'+value+'"]').prop("checked", false);
+					
+					//remove from compact bar
+					var compactCount = jQuery('.desktop-omnibar #zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item').length;
+					var filterCount = jQuery('.desktop-omnibar #zpa-selected-filter .ms-sel-ctn .ms-sel-item').length;
+					var moreNum = filterCount - 1;
+					var moreLabel = moreNum + ' more';
+					
+					if(jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="'+ linked_name +'"]').length){
+						jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="'+ linked_name +'"]').remove();
+						
+						if(moreNum>1){
+							var next_name = jQuery('.desktop-omnibar #zpa-selected-filter .ms-sel-ctn .ms-sel-item:first-child').attr('real-name');
+							var next_linked_name = jQuery('.desktop-omnibar #zpa-selected-filter .ms-sel-ctn .ms-sel-item:first-child').attr('attribute-name');
+							var next_value = jQuery('.desktop-omnibar #zpa-selected-filter .ms-sel-ctn .ms-sel-item:first-child').attr('attribute-value');
+							var next_newLabel = jQuery('.desktop-omnibar #zpa-selected-filter .ms-sel-ctn .ms-sel-item:first-child .name').html();
+							
+							var add='<div class="ms-sel-item" real-name="'+next_name+'" attribute-name="'+next_linked_name+'" attribute-value="'+next_value+'"><div class="name">'+ next_newLabel +'</div><span class="ms-close-btn"></span></div>';
+							jQuery('#zpa-selected-filter-compact .ms-sel-ctn').prepend(add);	
+						}
+					}
+					
+					if(jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="more"]').length && moreNum){
+						var replace='<div class="ms-sel-item compact-more" real-name="more" attribute-name="more" attribute-value="'+moreNum+'"><div class="name">'+ moreLabel +'</div></div>';
+						jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="more"]').replaceWith(replace);
+					}else{
+						jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="more"]').remove();
+					}
 				}
 				
 				window.addFormField = function(name, value, linked_name){
@@ -1043,6 +1074,30 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 						var add='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
 						jQuery('#zpa-selected-filter .ms-sel-ctn').append(add);						
 					}
+					
+					
+					var compactCount = jQuery('.desktop-omnibar #zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item').length;
+					var filterCount = jQuery('.desktop-omnibar #zpa-selected-filter .ms-sel-ctn .ms-sel-item').length;
+					var moreNum = filterCount - 1;
+					var moreLabel = moreNum + ' more';
+					
+					if(compactCount == 0){
+						var add='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
+						jQuery('#zpa-selected-filter-compact .ms-sel-ctn').append(add);			
+						
+					}else if(compactCount >= 1){
+						
+						if(jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').length){
+							var replace='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
+							jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').replaceWith(replace);
+						}else if(compactCount == 1){
+							var add='<div class="ms-sel-item compact-more" real-name="more" attribute-name="more" attribute-value="'+moreNum+'"><div class="name">'+ moreLabel +'</div></div>';
+							jQuery('#zpa-selected-filter-compact .ms-sel-ctn').append(add);			
+						}else if(compactCount > 1){
+							var replace='<div class="ms-sel-item compact-more" real-name="more" attribute-name="more" attribute-value="'+moreNum+'"><div class="name">'+ moreLabel +'</div></div>';
+							jQuery('#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item[attribute-name="more"]').replaceWith(replace);
+						}						
+					}
 				}
 				
 				function shortenmoney(num){
@@ -1074,6 +1129,24 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 					removeLabel(linked_name, name, value);		
 					
 					jQuery('#zpa-search-filter-form').submit();
+				});
+				
+				jQuery('body').on('click', '#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item:not(.compact-more)', function(){
+					name = jQuery(this).attr('real-name');
+					linked_name = jQuery(this).attr('attribute-name');
+					value = jQuery(this).attr('attribute-value');
+					
+					removeLabel(linked_name, name, value);		
+					
+					jQuery('#zpa-search-filter-form').submit();
+				});
+				
+				jQuery('body').on('click', '#zpa-selected-filter-compact .ms-sel-ctn .ms-sel-item.compact-more', function(){
+					jQuery('.desktop-omnibar #zpa-selected-filter').addClass('visible');
+					
+					jQuery('.desktop-omnibar #zpa-selected-filter').mouseleave(function(){
+						jQuery(this).removeClass('visible');
+					});		
 				});
 				
 				<?php
@@ -3891,6 +3964,10 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 						}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
 							var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
 							var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+								$top = $top + $topheaderHeight + $headerHeight;
+						}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+							var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+							var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
 								$top = $top + $topheaderHeight + $headerHeight;
 						}else{
 							var $headerHeight = 0;

@@ -1,6 +1,6 @@
 #omnibar-tools{background: #fff;z-index: 100;}
 #omnibar-tools .input-column{}
-#omnibar-tools #zpa-selected-filter{height:auto !important;padding-top: 0;}
+#omnibar-tools #zpa-selected-filter, #omnibar-tools #zpa-selected-filter-compact{height:auto !important;padding-top: 0;}
 #omnibar-tools .input-column .search-by{display:inline-block;width: 106px;border:1px solid #ddd;/* height: 42px; */position: absolute;margin-top: 3px;border-radius:3px 0 0 3px;}
 #omnibar-tools .input-column .search-by button:active{box-shadow: none;}
 #omnibar-tools .input-column .search-by input[type="radio"]{pointer-events:none;}
@@ -325,31 +325,49 @@
 #omnibar-tools.flat-omnibar .desktop-omnibar .save-filter-wrap.zy_filter-wrap button{
 	width:100%;
 }
-#omnibar-tools.flat-omnibar .input-column .field-wrap {
+#omnibar-tools.flat-omnibar .desktop-omnibar .input-column .field-wrap {
 	padding-left:0;
 }
-#omnibar-tools.flat-omnibar .input-column .field-wrap{
+#omnibar-tools.flat-omnibar .desktop-omnibar .input-column .field-wrap{
 	width:calc( 100% - 45px );
 	float:left;
 }
-#omnibar-tools.flat-omnibar .search-action{
+#omnibar-tools.flat-omnibar .desktop-omnibar .search-action{
 	width: 40px;
 	float:right;
 	display: inline-block;
 }
-#omnibar-tools.flat-omnibar .search-action button{
+#omnibar-tools.flat-omnibar .desktop-omnibar .search-action button{
 	width: 100%;
 }
-#omnibar-tools.flat-omnibar .input-column .field-wrap .field-section {
+#omnibar-tools.flat-omnibar .desktop-omnibar .input-column .field-wrap .field-section {
 	border: 1px solid #ddd;
 	min-height:40px;
 }
-#omnibar-tools.flat-omnibar .input-column .field-wrap .field-section .ms-ctn{
+#omnibar-tools.flat-omnibar .desktop-omnibar .input-column .field-wrap .field-section .ms-ctn{
 	padding-top:5px;
 	padding-bottom:5px;
 }
-#omnibar-tools.flat-omnibar button{
+#omnibar-tools.flat-omnibar .desktop-omnibar button{
 	background:#014AB3;
 	border:none;
 	border-radius:0;
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar #zpa-selected-filter{
+	visibility:hidden;
+	background: #fff;
+	border:1px solid #ddd !important;
+	padding:10px 15px !important;
+	display:block;
+	position:absolute;
+	z-index:10;
+	top:0;
+	left:0;
+	width:100% !important;
+}
+#omnibar-tools.flat-omnibar .desktop-omnibar #zpa-selected-filter.visible{
+	visibility:visible !important;
+}
+#omnibar-tools #zpa-view-selected-filter .ms-sel-ctn .ms-sel-item.compact-more{
+	padding-right:12px;
 }

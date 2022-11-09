@@ -53,16 +53,19 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 				<div class="property-results result-control small-text mb-15 row">
 					<?php
 					if( $showResults ){ ?>
-						<div class="col-xs-8 prop-total">&nbsp;</div>
+						<div class="col-md-8 col-xs-8 prop-total">&nbsp;</div>
 					<?php } ?>
-					<div class="col-xs-4 view-control">
+					<div class="col-md-4 col-xs-4 view-control">
 						<ul  class="nav nav-pills">
 							<li class="active">
 								<a  href="#photo-view" data-toggle="tab">Photos</a>
 							</li>
 							<li>
-								<a href="#table-view" data-toggle="tab">Table</a>
+								<a href="#list-view" data-toggle="tab">List</a>
 							</li>
+							<?php /* <li>
+								<a href="#table-view" data-toggle="tab">Table</a>
+							</li> */ ?>
 						</ul>						
 					</div>
 				</div>
@@ -91,6 +94,10 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
 				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
 					$top = $top + $topheaderHeight + $headerHeight;
+			}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+				var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+				var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
 			}else{
 				var $headerHeight = 0;
 					$top = $top + $headerHeight;
@@ -101,15 +108,15 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 			}
 			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
 			var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
-			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
+			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 20 : 0;
 			
 			$top = $top + $searchBarHeight;
 			$top = $top + $searchCount;
-			$top = $top + $searchMapMarkers;
+			// $top = $top + $searchMapMarkers;
 			
-			console.log( $top );
+			// console.log( $top );
 			
-			$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+			$mapWrapper.css('height',jQuery(window).outerHeight() - $top - $searchMapMarkers);
 			
 			var $stickyH = $sticky.outerHeight();
 			var $stickyContainer = jQuery('.sticky-container');
@@ -125,7 +132,7 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
 					$sticky.css({
 						'position':'fixed', 
-						'top': $top,
+						'top': $top + $searchMapMarkers,
 						'max-width' : $maxWidth
 					});
 					if($searchBar.length){
@@ -153,6 +160,89 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 					}
 					$maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
 					$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
+			   }
+			}
+		});
+	});
+</script>
+<script>		
+	jQuery(document).ready(function(){
+		jQuery(window).bind( 'scroll', function() {		
+		
+			var $sticky = jQuery('.result-control');
+			var $sticky_map_legend = jQuery('.map-legend-wrap');
+			var $top = 0;
+			
+			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
+				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+					$top = $top + $headerHeight;
+			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+				var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+				var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else{
+				var $headerHeight = 0;
+					$top = $top + $headerHeight;
+			}
+			if(jQuery('#wpadminbar').length){
+				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+					$top = $top + $wpadminbarHeight;
+			}
+			
+			$detailPaddingTop = jQuery('#omnibar-tools').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			$detailPaddingTop = jQuery('.map-legend-wrap').length ? $detailPaddingTop + jQuery('.map-legend-wrap').outerHeight() : $detailPaddingTop;
+			
+			$top = $top + $detailPaddingTop;
+			
+			
+			var $stickyH = $sticky.outerHeight();
+			var $stickyContainer = jQuery('#property-sidebar');
+			var $stickyContainerOffset = $stickyContainer.offset();
+			var $start = $stickyContainerOffset.top;
+			var $limit = $start + $stickyContainer.outerHeight();
+			var $padding = 30; // padding size;
+			var $maxWidth = $stickyContainer.outerWidth() - $padding;
+			
+			if(jQuery(window).width() > 768){
+			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+				   $sticky.css({
+					   'position':'fixed', 
+					   'top': $top,
+					   'width': '100%',
+					   'max-width': $maxWidth,
+					   'bottom':'auto',
+					   'z-index': '5',
+					   'background': '#ffffff',
+				   });
+				   
+				   $stickyContainer.find('#map-list-content').css({
+					   'padding-top': $detailPaddingTop - 10,
+				   });
+				   
+			   }
+			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+				   $sticky.css({
+					   'position': 'absolute',
+					   'top'     : 'auto',
+					   'bottom'  : 0,
+				   });
+			   }
+			   else {
+					$sticky.css({
+						'position' : 'static',
+						'max-width' : '100%',
+					});
+				   
+					$stickyContainer.find('#map-list-content').css({
+					   'padding-top': 0,
+					});
+					
+					$maxWidth = $stickyContainer.outerWidth();
 			   }
 			}
 		});
