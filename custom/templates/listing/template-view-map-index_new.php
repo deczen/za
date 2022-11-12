@@ -129,7 +129,7 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 			var $searchBar = jQuery('#map');
 			
 			if(jQuery(window).width() > 768){
-			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+			   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top - $searchMapMarkers) {
 					$sticky.css({
 						'position':'fixed', 
 						'top': $top + $searchMapMarkers,
@@ -141,7 +141,7 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 						});
 					}
 			   }
-			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top - $searchMapMarkers) {
 				   $sticky.css({
 						   'position': 'absolute',
 						   'top'     : 'auto',
@@ -170,7 +170,6 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 		jQuery(window).bind( 'scroll', function() {		
 		
 			var $sticky = jQuery('.result-control');
-			var $sticky_map_legend = jQuery('.map-legend-wrap');
 			var $top = 0;
 			
 			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
@@ -224,7 +223,7 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 					   'padding-top': $detailPaddingTop - 10,
 				   });
 				   
-			   }
+			   } 
 			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
 				   $sticky.css({
 					   'position': 'absolute',
@@ -243,6 +242,90 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 					});
 					
 					$maxWidth = $stickyContainer.outerWidth();
+			   }
+			}
+		});
+	});
+</script>
+<script>		
+	jQuery(document).ready(function(){
+		jQuery(window).bind( 'scroll', function() {		
+		
+			var $sticky = jQuery('#list-view .top-section');
+			var $top = 0;
+			
+			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
+				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+					$top = $top + $headerHeight;
+			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+				var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+				var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else{
+				var $headerHeight = 0;
+					$top = $top + $headerHeight;
+			}
+			if(jQuery('#wpadminbar').length){
+				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+					$top = $top + $wpadminbarHeight;
+			}
+			
+			$omnibar = jQuery('#omnibar-tools').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			$omnibar = jQuery('.map-legend-wrap').length ? $omnibar + jQuery('.map-legend-wrap').outerHeight() : $omnibar;
+			
+			$top = $top + $omnibar;
+			
+			$navigation = jQuery('.result-control').length ? jQuery('.result-control').outerHeight() : 0;
+			$highlight = jQuery('.top-section').length ? jQuery('.top-section').outerHeight() : 0;
+			
+			$top = $top + $navigation;
+			
+			var $stickyH = $sticky.outerHeight();
+			var $stickyContainer = jQuery('#property-sidebar');
+			var $stickyContainerOffset = $stickyContainer.offset();
+			var $start = $stickyContainerOffset.top;
+			var $limit = $start + $stickyContainer.outerHeight();
+			var $padding = 30; // padding size;
+			var $maxWidth = $stickyContainer.outerWidth() - $padding;
+			
+			if(jQuery(window).width() > 768){
+			   if (jQuery(window).scrollTop() > $start - $top + $navigation && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+				   $sticky.css({
+					   'position':'fixed', 
+					   'top': $top,
+					   'width': '100%',
+					   'max-width': $maxWidth,
+					   'bottom':'auto',
+					   'z-index': '5',
+					   'background': '#ffffff',
+				   });
+				   
+				   $stickyContainer.find('.bottom-section').css({
+					   'padding-top': $highlight,
+				   });
+				   
+			   } 
+			   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+				   $sticky.css({
+					   'position': 'absolute',
+					   'top'     : 'auto',
+					   'bottom'  : 0,
+				   });
+			   }
+			   else {
+					$sticky.css({
+						'position' : 'static',
+						'max-width' : '100%',
+					});
+				   
+					$stickyContainer.find('.bottom-section').css({
+					   'padding-top': 0,
+					});
 			   }
 			}
 		});
@@ -916,7 +999,7 @@ jQuery(document).ready(function ($) {
 		tempMainSlider.owlCarousel({
 			loop:false,
 			nav:true,
-			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
+			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-angle-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-angle-right" role="none"></i></span></a>'],
 			lazyLoad:true,
 			items:1,
 			dots: false,

@@ -1,5 +1,5 @@
 
-<div class="zpa-grid-result row" index="<?php echo $i ?>">
+<div class="zpa-grid-result row <?php if( $i!=0 ): ?>hide<?php endif; ?>" index="<?php echo $i ?>">
 	<div class="zpa-grid-result-container well col-xs-6">
 		<div class="row">
 			<div class="col-xs-12">					
@@ -34,11 +34,50 @@
 					<?php if( $enable_rebate ): ?><div class="badge-rebate"><span class="rebate-price"><?php if( isset( $property->buyerRebate ) && $property->buyerRebate ): ?><?php echo zipperagent_currency() . number_format_i18n( $property->buyerRebate, 0 ); ?><?php else: ?><?php echo $rebate_default_text; ?><?php endif; ?></span><span class="rebate-prefix"><?php echo $rebate_prefix; ?></span></div><? endif; ?>
 					<?php if( isset( $property->startDate ) || isset($property->openHouses) ): ?><span class="badge-open-house">Open House</span><?php endif; ?>
 					<?php /* <a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="<?php echo $searchId; ?>" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a> */ ?>
-					<span class="zpa-for-sale-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?>
-											
+					<?php /* <span class="zpa-for-sale-price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?> */ ?>
+					
+					<div class="span-bg">
+						<div class="prop-detail">
+							<span class="zy_price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span>
+							<h1>
+								<p class="zy_address-style"><span itemprop="streetAddress"><?php echo $property->streetno; ?> <?php echo isset($property->streetname)?zipperagent_fix_comma($property->streetname):'' ?> <?php echo isset($property->unitno)?'#'.$property->unitno:'' ?></span></p>
+								<p class="zy_subaddress-style">
+									<span itemprop="addressLocality"> <?php echo isset($property->lngTOWNSDESCRIPTION) && !empty($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
+									<span itemprop="addressRegion"> <?php echo isset($property->provinceState)?$property->provinceState:'' ?> </span>
+									<span itemprop="postalCode"> <?php echo isset($property->zipcode)?$property->zipcode:'' ?> </span>
+									<?php if( isset( $property->sourceid ) && $property->sourceid == 1 && isset( $property->shrtAREACODE ) ): ?>
+									<span>(<?php echo $property->shrtAREACODE; ?>)</span>
+									<?php endif; ?>
+								</p>							
+							</h1>
+						</div>
+						<div class="prop-spaces">
+							<ul>
+								<?php if( zipperagent_get_nobedrooms($property) !== '' && zipperagent_get_nobedrooms($property) > 0 ): ?>
+								<li>
+									<b><?php echo zipperagent_get_nobedrooms($property); ?></b>
+									<span> beds </span>
+								</li>
+								<?php endif; ?>
+								<?php if( zipperagent_get_nobaths($property) !== '' && zipperagent_get_nobaths($property) > 0 ): ?>
+								<li>
+									<b><?php echo zipperagent_get_nobaths($property); ?> </b>
+									<span> baths </span>
+								</li>
+								<?php endif; ?>
+								<?php if( zipperagent_get_sqft($property) !== '' && zipperagent_get_sqft($property) > 0 ): ?>
+								<li>
+									<b> <?php echo zipperagent_get_sqft($property); ?> </b>
+									<span> sqft </span>
+								</li>
+								<?php endif; ?>	
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		<?php /*
 		<div class="za-container">
 			<div class="row mt-10">
 				<div class="col-xs-12">
@@ -50,7 +89,7 @@
 				<div class="col-xs-12">
 					<span class="zpa-for-sale-price text-bold"> <?php echo zipperagent_currency() . number_format_i18n( $property->listprice, 0 ); ?> </span> <?php //echo isset($property->forsale) && $property->forsale == "Y" ? "(For sale)" : '' ?>
 				</div>
-			</div> */ ?>												
+			</div> * ?>												
 			<div class="row mt-10 property-infos">
 				<?php
 				$infoscount=0;
@@ -84,7 +123,7 @@
 						<?php endif; ?>
 					</div>
 				</div>
-				<?php endif; */ ?>
+				<?php endif; * ?>
 				<?php if( zipperagent_get_sqft($property) !== '' && zipperagent_get_sqft($property) > 0 ): ?>
 				<div class="col-xs-4 nopaddingleft nopaddingright"> 
 					<div class="zpa-grid-result-basic-info-container">
@@ -219,8 +258,8 @@
 						<div class="listing-open-home-text">&nbsp;</div>
 					</div>
 				</div>
-			</div> */ ?>
-		</div>
+			</div> * ?>
+		</div> */ ?>
 		<?php /*
 		<div class="row">
 			<div class="col-xs-12">
@@ -263,7 +302,7 @@
 	</div>
 	<div class="prop-infos col-xs-6">
 		<div class="prop-remarks">
-			<?php echo wp_trim_words( $property->remarks, 20, '<a href="'. $single_url .'"> More</a>' ); ?>
+			<?php echo wp_trim_chars( $property->remarks, 100, '<a href="'. $single_url .'"> More</a>' ); ?>
 		</div>
 		<div class="prop-amenities">
 		  <ul class="section-1">
@@ -291,7 +330,7 @@
 			</li>
 			<li class="">
 			  <span class="title">Status</span>
-			  <span class="value"><?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?></span>
+			  <span class="value" title="<?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?>"><?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?></span>
 			</li>
 		  </ul>
 		</div>
@@ -382,10 +421,11 @@
 	<?php						
 	$source_details = isset($property->sourceid) ? zipperagent_get_source_text($property->sourceid, array('listOfficeName'=>isset($property->listOfficeName)?$property->listOfficeName:'', 'listAgentName'=>isset($property->listAgentName)?$property->listAgentName:'', 'property'=>$property), 'list') : false;
 	?>
+	<?php /* 
 	<?php if($source_details): ?>
 	<div class="property-source">
 		<?php echo $source_details; ?>
 	</div>
 	<?php endif; ?>
-	<div class="grid-margin"></div>
+	<div class="grid-margin"></div> */ ?>
 </div>
