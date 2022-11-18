@@ -75,7 +75,7 @@ if( $list ): ?>
 				<table class="table-view">
 					<thead>
 						<tr>
-							<th>&nbsp;</th>
+							<th>Status</th>
 							<th>Address</th>
 							<th>Location</th>
 							<th>Price</th>
@@ -130,8 +130,9 @@ if( $list ): ?>
 						?>
 						
 						<tr data-link="<?php echo $single_url; ?>" data-index="<?php echo $i; ?>">
-							<td><?php /* <a class="url-wrap" listingId="<?php echo $property->id; ?>" href="<?php echo $single_url; ?>"></a> */ ?>
-								<?php if( isset( $option->startDate ) || isset($property->openHouses) ): ?><span class="badge-open-house">Open&nbsp;House</span><?php endif; ?></td>
+							<td><span class="status-wrap" title="<?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?>"><?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?></span></td>
+							<?php /* <td><?php /* <a class="url-wrap" listingId="<?php echo $property->id; ?>" href="<?php echo $single_url; ?>"></a> * ?>
+								<?php if( isset( $option->startDate ) || isset($property->openHouses) ): ?><span class="badge-open-house">Open&nbsp;House</span><?php endif; ?></td> */ ?>
 							<td><span class="address-wrap" title="<?php echo $fulladdress; ?>"><?php echo $fulladdress; ?></span></td>
 							<td><span class="town-wrap" title="<?php echo isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:''; ?>"><?php echo isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:'-'; ?></span></td>
 							<td><?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?></td>

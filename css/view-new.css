@@ -2246,6 +2246,11 @@
 		z-index:-1;
 	}
 }
+@media screen and (min-width: 2000px){
+	.zpa-fullwidth #map{
+		width: 57.5vw !important;
+	}
+}
 /* grid slider */
 .photo-carousel{
 	position:relative;
@@ -2277,14 +2282,20 @@
 .slider-container:hover .badge-open-house,
 .slider-container:hover .zpa-for-sale-price,
 .slider-container:hover .span-bg{
-	visibility: hidden;
-    opacity: 0;
-	transition: opacity 0.3s, visibility 0.3s;
+	/* visibility: hidden; */
+    /* opacity: 0; */
+	/* transition: opacity 0.3s, visibility 0.3s; */
 }
 .slider-container:hover .photo-carousel .owl-nav{
 	display:block;
 }
-
+#photo-view .photo-carousel .carousel-control:focus, #photo-view .photo-carousel .carousel-control:hover{
+	opacity:1 !important;
+}
+#photo-view .photo-carousel .carousel-control{
+	opacity:1;
+	color: #ffffff !important;
+}
 .zpa-grid-result-container .prop-detail{
 	position:absolute;
 	bottom:0;
@@ -2356,6 +2367,27 @@
 	background: linear-gradient(180deg,transparent,rgba(0,0,0,.8));
 	z-index:3;
 }
+.zpa-grid-result-container .owl-prev{
+	width: initial;
+	height: initial;
+	display: inline;
+	padding: 0;
+	background: transparent;
+	border-radius: 0;
+	margin: 0;
+}
+.zpa-grid-result-container .owl-next{
+	width: initial;
+	height: initial;
+	display: inline;
+	padding: 0;
+	background: transparent;
+	border-radius: 0;
+	margin: 0;
+}
+.zpa-grid-result-container .owl-nav{
+	margin-top:0;
+}
 /* tab selector */
 .view-control{
 	float:right !important;
@@ -2418,6 +2450,13 @@ body .result-control{
 	font-size:12px;
 	padding: 12px 5px !important;
 }
+#list-view table.table-view .status-wrap{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width:60px !important;
+	display:block;
+}
 #list-view table.table-view .address-wrap{
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -2436,7 +2475,7 @@ body .result-control{
 	position:initial;
 	padding:2px 2px !important;
 	line-height: 0 !important;
-	background:#eee;
+	background:#ccc;
 }
 #list-view table.table-view .save-favorite-btn i{
 	font-size:9px !important;
@@ -2596,6 +2635,13 @@ body .result-control{
 	padding-top: 6px;
 	font-size: 12px;
 }
-#list-view .zpa-results-grid-photo{
-	height: 250px;
+#list-view .photo-carousel .owl-nav{
+	display:block;
+}
+#list-view .photo-carousel .carousel-control, #list-view .photo-carousel .carousel-control:focus, #list-view .photo-carousel .carousel-control:hover{
+	opacity:1 !important;
+	color: #fff;
+}
+#zipperagent-content #list-view .zpa-results-grid-photo{
+	height: 250px !important;
 }

@@ -81,6 +81,46 @@ $zoom = isset($requests['map_zoom'])?$requests['map_zoom']:10; // default 10
 
 <script>	
 	jQuery(document).ready(function(){
+		
+		setMapWrapperHeight();
+		
+		function setMapWrapperHeight() {
+			var $sticky = jQuery('#map');
+			var $mapWrapper = $sticky.find('#map_wrapper');
+			var $top = 0;
+			if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
+				// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+				var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+					$top = $top + $headerHeight;
+			}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+				var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+				var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+				var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+				var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+					$top = $top + $topheaderHeight + $headerHeight;
+			}else{
+				var $headerHeight = 0;
+					$top = $top + $headerHeight;
+			}
+			if(jQuery('#wpadminbar').length){
+				var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+					$top = $top + $wpadminbarHeight;
+			}
+			var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+			var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
+			var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 20 : 0;
+			
+			$top = $top + $searchBarHeight;
+			$top = $top + $searchCount;
+			// $top = $top + $searchMapMarkers;
+			
+			// console.log( $top );
+			
+			$mapWrapper.css('height',jQuery(window).outerHeight() - $top - $searchMapMarkers);
+		}
+		
 		jQuery(window).bind( 'scroll', function() {
 			
 			var $sticky = jQuery('#map');
