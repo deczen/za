@@ -2867,6 +2867,24 @@ if( ! function_exists('zipperagent_get_source_text') ){
 							
 							$text.= ' ('. implode( ', ', $contact_text) .')';
 						}
+					} else if($sourceid=='NERENMLS'){
+						
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$showemail = isset($rb['web']['hideemail']) && $rb['web']['hideemail'] == 1 ? 0 : 1;
+						$showphone = isset($rb['web']['hidephone']) && $rb['web']['hidephone'] == 1 ? 0 : 1;
+						
+						$contact_text = array();
+						// if(isset($property->unmapped->{"LO1Office Email"}) && $showemail){
+							// $contact_text[]= 'email:' . $property->unmapped->{"LO1Office Email"};
+						// }
+						if(isset($property->unmapped->{"Broker Attrib Contact"}) && $showphone){
+							$contact_text[]= '' . $property->unmapped->{"Broker Attrib Contact"};
+						}
+						
+						if( $contact_text ){
+							
+							$text.= ' ('. implode( ', ', $contact_text) .')';
+						}
 					}
 					
 					if(file_exists($source['logo_path'])){
@@ -2949,6 +2967,24 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						}
 						if(isset($property->unmapped->{"LO Phone1"}) && $showphone){
 							$contact_text[]= 'ph:' . $property->unmapped->{"LO Phone1"};
+						}
+						
+						if( $contact_text ){
+							
+							$text.= ' ('. implode( ', ', $contact_text) .')';
+						}
+					} else if ($sourceid=='NERENMLS'){
+						
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$showemail = isset($rb['web']['hideemail']) && $rb['web']['hideemail'] == 1 ? 0 : 1;
+						$showphone = isset($rb['web']['hidephone']) && $rb['web']['hidephone'] == 1 ? 0 : 1;
+						
+						$contact_text = array();
+						// if(isset($property->unmapped->{"LO1Office Email"}) && $showemail){
+							// $contact_text[]= 'email:' . $property->unmapped->{"LO1Office Email"};
+						// }
+						if(isset($property->unmapped->{"Broker Attrib Contact"}) && $showphone){
+							$contact_text[]= '' . $property->unmapped->{"Broker Attrib Contact"};
 						}
 						
 						if( $contact_text ){
@@ -5463,12 +5499,12 @@ if( ! function_exists('zipperagent_omnibar') ){
 			
 			// default is map view 
 			if( ! isset( $_REQUEST['view'] ) ) {
-				$_REQUEST['view'] = 'map';
+				// $_REQUEST['view'] = 'map';
 			}
 			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				zipperagent_omnibar_flat($requests);
-				// zipperagent_omnibar_new($requests);
+				// zipperagent_omnibar_flat($requests);
+				zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}
