@@ -4518,6 +4518,17 @@ var zppr={
 			if(zppr.checkNested(property,'unmapped','LO Phone1') && showphone){
 				contact_text.push('ph:' + property.unmapped["LO Phone1"]);
 			}
+		}else if(sourceid=='NERENMLS'){
+			
+			var showemail = zppr.data.root.web.hasOwnProperty('hideemail') && zppr.data.root.web.hideemail == 1 ? 0 : 1;
+			var showphone = zppr.data.root.web.hasOwnProperty('hidephone') && zppr.data.root.web.hidephone == 1 ? 0 : 1;
+			
+			// if(zppr.checkNested(property,'unmapped','LO1Office Email') && showemail){
+				// contact_text.push('email:' + property.unmapped["LO1Office Email"]);
+			// }
+			if(zppr.checkNested(property,'unmapped','Broker Attrib Contact') && showphone){
+				contact_text.push('' + property.unmapped["Broker Attrib Contact"]);
+			}
 		}
 		
 		switch(type){
