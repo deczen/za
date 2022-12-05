@@ -4609,13 +4609,13 @@ var zppr={
 						text+= "Listing Provided Courtesy of <strong>"+ listOfficeName +"</strong>";
 					}	
 					
-					if(contact_text.length){					
-						text+= ' ('+ contact_text.join(', ') +')';
-					}
-					
 					if(listAgentName!='' && zppr.data.is_show_agent_name==1){
 						text+= ", "+ listAgentName;
-					}				
+					}	
+					
+					if(contact_text.length){					
+						text+= ' ('+ contact_text.join(', ') +')';
+					}			
 				break;
 			case "detail_disclaimer":
 					if(source['logo_path']){

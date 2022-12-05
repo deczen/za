@@ -2955,6 +2955,10 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						$text.= sprintf( "Listing Provided Courtesy of <strong>%s</strong>", $listOfficeName);
 					}
 					
+					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+						$text.= sprintf( ", %s", $listAgentName);							
+					}
+					
 					if($sourceid=='GOWENMLS'){
 						
 						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
@@ -2991,10 +2995,6 @@ if( ! function_exists('zipperagent_get_source_text') ){
 							
 							$text.= ' ('. implode( ', ', $contact_text) .')';
 						}
-					}
-					
-					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
-						$text.= sprintf( ", %s", $listAgentName);							
 					}				
 				break;
 			case "detail_disclaimer":
