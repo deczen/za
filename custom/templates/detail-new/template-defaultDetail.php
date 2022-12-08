@@ -225,6 +225,10 @@ switch($property_type){
 	case "RESIDENTIAL": //Residential
 	case "RESI": //Residential
 	case "Residential": //Residential
+	case "Townhouse": //Townhouse
+	case "House (Detached)": //House (Detached)
+	case "House (Attached)": //House (Attached)
+	case "House w/Accessory": //House w/Accessory
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -244,6 +248,9 @@ switch($property_type){
 	case "MULTI UNIT 5+": //Multi unit
 	case "MULTI UNIT/INCOME": //Multi unit
 	case "COMMERCIALSALE": //Multi Family
+	case "Multi-Unit": //Multi-Unit
+	case "Multi-Unit (2-4)": //Multi-Unit (2-4)
+	case "Multi-Unit (5+)": //Multi-Unit (5+)
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -272,6 +279,7 @@ switch($property_type){
 	case "VACL": //Land
 	case "Land": //Land	
 	case "LOTS": //Farm	without house
+	case "Vacant Land": //Vacant Land
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -288,6 +296,7 @@ switch($property_type){
 	case "LEASE/RENT": //Rental		
 	case "RESIDENTIALINCOME": //Rental	
 	case "Residential Income": //Residential Income
+	case "Residential Rental": //Residential Rental
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -305,6 +314,8 @@ switch($property_type){
 	case "COMMERCIAL LEASE": //Commercial Lease	
 	case "CO": //Commercial Lease	
 	case "Commercial Lease": //Commercial Lease
+	case "Condo": //Condo
+	case "Coop": //Coop
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
@@ -350,6 +361,8 @@ switch($property_type){
 	case "BUSINESS_OPPORTUNITY": //Business Opportunity		
 	case "BUSINESSOPPORTUNITY": //Business Opportunity		
 	case "Business Opportunity": //Business Opportunity
+	case "Commercial Building": //Commercial Building
+	case "Commercial Business": //Commercial Business
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';
