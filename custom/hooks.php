@@ -532,7 +532,7 @@ function zipperagent_detail_page_navigation(){
 				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 					$query_args['newsearchbar']= 1;
 				}
-				$single_url = add_query_arg( $query_args, zipperagent_property_url( $prev_prop->id, $fulladdress ) );
+				$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $prev_prop->id, $fulladdress ) );
 				?>
 				
 				<div class="zy_nav-left_wrap">
@@ -572,7 +572,7 @@ function zipperagent_detail_page_navigation(){
 				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 					$query_args['newsearchbar']= 1;
 				}
-				$single_url = add_query_arg( $query_args, zipperagent_property_url( $next_prop->id, $fulladdress ) );
+				$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $next_prop->id, $fulladdress ) );
 				?>
 				
 				<div class="zy_nav-left_wrap">

@@ -350,7 +350,7 @@ if( sizeof($list) ){
 			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 				$query_args['newsearchbar']= 1;
 			}
-			$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+			$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 			// $single_url = zipperagent_property_url( $property->id, $fulladdress );
 			$background = isset($property->photoList[0]) ? str_replace('http://','//',$property->photoList[0]->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg";
 			$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);

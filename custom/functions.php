@@ -2637,7 +2637,7 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 				$query_args['newsearchbar']= 1;
 			}
-			$single_url = str_replace( '/wp-admin/admin-ajax.php?=', '', add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) ) );
+			$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 			$is_login=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
 			$is_active=zipperagent_is_favorite($property->id)?"active":"";
 			$searchId='';
@@ -5049,7 +5049,7 @@ if( ! function_exists('zipperagent_property_grid') ){
 			$query_args['newsearchbar']= 1;
 		}
 		
-		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+		$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 		
 		// $rebate_text = za_get_rebate_text( $property );
@@ -5087,7 +5087,7 @@ if( ! function_exists('zipperagent_property_list') ){
 			$query_args['newsearchbar']= 1;
 		}
 		
-		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+		$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 		
 		// $rebate_text = za_get_rebate_text( $property );
@@ -8706,6 +8706,17 @@ if( ! function_exists('auto_trigger_button_script') ){
 			});
 		</script>
 		<?php
+	}
+}
+
+if( ! function_exists( 'zipperagent_add_query_args' ) ) {
+	function zipperagent_add_query_args( $args, $url ) {
+		
+		if( $args && is_array( $args ) ) {
+			return add_query_arg( $args, $url );
+		} else {
+			return $url;
+		}
 	}
 }
 
