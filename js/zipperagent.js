@@ -44,6 +44,7 @@ var zppr={
 		is_walkscore_enabled: zipperagent.is_walkscore_enabled,
 		is_register_form_chaptcha_enabled: zipperagent.is_register_form_chaptcha_enabled,
 		is_enable_save: zipperagent.is_enable_save,
+		is_your_agent: zipperagent.is_your_agent,
 	},
 	generate_api_params:function(requests){
 		
@@ -1672,6 +1673,74 @@ var zppr={
 					html+=				'<li>' +
 											'<div class="zy_single-agent">' +
 												'<span class="zy_agent-title">Listing Agent</span>' +
+												
+												'<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3>'+ agentFullName +'</h3>';
+												
+					if(agentImage){
+						html+=				'<div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					
+					if(agentEmail){
+						html+=					'<p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:'+ agentEmail +'">'+ agentEmail +'</a></p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span>'+ agentPhoneFax +'</p>';
+					}
+					
+					if(agentPhoneFax){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span>'+ agentPhoneFax +'</p>';
+					}
+						
+					if(agentPhoneMobile){
+						html+=					'<p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span>'+ agentPhoneMobile +'</p>';
+					}							
+												
+					if( agent.id ){
+						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+						html+=					'</span>' +
+												'<div class="clearfix"></div>' +
+											'</div>' +
+										'</li>';
+					break;
+					
+				default:
+				
+					html+=				'<li>Listing Agent</li>' +
+										'<li>';
+					if(agentImage){
+						html+=				'<div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="'+ agentImage +'" alt="'+ agentFullName +'" class="zy_agent-pic"/></div>';
+					}
+					html+=					'<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3>'+ agentFullName +'</h3>' +
+											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
+											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
+					if( agent.id ){
+						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+					}
+					html+=					'</span>' +
+											'<div class="clearfix"></div>' +
+										'</li>';
+					break;
+			}
+		} else if( single_property.hasOwnProperty('contactAgent') && zppr.data.is_your_agent ){
+			var agentFullName = zppr.checkNested(single_property,'contactAgent','userName') ? single_property.contactAgent.userName : '';
+			var agentFullNameArr = agentFullName.split(' ');
+			var agentFirstName =  agentFullNameArr ? agentFullNameArr[0] : '';
+			var agentImage = zppr.checkNested(single_property,'contactAgent','imageURL') ? single_property.contactAgent.imageURL : user_default;
+			var agentPhone = zppr.checkNested(single_property,'contactAgent','phoneMobile') ? single_property.contactAgent.phoneMobile : zppr.checkNested(single_property,'listingAgent','phoneOffice') ? single_property.listingAgent.phoneOffice : '';
+			var agentPhoneMobile = zppr.checkNested(single_property,'contactAgent','phoneMobile') ? single_property.contactAgent.phoneMobile : '';
+			var agentPhoneOffice = zppr.checkNested(single_property,'contactAgent','phoneOffice') ? single_property.contactAgent.phoneOffice : '';
+			var agentPhoneFax = zppr.checkNested(single_property,'contactAgent','phoneFax') ? single_property.contactAgent.phoneFax : '';
+			var agentEmail = zppr.checkNested(single_property,'contactAgent','email') ? single_property.contactAgent.email : '';
+			
+			switch(zppr.data.detailpage_group){
+				
+				case "sibor":
+				
+					html+=				'<li>' +
+											'<div class="zy_single-agent">' +
+												'<span class="zy_agent-title">Your Agent</span>' +
 												
 												'<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3>'+ agentFullName +'</h3>';
 												

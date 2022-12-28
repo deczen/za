@@ -4982,6 +4982,18 @@ if( ! function_exists('is_show_agent_list') ){
 	}
 }
 
+if( ! function_exists('is_show_contact_agent') ){
+	function is_show_contact_agent(){
+				
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$enabled = isset($rb['web']['youragent'])?$rb['web']['youragent']:0;
+		
+		$enabled=$enabled?true:false;
+		
+		return $enabled;
+	}
+}
+
 if( ! function_exists('is_branded_virtualtour') ){
 	function is_branded_virtualtour(){
 				

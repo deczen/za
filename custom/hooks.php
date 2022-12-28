@@ -77,6 +77,7 @@ function generate_zipperagent_variables(){
 	$args['is_walkscore_enabled']=is_walkscore_enabled();
 	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
 	$args['is_enable_save']=zipperagent_is_enable_save();
+    $args['is_your_agent']=is_show_contact_agent();
     $localize = $args;
 	
 	?>
