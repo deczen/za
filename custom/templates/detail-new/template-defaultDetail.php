@@ -908,7 +908,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -921,7 +921,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -944,7 +944,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> * echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 						<?php */ 
@@ -975,7 +975,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -988,7 +988,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -1022,7 +1022,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -1035,7 +1035,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -1057,7 +1057,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> * echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 						<?php */ endif; ?>
@@ -1088,7 +1088,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -1101,7 +1101,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -1135,7 +1135,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -1148,7 +1148,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>

@@ -1699,7 +1699,7 @@ var zppr={
 					}							
 												
 					if( agent.id ){
-						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=					'<button class="go-to-form">Ask Question</button>';
 					}
 						html+=					'</span>' +
 												'<div class="clearfix"></div>' +
@@ -1718,7 +1718,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 					if( agent.id ){
-						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=				'<button class="go-to-form">Ask Question</button>';
 					}
 					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
@@ -1769,7 +1769,7 @@ var zppr={
 					}							
 												
 					if( agent.id ){
-						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=					'<button class="go-to-form">Ask Question</button>';
 					}
 						html+=					'</span>' +
 												'<div class="clearfix"></div>' +
@@ -1788,7 +1788,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 					if( agent.id ){
-						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=				'<button class="go-to-form">Ask Question</button>';
 					}
 					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
@@ -1814,7 +1814,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 			if( agent.id ){
-				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+				html+=						'<button class="go-to-form">Ask Question</button>';
 			}
 			html+=							'</span>' +
 											'<div class="clearfix"></div>' +
@@ -1866,7 +1866,7 @@ var zppr={
 					}							
 												
 					if( agent.id ){
-						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=					'<button class="go-to-form">Ask Question</button>';
 					}
 						html+=					'</span>' +
 												'<div class="clearfix"></div>' +
@@ -1885,7 +1885,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 					if( agent.id ){
-						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=				'<button class="go-to-form">Ask Question</button>';
 					}
 					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
@@ -1912,7 +1912,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 			if( agent.id ){
-				html+=						'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+				html+=						'<button class="go-to-form">Ask Question</button>';
 			}
 			html+=							'</span>' +
 											'<div class="clearfix"></div>' +
@@ -1963,7 +1963,7 @@ var zppr={
 					}							
 												
 					if( agent.id ){
-						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=					'<button class="go-to-form">Ask Question</button>';
 					}
 						html+=					'</span>' +
 												'<div class="clearfix"></div>' +
@@ -1982,7 +1982,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 					if( agent.id ){
-						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=				'<button class="go-to-form">Ask Question</button>';
 					}
 					html+=					'</span>' +
 											'<div class="clearfix"></div>' +
@@ -2035,7 +2035,7 @@ var zppr={
 					}							
 												
 					if( agent.id ){
-						html+=					'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=					'<button class="go-to-form">Ask Question</button>';
 					}
 						html+=					'</span>' +
 												'<div class="clearfix"></div>' +
@@ -2054,7 +2054,7 @@ var zppr={
 											'<p class="zy_agent-phone">'+ agentPhone +'</p>' +
 											'<a href="mailto:'+ agentEmail +'" class="zy_agent-email">'+ agentEmail +'</a>';
 					if( agent.id ){
-						html+=				'<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>';
+						html+=				'<button class="go-to-form">Ask Question</button>';
 					}
 					html+=					'</span>' +
 											'<div class="clearfix"></div>' +

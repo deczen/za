@@ -380,7 +380,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 					if( response['result'] ){						
 						var contactId=response['result'];					
 						
-						jQuery('#ask-a-question-form').html('<p class="submitted">Your data is submitted. Thank You.</p>');
+						jQuery('#ask-a-question-form').html('<p class="submitted">Your request has been submitted successfully. Thank you!</p>');
 						// jQuery('input[name=contactId]').val(contactId);
 						// jQuery('.needLogin').attr('contactId', contactId);
 						// jQuery('.needLogin').removeClass('needLogin');
@@ -675,6 +675,15 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 			window.location.reload();
 		});
 	</script>
+	<script>
+		jQuery('document').ready(function(){
+			jQuery(".go-to-form").click(function() {
+				jQuery('html, body').animate({
+					scrollTop: jQuery("#zpa-modal-contact-agent-form").offset().top - 300
+				}, 1000);
+			});
+		});
+	</script> 
 </div>
 
 <?php detailpage_visit_counter(); ?>
