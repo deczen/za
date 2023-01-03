@@ -893,6 +893,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneFax = isset( $single_property->listingAgent->phoneFax )? $single_property->listingAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->listingAgent->email )? $single_property->listingAgent->email : '';
 						
+						$agent = isset( $single_property->listingAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->listingAgent->mlsAgentId) : $agent;
+						
 						switch($groupname):
 						
 							case "sibor":
@@ -933,6 +935,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhone = isset( $single_property->listOffice->officePhone )? $single_property->listOffice->officePhone : '';
 						$agentEmail = isset( $single_property->listAgent->preferredMail )? $single_property->listAgent->preferredMail : '';
 						
+						$agent = isset( $single_property->listAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->listAgent->mlsAgentId) : $agent;
+						
 						?>
 							<li>Listing Agent</li>
 							<li>
@@ -955,6 +959,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneOffice = isset($single_property->contactAgent->phoneOffice) ? $single_property->contactAgent->phoneOffice : '';
 						$agentPhoneFax = isset( $single_property->contactAgent->phoneFax )? $single_property->contactAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->contactAgent->email )? $single_property->contactAgent->email : '';
+						
+						$agent = isset( $single_property->contactAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->contactAgent->mlsAgentId) : $agent;
 						
 						switch($groupname):
 						
@@ -1001,6 +1007,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneFax = isset( $single_property->coListingAgent->phoneFax )? $single_property->coListingAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->coListingAgent->email )? $single_property->coListingAgent->email : '';
 						
+						$agent = isset( $single_property->coListingAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->coListingAgent->mlsAgentId) : $agent;
+						
 						switch($groupname):
 						
 							case "sibor":
@@ -1040,6 +1048,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentImage = isset( $single_property->coListAgent->imageURL )? $single_property->coListAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->coListOffice->officePhone )? $single_property->coListOffice->officePhone : '';
 						$agentEmail = isset( $single_property->coListAgent->preferredMail )? $single_property->coListAgent->preferredMail : '';
+						
+						$agent = isset( $single_property->coListAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->coListAgent->mlsAgentId) : $agent;
 						?>
 							<li>CoListing Agent</li>
 							<li>
@@ -1062,6 +1072,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneOffice = isset($single_property->salesAgent->phoneOffice) ? $single_property->salesAgent->phoneOffice : '';
 						$agentPhoneFax = isset( $single_property->salesAgent->phoneFax )? $single_property->salesAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->salesAgent->email )? $single_property->salesAgent->email : '';
+						
+						$agent = isset( $single_property->salesAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->salesAgent->mlsAgentId) : $agent;
 						
 						switch($groupname):
 						
@@ -1107,6 +1119,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneOffice = isset($single_property->coSalesAgent->phoneOffice) ? $single_property->coSalesAgent->phoneOffice : '';
 						$agentPhoneFax = isset( $single_property->coSalesAgent->phoneFax )? $single_property->coSalesAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->coSalesAgent->email )? $single_property->coSalesAgent->email : '';
+						
+						$agent = isset( $single_property->coSalesAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->coSalesAgent->mlsAgentId) : $agent;
 						
 						switch($groupname):
 						

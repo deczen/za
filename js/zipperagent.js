@@ -1666,6 +1666,8 @@ var zppr={
 			var agentPhoneFax = zppr.checkNested(single_property,'listingAgent','phoneFax') ? single_property.listingAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'listingAgent','email') ? single_property.listingAgent.email : '';
 			
+			agent = zppr.checkNested(single_property,'listingAgent','mlsAgentId') ?  zppr.get_agent(single_property.listingAgent.mlsAgentId) : agent;
+			
 			switch(zppr.data.detailpage_group){
 				
 				case "sibor":
@@ -1734,6 +1736,8 @@ var zppr={
 			var agentPhoneFax = zppr.checkNested(single_property,'contactAgent','phoneFax') ? single_property.contactAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'contactAgent','email') ? single_property.contactAgent.email : '';
 			
+			agent = zppr.checkNested(single_property,'contactAgent','mlsAgentId') ?  zppr.get_agent(single_property.contactAgent.mlsAgentId) : agent;
+			
 			switch(zppr.data.detailpage_group){
 				
 				case "sibor":
@@ -1799,6 +1803,8 @@ var zppr={
 			var agentPhone = zppr.checkNested(single_property,'listOffice','officePhone') ? single_property.listOffice.officePhone : '';
 			var agentEmail = zppr.checkNested(single_property,'listAgent','preferredMail') ? single_property.listAgent.preferredMail : '';
 			
+			agent = zppr.checkNested(single_property,'listAgent','mlsAgentId') ?  zppr.get_agent(single_property.listAgent.mlsAgentId) : agent;
+			
 			html+=						'<li>Listing Agent</li>' +
 										'<li>';
 			if(agentImage){
@@ -1826,6 +1832,8 @@ var zppr={
 			var agentPhoneOffice = zppr.checkNested(single_property,'coListingAgent','phoneOffice') ? single_property.coListingAgent.phoneOffice : '';
 			var agentPhoneFax = zppr.checkNested(single_property,'coListingAgent','phoneFax') ? single_property.coListingAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'coListingAgent','email') ? single_property.coListingAgent.email : '';
+			
+			agent = zppr.checkNested(single_property,'coListingAgent','mlsAgentId') ?  zppr.get_agent(single_property.coListingAgent.mlsAgentId) : agent;
 			
 			switch(zppr.data.detailpage_group){
 				
@@ -1893,6 +1901,8 @@ var zppr={
 			var agentPhone = zppr.checkNested(single_property,'coListOffice','officePhone') ? single_property.coListOffice.officePhone : '';
 			var agentEmail = zppr.checkNested(single_property,'coListAgent','preferredMail') ? single_property.coListAgent.preferredMail : '';
 			
+			agent = zppr.checkNested(single_property,'coListAgent','mlsAgentId') ?  zppr.get_agent(single_property.coListAgent.mlsAgentId) : agent;
+			
 			html+=						'<li>CoListing Agent</li>' +
 										'<li>';
 			if(agentImage){
@@ -1919,6 +1929,8 @@ var zppr={
 			var agentPhoneOffice = zppr.checkNested(single_property,'salesAgent','phoneOffice') ? single_property.salesAgent.phoneOffice : '';
 			var agentPhoneFax = zppr.checkNested(single_property,'salesAgent','phoneFax') ? single_property.salesAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'salesAgent','email') ? single_property.salesAgent.email : '';
+			
+			agent = zppr.checkNested(single_property,'salesAgent','mlsAgentId') ?  zppr.get_agent(single_property.salesAgent.mlsAgentId) : agent;
 			
 			switch(zppr.data.detailpage_group){
 				
@@ -1989,6 +2001,8 @@ var zppr={
 			var agentPhoneOffice = zppr.checkNested(single_property,'coSalesAgent','phoneOffice') ? single_property.coSalesAgent.phoneOffice : '';
 			var agentPhoneFax = zppr.checkNested(single_property,'coSalesAgent','phoneFax') ? single_property.coSalesAgent.phoneFax : '';
 			var agentEmail = zppr.checkNested(single_property,'coSalesAgent','email') ? single_property.coSalesAgent.email : '';
+			
+			agent = zppr.checkNested(single_property,'coSalesAgent','mlsAgentId') ?  zppr.get_agent(single_property.coSalesAgent.mlsAgentId) : agent;
 			
 			switch(zppr.data.detailpage_group){
 				
