@@ -453,7 +453,7 @@ else: ?>
 				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 					$query_args['newsearchbar']= 1;
 				}
-				$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+				$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 				$is_login=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
 				$is_active=zipperagent_is_favorite($property->id)?"active":"";
 				$searchId='';
@@ -940,7 +940,7 @@ jQuery(document).ready(function ($) {
 		tempMainSlider.owlCarousel({
 			loop:false,
 			nav:true,
-			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
+			navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-angle-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-angle-right" role="none"></i></span></a>'],
 			lazyLoad:true,
 			items:1,
 			dots: false,

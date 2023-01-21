@@ -77,6 +77,7 @@ function generate_zipperagent_variables(){
 	$args['is_walkscore_enabled']=is_walkscore_enabled();
 	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
 	$args['is_enable_save']=zipperagent_is_enable_save();
+    $args['is_your_agent']=is_show_contact_agent();
     $localize = $args;
 	
 	?>
@@ -249,7 +250,7 @@ function zipperagent_template( $content ){
 	
 	// default is map view 
 	if( ! isset( $_REQUEST['view'] ) || $_REQUEST['view'] == '' ) {
-		$_REQUEST['view'] = 'map';
+		// $_REQUEST['view'] = 'map';
 	}
 	
 	$requests = $_REQUEST;
@@ -532,7 +533,7 @@ function zipperagent_detail_page_navigation(){
 				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 					$query_args['newsearchbar']= 1;
 				}
-				$single_url = add_query_arg( $query_args, zipperagent_property_url( $prev_prop->id, $fulladdress ) );
+				$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $prev_prop->id, $fulladdress ) );
 				?>
 				
 				<div class="zy_nav-left_wrap">
@@ -572,7 +573,7 @@ function zipperagent_detail_page_navigation(){
 				if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 					$query_args['newsearchbar']= 1;
 				}
-				$single_url = add_query_arg( $query_args, zipperagent_property_url( $next_prop->id, $fulladdress ) );
+				$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $next_prop->id, $fulladdress ) );
 				?>
 				
 				<div class="zy_nav-left_wrap">

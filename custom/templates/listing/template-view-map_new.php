@@ -41,34 +41,125 @@ if( $list ): ?>
 		</div>
 		
 		<div class="tab-pane" id="list-view">
-			<?php 
-			$i=0;
-			foreach( $list as $option ): ?>
-				<?php 				
-				
-				if( $open )
-					$property=isset($option->mergedProperty)?$option->mergedProperty:null;
-				else
-					$property=$option;
-				
-				if( !isset($property->id) )
-					continue;
-				
-				$params = zipperagent_property_list( 
-					$property, 
-					array( 
-						'i' => $i,
-						'total_props' => sizeof($list),
-					),
-					$requests, 
-					$searchId, 
-					$search
-				);
-				
-				extract( $params );
-				
-				$i++;
-			endforeach; ?>	
+			<div class="top-section">
+				<div class="property-highlight">
+					<?php 
+					$i=0;
+					foreach( $list as $option ): ?>
+						<?php 				
+						
+						if( $open )
+							$property=isset($option->mergedProperty)?$option->mergedProperty:null;
+						else
+							$property=$option;
+						
+						if( !isset($property->id) )
+							continue;
+						
+						$params = zipperagent_property_list( 
+							$property, 
+							array( 
+								'i' => $i,
+								'total_props' => sizeof($list),
+							),
+							$requests, 
+							$searchId, 
+							$search
+						);
+						
+						extract( $params );
+						
+						$i++;
+					endforeach; ?>	
+				</div>
+				<table class="table-view">
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Address</th>
+							<th>Location</th>
+							<th>Price</th>
+							<th>Beds</th>
+							<th>Baths</th>
+							<th>Sq.Ft.</th>
+							<!-- <th>$/Sq.Ft.</th> -->
+							<th>On Site</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="bottom-section">
+				<table class="table-view">
+					<tbody>
+					<?php 
+					$i=0;
+					foreach( $list as $option ):						
+						
+						if( $open )
+							$property=isset($option->mergedProperty)?$option->mergedProperty:null;
+						else
+							$property=$option;
+						
+						if( !isset($property->id) )
+							continue;
+						
+						// echo "<pre>"; print_r( $property ); echo "</pre>";
+						
+						$fulladdress = zipperagent_get_address($property);
+						
+						$saved_crit=$search;
+						$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
+						if(!empty($searchId)){
+							$query_args['searchId']= $searchId;
+						}
+						if(zp_using_criteria() && !empty($critBase64)){
+							$query_args['criteria']= $critBase64;
+						}
+						if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+							$query_args['newsearchbar']= 1;
+						}
+						$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+						$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
+						
+						// $rebate_text = za_get_rebate_text( $property );
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$enable_rebate = isset($rb['web']['display.buyerrebate.amount'])?$rb['web']['display.buyerrebate.amount']:0;
+						$rebate_prefix = isset($rb['web']['buyerrebate.amount.prefix'])?$rb['web']['buyerrebate.amount.prefix']:'';
+						$rebate_default_text = isset($rb['web']['emptybuyerrebate.amount.text'])?$rb['web']['emptybuyerrebate.amount.text']:'';
+						?>
+						
+						<tr data-link="<?php echo $single_url; ?>" data-index="<?php echo $i; ?>">
+							<td><span class="status-wrap" title="<?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?>"><?php echo zipperagent_get_status_name(isset($property->status)?$property->status:'',isset($property->sourceid)?$property->sourceid:''); ?></span></td>
+							<?php /* <td><?php /* <a class="url-wrap" listingId="<?php echo $property->id; ?>" href="<?php echo $single_url; ?>"></a> * ?>
+								<?php if( isset( $option->startDate ) || isset($property->openHouses) ): ?><span class="badge-open-house">Open&nbsp;House</span><?php endif; ?></td> */ ?>
+							<td><span class="address-wrap" title="<?php echo $fulladdress; ?>"><?php echo $fulladdress; ?></span></td>
+							<td><span class="town-wrap" title="<?php echo isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:''; ?>"><?php echo isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:'-'; ?></span></td>
+							<td><?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?></td>
+							<td><?php echo zipperagent_get_nobedrooms($property); ?></td>
+							<td><?php echo zipperagent_get_nobaths($property); ?></td>
+							<td><?php echo zipperagent_get_sqft($property); ?></td>
+							<?php /* <td><?php echo zipperagent_get_sqft($property); ?></td> */ ?>
+							<td><?php echo isset($property->dayssincelisting)?($property->dayssincelisting . ' ' . ( $property->dayssincelisting > 1 ? 'days':'day') ):'-'; ?> </td>
+							<td><a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a></td>
+						</tr>
+						
+						<?php
+						$i++;
+					endforeach; ?>
+					</tbody>
+				</table>
+				<script>
+					jQuery(document).ready(function(){
+						jQuery('.table-view tbody tr').on( 'click', function(){
+							var index = jQuery(this).data('index');
+							
+							jQuery('.property-highlight .zpa-grid-result').addClass('hide');
+							jQuery('.property-highlight .zpa-grid-result[index="'+ index +'"]').removeClass('hide');
+						});
+					});
+				</script>
+			</div>
 		</div>
 		
 		<?php /* 
@@ -114,7 +205,7 @@ if( $list ): ?>
 					if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 						$query_args['newsearchbar']= 1;
 					}
-					$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+					$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 					$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 					
 					// $rebate_text = za_get_rebate_text( $property );

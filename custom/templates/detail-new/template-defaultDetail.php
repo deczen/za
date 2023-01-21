@@ -225,6 +225,10 @@ switch($property_type){
 	case "RESIDENTIAL": //Residential
 	case "RESI": //Residential
 	case "Residential": //Residential
+	case "Townhouse": //Townhouse
+	case "House (Detached)": //House (Detached)
+	case "House (Attached)": //House (Attached)
+	case "House w/Accessory": //House w/Accessory
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -244,6 +248,9 @@ switch($property_type){
 	case "MULTI UNIT 5+": //Multi unit
 	case "MULTI UNIT/INCOME": //Multi unit
 	case "COMMERCIALSALE": //Multi Family
+	case "Multi-Unit": //Multi-Unit
+	case "Multi-Unit (2-4)": //Multi-Unit (2-4)
+	case "Multi-Unit (5+)": //Multi-Unit (5+)
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -272,6 +279,7 @@ switch($property_type){
 	case "VACL": //Land
 	case "Land": //Land	
 	case "LOTS": //Farm	without house
+	case "Vacant Land": //Vacant Land
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -288,6 +296,7 @@ switch($property_type){
 	case "LEASE/RENT": //Rental		
 	case "RESIDENTIALINCOME": //Rental	
 	case "Residential Income": //Residential Income
+	case "Residential Rental": //Residential Rental
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -305,6 +314,8 @@ switch($property_type){
 	case "COMMERCIAL LEASE": //Commercial Lease	
 	case "CO": //Commercial Lease	
 	case "Commercial Lease": //Commercial Lease
+	case "Condo": //Condo
+	case "Coop": //Coop
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
@@ -350,6 +361,8 @@ switch($property_type){
 	case "BUSINESS_OPPORTUNITY": //Business Opportunity		
 	case "BUSINESSOPPORTUNITY": //Business Opportunity		
 	case "Business Opportunity": //Business Opportunity
+	case "Commercial Building": //Commercial Building
+	case "Commercial Business": //Commercial Business
 		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
 		$template_features='bu-features.php';
 		$template_print='bu-print.php';
@@ -880,6 +893,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneFax = isset( $single_property->listingAgent->phoneFax )? $single_property->listingAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->listingAgent->email )? $single_property->listingAgent->email : '';
 						
+						$agent = isset( $single_property->listingAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->listingAgent->mlsAgentId) : $agent;
+						
 						switch($groupname):
 						
 							case "sibor":
@@ -893,7 +908,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -906,7 +921,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -920,6 +935,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhone = isset( $single_property->listOffice->officePhone )? $single_property->listOffice->officePhone : '';
 						$agentEmail = isset( $single_property->listAgent->preferredMail )? $single_property->listAgent->preferredMail : '';
 						
+						$agent = isset( $single_property->listAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->listAgent->mlsAgentId) : $agent;
+						
 						?>
 							<li>Listing Agent</li>
 							<li>
@@ -927,10 +944,57 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> * echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
-						<?php */ endif; ?>
+						<?php */ 
+						
+						elseif( isset($single_property->contactAgent) && is_show_contact_agent() ): 
+						$agentFullName = isset( $single_property->contactAgent->userName ) ? $single_property->contactAgent->userName : '';
+						$agentFullNameArr = explode( ' ',  $agentFullName );
+						$agentFirstName =  $agentFullNameArr ? $agentFullNameArr[0] : '';
+						$agentImage = isset( $single_property->contactAgent->imageURL )? $single_property->contactAgent->imageURL : $user_default;
+						$agentPhone = isset( $single_property->contactAgent->phoneMobile )? $single_property->contactAgent->phoneMobile : ( isset($single_property->listingAgent->phoneOffice) ? $single_property->listingAgent->phoneOffice : '');
+						$agentPhoneMobile = isset( $single_property->contactAgent->phoneMobile )? $single_property->contactAgent->phoneMobile : '';
+						$agentPhoneOffice = isset($single_property->contactAgent->phoneOffice) ? $single_property->contactAgent->phoneOffice : '';
+						$agentPhoneFax = isset( $single_property->contactAgent->phoneFax )? $single_property->contactAgent->phoneFax : '';
+						$agentEmail = isset( $single_property->contactAgent->email )? $single_property->contactAgent->email : '';
+						
+						$agent = isset( $single_property->contactAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->contactAgent->mlsAgentId) : $agent;
+						
+						switch($groupname):
+						
+							case "sibor":
+							?>
+							<li>
+								<div class="zy_single-agent">
+									<span class="zy_agent-title">Listing Agent</span>
+									<?php if($agentImage): ?><div class="col-lg-4 col-sm-4 col-md-4 col-xl-4 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
+									<span class="col-lg-8 col-sm-8 col-md-8 col-xl-8 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
+									<?php if($agentEmail): ?><p class="zy_agent-email"><span class="zy_agent-prop-title">Email: </span><a href="mailto:<?php echo $agentEmail; ?>"><?php echo $agentEmail; ?></a></p><?php endif; ?>
+									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
+									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
+									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
+									<div class="clearfix"></div>
+								</div>
+							</li>							
+							<?php break; ?>
+							
+							<?php default: ?>
+							<li>Your Agent</li>
+							<li>
+								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
+								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
+								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
+								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
+								<div class="clearfix"></div>
+							</li>
+							<?php break; ?>
+							
+						<?php endswitch; ?>
+						<?php endif; ?>
 						
 						<?php if( isset($single_property->coListingAgent) ):
 						$agentFullName = isset( $single_property->coListingAgent->userName ) ? $single_property->coListingAgent->userName : '';
@@ -942,6 +1006,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneOffice = isset($single_property->coListingAgent->phoneOffice) ? $single_property->coListingAgent->phoneOffice : '';
 						$agentPhoneFax = isset( $single_property->coListingAgent->phoneFax )? $single_property->coListingAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->coListingAgent->email )? $single_property->coListingAgent->email : '';
+						
+						$agent = isset( $single_property->coListingAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->coListingAgent->mlsAgentId) : $agent;
 						
 						switch($groupname):
 						
@@ -956,7 +1022,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -969,7 +1035,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -982,6 +1048,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentImage = isset( $single_property->coListAgent->imageURL )? $single_property->coListAgent->imageURL : $user_default;
 						$agentPhone = isset( $single_property->coListOffice->officePhone )? $single_property->coListOffice->officePhone : '';
 						$agentEmail = isset( $single_property->coListAgent->preferredMail )? $single_property->coListAgent->preferredMail : '';
+						
+						$agent = isset( $single_property->coListAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->coListAgent->mlsAgentId) : $agent;
 						?>
 							<li>CoListing Agent</li>
 							<li>
@@ -989,7 +1057,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> * echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 						<?php */ endif; ?>
@@ -1005,6 +1073,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneFax = isset( $single_property->salesAgent->phoneFax )? $single_property->salesAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->salesAgent->email )? $single_property->salesAgent->email : '';
 						
+						$agent = isset( $single_property->salesAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->salesAgent->mlsAgentId) : $agent;
+						
 						switch($groupname):
 						
 							case "sibor":
@@ -1018,7 +1088,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -1031,7 +1101,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>
@@ -1050,6 +1120,8 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 						$agentPhoneFax = isset( $single_property->coSalesAgent->phoneFax )? $single_property->coSalesAgent->phoneFax : '';
 						$agentEmail = isset( $single_property->coSalesAgent->email )? $single_property->coSalesAgent->email : '';
 						
+						$agent = isset( $single_property->coSalesAgent->mlsAgentId ) ? zipperagent_get_agent($single_property->coSalesAgent->mlsAgentId) : $agent;
+						
 						switch($groupname):
 						
 							case "sibor":
@@ -1063,7 +1135,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 									<?php if($agentPhoneOffice): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Phone: </span><?php echo $agentPhoneOffice; ?></p><?php endif; ?>
 									<?php if($agentPhoneFax): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Office Fax: </span><?php echo $agentPhoneFax; ?></p><?php endif; ?>
 									<?php if($agentPhoneMobile): ?><p class="zy_agent-phone"><span class="zy_agent-prop-title">Cell Phone: </span><?php echo $agentPhoneMobile; ?></p><?php endif; ?>
-									<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+									<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 									<div class="clearfix"></div>
 								</div>
 							</li>							
@@ -1076,7 +1148,7 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
 								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
 								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) echo '<a href="#zpa-modal-contact-agent-form"><button>Ask Question</button></a>'; ?></span>
+								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
 								<div class="clearfix"></div>
 							</li>
 							<?php break; ?>

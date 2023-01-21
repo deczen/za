@@ -2246,6 +2246,11 @@
 		z-index:-1;
 	}
 }
+@media screen and (min-width: 2000px){
+	.zpa-fullwidth #map{
+		width: 57.5vw !important;
+	}
+}
 /* grid slider */
 .photo-carousel{
 	position:relative;
@@ -2267,20 +2272,121 @@
 }
 .slider-container .badge-rebate,
 .slider-container .badge-open-house,
-.slider-container .zpa-for-sale-price{
+.slider-container .zpa-for-sale-price
+.slider-container .span-bg{
 	visibility: visible;
     opacity: 1;
 	transition: opacity 0.3s, visibility 0.3s;
 }
 .slider-container:hover .badge-rebate,
 .slider-container:hover .badge-open-house,
-.slider-container:hover .zpa-for-sale-price{
-	visibility: hidden;
-    opacity: 0;
-	transition: opacity 0.3s, visibility 0.3s;
+.slider-container:hover .zpa-for-sale-price,
+.slider-container:hover .span-bg{
+	/* visibility: hidden; */
+    /* opacity: 0; */
+	/* transition: opacity 0.3s, visibility 0.3s; */
 }
 .slider-container:hover .photo-carousel .owl-nav{
 	display:block;
+}
+#photo-view .photo-carousel .carousel-control:focus, #photo-view .photo-carousel .carousel-control:hover{
+	opacity:1 !important;
+}
+#photo-view .photo-carousel .carousel-control{
+	opacity:1;
+	color: #ffffff !important;
+}
+.zpa-grid-result-container .prop-detail{
+	position:absolute;
+	bottom:0;
+	left:0;
+	z-index:3;
+	display:block;
+	padding:10px;
+}
+.zpa-grid-result-container .prop-detail .zy_price{
+	color: #ffffff;
+	font-weight:600;
+	font-size:14px;
+	margin-bottom:0px !important;
+	display:block;
+}
+.zpa-grid-result-container .prop-detail h1{
+	font-size:12px !important;
+	margin:0 !important;
+	padding:0 !important;
+	line-height:1.2 !important;
+}
+.zpa-grid-result-container .prop-detail .zy_address-style{
+	margin:0 !important;
+	padding:0 !important;
+	font-size:11px;
+	color: #ffffff;
+}
+.zpa-grid-result-container .prop-detail .zy_address-style > span{
+	text-overflow:ellipsis;
+	overflow:hidden;
+	max-width:100px;	
+    white-space: nowrap;
+	display:block;
+}
+.zpa-grid-result-container .prop-detail .zy_subaddress-style{
+	font-size:10px;
+	color: #ccc;
+	margin-bottom:0 !important;
+}
+.zpa-grid-result-container .prop-spaces{
+	position:absolute;
+	bottom: 8px;
+	right:0;
+	z-index:3;
+}
+.zpa-grid-result-container .prop-spaces ul li{
+	color: #ffffff;
+	display:inline-block;
+	text-align:center;
+	padding:0 5px 0 0 !important;
+	line-height:1.2;
+	font-size:14px;
+}
+.zpa-grid-result-container .prop-spaces ul li > span{
+	display:block;
+	font-size:11px;
+	font-weight:600;
+}
+.zpa-grid-result-container .prop-spaces ul li:not(:last-child){
+	border-right:1px solid #ccc;
+}
+.zpa-grid-result-container .span-bg{
+	position: absolute;
+	display:block;
+	bottom:0;
+	left:0;
+	width:100%;
+	height:60px;
+	background: linear-gradient(180deg,transparent,rgba(0,0,0,.8));
+	z-index:3;
+}
+.zpa-grid-result-container .owl-prev{
+	width: initial;
+	height: initial;
+	display: inline;
+	padding: 0;
+	background: transparent;
+	border-radius: 0;
+	margin: 0;
+}
+.zpa-grid-result-container .owl-next{
+	width: initial;
+	height: initial;
+	display: inline;
+	padding: 0;
+	background: transparent;
+	border-radius: 0;
+	margin: 0;
+}
+.zpa-grid-result-container .owl-nav{
+	margin-top:0;
 }
 /* tab selector */
 .view-control{
@@ -2322,11 +2428,11 @@ body .result-control{
 	padding-top:20px;
 }
 /* Table view */
-#table-view{
+#list-view{
 	padding-left:15px !important;
-	overflow: auto;
+	/* overflow: auto; */
 }
-#table-view .badge-open-house{
+#list-view .table-view .badge-open-house{
 	background: #d539b6;
     border-radius: 4px;
     color: #fff;
@@ -2336,61 +2442,103 @@ body .result-control{
     font-weight: 600;
     pointer-events: none;
 }
-#table-view table.table-view td{
+#list-view table.table-view td{
 	padding: 9px 5px;
 	font-size:12px;
 }
-#table-view table.table-view th{
+#list-view table.table-view th{
 	font-size:12px;
 	padding: 12px 5px !important;
 }
-#table-view table.table-view .address-wrap{
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	max-width:100px !important;
-	display:block;
-}
-#table-view table.table-view .town-wrap{
+#list-view table.table-view .status-wrap{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
 	max-width:60px !important;
 	display:block;
 }
-#table-view table.table-view .save-favorite-btn{
-	position:initial;
-	padding:1px 5px !important;
-	line-height: 0 !important;
-	background:#eee;
+#list-view table.table-view .address-wrap{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width:100px !important;
+	display:block;
 }
-#table-view table.table-view .save-favorite-btn i{
+#list-view table.table-view .town-wrap{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width:60px !important;
+	display:block;
+}
+#list-view table.table-view .save-favorite-btn{
+	position:initial;
+	padding:2px 2px !important;
+	line-height: 0 !important;
+	background:#ccc;
+}
+#list-view table.table-view .save-favorite-btn i{
 	font-size:9px !important;
 }
-#table-view table.table-view tbody tr:hover{
+#list-view table.table-view tbody tr:hover{
 	background: #f4f4f4;
 	cursor:pointer;
 	
 }
-#table-view table.table-view tr{
+#list-view table.table-view tr{
 	position:relative;
 }
-#table-view table.table-view a.url-wrap{
+#list-view table.table-view a.url-wrap{
 	position:absolute;
 	top:0;
 	left:0;
 	width:calc( 100% - 50px );
 	height:100%;
 }
+#list-view .table-view{
+	margin-bottom:0;
+}
+#list-view .table-view th:first-child,
+#list-view .table-view td:first-child{
+	width:70px;
+}
+#list-view .table-view th:nth-child(2),
+#list-view .table-view td:nth-child(2){
+	width:110px;
+}
+#list-view .table-view th:nth-child(3),
+#list-view .table-view td:nth-child(3){
+	width:75px;
+}
+#list-view .table-view th:nth-child(4),
+#list-view .table-view td:nth-child(4){
+	width:70px;
+}
+#list-view .table-view th:nth-child(5),
+#list-view .table-view td:nth-child(5){
+	width:35px;
+}
+#list-view .table-view th:nth-child(6),
+#list-view .table-view td:nth-child(6){
+	width:45px;
+}
+#list-view .table-view th:nth-child(7),
+#list-view .table-view td:nth-child(7){
+	width:42px;
+}
+#list-view .table-view th:nth-child(8),
+#list-view .table-view td:nth-child(8){
+	width:60px;
+}
 #map-content .listing-disclaimer{
 	padding:0 15px
 }
 /* List view */
 #list-view{
-	padding-top:20px;
+	/* padding-top:20px; */
 }
 #list-view .zpa-grid-result{
-	padding-left:15px;
+	/* padding-left:15px; */
 	/* padding-right:15px; */
 	margin-left:0;
 	margin-right:0;
@@ -2405,11 +2553,13 @@ body .result-control{
 #list-view .prop-infos{
 	display:flex;
 	flex-direction:column;
-	height: 258px;
+	height: 252px;
 	padding-right:0;
 }
 #list-view .prop-infos .prop-remarks{
-	font-size: 13px;
+	font-size: 12px;
+	padding-top: 20px;
+	line-height: 1.5;
 }
 #list-view .prop-amenities > ul{
 	width:45%;
@@ -2418,6 +2568,12 @@ body .result-control{
 #list-view .prop-amenities .value{
 	float:right;
 	font-weight:600;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	display: inline-block;
+	max-width: 53px;
+	/* height: 41px; */
 }
 #list-view .prop-amenities > .section-1{
 	float:left;
@@ -2443,10 +2599,12 @@ body .result-control{
 }
 #list-view .action-bar .btn-view{
 	background:#585858;
-	padding:8px 20px;
+	padding: 6px 10px;
 	display:block;
 	color: #ffffff;
+	font-size: 13px;
 	border-radius:3px;
+	text-align: center;
 }
 #list-view .save-favorite-btn{
 	position:initial;
@@ -2460,6 +2618,11 @@ body .result-control{
 #list-view .action-bar{
 	border-top:1px solid #f5f5f5;
 	padding-top:5px;
+	padding-bottom: 5px;
+	width: calc(100% - 15px);
+}
+#list-view .action-bar > div{
+	padding-right:0;
 }
 #list-view .action-bar .btn-view:hover{
 	background:#333;
@@ -2469,6 +2632,16 @@ body .result-control{
 	display:block;
 }
 #list-view .open-house{
-	padding-top:20px;
-	font-size:13px;
+	padding-top: 6px;
+	font-size: 12px;
+}
+#list-view .photo-carousel .owl-nav{
+	display:block;
+}
+#list-view .photo-carousel .carousel-control, #list-view .photo-carousel .carousel-control:focus, #list-view .photo-carousel .carousel-control:hover{
+	opacity:1 !important;
+	color: #fff;
+}
+#zipperagent-content #list-view .zpa-results-grid-photo{
+	height: 250px !important;
 }

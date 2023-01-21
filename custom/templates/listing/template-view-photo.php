@@ -31,7 +31,7 @@ $query_args=array();
 	if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 		$query_args['newsearchbar']= 1;
 	}
-	$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+	$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 	?>						
 	
 	<div id="to_<?php echo $property->listno ?>" class="grid grid--gutters">

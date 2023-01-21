@@ -2600,9 +2600,9 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 					ms_all__rawValue = ms_all.getRawValue();
 					ms_all__afterDelete=0;
 					
-					//set data on 
-					if(ms_all__rawValue.length===1)
-						ms_all.setData(all);
+					//set data on  
+					// if(ms_all__rawValue.length===1)
+						// ms_all.setData(all); // disabled to fix dropdown cannot be closed issue
 				});
 				
 				//get current selected value

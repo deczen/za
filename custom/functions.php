@@ -2637,7 +2637,7 @@ if( ! function_exists('zipperagent_generate_result_markers') ){
 			if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
 				$query_args['newsearchbar']= 1;
 			}
-			$single_url = str_replace( '/wp-admin/admin-ajax.php?=', '', add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) ) );
+			$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 			$is_login=ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0;
 			$is_active=zipperagent_is_favorite($property->id)?"active":"";
 			$searchId='';
@@ -2867,6 +2867,24 @@ if( ! function_exists('zipperagent_get_source_text') ){
 							
 							$text.= ' ('. implode( ', ', $contact_text) .')';
 						}
+					} else if($sourceid=='NERENMLS'){
+						
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$showemail = isset($rb['web']['hideemail']) && $rb['web']['hideemail'] == 1 ? 0 : 1;
+						$showphone = isset($rb['web']['hidephone']) && $rb['web']['hidephone'] == 1 ? 0 : 1;
+						
+						$contact_text = array();
+						// if(isset($property->unmapped->{"LO1Office Email"}) && $showemail){
+							// $contact_text[]= 'email:' . $property->unmapped->{"LO1Office Email"};
+						// }
+						if(isset($property->unmapped->{"Broker Attrib Contact"}) && $showphone){
+							$contact_text[]= '' . $property->unmapped->{"Broker Attrib Contact"};
+						}
+						
+						if( $contact_text ){
+							
+							$text.= ' ('. implode( ', ', $contact_text) .')';
+						}
 					}
 					
 					if(file_exists($source['logo_path'])){
@@ -2937,6 +2955,10 @@ if( ! function_exists('zipperagent_get_source_text') ){
 						$text.= sprintf( "Listing Provided Courtesy of <strong>%s</strong>", $listOfficeName);
 					}
 					
+					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
+						$text.= sprintf( ", %s", $listAgentName);							
+					}
+					
 					if($sourceid=='GOWENMLS'){
 						
 						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
@@ -2955,10 +2977,24 @@ if( ! function_exists('zipperagent_get_source_text') ){
 							
 							$text.= ' ('. implode( ', ', $contact_text) .')';
 						}
-					}
-					
-					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
-						$text.= sprintf( ", %s", $listAgentName);							
+					} else if ($sourceid=='NERENMLS'){
+						
+						$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+						$showemail = isset($rb['web']['hideemail']) && $rb['web']['hideemail'] == 1 ? 0 : 1;
+						$showphone = isset($rb['web']['hidephone']) && $rb['web']['hidephone'] == 1 ? 0 : 1;
+						
+						$contact_text = array();
+						// if(isset($property->unmapped->{"LO1Office Email"}) && $showemail){
+							// $contact_text[]= 'email:' . $property->unmapped->{"LO1Office Email"};
+						// }
+						if(isset($property->unmapped->{"Broker Attrib Contact"}) && $showphone){
+							$contact_text[]= '' . $property->unmapped->{"Broker Attrib Contact"};
+						}
+						
+						if( $contact_text ){
+							
+							$text.= ' ('. implode( ', ', $contact_text) .')';
+						}
 					}				
 				break;
 			case "detail_disclaimer":
@@ -4946,6 +4982,18 @@ if( ! function_exists('is_show_agent_list') ){
 	}
 }
 
+if( ! function_exists('is_show_contact_agent') ){
+	function is_show_contact_agent(){
+				
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		$enabled = isset($rb['web']['youragent'])?$rb['web']['youragent']:0;
+		
+		$enabled=$enabled?true:false;
+		
+		return $enabled;
+	}
+}
+
 if( ! function_exists('is_branded_virtualtour') ){
 	function is_branded_virtualtour(){
 				
@@ -5013,7 +5061,7 @@ if( ! function_exists('zipperagent_property_grid') ){
 			$query_args['newsearchbar']= 1;
 		}
 		
-		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+		$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 		
 		// $rebate_text = za_get_rebate_text( $property );
@@ -5051,7 +5099,7 @@ if( ! function_exists('zipperagent_property_list') ){
 			$query_args['newsearchbar']= 1;
 		}
 		
-		$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+		$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 		$price=(in_array($property->status, explode(',',zipperagent_sold_status()))?(isset($property->saleprice)?$property->saleprice:$property->listprice):$property->listprice);
 		
 		// $rebate_text = za_get_rebate_text( $property );
@@ -5463,12 +5511,12 @@ if( ! function_exists('zipperagent_omnibar') ){
 			
 			// default is map view 
 			if( ! isset( $_REQUEST['view'] ) ) {
-				$_REQUEST['view'] = 'map';
+				// $_REQUEST['view'] = 'map';
 			}
 			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				zipperagent_omnibar_flat($requests);
-				// zipperagent_omnibar_new($requests);
+				// zipperagent_omnibar_flat($requests);
+				zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}
@@ -8673,6 +8721,17 @@ if( ! function_exists('auto_trigger_button_script') ){
 	}
 }
 
+if( ! function_exists( 'zipperagent_add_query_args' ) ) {
+	function zipperagent_add_query_args( $args, $url ) {
+		
+		if( $args && is_array( $args ) ) {
+			return add_query_arg( $args, $url );
+		} else {
+			return $url;
+		}
+	}
+}
+
 if( ! function_exists('zipperagent_search_filter') ){
 	function zipperagent_search_filter(){
 		global $requests;
@@ -9154,5 +9213,19 @@ if( ! function_exists('admin_fields_mapping') ){
 		}
 		
 		return $fields;
+	}
+}
+
+if( ! function_exists('wp_trim_chars') ){
+	function wp_trim_chars( $string, $length = 100, $append = '&hellip;' ) {
+		$string = trim( $string );
+
+		if ( strlen( $string ) > $length ) {
+			$string = wordwrap( $string, $length );
+			$string = explode( "\n", $string, 2 );
+			$string = $string[0] . $append;
+		}
+
+		return $string;
 	}
 }

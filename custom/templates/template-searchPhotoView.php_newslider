@@ -30,7 +30,7 @@ if( $list ): ?>
 	if(zp_using_criteria() && !empty($critBase64)){
 		$query_args['criteria']= $critBase64;
 	}
-	$single_url = add_query_arg( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
+	$single_url = zipperagent_add_query_args( $query_args, zipperagent_property_url( $property->id, $fulladdress ) );
 	?>						
 	
 	<div id="to_<?php echo $property->listno ?>" class="grid grid--gutters">

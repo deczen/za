@@ -150,6 +150,12 @@
 				echo $source_details;
 			}else{
 				echo 'The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity Program of MLS Property Information Network. All information is deemed reliable but should be independently verified.';
+			} ?>
+		</div>
+		<div class="zy_prop-disclaimer col-xs-12">
+			<?php
+			if($source_disclaimer){
+				echo $source_disclaimer;
 			}
 			?>	
 		</div>

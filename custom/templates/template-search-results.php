@@ -38,8 +38,8 @@ if(!isset($list['dataCount']) && $list){ //property exists
 	switch( $view ){
 		case "map":
 				ob_start();
-				// include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index.php";
-				include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index_new.php";
+				include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index.php";
+				// include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index_new.php";
 				$html = ob_get_clean();
 			break;
 		case "photo":
@@ -345,7 +345,7 @@ switch( $view ){
 						tempMainSlider.owlCarousel({
 							loop:false,
 							nav:true,
-							navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-chevron-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-chevron-right" role="none"></i></span></a>'],
+							navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-angle-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-angle-right" role="none"></i></span></a>'],
 							lazyLoad:true,
 							items:1,
 							dots: false,
