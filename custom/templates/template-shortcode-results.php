@@ -80,6 +80,7 @@ switch( $column ){
 					),
 					$requests, 
 					$searchId, 
+					$contactIds,
 					$search
 				);
 				

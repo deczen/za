@@ -74,7 +74,8 @@ $is_desktop = !$detect->isMobile() && !$detect->isTablet();
 					'columns_code' => $columns_code,
 				),
 				$requests, 
-				$searchId, 
+				$searchId,
+				$contactIds,
 				$search
 			);
 			

@@ -161,6 +161,7 @@ if($templatename && file_exists($template_path)){
 					),
 					$requests, 
 					$searchId, 
+					$contactIds,
 					$search
 				);
 				

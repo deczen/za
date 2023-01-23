@@ -2346,6 +2346,17 @@ if( ! function_exists('zipperagent_save_search') ){
 if( ! function_exists('zipperagent_save_property') ){
 	function zipperagent_save_property($listingId, $contactIds, $favorite, $crit=array(), $searchId=''){
 		
+		if( ! $contactIds ) {
+			// $contactIds = get_contact_id();
+			// $contactIds = '79d3320b-a1f9-45d0-a5d7-79e63a5fca67';
+			$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+			$contactIds=array();
+			foreach($userdata as $contact){
+				$contactIds[]=$contact->id;
+			}
+			$contactIds = implode(',',$contactIds);
+		}
+		
 		$vars=array(		
 			'listingId'=>$listingId,
 			'contactId'=>$contactIds,
@@ -2367,6 +2378,9 @@ if( ! function_exists('zipperagent_save_property') ){
 		}
 		
 		$result = (object) zipperagent_run_curl($url, $vars, 1, array(), 1);
+		
+		// echo "<pre>"; print_r( $result ); echo "</pre>";
+		// echo "<pre>"; print_r( $vars ); echo "</pre>";
 		
 		return $result;
 	}
@@ -5042,7 +5056,7 @@ if( ! function_exists('zipperagent_extra_proptype') ){
 }
 
 if( ! function_exists('zipperagent_property_grid') ){
-	function zipperagent_property_grid( $property, $params, $requests, $searchId = '', $search = '' ){
+	function zipperagent_property_grid( $property, $params, $requests, $searchId = '', $contactIds = array(), $search = '' ){
 		// echo "<pre>"; print_r( $params ); echo "</pre>";
 		
 		extract( $params );
@@ -5080,7 +5094,7 @@ if( ! function_exists('zipperagent_property_grid') ){
 }
 
 if( ! function_exists('zipperagent_property_list') ){
-	function zipperagent_property_list( $property, $params, $requests, $searchId = '', $search = '' ){
+	function zipperagent_property_list( $property, $params, $requests, $searchId = '', $contactIds = array(), $search = '' ){
 		// echo "<pre>"; print_r( $params ); echo "</pre>";
 		
 		extract( $params );

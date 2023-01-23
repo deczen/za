@@ -32,6 +32,7 @@ $contactIds=get_contact_id();
 			),
 			$requests, 
 			$searchId, 
+			$contactIds, 
 			$search
 		);
 		

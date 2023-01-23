@@ -27,7 +27,8 @@ if( $list ): ?>
 					'columns_code' => 'col-lg-6 col-sm-6 col-md-12 col-xs-12',
 				),
 				$requests, 
-				$searchId, 
+				$searchId,
+				$contactIds,
 				$search
 			);
 			

@@ -40,6 +40,7 @@ if( $list ): ?>
 				),
 				$requests, 
 				$searchId, 
+				$contactIds,
 				$search
 			);
 			
