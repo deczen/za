@@ -690,6 +690,85 @@ var zppr={
 				}
 				selectColor(colors[0]);
 			}
+
+			/**
+			 * Creates a control that recenters the map on Chicago.
+			 */
+			 function createDrawControl(map) {
+			  const controlButton = document.createElement('button');
+
+			  // Set CSS for the control.
+			  controlButton.style.backgroundColor = '#fff';
+			  controlButton.style.border = '2px solid #fff';
+			  controlButton.style.borderRadius = '3px';
+			  controlButton.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+			  controlButton.style.color = 'rgb(25,25,25)';
+			  controlButton.style.cursor = 'pointer';
+			  controlButton.style.fontFamily = 'Roboto,Arial,sans-serif';
+			  controlButton.style.fontSize = '16px';
+			  controlButton.style.lineHeight = '38px';
+			  controlButton.style.margin = '8px 8px 22px';
+			  controlButton.style.padding = '0 5px';
+			  controlButton.style.textAlign = 'center';
+
+			  controlButton.textContent = 'Draw on Map';
+			  controlButton.title = 'Click to draw polygon on map';
+			  controlButton.type = 'button';
+
+			  // Setup the click event listeners: simply set the map to Chicago.
+			  // controlButton.addEventListener('click', () => {
+			  //   // map.setCenter(chicago);
+			  //   drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+			  // });
+
+			  jQuery(controlButton).on('click', function(){
+			  	if(! jQuery(this).hasClass('clicked')){
+			  		drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+			  		jQuery(this).toggleClass('clicked');
+			  	}else{
+			  		drawingManager.setDrawingMode(null);
+			  		jQuery(this).toggleClass('clicked');
+			  	}
+			  });
+
+			  return controlButton;
+			}
+
+			function ClearPolygonControl(map) {
+			  const controlButton = document.createElement('button');
+
+			  // Set CSS for the control.
+			  controlButton.style.backgroundColor = '#fff';
+			  controlButton.style.border = '2px solid #fff';
+			  controlButton.style.borderRadius = '3px';
+			  controlButton.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+			  controlButton.style.color = 'rgb(25,25,25)';
+			  controlButton.style.cursor = 'pointer';
+			  controlButton.style.fontFamily = 'Roboto,Arial,sans-serif';
+			  controlButton.style.fontSize = '16px';
+			  controlButton.style.lineHeight = '38px';
+			  controlButton.style.margin = '8px 8px 22px';
+			  controlButton.style.padding = '0 5px';
+			  controlButton.style.textAlign = 'center';
+
+			  controlButton.textContent = 'Clear Map Boundary';
+			  controlButton.title = 'Click to clear map boundary on map';
+			  controlButton.type = 'button';
+
+			  // Setup the click event listeners: simply set the map to Chicago.
+			  // controlButton.addEventListener('click', () => {
+			  //   // map.setCenter(chicago);
+			  //   drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+			  // });
+
+			  jQuery(controlButton).on('click', function(){
+			  	removeLabel('boundarywkt', '', '');		
+					jQuery('#zpa-search-filter-form').submit();
+			  });
+
+			  return controlButton;
+			}
+
 			//end polygon functions
 
 			function initialize() {
@@ -702,6 +781,27 @@ var zppr={
 				// Display a map on the page
 				map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 				map.setTilt(45);
+
+				// custom button control
+				// Create the DIV to hold the control.
+				const drawControlDiv = document.createElement('div');
+				// Create the control.
+				const drawControl = createDrawControl(map);
+				// Append the control to the DIV.
+				drawControlDiv.appendChild(drawControl);
+
+				map.controls[google.maps.ControlPosition.TOP_RIGHT].push(drawControlDiv);
+
+				if( requests.hasOwnProperty('boundarywkt') ){
+					// Create the DIV to hold the control.
+					const clearMapDiv = document.createElement('div');
+					// Create the control.
+					const clearMapontrol = ClearPolygonControl(map);
+					// Append the control to the DIV.
+					clearMapDiv.appendChild(clearMapontrol);
+
+					map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(clearMapDiv);
+				}
 					
 				// Multiple Markers		[
 				var markers = [];		
@@ -955,7 +1055,7 @@ var zppr={
 					var name ='boundarywkt';
 					var value='POLYGON ('+ coordinates +')';
 					var label='Map Coords';
-					var linked_name='';
+					var linked_name=name;
 					addFilterLabel(name, value, linked_name, label);
 					addFormField(name,value,linked_name);
 					jQuery('#zpa-search-filter-form').submit();
