@@ -308,6 +308,8 @@ class ZipperagentGlobalFunction{
 			$result = zipperagent_run_curl( "/api/mls/listListings", $vars );
 			$dataCount=isset($result['dataCount'])?$result['dataCount']:sizeof($result);
 			$list=isset($result['filteredList'])?$result['filteredList']:$result;
+
+			// echo "<pre>"; print_r( $result); echo "</pre>";
 			
 			//save favorite count cache
 			update_option( $option_key, $dataCount );			
@@ -315,9 +317,11 @@ class ZipperagentGlobalFunction{
 			//save favorites cache
 			$favorite_listingIds=array();
 			foreach($list as $property){
-				if(isset($roperty->listing->id))
+				if(isset($property->listing->id))
 					$favorite_listingIds[]['listingId']=$property->listing->id;
 			}
+
+			// echo "<pre>"; print_r( $favorite_listingIds); echo "</pre>";
 			update_option( $option_key_listid, $favorite_listingIds );
 		
 		}else{
