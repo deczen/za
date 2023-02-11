@@ -3990,10 +3990,8 @@ if( ! function_exists('is_open_house_search_enabled') ){
 		return $enabled;
 	}
 }
-if( ! function_exists('zipperagent_is_favorite') ){
-	function zipperagent_is_favorite($listingId){
-		$checked=false;
-		
+if( ! function_exists('zipperagent_get_favorites') ){
+	function zipperagent_get_favorites(){
 		if( $userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin() ){	
 			
 			$contactIds=array();
@@ -4008,6 +4006,16 @@ if( ! function_exists('zipperagent_is_favorite') ){
 		}else{			
 			$saved_favorites = ZipperagentGlobalFunction()->zipperagent_get_cookie('saved_favorites');			
 		}
+		
+		return $saved_favorites;
+	}
+}
+
+if( ! function_exists('zipperagent_is_favorite') ){
+	function zipperagent_is_favorite($listingId){
+		$checked=false;
+		
+		$saved_favorites = zipperagent_get_favorites();
 		
 		if(is_array($saved_favorites)){
 			foreach($saved_favorites as $favorite){
@@ -5525,12 +5533,12 @@ if( ! function_exists('zipperagent_omnibar') ){
 			
 			// default is map view 
 			if( ! isset( $_REQUEST['view'] ) ) {
-				// $_REQUEST['view'] = 'map';
+				$_REQUEST['view'] = 'map';
 			}
 			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				// zipperagent_omnibar_flat($requests);
-				zipperagent_omnibar_new($requests);
+				zipperagent_omnibar_flat($requests);
+				// zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}

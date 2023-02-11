@@ -78,6 +78,7 @@ function generate_zipperagent_variables(){
 	$args['is_register_form_chaptcha_enabled']=is_register_form_chaptcha_enabled();
 	$args['is_enable_save']=zipperagent_is_enable_save();
     $args['is_your_agent']=is_show_contact_agent();
+	$args['saved_favorites']=zipperagent_get_favorites();
     $localize = $args;
 	
 	?>
@@ -250,7 +251,7 @@ function zipperagent_template( $content ){
 	
 	// default is map view 
 	if( ! isset( $_REQUEST['view'] ) || $_REQUEST['view'] == '' ) {
-		// $_REQUEST['view'] = 'map';
+		$_REQUEST['view'] = 'map';
 	}
 	
 	$requests = $_REQUEST;
