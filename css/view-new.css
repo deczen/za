@@ -2475,7 +2475,10 @@ body .result-control{
 	position:initial;
 	padding:2px 2px !important;
 	line-height: 0 !important;
-	background:#ccc;
+	background: #fff;
+}
+#list-view table.table-view .save-favorite-btn:hover, #list-view table.table-view .save-favorite-btn.active{
+	background:#800;
 }
 #list-view table.table-view .save-favorite-btn i{
 	font-size:9px !important;
