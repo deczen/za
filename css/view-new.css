@@ -2473,15 +2473,24 @@ body .result-control{
 }
 #list-view table.table-view .save-favorite-btn{
 	position:initial;
-	padding:2px 2px !important;
+	padding: 0 !important;
 	line-height: 0 !important;
-	background: #fff;
+	background: none;
+	border: none;
 }
 #list-view table.table-view .save-favorite-btn:hover, #list-view table.table-view .save-favorite-btn.active{
-	background:#800;
+	/* background:#800; */
+}
+#list-view table.table-view .save-favorite-btn:hover i, #list-view table.table-view .save-favorite-btn.active i{
+	color: #800;
+}
+#list-view table.table-view .save-favorite-btn:hover i:before, #list-view table.table-view .save-favorite-btn.active i:before{
+	content:"\f004" !important;
 }
 #list-view table.table-view .save-favorite-btn i{
-	font-size:9px !important;
+	font-size:14px !important;
+	color: #999;
+	font-weight: bold;
 }
 #list-view table.table-view tbody tr:hover{
 	background: #f4f4f4;

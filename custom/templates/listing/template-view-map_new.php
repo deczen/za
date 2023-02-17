@@ -143,7 +143,7 @@ if( $list ): ?>
 							<td><?php echo zipperagent_get_sqft($property); ?></td>
 							<?php /* <td><?php echo zipperagent_get_sqft($property); ?></td> */ ?>
 							<td><?php echo isset($property->dayssincelisting)?($property->dayssincelisting . ' ' . ( $property->dayssincelisting > 1 ? 'days':'day') ):'-'; ?> </td>
-							<td><a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a></td>
+							<td><a class="listing-<?php echo $property->id; ?> save-favorite-btn <?php echo zipperagent_is_favorite($property->id)?"active":""; ?>" isLogin="<?php echo ZipperagentGlobalFunction()->getCurrentUserContactLogin() ? 1:0; ?>" listingId="<?php echo $property->id; ?>" searchId="" contactId="<?php echo implode(',',$contactIds); ?>" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart-o" aria-hidden="true" role="none"></i></a></td>
 						</tr>
 						
 						<?php
