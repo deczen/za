@@ -31,6 +31,7 @@ var zppr={
 		display_buyerrebate_amount: zipperagent.display_buyerrebate_amount,
 		buyerrebate_amount_prefix: zipperagent.buyerrebate_amount_prefix,
 		emptybuyerrebate_amount_text: zipperagent.emptybuyerrebate_amount_text,
+		saved_favorites: zipperagent.saved_favorites,
 		
 		/* single property */
 		company_name: zipperagent.company_name,
@@ -4106,7 +4107,7 @@ var zppr={
 			area = property.hasOwnProperty('ShrtCOUNTYCODE') && area != '' ? zppr.field_value( 'ShrtCOUNTYCODE', property.ShrtCOUNTYCODE, property.proptype, (property.hasOwnProperty('sourceid')?property.sourceid:'') ) : area;
 			area = property.hasOwnProperty('ShrtTOWNCODE') && area != '' ? zppr.field_value( 'ShrtTOWNCODE', property.ShrtTOWNCODE, property.proptype, (property.hasOwnProperty('sourceid')?property.sourceid:'') ) : area;
 			
-		var is_favorite=''; //'active'
+		var is_favorite=zppr.is_favorite(listingid); //'active'
 		var searchid='';
 		
 		var html = '<div id="to_'+ property.listno +'" class="grid grid--gutters">' +
@@ -5093,7 +5094,15 @@ var zppr={
 	  return true;
 	},
 	is_favorite:function(listid){
-		return 0;
+		var check = false;
+
+		if(zppr.data.saved_favorites.map((index,value) => {
+
+			if(value.listingId == listid)
+				check=true;
+		}));
+
+		return check;
 	},
 	generate_template:function(single_property){
 				

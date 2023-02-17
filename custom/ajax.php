@@ -1246,8 +1246,13 @@ function do_save_as_favorite(){
 					update_option( $option_key, '' );
 				}
 			}
+
+			$response = ZipperagentGlobalFunction()->zipperagent_get_favorites_count(true);
+
+			extract($response);
 			
-			$array['favorites_count']=(integer) ZipperagentGlobalFunction()->zipperagent_get_favorites_count();
+			$array['favorites_count']=(integer) $favorites_count;
+			$array['saved_favorites'] = $saved_favorites;
 		}else{
 			$count = zipperagent_save_property_cookie($listingId, $contactIds, true, $crit, $searchId);			
 			$array['favorites_count']=$count;

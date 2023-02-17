@@ -278,7 +278,7 @@ class ZipperagentGlobalFunction{
 		return $userdata;
 	}
 	
-	public function zipperagent_get_favorites_count(){
+	public function zipperagent_get_favorites_count($return=false){
 		
 		// $contactIds = get_contact_id();	
 		$userdata = $this->getCurrentUserContactLogin();
@@ -329,7 +329,14 @@ class ZipperagentGlobalFunction{
 			$dataCount = $saved ? count($saved) : 0;
 		}
 		
-		return $dataCount;
+		if( $return ){
+			return array(
+				'favorites_count' => $dataCount,
+				'saved_favorites' => $favorite_listingIds,
+			);
+		} else {
+			return $dataCount;
+		}
 	}
 	
 	public function zipperagent_get_saved_search_count(){
