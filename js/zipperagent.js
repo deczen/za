@@ -6164,7 +6164,7 @@ var zppr={
 	is_favorite:function(listid){
 		var check = false;
 
-		if(zppr.data.saved_favorites.map((index,value) => {
+		if(zppr.data.saved_favorites!= null && zppr.data.saved_favorites.map((value,index) => {
 
 			if(value.listingId == listid)
 				check=true;
