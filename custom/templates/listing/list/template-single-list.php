@@ -1,4 +1,13 @@
+<?php
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 
+$hide_streetnumber=0;
+$rnhidestreetno = isset($rb['web']['rnhidestreetno'])?$rb['web']['rnhidestreetno']:0;
+
+if( $rnhidestreetno && isset($property->proptype) && $property->proptype=="RN" ){
+	$hide_streetnumber=1;
+}
+?>
 <div class="zpa-grid-result row <?php if( $i!=0 ): ?>hide<?php endif; ?>" index="<?php echo $i ?>">
 	<div class="zpa-grid-result-container well col-xs-6">
 		<div class="row">
@@ -40,7 +49,7 @@
 						<div class="prop-detail">
 							<span class="zy_price"> <?php echo zipperagent_currency() . number_format_i18n( $price, 0 ); ?> </span>
 							<h1>
-								<p class="zy_address-style"><span itemprop="streetAddress"><?php echo $property->streetno; ?> <?php echo isset($property->streetname)?zipperagent_fix_comma($property->streetname):'' ?> <?php echo isset($property->unitno)?'#'.$property->unitno:'' ?></span></p>
+								<p class="zy_address-style"><span itemprop="streetAddress"><?php echo ! $hide_streetnumber ? $property->streetno : ''; ?> <?php echo isset($property->streetname)?zipperagent_fix_comma($property->streetname):'' ?> <?php echo isset($property->unitno)?'#'.$property->unitno:'' ?></span></p>
 								<p class="zy_subaddress-style">
 									<span itemprop="addressLocality"> <?php echo isset($property->lngTOWNSDESCRIPTION) && !empty($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION. ',':'' ?> </span>
 									<span itemprop="addressRegion"> <?php echo isset($property->provinceState)?$property->provinceState:'' ?> </span>

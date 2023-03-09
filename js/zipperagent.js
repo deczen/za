@@ -194,7 +194,7 @@ var zppr={
 			if(loc_ln) locqry['alkChnNm']=loc_ln.join();
 			
 			// die( locqry );
-		}else if( advStNo || advStName || advStZip || advStates || advTownNm || advCounties || alkchnnm ){
+		} if( advStNo || advStName || advStZip || advStates || advTownNm || advCounties || alkchnnm ){
 							
 			if(advStNo) locqry['astno']=(advStNo);
 			if(advStName) locqry['astnmf']=(advStName);
@@ -204,7 +204,7 @@ var zppr={
 			if(alkchnnm) locqry['alkChnNm']=(alkchnnm);
 			// if(advCounties) locqry['acnty']=(advCounties);
 			
-		} /* else if(boundaryWKT){
+		} /* if(boundaryWKT){
 			// preg_match( '/POLYGON \(\((.*?)\)\)/', boundaryWKT, match );
 			preg_match( '/POLYGON \(\((.*?)\)\)/', urldecode(boundaryWKT), match );
 			coor_string = isset(match[1])?'('.match[1].')':'';
@@ -365,7 +365,7 @@ var zppr={
 				// if(o){
 					// delete advSearch.o;
 				// }
-				if(zppr.data.states!=''){
+				if(zppr.data.states!='' && requests.hasOwnProperty('astt')){
 					search.astt = zppr.data.states.replace(' ','');
 				}
 				
@@ -543,6 +543,167 @@ var zppr={
 									'</div>';	
 		}else{
 			html+=					'<div id="map-content">' + list_html;	
+									   
+			if( showPagination ){	
+		
+				html+=					'<div class="clearfix"></div>' +
+										'<div class="col-md-12 pagination-wrap prop-pagination"></div>';				
+			}			
+										
+			if( zppr.data.listing_disclaimer!='' ){
+			
+				html+= 					'<div class="row">'+
+											'<div class="col-xs-12">'+
+												'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
+											'</div>'+
+										'</div>';
+			}
+									
+			html+=					'</div>';
+		}	
+						
+				
+								
+		html+=					'</div>' +
+							'</div>' +
+							'<div class="clearfix"></div>' +
+						'</div>' +
+					'</div>' +				
+				'</div>';
+		
+		return html;
+	},
+	list_map_view_template_new:function(requests, html_grid, html_list, html_table, is_view_save_search){
+		
+		var requests = zppr.key_to_lowercase(requests); //convert all key to lowercase
+		var boundaryWKT 		= ( requests.hasOwnProperty('boundarywkt')?requests['boundarywkt']:'' );
+		var openHomesMode 		= ( requests.hasOwnProperty('openhomesmode')?requests['openhomesmode']:'' );
+		var openHomesOnlyYn 	= ( requests.hasOwnProperty('openhomesonlyyn')?requests['openhomesonlyyn']:'' );
+		var showPagination 		= ( requests.hasOwnProperty('pagination')?parseInt(requests['pagination']):1 );
+		var showResults	 		= ( requests.hasOwnProperty('result')?parseInt(requests['result']):1 );
+		var searchId			= ( requests.hasOwnProperty('searchid')?requests['searchid']:'' );
+		
+		enable_filter= boundaryWKT || openHomesMode == "true" || openHomesMode == 1 ? false : true;
+		
+		var html = '';
+		
+		html += '<div class="zpa-listing-search-results hideonprint zpa-fullwidth">'+				
+					'<div class="container-fluid">' +			
+						'<div class="row sticky-container" style="position:relative;">' +
+						
+							'<div class="map-legend-wrap">';
+							
+		/* html+=				'<div class="property-results mb-25 mt-25">';
+							
+		if( parseInt(showResults) ){			
+			html+= 				'<div class="col-xs-12 prop-total">'+String.fromCharCode(160)+'</div>';
+		}
+		
+		html+=				'</div>'; */
+		
+		var markers = zppr.data.map_markers;
+			
+		if(markers){
+			
+			html+= 			'<div class="proptype-markers col-lg-12 col-md-12"><ul>';
+			for (const [key, val] of Object.entries(markers)) {
+				html+=			'<li class="proptype-marker"><img src="'+ val.url +'" alt=" '+ val.name +'" title=""><span>'+ val.name +'</span></li>';
+			}
+			html+=			'</ul></div>';
+		}					
+		html+=				'</div>' +
+							'<div id="map" class="col-lg-7 col-md-6 ml-auto">' +
+								'<div id="map_wrapper">' +								
+									'<div id="color-palette" style="display:none"></div>' +
+									'<div id="map_canvas" class="mapping" style="width:100%; height:100%;"></div>' +
+								'</div>' +
+							'</div>' +
+							
+							'<div id="property-sidebar" class="col-lg-5 col-md-6 bg-light">';
+								
+			html+=				'<div class="property-results result-control small-text mb-15 row">';
+							
+			if( parseInt(showResults) ){			
+				html+= 				'<div class="col-md-8 col-xs-8 prop-total">'+String.fromCharCode(160)+'</div>';
+			}
+			
+			html+=					'<div class="col-md-4 col-xs-4 view-control">' +
+										'<ul  class="nav nav-pills">' +
+											'<li class="active">' +
+												'<a  href="#photo-view" data-toggle="tab">Photos</a>' +
+											'</li>' +
+											'<li>' +
+												'<a href="#list-view" data-toggle="tab">List</a>' +
+											'</li>' +
+										'</ul>' +						
+									'</div>';
+		
+			html+=				'</div>';
+							
+			html+=				'<div id="map-list-content" class="row">';
+		
+		if(!html_grid){
+		
+			html+= 					'<div id="map-content" class="row">' +
+
+										'<div class="col-md-12">' +
+											'<div class="col-md-12 mb-10 mt-25">' +
+												'<span>No Properties Found </span>' +
+											'</div>' +
+											'<div class="col-md-12 pagination-wrap">' +
+												'<ul class="pagination">' +
+													'<li class="disabled"><a href="#">&laquo;</a>' +
+													'</li>' +
+													'<li class="disabled"><a href="#">1 of 0</a>' +
+													'</li>' +
+													'<li class="disabled"><a href="#">&raquo;</a>' +
+													'</li>' +
+												'</ul>' +
+											'</div>	' +	
+											'<!--col-->' +
+										'</div>' +
+										'<!--row-->' +
+									'</div>';	
+		}else{
+			html+=					'<div id="map-content">' + 
+										'<div class="tab-content clearfix">' +
+											'<div class="tab-pane active" id="photo-view">' +
+												html_grid +
+											'</div>' +
+		
+											'<div class="tab-pane" id="list-view">' +
+			
+												'<div class="top-section">' +
+													'<div class="property-highlight">' +
+														html_list +
+													'</div>' +
+													'<table class="table-view">' +
+														'<thead>' +
+															'<tr>' +
+																'<th>Status</th>' +
+																'<th>Address</th>' +
+																'<th>Location</th>' +
+																'<th>Price</th>' +
+																'<th>Beds</th>' +
+																'<th>Baths</th>' +
+																'<th>Sq.Ft.</th>' +
+																'<!-- <th>$/Sq.Ft.</th> -->' +
+																'<th>On Site</th>' +
+																'<th>&nbsp;</th>' +
+															'</tr>' +
+														'</thead>' +
+													'</table>' +
+												'</div>' +
+												'<div class="bottom-section">' +
+													'<table class="table-view">' +
+														'<tbody>' +
+															html_table +
+														'</tbody>' +
+													'</table>' +
+												'</div>';
+												
+												
+											'</div>';
 									   
 			if( showPagination ){	
 		
@@ -867,8 +1028,7 @@ var zppr={
 						single_url = zppr.getPropUrl(listingId,fulladdress);
 						
 						is_login=zppr.data.is_login;
-						// $is_active=zipperagent_is_favorite($property->id)?"active":"";
-						is_active='';
+						is_active=zppr.is_favorite(property.id)?"active":"";
 						searchId='';
 						str_contactIds=zppr.data.contactIds.join();
 						
@@ -1178,14 +1338,31 @@ var zppr={
 				google.maps.event.trigger(saved_markers[index], 'mouseout');
 				infoWindow.close();
 			});
+			
+			jQuery(".zpa-grid-result, .table-view tr").mouseover( function(){
+				var index = jQuery(this).find('a[listingid]').attr('listingid');		
+				google.maps.event.trigger(saved_markers[index], 'mouseover');
+				// scrollToMarker(index); //scroll to location
+				infoWindow.setContent(infoWindowContent[index]);
+				infoWindow.setPosition(saved_markers[index].position);
+				infoWindow.open(map, saved_markers[index]);
+			});
+
+			jQuery(".zpa-grid-result, .table-view tr").mouseleave( function(){
+				var index = jQuery(this).find('a[listingid]').attr('listingid');	
+				google.maps.event.trigger(saved_markers[index], 'mouseout');
+				infoWindow.close();
+			});
 
 			initialize();
 		});
 	},
 	list_map_scroll_script:function(){
 		jQuery(document).ready(function(){
-			jQuery(window).bind( 'scroll', function() {
-				
+		
+			setMapWrapperHeight();
+		
+			function setMapWrapperHeight() {
 				var $sticky = jQuery('#map');
 				var $mapWrapper = $sticky.find('#map_wrapper');
 				var $top = 0;
@@ -1211,14 +1388,54 @@ var zppr={
 				}
 				var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
 				var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
-				var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 10 : 0;
-				
+				var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 20 : 0;
+			
 				$top = $top + $searchBarHeight;
 				$top = $top + $searchCount;
-				$top = $top + $searchMapMarkers;
-				
-				$mapWrapper.css('height',jQuery(window).outerHeight() - $top);
-				
+				// $top = $top + $searchMapMarkers;
+			
+				// console.log( $top );
+			
+				$mapWrapper.css('height',jQuery(window).outerHeight() - $top - $searchMapMarkers);
+			}
+		
+			jQuery(window).bind( 'scroll', function() {
+			
+				var $sticky = jQuery('#map');
+				var $mapWrapper = $sticky.find('#map_wrapper');
+				var $top = 0;
+				if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){
+					// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+					var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+						$top = $top + $headerHeight;
+				}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+					var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+					var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+						$top = $top + $topheaderHeight + $headerHeight;
+				}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+					var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+					var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+						$top = $top + $topheaderHeight + $headerHeight;
+				}else{
+					var $headerHeight = 0;
+						$top = $top + $headerHeight;
+				}
+				if(jQuery('#wpadminbar').length){
+					var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+						$top = $top + $wpadminbarHeight;
+				}
+				var $searchBarHeight = jQuery('#omnibar-tools.fixedheader').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+				var $searchCount = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .property-results').length ? jQuery('.property-results').outerHeight() + 25 + 25 : 0;
+				var $searchMapMarkers = jQuery('#omnibar-tools.fixedheader').length && jQuery('.map-legend-wrap .proptype-markers').length ? jQuery('.proptype-markers').outerHeight() + 20 : 0;
+			
+				$top = $top + $searchBarHeight;
+				$top = $top + $searchCount;
+				// $top = $top + $searchMapMarkers;
+			
+				// console.log( $top );
+			
+				$mapWrapper.css('height',jQuery(window).outerHeight() - $top - $searchMapMarkers);
+			
 				var $stickyH = $sticky.outerHeight();
 				var $stickyContainer = jQuery('.sticky-container');
 				var $stickyContainerOffset = $stickyContainer.offset();
@@ -1226,14 +1443,14 @@ var zppr={
 				var $limit = $start + $stickyContainer.outerHeight();
 				var $padding = 15; // padding size;
 				var $maxWidth = $sticky.find('#map_canvas').outerWidth() + $padding;
-				
+			
 				var $searchBar = jQuery('#map');
-				
+			
 				if(jQuery(window).width() > 768){
-				   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+				   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top - $searchMapMarkers) {
 						$sticky.css({
 							'position':'fixed', 
-							'top': $top,
+							'top': $top + $searchMapMarkers,
 							'max-width' : $maxWidth
 						});
 						if($searchBar.length){
@@ -1242,7 +1459,7 @@ var zppr={
 							});
 						}
 				   }
-				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+				   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top - $searchMapMarkers) {
 					   $sticky.css({
 							   'position': 'absolute',
 							   'top'     : 'auto',
@@ -3069,7 +3286,9 @@ var zppr={
 								switch(view){
 									
 									case "map":
-										var html='';
+										var html_grid='';
+										var html_list='';
+										var html_table='';
 										var html_print='';
 										
 										if(response.result.hasOwnProperty('filteredList')){
@@ -3084,17 +3303,18 @@ var zppr={
 												
 												/* for listing */
 												if(i % column ==0 && ! wrapOpen){
-													html += '<div class="zpa-grid-wrap">';
+													html_grid += '<div class="zpa-grid-wrap">';
 													wrapOpen=1;
 												}
 												
-												html += zppr.one_property(value, column);
+												// html_grid += zppr.one_property(value, column);
+												html_grid += zppr.one_property_w_slider(value, column, i, wrapOpen);
 												
 												if( ((i % column) >= (column-1) && wrapOpen  //if one line has reach prop limit close the div
 													  || (i+1==response.result.filteredList.length && wrapOpen ) ) //if last prop reached close the div
 													  && ! zppr.is_mobile() ){
 													
-													html +=		'<div class="clearfix"></div>' +
+													html_grid +=		'<div class="clearfix"></div>' +
 															'</div>';
 															
 													wrapOpen=0;
@@ -3120,10 +3340,63 @@ var zppr={
 												i++;
 											}
 											
+											i = 0;
+											for (const [key, property] of Object.entries(response.result.filteredList)) {
+											
+												/* $saved_crit=$search;
+												$critBase64 = !empty($saved_crit) ? base64_encode(serialize($saved_crit)) : null;
+												if(!empty($searchId)){
+													$query_args['searchId']= $searchId;
+												}
+												if(zp_using_criteria() && !empty($critBase64)){
+													$query_args['criteria']= $critBase64;
+												}
+												if(isset($requests['newsearchbar']) && $requests['newsearchbar']==1){
+													$query_args['newsearchbar']= 1;
+												} */
+											
+												var fulladdress = zppr.getAddress(property);
+												var lat = property.lat;
+												var lng = property.lng;
+												var listingId = property.id;
+												var beds = zppr.get_nobedrooms(property);
+												var bath = zppr.get_nobaths(property);
+												var sqft = zppr.get_sqft(property);
+												var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+													price =  zppr.moneyFormat(price);
+											
+												single_url = zppr.getPropUrl(listingId,fulladdress);
+	
+												searchId='';
+												str_contactIds=zppr.data.contactIds.join();
+											
+												var enable_rebate = zppr.data.display_buyerrebate_amount;
+												var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+												var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
+												
+												html_list += zppr.one_property_list(property, i);
+
+												html_table +=	'<tr data-link="'+ single_url +'" data-index="'+ i +'">' +
+																	'<td><span class="status-wrap" title="'+ (zppr.get_status_name(property.hasOwnProperty('status')?property.status:'', property.hasOwnProperty('sourceid')?property.sourceid:'').toUpperCase()) +'">'+ (zppr.get_status_name(property.hasOwnProperty('status')?property.status:'', property.hasOwnProperty('sourceid')?property.sourceid:'').toUpperCase()) +'</span></td>' +
+																	'<td><span class="address-wrap" title="'+ fulladdress +'">'+ fulladdress +'</span></td>' +
+																	'<td><span class="town-wrap" title="'+ (property.hasOwnProperty('lngTOWNSDESCRIPTION')?property.lngTOWNSDESCRIPTION:'') +'">'+ (property.hasOwnProperty('lngTOWNSDESCRIPTION')?property.lngTOWNSDESCRIPTION:'') +'</span></td>' +
+																	'<td>'+ price +'</td>' +
+																	'<td>'+ beds +'</td>' +
+																	'<td>'+ bath +'</td>' +
+																	'<td>'+ sqft +'</td>' +
+																	'<td>'+ (property.hasOwnProperty('dayssincelisting')?property.dayssincelisting + ' ' + ( property.dayssincelisting > 1 ? 'days':'day') :'-') +' </td>' +
+																	'<td><a class="listing-'+ property.id +' save-favorite-btn '+ (zppr.is_favorite(property.id)?"active":"") +'" isLogin="'+ zppr.data.is_login  +'" listingId="'+ property.id +'" searchId="'+ searchId +'" contactId="'+ str_contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart-o" aria-hidden="true" role="none"></i></a></td>' +
+																'</tr>';
+
+											
+												i++;
+											}
+											
 											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 										}
 										
-										html = zppr.list_map_view_template(requests, html, is_view_save_search);
+										// html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
+										var html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
 										html_print = zppr.list_print(requests, html_print);
 										
 										jQuery(targetElement).html( html );
@@ -3133,6 +3406,179 @@ var zppr={
 										
 										args.searchType=1;
 										zppr.search('.zpa-listing-search-results', 'count', requests, args, actual_link, is_view_save_search);
+										
+										jQuery(document).ready(function(){
+											jQuery(window).bind( 'scroll', function() {		
+		
+												var $sticky = jQuery('.result-control');
+												var $top = 0;
+			
+												if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
+													// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+													var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+														$top = $top + $headerHeight;
+												}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+													var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+													var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+														$top = $top + $topheaderHeight + $headerHeight;
+												}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+													var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+													var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+														$top = $top + $topheaderHeight + $headerHeight;
+												}else{
+													var $headerHeight = 0;
+														$top = $top + $headerHeight;
+												}
+												if(jQuery('#wpadminbar').length){
+													var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+														$top = $top + $wpadminbarHeight;
+												}
+			
+												$detailPaddingTop = jQuery('#omnibar-tools').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+												$detailPaddingTop = jQuery('.map-legend-wrap').length ? $detailPaddingTop + jQuery('.map-legend-wrap').outerHeight() : $detailPaddingTop;
+			
+												$top = $top + $detailPaddingTop;
+			
+			
+												var $stickyH = $sticky.outerHeight();
+												var $stickyContainer = jQuery('#property-sidebar');
+												var $stickyContainerOffset = $stickyContainer.offset();
+												var $start = $stickyContainerOffset.top;
+												var $limit = $start + $stickyContainer.outerHeight();
+												var $padding = 30; // padding size;
+												var $maxWidth = $stickyContainer.outerWidth() - $padding;
+			
+												if(jQuery(window).width() > 768){
+												   if (jQuery(window).scrollTop() > $start - $top && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+													   $sticky.css({
+														   'position':'fixed', 
+														   'top': $top,
+														   'width': '100%',
+														   'max-width': $maxWidth,
+														   'bottom':'auto',
+														   'z-index': '5',
+														   'background': '#ffffff',
+													   });
+				   
+													   $stickyContainer.find('#map-list-content').css({
+														   'padding-top': $detailPaddingTop - 10,
+													   });
+				   
+												   } 
+												   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+													   $sticky.css({
+														   'position': 'absolute',
+														   'top'     : 'auto',
+														   'bottom'  : 0,
+													   });
+												   }
+												   else {
+														$sticky.css({
+															'position' : 'static',
+															'max-width' : '100%',
+														});
+				   
+														$stickyContainer.find('#map-list-content').css({
+														   'padding-top': 0,
+														});
+					
+														$maxWidth = $stickyContainer.outerWidth();
+												   }
+												}
+											});
+										});
+										
+										jQuery(document).ready(function(){
+											jQuery(window).bind( 'scroll', function() {		
+		
+												var $sticky = jQuery('#list-view .top-section');
+												var $top = 0;
+			
+												if(jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').length){ //Conall
+													// var $headerHeight = jQuery('.edgtf-fixed-wrapper').outerHeight();
+													var $headerHeight = jQuery('.edgtf-fixed-wrapper .edgtf-vertical-align-containers').outerHeight();
+														$top = $top + $headerHeight;
+												}else if(jQuery('#main-header.et-fixed-header').length){ //Divi
+													var $topheaderHeight = jQuery('#top-header.et-fixed-header').outerHeight();
+													var $headerHeight = jQuery('#main-header.et-fixed-header').outerHeight();
+														$top = $top + $topheaderHeight + $headerHeight;
+												}else if(jQuery('body.et_fixed_nav #main-header').length){ //Divi new
+													var $topheaderHeight = jQuery('body.et_fixed_nav #top-header').outerHeight();
+													var $headerHeight = jQuery('body.et_fixed_nav #main-header').outerHeight();
+														$top = $top + $topheaderHeight + $headerHeight;
+												}else{
+													var $headerHeight = 0;
+														$top = $top + $headerHeight;
+												}
+												if(jQuery('#wpadminbar').length){
+													var $wpadminbarHeight = jQuery('#wpadminbar').outerHeight();
+														$top = $top + $wpadminbarHeight;
+												}
+			
+												$omnibar = jQuery('#omnibar-tools').length ? jQuery('#omnibar-tools').outerHeight() : 0;
+												$omnibar = jQuery('.map-legend-wrap').length ? $omnibar + jQuery('.map-legend-wrap').outerHeight() : $omnibar;
+			
+												$top = $top + $omnibar;
+			
+												$navigation = jQuery('.result-control').length ? jQuery('.result-control').outerHeight() : 0;
+												$highlight = jQuery('.top-section').length ? jQuery('.top-section').outerHeight() : 0;
+			
+												$top = $top + $navigation;
+			
+												var $stickyH = $sticky.outerHeight();
+												var $stickyContainer = jQuery('#property-sidebar');
+												var $stickyContainerOffset = $stickyContainer.offset();
+												var $start = $stickyContainerOffset.top;
+												var $limit = $start + $stickyContainer.outerHeight();
+												var $padding = 30; // padding size;
+												var $maxWidth = $stickyContainer.outerWidth() - $padding;
+			
+												if(jQuery(window).width() > 768){
+												   if (jQuery(window).scrollTop() > $start - $top + $navigation && jQuery(window).scrollTop() <= $limit - $stickyH - $top) {
+													   $sticky.css({
+														   'position':'fixed', 
+														   'top': $top,
+														   'width': '100%',
+														   'max-width': $maxWidth,
+														   'bottom':'auto',
+														   'z-index': '5',
+														   'background': '#ffffff',
+													   });
+				   
+													   $stickyContainer.find('.bottom-section').css({
+														   'padding-top': $highlight,
+													   });
+				   
+												   } 
+												   else if (jQuery(window).scrollTop() > $limit - $stickyH - $top) {
+													   $sticky.css({
+														   'position': 'absolute',
+														   'top'     : 'auto',
+														   'bottom'  : 0,
+													   });
+												   }
+												   else {
+														$sticky.css({
+															'position' : 'static',
+															'max-width' : '100%',
+														});
+				   
+														$stickyContainer.find('.bottom-section').css({
+														   'padding-top': 0,
+														});
+												   }
+												}
+											});
+										});
+										
+										jQuery(document).ready(function(){
+											jQuery('.table-view tbody tr').on( 'click', function(){
+												var index = jQuery(this).data('index');
+							
+												jQuery('.property-highlight .zpa-grid-result').addClass('hide');
+												jQuery('.property-highlight .zpa-grid-result[index="'+ index +'"]').removeClass('hide');
+											});
+										});
 										
 										console.timeEnd('generate list');
 										break;
@@ -3300,7 +3746,8 @@ var zppr={
 													wrapOpen=1;
 												}
 												
-												html += zppr.one_property(value, column);
+												// html += zppr.one_property(value, column);
+												html += zppr.one_property_w_slider(value, column, i, wrapOpen);
 												
 												if( ((i % column) >= (column-1) && wrapOpen  //if one line has reach prop limit close the div
 													  || (i+1==response.result.filteredList.length && wrapOpen ) ) //if last prop reached close the div
@@ -3458,7 +3905,8 @@ var zppr={
 											wrapOpen=1;
 										}
 										
-										html += zppr.one_property(value, column);
+										// html += zppr.one_property(value, column);
+										html += zppr.one_property_w_slider(value, column, i, wrapOpen);
 										
 										if( ((i % column) >= (column-1) && wrapOpen  //if one line has reach prop limit close the div
 											  || (i+1==response.result.filteredList.length && wrapOpen ) ) //if last prop reached close the div
@@ -3530,6 +3978,45 @@ var zppr={
 							break;
 						}
 						
+						jQuery(document).ready(function ($) {
+							// reference for main items
+							var mainSlider=new Array();
+							//transition time in ms
+							var duration = 500;
+							var index=0;
+	
+							index=0;
+							$('.photo-carousel').each(function(){
+								var slider = $(this);
+								mainSlider.push(slider);
+							});
+							index=0;
+	
+							// carousel function for main slider
+							index=0;
+							$('.photo-carousel').each(function(){
+		
+								var tempMainSlider = mainSlider[index];
+		
+								// console.log('current index: '+index);
+								tempMainSlider.owlCarousel({
+									loop:false,
+									nav:true,
+									navText: ['<a class="slider-left"><span class="carousel-control"><i class="fa fa-2x fa-angle-left" role="none"></i></span></a>','<a class="slider-right"><span class="carousel-control"><i class="fa fa-2x fa-angle-right" role="none"></i></span></a>'],
+									lazyLoad:true,
+									items:1,
+									dots: false,
+									slideBy: 1,
+								}).on('changed.owl.carousel', function (e) {
+									//On change of main item to trigger thumbnail item
+			
+									//These two are navigation for main items
+								})
+		
+								index++;
+							});
+						});
+						
 						zppr.enableSaveSearchButton();
 					}else{
 						console.log(response);
@@ -3583,7 +4070,7 @@ var zppr={
 				break;
 		}
 		
-		var is_favorite=''; //'active'
+		var is_favorite=zppr.is_favorite(property.id)?"active":""; //'active'
 		var searchid='';
 		
 		infos = '';
@@ -3612,7 +4099,7 @@ var zppr={
 						'</div>' +
 					'</div>	';
 			infoscount++;
-		}
+		} 
 		if(!infoscount){
 			infos+='<div class="col-xs-4 nopaddingleft nopaddingright">' +
 						'<div class="zpa-grid-result-basic-info-container">' +
@@ -3833,6 +4320,587 @@ var zppr={
 		
 		return html;
 	},
+	one_property_w_slider:function(property, column, i, wrapOpen){
+		var listingid = property.id;
+		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
+		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
+		var address = zppr.getAddress(property);
+		var prop_url = zppr.getPropUrl(listingid,address);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var status = property.status;
+		var days = property.hasOwnProperty('dayssincelisting') ? property.dayssincelisting : '-';
+		var displaySource = property.displaySource;
+		var proptype = property.proptype;
+		var img_count =  property.hasOwnProperty('photoList') ? property.photoList.length : 0;
+		var nobedrooms = zppr.get_nobedrooms(property);
+		var nobaths = zppr.get_nobaths(property);
+		var sqft = zppr.get_sqft(property);
+		var beds_html = '<div class="zpa-grid-result-basic-info-item1"> <b>'+ nobedrooms +'</b> <span> beds </span> </div>';
+		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> <span> baths </span> </div>'
+		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> <span> sqft </span> </div>';
+		
+		var columns_code='';
+		switch( column ){
+			case 4:
+					columns_code = 'col-lg-3 col-sm-6 col-md-6 col-xs-12';
+				break;
+			case 1:
+					columns_code = 'col-lg-12 col-sm-12 col-md-12 col-xs-12';
+				break;
+			case 2:
+					columns_code = 'col-lg-6 col-sm-6 col-md-6 col-xs-12';
+				break;
+			case 3:
+			default:
+					columns_code = 'col-lg-4 col-sm-6 col-md-6 col-xs-12';			
+				break;
+		}
+		
+		var is_favorite=zppr.is_favorite(property.id)?"active":""; //'active'
+		var searchid='';
+		
+		infos = '';
+		infoscount=0;
+		
+		if( nobedrooms !== '' && nobedrooms > 0 ){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							beds_html +
+						'</div>' +
+					'</div>';
+			infoscount++;
+		}
+		if( nobaths !== '' && nobaths > 0 ){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							bath_html +
+						'</div>' +
+					'</div>';
+			infoscount++;
+		}
+		if( sqft !== '' && parseInt(sqft) > 0 ){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright"> ' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							sqft_html +
+						'</div>' +
+					'</div>	';
+			infoscount++;
+		}
+		if(!infoscount){
+			infos+='<div class="col-xs-4 nopaddingleft nopaddingright">' +
+						'<div class="zpa-grid-result-basic-info-container">' +
+							'&nbsp;' +
+						'</div>' +
+					'</div>';
+		}
+		
+		var albums='';
+		
+		if(photoList.length){
+			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera" role="none"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
+					'<div id="modal-'+ listingid +'" class="modal">' +
+						'<div class="modal-dialog">' +
+							'<div class="modal-content">' +
+								'<div class="modal-header">' +
+									'<div class="modal-title text-left">'+ address +'</div>' +
+									'<button type="button" class="close" data-dismiss="modal"> × </button>' +
+								'</div>' +
+								'<div class="modal-body"></div>' +
+								'<div class="modal-footer">' +
+									'<button class="btn btn-link" data-dismiss="modal"> Close </button>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>';
+		}else{
+			albums+='<i class="glyphicon glyphicon-camera" role="none"></i> <span class="photo-count">(0)</span>';
+		}
+		
+		var openhouses='';
+		
+		if(property.hasOwnProperty('startDate') && property.startDate){
+			
+			var openHouse=property;
+			
+			openhouses+= '<div class="row mb-5 fs-12">' +
+							'<div class="col-xs-12 mt-10">' +
+								'<div class="zpa-grid-result-additional-info">' +
+									'<div class="zpa-listing-open-home-text-grid">';
+											
+										var sourceid=property.sourceid;
+										var mlstz = zppr.mls_timezone(sourceid);
+										var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+										var dt = new Date(ld);
+										var startDateOnly = dt.format('Y-m-d');
+										var startDate = dt.format('M j, Y h:i A');
+										var startTime =  dt.format('h:i A');
+										
+										var duration = openHouse.duration  ? openHouse.duration : 0;
+										var printEndTime = '';
+										
+										if( duration ){
+											dt = dt.addMinutes( duration );
+											endTime =dt.format('h:i A');
+											printEndTime = '- '+endTime;
+										}else if(openHouse.endDate){
+											ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+											dt = new Date(ld);
+											endDateOnly = dt.format('Y-m-d');
+											
+											if(startDateOnly!=endDateOnly){
+												
+												endDate = dt.format('M j, Y h:i A');
+												printEndTime = '- '+endDate;
+											}else{
+												
+												endTime = dt.format('h:i A');
+												printEndTime = '- '+endTime;
+											}
+										}
+			openhouses+= 				'<span class="openHomeText"> Open House:</span> '+ startDate +' '+ printEndTime +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+		}else if(property.hasOwnProperty('openHouses') && property.openHouses && property.openHouses.length ){
+			
+			var openHouse=property.openHouses[0];
+			
+			openhouses+= '<div class="row mb-5 fs-12">' +
+							'<div class="col-xs-12 mt-10">' +
+								'<div class="zpa-grid-result-additional-info">' +
+									'<div class="zpa-listing-open-home-text-grid">';
+									
+										var sourceid=property.sourceid;
+										var mlstz = zppr.mls_timezone(sourceid);
+										var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+										var dt = new Date(ld);
+										var startDateOnly = dt.format('Y-m-d');
+										var startDate = dt.format('M j, Y h:i A');
+										var startTime =  dt.format('h:i A');
+										
+										var duration = openHouse.duration  ? openHouse.duration : 0;
+										var printEndTime = '';
+										
+										if( duration ){
+											dt = dt.addMinutes( duration );
+											endTime =dt.format('h:i A');
+											printEndTime = '- '+endTime;
+										}else if(openHouse.endDate){
+											ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+											dt = new Date(ld);
+											endDateOnly = dt.format('Y-m-d');
+											
+											if(startDateOnly!=endDateOnly){
+												
+												endDate = dt.format('M j, Y h:i A');
+												printEndTime = '- '+endDate;
+											}else{
+												
+												endTime = dt.format('h:i A');
+												printEndTime = '- '+endTime;
+											}
+										}
+			openhouses+= 				'<span class="openHomeText"> Open House:</span> '+ startDate +' '+ printEndTime +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+		}
+		
+		var property_source='';
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
+		if(source_details){
+			property_source+='<div class="property-source">' +
+								source_details +
+							'</div>';
+		}
+		
+		var enable_rebate = zppr.data.display_buyerrebate_amount;
+		var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+		var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
+		
+		var rebate_badge_html = '';
+		
+		if( enable_rebate ){
+			
+			var rebate_price = '';
+
+			if( property.hasOwnProperty('buyerRebate') && property.buyerRebate ){				
+				rebate_price = zppr.moneyFormat(property.buyerRebate);
+			}else{
+				rebate_price = rebate_default_text;
+			}
+			
+			rebate_badge_html = '<div class="badge-rebate">' +
+									'<span class="rebate-price">' +
+										rebate_price +
+									'</span>' +
+									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
+								'</div>';
+		}
+		
+		var html = '<div class="zpa-grid-result '+ columns_code +'" index="'+ i +'" wrap="'+ (wrapOpen ? 'open' : 'closed') +'">' +
+					'<div class="zpa-grid-result-container well">' +
+						'<div class="row">' +
+							'<div class="col-xs-12">';
+								
+		html +=					'<div class="slider-container">' +
+									'<!--Main Slider Start-->' +
+									'<div class="slider photo-carousel owl-carousel" aria-label="carousel">'
+		
+		if( property.hasOwnProperty('photoList' ) && property.photoList.length){
+			var index=0;
+			for (const [key, pic] of Object.entries(property.photoList)) {
+				if( pic.imgurl.includes('mlspin.com') ){								
+					html +=				'<div style="background-image: url("//media.mlspin.com/photo.aspx?mls='+ property.listno + '&w=500&h=300&n='+ index +'");" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+				} else {
+					html +=				'<div style="background-image: url('+ (pic.imgurl ? pic.imgurl.replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+				} 
+				index++;
+			}
+		} else {
+			html +=						'<div style="background-image: url('+ zppr.data.plugin_url + 'images/no-photo.jpg);" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+		}
+														
+		html +=						'</div>' +
+									'<!--Main Slider End-->' +								
+									rebate_badge_html +
+									(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
+									'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
+									'<span class="zpa-for-sale-price"> '+ zppr.moneyFormat(price) +' </span>' +
+								'</div>' +
+								
+							'</div>' +
+						'</div>' +
+						'<div class="za-container">' +
+							
+							'<div class="row mt-10">' +
+								'<div class="col-xs-12">' +
+									'<a class="property_url" href="'+ prop_url +'">' +
+									'<span class="zpa-grid-result-address"> <img src="'+ zppr.data.plugin_url +'images/map-marker.png" title="map marker" alt="map marker"> '+ address +' </span> </a>' +
+								'</div>' +
+							'</div>' +
+																			
+							'<div class="row mt-10 property-infos">' +
+								infos +
+							'</div>' +
+							'<div class="row mb-5 fs-12 mt-10">' +
+								'<div class="'+ ( column==4 ? 'col-xs-7 nopaddingright' : 'col-xs-8' ) +'">' +
+									'<div class="zpa-grid-result-additional-info">' +
+										'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
+											'<span class="text-center d-block">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</span>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+								'<div class="'+ ( column==4 ? 'col-xs-5 nopaddingleft' : 'col-xs-4' ) +'">' +
+									'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true" role="none"></i> '+ days +' Day(s)  </span>' +
+								'</div>' +
+							'</div>' +
+							
+							openhouses +
+							
+						'</div>' +
+						
+						'<div class="row">' +
+							'<div class="col-xs-12">' +
+								'<div class="property-divider">&nbsp;</div>' +
+							'</div>' +
+						'</div>' +
+							
+						'<div class="za-container">' +
+							'<div class="row">' +
+								'<div class="'+ ( column==4 ? 'col-xs-9' : 'col-xs-10' ) +' pull-left fs-11 ">' +
+									'<div class="zpa-grid-result-mlsnum-proptype">'+ displaySource +'#'+ property.listno +' | '+ zppr.list_proptype(property) +' </div>' +
+								'</div>' +
+								'<div class="'+ ( column==4 ? 'col-xs-3' : 'col-xs-2' ) +' pull-right fs-12 zpa-grid-result-photocount nopaddingleft">' +
+									albums +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div style="clear:both"></div>' +
+					'</div>' +
+					property_source +
+					'<div class="grid-margin"></div>' +
+				'</div>';
+		
+		return html;
+	},
+	one_property_list:function(property, i){
+		var listingid = property.id;
+		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
+		var img_url = property.hasOwnProperty('photoList') ? property.photoList[0].imgurl : zppr.data.plugin_url + 'images/no-photo.jpg';			
+		var address = zppr.getAddress(property);
+		var prop_url = zppr.getPropUrl(listingid,address);
+		var price=(zppr.data.sold_status.indexOf(property.status)>-1?(property.hasOwnProperty('saleprice')?property.saleprice:property.listprice):property.listprice);
+		var status = property.status;
+		var days = property.hasOwnProperty('dayssincelisting') ? property.dayssincelisting : '-';
+		var displaySource = property.displaySource;
+		var proptype = property.proptype;
+		var img_count =  property.hasOwnProperty('photoList') ? property.photoList.length : 0;
+		var nobedrooms = zppr.get_nobedrooms(property);
+		var nobaths = zppr.get_nobaths(property);
+		var sqft = zppr.get_sqft(property);
+		
+		var is_favorite=zppr.is_favorite(property.id)?"active":""; //'active'
+		var searchid='';
+		var str_contactIds=zppr.data.contactIds.join();
+		
+		var hide_streetnumber=0;
+		var rnhidestreetno = zppr.data.root.web.hasOwnProperty('rnhidestreetno')?zppr.data.root.web.rnhidestreetno:0;
+		if( rnhidestreetno && property.hasOwnProperty('proptype') && property.proptype=="RN" ){
+			hide_streetnumber=1;
+		}
+		
+		var openhouses='';
+		
+		if(property.hasOwnProperty('startDate') && property.startDate){
+			
+			var openHouse=property;
+			
+			openhouses+= '<div class="row mb-5 fs-12">' +
+							'<div class="col-xs-12 mt-10">' +
+								'<div class="zpa-grid-result-additional-info">' +
+									'<div class="zpa-listing-open-home-text-grid">';
+											
+										var sourceid=property.sourceid;
+										var mlstz = zppr.mls_timezone(sourceid);
+										var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+										var dt = new Date(ld);
+										var startDateOnly = dt.format('Y-m-d');
+										var startDate = dt.format('M j, Y h:i A');
+										var startTime =  dt.format('h:i A');
+										
+										var duration = openHouse.duration  ? openHouse.duration : 0;
+										var printEndTime = '';
+										
+										if( duration ){
+											dt = dt.addMinutes( duration );
+											endTime =dt.format('h:i A');
+											printEndTime = '- '+endTime;
+										}else if(openHouse.endDate){
+											ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+											dt = new Date(ld);
+											endDateOnly = dt.format('Y-m-d');
+											
+											if(startDateOnly!=endDateOnly){
+												
+												endDate = dt.format('M j, Y h:i A');
+												printEndTime = '- '+endDate;
+											}else{
+												
+												endTime = dt.format('h:i A');
+												printEndTime = '- '+endTime;
+											}
+										}
+			openhouses+= 				'<span class="openHomeText"> Open House:</span> '+ startDate +' '+ printEndTime +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+		}else if(property.hasOwnProperty('openHouses') && property.openHouses && property.openHouses.length ){
+			
+			var openHouse=property.openHouses[0];
+			
+			openhouses+= '<div class="row mb-5 fs-12">' +
+							'<div class="col-xs-12 mt-10">' +
+								'<div class="zpa-grid-result-additional-info">' +
+									'<div class="zpa-listing-open-home-text-grid">';
+									
+										var sourceid=property.sourceid;
+										var mlstz = zppr.mls_timezone(sourceid);
+										var ld = new Date(openHouse.startDate).toLocaleString("en-US", {timeZone: mlstz});
+										var dt = new Date(ld);
+										var startDateOnly = dt.format('Y-m-d');
+										var startDate = dt.format('M j, Y h:i A');
+										var startTime =  dt.format('h:i A');
+										
+										var duration = openHouse.duration  ? openHouse.duration : 0;
+										var printEndTime = '';
+										
+										if( duration ){
+											dt = dt.addMinutes( duration );
+											endTime =dt.format('h:i A');
+											printEndTime = '- '+endTime;
+										}else if(openHouse.endDate){
+											ld = new Date(openHouse.endDate).toLocaleString("en-US", {timeZone: mlstz});
+											dt = new Date(ld);
+											endDateOnly = dt.format('Y-m-d');
+											
+											if(startDateOnly!=endDateOnly){
+												
+												endDate = dt.format('M j, Y h:i A');
+												printEndTime = '- '+endDate;
+											}else{
+												
+												endTime = dt.format('h:i A');
+												printEndTime = '- '+endTime;
+											}
+										}
+			openhouses+= 				'<span class="openHomeText"> Open House:</span> '+ startDate +' '+ printEndTime +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+		}
+		
+		var property_source='';
+		var source_details=property.sourceid ? zppr.get_source_text(property.sourceid, {'listOfficeName':property.listOfficeName, 'listAgentName': property.listAgentName, 'property': property}, 'list' ) : false;
+		if(source_details){
+			property_source+='<div class="property-source">' +
+								source_details +
+							'</div>';
+		}
+		
+		var enable_rebate = zppr.data.display_buyerrebate_amount;
+		var rebate_prefix =  zppr.data.buyerrebate_amount_prefix;
+		var rebate_default_text =  zppr.data.emptybuyerrebate_amount_text;
+		
+		var rebate_badge_html = '';
+		
+		if( enable_rebate ){
+			
+			var rebate_price = '';
+
+			if( property.hasOwnProperty('buyerRebate') && property.buyerRebate ){				
+				rebate_price = zppr.moneyFormat(property.buyerRebate);
+			}else{
+				rebate_price = rebate_default_text;
+			}
+			
+			rebate_badge_html = '<div class="badge-rebate">' +
+									'<span class="rebate-price">' +
+										rebate_price +
+									'</span>' +
+									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
+								'</div>';
+		}
+		
+
+		html =	'<div class="zpa-grid-result row '+ (i!=0?'hide':'') +'" index="'+ i +'">' +
+					'<div class="zpa-grid-result-container well col-xs-6">' +
+						'<div class="row">' +
+							'<div class="col-xs-12">' +
+								'<div class="slider-container">' +
+									'<!--Main Slider Start-->' +
+									'<div class="slider photo-carousel owl-carousel" aria-label="carousel">';
+		
+		if( property.hasOwnProperty('photoList' ) && property.photoList.length){
+			var index=0;
+			for (const [key, pic] of Object.entries(property.photoList)) {
+				if( pic.imgurl.includes('mlspin.com') ){								
+					html +=				'<div style="background-image: url("//media.mlspin.com/photo.aspx?mls='+ property.listno + '&w=500&h=300&n='+ index +'");" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+				} else {
+					html +=				'<div style="background-image: url('+ (pic.imgurl ? pic.imgurl.replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+				} 
+				index++;
+			}
+		} else {
+			html +=						'<div style="background-image: url('+ zppr.data.plugin_url + 'images/no-photo.jpg);" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+		}
+							
+		html +=						'</div>' +
+									'<!--Main Slider End-->' +
+					
+									rebate_badge_html +
+									(property.hasOwnProperty('startDate') || property.hasOwnProperty('openHouses') ? '<span class="badge-open-house">Open House</span>' : '') +
+					
+									'<div class="span-bg">' +
+										'<div class="prop-detail">' +
+											'<span class="zy_price"> '+ zppr.moneyFormat(price) +' </span>' +
+											'<h1>' +
+												'<p class="zy_address-style"><span itemprop="streetAddress">'+ ( !hide_streetnumber ? property.streetno : '' ) +' '+ (property.hasOwnProperty('streetname')?zppr.streetname_fix_comma(property.streetname):'') +' '+ (property.hasOwnProperty('unitno')?'#'+property.unitno:'') +'</span></p>' +
+												'<p class="zy_subaddress-style">' +
+													'<span itemprop="addressLocality"> '+ ( property.hasOwnProperty('lngTOWNSDESCRIPTION') && property.lngTOWNSDESCRIPTION ? property.lngTOWNSDESCRIPTION + ',':'' ) +' </span>' +
+													'<span itemprop="addressRegion"> '+ (property.hasOwnProperty('provinceState')?property.provinceState:'') +'</span>' +
+													'<span itemprop="postalCode"> '+ (property.hasOwnProperty('zipcode')?property.zipcode:'') +' </span>';
+
+	
+		if( property.hasOwnProperty('sourceid') && property.sourceid == 1 && property.hasOwnProperty('shrtAREACODE') ){
+			html +=									'<span>('+ property.shrtAREACODE +')</span>';
+		}
+										
+		html +=									'</p>' +			
+											'</h1>' +
+										'</div>' +
+										'<div class="prop-spaces">' +
+											'<ul>';
+		if( nobedrooms!= '' && nobedrooms > 0 ){
+			html +=								'<li>' +
+													'<b>'+ nobedrooms +'</b>' +
+													'<span> beds </span' +
+												'</li>';
+		}
+		if( nobaths != '' && nobaths > 0 ){
+			html +=								'<li>' +
+													'<b>'+ nobaths +'</b>' +
+													'<span> baths </span>' +
+												'</li>';
+		}
+		if( sqft != '' && sqft > 0 ){
+			html +=								'<li>' +
+													'<b>'+ sqft +'</b>' +
+													'<span> sqft </span>' +
+												'</li>';
+		}
+		html +=								'</ul>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div style="clear:both"></div>' +
+					'</div>' +
+					'<div class="prop-infos col-xs-6">' +
+						'<div class="prop-remarks">' +
+							zppr.trim_chars( property.remarks, 100, '<a href="'+ single_url +'"> More</a>' ) +
+						'</div>' +
+						'<div class="prop-amenities">' +
+						  '<ul class="section-1">' +
+							'<li class="">' +
+							  '<span class="title">$/Sq. Ft.</span>' +
+							  '<span class="value">'+ ( property.hasOwnProperty('squarefeet') && property.squarefeet > 0 ? zppr.formatNumber(property.squarefeet) : '-' ) +'</span>' +
+							'</li>' +
+							'<li class="">' +
+							  '<span class="title">On site</span>' +
+							  '<span class="value">'+ ( property.hasOwnProperty('dayssincelisting')? ( property.hasOwnProperty('dayssincelisting')?property.dayssincelisting:'—') + ' Day(s)' : '' ) + '</span>' +
+							'</li>' +
+							'<li class="">' +
+							  '<span class="title">HOA</span>' +
+							  '<span class="value">'+ ( property.hasOwnProperty('hoafee') ? zppr.numberFormat(property.hoafee) : '—' ) +'</span>' +
+							'</li>' +
+						  '</ul>' +
+						  '<ul class="section-2">' +
+							'<li class="">' +
+							  '<span class="title">Year Built</span>' +
+							  '<span class="value">'+ ( property.hasOwnProperty('yearbuilt') ? property.yearbuilt : '—' ) +'</span>' +
+							'</li>' +
+							'<li class="">' +
+							  '<span class="title">Lot Size</span>' +
+							  '<span class="value">'+ ( property.hasOwnProperty('lotsize') ? property.lotsize : '—' ) +'</span>' +
+							'</li>' +
+							'<li class="">' +
+							  '<span class="title">Status</span>' +
+							  '<span class="value" title="'+ ( zppr.get_status_name(property.hasOwnProperty('status')?property.status:'', property.hasOwnProperty('sourceid')?property.sourceid:'') ) +'">'+ ( zppr.get_status_name(property.hasOwnProperty('status')?property.status:'', property.hasOwnProperty('sourceid')?property.sourceid:'') ) +'</span>' +
+							'</li>' +
+						  '</ul>' +
+						'</div>' +
+						'<div class="open-house">' +
+							openhouses +
+						'</div>' +
+						'<div class="action-bar">' +
+							'<div class="col-xs-6">' +
+								'<a class="listing-'+ property.id +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingId="'+ property.id +'" searchId="'+ searchId +'" contactId="'+ str_contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
+							'</div>' +
+							'<div class="col-xs-6">' +
+								'<a class="btn-view" href="'+ single_url +'">View Details</a>' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+		
+		return html;
+	},
 	one_property_sidebar:function(property, index){
 		var listingid = property.id;
 		var photoList = property.hasOwnProperty('photoList')?property.photoList:[];		
@@ -3852,7 +4920,7 @@ var zppr={
 		var bath_html = '<div class="zpa-grid-result-basic-info-item2"> <b>'+ nobaths +' </b> <span> baths </span> </div>'
 		var sqft_html = '<div class="zpa-grid-result-basic-info-item3"> <b> '+ sqft +' </b> <span> sqft </span> </div>';
 		
-		var is_favorite=''; //'active'
+		var is_favorite=zppr.is_favorite(property.id)?"active":""; //'active'
 		var searchid='';
 		
 		infos = '';
@@ -4265,7 +5333,7 @@ var zppr={
 		
 		var columns_code='';
 		
-		var is_favorite=''; //'active'
+		var is_favorite=zppr.is_favorite(property.id)?"active":""; //'active'
 		var searchid='';
 		
 		infos = '';
@@ -6908,5 +7976,15 @@ var zppr={
 				highlight_area.setMap(map); 
 			}
 		});
+	},
+	trim_chars:function(string, length = 100, append = '&hellip;') {
+		string = string.trim();
+
+		if ( string.length > length ) {
+			string = string.slice(0,length);
+			string = string + append;
+		}
+
+		return string;
 	}
 };
