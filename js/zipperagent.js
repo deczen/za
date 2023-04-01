@@ -3395,8 +3395,8 @@ var zppr={
 											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 										}
 										
-										// html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
-										var html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
+										var html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
+										// var html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
 										html_print = zppr.list_print(requests, html_print);
 										
 										jQuery(targetElement).html( html );
@@ -5785,6 +5785,13 @@ var zppr={
 		
 		switch(type){
 			case "list":
+					
+					var hidesource = zppr.data.root.web.hasOwnProperty('hidelistsource') && zppr.data.root.web.hidelistsource == 1 ? 1 : 0;
+					
+					if(hidesource){
+						return '';
+					}
+				
 					if(listAgentName && zppr.data.is_show_agent_name==1){
 						text+= "Listing Provided Courtesy "+ listAgentName +" of";							
 					}else{

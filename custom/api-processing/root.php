@@ -186,6 +186,7 @@
 	if(isset($rb['web']['hideemail']))  					$data['web']['hideemail'] = $rb['web']['hideemail'];
 	if(isset($rb['web']['hidephone']))  					$data['web']['hidephone'] = $rb['web']['hidephone'];
 	if(isset($rb['web']['youragent']))  					$data['web']['youragent'] = $rb['web']['youragent'];
+	if(isset($rb['web']['hidelistsource']))  				$data['web']['hidelistsource'] = $rb['web']['hidelistsource'];
 	
 	//convert zero text to 0
 	if(isset($data['web']['mls_state_map']['zero'])){

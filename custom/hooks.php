@@ -251,7 +251,7 @@ function zipperagent_template( $content ){
 	
 	// default is map view 
 	if( ! isset( $_REQUEST['view'] ) || $_REQUEST['view'] == '' ) {
-		$_REQUEST['view'] = 'map';
+		// $_REQUEST['view'] = 'map';
 	}
 	
 	$requests = $_REQUEST;

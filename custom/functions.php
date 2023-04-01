@@ -2857,6 +2857,14 @@ if( ! function_exists('zipperagent_get_source_text') ){
 		
 		switch($type){
 			case "list":
+					
+					$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+					$hidesource = isset($rb['web']['hidelistsource']) && $rb['web']['hidelistsource'] == 1 ? 1 : 0;
+					
+					if($hidesource) {
+						return '';
+					}
+					
 					if(isset($listAgentName) && !empty($listAgentName) && is_show_agent_name()){
 						$text.= sprintf( "Listing Provided Courtesy %s of", $listAgentName);							
 					}else{
@@ -5537,12 +5545,12 @@ if( ! function_exists('zipperagent_omnibar') ){
 			
 			// default is map view 
 			if( ! isset( $_REQUEST['view'] ) ) {
-				$_REQUEST['view'] = 'map';
+				// $_REQUEST['view'] = 'map';
 			}
 			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				zipperagent_omnibar_flat($requests);
-				// zipperagent_omnibar_new($requests);
+				// zipperagent_omnibar_flat($requests);
+				zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}
