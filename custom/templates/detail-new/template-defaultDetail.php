@@ -385,6 +385,7 @@ switch($property_type){
 		break;
 	case "FARM": //Farm
 	case "FAR": //Farm
+	case "Farm": //Farm
 		$template_name=get_detail_template_filename('fm')?get_detail_template_filename('fm'):'';
 		$template_features='fm-features.php';
 		$template_print='fm-print.php';
