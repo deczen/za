@@ -5511,25 +5511,29 @@ var zppr={
 			hide_streetnumber=1;
 		}
 		
-		var streetname = property.hasOwnProperty('streetname')?property.streetname:'';
-		var lngTOWNSDESCRIPTION = property.hasOwnProperty('lngTOWNSDESCRIPTION')?property.lngTOWNSDESCRIPTION:'';
-		var provinceState = property.hasOwnProperty('provinceState')?property.provinceState:'';
-		var zipcode = property.hasOwnProperty('zipcode')?property.zipcode:'';
-		var streetno = property.hasOwnProperty('streetno')?property.streetno:'';
-		var fulladdress = property.hasOwnProperty('fulladdress')?property.fulladdress:'';
-		var addressWithoutStreeno = property.hasOwnProperty('addressWithoutStreeno')?property.addressWithoutStreeno:'';
-		var formattedAddress = property.hasOwnProperty('formattedAddress')?property.formattedAddress:'';
+		if(hide_streetnumber == 1 || !property.hasOwnProperty('formattedAddress')){
+			var streetname = property.hasOwnProperty('streetname')?property.streetname:'';
+			var lngTOWNSDESCRIPTION = property.hasOwnProperty('lngTOWNSDESCRIPTION')?property.lngTOWNSDESCRIPTION:'';
+			var provinceState = property.hasOwnProperty('provinceState')?property.provinceState:'';
+			var zipcode = property.hasOwnProperty('zipcode')?property.zipcode:'';
+			var streetno = property.hasOwnProperty('streetno')?property.streetno:'';
+			var fulladdress = property.hasOwnProperty('fulladdress')?property.fulladdress:'';
+			var addressWithoutStreeno = property.hasOwnProperty('addressWithoutStreeno')?property.addressWithoutStreeno:'';
+			var formattedAddress = property.hasOwnProperty('formattedAddress')?property.formattedAddress:'';
 		
-		if(addressWithoutStreeno && hide_streetnumber){
-			address = addressWithoutStreeno;
-		}else if(hide_streetnumber){
-			address = streetname+' '+lngTOWNSDESCRIPTION+', '+provinceState+' '+zipcode;
-		}else if(fulladdress){
-			address = fulladdress;
-		}else if(formattedAddress){
-			address = formattedAddress;
-		}else{
-			address = streetno+' '+streetname+' '+lngTOWNSDESCRIPTION+', '+provinceState+' '+zipcode;
+			if(addressWithoutStreeno && hide_streetnumber){
+				address = addressWithoutStreeno;
+			}else if(hide_streetnumber){
+				address = streetname+' '+lngTOWNSDESCRIPTION+', '+provinceState+' '+zipcode;
+			}else if(fulladdress){
+				address = fulladdress;
+			}else if(formattedAddress){
+				address = formattedAddress;
+			}else{
+				address = streetno+' '+streetname+' '+lngTOWNSDESCRIPTION+', '+provinceState+' '+zipcode;
+			}
+		} else {
+			address = property.formattedAddress;
 		}
 		
 		return address;

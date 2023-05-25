@@ -990,25 +990,31 @@ if( ! function_exists('zipperagent_get_address') ){
 			$hide_streetnumber=1;
 		}
 		
-		$streetname = isset($property->streetname)?zipperagent_fix_comma($property->streetname):'';
-		$lngTOWNSDESCRIPTION = isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:'';
-		$provinceState = isset($property->provinceState)?$property->provinceState:'';
-		$zipcode = isset($property->zipcode)?$property->zipcode:'';
-		$streetno = isset($property->streetno)?$property->streetno:'';
-		$fulladdress = isset($property->fulladdress)?$property->fulladdress:'';
-		$addressWithoutStreeno = isset($property->addressWithoutStreeno)?$property->addressWithoutStreeno:'';
-		$formattedAddress = isset($property->formattedAddress)?$property->formattedAddress:'';
+		// echo "<pre>"; print_r($property); echo "</pre>";
 		
-		if($addressWithoutStreeno && $hide_streetnumber){
-			$address = $addressWithoutStreeno;
-		}else if($hide_streetnumber){
-			$address = $streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
-		}else if($fulladdress){
-			$address = $fulladdress;
-		}else if($formattedAddress){
-			$address = $formattedAddress;
-		}else{
-			$address = $streetno.' '.$streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
+		if( $hide_streetnumber || ! isset($property->formattedAddress) ) {
+			$streetname = isset($property->streetname)?zipperagent_fix_comma($property->streetname):'';
+			$lngTOWNSDESCRIPTION = isset($property->lngTOWNSDESCRIPTION)?$property->lngTOWNSDESCRIPTION:'';
+			$provinceState = isset($property->provinceState)?$property->provinceState:'';
+			$zipcode = isset($property->zipcode)?$property->zipcode:'';
+			$streetno = isset($property->streetno)?$property->streetno:'';
+			$fulladdress = isset($property->fulladdress)?$property->fulladdress:'';
+			$addressWithoutStreeno = isset($property->addressWithoutStreeno)?$property->addressWithoutStreeno:'';
+			$formattedAddress = isset($property->formattedAddress)?$property->formattedAddress:'';
+		
+			if($addressWithoutStreeno && $hide_streetnumber){
+				$address = $addressWithoutStreeno;
+			}else if($hide_streetnumber){
+				$address = $streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
+			}else if($fulladdress){
+				$address = $fulladdress;
+			}else if($formattedAddress){
+				$address = $formattedAddress;
+			}else{
+				$address = $streetno.' '.$streetname.' '.$lngTOWNSDESCRIPTION.', '.$provinceState.' '.$zipcode;
+			}
+		} else {
+			$address = $property->formattedAddress;
 		}
 		
 		if(strlen(str_replace(' ','', $address)) <= 2){ //fix broken address
