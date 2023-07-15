@@ -284,3 +284,6 @@ if( (($i % $column) >= ($column-1) && $wrapOpen  //if one line has reach prop li
 <?php
 $wrapOpen=false;
 endif;
+
+endif;
+?>

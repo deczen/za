@@ -53,7 +53,7 @@ if($templatename && file_exists($template_path)){
 			<div class="col-xs-12 prop-total"><?php echo zipperagent_list_total($count, (sizeof($propertyType)==1?$propertyType[0]:'') ); ?></div>
 			<?php else: ?>
 			<div class="col-xs-12 prop-total">&nbsp;</div>
-			<? endif; ?>
+			<?php endif; ?>
 		<?php } ?>
 		<?php /*
 		<div class="col-xs-8">

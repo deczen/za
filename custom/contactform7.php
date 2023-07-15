@@ -370,6 +370,7 @@ function zipperagent_panel_additional_settings( $post ) {
 		$za_agent_login = get_post_meta( $post->id, 'za_agent_login', true);
 		$za_assignedTo = get_post_meta( $post->id, 'za_assignedTo', true);
 		$za_leadSource = get_post_meta( $post->id, 'za_leadSource', true);
+		$za_save_rental = get_post_meta( $post->id, 'za_save_rental', true);
 	}else{
 		$za_contact_form = get_post_meta( $post->id(), 'za_contact_form', true);
 		$za_save_form = get_post_meta( $post->id(), 'za_save_form', true);
@@ -377,23 +378,28 @@ function zipperagent_panel_additional_settings( $post ) {
 		$za_agent_login = get_post_meta( $post->id(), 'za_agent_login', true);
 		$za_assignedTo = get_post_meta( $post->id(), 'za_assignedTo', true);
 		$za_leadSource = get_post_meta( $post->id(), 'za_leadSource', true);
+		$za_save_rental = get_post_meta( $post->id(), 'za_save_rental', true);
 	}
 	?>
-	<p><label>Enable Zipperagent Contact Form 
+	<p><label>
 	<input type="hidden" name="za_contact_form" value="0" />
-	<input type="checkbox" name="za_contact_form" value="1" <?php checked($za_contact_form, 1); ?> /></label></p>	
+	<input type="checkbox" name="za_contact_form" value="1" <?php checked($za_contact_form, 1); ?> /> Enable Zipperagent Contact Form </label></p>	
 	<p><label>assignedTo
 	<input type="text" name="za_assignedTo" value="<?php echo $za_assignedTo; ?>" /></label></p>	
 	<p><label>leadSource
 	<input type="text" name="za_leadSource" value="<?php echo $za_leadSource; ?>" /></label></p>	
 	<hr />
-	<p><label>Enable Zipperagent Save Form 
+	<p><label>
 	<input type="hidden" name="za_save_form" value="0" />
-	<input type="checkbox" name="za_save_form" value="1" <?php checked($za_save_form, 1); ?> /></label></p>	
+	<input type="checkbox" name="za_save_form" value="1" <?php checked($za_save_form, 1); ?> /> Enable Zipperagent Save Form </label></p>	
 	<hr />
-	<p><label>Enable Zipperagent Contact Save
+	<p><label>
 	<input type="hidden" name="za_contact_save" value="0" />
-	<input type="checkbox" name="za_contact_save" value="1" <?php checked($za_contact_save, 1); ?> /></label></p>	
+	<input type="checkbox" name="za_contact_save" value="1" <?php checked($za_contact_save, 1); ?> /> Enable Zipperagent Contact Save</label></p>
+	<hr />
+	<p><label>
+	<input type="hidden" name="za_save_rental" value="0" />
+	<input type="checkbox" name="za_save_rental" value="1" <?php checked($za_save_rental, 1); ?> /> Enable Zipperagent Save Rental Search</label></p>
 	<?php /* <p><label>	Agent Login
 	<input type="text" name="za_agent_login" value="<?php echo $za_agent_login; ?>" /> </label>	</p> */
 }
@@ -408,7 +414,7 @@ function zipperagent_save_contact_form($contact_form, $args, $context){
 		update_post_meta( $contact_form->id, 'za_contact_save', sanitize_text_field( $_REQUEST['za_contact_save'] ) );
 		update_post_meta( $contact_form->id, 'za_agent_login', sanitize_text_field( $_REQUEST['za_agent_login'] ) );
 		update_post_meta( $contact_form->id, 'za_assignedTo', sanitize_text_field( $_REQUEST['za_assignedTo'] ) );
-		update_post_meta( $contact_form->id, 'za_leadSource', sanitize_text_field( $_REQUEST['za_leadSource'] ) );
+		update_post_meta( $contact_form->id, 'za_save_rental', sanitize_text_field( $_REQUEST['za_save_rental'] ) );
 	}else{
 		update_post_meta( $contact_form->id(), 'za_contact_form', sanitize_text_field( $_REQUEST['za_contact_form'] ) );
 		update_post_meta( $contact_form->id(), 'za_save_form', sanitize_text_field( $_REQUEST['za_save_form'] ) );
@@ -416,11 +422,13 @@ function zipperagent_save_contact_form($contact_form, $args, $context){
 		update_post_meta( $contact_form->id(), 'za_agent_login', sanitize_text_field( $_REQUEST['za_agent_login'] ) );
 		update_post_meta( $contact_form->id(), 'za_assignedTo', sanitize_text_field( $_REQUEST['za_assignedTo'] ) );
 		update_post_meta( $contact_form->id(), 'za_leadSource', sanitize_text_field( $_REQUEST['za_leadSource'] ) );
+		update_post_meta( $contact_form->id(), 'za_save_rental', sanitize_text_field( $_REQUEST['za_save_rental'] ) );
 	}
 }
  
 add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_form', 2);
 add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_save', 2);
+add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_save_rental', 2);
 // add_action('wpcf7_mail_failed', 'zipperagent_cf7_submit', 2);
 
 function zipperagent_cf7_submit_contact_form($contact_form, $cfresult=null){
@@ -650,6 +658,94 @@ function zipperagent_cf7_submit_contact_save($contact_form, $cfresult=null){
 			// print_r($result);
 		}
 	}
+}
+
+function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
+	
+	if(isset($contact_form->id)){
+		$za_save_rental = get_post_meta( $contact_form->id, 'za_save_rental', true);
+	}else{	
+		$za_save_rental = get_post_meta( $contact_form->id(), 'za_save_rental', true);
+	}
+	
+	if( $za_save_rental ){		
+		// $contactIds=get_contact_id();
+		
+		$email = $_REQUEST['your-email'] ? sanitize_text_field( $_REQUEST['your-email'] ) : '';
+		$firstName = $_REQUEST['first-name'] ? sanitize_text_field( $_REQUEST['first-name'] ) : '';
+		$lastName = $_REQUEST['last-name'] ? sanitize_text_field( $_REQUEST['last-name'] ) : '';
+		$phone = $_REQUEST['your-phone'] ? sanitize_text_field( $_REQUEST['your-phone'] ) : '';
+		$phoneType = $_REQUEST['call-from'] ? sanitize_text_field( $_REQUEST['call-from'] ) : '';
+		$rentalType = $_REQUEST['property'] ? sanitize_text_field( $_REQUEST['property'] ) : '';
+		$dateStart = $_REQUEST['date-start'] ? sanitize_text_field( $_REQUEST['date-start'] ) : '';
+		$dateEnd = $_REQUEST['date-end'] ? sanitize_text_field( $_REQUEST['date-end'] ) : '';
+		$bedroom = $_REQUEST['bedroom'] ? sanitize_text_field( $_REQUEST['bedroom'] ) : '';
+		$bath = $_REQUEST['bath'] ? sanitize_text_field( $_REQUEST['bath'] ) : '';
+		$minrent = $_REQUEST['minrent'] ? sanitize_text_field( $_REQUEST['minrent'] ) : '';
+		$maxrent = $_REQUEST['maxrent'] ? sanitize_text_field( $_REQUEST['maxrent'] ) : '';
+		$neighbor = $_REQUEST['neighbor'] ? sanitize_text_field( $_REQUEST['neighbor'] ) : '';
+		$breaker = $_REQUEST['breaker'] ? sanitize_text_field( $_REQUEST['breaker'] ) : '';
+		$wish = $_REQUEST['wish'] ? sanitize_text_field( $_REQUEST['wish'] ) : '';
+		$transport = $_REQUEST['transport'] ? sanitize_text_field( $_REQUEST['transport'] ) : '';
+		$transportation = $_REQUEST['Transportation'] ? sanitize_text_field( $_REQUEST['Transportation'] ) : '';
+		$parking = $_REQUEST['parking'] ? sanitize_text_field( $_REQUEST['parking'] ) : '';
+		$car = $_REQUEST['car'] ? sanitize_text_field( $_REQUEST['car'] ) : '';
+		$pet = $_REQUEST['pet'] ? sanitize_text_field( $_REQUEST['pet'] ) : '';
+		$showingTimes = $_REQUEST['showing-times'] ? sanitize_text_field( $_REQUEST['showing-times'] ) : '';
+		$income = $_REQUEST['income'] ? sanitize_text_field( $_REQUEST['income'] ) : '';
+		$jobTitle = $_REQUEST['job-title'] ? sanitize_text_field( $_REQUEST['job-title'] ) : '';
+		$creditScore = $_REQUEST['credit-score'] ? sanitize_text_field( $_REQUEST['credit-score'] ) : '';
+		$brokerFee = $_REQUEST['broker-fee'] ? sanitize_text_field( $_REQUEST['broker-fee'] ) : '';
+		$firstRent = $_REQUEST['first-rent'] ? sanitize_text_field( $_REQUEST['first-rent'] ) : '';
+		$security = $_REQUEST['security'] ? sanitize_text_field( $_REQUEST['security'] ) : '';
+		$lastRent = $_REQUEST['last-rent'] ? sanitize_text_field( $_REQUEST['last-rent'] ) : '';
+		$message = $_REQUEST['your-message'] ? sanitize_text_field( $_REQUEST['your-message'] ) : '';
+		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
+		$note = "Rental Type : {$rentalType} , Move-In-Date(From) : {$dateStart}, Move-In-Date(To) {$dateEnd}: , Deal Breakers : {$breaker} , Wish List : {$wish} , near public transport : {$transport} , Transportation line : {$transportation} , Showing Times : {$showingTimes} , Income : {$income} , Occupation : {$jobTitle} , Credit Score : {$creditScore} , Broker Fee :{$brokerFee} , 1st Month's Rent :{$firstRent} , Security Deposit : {$security} , Last Month's Rent : {$lastRent} , Desired Areas/Neighborhoods : {$neighbor} , how many cars : {$car} Comments : {$message}";
+		
+		$vars=array(
+			'asrc'=>$rb['web']['asrc'],
+			// 'aloff'=>$rb['web']['aloff'],
+			// 'apt'=> implode( ',', array_map("trim",$rentalType) ),
+			'apt'=> 'RN,ONMARKET',
+			'abeds' => $bedroom,
+			'abths'=>$bath,
+			'apmax' => za_correct_money_format($maxrent),
+			'apmin' => za_correct_money_format($minrent),
+			'atwns' => 'BOST',
+			'agrgspc' => $parking == 'Yes' ? 1 : 0,
+			'aptp' => $pet,
+			'note' => $note,
+		);
+		
+		$params=array(
+			'firstName' => $firstName,
+			'lastName' => $lastName,
+			'email' => $email,
+			'phone' => $phone,	
+			'phoneType' => $phoneType,
+			'crit' => proces_crit($vars),
+		);
+		
+        $result = zipperagent_run_curl("/api/mls/saveRentalSearch", $params, 1, '', 1);
+		
+		// $result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
+		
+		if($result){
+			// echo 'result';
+			// print_r($params);
+			// print_r($result);
+			// print_r($_REQUEST);
+		}
+	}
+}
+
+// add_action( 'wpcf7_mail_failed', 'za_contact_form_send_mail_always_success' );
+
+function za_contact_form_send_mail_always_success( $contact_form ) {
+	$contact_form->set_status( 'mail_sent' );
 }
 
 add_filter('wpcf7_form_tag', 'enable_pipe_cf7_select_values', 10);
