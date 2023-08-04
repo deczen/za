@@ -188,6 +188,9 @@
 	if(isset($rb['web']['youragent']))  					$data['web']['youragent'] = $rb['web']['youragent'];
 	if(isset($rb['web']['hidelistsource']))  				$data['web']['hidelistsource'] = $rb['web']['hidelistsource'];
 	
+	if(isset($rb['mortgage']['default_interestrate']))		$data['mortgage']['default_interestrate'] = $rb['mortgage']['default_interestrate'];
+	
+	
 	//convert zero text to 0
 	if(isset($data['web']['mls_state_map']['zero'])){
 		

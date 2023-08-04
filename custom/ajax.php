@@ -1950,6 +1950,24 @@ function get_zipperagent_property_fields(){
     }
 }
 
+add_action( 'wp_ajax_cf7_autopopulate_rental_search_form', 'cf7_autopopulate_rental_search_form' );
+add_action( 'wp_ajax_nopriv_cf7_autopopulate_rental_search_form', 'cf7_autopopulate_rental_search_form' );
+
+function cf7_autopopulate_rental_search_form(){
+	
+	if ( isset($_REQUEST) ) {
+				
+		$userdata = ZipperagentGlobalFunction()->getCurrentUserContactLogin();
+		// echo "<pre>"; print_r( $userdata); echo "</pre>";
+		
+		echo json_encode(array(
+			'userdata' => isset($userdata[0]) ? $userdata[0] : array()
+		));
+         
+        die();
+    }
+}
+
 add_action( 'wp_ajax_school_options', 'get_school_options' );
 add_action( 'wp_ajax_nopriv_school_options', 'get_school_options' );
 

@@ -328,6 +328,90 @@ function cf7_auto_suggest($atts){
 /*
  * HOOKS
  */
+
+add_action( 'wpcf7_contact_form', 'zipperagent_custom_script' );
+
+function zipperagent_custom_script( $post ) {
+	
+	if( isset($post->id) ){
+		$za_save_rental = get_post_meta( $post->id, 'za_save_rental', true);
+	}else{
+		$za_save_rental = get_post_meta( $post->id(), 'za_save_rental', true);
+	}
+
+	if( ! $za_save_rental) return;
+	
+	// echo "<pre>"; print_r($post); echo "</pre>";
+	?>
+	<script>
+		jQuery(document).ready(function($){
+			console.time('autopopulate');
+			jQuery.ajax({
+				type: 'POST',
+				dataType : 'json',
+				url: zipperagent.ajaxurl,
+				data: {
+					action: 'cf7_autopopulate_rental_search_form'
+				},
+				success: function( response ) { 
+					console.log(response);
+					if( response['userdata']!="" && response['userdata'] != null){
+						var userdata = response['userdata'];
+						// console.log(userdata);
+					
+						if(userdata.hasOwnProperty('emailWork1') && userdata.emailWork1.length && userdata.emailWork1!=''){
+							$('.wpcf7-form input[name=your-email]').val(userdata.emailWork1);
+							$('.wpcf7-form input[name=your-email]').prop("readonly", true);
+							$('.wpcf7-form input[name=your-email]').css("opacity", 0.5);				
+							$('.wpcf7-form input[name=your-email]').parent().addClass('hide-alert');
+						}
+						if(userdata.hasOwnProperty('firstName') && userdata.firstName.length && userdata.firstName!=''){
+							$('.wpcf7-form input[type=text][name=first-name]').val(userdata.firstName);
+						
+						
+							$('.wpcf7-form input[type=text][name=your-name]').val(userdata.firstName + ' ' + userdata.lastName);
+						}
+						if(userdata.hasOwnProperty('lastName') && userdata.lastName.length && userdata.lastName!=''){
+							$('.wpcf7-form input[type=text][name=last-name]').val(userdata.lastName);
+						}
+						if(userdata.hasOwnProperty('phoneMobile') && userdata.phoneMobile.length && userdata.phoneMobile!='' ||
+						   userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!='' ||
+						   userdata.hasOwnProperty('phoneOther') && userdata.phoneOther.length && userdata.phoneOther!='' ){
+						
+							var phone = '';
+						
+							if( userdata.hasOwnProperty('phoneMobile') && userdata.phoneMobile.length && userdata.phoneMobile!='' ){
+								phone = userdata.phoneMobile;
+							}else if( userdata.hasOwnProperty('phoneOffice') && userdata.phoneOffice.length && userdata.phoneOffice!='' ){
+								phone = userdata.phoneOffice;
+							}else if( userdata.hasOwnProperty('phoneOther') && userdata.phoneOther.length && userdata.phoneOther!='' ){
+								phone = userdata.phoneOther;
+							}
+						   
+							$('.wpcf7-form input[type=tel][name=phone]').val(phone);
+							$('.wpcf7-form input[name=your-phone]').val(phone);
+						}
+						if(userdata.hasOwnProperty('primaryAddressCity') && userdata.primaryAddressCity.length && userdata.primaryAddressCity!=''){
+							$('.wpcf7-form input[type=text][name=city]').val(userdata.primaryAddressCity);
+						}
+						if(userdata.hasOwnProperty('primaryAddressState') && userdata.primaryAddressState.length && userdata.primaryAddressState!=''){
+							$('.wpcf7-form input[type=text][name=state]').val(userdata.primaryAddressState);
+						}
+						if(userdata.hasOwnProperty('primaryAddressPostalCode') && userdata.primaryAddressPostalCode.length && userdata.primaryAddressPostalCode!=''){
+							$('.wpcf7-form input[type=text][name=zipCode]').val(userdata.primaryAddressPostalCode);
+						}
+					}
+				
+					console.timeEnd('autopopulate');
+				},
+				error: function(){
+					console.timeEnd('autopopulate');
+				}
+			});
+		})
+	</script>
+<?php
+}
  
 // add_filter('wpcf7_form_elements', 'zipperagent_contact_us_form1');
 
