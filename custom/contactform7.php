@@ -801,7 +801,6 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			'atwns' => 'BOST',
 			'agrgspc' => $parking == 'Yes' ? 1 : 0,
 			'aptp' => $pet,
-			'note' => $note,
 		);
 		
 		$params=array(
@@ -810,6 +809,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			'email' => $email,
 			'phone' => $phone,	
 			'phoneType' => $phoneType,
+			'note' => $note,
 			'crit' => proces_crit($vars),
 		);
 		
