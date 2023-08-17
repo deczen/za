@@ -815,7 +815,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		
 		$contactIds=get_contact_id();
 		if($contactIds)
-			$params['cid'] = $contactIds;
+			$params['cid'] = implode(',',$contactIds);
 		
         $result = zipperagent_run_curl("/api/mls/saveRentalSearch", $params, 1, '', 1);
 		
