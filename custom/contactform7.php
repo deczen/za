@@ -339,9 +339,9 @@ function zipperagent_custom_script( $post ) {
 		$za_save_rental = get_post_meta( $post->id(), 'za_save_rental', true);
 	}
 
-	if( ! $za_save_rental) return;
+	if( ! $za_save_rental || !empty($_POST)) return;
 	
-	// echo "<pre>"; print_r($post); echo "</pre>";
+	// echo "<pre>"; print_r($_REQUEST); echo "</pre>";
 	?>
 	<script>
 		jQuery(document).ready(function($){
@@ -410,7 +410,7 @@ function zipperagent_custom_script( $post ) {
 			});
 		})
 	</script>
-<?php
+	<?php
 }
  
 // add_filter('wpcf7_form_elements', 'zipperagent_contact_us_form1');
