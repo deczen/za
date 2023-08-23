@@ -189,6 +189,8 @@
 	if(isset($rb['web']['hidelistsource']))  				$data['web']['hidelistsource'] = $rb['web']['hidelistsource'];
 	
 	if(isset($rb['mortgage']['default_interestrate']))		$data['mortgage']['default_interestrate'] = $rb['mortgage']['default_interestrate'];
+	if(isset($rb['mortgage']['15_year_rate']))				$data['mortgage']['15_year_rate'] = $rb['mortgage']['15_year_rate'];
+	if(isset($rb['mortgage']['5_1_arm_rate']))				$data['mortgage']['5_1_arm_rate'] = $rb['mortgage']['5_1_arm_rate'];
 	
 	
 	//convert zero text to 0

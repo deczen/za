@@ -8,5 +8,10 @@ if($default_taxes_ammount){
 	$args['default_taxes_ammount']=$default_taxes_ammount;
 }
 
+$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+
+if(isset($rb['mortgage']['default_interestrate']))
+	$args['default_interestrate'] = $rb['mortgage']['default_interestrate'];
+
 zipperagent_mortgage_calculator($args);
 ?>

@@ -2491,8 +2491,13 @@ var zppr={
 			
 			default_homeprice=(zppr.data.sold_status.indexOf(single_property.status)>-1?(single_property.hasOwnProperty('saleprice')?single_property.saleprice:single_property.listprice):single_property.listprice);
 			default_taxes_ammount=zppr.checkNested(single_property,'unmapped','PropertyTax')?single_property.unmapped.PropertyTax:'';
+			default_interestrate=zppr.checkNested(zppr.data.root,'mortgage','default_interestrate')?zppr.data.root.mortgage.default_interestrate:0;
 
 			args.default_homeprice=default_homeprice;
+			
+			if(default_interestrate){
+				args.default_interestrate = default_interestrate;
+			}
 
 			if(default_taxes_ammount){
 				args.default_taxes_ammount=default_taxes_ammount;
