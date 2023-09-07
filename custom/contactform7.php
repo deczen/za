@@ -346,8 +346,7 @@ function zipperagent_custom_script( $post ) {
 	<style>
 		.autocomplete-wrap{
 			border: 1px solid #ddd;
-		    /*min-height: 42px;*/
-		    height: auto;
+		    height: 42px;
 		    border-radius: 0 3px 3px 0;
 		}
 		.autocomplete-wrap .ms-ctn{
@@ -356,12 +355,49 @@ function zipperagent_custom_script( $post ) {
 		    padding-bottom: 7px;
 		    height: auto;
 		}
-		.autocomlete-wrap .ms-ctn .ms-sel-ctn input{
+		.autocomplete-wrap .ms-ctn .ms-sel-ctn input{
 			width: 1012px;
 		    padding: 0px;
 		    line-height: 1.8;
 		    box-shadow: none;
 		    border: 0px !important;
+		}
+		.autocomplete-wrap .ms-ctn .ms-sel-ctn input:focus{
+			outline: none;
+		}
+		.autocomplete-wrap .dropdown-menu{
+			position: absolute;
+			background: #fff;
+		    top: 100%;
+		    left: 0px;
+		    z-index: 1000;
+		    float: left;
+		    min-width: 160px;
+			max-width: unset !important;
+		    margin: 2px 0px 0px;
+		    list-style: none;
+		    font-size: 14px;
+		    background-color: rgb(255, 255, 255);
+		    border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+		    -webkit-box-shadow: inset 0 -2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+		    box-shadow: inset 0 -2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+		    border-radius: 2px;
+		    text-align: left;
+		    background-clip: padding-box;
+		    padding: 0px !important;
+		    width: 100% !important;
+			right: 0 !important;
+		}
+		.autocomplete-wrap .ms-inv{
+			border: 0 !important;
+		    padding: 0;
+		    line-height: 1.8;
+		    /* height: 40px !important; */
+		    box-shadow: none;
+		}
+		.autocomplete-wrap .ms-helper{
+			bottom:-24px;
 		}
 		.hidden{
 			display:none;
@@ -386,8 +422,7 @@ function zipperagent_custom_script( $post ) {
 			
 			var ms_town = $('input[name=town-autocomplete').magicSuggest({
 				
-				data: tenants ? tenants : towns,
-				// valueField: 'code',
+				data: towns,
 				valueField: 'code',
 				displayField: 'name',
 				hideTrigger: true,
