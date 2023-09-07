@@ -346,7 +346,8 @@ function zipperagent_custom_script( $post ) {
 	<style>
 		.autocomplete-wrap{
 			border: 1px solid #ddd;
-		    height: 42px;
+		    height: auto;
+		    min-height: 42px;
 		    border-radius: 0 3px 3px 0;
 		}
 		.autocomplete-wrap .ms-ctn{
@@ -427,7 +428,7 @@ function zipperagent_custom_script( $post ) {
 				displayField: 'name',
 				hideTrigger: true,
 				groupBy: 'group',
-				maxSelection: 1,
+				// maxSelection: 1,
 				allowFreeEntries: false,
 				minChars: 2,
 				renderer: function(data){
