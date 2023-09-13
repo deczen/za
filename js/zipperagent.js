@@ -3400,8 +3400,8 @@ var zppr={
 											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 										}
 										
-										var html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
-										// var html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
+										// var html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
+										var html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
 										html_print = zppr.list_print(requests, html_print);
 										
 										jQuery(targetElement).html( html );

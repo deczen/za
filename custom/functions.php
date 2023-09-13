@@ -5551,12 +5551,12 @@ if( ! function_exists('zipperagent_omnibar') ){
 			
 			// default is map view 
 			if( ! isset( $_REQUEST['view'] ) ) {
-				// $_REQUEST['view'] = 'map';
+				$_REQUEST['view'] = 'map';
 			}
 			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				// zipperagent_omnibar_flat($requests);
-				zipperagent_omnibar_new($requests);
+				zipperagent_omnibar_flat($requests);
+				// zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}
