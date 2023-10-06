@@ -898,7 +898,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		
 		// $note = "Rental Type : {$rentalType} , Move-In-Date(From) : {$dateStart}, Move-In-Date(To) {$dateEnd}: , Deal Breakers : {$breaker} , Wish List : {$wish} , near public transport : {$transport} , Transportation line : {$transportation} , Showing Times : {$showingTimes} , Income : {$income} , Occupation : {$jobTitle} , Credit Score : {$creditScore} , Broker Fee :{$brokerFee} , 1st Month's Rent :{$firstRent} , Security Deposit : {$security} , Last Month's Rent : {$lastRent} , Desired Areas/Neighborhoods : {$neighbor} , how many cars : {$car} Comments : {$message}";
 		
-		$note = "Rental Type : {$rentalType} , Deal Breakers : {$breaker} , Wish List : {$wish} , near public transport : {$transport} , Transportation line : {$transportation} , Showing Times : {$showingTimes} , Income : {$income} , Occupation : {$jobTitle} , Credit Score : {$creditScore} , Broker Fee :{$brokerFee} , 1st Month's Rent :{$firstRent} , Security Deposit : {$security} , Last Month's Rent : {$lastRent} , Desired Areas/Neighborhoods : {$neighbor} , how many cars : {$car} Comments : {$message} , Request showing date : {$request_showing_date} , Request showing time : {$request_showing_time} , Request showing message : {$request_showing_message}";
+		$note = "Rental Type : {$rentalType} , Deal Breakers : {$breaker} , Wish List : {$wish} , near public transport : {$transport} , Transportation line : {$transportation} , Showing Times : {$showingTimes} , Income : {$income} , Occupation : {$jobTitle} , Credit Score : {$creditScore} , Broker Fee :{$brokerFee} , 1st Month's Rent :{$firstRent} , Security Deposit : {$security} , Last Month's Rent : {$lastRent} , Desired Areas/Neighborhoods : {$neighbor} , how many cars : {$car} Comments : {$message} , Request showing date : {$request_showing_date} , Request showing time : {$request_showing_time} , Request showing message : {$request_showing_message}, Pet : {$pet}";
 		
 		$vars=array(
 			'asrc'=>$rb['web']['asrc'],
@@ -913,7 +913,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			'aavldtf' => $dateStart,
 			'aavldtt' => $dateEnd,
 			'agrgspc' => $parking == 'Yes' ? 1 : 0,
-			'aptp' => $pet,
+			// 'aptp' => $pet,
 		);
 		
 		if($max_parking_space && is_numeric($max_parking_space)){
