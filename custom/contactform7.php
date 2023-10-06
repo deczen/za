@@ -616,7 +616,7 @@ function zipperagent_save_contact_form($contact_form, $args, $context){
  
 add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_form', 2);
 add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_save', 2);
-add_action('wpcf7_mail_failed', 'zipperagent_cf7_submit_save_rental', 2);
+add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_save_rental', 2);
 // add_action('wpcf7_mail_failed', 'zipperagent_cf7_submit', 2);
 
 function zipperagent_cf7_submit_contact_form($contact_form, $cfresult=null){
@@ -943,10 +943,10 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		// $result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		
 		if($result){
-			echo 'result';
-			print_r($params);
-			print_r($result);
-			print_r($_POST);
+			// echo 'result';
+			// print_r($params);
+			// print_r($result);
+			// print_r($_POST);
 		}
 	}
 }
