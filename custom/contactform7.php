@@ -616,7 +616,7 @@ function zipperagent_save_contact_form($contact_form, $args, $context){
  
 add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_form', 2);
 add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_contact_save', 2);
-add_action('wpcf7_mail_sent', 'zipperagent_cf7_submit_save_rental', 2);
+add_action('wpcf7_mail_failed', 'zipperagent_cf7_submit_save_rental', 2);
 // add_action('wpcf7_mail_failed', 'zipperagent_cf7_submit', 2);
 
 function zipperagent_cf7_submit_contact_form($contact_form, $cfresult=null){
@@ -892,7 +892,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		$request_showing_date = $_REQUEST['request-showing-date'] ? sanitize_text_field( $_REQUEST['request-showing-date'] ) : '';
 		$request_showing_time = $_REQUEST['request-showing-time'] ? sanitize_text_field( $_REQUEST['request-showing-time'] ) : '';
 		$request_showing_message = $_REQUEST['request-showing-message'] ? sanitize_text_field( $_REQUEST['request-showing-message'] ) : '';
-		$town = $_REQUEST['town'] ? sanitize_text_field( $_REQUEST['town'] ) : '';
+		$towns = $_REQUEST['town'] ? sanitize_text_field( $_REQUEST['town'] ) : '';
 		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
@@ -919,8 +919,9 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		if($max_parking_space && is_numeric($max_parking_space)){
 			$vars['agrgspcmx'] = $max_parking_space;
 		}
-		if($town){
-			$vars['atwns'] = $town;
+		if($towns){
+		    $towns = str_replace('atwns_', '', $towns);
+			$vars['atwns'] = $towns;
 		}
 		
 		$params=array(
@@ -942,10 +943,10 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		// $result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		
 		if($result){
-			// echo 'result';
-			// print_r($params);
-			// print_r($result);
-			// print_r($_POST);
+			echo 'result';
+			print_r($params);
+			print_r($result);
+			print_r($_POST);
 		}
 	}
 }
