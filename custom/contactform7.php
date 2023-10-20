@@ -888,6 +888,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		$firstRent = $_REQUEST['first-rent'] ? sanitize_text_field( $_REQUEST['first-rent'] ) : '';
 		$security = $_REQUEST['security'] ? sanitize_text_field( $_REQUEST['security'] ) : '';
 		$lastRent = $_REQUEST['last-rent'] ? sanitize_text_field( $_REQUEST['last-rent'] ) : '';
+		$industry = $_REQUEST['industry'] ? sanitize_text_field( $_REQUEST['industry'] ) : '';
 		$message = $_REQUEST['your-message'] ? sanitize_text_field( $_REQUEST['your-message'] ) : '';
 		$request_showing_date = $_REQUEST['request-showing-date'] ? sanitize_text_field( $_REQUEST['request-showing-date'] ) : '';
 		$request_showing_time = $_REQUEST['request-showing-time'] ? sanitize_text_field( $_REQUEST['request-showing-time'] ) : '';
@@ -898,7 +899,52 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		
 		// $note = "Rental Type : {$rentalType} , Move-In-Date(From) : {$dateStart}, Move-In-Date(To) {$dateEnd}: , Deal Breakers : {$breaker} , Wish List : {$wish} , near public transport : {$transport} , Transportation line : {$transportation} , Showing Times : {$showingTimes} , Income : {$income} , Occupation : {$jobTitle} , Credit Score : {$creditScore} , Broker Fee :{$brokerFee} , 1st Month's Rent :{$firstRent} , Security Deposit : {$security} , Last Month's Rent : {$lastRent} , Desired Areas/Neighborhoods : {$neighbor} , how many cars : {$car} Comments : {$message}";
 		
-		$note = "Rental Type : {$rentalType} , Deal Breakers : {$breaker} , Wish List : {$wish} , near public transport : {$transport} , Transportation line : {$transportation} , Showing Times : {$showingTimes} , Income : {$income} , Occupation : {$jobTitle} , Credit Score : {$creditScore} , Broker Fee :{$brokerFee} , 1st Month's Rent :{$firstRent} , Security Deposit : {$security} , Last Month's Rent : {$lastRent} , Desired Areas/Neighborhoods : {$neighbor} , how many cars : {$car} Comments : {$message} , Request showing date : {$request_showing_date} , Request showing time : {$request_showing_time} , Request showing message : {$request_showing_message}, Pet : {$pet}";
+		$note_arr = array();
+		
+		if($rentalType)
+			$note_arr[] = "Rental Type: {$rentalType}";
+		if($breaker)
+			$note_arr[] = "Deal Breakers : {$breaker}";
+		if($wish)
+			$note_arr[] = "Wish List : {$wish}";
+		if($transport)
+			$note_arr[] = "near public transport : {$transport}";
+		if($transportation)
+			$note_arr[] = "Transportation line : {$transportation}";
+		if($showingTimes)
+			$note_arr[] = "Showing Times : {$showingTimes}";
+		if($income)
+			$note_arr[] = "Income : {$income}";
+		if($jobTitle)
+			$note_arr[] = "Occupation : {$jobTitle}";
+		if($creditScore)
+			$note_arr[] = "Credit Score : {$creditScore}";
+		if($brokerFee)
+			$note_arr[] = "Broker Fee :{$brokerFee}";
+		if($firstRent)
+			$note_arr[] = "1st Month's Rent :{$firstRent}";
+		if($security)
+			$note_arr[] = "Security Deposit : {$security}";
+		if($lastRent)
+			$note_arr[] = "Last Month's Rent : {$lastRent}";
+		if($neighbor)
+			$note_arr[] = "Desired Areas/Neighborhoods : {$neighbor}";
+		if($car)
+			$note_arr[] = "how many cars : {$car}";
+		if($message)
+			$note_arr[] = "Comments : {$message}";
+		if($request_showing_date)
+			$note_arr[] = "Request showing date : {$request_showing_date}";
+		if($request_showing_time)
+			$note_arr[] = "Request showing time : {$request_showing_time}";
+		if($request_showing_message)
+			$note_arr[] = "Request showing message : {$request_showing_message}";
+		if($pet)
+			$note_arr[] = "Pet : {$pet}";
+		if($parking)
+			$note_arr[] = "Max Parking Space: {$parking}";
+		if($industry)
+			$note_arr[] = "Industry: {$industry}";
 		
 		$vars=array(
 			'asrc'=>$rb['web']['asrc'],
@@ -912,7 +958,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			'atwns' => 'BOST',
 			'aavldtf' => $dateStart,
 			'aavldtt' => $dateEnd,
-			'agrgspc' => $parking == 'Yes' ? 1 : 0,
+			// 'agrgspc' => $parking == 'Yes' ? 1 : 0,
 			// 'aptp' => $pet,
 		);
 		
@@ -930,7 +976,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			'email' => $email,
 			'phone' => $phone,	
 			'phoneType' => $phoneType,
-			'note' => $note,
+			'note' => implode(', ', $note_arr),
 			'crit' => proces_crit($vars),
 		);
 		
@@ -938,7 +984,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		if($contactIds)
 			$params['cid'] = implode(',',$contactIds);
 		
-        $result = zipperagent_run_curl("/api/mls/saveRentalSearch", $params, 1, '', 1);
+        $result = zipperagent_run_curl("/api/mls/saveRentalSearch", array(), 1, $params, 1);
 		
 		// $result=isset($result->status) && $result->status=='SUCCESS'?$result->status:0;
 		
