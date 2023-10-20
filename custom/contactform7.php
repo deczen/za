@@ -876,7 +876,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		$wish = $_REQUEST['wish'] ? sanitize_text_field( $_REQUEST['wish'] ) : '';
 		$transport = $_REQUEST['transport'] ? sanitize_text_field( $_REQUEST['transport'] ) : '';
 		$transportation = $_REQUEST['Transportation'] ? sanitize_text_field( $_REQUEST['Transportation'] ) : '';
-		$parking = $_REQUEST['parking'] ? sanitize_text_field( $_REQUEST['parking'] ) : ''; 
+		$parking = $_REQUEST['parking'] ? sanitize_text_field( $_REQUEST['parking'] ) : '';
 		$max_parking_space = $_REQUEST['max-parking-space'] ? sanitize_text_field( $_REQUEST['max-parking-space'] ) : '';
 		$car = $_REQUEST['car'] ? sanitize_text_field( $_REQUEST['car'] ) : '';
 		$pet = $_REQUEST['pet'] ? sanitize_text_field( $_REQUEST['pet'] ) : '';
@@ -941,8 +941,8 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			$note_arr[] = "Request showing message : {$request_showing_message}";
 		if($pet)
 			$note_arr[] = "Pet : {$pet}";
-		if($parking)
-			$note_arr[] = "Max Parking Space: {$parking}";
+		if($parking_space)
+			$note_arr[] = "Max Parking Space: {$parking_space}";
 		if($industry)
 			$note_arr[] = "Industry: {$industry}";
 		
@@ -951,19 +951,31 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			// 'aloff'=>$rb['web']['aloff'],
 			// 'apt'=> implode( ',', array_map("trim",$rentalType) ),
 			'apt'=> 'RN',
-			'abeds' => (int)filter_var($bedroom, FILTER_SANITIZE_NUMBER_INT),
-			'abths'=>(int)filter_var($bath, FILTER_SANITIZE_NUMBER_INT),
-			'apmax' => za_correct_money_format($maxrent),
-			'apmin' => za_correct_money_format($minrent),
 			'atwns' => 'BOST',
-			'aavldtf' => $dateStart,
-			'aavldtt' => $dateEnd,
 			// 'agrgspc' => $parking == 'Yes' ? 1 : 0,
 			// 'aptp' => $pet,
 		);
 		
+		if($bedroom){
+			$vars['abeds'] = (int)filter_var($bedroom, FILTER_SANITIZE_NUMBER_INT);
+		}
+		if($bath){
+			$vars['abths'] = (int)filter_var($bath, FILTER_SANITIZE_NUMBER_INT);
+		}
+		if($maxrent){
+			$vars['apmax'] = za_correct_money_format($maxrent);
+		}
+		if($minrent){
+			$vars['apmin'] = za_correct_money_format($minrent);
+		}
+		if($dateStart){
+			$vars['aavldtf'] = $dateStart;
+		}
+		if($dateEnd){
+			$vars['aavldtt'] = $dateEnd;
+		}
 		if($max_parking_space && is_numeric($max_parking_space)){
-			$vars['agrgspcmx'] = $max_parking_space;
+			// $vars['agrgspcmx'] = $max_parking_space;
 		}
 		if($towns){
 		    $towns = str_replace('atwns_', '', $towns);
