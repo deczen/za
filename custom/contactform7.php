@@ -893,7 +893,7 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 		$request_showing_date = $_REQUEST['request-showing-date'] ? sanitize_text_field( $_REQUEST['request-showing-date'] ) : '';
 		$request_showing_time = $_REQUEST['request-showing-time'] ? sanitize_text_field( $_REQUEST['request-showing-time'] ) : '';
 		$request_showing_message = $_REQUEST['request-showing-message'] ? sanitize_text_field( $_REQUEST['request-showing-message'] ) : '';
-		$towns = $_REQUEST['town'] ? sanitize_text_field( $_REQUEST['town'] ) : '';
+		$towns = $_REQUEST['town-autocomplete'] ? $_REQUEST['town-autocomplete'] : '';
 		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		
@@ -941,8 +941,8 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			$note_arr[] = "Request showing message : {$request_showing_message}";
 		if($pet)
 			$note_arr[] = "Pet : {$pet}";
-		if($parking_space)
-			$note_arr[] = "Max Parking Space: {$parking_space}";
+		if($max_parking_space)
+			$note_arr[] = "Max Parking Space: {$max_parking_space}";
 		if($industry)
 			$note_arr[] = "Industry: {$industry}";
 		
@@ -978,8 +978,67 @@ function zipperagent_cf7_submit_save_rental($contact_form, $cfresult=null){
 			// $vars['agrgspcmx'] = $max_parking_space;
 		}
 		if($towns){
-		    $towns = str_replace('atwns_', '', $towns);
-			$vars['atwns'] = $towns;
+			// $towns = str_replace('atwns_', '', $towns);
+			// $vars['atwns'] = $towns;
+		}
+		
+		$location = $towns;
+		if( $location ){
+			
+			$location=!is_array($location)?array($location):$location;
+			$loc_country=array();
+			$loc_town=array();
+			$loc_area=array();
+			$loc_zipcode=array();
+			$loc_address=array();
+			$loc_hs=array();
+			$loc_ms=array();
+			$loc_gs=array();
+			$loc_sd=array();
+			$loc_ln=array();
+			
+			// $towns = get_town_list();
+			foreach( $location as $var ){
+				$temp = urldecode($var);
+				
+				if( substr($temp, 0, 6) == 'acnty_' ){
+					$loc_country[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'atwns_' ){
+					$loc_town[]=substr($temp, 6);
+				}else if( substr($temp, 0, 5) == 'aars_' ){
+					$loc_area[]=substr($temp, 5);
+				}else if( substr($temp, 0, 5) == 'azip_' ){
+					$loc_zipcode[]=substr($temp, 5);
+				}else if( substr($temp, 0, 9) == 'aflladdr_' ){
+					$loc_address[]=substr($temp, 9);
+				}else if( substr($temp, 0, 6) == 'hschl_' ){
+					$loc_hs[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'mschl_' ){
+					$loc_ms[]=substr($temp, 6);
+				}else if( substr($temp, 0, 6) == 'gschl_' ){
+					$loc_gs[]=substr($temp, 6);
+				}else if( substr($temp, 0, 7) == 'aschdt_' ){
+					$loc_sd[]=substr($temp, 7);
+				}else if( substr($temp, 0, 9) == 'alkchnnm_' ){
+					$loc_ln[]=substr($temp, 9);
+				}else{
+					$loc_zipcode[]=$temp;
+				}
+			}
+			
+			/* convert array to string */
+			if(sizeof($loc_country)) $vars['acnty']=implode(',',$loc_country);
+			if(sizeof($loc_town)) $vars['atwns']=implode(',',$loc_town);
+			if(sizeof($loc_area)) $vars['aars']=implode(',',$loc_area);
+			if(sizeof($loc_zipcode)) $vars['azip']=implode(',',$loc_zipcode);
+			if(sizeof($loc_address)) $vars['aflladdr']=implode(',',$loc_address);
+			if(sizeof($loc_hs)) $vars['hschl']=implode(',',$loc_hs);
+			if(sizeof($loc_ms)) $vars['mschl']=implode(',',$loc_ms);
+			if(sizeof($loc_gs)) $vars['gschl']=implode(',',$loc_gs);
+			if(sizeof($loc_sd)) $vars['aschdt']=implode(',',$loc_sd);
+			if(sizeof($loc_ln)) $vars['alkChnNm']=implode(',',$loc_ln);
+			
+			// die( $locqry );
 		}
 		
 		$params=array(
