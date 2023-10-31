@@ -31,7 +31,7 @@ var zppr={
 		display_buyerrebate_amount: zipperagent.display_buyerrebate_amount,
 		buyerrebate_amount_prefix: zipperagent.buyerrebate_amount_prefix,
 		emptybuyerrebate_amount_text: zipperagent.emptybuyerrebate_amount_text,
-		saved_favorites: zipperagent.saved_favorites,
+		saved_favorites: zipperagent.saved_favorites ? zipperagent.saved_favorites : [],
 		
 		/* single property */
 		company_name: zipperagent.company_name,
@@ -2503,11 +2503,13 @@ var zppr={
 				args.default_taxes_ammount=default_taxes_ammount;
 			}
 			
-			html +=				'<div class="row zy-widget">' +
-									'<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">' +
-										zppr.mortgage_calculator(args) +
-									'</div>' +
-								'</div>';
+			if(!zppr.generate_template(single_property).is_rental){
+				html +=				'<div class="row zy-widget">' +
+										'<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">' +
+											zppr.mortgage_calculator(args) +
+										'</div>' +
+									'</div>';
+			}
 		}
 													
 		if( agent.id ){
@@ -3400,8 +3402,12 @@ var zppr={
 											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
 										}
 										
-										// var html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
-										var html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
+										var html = '';
+										var new_template = zppr.data.root.layout.hasOwnProperty('new_template')?zppr.data.root.layout.new_template:0;
+										if(!new_template)
+											html = zppr.list_map_view_template(requests, html_grid, is_view_save_search);
+										else
+											html = zppr.list_map_view_template_new(requests, html_grid, html_list, html_table, is_view_save_search);
 										html_print = zppr.list_print(requests, html_print);
 										
 										jQuery(targetElement).html( html );
@@ -6189,6 +6195,8 @@ var zppr={
 		return check;
 	},
 	generate_template:function(single_property){
+		
+		var is_rental = false;
 				
 		property_type = single_property.hasOwnProperty('proptype')?single_property.proptype.toUpperCase():'';
 		property_subtype = single_property.hasOwnProperty('propsubtype')?single_property.propsubtype.toUpperCase():'';
@@ -6453,6 +6461,8 @@ var zppr={
 				template_print='rn-print-crm.php';
 				template_sidebar='rn-sidebar-crm.php';
 				template_vtlink='rn-vtlink-crm.php';
+				
+				is_rental = true;
 				break;
 			case "CC": //Condo		
 			case "CND": //Condo		
@@ -6547,6 +6557,7 @@ var zppr={
 			template_print: template_print,
 			template_sidebar: template_sidebar,
 			template_vtlink: template_vtlink,
+			is_rental: is_rental,
 		};
 	},
 	get_detail_template_filename:function(proptype){

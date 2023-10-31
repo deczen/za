@@ -5550,13 +5550,20 @@ if( ! function_exists('zipperagent_omnibar') ){
 		if(ZipperagentGlobalFunction()->zipperagent_detailpage_group()=='mlspin' || ZipperagentGlobalFunction()->is_zipperagent_new_detail_page()){
 			
 			// default is map view 
-			if( ! isset( $_REQUEST['view'] ) ) {
-				$_REQUEST['view'] = 'map';
+			$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+			$new_layout = isset($rb['layout']['new_template'])?$rb['layout']['new_template']:0;
+			
+			if( $new_layout ){
+				if( ! isset( $_REQUEST['view'] ) ) {
+					$_REQUEST['view'] = 'map';
+				}
 			}
 			
 			if( isset( $requests['view'] ) && $requests['view'] == 'map' ){
-				zipperagent_omnibar_flat($requests);
-				// zipperagent_omnibar_new($requests);
+				if( $new_layout )
+					zipperagent_omnibar_flat($requests);
+				else
+					zipperagent_omnibar_new($requests);
 			} else {
 				zipperagent_omnibar_new($requests);
 			}

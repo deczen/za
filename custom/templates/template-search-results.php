@@ -38,8 +38,12 @@ if(!isset($list['dataCount']) && $list){ //property exists
 	switch( $view ){
 		case "map":
 				ob_start();
-				// include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index.php";
-				include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index_new.php";
+				$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+				$new_layout = isset($rb['layout']['new_template'])?$rb['layout']['new_template']:0;
+				if(!$new_layout)
+					include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index.php";
+				else
+					include ZIPPERAGENTPATH . "/custom/templates/listing/template-view-map-index_new.php";
 				$html = ob_get_clean();
 			break;
 		case "photo":

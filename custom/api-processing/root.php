@@ -164,6 +164,7 @@
 	if(isset($rb['layout']['detailpage_layout_bu']))		$data['layout']['detailpage_layout_bu'] = $rb['layout']['detailpage_layout_bu'];
 	if(isset($rb['layout']['detailpage_group']))			$data['layout']['detailpage_group'] = $rb['layout']['detailpage_group'];
 	if(isset($rb['layout']['detailpage_direct']))			$data['layout']['detailpage_direct'] = $rb['layout']['detailpage_direct'];
+	if(isset($rb['layout']['new_template']))				$data['layout']['new_template'] = $rb['layout']['new_template'];
 	
 	if(isset($rb['google']['apikey']))  					$data['google']['apikey'] = $rb['google']['apikey'];
 	if(isset($rb['google']['adwords']['code']))				$data['google']['adwords']['code'] = $rb['google']['adwords']['code'];
