@@ -100,6 +100,12 @@
 			{if field="single_property.zoning"}
 			<li>Zoning: {{zoning}}</li>
 			{/if}
+			{if field="single_property.petsallowed"}
+			<li>Pets Allowed: {{petsallowed}}</li>
+			{/if}
+			{if field="single_property.petrestrictionsallow"}
+			<li>Pet Restrictions Allow: {{petrestrictionsallow}}</li>
+			{/if}
 			
 			{ygl}
 			

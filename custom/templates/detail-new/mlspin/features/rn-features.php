@@ -40,6 +40,12 @@
 			<?php if( isset($single_property->waterfront)): ?>
 			<li>Waterfront: [waterfront]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->petsallowed)): ?>
+			<li>Pets Allowed: [petsallowed]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->petrestrictionsallow)): ?>
+			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
+			<?php endif; ?>
 			
 			<?php if( za_is_ygl( $single_property ) ): ?>
 			

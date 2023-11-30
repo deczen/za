@@ -112,6 +112,12 @@
 			<?php if( isset($single_property->unmapped->{"Yrs Remain On Lease"})): ?>
 			<li>Yrs Remain On Lease: [unmapped_Yrs Remain On Lease]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->petsallowed)): ?>
+			<li>Pets Allowed: [petsallowed]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->petrestrictionsallow)): ?>
+			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
+			<?php endif; ?>
 			
 		</ul>
 	</li>

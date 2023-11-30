@@ -20,6 +20,12 @@
 			{if field="single_property.frontage"}
 			<li>Street Frontage: {{frontage}}</li>
 			{/if}
+			{if field="single_property.petsallowed"}
+			<li>Pets Allowed: {{petsallowed}}</li>
+			{/if}
+			{if field="single_property.petrestrictionsallow"}
+			<li>Pet Restrictions Allow: {{petrestrictionsallow}}</li>
+			{/if}
 			
 			{ygl}
 			

@@ -170,6 +170,13 @@
 			<?php endif; ?>
 			
 			<?php endif; ?>
+			
+			<?php if( isset($single_property->petsallowed)): ?>
+			<li>Pets Allowed: [petsallowed]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->petrestrictionsallow)): ?>
+			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
+			<?php endif; ?>
 		</ul>
 		<?php endif; ?>
 	</li>

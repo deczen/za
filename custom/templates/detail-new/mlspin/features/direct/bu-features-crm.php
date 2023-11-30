@@ -37,6 +37,12 @@
 			{if field="single_property.utilities"}
 			<li>Utilities: {{utilities}}</li>
 			{/if}
+			{if field="single_property.petsallowed"}
+			<li>Pets Allowed: {{petsallowed}}</li>
+			{/if}
+			{if field="single_property.petrestrictionsallow"}
+			<li>Pet Restrictions Allow: {{petrestrictionsallow}}</li>
+			{/if}
 			
 			{ygl}
 			

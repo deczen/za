@@ -79,7 +79,13 @@
 				<?php if( isset($single_property->unmapped->{'Neighborhood Amen'})): ?>
 				<li>Neighborhood Amen: [unmapped_Neighborhood Amen]</li>
 				<?php endif; ?>
-			
+				
+				<?php if( isset($single_property->petsallowed)): ?>
+				<li>Pets Allowed: [petsallowed]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->petrestrictionsallow)): ?>
+				<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
+				<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>

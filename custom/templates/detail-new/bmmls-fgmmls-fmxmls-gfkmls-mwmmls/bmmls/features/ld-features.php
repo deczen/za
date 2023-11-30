@@ -60,7 +60,13 @@
 				<?php if( isset($single_property->possession)): ?>
 				<li>Possession: [possession]</li>
 				<?php endif; ?>
-			
+				
+				<?php if( isset($single_property->petsallowed)): ?>
+				<li>Pets Allowed: [petsallowed]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->petrestrictionsallow)): ?>
+				<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
+				<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
