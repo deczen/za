@@ -55,9 +55,6 @@
 				{/if}				
 				{if field="single_property.parkingfeature"}
 				<li>Parking: {{parkingfeature}}</li>
-				{/if}			
-				{if field="single_property.petrestrictionsallow"}
-				<li>Pet: {{petrestrictionsallow}}</li>
 				{/if}		
 				{if field="single_property.reqdownassociation"}
 				<li>Fee Paid By Owner: {{reqdownassociation}}</li>

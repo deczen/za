@@ -80,9 +80,6 @@
 			<?php if( isset($single_property->leaseterms)): ?>
 			<li>Lease Term: [leaseterms]</li>
 			<?php endif; ?>	
-			<?php if( isset($single_property->petsallowed)): ?>
-			<li>Pets Allowed: [petsallowed]</li>
-			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->PropertyAttachedYN)): ?>
 			<li>Property Attached YN: [unmapped_PropertyAttachedYN]</li>
 			<?php endif; ?>	
@@ -100,10 +97,7 @@
 			<?php endif; ?>			
 			<?php if( isset($single_property->parkingfeature)): ?>
 			<li>Parking: [parkingfeature]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->petrestrictionsallow)): ?>
-			<li>Pet: [petrestrictionsallow]</li>
-			<?php endif; ?>			
+			<?php endif; ?>				
 			<?php if( isset($single_property->rentfeeincludes)): ?>
 			<li>Rent Includes: [rentfeeincludes]</li>
 			<?php endif; ?>			

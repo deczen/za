@@ -32,9 +32,6 @@
 			<?php if( isset($single_property->laundryfeatures)): ?>
 			<li>Laundry: [laundryfeatures]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->petsallowed)): ?>
-			<li>Pets Allowed: [petsallowed]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->unitlevel)): ?>
 			<li>Unit Level: [unitlevel]</li>
 			<?php endif; ?>

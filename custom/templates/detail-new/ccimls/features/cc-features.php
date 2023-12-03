@@ -62,9 +62,6 @@
 				<?php if( isset($single_property->unmapped->{'Other Assessments'})): ?>
 				<li>Other Assessments: [unmapped_Other Assessments]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->propsubtype)): ?>
 				<li>Property Sub Type: [propsubtype]</li>
 				<?php endif; ?>

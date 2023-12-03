@@ -131,9 +131,6 @@
 				<?php if( isset($single_property->unmapped->CompensationPaid)): ?>
 				<li>Compensation Paid: [unmapped_CompensationPaid]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->leasetype)): ?>
 				<li>Lease type: [leasetype]</li>
 				<?php endif; ?>

@@ -47,10 +47,7 @@
 				{/if}				
 				{if field="single_property.parkingfeature"}
 				<li>Parking: {{parkingfeature}}</li>
-				{/if}			
-				{if field="single_property.petrestrictionsallow"}
-				<li>Pet: {{petrestrictionsallow}}</li>
-				{/if}			
+				{/if}					
 				{if field="single_property.rentfeeincludes"}
 				<li>Rent Includes: {{rentfeeincludes}}</li>
 				{/if}			

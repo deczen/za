@@ -38,9 +38,6 @@
 				<?php if( isset($single_property->beachmilesto)): ?>
 				<li>Miles From Beach: [beachmilesto]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->propsubtype)): ?>
 				<li>Property Sub Type: [propsubtype]</li>
 				<?php endif; ?>

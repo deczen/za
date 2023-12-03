@@ -114,9 +114,6 @@
 				<?php if( isset($single_property->zoning)): ?>
 				<li>Zoning: [zoning]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->Windows)): ?>
 				<li>Windows: [unmapped_Windows]</li>
 				<?php endif; ?>

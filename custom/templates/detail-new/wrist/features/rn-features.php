@@ -147,9 +147,6 @@
 			<?php if( isset($single_property->petrestrictionsallow)): ?>
 			<li>Pet Restrictions: [petrestrictionsallow]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->petsallowed)): ?>
-			<li>Pets Allowed: [petsallowed]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->unitplacement)): ?>
 			<li>Property Description: [unitplacement]</li>
 			<?php endif; ?>

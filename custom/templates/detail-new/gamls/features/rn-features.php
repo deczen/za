@@ -34,9 +34,6 @@
 			<?php if( isset($single_property->laundryfeatures)): ?>
 			<li>Laundry: [laundryfeatures]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->petsallowed)): ?>
-			<li>Pets Allowed: [petsallowed]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->unitlevel)): ?>
 			<li>Unit Level: [unitlevel]</li>
 			<?php endif; ?>
@@ -51,10 +48,7 @@
 			
 			<?php if( isset($single_property->rentprice)): ?>
 			<li>Rent Amount: [rentprice]</li>
-			<?php endif; ?>				
-			<?php if( isset($single_property->petrestrictionsallow)): ?>
-			<li>Pet: [petrestrictionsallow]</li>
-			<?php endif; ?>		
+			<?php endif; ?>
 			<?php if( isset($single_property->reqdownassociation)): ?>
 			<li>Fee Paid By Owner: [reqdownassociation]</li>
 			<?php endif; ?>

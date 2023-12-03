@@ -140,10 +140,7 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unitlevel)): ?>
 				<li>Unit Level: [unitlevel]</li>
-				<?php endif; ?>		
-				<?php if( isset($single_property->petrestrictionsallow)): ?>
-				<li>Pet: [petrestrictionsallow]</li>
-				<?php endif; ?>			
+				<?php endif; ?>				
 				<?php if( isset($single_property->rentfeeincludes)): ?>
 				<li>Rent Includes: [rentfeeincludes]</li>
 				<?php endif; ?>			

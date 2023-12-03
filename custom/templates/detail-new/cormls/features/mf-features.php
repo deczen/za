@@ -97,9 +97,6 @@
 				<?php if( isset($single_property->zoning)): ?>
 				<li>Zoning: [zoning]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Lot Size (Front)'})): ?>
 				<li>Lot Size Frontage: [unmapped_Lot Size (Front)]</li>
 				<?php endif; ?>

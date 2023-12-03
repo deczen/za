@@ -114,9 +114,6 @@
 				{/if}
 				{if field="single_property.unitlevel"}
 				<li>Unit Level: {{unitlevel}}</li>
-				{/if}		
-				{if field="single_property.petrestrictionsallow"}
-				<li>Pet: {{petrestrictionsallow}}</li>
 				{/if}			
 				{if field="single_property.rentfeeincludes"}
 				<li>Rent Includes: {{rentfeeincludes}}</li>

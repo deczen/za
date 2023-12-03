@@ -126,9 +126,6 @@
 				<?php if( isset($single_property->secdeposit)): ?>
 				<li>Sec Deposit: [secdeposit]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->termsfeature)): ?>
 				<li>Terms Feature: [termsfeature]</li>
 				<?php endif; ?>

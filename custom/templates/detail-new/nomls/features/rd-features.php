@@ -94,9 +94,6 @@
 				<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
 				<li>Special Listing Conditions: [unmapped_SpecialListingConditions]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->StoriesTotal)): ?>
 				<li>Storiestotal: [unmapped_StoriesTotal]</li>
 				<?php endif; ?>

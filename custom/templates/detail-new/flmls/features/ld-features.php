@@ -123,9 +123,6 @@
 				<?php if( isset($single_property->leasepriceincludes)): ?>
 				<li>Lease Price Includes: [leasepriceincludes]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->petsallowed)): ?>
-				<li>Pets Allowed: [petsallowed]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->lotdescription)): ?>
 				<li>Lot Description: [lotdescription]</li>
 				<?php endif; ?>

@@ -46,10 +46,7 @@
 			<?php endif; ?>			
 			<?php if( isset($single_property->parkingfeature)): ?>
 			<li>Parking: [parkingfeature]</li>
-			<?php endif; ?>			
-			<?php if( isset($single_property->petrestrictionsallow)): ?>
-			<li>Pet: [petrestrictionsallow]</li>
-			<?php endif; ?>			
+			<?php endif; ?>	
 			<?php if( isset($single_property->rentfeeincludes)): ?>
 			<li>Rent Includes: [rentfeeincludes]</li>
 			<?php endif; ?>			
@@ -106,9 +103,6 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->MLSAreaMinor)): ?>
 			<li>Geographic Area: [unmapped_MLSAreaMinor]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->petsallowed)): ?>
-			<li>Pet Allowed: [petsallowed]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->lotsize)): ?>
 			<li>Property Sq Ft: [lotsize]</li>
