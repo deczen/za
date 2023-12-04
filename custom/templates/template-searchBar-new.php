@@ -987,7 +987,10 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							newLabel = '';	
 							break;
 						case "alkchnnm": //disable label text
-							newLabel = '';	
+							newLabel = '';
+							break;
+						case "alsoff": //disable label text
+							newLabel = '';		
 							break;
 						<?php
 						$fields = get_references_field('LAKECHAINNAME');

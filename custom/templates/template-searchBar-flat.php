@@ -1040,6 +1040,9 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							case "alkchnnm": //disable label text
 								newLabel = '';	
 								break;
+							case "alsoff": //disable label text
+								newLabel = '';	
+								break;
 							<?php
 							$fields = get_references_field('LAKECHAINNAME');
 							foreach($fields as $field){
