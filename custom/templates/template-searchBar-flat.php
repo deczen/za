@@ -1028,6 +1028,14 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							case "boundarywkt":
 								newLabel = 'Map Coords';	
 								break;
+							case "aptp":
+								let arr = value.split(',');
+								if(arr.includes('Y') || arr.includes('U')){
+									newLabel = 'Pets Allowed';	
+								}else if(arr.includes('N')){
+									newLabel = 'Pets Not Allowed';	
+								}
+								break;
 							case "awvf": //disable label text
 								newLabel = '';	
 								break;

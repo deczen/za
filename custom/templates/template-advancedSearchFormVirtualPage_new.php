@@ -531,6 +531,10 @@ $direct = isset($requests['direct'])&&$requests['direct']?$requests['direct']:0;
 								<label class="field-label zpa-with-image-label">
 									<input id="zpa-with-image" name="awtrf" type="checkbox" value="1"> Waterfront Flag </label>
 							</div>
+							<div class="checkbox">
+								<label class="field-label zpa-with-image-label">
+									<input id="zpa-with-image" name="aptp" type="checkbox" value="Y,U"> Pets Allowed </label>
+							</div>
 							<div class="clearfix"></div>
 							<?php /*
 							<div class="checkbox">

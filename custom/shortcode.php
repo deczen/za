@@ -479,6 +479,12 @@ class Zipperagent_Shortcodes{
 		
 		$args=array();
 		
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+
+		if(isset($rb['mortgage']['default_interestrate']))
+			$args['default_interestrate'] = $rb['mortgage']['default_interestrate'];
+		
+		
 		if(!empty($atts['home_price']))					$args['default_homeprice'] = $requests['home_price'];
 		if(!empty($atts['down_payment_percentage']))	$args['default_downpayment_percent'] = $requests['down_payment_percentage'];
 		if(!empty($atts['interest_rate_percentage']))	$args['default_interestrate'] = $requests['interest_rate_percentage'];
@@ -496,7 +502,7 @@ class Zipperagent_Shortcodes{
 			echo '</div></div></div>';
 			
 		}else{	
-			include ZIPPERAGENTPATH . "/custom/templates/template-shortcode-mortgage.php";
+			include ZIPPERAGENTPATH . "/custom/templates/template-shortcode-mortgage-new.php";
 		}
 		$html=ob_get_clean();
 		

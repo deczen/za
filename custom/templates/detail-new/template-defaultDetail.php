@@ -15,6 +15,8 @@ $is_custom_template=0;
 $property_type = isset($single_property->proptype)?strtoupper($single_property->proptype):'';
 $property_subtype = isset($single_property->propsubtype)?strtoupper($single_property->propsubtype):'';
 
+$is_rental = 0;
+
 if(isset($_GET['custom_proptype'])){
 	$property_type = $_GET['custom_proptype'];
 }
@@ -302,6 +304,8 @@ switch($property_type){
 		$template_print='rn-print.php';
 		$template_sidebar='rn-sidebar.php';
 		$template_vtlink='rn-vtlink.php';
+		
+		$is_rental = 1;
 		break;
 	case "CC": //Condo		
 	case "CND": //Condo		
@@ -1274,11 +1278,13 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 				</div>
 				<?php endif; ?>
 				
+				<?php if(! $is_rental): ?>
 				<div class="row zy-widget">
 					<div id="zy_mortgage-calculator" class="col-xs-12 col-md-12 col-lg-8 hideonprint">
 						<?php include ZIPPERAGENTPATH . '/custom/templates/detail-new/template-mortgage-calculator.php'; ?>
 					</div>
 				</div>
+				<?php endif; ?>
 				
 				<?php if( $agent ): ?>
 				<div class="row zy-widget">
