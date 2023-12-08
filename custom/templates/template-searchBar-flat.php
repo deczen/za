@@ -545,6 +545,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 											<div class="row">
 												<div class="col-sm-6">
 													<h3>Popular Features</h3>
+													<label for="pets-allowed"><input id="pets-allowed" type="checkbox" name="aptp" value="Y,U" /> Pets Allowed</label>&nbsp;
 													<label for="has-photos"><input id="has-photos" type="checkbox" name="withimage" value="true" /> Has Photos</label>&nbsp;
 													<label for="zpa-open-homes-only"><input id="zpa-open-homes-only" type="checkbox" name="openhomesonlyyn" value="true" /> Open House</label>
 												</div>
