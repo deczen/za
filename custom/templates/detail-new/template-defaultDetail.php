@@ -231,6 +231,7 @@ switch($property_type){
 	case "House (Detached)": //House (Detached)
 	case "House (Attached)": //House (Attached)
 	case "House w/Accessory": //House w/Accessory
+	case "Single-Family Home": //Single-Family Home
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -253,6 +254,7 @@ switch($property_type){
 	case "Multi-Unit": //Multi-Unit
 	case "Multi-Unit (2-4)": //Multi-Unit (2-4)
 	case "Multi-Unit (5+)": //Multi-Unit (5+)
+	case "Multi Family": //Multi Family
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -263,6 +265,7 @@ switch($property_type){
 	case "MOBILEHOMES": //Mobile Home	
 	case "MOB": //Mobile Home	
 	case "MOBILE/FLOATING HOME": //Mobile Home	
+	case "Manufactured Home": //Manufactured Home
 		$template_name=get_detail_template_filename('mh')?get_detail_template_filename('mh'):'';
 		$template_features='mh-features.php';
 		$template_print='mh-print.php';
@@ -282,6 +285,7 @@ switch($property_type){
 	case "Land": //Land	
 	case "LOTS": //Farm	without house
 	case "Vacant Land": //Vacant Land
+	case "Land & Lots": //Land & Lots
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -299,6 +303,7 @@ switch($property_type){
 	case "RESIDENTIALINCOME": //Rental	
 	case "Residential Income": //Residential Income
 	case "Residential Rental": //Residential Rental
+	case "Rentals": //Rentals
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -320,6 +325,7 @@ switch($property_type){
 	case "Commercial Lease": //Commercial Lease
 	case "Condo": //Condo
 	case "Coop": //Coop
+	case "Condos":
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';

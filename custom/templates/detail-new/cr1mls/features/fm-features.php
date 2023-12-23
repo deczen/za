@@ -128,23 +128,8 @@
 			<?php if( isset($single_property->reqdownassociation)): ?>
 			<li>Association YN: [reqdownassociation]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
-			<li>Attached Garage YN: [unmapped_AttachedGarageYN]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->FrontageLength)): ?>
-			<li>Frontage Length: [unmapped_FrontageLength]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->lotdescription)): ?>
-			<li>Lot Features: [lotdescription]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->landdesc)): ?>
-			<li>Topography: [landdesc]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->MainLevelBathrooms)): ?>
-			<li>Main Level Bathrooms: [unmapped_MainLevelBathrooms]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
-			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+			<?php if( isset($single_property->utilities)): ?>
+			<li>Utilities: [utilities]</li>
 			<?php endif; ?>
 		</ul>
 	</li>						
@@ -168,9 +153,6 @@
 			<?php if( isset($single_property->asscpool)): ?>
 			<li>Asscpool: [asscpool]</li>
 			<?php endif; ?>		
-			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>Association YN: [reqdownassociation]</li>
-			<?php endif; ?>	
 		</ul>
 	<?php endif; ?>
 	
@@ -209,11 +191,7 @@
 			<?php endif; ?>	
 			<?php if( isset($single_property->unmapped->TrashExpense)): ?>
 			<li>Trash Expense: [unmapped_TrashExpense]</li>
-			<?php endif; ?>		
-
-			<?php if( isset($single_property->utilities)): ?>
-			<li>Utilities: [utilities]</li>
-			<?php endif; ?>	
+			<?php endif; ?>			
 		</ul>
 	<?php endif; ?>
 	
