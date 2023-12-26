@@ -176,9 +176,6 @@
 			<?php if( isset($single_property->fireplaces)): ?>
 			<li>Fireplaces Total: [fireplaces]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->BelowGradeFinishedArea)): ?>
-			<li>Below Grade Finished Area: [unmapped_BelowGradeFinishedArea]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->termsfeature)): ?>
 			<li>Community Features: [termsfeature]</li>
 			<?php endif; ?>
