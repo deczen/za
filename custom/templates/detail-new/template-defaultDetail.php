@@ -232,6 +232,7 @@ switch($property_type){
 	case "House (Attached)": //House (Attached)
 	case "House w/Accessory": //House w/Accessory
 	case "Single-Family Home": //Single-Family Home
+	case "SingleFamilyResidence": //Single Family
 		$template_name=get_detail_template_filename('sf')?get_detail_template_filename('sf'):'';
 		$template_features='sf-features.php';
 		$template_print='sf-print.php';
@@ -255,6 +256,7 @@ switch($property_type){
 	case "Multi-Unit (2-4)": //Multi-Unit (2-4)
 	case "Multi-Unit (5+)": //Multi-Unit (5+)
 	case "Multi Family": //Multi Family
+	case "ResidentialIncome":
 		$template_name=get_detail_template_filename('mf')?get_detail_template_filename('mf'):'';
 		$template_features='mf-features.php';
 		$template_print='mf-print.php';
@@ -326,6 +328,8 @@ switch($property_type){
 	case "Condo": //Condo
 	case "Coop": //Coop
 	case "Condos":
+	case "Condominium": //Condominium
+	case "CommercialLease":
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
@@ -346,6 +350,7 @@ switch($property_type){
 	case "COMMERCIAL_SALE": //Commercial	
 	case "COMMERCIAL SALE": //Commercial Sale	
 	case "Commercial Sale": //Commercial Sale
+	case "CommercialSale":
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
 		$template_print='ci-print.php';

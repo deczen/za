@@ -205,26 +205,6 @@
 			
 		</ul>
 		<?php endif; ?>
-		
-		<?php if( isset($single_property->reqdownassociation) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->AssociationFee2Frequency) || isset($single_property->unmapped->AssociationFee2) ):?>
-		<h3 class="zy-feature-title">Association Information</h3>
-		<ul class="zy-sub-list">
-			
-			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>Association YN: [reqdownassociation]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->asscfeeincludes)): ?>
-			<li>Association Fee Includes: [asscfeeincludes]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->AssociationFee2Frequency)): ?>
-			<li>Association Fee2: [unmapped_AssociationFee2Frequency]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->AssociationFee2)): ?>
-			<li>Association Fee2 Frequency: [unmapped_AssociationFee2]</li>
-			<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
 	</li>
 
 	<li class="cell">

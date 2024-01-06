@@ -179,6 +179,9 @@
 			<?php if( isset($single_property->termsfeature)): ?>
 			<li>Community Features: [termsfeature]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->exteriorfeatures)): ?>
+			<li>Exterior Features: [exteriorfeatures]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>

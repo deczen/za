@@ -125,15 +125,6 @@
 			<?php if( isset($single_property->construction)): ?>
 			<li>Construction: [construction]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->Levels)): ?>
-			<li>Levels: [unmapped_Levels]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->parkingfeature)): ?>
-			<li>Parking Features: [parkingfeature]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->roofmaterial)): ?>
-			<li>Roof: [roofmaterial]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->waterfrontflag)): ?>
 			<li>Waterfront YN: [waterfrontflag]</li>
 			<?php endif; ?>

@@ -342,7 +342,7 @@ function initialize() {
 
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(drawControlDiv);
 
-	<? if( isset($requests['boundarywkt']) ): ?>
+	<?php if( isset($requests['boundarywkt']) ): ?>
 	// Create the DIV to hold the control.
 	const clearMapDiv = document.createElement('div');
 	// Create the control.
