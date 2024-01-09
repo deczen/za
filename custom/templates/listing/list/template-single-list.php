@@ -22,7 +22,7 @@ if( $rnhidestreetno && isset($property->proptype) && $property->proptype=="RN" )
 							<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>								
 							<div style="background-image: url('<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=500&h=300&n={$index}"; ?>');" class="item <?php if($index==0) echo "active"; ?> zpa-results-grid-photo" ><a class="property_url" href="<?php echo $single_url ?>"></a></div>
 							<?php else: ?>
-							<div style="background-image: url('<?php echo $pic->imgurl ? str_replace('http://','//',$pic->imgurl) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>');" class="item <?php if($index==0) echo "active"; ?> zpa-results-grid-photo" ><a class="property_url" href="<?php echo $single_url ?>"></a></div>
+							<div style="background-image: url('<?php echo $pic->imgurl ? str_replace('http://','//',urlencode($pic->imgurl)) : ZIPPERAGENTURL . "images/no-photo.jpg"; ?>');" class="item <?php if($index==0) echo "active"; ?> zpa-results-grid-photo" ><a class="property_url" href="<?php echo $single_url ?>"></a></div>
 							<?php endif; ?>
 						<?php 
 						$index++;
