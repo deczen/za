@@ -56,7 +56,7 @@ $query_args=array();
 										<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
 										<div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=500&h=300&n={$i}" ?>"> </span> </div>
 										<?php else: ?>
-										<div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo urlencode($pic->imgurl); ?>"> </span> </div>
+										<div class="item <?php if($i==0) echo "active"; ?>"> <span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo $pic->imgurl; ?>"> </span> </div>
 										<?php endif; ?>
 									<?php 
 									$i++;
@@ -83,7 +83,7 @@ $query_args=array();
 											<?php if( strpos($pic->imgurl, 'mlspin.com') !== false ): ?>
 											<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo "//media.mlspin.com/photo.aspx?mls={$property->listno}&w=100&h=100&n={$i}" ?>"> </span></div>
 											<?php else: ?>
-											<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo urlencode($pic->imgurl); ?>"> </span></div>
+											<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="<?php echo str_replace(' ', '%20', $pic->imgurl ); ?>"> </span></div>
 											<?php endif; ?>
 										<?php 
 										$i++;

@@ -1825,7 +1825,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') > -1){
 					html += 								'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'\')" class="owl-slide"><img class="" src="//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'" /></div>';
 				}else{
-					html += 								'<div style="background-image: url(\''+ encodeURI(pic.imgurl) +'\')" class="owl-slide"><img class="" src="'+ encodeURI(pic.imgurl) +'" /></div>';
+					html += 								'<div style="background-image: url(\''+ pic.imgurl.replaceAll(' ', '%20') +'\')" class="owl-slide"><img class="" src="'+ pic.imgurl.replaceAll(' ', '%20') +'" /></div>';
 				}		
 				i++;
 			}
@@ -1844,7 +1844,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') > -1){
 					html +=									'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=150&h=150&n='+ i +'\')" class="item"></div>';
 				}else{
-					html +=									'<div style="background-image: url(\''+ encodeURI(pic.imgurl) +'\')" class="item"></div>';
+					html +=									'<div style="background-image: url(\''+ pic.imgurl.replaceAll(' ', '%20') +'\')" class="item"></div>';
 				}
 				i++;
 			}
@@ -2672,7 +2672,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') > -1){
 					html += 								'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'\')" class="owl-slide"><img class="" src="//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=1600&h=1024&n='+ i +'" /></div>';
 				}else{
-					html += 								'<div style="background-image: url(\''+ encodeURI(pic.imgurl) +'\')" class="owl-slide"><img class="" src="'+ encodeURI(pic.imgurl) +'" /></div>';
+					html += 								'<div style="background-image: url(\''+ pic.imgurl.replaceAll(' ', '%20') +'\')" class="owl-slide"><img class="" src="'+ pic.imgurl.replaceAll(' ', '%20') +'" /></div>';
 				}		
 				i++;
 			}
@@ -2691,7 +2691,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') > -1){
 					html +=									'<div style="background-image: url(\'//media.mlspin.com/photo.aspx?mls='+ single_property.listno +'&w=150&h=150&n='+ i +'\')" class="item"></div>';
 				}else{
-					html +=									'<div style="background-image: url(\''+ encodeURI(pic.imgurl) +'\')" class="item"></div>';
+					html +=									'<div style="background-image: url(\''+ pic.imgurl.replaceAll(' ', '%20') +'\')" class="item"></div>';
 				}
 				i++;
 			}
@@ -4566,7 +4566,7 @@ var zppr={
 				if( pic.imgurl.includes('mlspin.com') ){								
 					html +=				'<div style="background-image: url("//media.mlspin.com/photo.aspx?mls='+ property.listno + '&w=500&h=300&n='+ index +'");" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
 				} else {
-					html +=				'<div style="background-image: url('+ (pic.imgurl ? encodeURI(pic.imgurl).replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+					html +=				'<div style="background-image: url('+ (pic.imgurl ? pic.imgurl.replaceAll(' ', '%20').replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
 				} 
 				index++;
 			}
@@ -4802,7 +4802,7 @@ var zppr={
 				if( pic.imgurl.includes('mlspin.com') ){								
 					html +=				'<div style="background-image: url("//media.mlspin.com/photo.aspx?mls='+ property.listno + '&w=500&h=300&n='+ index +'");" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
 				} else {
-					html +=				'<div style="background-image: url('+ (pic.imgurl ? encodeURI(pic.imgurl).replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+					html +=				'<div style="background-image: url('+ (pic.imgurl ? pic.imgurl.replaceAll(' ', '%20').replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
 				} 
 				index++;
 			}
@@ -5238,7 +5238,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
 					html +=							'<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="//media.mlspin.com/photo.aspx?mls='+ property.listno +'&w=100&h=100&n='+ i +'"> </span></div>';
 				}else{
-					html +=							'<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="'+ encodeURI(pic.imgurl) +'"> </span></div>';
+					html +=							'<div class="item"><span class="zpa-center"> <img class="media-object zpa-center" alt="" src="'+ pic.imgurl.replaceAll(' ', '%20') +'"> </span></div>';
 				}
 			i++;
 			}
@@ -6913,7 +6913,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
 					img.push("//media.mlspin.com/photo.aspx?mls="+ single_property.listno +"&w=744&h=419&n="+ i +"");
 				}else{
-					img.push(encodeURI(pic.imgurl));
+					img.push(pic.imgurl.replaceAll(' ', '%20'));
 				}
 				i++;
 			}
@@ -7009,7 +7009,7 @@ var zppr={
 				if( pic.imgurl.indexOf('mlspin.com') !== -1 ){
 					image_urls.push("//media.mlspin.com/photo.aspx?mls="+ single_property.listno +"&w=1600&h=1024&n="+ i +"");
 				}else{
-					image_urls.push(encodeURI(pic.imgurl));
+					image_urls.push(pic.imgurl.replaceAll(' ', '%20'));
 				}
 				i++;
 			}
