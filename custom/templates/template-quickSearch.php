@@ -135,9 +135,23 @@ $maxListPrice		= $requests['maxlistprice'];
 			<input type="hidden" name="newsearchbar" value="<?php echo $requests['newsearchbar']; ?>" />
 			<?php endif; ?>
 			
-			<?php if($requests['direct']): ?>
-			<input type="hidden" name="direct" value="<?php echo $requests['direct']; ?>" />
-			<?php endif; ?>
+			<?php if($requests['propertytype']): ?>
+				<?php 
+				$proptypes = explode( ',', $requests['propertytype'] );
+				foreach($proptypes as $proptype):
+				?>
+				<input type="hidden" name="propertytype[]" value="<?php echo $proptype; ?>" />
+				<?php 
+				endforeach;
+			endif; ?>
+			
+			<?php
+			foreach($requests as $key=>$val){
+				if( ! in_array($key, array('o','column','direct','propertytype')) ){
+					echo "<input type=\"hidden\" name=\"{$key}\" value=\"{$val}\" />"."\r\n";
+				}
+			}
+			?>
         </form>
     </div>
 	
