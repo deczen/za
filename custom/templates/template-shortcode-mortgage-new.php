@@ -8,7 +8,12 @@ if(!$default_taxes_ammount){
 	$default_taxes=$default_taxes_ammount;
 	$default_taxes_percent=$default_taxes * 100 / $default_homeprice;
 }
-$default_mortgage_insurance=($default_homeprice/12) * $default_mortgage_insurance_percent / 100;
+
+$price_downpayment_montly = ( $default_homeprice * $default_downpayment_percent / 100 ) / 12;
+
+// $default_mortgage_insurance=($default_homeprice/12) * $default_mortgage_insurance_percent / 100;
+$default_mortgage_insurance = ($default_homeprice / 12 * $default_mortgage_insurance_percent / 100) - ($price_downpayment_montly * $default_mortgage_insurance_percent / 100);
+$default_mortgage_insurance = $default_mortgage_insurance < 0 ? 0 : $default_mortgage_insurance;
 $default_homeowners_insurance=($default_homeprice/12) * $default_homeowners_insurance_percent / 100;
 
 $formatted_homeprice = zipperagent_currency() . round($default_homeprice, 2);

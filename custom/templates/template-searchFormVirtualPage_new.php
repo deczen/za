@@ -572,17 +572,27 @@ global $requests;
                 </div>
             </fieldset>
 			
-			<?php if(isset($requests['column'])): ?>
+			<?php if($requests['column']): ?>
 			<input type="hidden" name="column" value="<?php echo $requests['column']; ?>" />
 			<?php endif; ?>
 			
-			<?php if(isset($requests['newsearchbar'])): ?>
+			<?php if($requests['newsearchbar']): ?>
 			<input type="hidden" name="newsearchbar" value="<?php echo $requests['newsearchbar']; ?>" />
 			<?php endif; ?>
 			
 			<?php if($requests['direct']): ?>
 			<input type="hidden" name="direct" value="<?php echo $requests['direct']; ?>" />
 			<?php endif; ?>
+			
+			<?php if($requests['propertytype']): ?>
+				<?php 
+				$proptypes = explode( ',', $requests['propertytype'] );
+				foreach($proptypes as $proptype):
+				?>
+				<input type="hidden" name="propertytype[]" value="<?php echo $proptype; ?>" />
+				<?php 
+				endforeach;
+			endif; ?>
         </form>
     </div>
 	

@@ -135,9 +135,19 @@ $direct = isset($requests['direct'])&&$requests['direct']?$requests['direct']:0;
 			<input type="hidden" name="direct" value="<?php echo $requests['direct']; ?>" />
 			<?php endif; ?>
 			
+			<?php if($requests['propertytype']): ?>
+				<?php 
+				$proptypes = explode( ',', $requests['propertytype'] );
+				foreach($proptypes as $proptype):
+				?>
+				<input type="hidden" name="propertytype[]" value="<?php echo $proptype; ?>" />
+				<?php 
+				endforeach;
+			endif; ?>
+			
 			<?php
 			foreach($requests as $key=>$val){
-				if( ! in_array($key, array('o','column','direct')) ){
+				if( ! in_array($key, array('o','column','direct','propertytype','location_option')) ){
 					echo "<input type=\"hidden\" name=\"{$key}\" value=\"{$val}\" />"."\r\n";
 				}
 			}
