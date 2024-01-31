@@ -11,9 +11,13 @@ if(!$default_taxes_ammount){
 
 $price_downpayment_montly = ( $default_homeprice * $default_downpayment_percent / 100 ) / 12;
 
-// $default_mortgage_insurance=($default_homeprice/12) * $default_mortgage_insurance_percent / 100;
-$default_mortgage_insurance = ($default_homeprice / 12 * $default_mortgage_insurance_percent / 100) - ($price_downpayment_montly * $default_mortgage_insurance_percent / 100);
-$default_mortgage_insurance = $default_mortgage_insurance < 0 ? 0 : $default_mortgage_insurance;
+// $default_mortgage_insurance=($default_homeprice/12) * $default_mortgage_insurance_percent / 100; // old
+
+// $default_mortgage_insurance = ($default_homeprice / 12 * $default_mortgage_insurance_percent / 100) - ($price_downpayment_montly * $default_mortgage_insurance_percent / 100);
+// $default_mortgage_insurance = $default_mortgage_insurance < 0 ? 0 : $default_mortgage_insurance; // new - does not work
+
+$default_mortgage_insurance = ($default_homeprice - $default_downpayment) / 12 * $default_mortgage_insurance_percent / 100;
+
 $default_homeowners_insurance=($default_homeprice/12) * $default_homeowners_insurance_percent / 100;
 
 $formatted_homeprice = zipperagent_currency() . round($default_homeprice, 2);
@@ -76,7 +80,7 @@ $formatted_interestrate = $default_interestrate. '%';
 				</div>			
 			</div>
 			<div class="row row-group">
-				<div id="zy_mortgage-insurance" class="col-xs-12 col-sm-6 mb-6">
+				<div id="zy_mortgage-insurance" class="col-xs-12 col-sm-6 mb-6 <?php echo $default_downpayment_percent >= 20 ? 'hide' : ''; ?>">
 					<label>Mortgage Insurance</label>
 					<div class="col-2-group">
 						<input type="text" name="mortgage_insurance" class="price-format form-control" id="mortgage-insurance" value="<?php echo $formatted_mortgage_insurance; ?>">
@@ -243,6 +247,14 @@ $formatted_interestrate = $default_interestrate. '%';
 	
 </script>
 <script>
+	jQuery('#mortgage-homeprice').on( 'change', function(){
+		jQuery('#mortgage-downpayment-percent').trigger("change");
+		jQuery('#mortgage-property-taxes-percent').trigger("change");
+		jQuery('#mortgage-insurance-percent').trigger("change");
+		jQuery('#mortgage-homeowners-insurance-percent').trigger("change");
+		
+		mortgage_calculator_count();
+	});
 	jQuery('#mortgage-downpayment').on( 'change', function(){
 		var homeprice = jQuery('#mortgage-homeprice').val();
 		var downpayment = jQuery(this).val();
@@ -253,6 +265,9 @@ $formatted_interestrate = $default_interestrate. '%';
 		percent = downpayment / homeprice * 100;
 		
 		jQuery('#mortgage-downpayment-percent').val(mortgage_percentage(percent));
+		
+		// count mortgage
+		jQuery('#mortgage-insurance-percent').trigger("change");
 		
 		mortgage_calculator_count();
 	});
@@ -266,6 +281,9 @@ $formatted_interestrate = $default_interestrate. '%';
 		downpayment = homeprice * percent / 100;
 		
 		jQuery('#mortgage-downpayment').val(mortgage_format(downpayment));
+		
+		// count mortgage
+		jQuery('#mortgage-insurance-percent').trigger("change");
 		
 		mortgage_calculator_count();
 	});
@@ -299,10 +317,13 @@ $formatted_interestrate = $default_interestrate. '%';
 		var homeprice = jQuery('#mortgage-homeprice').val();
 		var taxes = jQuery(this).val();
 		var percent = jQuery('#mortgage-insurance-percent').val();
+		var downpayment = jQuery('#mortgage-downpayment').val();
 		homeprice = mortgage_unformat(homeprice);	
 		taxes = mortgage_unformat(taxes);
+		downpayment = mortgage_unformat(downpayment);
 		
-		percent = taxes / ( homeprice / 12 ) * 100;
+		// percent = taxes / ( homeprice / 12 ) * 100;
+		percent = taxes / ( homeprice - downpayment ) / 12 * 100;
 		
 		jQuery('#mortgage-insurance-percent').val(mortgage_percentage(percent));
 		
@@ -312,10 +333,13 @@ $formatted_interestrate = $default_interestrate. '%';
 		var homeprice = jQuery('#mortgage-homeprice').val();
 		var taxes = jQuery('#mortgage-insurance').val();
 		var percent = jQuery(this).val();
+		var downpayment = jQuery('#mortgage-downpayment').val();
 		homeprice = mortgage_unformat(homeprice);	
 		percent = mortgage_unformat(percent);
+		downpayment = mortgage_unformat(downpayment);
 		
-		taxes = ( homeprice / 12 ) * percent / 100;
+		// taxes = ( homeprice / 12 ) * percent / 100;
+		taxes = ( homeprice - downpayment ) / 12 * percent / 100;
 		
 		jQuery('#mortgage-insurance').val(mortgage_format(taxes));
 		
@@ -355,6 +379,13 @@ $formatted_interestrate = $default_interestrate. '%';
 </script>
 <script>
 	function mortgage_calculator_count(){
+		
+		if(parseFloat(jQuery('#mortgage-downpayment-percent').val()) < 20){
+			jQuery('#zy_mortgage-insurance').removeClass( 'hide' );
+		}else{
+			jQuery('#zy_mortgage-insurance').addClass( 'hide' );
+		}
+		
 		var data = {
 			action: 'mortgage_calculator_count',			
 			homeprice: jQuery('#mortgage-homeprice').val().replace(/[^0-9\.]/g,''),			

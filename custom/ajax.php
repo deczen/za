@@ -734,9 +734,10 @@ function mortgage_calculator_count(){
 			$homeowners_enabled=1;
 			$numbercount++;
 		}
-		if($insurancepercent){
+		if($insurancepercent && $downpaymentpercent < 20){
 			
-			$price_mortgage = ($homeprice / 12 * $insurancepercent / 100) - ($price_downpayment_montly * $insurancepercent / 100);
+			// $price_mortgage = ($homeprice / 12 * $insurancepercent / 100) - ($price_downpayment_montly * $insurancepercent / 100);
+			$price_mortgage = ($homeprice - $price_downpayment) / 12 * $insurancepercent / 100;
 			$price_mortgage = $price_mortgage < 0 ? 0 : $price_mortgage;
 			$total_price+=$price_mortgage;
 			
