@@ -1,5 +1,16 @@
 <ul class="zy-features-grid">
-	<?php if( /*isset($single_property->style) ||*/ isset($single_property->unmapped->Levels) || isset($single_property->nostories) || isset($single_property->nobuildings) || isset($single_property->totalunits) || isset($single_property->totalbldgsf) || isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->View) || isset($single_property->unmapped->CommunityFeatures) || isset($single_property->vacant) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->LivingArea) || isset($single_property->unmapped->RoomType) || isset($single_property->flooring) || isset($single_property->roofmaterial) || isset($single_property->unmapped->CommonWalls) || isset($single_property->unmapped->SpaFeatures) || isset($single_property->laundryfeatures) || isset($single_property->unmapped->UncoveredSpaces) || isset($single_property->pooldescription) || isset($single_property->appliances) || isset($single_property->nostories) || isset($single_property->nostories) || isset($single_property->nostories) || isset($single_property->unmapped->GrossOperatingIncome) || isset($single_property->unmapped->ImprovementsAmount) || isset($single_property->unmapped->GrossMultiplier) || isset($single_property->unmapped->LandValue) || isset($single_property->grossannualexp) || isset($single_property->unmapped->GrossScheduledIncome) || isset($single_property->unmapped->ProfessionalManagementExpense) || isset($single_property->netoperatinginc) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->zoning) ):?>
+	<?php if( /*isset($single_property->style) ||*/ isset($single_property->unmapped->Levels) || isset($single_property->nostories) || isset($single_property->nobuildings) || isset($single_property->totalunits) || isset($single_property->totalbldgsf) || 
+	isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->basement) || isset($single_property->unmapped->View) || isset($single_property->unmapped->CommunityFeatures) || 
+	isset($single_property->vacant) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->LivingArea) || isset($single_property->unmapped->RoomType) || 
+	isset($single_property->flooring) || isset($single_property->roofmaterial) || isset($single_property->unmapped->CommonWalls) || isset($single_property->unmapped->SpaFeatures) || isset($single_property->laundryfeatures) || 
+	isset($single_property->unmapped->UncoveredSpaces) || isset($single_property->pooldescription) || isset($single_property->appliances) || isset($single_property->nostories) || isset($single_property->nostories) || 
+	isset($single_property->nostories) || isset($single_property->unmapped->GrossOperatingIncome) || isset($single_property->unmapped->ImprovementsAmount) || isset($single_property->unmapped->GrossMultiplier) || isset($single_property->unmapped->LandValue) || 
+	isset($single_property->grossannualexp) || isset($single_property->unmapped->GrossScheduledIncome) || isset($single_property->unmapped->ProfessionalManagementExpense) || isset($single_property->netoperatinginc) || isset($single_property->unmapped->SpecialListingConditions) || 
+	isset($single_property->zoning) ||
+	isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) || isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->unmapped->CarportYN) || isset($single_property->unmapped->unmapped_GarageYN) ||
+	isset($single_property->construction) || isset($single_property->waterfrontflag) || isset($single_property->waterfrontflag) || isset($single_property->unmapped->BasementYN) || isset($single_property->unmapped->BuildingAreaTotal) ||
+	isset($single_property->laundryfeatures) || isset($single_property->unmapped->MainLevelBathrooms) || isset($single_property->unmapped->AboveGradeFinishedArea) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->OwnerPays) ||
+	isset($single_property->tenantexpanses) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->unmapped->MLSAreaMinor) || isset($single_property->unmapped->SeniorCommunityYN) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -154,6 +165,13 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
 			<li>Special Listing Conditions: [unmapped_SpecialListingConditions]</li>
+			<?php endif; ?>
+
+			<?php if( isset($single_property->unmapped->MLSAreaMinor)): ?>
+			<li>MLSArea Minor: [unmapped_MLSAreaMinor]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SeniorCommunityYN)): ?>
+			<li>Senior Community YN: [unmapped_SeniorCommunityYN]</li>
 			<?php endif; ?>
 		</ul>
 	</li>						
