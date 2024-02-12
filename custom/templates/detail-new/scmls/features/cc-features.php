@@ -4,7 +4,8 @@
 			isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || 	
 			isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) || isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->construction) || isset($single_property->unmapped->Fencing) ||
 			isset($single_property->lotdescription) || isset($single_property->roofmaterial) || isset($single_property->waterfrontflag) || isset($single_property->unmapped->BuildingFeatures) || isset($single_property->unmapped->CurrentUse) ||
-			isset($single_property->propsubtype) || isset($single_property->unmapped->TaxLegalDescription) ):?>
+			isset($single_property->propsubtype) || isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->LeasableArea) || isset($single_property->unmapped->ExistingLeaseType) ||
+			isset($single_property->unmapped->LeaseTerm) || isset($single_property->unmapped->TenantPays) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -112,7 +113,23 @@
 				<?php if( isset($single_property->unmapped->TaxLegalDescription)): ?>
 				<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
 				<?php endif; ?>
-			
+				
+				<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
+				<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->LeasableArea)): ?>
+				<li>Leasable Area: [unmapped_LeasableArea]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExistingLeaseType)): ?>
+				<li>Existing Lease Type: [unmapped_ExistingLeaseType]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->LeaseTerm)): ?>
+				<li>Lease Term: [unmapped_LeaseTerm]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TenantPays)): ?>
+				<li>Tenant Pays: [unmapped_TenantPays]</li>
+				<?php endif; ?>
+				
 		</ul>
 	</li>						
 	<?php endif; ?>

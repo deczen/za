@@ -5,8 +5,8 @@
 				
 			isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->facingdirection) || isset($single_property->unmapped->Levels) || isset($single_property->waterfrontflag) || isset($single_property->appliances) ||
 			isset($single_property->furnished) || isset($single_property->interiorfeatures) || isset($single_property->totalrooms) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->pooldescription) ||
-			isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->TaxLegalDescription)
-):?>
+			isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->CarportYN) || isset($single_property->unmapped->GarageYN) || isset($single_property->unmapped->Deposits_sp_and_sp_Fees_co_Application_sp_Fee) ||
+			isset($single_property->dateavailableformatted) || isset($single_property->unmapped->OwnerPays) || isset($single_property->unmapped->Deposits_sp_and_sp_Fees_co_Pet_sp_FeeDeposit) || isset($single_property->unmapped->Deposits_sp_and_sp_Fees_co_Security_sp_Deposit) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -117,6 +117,27 @@
 			<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->CarportYN)): ?>
+			<li>Carport YN: [unmapped_CarportYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->GarageYN)): ?>
+			<li>Garage YN: [unmapped_GarageYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Deposits_sp_and_sp_Fees_co_Application_sp_Fee)): ?>
+			<li>Application Fee: [unmapped_Deposits_sp_and_sp_Fees_co_Application_sp_Fee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->dateavailableformatted)): ?>
+			<li>Availability Date: [dateavailableformatted]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OwnerPays)): ?>
+			<li>Owner Pays: [unmapped_OwnerPays]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Deposits_sp_and_sp_Fees_co_Pet_sp_FeeDeposit)): ?>
+			<li>Pet Fee Deposit: [unmapped_Deposits_sp_and_sp_Fees_co_Pet_sp_FeeDeposit]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Deposits_sp_and_sp_Fees_co_Security_sp_Deposit)): ?>
+			<li>Security Deposit: [unmapped_Deposits_sp_and_sp_Fees_co_Security_sp_Deposit]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
@@ -126,6 +147,7 @@
 				isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->unmapped->CoolingYN) || 
 				isset($single_property->unmapped->HeatingYN) || isset($single_property->utilities) ||
 				isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->HeatingYN) || isset($single_property->utilities) ):?>
+		<h3 class="zy-feature-title">Cooling, Heating, Utilities</h3>
 		<ul class="zy-sub-list">
 			
 			<?php if( isset($single_property->cooling)): ?>
@@ -220,7 +242,7 @@
 		</ul>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
+		<?php if( isset($single_property->firstmonreqd) || isset($single_property->lastmonreqd) || isset($single_property->secdeposit) || isset($single_property->rentfeeincludes) ):?>
 		<h3 class="zy-feature-title">Deposits, Inclusions</h3>
 		<ul class="zy-sub-list">
 			

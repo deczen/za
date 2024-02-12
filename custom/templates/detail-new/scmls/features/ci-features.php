@@ -1,50 +1,4 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) || isset($single_property->parkingspaces) || isset($single_property->parkingfeature) ):?>
-	<li class="cell">
-		<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) ):?>
-		<h3 class="zy-feature-title">Space, #Units, SQ FT</h3>
-		<ul class="zy-sub-list">
-			
-			<?php if( isset($single_property->mauunits) || isset($single_property->mafbldgsf)): ?>
-			<li>Manufacturing</td>
-				<td class="zy-listing__table__label"><span>[mauunits]</span>: [mafbldgsf]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->ofuunits) || isset($single_property->offbldgsf)): ?>
-			<li>Office</td>
-				<td class="zy-listing__table__label"><span>[ofuunits]</span>: [offbldgsf]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->rsuunits) || isset($single_property->rsfbldgsf)): ?>
-			<li>Residential</td>
-				<td class="zy-listing__table__label"><span>[rsuunits]</span>: [rsfbldgsf]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->reuunits) || isset($single_property->refbldgsf)): ?>
-			<li>Retail</td>
-				<td class="zy-listing__table__label"><span>[reuunits]</span>: [refbldgsf]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->wauunits) || isset($single_property->wafbldgsf)): ?>
-			<li>Warehouse</td>
-				<td class="zy-listing__table__label"><span>[wauunits]</span>: [wafbldgsf]</li>
-			<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
-		
-		<?php if( ( isset($single_property->parkingspaces) && $single_property->parkingspaces ) || isset($single_property->parkingfeature) ):?>
-		<h3 class="zy-feature-title">Parking Information</h3>
-		<ul class="zy-sub-list">
-			
-				<?php if( isset($single_property->parkingspaces) && $single_property->parkingspaces ): ?>
-				<li>Parking Spaces: [parkingspaces]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->parkingfeature)): ?>
-				<li>Parking Features: [parkingfeature]</li>
-				<?php endif; ?>
-			
-		</ul>
-		<?php endif; ?>
-		
-	</li>						
-	<?php endif; ?>
 
 	<?php if( isset($single_property->basement) || isset($single_property->citype) || isset($single_property->construction) || isset($single_property->dividable) || isset($single_property->noofdrivingdoors) || 
 			  isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || 
@@ -52,7 +6,8 @@
 		 	 isset($single_property->utilities) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) ||
  			 isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->construction) || isset($single_property->lotdescription) || isset($single_property->roofmaterial) || isset($single_property->waterfrontflag) ||
  			 isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->BuildingFeatures) || isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->LandLeaseYN) || isset($single_property->termsfeature) ||
- 			 isset($single_property->propsubtype) || isset($single_property->assocsecurity) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->unmapped->TaxLegalDescription) ):?>
+ 			 isset($single_property->propsubtype) || isset($single_property->assocsecurity) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->unmapped->TaxLegalDescription) ||
+  			  isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Baths_sp_Total) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Furnished3) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Unit_sp_SqFt) || isset($single_property->unmapped->AdditionalParcelsYN) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -63,9 +18,6 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->citype)): ?>
 				<li>Commercial Type: [citype]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->construction)): ?>
-				<li>Construction: [construction]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->dividable)): ?>
 				<li>Dividable: [dividable]</li>
@@ -190,9 +142,72 @@
 				<?php if( isset($single_property->unmapped->TaxLegalDescription)): ?>
 				<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
 				<?php endif; ?>
+				
+				<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
+				<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Baths_sp_Total)): ?>
+				<li>Unit1 Details Baths Total: [unmapped_Unit_sp_1_sp_Details_co_Baths_sp_Total]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Furnished3)): ?>
+				<li>Unit1 Furnished: [unmapped_Unit_sp_1_sp_Details_co_Furnished3]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Unit_sp_SqFt)): ?>
+				<li>Unit1 Sq Ft: [unmapped_Unit_sp_1_sp_Details_co_Unit_sp_SqFt]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->AdditionalParcelsYN)): ?>
+				<li>Additional Parcels YN: [unmapped_AdditionalParcelsYN]</li>
+				<?php endif; ?>
 			
 		</ul>
 	</li>
+	<?php endif; ?>
+	
+	<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) || isset($single_property->parkingspaces) || isset($single_property->parkingfeature) ):?>
+	<li class="cell">
+		<?php if( isset($single_property->mauunits) || isset($single_property->ofuunits) || isset($single_property->rsuunits) || isset($single_property->reuunits) || isset($single_property->wauunits) ):?>
+		<h3 class="zy-feature-title">Space, #Units, SQ FT</h3>
+		<ul class="zy-sub-list">
+			
+			<?php if( isset($single_property->mauunits) || isset($single_property->mafbldgsf)): ?>
+			<li>Manufacturing</td>
+				<td class="zy-listing__table__label"><span>[mauunits]</span>: [mafbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->ofuunits) || isset($single_property->offbldgsf)): ?>
+			<li>Office</td>
+				<td class="zy-listing__table__label"><span>[ofuunits]</span>: [offbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->rsuunits) || isset($single_property->rsfbldgsf)): ?>
+			<li>Residential</td>
+				<td class="zy-listing__table__label"><span>[rsuunits]</span>: [rsfbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->reuunits) || isset($single_property->refbldgsf)): ?>
+			<li>Retail</td>
+				<td class="zy-listing__table__label"><span>[reuunits]</span>: [refbldgsf]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->wauunits) || isset($single_property->wafbldgsf)): ?>
+			<li>Warehouse</td>
+				<td class="zy-listing__table__label"><span>[wauunits]</span>: [wafbldgsf]</li>
+			<?php endif; ?>
+			
+		</ul>
+		<?php endif; ?>
+		
+		<?php if( ( isset($single_property->parkingspaces) && $single_property->parkingspaces ) || isset($single_property->parkingfeature) ):?>
+		<h3 class="zy-feature-title">Parking Information</h3>
+		<ul class="zy-sub-list">
+			
+				<?php if( isset($single_property->parkingspaces) && $single_property->parkingspaces ): ?>
+				<li>Parking Spaces: [parkingspaces]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->parkingfeature)): ?>
+				<li>Parking Features: [parkingfeature]</li>
+				<?php endif; ?>
+			
+		</ul>
+		<?php endif; ?>
+		
+	</li>						
 	<?php endif; ?>
 
 	<li class="cell">

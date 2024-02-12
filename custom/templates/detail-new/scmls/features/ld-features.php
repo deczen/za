@@ -3,7 +3,8 @@
 			isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) ||
 			isset($single_property->lotdescription) || isset($single_property->unmapped->View) || isset($single_property->waterbodyname) || isset($single_property->waterfrontflag) || isset($single_property->unmapped->AssociationFee2) ||
 			isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->LandLeaseYN) || isset($single_property->termsfeature) || isset($single_property->pooldescription) ||
-			isset($single_property->assocsecurity) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->TaxLegalDescription) ):?>
+			isset($single_property->assocsecurity) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->AssociationName) ||
+			isset($single_property->unmapped->ZoningDescription) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
@@ -106,12 +107,22 @@
 			<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
+			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AssociationName)): ?>
+			<li>Association Name: [unmapped_AssociationName]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+			<li>Zoning Description: [unmapped_ZoningDescription]</li>
+			<?php endif; ?>
+			
 		</ul>
 	</li>						
 	<?php endif; ?>
 	
 	<li class="cell">
-		<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
+		<?php /* <?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
 		<h3 class="zy-feature-title">Utilities</h3>
 		<ul class="zy-sub-list">
 
@@ -130,7 +141,7 @@
 				<?php endif; ?>								
 			
 		</ul>
-		<?php endif; ?>
+		<?php endif; ?> */ ?>
 		
 		<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || 
 				isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) ||
@@ -224,6 +235,23 @@
 			
 			<?php if( isset($single_property->parkingfeature)): ?>
 			<li>Parking Features: [parkingfeature]</li>
+			<?php endif; ?>
+			
+		</ul>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->gradeschool) || isset($single_property->middleschool) || isset($single_property->highschool) ):?>
+		<h3 class="zy-feature-title">School Information</h3>
+		<ul class="zy-sub-list">
+			
+			<?php if( isset($single_property->gradeschool)): ?>
+			<li>Elementary School: [gradeschool]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->middleschool)): ?>
+			<li>Middle School: [middleschool]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->highschool)): ?>
+			<li>High School: [highschool]</li>
 			<?php endif; ?>
 			
 		</ul>

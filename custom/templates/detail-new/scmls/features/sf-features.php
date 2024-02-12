@@ -7,7 +7,8 @@
 			isset($single_property->appliances) || isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->furnished) ||
 			isset($single_property->interiorfeatures) || isset($single_property->totalrooms) || isset($single_property->unmapped->CurrentUse) || isset($single_property->greencertified) || isset($single_property->unmapped->laundryfeatures) ||
 			isset($single_property->termsfeature) || isset($single_property->unmapped->NewConstructionYN) || isset($single_property->pooldescription) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->SpecialListingConditions) ||
-			isset($single_property->TaxLegalDescription) ):?>
+			isset($single_property->TaxLegalDescription) || isset($single_property->unmapped->CarportYN) || isset($single_property->unmapped->GarageYN) || isset($single_property->unmapped->OtherStructures) || isset($single_property->unmapped->RoadFrontageType) ||
+			isset($single_property->Historical_sp_Information_co_Public_sp_Historical_sp_Remarks_sp_1) || isset($single_property->unmapped->Historical_sp_Information_co_Public_sp_Historical_sp_Remarks_sp_2) || isset($single_property->unmapped->AssociationName) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -161,6 +162,29 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->TaxLegalDescription)): ?>
 			<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
+			<?php endif; ?>
+			
+
+			<?php if( isset($single_property->unmapped->CarportYN)): ?>
+			<li>Carport YN: [unmapped_CarportYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->GarageYN)): ?>
+			<li>Garage YN: [unmapped_GarageYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OtherStructures)): ?>
+			<li>Other Structures: [unmapped_OtherStructures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
+			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Historical_sp_Information_co_Public_sp_Historical_sp_Remarks_sp_1)): ?>
+			<li>Additional Info: [unmapped_Historical_sp_Information_co_Public_sp_Historical_sp_Remarks_sp_1]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Historical_sp_Information_co_Public_sp_Historical_sp_Remarks_sp_2)): ?>
+			<li>Additional Info2: [unmapped_Historical_sp_Information_co_Public_sp_Historical_sp_Remarks_sp_2]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AssociationName)): ?>
+			<li>Association Name: [unmapped_AssociationName]</li>
 			<?php endif; ?>
 			
 		</ul>

@@ -5,7 +5,9 @@
 			isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->construction) || isset($single_property->unmapped->Levels) || isset($single_property->lotdescription) || isset($single_property->roofmaterial) ||
 			isset($single_property->waterfrontflag) || isset($single_property->waterfrontflag) || isset($single_property->appliances) || isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->furnished) ||
 			isset($single_property->nostories) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->GrossScheduledIncome) || isset($single_property->termsfeature) ||
-			isset($single_property->unmapped->NewConstructionYN) || isset($single_property->pooldescription) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->unmapped->TaxLegalDescription) ):?>
+			isset($single_property->unmapped->NewConstructionYN) || isset($single_property->pooldescription) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->CarportYN) ||
+			isset($single_property->unmapped->GarageYN) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Baths_sp_Total) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Beds_sp_Total) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Furnished3) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Unit_sp_SqFt) ||
+			isset($single_property->unmapped->OwnerPays) || isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Actual_sp_Rent) || isset($single_property->nostories) || isset($single_property->unmapped->StoriesTotal) || isset($single_property->unmapped->GrossScheduledIncome) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -134,6 +136,39 @@
 			<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->CarportYN)): ?>
+			<li>Carport YN: [unmapped_CarportYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->GarageYN)): ?>
+			<li>Garage YN: [unmapped_GarageYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Baths_sp_Total)): ?>
+			<li>Unit1 Details Baths Total: [unmapped_Unit_sp_1_sp_Details_co_Baths_sp_Total]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Beds_sp_Total)): ?>
+			<li>Unit1 Details Beds Total: [unmapped_Unit_sp_1_sp_Details_co_Beds_sp_Total]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Furnished3)): ?>
+			<li>Unit1 Furnished: [unmapped_Unit_sp_1_sp_Details_co_Furnished3]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Unit_sp_SqFt)): ?>
+			<li>Unit1 Sq Ft: [unmapped_Unit_sp_1_sp_Details_co_Unit_sp_SqFt]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OwnerPays)): ?>
+			<li>Owner Pays: [unmapped_OwnerPays]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Unit_sp_1_sp_Details_co_Actual_sp_Rent)): ?>
+			<li>Unit1 Actual Rent: [unmapped_Unit_sp_1_sp_Details_co_Actual_sp_Rent]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->nostories)): ?>
+			<li>Stories: [nostories]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->StoriesTotal)): ?>
+			<li>Stories Total: [unmapped_StoriesTotal]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->GrossScheduledIncome)): ?>
+			<li>Gross Scheduled Income: [unmapped_GrossScheduledIncome]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
