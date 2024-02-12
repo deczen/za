@@ -58,14 +58,14 @@
 				 <div class="zy-print-meta-val">[norooms]</div>
 				 <div class="zy-print-meta-label">Total Rooms</div>
 			  </td>
-			<?php endif; ?>
+			<?php endif;*/ ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="zy-print-meta-val">[nobedrooms]</div>
 				 <div class="zy-print-meta-label">Beds</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->nobaths)): ?>
+			<?php if(isset($single_property->nofullbaths)): ?>
 			  <td>
 				 <div class="zy-print-meta-val">[nofullbaths]</div>
 				 <div class="zy-print-meta-label">FULL BATHS</div>
@@ -82,16 +82,16 @@
 				 <div class="zy-print-meta-val">[nohalfbaths]</div>
 				 <div class="zy-print-meta-label">&frac12; Baths</div>
 			  </td>
-			<?php endif;*/ ?>
-			<?php if(isset($single_property->squarefeet)): ?>
+			<?php endif; ?>
+			<?php if(isset($single_property->unmapped->LivingArea)): ?>
 			  <td>
-				 <div class="zy-print-meta-val">[squarefeet]</div>
+				 <div class="zy-print-meta-val">[unmapped_LivingArea]</div>
 				 <div class="zy-print-meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->acre)): ?>
+			<?php if(isset($single_property->unmapped->TotalAcreage)): ?>
 			  <td>
-				 <div class="zy-print-meta-val">[acre]</div>
+				 <div class="zy-print-meta-val">[unmapped_TotalAcreage]</div>
 				 <div class="zy-print-meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
@@ -109,10 +109,10 @@
 		</table>
 		<div class="zy-print-area-wrap">
 		   <div class="zy-print-area">
-			<?php if(isset($single_property->location)): ?>
+			<?php if(isset($single_property->neighborhood)): ?>
 			  <div class="uk-clearfix">
-				 <div class="zy-print-area-label">Location:</div>
-				 <div class="zy-print-area-val">[location]</div>
+				 <div class="zy-print-area-label">Neighborhood:</div>
+				 <div class="zy-print-area-val">[neighborhood]</div>
 			  </div>
 			<?php endif; ?>
 			<?php if(isset($single_property->proptype)): ?>
