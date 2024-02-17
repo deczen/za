@@ -290,6 +290,7 @@ switch($property_type){
 	case "LOTS": //Farm	without house
 	case "Vacant Land": //Vacant Land
 	case "Land & Lots": //Land & Lots
+	case "Land":
 		$template_name=get_detail_template_filename('ld')?get_detail_template_filename('ld'):'';
 		$template_features='ld-features.php';
 		$template_print='ld-print.php';
@@ -309,6 +310,7 @@ switch($property_type){
 	case "Residential Rental": //Residential Rental
 	case "Rentals": //Rentals
 	case "Residential_Lease":
+	case "ResidentialLease":
 		$template_name=get_detail_template_filename('rn')?get_detail_template_filename('rn'):'';
 		$template_features='rn-features.php';
 		$template_print='rn-print.php';
@@ -334,6 +336,7 @@ switch($property_type){
 	case "Condominium": //Condominium
 	case "CommercialLease":
 	case "Stock Cooperative":
+	case "Commercial_Lease":
 		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
 		$template_features='cc-features.php';
 		$template_print='cc-print.php';
