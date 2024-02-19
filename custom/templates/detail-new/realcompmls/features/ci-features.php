@@ -6,7 +6,9 @@
 		 	 isset($single_property->utilities) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) ||
 		  	isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->waterfrontflag) ||
 			isset($single_property->unmapped->BuildingAreaSource) || isset($single_property->handicapaccess) || isset($single_property->unmapped->GrossScheduledIncome) || isset($single_property->unmapped->ListingTerms) || isset($single_property->netoperatinginc) ||
-			isset($single_property->unmapped->OperatingExpense) || isset($single_property->possession) || isset($single_property->unmapped->UnparsedAddress) || isset($single_property->unmapped->ZoningDescription) ):?>
+			isset($single_property->unmapped->OperatingExpense) || isset($single_property->possession) || isset($single_property->unmapped->UnparsedAddress) || isset($single_property->unmapped->ZoningDescription) || isset($single_property->unmapped->ZoningDescription) || 
+			isset($single_property->unmapped->RoadFrontageFeet) || isset($single_property->squarefeet) || isset($single_property->unmapped->ExistingLeaseYN) || isset($single_property->unmapped->ProtectionPeriod) || isset($single_property->unmapped->Settlement) || 
+			isset($single_property->unmapped->BuildingAreaSource) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -138,6 +140,25 @@
 				<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
 				<li>Zoning: [unmapped_ZoningDescription]</li>
 				<?php endif; ?>
+
+				<?php if( isset($single_property->unmapped->RoadFrontageFeet)): ?>
+				<li>Road Frontage Feet: [unmapped_RoadFrontageFeet]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->squarefeet)): ?>
+				<li>Sq Ft Office: [squarefeet]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExistingLeaseYN)): ?>
+				<li>Existing Lease YN: [unmapped_ExistingLeaseYN]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ProtectionPeriod)): ?>
+				<li>Protection Period: [unmapped_ProtectionPeriod]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Settlement)): ?>
+				<li>Settlement: [unmapped_Settlement]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->BuildingAreaSource)): ?>
+				<li>Building Area Source: [unmapped_BuildingAreaSource]</li>
+				<?php endif; ?>
 			
 		</ul>
 	</li>
@@ -261,7 +282,7 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zonedescription) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || 
-				isset($single_property->reqdownassociation) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ):?>
+				isset($single_property->reqdownassociation) || isset($single_property->unmapped->TaxAmountSummer) || isset($single_property->unmapped->TaxAmountWinter) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			
@@ -284,6 +305,12 @@
 
 				<?php if( isset($single_property->reqdownassociation)): ?>
 				<li>Association YN: [reqdownassociation]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxAmountSummer)): ?>
+				<li>Tax Amount Summer: [unmapped_TaxAmountSummer]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxAmountWinter)): ?>
+				<li>Tax Amount Winter: [unmapped_TaxAmountWinter]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
 				<li>Assessment: [unmapped_TaxOtherAnnualAssessmentAmount]</li>

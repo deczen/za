@@ -2,7 +2,8 @@
 	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || 
 			isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures) || 
 			isset($single_property->construction) || isset($single_property->unmapped->Fencing) || isset($single_property->foundation) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->waterfrontflag) || 
-			isset($single_property->unmapped->BasementYN) || isset($single_property->nobaths) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->UnparsedAddress) ):?>
+			isset($single_property->unmapped->BasementYN) || isset($single_property->nobaths) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->UnparsedAddress) ||
+			isset($single_property->unmapped->DownPaymentResourceYN) || isset($single_property->unmapped->Settlement) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>	
 		<ul class="zy-sub-list">
@@ -105,6 +106,12 @@
 			<?php if( isset($single_property->unmapped->UnparsedAddress)): ?>
 			<li>Unparsed Address: [unmapped_UnparsedAddress]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->DownPaymentResourceYN)): ?>
+			<li>Down Payment Resource YN: [unmapped_DownPaymentResourceYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Settlement)): ?>
+			<li>Settlement: [unmapped_Settlement]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
@@ -184,7 +191,8 @@
 	</li>	
 
 	<li>
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ):?>
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ||
+				isset($single_property->unmapped->TaxAmountSummer) || isset($single_property->unmapped->TaxAmountWinter) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			<?php if( isset($single_property->taxes)): ?>
@@ -200,9 +208,15 @@
 			<li>Fee Includes: [asscfeeincludes]</li> <!-- not done -->
 			<?php endif; ?>
 
+			<?php if( isset($single_property->unmapped->TaxAmountSummer)): ?>
+			<li>Tax Amount Summer: [unmapped_TaxAmountSummer]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TaxAmountWinter)): ?>
+			<li>Tax Amount Winter: [unmapped_TaxAmountWinter]</li> 
+			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
-			<li>Assessment: [unmapped_TaxOtherAnnualAssessmentAmount]</li> <!-- not done -->
-			<?php endif; ?>	
+			<li>Assessment: [unmapped_TaxOtherAnnualAssessmentAmount]</li> 
+			<?php endif; ?>
 		</ul>
 		<?php endif; ?>
 	</li>

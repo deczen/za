@@ -5,7 +5,8 @@
 			isset($single_property->construction) || isset($single_property->location) || isset($single_property->foundation) || isset($single_property->unmapped->GarageYN) || isset($single_property->lotdescription) ||
 			isset($single_property->unmapped->RoadFrontageType) || isset($single_property->roofmaterial) || isset($single_property->waterfrontflag) || isset($single_property->unmapped->BasementYN) || isset($single_property->nobaths) ||
 			isset($single_property->unmapped->FireplaceYN) || isset($single_property->utilities) || isset($single_property->appliances) || isset($single_property->reqdownassociation) || isset($single_property->unmapped->ListingTerms) ||
-			isset($single_property->possession) || isset($single_property->rentfeeincludes) || isset($single_property->unmmaped->UnparsedAddress) ):?>
+			isset($single_property->possession) || isset($single_property->rentfeeincludes) || isset($single_property->unmmaped->UnparsedAddress) || isset($single_property->unmapped->ApplicationFee) || isset($single_property->unmapped->ExistingLeaseYN) ||
+			isset($single_property->unmapped->ProtectionPeriod) || isset($single_property->unmapped->SecurityDeposit) || isset($single_property->unmmaped->Settlement) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -136,6 +137,22 @@
 			<?php if( isset($single_property->unmapped->UnparsedAddress)): ?>
 			<li>Unparsed Address: [unmapped_UnparsedAddress]</li>
 			<?php endif; ?>	
+			
+			<?php if( isset($single_property->unmapped->ApplicationFee)): ?>
+			<li>Application Fee: [unmapped_ApplicationFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ExistingLeaseYN)): ?>
+			<li>Existing Lease YN: [unmapped_ExistingLeaseYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ProtectionPeriod)): ?>
+			<li>Protection Period: [unmapped_ProtectionPeriod]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SecurityDeposit)): ?>
+			<li>Security Deposit: [unmapped_SecurityDeposit]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Settlement)): ?>
+			<li>Settlement: [unmapped_Settlement]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>

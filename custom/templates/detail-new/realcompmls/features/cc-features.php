@@ -5,7 +5,8 @@
 			isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) || 
 			isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->construction) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->waterfrontflag) ||
 			isset($single_property->unmapped->BuildingFeatures) || isset($single_property->unmapped->GrossScheduledIncome) || isset($single_property->unmapped->ListingTerms) || isset($single_property->possession) || isset($single_property->rentfeeincludes) ||
-			isset($single_property->unmapped->UnparsedAddress) || isset($single_property->unmapped->ZoningDescription) ):?>
+			isset($single_property->unmapped->UnparsedAddress) || isset($single_property->unmapped->ZoningDescription) || isset($single_property->unmapped->RoadFrontageFeet) || isset($single_property->unmapped->ExistingLeaseYN) || isset($single_property->unmapped->ProtectionPeriod) ||
+			isset($single_property->unmapped->Settlement)):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -118,6 +119,19 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
 				<li>Zoning: [unmapped_ZoningDescription]</li>
+				<?php endif; ?>
+				
+				<?php if( isset($single_property->unmapped->RoadFrontageFeet)): ?>
+				<li>Road Frontage Feet: [unmapped_RoadFrontageFeet]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ExistingLeaseYN)): ?>
+				<li>Existing Lease YN: [unmapped_ExistingLeaseYN]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ProtectionPeriod)): ?>
+				<li>Protection Period: [unmapped_ProtectionPeriod]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Settlement)): ?>
+				<li>Settlement: [unmapped_Settlement]</li>
 				<?php endif; ?>
 				
 		</ul>
