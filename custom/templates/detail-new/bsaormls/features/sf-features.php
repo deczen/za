@@ -1,9 +1,15 @@
 <ul class="zy-features-grid">
 	<?php if( isset($single_property->amenities) || isset($single_property->basement) || isset($single_property->exteriorfeatures) || isset($single_property->exterior) || isset($single_property->fireplaces) || 
 			isset($single_property->flooring) /*|| isset($single_property->style)*/ || isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) || 
-			isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->unmapped->GarageYN) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->waterfrontflag) ||
-			isset($single_property->nobaths) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->FireplaceYN) || isset($single_property->appliances) || isset($single_property->unmapped->ListingTerms) ||
-			isset($single_property->unmapped->UnparsedAddress) || isset($single_property->lotdescription) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->roofmaterial) || isset($single_property->unmapped->BasementYN) ):?>
+			isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->unmapped->CarportSpaces) || isset($single_property->construction) || isset($single_property->unmapped->CoveredSpaces) || isset($single_property->facingdirection) ||
+			isset($single_property->unmapped->EntryLevel) || isset($single_property->unmapped->FrontageLength) || isset($single_property->lotdescription) || isset($single_property->unmapped->OpenParkingYN) || isset($single_property->unmapped->PatioAndPorchFeatures) ||
+			isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->pooldescription) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->roofmaterial) || isset($single_property->unmapped->SpaYN) ||
+			isset($single_property->unmapped->SpaFeatures) || isset($single_property->unmapped->View) || isset($single_property->unmapped->ViewYN) || isset($single_property->waterfrontflag) || isset($single_property->unmapped->WindowFeatures) ||
+			isset($single_property->appliances) || isset($single_property->furnished) || isset($single_property->interiorfeatures) || isset($single_property->laundryfeatures) || isset($single_property->unmapped->BuildingAreaTotal) || 
+			isset($single_property->termsfeature) || isset($single_property->unmapped->IrrigationSource) || isset($single_property->unmapped->LandLeaseAmount) || isset($single_property->unmapped->Levels) || isset($single_property->unmapped->NewConstructionYN) || 
+			isset($single_property->unmapped->NumberOfUnitsInCommunity) || isset($single_property->unmapped->Ownership) || isset($single_property->possession) || isset($single_property->assocsecurity) || isset($single_property->unmapped->ListingTerms) || 
+			isset($single_property->zoning) || isset($single_property->unmapped->Fencing) || isset($single_property->disclosures) || isset($single_property->unmapped->BuildingName) || isset($single_property->propsubtype) ||
+			isset($single_property->totalrooms) || isset($single_property->unmapped->BathroomsTotalInteger) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->StructureType) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -80,42 +86,41 @@
 			
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
+			<li>Attached Garage YN: [unmapped_AttachedGarageYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CarportSpaces)): ?>
+			<li>Carport Spaces: [unmapped_CarportSpaces]</li>
+			<?php endif; ?>
 			<?php if( isset($single_property->construction)): ?>
 			<li>Construction: [construction]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->foundation)): ?>
-			<li>Foundation: [foundation]</li>
+			<?php if( isset($single_property->unmapped->CoveredSpaces)): ?>
+			<li>Covered Spaces: [unmapped_CoveredSpaces]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->GarageYN)): ?>
-			<li>Garage YN: [unmapped_GarageYN]</li>
+			<?php if( isset($single_property->facingdirection)): ?>
+			<li>Direction Faces: [facingdirection]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
-			<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
+			<?php if( isset($single_property->unmapped->EntryLevel)): ?>
+			<li>Entry Level: [unmapped_EntryLevel]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->waterfrontflag)): ?>
-			<li>Waterfront YN: [waterfrontflag]</li>
+			<?php if( isset($single_property->unmapped->FrontageLength)): ?>
+			<li>Frontage Length: [unmapped_FrontageLength]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->nobaths)): ?>
-			<li>Baths Total: [nobaths]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->FireplaceFeatures)): ?>
-			<li>Fireplace Features: [unmapped_FireplaceFeatures]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->FireplaceYN)): ?>
-			<li>Fireplace YN: [unmapped_FireplaceYN]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->appliances)): ?>
-			<li>Kitchen Appliances: [appliances]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
-			<li>Listing Terms: [unmapped_ListingTerms]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->UnparsedAddress)): ?>
-			<li>Unparsed Address: [unmapped_UnparsedAddress]</li>
-			<?php endif; ?>
-
 			<?php if( isset($single_property->lotdescription)): ?>
-			<li>Lot Features: [lotdescription]</li>
+			<li>Lot Description: [lotdescription]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OpenParkingYN)): ?>
+			<li>Open Parking Yn: [unmapped_OpenParkingYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PatioAndPorchFeatures)): ?>
+			<li>Patio And Porch Features: [unmapped_PatioAndPorchFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PoolPrivateYN)): ?>
+			<li>Private Pool YN: [unmapped_PoolPrivateYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->pooldescription)): ?>
+			<li>Private Pool Description: [pooldescription]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
 			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
@@ -123,8 +128,97 @@
 			<?php if( isset($single_property->roofmaterial)): ?>
 			<li>Roof: [roofmaterial]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->BasementYN)): ?>
-			<li>Basement YN: [unmapped_BasementYN]</li>
+			<?php if( isset($single_property->unmapped->SpaYN)): ?>
+			<li>Private Spa YN: [unmapped_SpaYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SpaFeatures)): ?>
+			<li>Spa Features: [unmapped_SpaFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->View)): ?>
+			<li>View: [unmapped_View]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ViewYN)): ?>
+			<li>View YN: [unmapped_ViewYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterfrontflag)): ?>
+			<li>Waterfront YN: [waterfrontflag]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->WindowFeatures)): ?>
+			<li>Window Features: [unmapped_WindowFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->appliances)): ?>
+			<li>Appliances: [appliances]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->furnished)): ?>
+			<li>Furnished: [furnished]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->interiorfeatures)): ?>
+			<li>Interior Features: [interiorfeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->laundryfeatures)): ?>
+			<li>Laundry Features: [laundryfeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuildingAreaTotal)): ?>
+			<li>Building Area Total: [unmapped_BuildingAreaTotal]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->termsfeature)): ?>
+			<li>Community Features: [termsfeature]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->IrrigationSource)): ?>
+			<li>Irrigation Source: [unmapped_IrrigationSource]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LandLeaseAmount)): ?>
+			<li>Land Lease Amount: [unmapped_LandLeaseAmount]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Levels)): ?>
+			<li>Levels: [unmapped_Levels]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->NewConstructionYN)): ?>
+			<li>New Construction YN: [unmapped_NewConstructionYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->NumberOfUnitsInCommunity)): ?>
+			<li>Number Of Units In Community: [unmapped_NumberOfUnitsInCommunity]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Ownership)): ?>
+			<li>Ownership Desc: [unmapped_Ownership]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->possession)): ?>
+			<li>Possession: [possession]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->assocsecurity)): ?>
+			<li>Security Features: [assocsecurity]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
+			<li>Terms: [unmapped_ListingTerms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->zoning)): ?>
+			<li>Zoning: [zoning]</li>
+			<?php endif; ?>
+
+			<?php if( isset($single_property->unmapped->Fencing)): ?>
+			<li>Fencing: [unmapped_Fencing]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->disclosures)): ?>
+			<li>Disclosures: [disclosures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuildingName)): ?>
+			<li>Sub Condo Name: [unmapped_BuildingName]</li>
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->propsubtype)): ?>
+			<li>Building Design: [propsubtype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->totalrooms)): ?>
+			<li>Rooms Total: [totalrooms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BathroomsTotalInteger)): ?>
+			<li>Bathrooms Total: [unmapped_BathroomsTotalInteger]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SeniorCommunityYN)): ?>
+			<li>Senior Community YN: [unmapped_SeniorCommunityYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->StructureType)): ?>
+			<li>Structure Type: [unmapped_StructureType]</li>
 			<?php endif; ?>
 			
 		</ul>
@@ -202,29 +296,29 @@
 			
 		</ul>
 		<?php endif; ?>
-		
-		<?php if( isset($single_property->gradeschool) || isset($single_property->middleschool) || isset($single_property->highschool) || isset($single_property->unmapped->HighSchoolDistrict) ):?>
-		<h3 class="zy-feature-title">School Information</h3>
+	</li>
+
+	<li class="cell">
+
+		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) || isset($single_property->parkingfeature) ):?>
+		<h3 class="zy-feature-title">Parking Information</h3>
 		<ul class="zy-sub-list">
-			
-			<?php if( isset($single_property->gradeschool)): ?>
-			<li>Elementary School: [gradeschool]</li>
+			<?php if( isset($single_property->garagespaces)): ?>
+			<li>Garage Spaces: [garagespaces]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->middleschool)): ?>
-			<li>Middle School: [middleschool]</li>
+			<?php if( isset($single_property->parkingspaces)): ?>
+			<li>Parking Spaces: [parkingspaces]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->highschool)): ?>
-			<li>High School: [highschool]</li>
+			<?php if( isset($single_property->roadtype)): ?>
+			<li>Road Type: [roadtype]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->HighSchoolDistrict)): ?>
-			<li>School District: [unmapped_HighSchoolDistrict]</li>
+			<?php if( isset($single_property->parkingfeature)): ?>
+			<li>Parking Features: [parkingfeature]</li>
 			<?php endif; ?>
 			
 		</ul>
 		<?php endif; ?>
-	</li>
-
-	<li class="cell">
+		
 		<?php if( isset($single_property->feeinterval) || isset($single_property->reqdownassociation) ):?>
 		<h3 class="zy-feature-title">Association Information</h3>
 		<ul class="zy-sub-list">
@@ -238,7 +332,8 @@
 		</ul>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->feeinterval) || isset($single_property->reqdownassociation) ):?>
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->feeinterval) ||
+				isset($single_property->reqdownassociation) || isset($single_property->unmapped->TaxBlock) || isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			
@@ -260,6 +355,16 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->reqdownassociation)): ?>
 			<li>Association YN: [reqdownassociation]</li>
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->TaxBlock)): ?>
+			<li>Tax Block: [unmapped_TaxBlock]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TaxLegalDescription)): ?>
+			<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
+			<li>Tax Other Annual Assessment Amount: [unmapped_TaxOtherAnnualAssessmentAmount]</li>
 			<?php endif; ?>
 			
 		</ul>

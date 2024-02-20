@@ -1,8 +1,10 @@
 <ul class="zy-features-grid">
 	<?php if( isset($single_property->cultivationacres) || isset($single_property->pastureacres) || isset($single_property->timberacres) || isset($single_property->ldtype) || isset($single_property->frontage) || 
 			isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) ||
-			isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->waterfrontflag) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->TaxAssessedValue) ||
-			isset($single_property->unmapped->UnparsedAddress) || isset($single_property->unmapped->ZoningDescription) ):?>
+			isset($single_property->propsubtype) || isset($single_property->facingdirection) || isset($single_property->unmapped->FrontageLength) || isset($single_property->lotdescription) || isset($single_property->unmapped->SpaYN) ||
+			isset($single_property->unmapped->RoadFrontageType) || isset($single_property->roadtype) || isset($single_property->unmapped->ViewYN) || isset($single_property->waterfront) || isset($single_property->waterfrontflag) ||
+			isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->ElectricOnPropertyYN) || isset($single_property->termsfeature) || isset($single_property->unmapped->IrrigationSource) || isset($single_property->unmapped->LandLeaseAmount) ||
+			isset($single_property->possession) || isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->unmapped->BuildingName) || isset($single_property->unmapped->ListingTerms) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
@@ -67,26 +69,62 @@
 			
 			<?php endif; ?>
 
-			<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
-			<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
+			<?php if( isset($single_property->propsubtype)): ?>
+			<li>Building Design: [propsubtype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->facingdirection)): ?>
+			<li>Direction Faces: [facingdirection]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->FrontageLength)): ?>
+			<li>Frontage Length: [unmapped_FrontageLength]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->lotdescription)): ?>
+			<li>Lot Description: [lotdescription]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SpaYN)): ?>
+			<li>Private Spa YN: [unmapped_SpaYN]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
 			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->roadtype)): ?>
+			<li>Road Surface Type: [roadtype]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ViewYN)): ?>
+			<li>View YN: [unmapped_ViewYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterfront)): ?>
+			<li>Waterfront: [waterfront]</li>
+			<?php endif; ?>
 			<?php if( isset($single_property->waterfrontflag)): ?>
 			<li>Waterfront YN: [waterfrontflag]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CurrentUse)): ?>
+			<li>Current Use: [unmapped_CurrentUse]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ElectricOnPropertyYN)): ?>
+			<li>Electric On Property YN: [unmapped_ElectricOnPropertyYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->termsfeature)): ?>
+			<li>Community Features: [termsfeature]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->IrrigationSource)): ?>
+			<li>Irrigation Source: [unmapped_IrrigationSource]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LandLeaseAmount)): ?>
+			<li>Land Lease Amount: [unmapped_LandLeaseAmount]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->possession)): ?>
+			<li>Possession: [possession]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PoolPrivateYN)): ?>
+			<li>Private Pool YN: [unmapped_PoolPrivateYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuildingName)): ?>
+			<li>Sub Condo Name: [unmapped_BuildingName]</li>
+			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
-			<li>Listing Terms: [unmapped_ListingTerms]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->TaxAssessedValue)): ?>
-			<li>State Equalized Value: [unmapped_TaxAssessedValue]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->UnparsedAddress)): ?>
-			<li>Unparsed Address: [unmapped_UnparsedAddress]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
-			<li>Zoning: [unmapped_ZoningDescription]</li>
+			<li>Terms: [unmapped_ListingTerms]</li>
 			<?php endif; ?>
 		</ul>
 	</li>						
@@ -185,6 +223,22 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->reqdownassociation)): ?>
 				<li>Association YN: [reqdownassociation]</li>
+				<?php endif; ?>
+				
+				<?php if( isset($single_property->hoafee)): ?>
+				<li>Association Fee: [hoafee]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->asscfeeincludes)): ?>
+				<li>Association Amenities: [asscfeeincludes]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxBlock)): ?>
+				<li>Tax Block: [unmapped_TaxBlock]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxLegalDescription)): ?>
+				<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
+				<li>Tax Other Annual Assessment Amount: [unmapped_TaxOtherAnnualAssessmentAmount]</li>
 				<?php endif; ?>
 			
 		</ul>

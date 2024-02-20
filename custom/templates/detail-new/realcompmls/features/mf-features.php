@@ -169,7 +169,8 @@
 		<?php endif; ?>
 	</li>
 
-	<li class="cell">
+	<li>
+
 		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) || isset($single_property->parkingfeature) ):?>
 		<h3 class="zy-feature-title">Parking Information</h3>
 		<ul class="zy-sub-list">
@@ -188,9 +189,7 @@
 			
 		</ul>
 		<?php endif; ?>
-	</li>	
-
-	<li>
+		
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ||
 				isset($single_property->unmapped->TaxAmountSummer) || isset($single_property->unmapped->TaxAmountWinter) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>

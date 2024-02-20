@@ -4,9 +4,9 @@
 			  isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || 
 			  isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities) || isset($single_property->unmapped->LivingArea) || isset($single_property->roofmaterial) || 
 		 	 isset($single_property->utilities) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) ||
-		  	isset($single_property->construction) || isset($single_property->foundation) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->waterfrontflag) ||
-			isset($single_property->unmapped->BuildingAreaSource) || isset($single_property->handicapaccess) || isset($single_property->unmapped->GrossScheduledIncome) || isset($single_property->unmapped->ListingTerms) || isset($single_property->netoperatinginc) ||
-			isset($single_property->unmapped->OperatingExpense) || isset($single_property->possession) || isset($single_property->unmapped->UnparsedAddress) || isset($single_property->unmapped->ZoningDescription) ):?>
+			isset($single_property->propsubtype) || isset($single_property->unmapped->FrontageLength) || isset($single_property->unmapped->SpaYN) || isset($single_property->waterfront) || isset($single_property->waterfrontflag) ||
+			isset($single_property->unmapped->BusinessType) || isset($single_property->unmapped->Inclusions) || isset($single_property->unmapped->NewConstructionYN) || isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->zoning) ||
+			isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->ElectricOnPropertyYN) || isset($single_property->unmapped->Fencing) || isset($single_property->unmapped->DoorFeatures) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -96,47 +96,52 @@
 				
 				<?php endif; ?>
 
-				<?php if( isset($single_property->construction)): ?>
-				<li>Construction: [construction]</li>
+				<?php if( isset($single_property->propsubtype)): ?>
+				<li>Building Design: [propsubtype]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->foundation)): ?>
-				<li>Foundation: [foundation]</li>
+				<?php if( isset($single_property->unmapped->FrontageLength)): ?>
+				<li>Frontage Length: [unmapped_FrontageLength]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->LotSizeDimensions)): ?>
-				<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
+				<?php if( isset($single_property->unmapped->SpaYN)): ?>
+				<li>Private Spa YN: [unmapped_SpaYN]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
-				<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+				<?php if( isset($single_property->waterfront)): ?>
+				<li>Waterfront: [waterfront]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->waterfrontflag)): ?>
 				<li>Waterfront YN: [waterfrontflag]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->BuildingAreaSource)): ?>
-				<li>Building Area Source: [unmapped_BuildingAreaSource]</li>
+				<?php if( isset($single_property->unmapped->BusinessType)): ?>
+				<li>Business Type: [unmapped_BusinessType]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->handicapaccess)): ?>
-				<li>Accessibility Features: [handicapaccess]</li>
+				<?php if( isset($single_property->unmapped->Inclusions)): ?>
+				<li>Inclusions: [unmapped_Inclusions]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->GrossScheduledIncome)): ?>
-				<li>Gross Scheduled Income: [unmapped_GrossScheduledIncome]</li>
+				<?php if( isset($single_property->unmapped->NewConstructionYN)): ?>
+				<li>New Construction YN: [unmapped_NewConstructionYN]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->ListingTerms)): ?>
-				<li>Listing Terms: [unmapped_ListingTerms]</li>
+				<?php if( isset($single_property->unmapped->PoolPrivateYN)): ?>
+				<li>Private Pool YN: [unmapped_PoolPrivateYN]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->netoperatinginc)): ?>
-				<li>Net Operating Income: [netoperatinginc]</li>
+				<?php if( isset($single_property->zoning)): ?>
+				<li>Zoning: [zoning]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->OperatingExpense)): ?>
-				<li>Operating Expense: [unmapped_OperatingExpense]</li>
+
+				<?php if( isset($single_property->unmapped->BuildingAreaTotal)): ?>
+				<li>Building Area Total: [unmapped_BuildingAreaTotal]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->possession)): ?>
-				<li>Possession: [possession]</li>
+				<?php if( isset($single_property->unmapped->CurrentUse)): ?>
+				<li>Current Use: [unmapped_CurrentUse]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->UnparsedAddress)): ?>
-				<li>Unparsed Address: [unmapped_UnparsedAddress]</li>
+				<?php if( isset($single_property->unmapped->ElectricOnPropertyYN)): ?>
+				<li>Electric On Property YN: [unmapped_ElectricOnPropertyYN]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
-				<li>Zoning: [unmapped_ZoningDescription]</li>
+
+				<?php if( isset($single_property->unmapped->Fencing)): ?>
+				<li>Fencing: [unmapped_Fencing]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->DoorFeatures)): ?>
+				<li>Door Features: [unmapped_DoorFeatures]</li>
 				<?php endif; ?>
 			
 		</ul>
@@ -261,7 +266,7 @@
 		<?php endif; ?>
 		
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zonedescription) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || 
-				isset($single_property->reqdownassociation) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ):?>
+				isset($single_property->reqdownassociation) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) || isset($single_property->feeinterval) || isset($single_property->unmapped->TaxLegalDescription) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			
@@ -287,6 +292,13 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
 				<li>Assessment: [unmapped_TaxOtherAnnualAssessmentAmount]</li>
+				<?php endif; ?>
+
+				<?php if( isset($single_property->feeinterval)): ?>
+				<li>HOAFee Frequency: [feeinterval]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->TaxLegalDescription)): ?>
+				<li>Tax Legal Description: [unmapped_TaxLegalDescription]</li>
 				<?php endif; ?>
 			
 		</ul>
