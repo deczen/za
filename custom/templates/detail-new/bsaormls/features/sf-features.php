@@ -9,7 +9,13 @@
 			isset($single_property->termsfeature) || isset($single_property->unmapped->IrrigationSource) || isset($single_property->unmapped->LandLeaseAmount) || isset($single_property->unmapped->Levels) || isset($single_property->unmapped->NewConstructionYN) || 
 			isset($single_property->unmapped->NumberOfUnitsInCommunity) || isset($single_property->unmapped->Ownership) || isset($single_property->possession) || isset($single_property->assocsecurity) || isset($single_property->unmapped->ListingTerms) || 
 			isset($single_property->zoning) || isset($single_property->unmapped->Fencing) || isset($single_property->disclosures) || isset($single_property->unmapped->BuildingName) || isset($single_property->propsubtype) ||
-			isset($single_property->totalrooms) || isset($single_property->unmapped->BathroomsTotalInteger) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->StructureType) ):?>
+			isset($single_property->totalrooms) || isset($single_property->unmapped->BathroomsTotalInteger) || isset($single_property->unmapped->SeniorCommunityYN) || isset($single_property->unmapped->StructureType) ||
+			isset($single_property->unmapped->PetsLimitMaxNumber) || isset($single_property->unmapped->CarportYN) || isset($single_property->unmapped->BSAOR_Bedrooms) || isset($single_property->unmapped->Ceiling_Fans) || isset($single_property->unmapped->Room_DiningRoom_Features) ||
+			isset($single_property->unmapped->RoomKitchenFeatures) || isset($single_property->unmapped->RoomMasterBathroomFeatures) || isset($single_property->unmapped->RoomMasterBedroomLevel) || isset($single_property->unmapped->AmenityRecFee) || isset($single_property->unmapped->ApplicationFee) ||
+			isset($single_property->unmapped->BuilderProductYN) || isset($single_property->unmapped->CondoFee) || isset($single_property->unmapped->LeasesPerYear) || isset($single_property->unmapped->LegalUnit) || isset($single_property->unmapped->LotSizeUnits) ||
+			isset($single_property->unmapped->Management) || isset($single_property->unmapped->MandatoryClubFee) || isset($single_property->unmapped->MinDaysOfLease) || isset($single_property->unmapped->OneTimeMandatoryClubFee) || isset($single_property->unmapped->OneTimeOtherFee) ||
+			isset($single_property->unmapped->OneTimeRecLeaseFee) || isset($single_property->unmapped->OneTimeSpecialAssessmentFee) || isset($single_property->unmapped->TotalOneTimeFee) || isset($single_property->unmapped->TransferFee) || isset($single_property->unmapped->CanalWidth) ||
+			isset($single_property->unmapped->Room_DiningRoom_Features) || isset($single_property->unmapped->OneTimeMandatoryClubFee) || isset($single_property->unmapped->TotalAnnualRecurringFee) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -221,6 +227,87 @@
 			<li>Structure Type: [unmapped_StructureType]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->PetsLimitMaxNumber)): ?>
+			<li>Pets Limit Max Number: [unmapped_PetsLimitMaxNumber]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CarportYN)): ?>
+			<li>Carport Desc: [unmapped_CarportYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BSAOR_Bedrooms)): ?>
+			<li>Bedrooms: [unmapped_BSAOR_Bedrooms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Ceiling_Fans)): ?>
+			<li>Ceiling Fans: [unmapped_Ceiling_Fans]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Room_DiningRoom_Features)): ?>
+			<li>Dining Room Features: [unmapped_Room_DiningRoom_Features]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoomKitchenFeatures)): ?>
+			<li>Kitchen Features: [unmapped_RoomKitchenFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoomMasterBathroomFeatures)): ?>
+			<li>Master Bathroom Features: [unmapped_RoomMasterBathroomFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoomMasterBedroomLevel)): ?>
+			<li>Master Bedroom Level: [unmapped_RoomMasterBedroomLevel]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AmenityRecFee)): ?>
+			<li>Amenity Rec Fee: [unmapped_AmenityRecFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ApplicationFee)): ?>
+			<li>Application Fee: [unmapped_ApplicationFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuilderProductYN)): ?>
+			<li>Builder Product YN: [unmapped_BuilderProductYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CondoFee)): ?>
+			<li>Condo Fee: [unmapped_CondoFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LeasesPerYear)): ?>
+			<li>Leases Per Year: [unmapped_LeasesPerYear]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LegalUnit)): ?>
+			<li>Legal Unit: [unmapped_LegalUnit]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Unit: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Management)): ?>
+			<li>Management: [unmapped_Management]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MandatoryClubFee)): ?>
+			<li>Mandatory Club Fee: [unmapped_MandatoryClubFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MinDaysOfLease)): ?>
+			<li>Min Days Of Lease: [unmapped_MinDaysOfLease]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeMandatoryClubFee)): ?>
+			<li>One Time Mandatory Club Fee: [unmapped_OneTimeMandatoryClubFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeOtherFee)): ?>
+			<li>One Time Other Fee: [unmapped_OneTimeOtherFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeRecLeaseFee)): ?>
+			<li>One Time Rec Lease Fee: [unmapped_OneTimeRecLeaseFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeSpecialAssessmentFee)): ?>
+			<li>One Time Special Assessment Fee: [unmapped_OneTimeSpecialAssessmentFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TotalAnnualRecurringFee)): ?>
+			<li>Total Annual Recurring Fees: [unmapped_TotalAnnualRecurringFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TotalOneTimeFee)): ?>
+			<li>Total One Time Fees: [unmapped_TotalOneTimeFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TransferFee)): ?>
+			<li>Transfer Fee: [unmapped_TransferFee]</li>
+			<?php endif; ?>
+			
+			
+			<?php if( isset($single_property->unmapped->CanalWidth)): ?>
+			<li>Canal Width: [unmapped_CanalWidth]</li>
+			<?php endif; ?>
+			
 		</ul>
 	</li>						
 	<?php endif; ?>
@@ -332,8 +419,9 @@
 		</ul>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->feeinterval) ||
-				isset($single_property->reqdownassociation) || isset($single_property->unmapped->TaxBlock) || isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ):?>
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) || isset($single_property->unmapped->TaxBlock) || 
+				isset($single_property->unmapped->TaxLegalDescription) || isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount) ||
+				isset($single_property->unmapped->AssociationFee2) || isset($single_property->unmapped->AssociationFee2Frequency) || isset($single_property->unmapped->TaxDistrictType) || isset($single_property->unmapped->TaxExemptions) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			
@@ -349,13 +437,6 @@
 			<?php if( isset($single_property->asscfeeincludes)): ?>
 			<li>Fee Includes: [asscfeeincludes]</li> <!-- not done -->
 			<?php endif; ?>
-
-			<?php if( isset($single_property->feeinterval)): ?>
-			<li>Association Fee Frequency: [feeinterval]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->reqdownassociation)): ?>
-			<li>Association YN: [reqdownassociation]</li>
-			<?php endif; ?>
 			
 			<?php if( isset($single_property->unmapped->TaxBlock)): ?>
 			<li>Tax Block: [unmapped_TaxBlock]</li>
@@ -365,6 +446,19 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
 			<li>Tax Other Annual Assessment Amount: [unmapped_TaxOtherAnnualAssessmentAmount]</li>
+			<?php endif; ?>
+
+			<?php if( isset($single_property->unmapped->AssociationFee2)): ?>
+			<li>Master HOAFee: [unmapped_AssociationFee2]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AssociationFee2Frequency)): ?>
+			<li>Master HOAFee Frequency: [unmapped_AssociationFee2Frequency]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TaxDistrictType)): ?>
+			<li>Tax District Type: [unmapped_TaxDistrictType]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TaxExemptions)): ?>
+			<li>Tax Exemptions: [unmapped_TaxExemptions]</li>
 			<?php endif; ?>
 			
 		</ul>

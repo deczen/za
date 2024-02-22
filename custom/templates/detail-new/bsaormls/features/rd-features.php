@@ -10,7 +10,11 @@
 			isset($single_property->propsubtype) || isset($single_property->unmapped->CarportSpaces) || isset($single_property->construction) || isset($single_property->unmapped->CoveredSpaces) || isset($single_property->unmapped->EntryLevel) ||
 			isset($single_property->unmapped->OpenParkingYN) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->unmapped->View) || isset($single_property->unmapped->ViewYN) ||
 			isset($single_property->unmapped->WindowFeatures) || isset($single_property->unmapped->BathroomsTotalInteger) || isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->termsfeature) || isset($single_property->unmapped->NumberOfUnitsInCommunity) ||
-			isset($single_property->assocsecurity) || isset($single_property->unmapped->BuildingName) || isset($single_property->tenantexpanses) ):?>
+			isset($single_property->assocsecurity) || isset($single_property->unmapped->BuildingName) || isset($single_property->tenantexpanses) ||
+			isset($single_property->unmapped->CanalWidth) || isset($single_property->unmapped->AmenityRecFee) || isset($single_property->unmapped->ApplicationFee) || isset($single_property->unmapped->ApprovalPeriod) || isset($single_property->unmapped->CreditApplicationFee) ||
+			isset($single_property->unmapped->DepertureCleaningFee) || isset($single_property->unmapped->ForSale) || isset($single_property->unmapped->Interview) || isset($single_property->unmapped->LastMonthRentReq) || isset($single_property->unmapped->LeasesPerYear) ||
+			isset($single_property->unmapped->LegalUnit) || isset($single_property->unmapped->LotSizeUnits) || isset($single_property->unmapped->MinDaysOfLease) || isset($single_property->unmapped->OneTimeRecLeaseFee) || isset($single_property->unmapped->RentalOfficeAppFee) ||
+			isset($single_property->unmapped->SeasonRate) || isset($single_property->unmapped->SecurityDeposit) || isset($single_property->unmapped->Smoking) || isset($single_property->unmapped->TransferFee) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -196,6 +200,64 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->tenantexpanses)): ?>
 			<li>Tenant Pays: [tenantexpanses]</li>
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->CanalWidth)): ?>
+			<li>Canal Width: [unmapped_CanalWidth]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AmenityRecFee)): ?>
+			<li>Amenity Rec Fee: [unmapped_AmenityRecFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ApplicationFee)): ?>
+			<li>Application Fee: [unmapped_ApplicationFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ApprovalPeriod)): ?>
+			<li>Approval Period: [unmapped_ApprovalPeriod]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CreditApplicationFee)): ?>
+			<li>Credit Application Fee: [unmapped_CreditApplicationFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->DepertureCleaningFee)): ?>
+			<li>Departure Cleaning Fee: [unmapped_DepertureCleaningFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ForSale)): ?>
+			<li>For Sale YN: [unmapped_ForSale]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Interview)): ?>
+			<li>Interview YN: [unmapped_Interview]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LastMonthRentReq)): ?>
+			<li>Last Month Rent Req YN: [unmapped_LastMonthRentReq]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LeasesPerYear)): ?>
+			<li>Leases Per Year: [unmapped_LeasesPerYear]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LegalUnit)): ?>
+			<li>Legal Unit: [unmapped_LegalUnit]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Unit: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MinDaysOfLease)): ?>
+			<li>Min Days Of Lease: [unmapped_MinDaysOfLease]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeRecLeaseFee)): ?>
+			<li>One Time Rec Lease Fee: [unmapped_OneTimeRecLeaseFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RentalOfficeAppFee)): ?>
+			<li>Rental Office App Fee: [unmapped_RentalOfficeAppFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SeasonRate)): ?>
+			<li>Season Rate: [unmapped_SeasonRate]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SecurityDeposit)): ?>
+			<li>Security Deposit: [unmapped_SecurityDeposit]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Smoking)): ?>
+			<li>Smoking YN: [unmapped_Smoking]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TransferFee)): ?>
+			<li>Transfer Fee: [unmapped_TransferFee]</li>
 			<?php endif; ?>
 		</ul>
 	</li>						

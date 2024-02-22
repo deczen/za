@@ -4,7 +4,10 @@
 			isset($single_property->propsubtype) || isset($single_property->facingdirection) || isset($single_property->unmapped->FrontageLength) || isset($single_property->lotdescription) || isset($single_property->unmapped->SpaYN) ||
 			isset($single_property->unmapped->RoadFrontageType) || isset($single_property->roadtype) || isset($single_property->unmapped->ViewYN) || isset($single_property->waterfront) || isset($single_property->waterfrontflag) ||
 			isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->ElectricOnPropertyYN) || isset($single_property->termsfeature) || isset($single_property->unmapped->IrrigationSource) || isset($single_property->unmapped->LandLeaseAmount) ||
-			isset($single_property->possession) || isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->unmapped->BuildingName) || isset($single_property->unmapped->ListingTerms) ):?>
+			isset($single_property->possession) || isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->unmapped->BuildingName) || isset($single_property->unmapped->ListingTerms) || 
+		  	  isset($single_property->unmapped->CanalWidth) || isset($single_property->unmapped->AmenityRecFee) || isset($single_property->unmapped->CondoFee) || isset($single_property->unmapped->LegalUnit) || isset($single_property->unmapped->LotSizeUnits) ||
+  			  isset($single_property->unmapped->MandatoryClubFee) || isset($single_property->unmapped->AssociationFee2) || isset($single_property->unmapped->OneTimeMandatoryClubFee) || isset($single_property->unmapped->OneTimeOtherFee) || isset($single_property->unmapped->OneTimeRecLeaseFee) ||
+  			  isset($single_property->unmapped->OneTimeSpecialAssessmentFee) || isset($single_property->unmapped->TransferFee) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Land Details</h3>
 		<ul class="zy-sub-list">
@@ -126,6 +129,43 @@
 			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
 			<li>Terms: [unmapped_ListingTerms]</li>
 			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->CanalWidth)): ?>
+			<li>Canal Width: [unmapped_CanalWidth]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AmenityRecFee)): ?>
+			<li>Amenity Rec Fee: [unmapped_AmenityRecFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CondoFee)): ?>
+			<li>Condo Fee: [unmapped_CondoFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LegalUnit)): ?>
+			<li>Legal Unit: [unmapped_LegalUnit]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Unit: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MandatoryClubFee)): ?>
+			<li>Mandatory Club Fee: [unmapped_MandatoryClubFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AssociationFee2)): ?>
+			<li>Master HOAFee: [unmapped_AssociationFee2]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeMandatoryClubFee)): ?>
+			<li>One Time Mandatory Club Fee: [unmapped_OneTimeMandatoryClubFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeOtherFee)): ?>
+			<li>One Time Other Fee: [unmapped_OneTimeOtherFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeRecLeaseFee)): ?>
+			<li>One Time Rec Lease Fee: [unmapped_OneTimeRecLeaseFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OneTimeSpecialAssessmentFee)): ?>
+			<li>One Time Special Assessment Fee: [unmapped_OneTimeSpecialAssessmentFee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TransferFee)): ?>
+			<li>Transfer Fee: [unmapped_TransferFee]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
@@ -204,7 +244,8 @@
 	</li>
 	
 	<li class="cell">
-		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) || isset($single_property->feeinterval) || isset($single_property->reqdownassociation) ):?>
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) || isset($single_property->feeinterval) || isset($single_property->reqdownassociation) || 
+				isset($single_property->unmapped->TaxDistrictType) ):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 			
@@ -239,6 +280,10 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->TaxOtherAnnualAssessmentAmount)): ?>
 				<li>Tax Other Annual Assessment Amount: [unmapped_TaxOtherAnnualAssessmentAmount]</li>
+				<?php endif; ?>
+
+				<?php if( isset($single_property->unmapped->TaxDistrictType)): ?>
+				<li>Tax District Type: [unmapped_TaxDistrictType]</li>
 				<?php endif; ?>
 			
 		</ul>

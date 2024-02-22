@@ -434,8 +434,20 @@ switch($property_type){
 }
 
 /* Generate custom template */
-$groupname = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
+$groupname = '';
 $sourceid = strtolower($single_property->sourceid);
+
+$groups = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
+if( is_array( $groups  ) ) {
+	foreach( $groups as $current_source => $mls ) {
+		if($sourceid == $current_source){
+			$groupname = $mls;
+			break;
+		}
+	}
+} else {
+	$groupname = $groups;
+}
 
 // $group_dir_default='/default';
 // $template_features_default = 'default-features.php';
