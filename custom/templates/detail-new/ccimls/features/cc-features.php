@@ -1,5 +1,5 @@
 <ul class="zy-features-grid">
-	<?php if( isset($single_property->basement) || isset($single_property->flooring) || isset($single_property->norooms) || isset($single_property->complexcomplete) || isset($single_property->condominiumname) || isset($single_property->unmapped->{'Condo Style'}) || isset($single_property->condoassociation) || isset($single_property->unmapped->{'Convenient To'}) || isset($single_property->unmapped->{'Flood Ins Required'}) || isset($single_property->unmapped->{'Fuel Type'}) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->assessedvaluebldg) || isset($single_property->leadpaint) || isset($single_property->location) || isset($single_property->unmapped->{'Lot Size Source'}) || isset($single_property->management) || isset($single_property->beachmilesto) || isset($single_property->hoafee) || isset($single_property->unmapped->{'Neighborhood Amen'}) || isset($single_property->unmapped->{'Other Assessments'}) || isset($single_property->petsallowed) || isset($single_property->propsubtype) || isset($single_property->propsubtype) || isset($single_property->sewer) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->unmapped->{'SqFt Source'}) || isset($single_property->water) || isset($single_property->yearbuiltdescrp) || isset($single_property->yearround) || isset($single_property->zoning) || isset($single_property->kitdscrp) || isset($single_property->livdscrp) || isset($single_property->unmapped->{'Master Bedroom'}) || isset($single_property->mbrlevel) || isset($single_property->interiorfeatures)):?>
+	<?php if( isset($single_property->basement) || isset($single_property->flooring) || isset($single_property->norooms) || isset($single_property->complexcomplete) || isset($single_property->condominiumname) || isset($single_property->unmapped->{'Condo Style'}) || isset($single_property->condoassociation) || isset($single_property->unmapped->{'Convenient To'}) || isset($single_property->unmapped->{'Flood Ins Required'}) || isset($single_property->unmapped->{'Fuel Type'}) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->assessedvaluebldg) || isset($single_property->unmapped->{'leadpaint'}) || isset($single_property->location) || isset($single_property->unmapped->{'Lot Size Source'}) || isset($single_property->management) || isset($single_property->beachmilesto) || isset($single_property->hoafee) || isset($single_property->unmapped->{'Neighborhood Amen'}) || isset($single_property->unmapped->{'Other Assessments'}) || isset($single_property->petsallowed) || isset($single_property->propsubtype) || isset($single_property->propsubtype) || isset($single_property->sewer) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->unmapped->{'SqFt Source'}) || isset($single_property->water) || isset($single_property->yearbuiltdescrp) || isset($single_property->yearround) || isset($single_property->zoning) || isset($single_property->kitdscrp) || isset($single_property->livdscrp) || isset($single_property->unmapped->{'Master Bedroom'}) || isset($single_property->mbrlevel) || isset($single_property->interiorfeatures)):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -38,8 +38,8 @@
 				<?php if( isset($single_property->assessedvaluebldg)): ?>
 				<li>Improvement Assessments: [assessedvaluebldg]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->leadpaint)): ?>
-				<li>Lead Paint: [leadpaint]</li>
+				<?php if( isset($single_property->unmapped->{'leadPaint'})): ?>
+					<li>Lead Paint: [unmapped_leadPaint]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->location)): ?>
 				<li>Location Description: [location]</li>
@@ -74,6 +74,7 @@
 				<?php if( isset($single_property->unmapped->{'SqFt Source'})): ?>
 				<li>Sq Ft Source: [unmapped_SqFt Source]</li>
 				<?php endif; ?>
+				
 				<?php if( isset($single_property->water)): ?>
 				<li>Water: [water]</li>
 				<?php endif; ?>

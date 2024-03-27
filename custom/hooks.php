@@ -1093,3 +1093,167 @@ function strip_param_from_url( $url, $param ) {
 		return $base_url;
 	}	
 }
+
+
+//custom blog posts endpoint added by ravinder
+// Add custom rewrite rule
+function custom_rewrite_rules() {
+    // Rewrite rule for POST requests
+    add_rewrite_rule('^blog/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/?$', 'index.php?postblog=1&uuid=$matches[1]', 'top');
+
+    // Rewrite rule for DELETE requests
+    add_rewrite_rule('^blog/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/blogid/?$', 'index.php?deleteblog=1&uuid=$matches[1]', 'top');
+}
+add_action('init', 'custom_rewrite_rules');
+
+
+// Add query var
+function postblog_query_vars($query_vars) {
+    $query_vars[] = 'blog';
+    return $query_vars;
+}
+add_filter('query_vars', 'postblog_query_vars');
+
+// Template redirect hook
+function postblog_endpoint_template_redirect() {
+    global $wp;
+
+    if(isset($wp->request) && strpos($wp->request, 'blog') !== false && strpos($_SERVER['REQUEST_URI'], '018e2e22-aa27-7338-b9dc-ca66663935f8') !== false){
+		$zakey_header = isset($_SERVER['HTTP_ZAKEY']) ? $_SERVER['HTTP_ZAKEY'] : null;
+		if ($zakey_header !== null) {
+			$decoded_zakey = base64_decode($zakey_header);
+			
+			
+            if ($decoded_zakey !== false) {
+			
+				list($subdomain, $consumerkey) = explode(':', $decoded_zakey);
+			
+				$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+				$root_subdomain = $rb['web']['subdomain'];
+				$root_consumerkey = $rb['web']['authorization']['consumer_key'];
+
+				if ($subdomain === $root_subdomain && $consumerkey === $root_consumerkey) {
+					if ($_SERVER['REQUEST_METHOD'] === 'POST' && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+						
+						handle_json_create_blog_request();
+					}
+					if ($_SERVER['REQUEST_METHOD'] === 'DELETE' ) {
+						handle_blog_delete_request();
+					}
+
+				}else{
+					
+					status_header(404);
+					exit;
+				}
+			}else{
+				status_header(404);
+				exit;
+			}
+
+		}else{
+			status_header(404);
+			exit;
+		}
+	}
+}
+function handle_json_create_blog_request() {
+        // Get JSON data from the request body
+        $json_data = json_decode(file_get_contents("php://input"), true);
+
+        // Check if required fields are present in JSON data
+        if (isset($json_data['title']) && isset($json_data['status']) && isset($json_data['content']) && isset($json_data['category'])) {
+        
+			$category_name = sanitize_text_field($json_data['category']);
+			$category_id = get_cat_ID($category_name);
+			$user_email = sanitize_email($json_data['email']);
+			$user = get_user_by('email', $user_email);
+			
+			 // If the category doesn't exist, create it
+			 if ($category_id == 0) {
+                $category = wp_insert_term($category_name, 'category');
+                if (!is_wp_error($category)) {
+                    $category_id = $category['term_id'];
+                } else {
+                    // Handle error creating category
+                    status_header(500);
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(array('status' => 'error', 'message' => 'Error creating category', 'details' => $category->get_error_message()));
+                    exit;
+                }
+            }
+			// Create a new post
+			if ($user) {
+				$user_id = $user->ID;
+				$post_data = array(
+					'post_title' => sanitize_text_field($json_data['title']),
+					'post_status' => sanitize_text_field($json_data['status']),
+					'post_content' => wp_kses_post($json_data['content']),
+					'post_category' => array($category_id),
+					'post_author' => $user_id,
+				);
+			}else{
+				$post_data = array(
+					'post_title' => sanitize_text_field($json_data['title']),
+					'post_status' => sanitize_text_field($json_data['status']),
+					'post_content' => wp_kses_post($json_data['content']),
+					'post_category' => array($category_id),
+				);
+			}
+        
+
+            $post_id = wp_insert_post($post_data);
+
+            if (!is_wp_error($post_id)) {
+                // Post created successfully
+                 $post_title = get_the_title($post_id);
+                $post_url = get_permalink($post_id);
+
+                status_header(200);
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(array('status' => 'success', 'message' => 'Blog created successfully', 'post_id' => $post_id, 'title' => $post_title, 'url' => $post_url));
+                exit;
+            } else {
+                // Error creating post
+                status_header(500);
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(array('status' => 'error', 'message' => 'Error creating blog post', 'details' => $post_id->get_error_message()));
+                exit;
+            }
+        } else {
+            // Missing required fields in JSON data
+            status_header(400);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(array('status' => 'error', 'message' => 'Missing required fields', 'details' => 'Title, status, content, and category are required fields.'));
+            exit;
+        }
+    
+}
+function handle_blog_delete_request() {
+    $url_parts = explode('/', $_SERVER['REQUEST_URI']);
+    $post_id = end($url_parts);
+	if (get_post_status($post_id)) {
+		// Delete the post
+		$result = wp_delete_post($post_id, true); 
+		if ($result !== false) {
+			status_header(200);
+			header('Content-Type: application/json; charset=utf-8');
+			echo json_encode(array('status' => 'success', 'message' => 'Blog deleted successfully', 'blog_id' => $post_id));
+			exit;
+		} else {
+			status_header(200);
+			header('Content-Type: application/json; charset=utf-8');
+			echo json_encode(array('status' => 'error', 'message' => 'something want worng', 'blog_id' => $post_id));
+			exit;
+		}
+	} else {
+		status_header(500);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(array('status' => 'error', 'message' => 'Error deleting blog post'));
+        exit;
+	}
+
+}
+// create new blog endpoint
+add_action('template_redirect', 'postblog_endpoint_template_redirect');
+//end of custom blog posts

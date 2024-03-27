@@ -97,7 +97,10 @@
 				<li>Parking Description: [parkingfeature]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->lotdescription)): ?>
-				<li>Topography: [lotdescription]</li>
+				<li>Lot Features: [lotdescription]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->RoadFrontageType)): ?>
+				<li>Road Frontage Type: [RoadFrontageType]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->Kitchen)): ?>
 				<li>Kitchen: [unmapped_Kitchen]</li>
@@ -157,8 +160,23 @@
 				<li>Water View: [unmapped_Waterview]</li>
 				<?php endif; ?>	
 				<?php if( isset($single_property->waterfrontflag)): ?>
-				<li>Waterfront: [waterfrontflag]</li>
+				<li>Water Front: [waterfrontflag]</li>
 				<?php endif; ?>	
+				<?php if( isset($single_property->FireplaceYN)): ?>
+				<li>Fireplace YN: [FireplaceYN]</li>
+				<?php endif; ?>	
+				<?php if( isset($single_property->ElectricOnPropertyYN)): ?>
+				<li>Electric On Property YN: [ElectricOnPropertyYN]</li>
+				<?php endif; ?>	
+				<?php if( isset($single_property->RoadResponsibility)): ?>
+				<li>Road Responsibility: [RoadResponsibility]</li>
+				<?php endif; ?>	
+				<?php if( isset($single_property->roadtype)): ?>
+				<li>Road Surface Type: [roadtype]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->SpecialListingConditions)): ?>
+				<li>Special List Conditions: [SpecialListingConditions]</li>
+				<?php endif; ?>
 				<?php if( isset($single_property->waterfront)): ?>
 				<li>Waterfront Description: [waterfront]</li>
 				<?php endif; ?>	
@@ -205,13 +223,38 @@
 				<?php if( isset($single_property->taxyear)): ?>
 				<li>Tax Year: [taxyear]</li>
 				<?php endif; ?>
+				<?php if( isset($single_property->reqdownassociation)): ?>
+				<li>Association YN: [reqdownassociation]</li>
+				<?php endif; ?> 
+				<?php if( isset($single_property->amenities)): ?>
+				<li>Association Amenities: [amenities]</li>
+				<?php endif; ?> 
+				<?php if( isset($single_property->feeinterval)): ?>
+				<li>Association Fee Frequency: [feeinterval]</li>
+				<?php endif; ?> 
+				<?php if( isset($single_property->TaxAssessedValue)): ?>
+				<li>Tax Assessed Value: [TaxAssessedValue]</li>
+				<?php endif; ?> 
+				<?php if( isset($single_property->TaxBookNumber)): ?>
+				<li>Tax Book Number: [TaxBookNumber]</li>
+				<?php endif; ?> 
 				<?php if( isset($single_property->assessedvaluebldg)): ?>
 				<li>Total Assessment: [assessedvaluebldg]</li>
 				<?php endif; ?>
 			
 		</ul>
 	<?php endif; ?>
-	
+	<?php if( isset($single_property->HighSchoolDistrict) ):?>
+		<h3 class="zy-feature-title">School Information</h3>
+		
+		<ul class="zy-sub-list">
+			
+				<?php if( isset($single_property->HighSchoolDistrict)): ?>
+				<li>School District: [HighSchoolDistrict]</li>
+				<?php endif; ?> 
+			
+		</ul>
+	<?php endif; ?>
 	</li>					
 
 </ul>

@@ -121,15 +121,6 @@
 				<?php if( isset($single_property->appliances)): ?>
 				<li>Appliances: [appliances]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'AttachedGarageYN'})): ?>
-				<li>Attached Garage YN: <?php if($single_property->unmapped->{'AttachedGarageYN'}==false){echo "No";}else{echo "Yes";} ?></li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'CommonWalls'})): ?>
-				<li>Common Walls: [unmapped_CommonWalls]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'DoorFeatures'})): ?>
-				<li>Door Features: [unmapped_DoorFeatures]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'FireplaceYN'})): ?>
 				<li>Fireplace YN: <?php if($single_property->unmapped->{'FireplaceYN'}==false){echo "No";}else{echo "Yes";} ?></li>
 				<?php endif; ?>
@@ -144,9 +135,6 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Basement Area SqFt'})): ?>
 				<li>Basement Area Sq Ft: [unmapped_Basement Area SqFt]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->location)): ?>
-				<li>Entry Location: [location]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->basementfeature)): ?>
 				<li>Basement Description: [basementfeature]</li>
@@ -175,9 +163,6 @@
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<li>Interior Features: [interiorfeatures]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'WindowFeatures'})): ?>
-				<li>Special List Conditions: [unmapped_WindowFeatures]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->laundryfeatures)): ?>
 				<li>Laundry Features: [laundryfeatures]</li>
 				<?php endif; ?>
@@ -196,20 +181,8 @@
 				<?php if( isset($single_property->unmapped->{'SpecialListingConditions'})): ?>
 				<li>Special List Conditions: [unmapped_SpecialListingConditions]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'TotalActualRent'})): ?>
-				<li>Total Actual Rent: [unmapped_TotalActualRent]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'RoadResponsibility'})): ?>
-				<li>Road Responsibility: [unmapped_RoadResponsibility]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'RoomMasterBedroomLevel'})): ?>
-				<li>Master Bedroom Level: [unmapped_RoomMasterBedroomLevel]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->warranty)): ?>
 				<li>Warranty Available: [warranty]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->termsfeature)): ?>
-				<li>Community Features: [termsfeature]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->sitecondition)): ?>
 				<li>Year Built Description: [sitecondition]</li>
@@ -235,12 +208,6 @@
 				<?php if( isset($single_property->norooms)): ?>
 				<li>Total Rooms: [norooms]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->assocsecurity)): ?>
-				<li>Security: [assocsecurity]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'StructureType'})): ?>
-				<li>Structure Type: [unmapped_StructureType]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->zoning)): ?>
 				<li>Zoning: [zoning]</li>
 				<?php endif; ?>
@@ -255,13 +222,13 @@
             <ul class="zy-sub-list">
             
                     <?php if( isset($single_property->cooling)): ?>
-                    <li>Cooling: [cooling]</li>
+                    <li>Cooling: <?php echo $single_property->cooling; ?></li>
                     <?php endif; ?>
                     <?php if( isset($single_property->heating)): ?>
-                    <li>Heating: [heating]</li>
+                    <li>Heating: <?php echo $single_property->heating; ?></li>
                     <?php endif; ?>
                     <?php if( isset($single_property->hotwater)): ?>
-                    <li>Hot Water: [hotwater]</li>
+                    <li>Hot Water: <?php echo $single_property->hotwater; ?></li>
                     <?php endif; ?>
                     <?php if( isset($single_property->unmapped->{'Hot Water Source'})): ?>
                     <li>Hot Water Source: <?php echo $single_property->unmapped->{'Hot Water Source'}; ?></li>
@@ -293,28 +260,25 @@
         <ul class="zy-sub-list">
         
                 <?php if( isset($single_property->taxes)): ?>
-                <li>Annual Taxes: [taxes]</li>
+                <li>Annual Taxes: <?php echo $single_property->taxes; ?></li>
                 <?php endif; ?>
                 <?php if( isset($single_property->taxyear)): ?>
-                <li>Tax Year: [taxyear]</li>
+                <li>Tax Year: <?php echo $single_property->taxyear; ?></li>
                 <?php endif; ?>
                 <?php if( isset($single_property->totalassessedvalue)): ?>
-                <li>Total Assessment: [totalassessedvalue]</li>
+                <li>Total Assessment: <?php echo $single_property->totalassessedvalue; ?></li>
                 <?php endif; ?>
                 <?php if( isset($single_property->unmapped->{'Other Assessments'})): ?>
-                <li>Other Assessments: [unmapped_Other Assessments]</li>
+                <li>Other Assessments: <?php echo $single_property->unmapped->{'Other Assessments'}; ?></li>
                 <?php endif; ?> 
                 <?php if( isset($single_property->reqdownassociation)): ?>
-                <li>Association YN: [reqdownassociation]</li>
+                <li>Association YN: <?php echo $single_property->reqdownassociation; ?></li>
                 <?php endif; ?>
-				<?php if( isset($single_property->feeinterval)): ?>
-                <li>Association Fee Frequency: [feeinterval]</li>
-                <?php endif; ?>    
                 <?php if( isset($single_property->unmapped->{'TaxAssessedValue'})): ?>
-                <li>Tax Assessed Value: [unmapped_TaxAssessedValue]</li>
+                <li>Tax Assessed Value: <?php echo $single_property->unmapped->{'TaxAssessedValue'}; ?></li>
                 <?php endif; ?>    
                 <?php if( isset($single_property->unmapped->{'TaxBookNumber'})): ?>
-                <li>Tax Book Number: [unmapped_TaxBookNumber]</li>
+                <li>Tax Book Number: <?php echo $single_property->unmapped->{'TaxBookNumber'}; ?></li>
                 <?php endif; ?>    
         </ul>
     <?php endif; ?>
@@ -327,7 +291,7 @@
                 <li>Open Parking: <?php echo $single_property->unmapped->{'OpenParkingYN'} ? 'Yes' : 'No'; ?></li>
                 <?php endif; ?>    
                 <?php if( isset($single_property->parkingfeature)): ?>
-                <li>Parking Features: [parkingfeature]</li>
+                <li>Parking Features: <?php echo $single_property->parkingfeature; ?></li>
                 <?php endif; ?>
                 
         </ul>
@@ -335,5 +299,13 @@
 
     </li>
 <?php endif; ?>
+
+
+
+
+	
+	
+	
+	
 	
 </ul>

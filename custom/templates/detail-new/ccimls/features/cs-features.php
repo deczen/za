@@ -1,11 +1,14 @@
 <ul class="zy-features-grid">
 	<?php if( isset($single_property->beachownership) || isset($single_property->unmapped->{'Flood Ins Required'}) || isset($single_property->unmapped->{'Fuel Type'}) || isset($single_property->assessedvaluebldg) || isset($single_property->leadpaint) || isset($single_property->unmapped->{'Lot Size Source'})|| isset($single_property->propsubtype) || isset($single_property->unmapped->{'Separate Living Qtrs'}) || isset($single_property->unmapped->{'Sewer: Septic Tank'}) || isset($single_property->unmapped->{'Special Listing Cond'}) || isset($single_property->unmapped->{'SqFt Source'}) || isset($single_property->water) || isset($single_property->yearbuiltdescrp) || isset($single_property->yearround) || isset($single_property->zoning) ):?>
 	<li class="cell">
-		<h3 class="zy-feature-title">Property Features</h3>	
+		<h3 class="zy-feature-title">Property Features </h3>	
 		<ul class="zy-sub-list">
 		
 				<?php if( isset($single_property->beachownership)): ?>
 				<li>Beach Ownership: [beachownership]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'ownerLivingQuarters'})): ?>
+				<li>Owner Living Quarters: [unmapped_ownerLivingQuarters]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'CarportYN'})): ?>
 				<li>Carport: <?php if($single_property->unmapped->{'CarportYN'}==false){echo "No";}else{echo "Yes";} ?></li>
@@ -13,8 +16,12 @@
 				<?php if( isset($single_property->construction)): ?>
 				<li>Construction: [construction]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'Flood Ins Required'})): ?>
-				<li>Flood Insurance Required: [unmapped_Flood Ins Required]</li>
+			
+				<?php if( isset($single_property->unmapped->{'floodInsurenceRequired'})): ?>
+				<li>Flood Insurance Required: <?php if($single_property->unmapped->{'floodInsurenceRequired'}==false){echo "No";}else{echo "Yes";} ?></li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'floodZone'})): ?>
+				<li>Flood Zone: [unmapped_floodZone]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Fuel Type'})): ?>
 				<li>Fuel Type: [unmapped_Fuel Type]</li>
@@ -22,9 +29,26 @@
 				<?php if( isset($single_property->assessedvaluebldg)): ?>
 				<li>Improvement Assessments: [assessedvaluebldg]</li>
 				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'gas'})): ?>
+				<li>Gas: [unmapped_gas]</li>
+				<?php endif; ?>
+
 				<?php if( isset($single_property->unmapped->{'leadPaint'})): ?>
 					<li>Lead Paint: [unmapped_leadPaint]</li>
 				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'improvementAssesment'})): ?>
+				<li>Improvement Assessments: [unmapped_improvementAssesment]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'landAssesment'})): ?>
+				<li>Land Assessments: [unmapped_landAssesment]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'otherAssesment'})): ?>
+				<li>Other Assessments: [unmapped_otherAssesment]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'nitrogenSensitiveArea'})): ?>
+				<li>Nitrogen Sensitive Area: <?php if($single_property->unmapped->{'nitrogenSensitiveArea'}==false){echo "No";}else{echo "Yes";} ?></li>
+				<?php endif; ?>
+
 				<?php if( isset($single_property->unmapped->{'Lot Size Source'})): ?>
 				<li>Lot Size Source: [unmapped_Lot Size Source]</li>
 				<?php endif; ?>
@@ -175,15 +199,25 @@
 				<?php if( isset($single_property->interiorfeatures)): ?>
 				<li>Interior Features: [interiorfeatures]</li>
 				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'WindowFeatures'})): ?>
-				<li>Special List Conditions: [unmapped_WindowFeatures]</li>
-				<?php endif; ?>
 				<?php if( isset($single_property->laundryfeatures)): ?>
 				<li>Laundry Features: [laundryfeatures]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->totalrooms)): ?>
 				<li>Rooms Total: [totalrooms]</li>
 				<?php endif; ?>
+
+				<?php if( isset($single_property->unmapped->{'BuildingFeatures'})): ?>
+				<li>Building Features: [unmapped_BuildingFeatures]</li>
+				<?php endif; ?>
+
+				<?php if( isset($single_property->unmapped->{'BusinessType'})): ?>
+				<li>Business Type: [unmapped_BusinessType]</li>
+				<?php endif; ?>
+
+				<?php if( isset($single_property->unmapped->{'CurrentUse'})): ?>
+				<li>Current Use: [unmapped_CurrentUse]</li>
+				<?php endif; ?>
+
 				<?php if( isset($single_property->unmapped->{'LandLeaseYN'})): ?>
 				<li>Land Lease YN: <?php if($single_property->unmapped->{'LandLeaseYN'}==false){echo "No";}else{echo "Yes";} ?></li>
 				<?php endif; ?>
@@ -195,9 +229,6 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'SpecialListingConditions'})): ?>
 				<li>Special List Conditions: [unmapped_SpecialListingConditions]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->unmapped->{'TotalActualRent'})): ?>
-				<li>Total Actual Rent: [unmapped_TotalActualRent]</li>
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'RoadResponsibility'})): ?>
 				<li>Road Responsibility: [unmapped_RoadResponsibility]</li>
@@ -335,5 +366,13 @@
 
     </li>
 <?php endif; ?>
+
+
+
+
+	
+	
+	
+	
 	
 </ul>

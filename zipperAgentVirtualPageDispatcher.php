@@ -39,7 +39,7 @@ class zipperAgentVirtualPageDispatcher {
 		if(!$this->initialized && $postsCount === 0 && !empty($type)) {
 			$this->initialized = true;
 			$wp_query->is_page = true;
-			$wp_query->is_singular = true;
+			$wp_query->is_singular = false;// changed by ravinder to fix wordpress version issue
 			$wp_query->posts = $this->postCleanUp(null);
 			$wp_query->post_count = 1;
 			$wp_query->found_posts = 1;
