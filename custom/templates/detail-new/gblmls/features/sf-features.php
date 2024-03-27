@@ -8,8 +8,7 @@
 			isset($single_property->zoning) ||
 			isset($single_property->handicapaccess) || isset($single_property->handicapaccess) || isset($single_property->equiplistavail) ||
 			isset($single_property->pooldescription) ||
-			isset($single_property->unmapped->View) || isset($single_property->waterbodyname) || isset($single_property->unmapped->CurrentUse) ||
-				isset($single_property->sitecondition) ):?>
+			isset($single_property->unmapped->View) || isset($single_property->waterbodyname) || isset($single_property->unmapped->CurrentUse) || isset($single_property->sitecondition) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -98,7 +97,7 @@
 			<?php if( isset($single_property->foundation)): ?>
 			<li>Foundation: [foundation]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->unnmapped->GarageYN)): ?>
+			<?php if( isset($single_property->unmapped->GarageYN)): ?>
 			<li>Garage YN: [unmapped_GarageYN]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->lotdescription)): ?>

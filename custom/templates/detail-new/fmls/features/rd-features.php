@@ -1,5 +1,17 @@
 <ul class="zy-features-grid">
-	<?php if( /*isset($single_property->style) ||*/ isset($single_property->unmapped->Levels) || isset($single_property->unmapped->Stories) || isset($single_property->construction) || isset($single_property->unmapped->{'Construction Status'}) || isset($single_property->exteriorfeatures) || isset($single_property->interiorfeatures) || isset($single_property->roofmaterial) || isset($single_property->flooring) || isset($single_property->fireplaces) || isset($single_property->vacant) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->{'Fireplace Type'}) || isset($single_property->unmapped->GreenEnergyGeneration) || isset($single_property->unmapped->GreenEnergyEfficient) || isset($single_property->unmapped->WindowFeatures) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->HorseAmenities) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->OtherStructures) || isset($single_property->unmapped->Dock) || isset($single_property->waterfront) || isset($single_property->waterbodyname) || isset($single_property->unmapped->WaterfrontageLength) || isset($single_property->unmapped->View) || isset($single_property->unmapped->PropertyAttachedYN) || isset($single_property->unmapped->LandLeaseYN) || isset($single_property->unmapped->CommonWalls) || isset($single_property->unmapped->AccessibilityFeatures) || isset($single_property->unmapped->Fencing) || isset($single_property->unmapped->WaterOnLand) || isset($single_property->lotdescription) || isset($single_property->unmapped->{'Lot Size'}) || isset($single_property->pooldescription) || isset($single_property->appliances) || isset($single_property->electricfeature) || isset($single_property->roadtype) || isset($single_property->adultcommunity) || isset($single_property->sitecondition) || isset($single_property->equiplistavail) || isset($single_property->unmapped->{'Laundry Type'}) || isset($single_property->unmapped->Equipment) || isset($single_property->unmapped->{'Financing Type'}) || isset($single_property->unmapped->{'Possible Financing'}) || isset($single_property->unmapped->{'Above Grade Finished'}) || isset($single_property->unmapped->{'Below Grade Unfinished'}) || isset($single_property->amenities) ):?>
+	<?php if( /*isset($single_property->style) ||*/ isset($single_property->unmapped->Levels) || isset($single_property->unmapped->Stories) || isset($single_property->construction) || isset($single_property->unmapped->{'Construction Status'}) || isset($single_property->exteriorfeatures) || 
+		isset($single_property->interiorfeatures) || isset($single_property->roofmaterial) || isset($single_property->flooring) || isset($single_property->fireplaces) || isset($single_property->vacant) || 
+		isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->{'Fireplace Type'}) || isset($single_property->unmapped->GreenEnergyGeneration) || isset($single_property->unmapped->GreenEnergyEfficient) || isset($single_property->unmapped->WindowFeatures) || 
+		isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->HorseAmenities) || isset($single_property->unmapped->LotSizeDimensions) || isset($single_property->unmapped->OtherStructures) || 
+		isset($single_property->unmapped->Dock) || isset($single_property->waterfront) || isset($single_property->waterbodyname) || isset($single_property->unmapped->WaterfrontageLength) || isset($single_property->unmapped->View) || 
+		isset($single_property->unmapped->PropertyAttachedYN) || isset($single_property->unmapped->LandLeaseYN) || isset($single_property->unmapped->CommonWalls) || isset($single_property->unmapped->AccessibilityFeatures) || isset($single_property->unmapped->Fencing) || 
+		isset($single_property->unmapped->WaterOnLand) || isset($single_property->lotdescription) || isset($single_property->unmapped->{'Lot Size'}) || isset($single_property->pooldescription) || isset($single_property->appliances) || 
+		isset($single_property->electricfeature) || isset($single_property->roadtype) || isset($single_property->adultcommunity) || isset($single_property->sitecondition) || isset($single_property->equiplistavail) || 
+		isset($single_property->unmapped->{'Laundry Type'}) || isset($single_property->unmapped->Equipment) || isset($single_property->unmapped->{'Financing Type'}) || isset($single_property->unmapped->{'Possible Financing'}) || isset($single_property->unmapped->{'Above Grade Finished'}) || 
+		isset($single_property->unmapped->{'Below Grade Unfinished'}) || isset($single_property->amenities) ||
+		isset($single_property->unmapped->PoolPrivateYN) || isset($single_property->unmapped->Room_DiningRoom_Features) || isset($single_property->furnished) || isset($single_property->unmapped->RoomKitchenFeatures) || isset($single_property->unmapped->MainLevelBedrooms) || 
+		isset($single_property->unmapped->MainLevelBathrooms) || isset($single_property->unmapped->RoomMasterBathroomFeatures) || isset($single_property->handicapaccess) || isset($single_property->dateavailableformatted) || isset($single_property->termsfeature) ||
+		isset($single_property->warranty) || isset($single_property->leaseterms) || isset($single_property->unmapped->SpaFeatures) || isset($single_property->tenantexpanses) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -342,6 +354,49 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->{'Fireplace Location'})): ?>
 				<li>Fireplace Location: [unmapped_Fireplace Location]</li>
+				<?php endif; ?>
+				
+				<?php if( isset($single_property->unmapped->PoolPrivateYN)): ?>
+				<li>Pool Private YN: [unmapped_PoolPrivateYN]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->Room_DiningRoom_Features)): ?>
+				<li>Dining Room Features: [unmapped_Room_DiningRoom_Features]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->furnished)): ?>
+				<li>Furnished: [furnished]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->RoomKitchenFeatures)): ?>
+				<li>Kitchen Features: [unmapped_RoomKitchenFeatures]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->MainLevelBedrooms)): ?>
+				<li>Main Bedrooms: [unmapped_MainLevelBedrooms]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->MainLevelBathrooms)): ?>
+				<li>Main Full Baths: [unmapped_MainLevelBathrooms]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->RoomMasterBathroomFeatures)): ?>
+				<li>Master Bathroom Features: [unmapped_RoomMasterBathroomFeatures]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->handicapaccess)): ?>
+				<li>Accessibility Features: [handicapaccess]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->dateavailableformatted)): ?>
+				<li>Availability Date: [dateavailableformatted]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->termsfeature)): ?>
+				<li>Community Features: [termsfeature]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->warranty)): ?>
+				<li>Home Warranty: [warranty]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->leaseterms)): ?>
+				<li>Lease Term: [leaseterms]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->SpaFeatures)): ?>
+				<li>Spa Features: [unmapped_SpaFeatures]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->tenantexpanses)): ?>
+				<li>Tenant Pays: [tenantexpanses]</li>
 				<?php endif; ?>
 			</ul>
 		<?php endif; ?>

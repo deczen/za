@@ -50,15 +50,15 @@
 			<?php if(isset($single_property->style)): ?>
 			  <td>
 				 <div class="zy-print-meta-val">[style]</div>
-				 <div class="zy-print-meta-label">Style</div>
+				 <div class="zy-print-meta-label">House Style</div>
 			  </td>
 			<?php endif; ?>
-			<?php /*if(isset($single_property->norooms)): ?>
+			<?php if(isset($single_property->totalrooms)): ?>
 			  <td>
-				 <div class="zy-print-meta-val">[norooms]</div>
-				 <div class="zy-print-meta-label">Total Rooms</div>
+				 <div class="zy-print-meta-val">[totalrooms]</div>
+				 <div class="zy-print-meta-label">Total Units</div>
 			  </td>
-			<?php endif;*/ ?>
+			<?php endif; ?>
 			<?php if(isset($single_property->nobedrooms)): ?>
 			  <td>
 				 <div class="zy-print-meta-val">[nobedrooms]</div>
@@ -71,12 +71,6 @@
 				 <div class="zy-print-meta-label">FULL BATHS</div>
 			  </td>
 			<?php endif; ?>
-			<?php /*if(isset($single_property->unmapped->BathsThreeQuarter)): ?>
-			  <td>
-				 <div class="zy-print-meta-val">[unmapped_BathsThreeQuarter]</div>
-				 <div class="zy-print-meta-label">3/4 Baths</div>
-			  </td>
-			<?php endif;*/ ?>
 			<?php if(isset($single_property->nohalfbaths)): ?>
 			  <td>
 				 <div class="zy-print-meta-val">[nohalfbaths]</div>
@@ -89,9 +83,9 @@
 				 <div class="zy-print-meta-label">SQFT</div>
 			  </td>
 			<?php endif; ?>
-			<?php if(isset($single_property->lotsize)): ?>
+			<?php if(isset($single_property->acre)): ?>
 			  <td>
-				 <div class="zy-print-meta-val">[lotsize]</div>
+				 <div class="zy-print-meta-val">[acre]</div>
 				 <div class="zy-print-meta-label">Acres</div>
 			  </td>
 			<?php endif; ?>
@@ -104,7 +98,7 @@
 				 <div class="zy-print-meta-val">[yearbuilt]</div>
 				 <div class="zy-print-meta-label">Built</div>
 			  </td>
-			<?php endif;*/ ?>
+			<?php endif; */?>
 		   </tr>
 		</table>
 		<div class="zy-print-area-wrap">
@@ -149,190 +143,44 @@
 		   <div class="zy-print-description">[remarks]</div>
 		</div>
 		<?php endif; ?>
-		
-		<?php if(isset($single_property->direction)): ?>
-		<div class="zy-print-block">
-		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Directions</h6>
-		   <div class="zy-print-description">[direction]</div>
-		</div>
-		<?php endif; ?>
-		
 		<div class="zy-print-block">
 		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Property Features</h6>
 		   <p>
-			  <?php /*if(isset($single_property->style)): ?>
-			  <strong>Style</strong>
-			  [style]
-			  <?php endif;*/ ?>
-			  <?php if(isset($single_property->unmapped->Levels)): ?>
-			  <strong>Levels</strong>
-			  [unmapped_Levels]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->nostories)): ?>
-			  <strong>No. Stories</strong>
-			  [nostories]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->nobuildings)): ?>
-			  <strong>No. Buildings</strong>
-			  [nobuildings]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->totalunits)): ?>
-			  <strong>Total Units</strong>
-			  [totalunits]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->totalbldgsf)): ?>
-			  <strong>Total bldgsf</strong>
-			  [totalbldgsf]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->construction)): ?>
-			  <strong>Construction</strong>
-			  [construction]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->foundation)): ?>
-			  <strong>Foundation</strong>
-			  [foundation]
+			  <?php if(isset($single_property->amenities)): ?>
+			  <strong>Amenities</strong>
+			  [amenities]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->basement)): ?>
 			  <strong>Basement</strong>
 			  [basement]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->View)): ?>
-			  <strong>View</strong>
-			  [unmapped_View]
+			  <?php if(isset($single_property->exteriorfeatures)): ?>
+			  <strong>Exterior Features</strong>
+			  [exteriorfeatures]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CommunityFeatures)): ?>
-			  <strong>Community Features</strong>
-			  [unmapped_CommunityFeatures]
+			  <?php if(isset($single_property->exterior)): ?>
+			  <strong>Exterior</strong>
+			  [exterior]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->vacant)): ?>
-			  <strong>Vacant</strong>
-			  [vacant]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->FireplaceYN)): ?>
-			  <strong>Fireplace YN</strong>
-			  [unmapped_FireplaceYN]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->FireplaceFeatures)): ?>
-			  <strong>Fireplace Features</strong>
-			  [unmapped_Fireplace Features]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->LivingArea)): ?>
-			  <strong>Living Area</strong>
-			  [unmapped_LivingArea]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->RoomType)): ?>
-			  <strong>Room Type</strong>
-			  [unmapped_RoomType]
+			  <?php if(isset($single_property->fireplaces)): ?>
+			  <strong>Fireplaces</strong>
+			  [fireplaces]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->flooring)): ?>
 			  <strong>Flooring</strong>
 			  [flooring]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->roofmaterial)): ?>
-			  <strong>Roof Material</strong>
-			  [roofmaterial]
+			  <?php /*if(isset($single_property->style)): ?>
+			  <strong>House Style</strong>
+			  [style]
+			  <?php endif;*/ ?>
+			  <?php if(isset($single_property->waterviewfeatures)): ?>
+			  <strong>Waterview</strong>
+			  [waterviewfeatures]
 			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->CommonWalls)): ?>
-			  <strong>Common Walls</strong>
-			  [unmapped_CommonWalls]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->SpaFeatures)): ?>
-			  <strong>Spa Features</strong>
-			  [unmapped_SpaFeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->laundryfeatures)): ?>
-			  <strong>Laundry Features</strong>
-			  [laundryfeatures]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->UncoveredSpaces)): ?>
-			  <strong>Uncovered Spaces</strong>
-			  [unmapped_UncoveredSpaces]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->pooldescription)): ?>
-			  <strong>Pool Description</strong>
-			  [pooldescription]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->appliances)): ?>
-			  <strong>Appliances</strong>
-			  [appliances]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->GrossOperatingIncome)): ?>
-			  <strong>Gross Operating Income</strong>
-			  [unmapped_GrossOperatingIncome]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->ImprovementsAmount)): ?>
-			  <strong>Improvements Amount</strong>
-			  [unmapped_ImprovementsAmount]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->GrossMultiplier)): ?>
-			  <strong>Gross Multiplier</strong>
-			  [unmapped_GrossMultiplier]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->LandValue)): ?>
-			  <strong>Land Value</strong>
-			  [unmapped_LandValue]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->grossannualexp)): ?>
-			  <strong>Gross Annual exp</strong>
-			  [grossannualexp]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->GrossScheduledIncome)): ?>
-			  <strong>Gross Scheduled Income</strong>
-			  [unmapped_GrossScheduledIncome]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->ProfessionalManagementExpense)): ?>
-			  <strong>Professional Management Expense</strong>
-			  [unmapped_ProfessionalManagementExpense]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->netoperatinginc)): ?>
-			  <strong>Net Operating inc</strong>
-			  [netoperatinginc]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->SpecialListingConditions)): ?>
-			  <strong>Special Listing Conditions</strong>
-			  [unmapped_SpecialListingConditions]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->zoning)): ?>
-			  <strong>Zoning</strong>
-			  [zoning]
-			  <?php endif; ?>
-			</p>
-		</div>
-		<div class="zy-print-block">
-		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
-			<p> 
-			  <?php if(isset($single_property->parkingfeature)): ?>
-			  <strong>Parking Feature</strong>
-			  [parkingfeature]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->garagespaces)): ?>
-			  <strong>Garage Spaces</strong>
-			  [garagespaces]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->parkingspaces)): ?>
-			  <strong>Parking Spaces</strong>
-			  [parkingspaces]
-			  <?php endif; ?>
-		   </p>
-		</div>
-		<div class="zy-print-block">
-		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Association Information</h6>
-		   <p>
-			  <?php if(isset($single_property->unmapped->ASSOCSECURITY)): ?>
-			  <strong>Assoc Security</strong>
-			  [unmapped_ASSOCSECURITY]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->hoafee)): ?>
-			  <strong>Hoafee</strong>
-			  [hoafee]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->feeinterval)): ?>
-			  <strong>Fee Interval</strong>
-			  [feeinterval]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->asscpool)): ?>
-			  <strong>Assc pool</strong>
-			  [asscpool]
+			  <?php if(isset($single_property->waterfront)): ?>
+			  <strong>Waterfront</strong>
+			  [waterfront]
 			  <?php endif; ?>
 		   </p>
 		</div>
@@ -343,49 +191,280 @@
 			  <strong>Cooling</strong>
 			  [cooling]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->coolingzones)): ?>
+			  <strong>Cool Zones</strong>
+			  [coolingzones]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->heating)): ?>
 			  <strong>Heating</strong>
 			  [heating]
 			  <?php endif; ?>
+			  <?php if(isset($single_property->heatzones)): ?>
+			  <strong>Heat Zones</strong>
+			  [heatzones]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->energyfeatures)): ?>
+			  <strong>Energy Features</strong>
+			  [energyfeatures]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->electricfeature)): ?>
+			  <strong>Electric Features</strong>
+			  [electricfeature]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hotwater)): ?>
+			  <strong>Hot Water</strong>
+			  [hotwater]
+			  <?php endif; ?>
 			  <?php if(isset($single_property->sewer)): ?>
-			  <strong>Sewer</strong>
+			  <strong>Sewer Utilities</strong>
 			  [sewer]
 			  <?php endif; ?>
 			  <?php if(isset($single_property->water)): ?>
-			  <strong>Water</strong>
+			  <strong>Water Utilities</strong>
 			  [water]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->NumberOfSeparateElectricMeters)): ?>
-			   <strong>Number Of Separate Electric Meters</strong>
-			  [unmapped_NumberOfSeparateElectricMeters]
-			  <?php endif; ?>
-			  
-			  <?php if(isset($single_property->unmapped->NumberOfSeparateWaterMeters)): ?>
-			   <strong>Number Of Separate Water Meters</strong>
-			  [unmapped_NumberOfSeparateWaterMeters]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->NumberOfSeparateGasMeters)): ?>
-			   <strong>Number Of Separate Gas Meters</strong>
-			  [unmapped_NumberOfSeparateGasMeters]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->FuelExpense)): ?>
-			   <strong>Fuel Expense</strong>
-			  [unmapped_FuelExpense]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->ElectricExpense)): ?>
-			   <strong>Electric Expense</strong>
-			  [unmapped_ElectricExpense]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->WaterSewerExpense)): ?>
-			   <strong>Water Sewer Expense</strong>
-			  [unmapped_WaterSewerExpense]
-			  <?php endif; ?>
-			  <?php if(isset($single_property->unmapped->TrashExpense)): ?>
-			   <strong>Trash Expense</strong>
-			  [unmapped_TrashExpense]
 			  <?php endif; ?>
 		   </p>
 		</div>
+		
+		<?php if( isset($single_property->garagespaces) || isset($single_property->parkingspaces) || isset($single_property->roadtype) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Parking Information</h6>
+		   <p>
+			  <?php if(isset($single_property->garagespaces)): ?>
+			  <strong>Garage Spaces</strong>
+			  [garagespaces]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->parkingspaces)): ?>
+			  <strong>Parking Spaces</strong>
+			  [parkingspaces]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->roadtype)): ?>
+			  <strong>Road Type</strong>
+			  [roadtype]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->hoafee) || isset($single_property->asscfeeincludes) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Taxes, Fees</h6>
+		   <p>
+			  <?php if(isset($single_property->taxes)): ?>
+			  <strong>Tax Amount ($)</strong>
+			  [taxes]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->taxyear)): ?>
+			  <strong>Tax Year</strong>
+			  [taxyear]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->hoafee)): ?>
+			  <strong>Association Fee ($)</strong>
+			  [hoafee]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->asscfeeincludes)): ?>
+			  <strong>Fee Includes</strong>
+			  [asscfeeincludes]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		
+		<?php if( isset($single_property->bedrms1) || isset($single_property->fbths1) || isset($single_property->coldscrp1) || isset($single_property->headscrp1) || isset($single_property->frplcs1) || isset($single_property->flrs1) || isset($single_property->levels1) || isset($single_property->rms1) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Unit #1</h6>
+		   <p>
+			  <?php if(isset($single_property->bedrms1)): ?>
+			  <strong>Beds</strong>
+			  [bedrms1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths1)): ?>
+			  <strong>Baths</strong>
+			  [fbths1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp1)): ?>
+			  <strong>Cooling</strong>
+			  [coldscrp1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp1)): ?>
+			  <strong>Heating</strong>
+			  [headscrp1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs1)): ?>
+			  <strong>Fireplaces</strong>
+			  [frplcs1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->flrs1)): ?>
+			  <strong>Floor</strong>
+			  [flrs1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels1)): ?>
+			  <strong>Levels</strong>
+			  [levels1]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms1)): ?>
+			  <strong>Rooms</strong>
+			  [rms1]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bedrms2) || isset($single_property->fbths2) || isset($single_property->coldscrp2) || isset($single_property->headscrp2) || isset($single_property->frplcs2) || isset($single_property->flrs2) || isset($single_property->levels2) || isset($single_property->rms2) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Unit #2</h6>
+		   <p>
+			  <?php if(isset($single_property->bedrms2)): ?>
+			  <strong>Beds</strong>
+			  [bedrms2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths2)): ?>
+			  <strong>Baths</strong>
+			  [fbths2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp2)): ?>
+			  <strong>Cooling</strong>
+			  [coldscrp2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp2)): ?>
+			  <strong>Heating</strong>
+			  [headscrp2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs2)): ?>
+			  <strong>Fireplaces</strong>
+			  [frplcs2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->flrs2)): ?>
+			  <strong>Floor</strong>
+			  [flrs2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels2)): ?>
+			  <strong>Levels</strong>
+			  [levels2]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms2)): ?>
+			  <strong>Rooms</strong>
+			  [rms2]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bedrms3) || isset($single_property->fbths3) || isset($single_property->coldscrp3) || isset($single_property->headscrp3) || isset($single_property->frplcs3) || isset($single_property->flrs3) || isset($single_property->levels3) || isset($single_property->rms3) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Unit #3</h6>
+		   <p>
+			  <?php if(isset($single_property->bedrms3)): ?>
+			  <strong>Beds</strong>
+			  [bedrms3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths3)): ?>
+			  <strong>Baths</strong>
+			  [fbths3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp3)): ?>
+			  <strong>Cooling</strong>
+			  [coldscrp3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp3)): ?>
+			  <strong>Heating</strong>
+			  [headscrp3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs3)): ?>
+			  <strong>Fireplaces</strong>
+			  [frplcs3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->flrs3)): ?>
+			  <strong>Floor</strong>
+			  [flrs3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels3)): ?>
+			  <strong>Levels</strong>
+			  [levels3]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms3)): ?>
+			  <strong>Rooms</strong>
+			  [rms3]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bedrms4) || isset($single_property->fbths4) || isset($single_property->coldscrp4) || isset($single_property->headscrp4) || isset($single_property->frplcs4) || isset($single_property->flrs4) || isset($single_property->levels4) || isset($single_property->rms4) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Unit #4</h6>
+		   <p>
+			  <?php if(isset($single_property->bedrms4)): ?>
+			  <strong>Beds</strong>
+			  [bedrms4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths4)): ?>
+			  <strong>Baths</strong>
+			  [fbths4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp4)): ?>
+			  <strong>Cooling</strong>
+			  [coldscrp4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp4)): ?>
+			  <strong>Heating</strong>
+			  [headscrp4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs4)): ?>
+			  <strong>Fireplaces</strong>
+			  [frplcs4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->flrs4)): ?>
+			  <strong>Floor</strong>
+			  [flrs4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels4)): ?>
+			  <strong>Levels</strong>
+			  [levels4]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms4)): ?>
+			  <strong>Rooms</strong>
+			  [rms4]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
+		<?php if( isset($single_property->bedrms5) || isset($single_property->fbths5) || isset($single_property->coldscrp5) || isset($single_property->headscrp5) || isset($single_property->frplcs5) || isset($single_property->flrs5) || isset($single_property->levels5) || isset($single_property->rms5) ):?>
+		<div class="zy-print-block">
+		   <h6 class="zy-print-header" style="color: <?php echo $print_color; ?> !important;">Unit #5</h6>
+		   <p>
+			  <?php if(isset($single_property->bedrms5)): ?>
+			  <strong>Beds</strong>
+			  [bedrms5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->fbths5)): ?>
+			  <strong>Baths</strong>
+			  [fbths5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->coldscrp5)): ?>
+			  <strong>Cooling</strong>
+			  [coldscrp5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->headscrp5)): ?>
+			  <strong>Heating</strong>
+			  [headscrp5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->frplcs5)): ?>
+			  <strong>Fireplaces</strong>
+			  [frplcs5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->flrs5)): ?>
+			  <strong>Floor</strong>
+			  [flrs5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->levels5)): ?>
+			  <strong>Levels</strong>
+			  [levels5]
+			  <?php endif; ?>
+			  <?php if(isset($single_property->rms5)): ?>
+			  <strong>Rooms</strong>
+			  [rms5]
+			  <?php endif; ?>
+		   </p>
+		</div>
+		<?php endif; ?>
 		
 		<div class="zy-print-block">
 		<?php if( $source_details ){

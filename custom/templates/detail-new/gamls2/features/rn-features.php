@@ -6,7 +6,9 @@
 				  isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->unmapped->{"Construction Materials"}) || isset($single_property->unmapped->{"Lot Size Source"}) || isset($single_property->unmapped->Basement) ||
 				  isset($single_property->unmapped->{"Community Features"}) || isset($single_property->unmapped->District) || isset($single_property->unmapped->{"Elementary Bus"}) || isset($single_property->unmapped->{"Middle School Bus"}) || isset($single_property->unmapped->{"High School Bus"}) ||
 				  isset($single_property->unmapped->{"Gross Income"}) || isset($single_property->unmapped->{"Land Lot"}) || isset($single_property->unmapped->{"Listing Terms"}) || isset($single_property->unmapped->{"Property Condition"}) || isset($single_property->unmapped->Section) ||
-				  isset($single_property->unmapped->{"Special Listing Conditions"}) || isset($single_property->unmapped->{"Structure Type"}) || isset($single_property->unmapped->Unit) ):?>
+				  isset($single_property->unmapped->{"Special Listing Conditions"}) || isset($single_property->unmapped->{"Structure Type"}) || isset($single_property->unmapped->Unit) ||
+		  		  isset($single_property->grossannualincome) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->waterbodyname) || isset($single_property->unmapped->EsBusYn) || isset($single_property->unmapped->HsBusYn) || 
+		  		  isset($single_property->unmapped->MsBusYn) || isset($single_property->unmapped->LandLot) ):?>
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
 			
@@ -125,6 +127,28 @@
 			<?php if( isset($single_property->petrestrictionsallow)): ?>
 			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
 			<?php endif; ?>
+			
+			<?php if( isset($single_property->grossannualincome)): ?>
+			<li>Gross Income: [grossannualincome]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
+			<li>Special Listing Conditions: [unmapped_SpecialListingConditions]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterbodyname)): ?>
+			<li>Water Body Name: [waterbodyname]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->EsBusYn)): ?>
+			<li>Es Bus Yn: [unmapped_EsBusYn]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->HsBusYn)): ?>
+			<li>Hs Bus Yn: [unmapped_HsBusYn]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MsBusYn)): ?>
+			<li>Ms Bus Yn: [unmapped_MsBusYn]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LandLot)): ?>
+			<li>Land Lot: [unmapped_LandLot]</li>
+			<?php endif; ?>
 		</ul>						
 		<?php endif; ?>
 		
@@ -162,7 +186,14 @@
 			<?php endif; ?>								
 			<?php if( isset($single_property->utilities)): ?>
 			<li>Utilities: [utilities]</li>
-			<?php endif; ?>								
+			<?php endif; ?>		
+			
+			<?php if( isset($single_property->unmapped->CoolingYN)): ?>
+			<li>Cooling YN: [unmapped_CoolingYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->HeatingYN)): ?>
+			<li>Heating YN: [unmapped_HeatingYN]</li>
+			<?php endif; ?>						
 			
 		</ul>
 		<?php endif; ?>

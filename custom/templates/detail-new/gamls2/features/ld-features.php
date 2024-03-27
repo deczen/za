@@ -3,7 +3,11 @@
 			  isset($single_property->unmapped->{"Lot Features"}) || isset($single_property->unmapped->{"Lot Size Source"}) || isset($single_property->unmapped->{"Road Frontage Type"}) || isset($single_property->unmapped->{"Total Dock Slips"}) || isset($single_property->unmapped->Vegetation) ||
 			  isset($single_property->unmapped->View) || isset($single_property->unmapped->{"Community Features"}) || isset($single_property->unmapped->{"Current Use"}) || isset($single_property->unmapped->District) || isset($single_property->unmapped->{"Elementary Bus"}) ||
 			  isset($single_property->unmapped->{"High School Bus"}) || isset($single_property->unmapped->{"Middle School Bus"}) || isset($single_property->unmapped->{"Land Lot"}) || isset($single_property->unmapped->{"Listing Terms"}) || isset($single_property->unmapped->{"Other Sturctures"}) ||
-			  isset($single_property->unmapped->{"Possible Use"}) || isset($single_property->unmapped->Section) || isset($single_property->unmapped->Unit) || isset($single_property->unmapped->{"Waterfront Features"}) ):?>
+			  isset($single_property->unmapped->{"Possible Use"}) || isset($single_property->unmapped->Section) || isset($single_property->unmapped->Unit) || isset($single_property->unmapped->{"Waterfront Features"}) ||
+	  		  isset($single_property->unmapped->Fencing) || isset($single_property->lotdescription) || isset($single_property->lotsize) || isset($single_property->unmapped->LotSizeSource) || isset($single_property->unmapped->LotSizeUnits) ||
+	  		  isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->ViewYN) || isset($single_property->unmapped->AboveGradeFinishedAreaUnits) || isset($single_property->unmapped->BelowGradeFinishedAreaUnits) || isset($single_property->unmapped->BuildingAreaUnits) || 
+	  		  isset($single_property->unmapped->LivingAreaUnits) || isset($single_property->unmapped->TotalNumberOfSlips) || isset($single_property->termsfeature) || isset($single_property->unmapped->CurrentUse) || isset($single_property->unmapped->ElectricOnPropertyYN) || 
+	  		  isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->OtherStructures) || isset($single_property->unmapped->PossibleUse) || isset($single_property->unmapped->SpecialListingConditions) || isset($single_property->waterbodyname) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Details</h3>
 		<ul class="zy-sub-list">
@@ -126,6 +130,67 @@
 			<?php if( isset($single_property->petrestrictionsallow)): ?>
 			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
 			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->Fencing)): ?>
+			<li>Fencing: [unmapped_Fencing]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->lotdescription)): ?>
+			<li>Lot Features: [lotdescription]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->lotsize)): ?>
+			<li>Lot Size Area: [lotsize]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeSource)): ?>
+			<li>Lot Size Source: [unmapped_LotSizeSource]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Size Units: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
+			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ViewYN)): ?>
+			<li>View YN: [unmapped_ViewYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AboveGradeFinishedAreaUnits)): ?>
+			<li>Above Grade Finished Area Units: [unmapped_AboveGradeFinishedAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BelowGradeFinishedAreaUnits)): ?>
+			<li>Below Grade Finished Area Units: [unmapped_BelowGradeFinishedAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuildingAreaUnits)): ?>
+			<li>Building Area Units: [unmapped_BuildingAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LivingAreaUnits)): ?>
+			<li>Living Area Units: [unmapped_LivingAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TotalNumberOfSlips)): ?>
+			<li>Total Number Of Slips: [unmapped_TotalNumberOfSlips]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->termsfeature)): ?>
+			<li>Community Features: [termsfeature]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CurrentUse)): ?>
+			<li>Current Use: [unmapped_CurrentUse]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ElectricOnPropertyYN)): ?>
+			<li>Electric On Property YN: [unmapped_ElectricOnPropertyYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
+			<li>Listing Terms: [unmapped_ListingTerms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OtherStructures)): ?>
+			<li>Other Structures: [unmapped_OtherStructures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PossibleUse)): ?>
+			<li>Possible Use: [unmapped_PossibleUse]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
+			<li>Special Listing Conditions: [unmapped_SpecialListingConditions]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterbodyname)): ?>
+			<li>Water Body Name: [waterbodyname]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
@@ -174,7 +239,8 @@
 	
 	<li class="cell">
 		<?php if( isset($single_property->taxes) || isset($single_property->taxyear) || isset($single_property->zoning) || isset($single_property->unmapped->{"Annual Association Fee"}) || isset($single_property->unmapped->Association) || 
-				  isset($single_property->unmapped->{"Tax Annual Amount"}) ): ?>
+				  isset($single_property->unmapped->{"Tax Annual Amount"}) || 
+				  isset($single_property->reqdownassociation) ): ?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 		
@@ -196,7 +262,10 @@
 			<?php if( isset($single_property->unmapped->{"Tax Annual Amount"})): ?>
 			<li>Tax Annual Amount: [unmapped_Tax Annual Amount]</li>
 			<?php endif; ?>
-			
+
+			<?php if( isset($single_property->reqdownassociation)): ?>
+			<li>Association YN: [reqdownassociation]</li>
+			<?php endif; ?>
 		</ul>
 		<?php endif; ?>
 	</li>					

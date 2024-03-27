@@ -15,7 +15,12 @@
 		  		  isset($single_property->appliances) || isset($single_property->unmapped->BelowGradeFinishedArea) || isset($single_property->unmapped->BelowGradeFinishedAreaUnits) || isset($single_property->unmapped->BuildingAreaTotal) || isset($single_property->unmapped->BuildingAreaUnits) || 
 		  		  isset($single_property->unmapped->FireplaceYN) || isset($single_property->interiorfeatures) || isset($single_property->laundryfeatures) || isset($single_property->unmapped->LivingAreaSource) || isset($single_property->unmapped->LivingAreaUnits) || 
 		  		  isset($single_property->unmapped->MainLevelBedrooms) || isset($single_property->unmapped->MainLevelBathrooms) || isset($single_property->termsfeature) || isset($single_property->unmapped->ElectricOnPropertyYN) || isset($single_property->unmapped->LandLeaseYN) || 
-		  		  isset($single_property->warranty) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->NewConstructionYN) || isset($single_property->sitecondition) || isset($single_property->unmapped->StructureType) ):?>
+		  		  isset($single_property->warranty) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->NewConstructionYN) || isset($single_property->sitecondition) || isset($single_property->unmapped->StructureType) ||
+		 		  isset($single_property->unmapped->CommonWalls) || isset($single_property->unmapped->Room_DiningRoom_Features) || isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->RoomKitchenFeatures) || isset($single_property->unmapped->PropertyAttachedYN) ||
+		 		  isset($single_property->assocsecurity) || isset($single_property->waterbodyname) || isset($single_property->unmapped->TotalNumberOfSlips) || isset($single_property->unmapped->BelowGradeUnfinished) || isset($single_property->unmapped->EsBusYn) || 
+		 		  isset($single_property->unmapped->HsBusYn) || isset($single_property->unmapped->MsBusYn) ||
+		  		  isset($single_property->unmapped->CommonWalls) || isset($single_property->unmapped->OpenParkingYN) || isset($single_property->unmapped->PatioAndPorchFeatures) || isset($single_property->unmapped->Room_DiningRoom_Features) || isset($single_property->unmapped->FireplaceFeatures) || 
+		  	   	  isset($single_property->unmapped->RoomKitchenFeatures) || isset($single_property->unmapped->ListingTerms) || isset($single_property->unmapped->PropertyAttachedYN) || isset($single_property->unmapped->BelowGradeUnfinished) ):?>
 			  
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -113,12 +118,6 @@
 			<?php if( isset($single_property->unmapped->{"Total Finished Area"})): ?>
 			<li>Building Area Total: [unmapped_Total Finished Area]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->interiorfeatures)): ?>
-			<li>Interior Features: [interiorfeatures]</li>
-			<?php endif; ?>
-			<?php if( isset($single_property->laundryfeatures)): ?>
-			<li>Laundry Features: [laundryfeatures]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->{"Living Area Source"})): ?>
 			<li>Living Area Source: [unmapped_Living Area Source]</li>
 			<?php endif; ?>
@@ -199,9 +198,6 @@
 			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
 			<li>Lot Size Units: [unmapped_LotSizeUnits]</li>
 			<?php endif; ?>
-			<?php if( isset($single_property->roofmaterial)): ?>
-			<li>Roof: [roofmaterial]</li>
-			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->ViewYN)): ?>
 			<li>View YN: [unmapped_ViewYN]</li>
 			<?php endif; ?>
@@ -272,6 +268,86 @@
 			<li>Structure Type: [unmapped_StructureType]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->CommonWalls)): ?>
+			<li>Common Walls: [unmapped_CommonWalls]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OpenParkingYN)): ?>
+			<li>Open Parking YN: [unmapped_OpenParkingYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PatioAndPorchFeatures)): ?>
+			<li>Patio And Porch Features: [unmapped_PatioAndPorchFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Room_DiningRoom_Features)): ?>
+			<li>Dining Room Features: [unmapped_Room_DiningRoom_Features]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->FireplaceFeatures)): ?>
+			<li>Fireplace Features: [unmapped_FireplaceFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoomKitchenFeatures)): ?>
+			<li>Kitchen Features: [unmapped_RoomKitchenFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ListingTerms)): ?>
+			<li>Listing Terms: [unmapped_ListingTerms]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PropertyAttachedYN)): ?>
+			<li>Property Attached YN: [unmapped_PropertyAttachedYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BelowGradeUnfinished)): ?>
+			<li>Below Grade Unfinished Area: [unmapped_BelowGradeUnfinished]</li>
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->CommonWalls)): ?>
+			<li>Common Walls: [unmapped_CommonWalls]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Room_DiningRoom_Features)): ?>
+			<li>Dining Room Features: [unmapped_Room_DiningRoom_Features]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->FireplaceFeatures)): ?>
+			<li>Fireplace Features: [unmapped_FireplaceFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoomKitchenFeatures)): ?>
+			<li>Kitchen Features: [unmapped_RoomKitchenFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->PropertyAttachedYN)): ?>
+			<li>Property Attached YN: [unmapped_PropertyAttachedYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->assocsecurity)): ?>
+			<li>Security Features: [assocsecurity]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterbodyname)): ?>
+			<li>Water Body Name: [waterbodyname]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->TotalNumberOfSlips)): ?>
+			<li>Total Number Of Slips: [unmapped_TotalNumberOfSlips]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BelowGradeUnfinished)): ?>
+			<li>Below Grade Unfinished Area: [unmapped_BelowGradeUnfinished]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->EsBusYn)): ?>
+			<li>Es Bus Yn: [unmapped_EsBusYn]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->HsBusYn)): ?>
+			<li>Hs Bus Yn: [unmapped_HsBusYn]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MsBusYn)): ?>
+			<li>Ms Bus Yn: [unmapped_MsBusYn]</li>
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->Vegetation)): ?>
+			<li>Vegetation: [unmapped_Vegetation]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->View)): ?>
+			<li>View: [unmapped_View]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->handicapaccess)): ?>
+			<li>Accessibility Features: [handicapaccess]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->OtherStructures)): ?>
+			<li>Other Structures: [unmapped_OtherStructures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->waterfrontflag)): ?>
+			<li>Waterfront YN: [waterfrontflag]</li>
+			<?php endif; ?>
 		</ul>						
 		<?php endif; ?>	
 	</li>
@@ -279,7 +355,8 @@
 	<li class="cell">
 		<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || 
 			  isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->water) ||
-			  isset($single_property->utilities) ):?>
+			  isset($single_property->utilities) ||
+			  isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->HeatingYN) ):?>
 		<h3 class="zy-feature-title">Cooling, Heating, Utilities</h3>
 		<ul class="zy-sub-list">
 			
@@ -315,7 +392,14 @@
 			<?php endif; ?>								
 			<?php if( isset($single_property->utilities)): ?>
 			<li>Utilities: [utilities]</li>
-			<?php endif; ?>								
+			<?php endif; ?>	
+			
+			<?php if( isset($single_property->unmapped->CoolingYN)): ?>
+			<li>Cooling YN: [CoolingYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->HeatingYN)): ?>
+			<li>Heating YN: [unmapped_HeatingYN]</li>
+			<?php endif; ?>							
 			
 		</ul>
 		<?php endif; ?>

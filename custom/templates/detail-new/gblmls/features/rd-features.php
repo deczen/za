@@ -3,7 +3,8 @@
 			isset($single_property->fireplaces) || isset($single_property->flooring) || isset($single_property->laundryfeatures) || isset($single_property->unitlevel) || isset($single_property->petsallowed) || 
 			isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || 
 			isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->construction) || isset($single_property->unmapped->GarageYN) || isset($single_property->lotdescription) || isset($single_property->waterfrontflag) ||
-			isset($single_property->appliances) || isset($single_property->interiorfeatures) || isset($single_property->laundryfeatures) || isset($single_property->sitecondition) || isset($single_property->tenantexpanses) ):?>
+			isset($single_property->appliances) || isset($single_property->interiorfeatures) || isset($single_property->laundryfeatures) || isset($single_property->sitecondition) || isset($single_property->tenantexpanses) ||
+			isset($single_property->unmapped->Dining_sp_Room_sp_Type_co_Formal_sp_Dining_sp_Room) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -108,6 +109,9 @@
 			<li>Tenant Pays: [tenantexpanses]</li>
 			<?php endif; ?>
 			
+			<?php if( isset($single_property->unmapped->Dining_sp_Room_sp_Type_co_Formal_sp_Dining_sp_Room)): ?>
+			<li>Formal Dining Room: [unmapped_Dining_sp_Room_sp_Type_co_Formal_sp_Dining_sp_Room]</li>
+			<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
@@ -232,7 +236,7 @@
 		</ul>
 		<?php endif; ?>
 		
-		<?php if( isset($single_property->gradeschool) || isset($single_property->middleschool) || isset($single_property->highschool) ):?>
+		<?php if( isset($single_property->gradeschool) || isset($single_property->middleschool) || isset($single_property->highschool) || isset($single_property->unmapped->HighSchoolDistrict) ):?>
 		<h3 class="zy-feature-title">School Information</h3>
 		<ul class="zy-sub-list">
 			
@@ -244,6 +248,10 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->highschool)): ?>
 			<li>High School: [highschool]</li>
+			<?php endif; ?>
+
+			<?php if( isset($single_property->unmapped->HighSchoolDistrict)): ?>
+			<li>School District: [unmapped_HighSchoolDistrict]</li>
 			<?php endif; ?>
 			
 		</ul>

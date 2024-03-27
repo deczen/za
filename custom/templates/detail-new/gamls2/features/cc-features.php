@@ -4,7 +4,13 @@
 			  isset($single_property->waterviewfeatures) || isset($single_property->waterfront) || isset($single_property->waterfront) || isset($single_property->waterfront) || isset($single_property->waterfront) ||
 			  isset($single_property->unmapped->{"Construction Materials"}) || isset($single_property->unmapped->{"Lot Features"}) || isset($single_property->roofmaterial) || isset($single_property->unmapped->{"Building Features"}) || isset($single_property->unmapped->{"Building Area Total"}) ||
 			  isset($single_property->unmapped->{"Building Area Source"}) || isset($single_property->businesshrs) || isset($single_property->unmapped->{"Max Rental Period (months)"}) || isset($single_property->unmapped->{"Min Space Available"}) || isset($single_property->unmapped->{"Min Rental Period (months)"}) ||
-			  isset($single_property->unmapped->{"Other Equipment"}) || isset($single_property->unmapped->{"Property Condition"}) || isset($single_property->unmapped->{"Availability Date"}) || isset($single_property->unmapped->{"Structure Type"}) ):?>
+			  isset($single_property->unmapped->{"Other Equipment"}) || isset($single_property->unmapped->{"Property Condition"}) || isset($single_property->unmapped->{"Availability Date"}) || isset($single_property->unmapped->{"Structure Type"}) ||
+	 		  isset($single_property->unmapped->AttachedGarageYN) || isset($single_property->unmapped->CarportYN) || isset($single_property->construction) || isset($single_property->unmapped->DoorFeatures) || isset($single_property->unmapped->Fencing) ||
+	 		  isset($single_property->unmapped->GarageYN) || isset($single_property->lotdescription) || isset($single_property->lotsize) || isset($single_property->unmapped->LotSizeSource) || isset($single_property->unmapped->LotSizeUnits) ||
+	 		  isset($single_property->unmapped->RoadFrontageType) || isset($single_property->unmapped->WindowFeatures) || isset($single_property->unmapped->AboveGradeFinishedAreaUnits) || isset($single_property->unmapped->BelowGradeFinishedAreaUnits) || isset($single_property->unmapped->BuildingAreaTotal) ||
+	 		  isset($single_property->unmapped->BuildingAreaUnits) || isset($single_property->unmapped->LivingAreaSource) || isset($single_property->unmapped->LivingAreaUnits) || isset($single_property->unmapped->BusinessType) || isset($single_property->unmapped->ElectricOnPropertyYN) ||
+	 		  isset($single_property->unmapped->NewConstructionYN) || isset($single_property->equiplistavail) || isset($single_property->sitecondition) || isset($single_property->dateavailableformatted) || isset($single_property->unmapped->MaxRentalPeriod) ||
+	 		  isset($single_property->unmapped->MinRentalPeriod) || isset($single_property->unmapped->Sublease) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -125,13 +131,96 @@
 			<?php if( isset($single_property->petrestrictionsallow)): ?>
 			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
 			<?php endif; ?>
-				
+			
+			<?php if( isset($single_property->unmapped->AttachedGarageYN)): ?>
+			<li>Attached Garage YN: [unmapped_AttachedGarageYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->CarportYN)): ?>
+			<li>Carport YN: [unmapped_CarportYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->construction)): ?>
+			<li>Construction: [construction]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->DoorFeatures)): ?>
+			<li>Door Features: [unmapped_DoorFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Fencing)): ?>
+			<li>Fencing: [unmapped_Fencing]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->GarageYN)): ?>
+			<li>Garage YN: [unmapped_GarageYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->lotdescription)): ?>
+			<li>Lot Features: [lotdescription]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->lotsize)): ?>
+			<li>Lot Size Area: [lotsize]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeSource)): ?>
+			<li>Lot Size Source: [unmapped_LotSizeSource]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LotSizeUnits)): ?>
+			<li>Lot Size Units: [unmapped_LotSizeUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->RoadFrontageType)): ?>
+			<li>Road Frontage Type: [unmapped_RoadFrontageType]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->WindowFeatures)): ?>
+			<li>Window Features: [unmapped_WindowFeatures]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->AboveGradeFinishedAreaUnits)): ?>
+			<li>Above Grade Finished Area Units: [unmapped_AboveGradeFinishedAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BelowGradeFinishedAreaUnits)): ?>
+			<li>Below Grade Finished Area Units: [unmapped_BelowGradeFinishedAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuildingAreaTotal)): ?>
+			<li>Building Area Total: [unmapped_BuildingAreaTotal]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BuildingAreaUnits)): ?>
+			<li>Building Area Units: [unmapped_BuildingAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LivingAreaSource)): ?>
+			<li>Living Area Source: [unmapped_LivingAreaSource]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->LivingAreaUnits)): ?>
+			<li>Living Area Units: [unmapped_LivingAreaUnits]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->BusinessType)): ?>
+			<li>Business Type: [unmapped_BusinessType]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->ElectricOnPropertyYN)): ?>
+			<li>Electric On Property YN: [unmapped_ElectricOnPropertyYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->NewConstructionYN)): ?>
+			<li>New Construction YN: [unmapped_NewConstructionYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->equiplistavail)): ?>
+			<li>Other Equipment: [equiplistavail]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->sitecondition)): ?>
+			<li>Property Condition: [sitecondition]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->dateavailableformatted)): ?>
+			<li>Rental Availability Date: [dateavailableformatted]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MaxRentalPeriod)): ?>
+			<li>Max Rental Period: [unmapped_MaxRentalPeriod]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->MinRentalPeriod)): ?>
+			<li>Min Rental Period: [unmapped_MinRentalPeriod]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->Sublease)): ?>
+			<li>Sublease: [unmapped_Sublease]</li>
+			<?php endif; ?>
+			
 		</ul>
 	</li>						
 	<?php endif; ?>
 	
 	<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || 
-			  isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->utilities) ):?>
+			  isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->utilities) ||
+			  isset($single_property->unmapped->CoolingYN) || isset($single_property->unmapped->HeatingYN) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Cooling, Heating, Utilities</h3>
 		<ul class="zy-sub-list">
@@ -166,7 +255,14 @@
 			<?php endif; ?>								
 			<?php if( isset($single_property->utilities)): ?>
 			<li>Utilities: [utilities]</li>
-			<?php endif; ?>								
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->unmapped->CoolingYN)): ?>
+			<li>Cooling YN: [unmapped_CoolingYN]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->HeatingYN)): ?>
+			<li>Heating YN: [unmapped_HeatingYN]</li>
+			<?php endif; ?>				
 			
 		</ul>
 	</li>

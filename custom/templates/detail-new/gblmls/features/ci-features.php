@@ -5,7 +5,8 @@
 			  isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities) || isset($single_property->unmapped->LivingArea) || isset($single_property->roofmaterial) || 
 		 	 isset($single_property->utilities) || isset($single_property->zoning) || isset($single_property->petsallowed) || isset($single_property->petrestrictionsallow) || 			 			 isset($single_property->unmapped->NewConstructionYN) || isset($single_property->zoning) || 
   			 isset($single_property->lotdescription) || isset($single_property->unmapped->OtherStructures) || isset($single_property->waterfrontflag) || isset($single_property->interiorfeatures) || isset($single_property->unampped->NewConstructionYN) || 
-  			 isset($single_property->unmapped->SpecialListingConditions) ):?>
+  			 isset($single_property->unmapped->SpecialListingConditions) || 
+			 isset($single_property->construction) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
 		<ul class="zy-sub-list">
@@ -94,13 +95,6 @@
 				<?php endif; ?>
 				
 				<?php endif; ?>
-
-				<?php if( isset($single_property->unmapped->NewConstructionYN)): ?>
-				<li>New Construction YN: [unmapped_NewConstructionYN]</li>
-				<?php endif; ?>
-				<?php if( isset($single_property->zoning)): ?>
-				<li>Zoning: [zoning]</li>
-				<?php endif; ?>
 				
 				<?php if( isset($single_property->lotdescription)): ?>
 				<li>Lot Features: [lotdescription]</li>
@@ -119,6 +113,10 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->unmapped->SpecialListingConditions)): ?>
 				<li>Special Listing Conditions: [unmapped_SpecialListingConditions]</li>
+				<?php endif; ?>
+				
+				<?php if( isset($single_property->construction)): ?>
+				<li>Construction: [construction]</li>
 				<?php endif; ?>
 			
 		</ul>

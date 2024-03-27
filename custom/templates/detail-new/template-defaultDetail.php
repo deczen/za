@@ -440,7 +440,7 @@ $sourceid = strtolower($single_property->sourceid);
 $groups = ZipperagentGlobalFunction()->zipperagent_detailpage_group();
 if( is_array( $groups  ) ) {
 	foreach( $groups as $current_source => $mls ) {
-		if($sourceid == $current_source){
+		if($sourceid == $current_source || ( $sourceid == 0 && $current_source == 'zero' ) ){
 			$groupname = $mls;
 			break;
 		}
