@@ -1055,10 +1055,11 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							<?php
 							$fields = get_references_field('LAKECHAINNAME');
 							foreach($fields as $field){
+								$escapedLongDescription = addslashes($field->longDescription);
 							echo "\r\n" .
 							'case "alkchnnm_'.$field->shortDescription.'":'."\r\n" .
-								"newLabel = '{$field->longDescription}'"."\r\n" .
-								// "newLabel = ''"."\r\n" . //disable label text
+							"newLabel = '{$escapedLongDescription}';"."\r\n" .
+							// "newLabel = ''"."\r\n" . //disable label text
 								'break;'."\r\n";
 							}
 							?>
@@ -1465,7 +1466,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.schools;
+									var data = cleanDataArray(response.schools,inputText);
 									ms_school.setData(data);
 									ms_school.expand();
 								}
@@ -1510,7 +1511,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.schools;
+										var data = cleanDataArray(response.schools,inputText);
 										ms_school3.setData(data);
 										ms_school3.expand();
 									}
@@ -1550,7 +1551,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_schools(response);
+										var data = cleanDataArray(zppr.populate_schools(response),inputText);
 										ms_school3.setData(data);
 										ms_school3.expand();
 										
@@ -1601,7 +1602,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.addresses;
+										var data = cleanDataArray(response.addresses,inputText);
 										ms_address.setData(data);
 										ms_address.expand();
 									}
@@ -1641,7 +1642,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_addresses(response);
+										var data = cleanDataArray(zppr.populate_addresses(response),inputText);
 										ms_address.setData(data);
 										ms_address.expand();
 										
@@ -1692,7 +1693,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.listids;
+										var data = cleanDataArray(response.listids,inputText);
 										ms_listid.setData(data);
 										ms_listid.expand();
 									}
@@ -1732,7 +1733,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_listids(response);
+										var data = cleanDataArray(zppr.populate_listids(response),inputText);
 										ms_listid.setData(data);
 										ms_listid.expand();
 										
@@ -1771,7 +1772,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								requests[el.name]=el.value
 							});
 							
-							console.time('populate address & school');
+							console.time('populate address & schoolsf');
 							xhr_all = jQuery.ajax({
 								type: 'POST',
 								dataType : 'json',
@@ -1783,21 +1784,21 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.addresses;
+										var data = cleanDataArray(response.addresses,inputText);
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
 										ms_all.expand();
 									}
-									console.timeEnd('populate address & school');
+									console.timeEnd('populate address & school1793');
 								},
 								error: function(){
-									console.timeEnd('populate address & school');
+									console.timeEnd('populate address & school1796');
 								}
 							});
 						}, 500);
 					}else{
-						console.time('populate address & school');
+						console.time('populate address & school1801');
 						
 						var parm=[];
 						var subdomain=zppr.data.root.web.subdomain;
@@ -1825,13 +1826,13 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_addresses_and_schools(response);
+										var data = cleanDataArray(zppr.populate_addresses_and_schools(response),inputText);
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
 										ms_all.expand();
 										
-										console.timeEnd('populate address & school');
+										console.timeEnd('populate address & school1835');
 									}
 									
 								}else {
@@ -1865,7 +1866,7 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								requests[el.name]=el.value
 							});
 							
-							console.time('populate address & school');
+							console.time('populate address & school1869');
 							xhr_all = jQuery.ajax({
 								type: 'POST',
 								dataType : 'json',
@@ -1877,21 +1878,21 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.addresses;
+										var data = cleanDataArray(response.addresses,inputText);
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all_mobile.setData(combined);
 										ms_all_mobile.expand();
 									}
-									console.timeEnd('populate address & school');
+									console.timeEnd('populate address & school1887');
 								},
 								error: function(){
-									console.timeEnd('populate address & school');
+									console.timeEnd('populate address & school1890');
 								}
 							});
 						}, 500);
 					}else{
-						console.time('populate address & school');
+						console.time('populate address & school1895');
 						
 						var parm=[];
 						var subdomain=zppr.data.root.web.subdomain;
@@ -1919,13 +1920,13 @@ $enableViewBar = !isset($requests['disableviewbar']) || isset($requests['disable
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_addresses_and_schools(response);
+										var data = cleanDataArray(zppr.populate_addresses_and_schools(response),inputText);
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all_mobile.setData(combined);
 										ms_all_mobile.expand();
 										
-										console.timeEnd('populate address & school');
+										console.timeEnd('populate address & school1929');
 									}
 									
 								}else {

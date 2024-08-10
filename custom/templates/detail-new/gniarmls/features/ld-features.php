@@ -4,7 +4,7 @@
 			  isset($single_property->unmapped->{"Transaction Type"}) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
-		<ul class="zy-sub-list">
+		<ul class="zy-sub-list pfeature">
 			
 			<?php if( isset($single_property->cultivationacres)): ?>
 			<li>Cultivation Acres: [cultivationacres]</li>
@@ -46,11 +46,34 @@
 			<?php if( isset($single_property->petrestrictionsallow)): ?>
 			<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->unmapped->{'View'}) ): ?>
+					<li>View: [unmapped_View]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->reqdownassociation) ): ?>
+					<li>Association YN: [reqdownassociation]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->termsfeature) ): ?>
+					<li>Community Features: [termsfeature]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'ListingTerms'}) ): ?>
+					<li>Listing Terms: [unmapped_ListingTerms]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'LotSizeDimensions'}) ): ?>
+					<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->neighborhood) ): ?>
+					<li>Township: [neighborhood]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'ZoningDescription'}) ): ?>
+					<li>Zoning Description: [unmapped_ZoningDescription]</li>
+				<?php endif; ?>
+
+
 		</ul>
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) ):?>
+	<?php if(isset($single_property->unmapped->{'HighSchoolDistrict'}) || isset($single_property->gas) || isset($single_property->electricfeature) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->utilities) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Utilities</h3>
 		<ul class="zy-sub-list">
@@ -67,9 +90,27 @@
 				<?php endif; ?>
 				<?php if( isset($single_property->water)): ?>
 				<li>Water Utilities: [water]</li>
+				<?php endif; ?>		
+				
+				<?php if( isset($single_property->utilities)): ?>
+				<li>Utilities: [utilities]</li>
 				<?php endif; ?>								
 			
 		</ul>
+		<?php if( isset($single_property->unmapped->{'HighSchoolDistrict'}) ): ?>
+
+		<h3 class="zy-feature-title">School Information</h3>
+		<ul class="zy-sub-list">
+
+			
+		<?php if( isset($single_property->unmapped->{'HighSchoolDistrict'}) ): ?>
+			<li>School District: [unmapped_HighSchoolDistrict]</li>
+				<?php endif; ?>							
+			
+		</ul>
+		<?php endif; ?>							
+
+
 	</li>
 	<?php endif; ?>
 	

@@ -449,13 +449,23 @@ var zppr={
 			
 		
 		if( zppr.data.listing_disclaimer!='' ){
-			
-			html+= '<div class="row">'+
-						'<div class="col-xs-12">'+
-							'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
-						'</div>'+
-					'</div>';
-		}
+
+            var listing_disclaimer_new=zppr.data.listing_disclaimer;
+            var currentDomainCustom = window.location.hostname;
+            if (currentDomainCustom.includes('surfing4properties')) {
+                let regex = /(<img [^>]*alt="BeachesMLS"[^>]*>.*?BeachesMLS.*?)(<img [^>]*alt="Space Coast Association of REALTORS®"[^>]*>.*?Space Coast Association of REALTORS®.*?)/s;
+                let matches = zppr.data.listing_disclaimer.match(regex);
+
+                if (matches && matches.length === 3) {
+                    listing_disclaimer_new = matches[2] + '<br><br>' + matches[1];
+                }
+            }
+            html+= '<div class="row">'+
+                        '<div class="col-xs-12">'+
+                            '<span class="listing-disclaimer" role="none">'+ listing_disclaimer_new +'</span>'+
+                        '</div>'+
+                    '</div>';
+        }
 			
 		html+= '</div>';
 		
@@ -551,12 +561,22 @@ var zppr={
 			}			
 										
 			if( zppr.data.listing_disclaimer!='' ){
-			
-				html+= 					'<div class="row">'+
-											'<div class="col-xs-12">'+
-												'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
-											'</div>'+
-										'</div>';
+
+				var listing_disclaimer_new=zppr.data.listing_disclaimer;
+				var currentDomainCustom = window.location.hostname;
+				if (currentDomainCustom.includes('surfing4properties')) {
+					let regex = /(<img [^>]*alt="BeachesMLS"[^>]*>.*?BeachesMLS.*?)(<img [^>]*alt="Space Coast Association of REALTORS®"[^>]*>.*?Space Coast Association of REALTORS®.*?)/s;
+					let matches = zppr.data.listing_disclaimer.match(regex);
+	
+					if (matches && matches.length === 3) {
+						listing_disclaimer_new = matches[2] + '<br><br>' + matches[1];
+					}
+				}
+				html+= '<div class="row">'+
+							'<div class="col-xs-12">'+
+								'<span class="listing-disclaimer" role="none">'+ listing_disclaimer_new +'</span>'+
+							'</div>'+
+						'</div>';
 			}
 									
 			html+=					'</div>';
@@ -712,12 +732,22 @@ var zppr={
 			}			
 										
 			if( zppr.data.listing_disclaimer!='' ){
-			
-				html+= 					'<div class="row">'+
-											'<div class="col-xs-12">'+
-												'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
-											'</div>'+
-										'</div>';
+
+				var listing_disclaimer_new=zppr.data.listing_disclaimer;
+				var currentDomainCustom = window.location.hostname;
+				if (currentDomainCustom.includes('surfing4properties')) {
+					let regex = /(<img [^>]*alt="BeachesMLS"[^>]*>.*?BeachesMLS.*?)(<img [^>]*alt="Space Coast Association of REALTORS®"[^>]*>.*?Space Coast Association of REALTORS®.*?)/s;
+					let matches = zppr.data.listing_disclaimer.match(regex);
+	
+					if (matches && matches.length === 3) {
+						listing_disclaimer_new = matches[2] + '<br><br>' + matches[1];
+					}
+				}
+				html+= '<div class="row">'+
+							'<div class="col-xs-12">'+
+								'<span class="listing-disclaimer" role="none">'+ listing_disclaimer_new +'</span>'+
+							'</div>'+
+						'</div>';
 			}
 									
 			html+=					'</div>';
@@ -1095,9 +1125,40 @@ var zppr={
 				}
 				
 				//map clustering
-				var markerCluster = new MarkerClusterer(map, saved_markers,
-				{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-				
+
+var markerCluster = new markerClusterer.MarkerClusterer({
+    map: map,                 // The map on which to cluster the markers
+    markers: saved_markers,   // The array of markers to be clustered
+    // The cluster icon set
+    icons: [
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
+            width: 53,
+            height: 53
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m2.png',
+            width: 56,
+            height: 56
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m3.png',
+            width: 66,
+            height: 66
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m4.png',
+            width: 78,
+            height: 78
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m5.png',
+            width: 90,
+            height: 90
+        }
+    ]
+});
+
 				/*
 				<?php		
 				//map highlight
@@ -1517,13 +1578,23 @@ var zppr={
 		}
 		
 		if( zppr.data.listing_disclaimer!='' ){
-			
-			html+= 						'<div class="row">'+
-											'<div class="col-xs-12">'+
-												'<span class="listing-disclaimer" role="none">'+ zppr.data.listing_disclaimer +'</span>'+
-											'</div>'+
-										'</div>';
-		}
+
+            var listing_disclaimer_new=zppr.data.listing_disclaimer;
+            var currentDomainCustom = window.location.hostname;
+            if (currentDomainCustom.includes('surfing4properties')) {
+                let regex = /(<img [^>]*alt="BeachesMLS"[^>]*>.*?BeachesMLS.*?)(<img [^>]*alt="Space Coast Association of REALTORS®"[^>]*>.*?Space Coast Association of REALTORS®.*?)/s;
+                let matches = zppr.data.listing_disclaimer.match(regex);
+
+                if (matches && matches.length === 3) {
+                    listing_disclaimer_new = matches[2] + '<br><br>' + matches[1];
+                }
+            }
+            html+= '<div class="row">'+
+                        '<div class="col-xs-12">'+
+                            '<span class="listing-disclaimer" role="none">'+ listing_disclaimer_new +'</span>'+
+                        '</div>'+
+                    '</div>';
+        }
 								'</div>' +
 							'</div>' +
 							'<div class="clearfix"></div>' +
@@ -3284,9 +3355,9 @@ var zppr={
 					
 					response=JSON.parse(this.responseText);
 					
-					console.log(response);
+					
 					if(response.responseCode===200){					
-						
+					
 						switch(resultType){
 							case "list":
 								
@@ -3788,9 +3859,11 @@ var zppr={
 												}
 												
 												i++;
-											}
+											} 
 											
 											zppr.save_session(zppr.api_path(searchType), response.result, actual_link);
+										}else{
+											//jQuery(targetElement).parents().find('.et_pb_with_background.et_section_regular').hide();
 										}
 										
 										html = zppr.list_template(requests, html, is_view_save_search);
@@ -3807,7 +3880,6 @@ var zppr={
 								}
 							break;	
 							case "slider":								
-																			
 								var html='';
 								var mobile_item = requests.hasOwnProperty('mobile_item') ? parseInt(requests.mobile_item) : 1;
 								var tablet_item = requests.hasOwnProperty('tablet_item') ? parseInt(requests.tablet_item) : 1;
@@ -3826,7 +3898,8 @@ var zppr={
 								}
 								
 								if( ! html ){
-									if( requests.hasOwnProperty('aloff') && requests.aloff ){			
+									if( requests.hasOwnProperty('aloff') && requests.aloff ){
+
 										html = '<p class="no-property">There is no featured Properties</p>';				
 									}else{			
 										html = '<p class="no-property">no related properties</p>';										
@@ -3834,7 +3907,7 @@ var zppr={
 								}else{
 									html = zppr.slider_template(requests, html);
 								}
-								
+							
 								jQuery(targetElement).html( html );
 								
 								jQuery(document).ready(function ($) {
@@ -3977,14 +4050,19 @@ var zppr={
 								console.timeEnd('generate list');
 							break;
 							case "count":
+								
 								var count = response.result;
 								var num = ps;
 								var page = Math.ceil( ( sidx + 1 ) / num );
 								var proptypes = (!Array.isArray(requests['propertytype'])?[requests['propertytype']]:requests['propertytype']);
 								
 								html_pagination = zppr.html_pagination(page, num, count, actual_link);
-								jQuery(targetElement + ' .prop-total').html( zppr.list_total_text(count, proptypes.length==1?proptypes[0]:'') );
-								jQuery(targetElement + ' .prop-pagination').html( '<div class="col-xs-12">' + html_pagination + '</div>' );
+								if (/^\.+$/.test(targetElement)) {
+									targetElement="";
+								}
+									jQuery(targetElement + ' .prop-total').html( zppr.list_total_text(count, proptypes.length==1?proptypes[0]:'') );
+									jQuery(targetElement + ' .prop-pagination').html( '<div class="col-xs-12">' + html_pagination + '</div>' );
+								
 								console.timeEnd('generate list count/pagination');
 							break;
 						}
@@ -4264,7 +4342,6 @@ var zppr={
 									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
 								'</div>';
 		}
-		
 		var html = '<div class="zpa-grid-result '+ columns_code +'">' +
 					'<div class="zpa-grid-result-container well">' +
 						'<div class="row">' +
@@ -4406,7 +4483,8 @@ var zppr={
 		}
 		
 		var albums='';
-		
+
+
 		if(photoList.length){
 			albums+='<a href="#" data-toggle="modal" data-target="#modal-'+ listingid +'" listingid="'+ listingid +'"> <i class="glyphicon glyphicon-camera" role="none"></i> </a> <span class="photo-count">('+ img_count +')</span>' +
 					'<div id="modal-'+ listingid +'" class="modal">' +
@@ -4550,8 +4628,102 @@ var zppr={
 									'<span class="rebate-prefix">'+ rebate_prefix +'</span>' +
 								'</div>';
 		}
-		
-		var html = '<div class="zpa-grid-result '+ columns_code +'" index="'+ i +'" wrap="'+ (wrapOpen ? 'open' : 'closed') +'">' +
+
+		var card_template = zppr.data.root.layout.hasOwnProperty('card_template')?zppr.data.root.layout.card_template:0;
+		var html="";
+		if( card_template ==='1'){
+			 html = '<div class="zpa-grid-result '+ columns_code +'" index="'+ i +'" wrap="'+ (wrapOpen ? 'open' : 'closed') +'">' +
+			'<div class="zpa-grid-result-container 4561 well">' +
+				'<div class="row">' +
+					'<div class="col-xs-12">';
+						
+html +=					'<div class="slider-container">' +
+'<div class="za-container1 za-new-container">' +
+					
+					'<div class="za-new-main-info"><div class="za-grid-title">' +
+						'<span class="impress-price text-white text-bold">'+ zppr.moneyFormat(price) +'</span>'+
+						'<div class="">' +
+							'<a class="property_url1" href="'+ prop_url +'">' +
+							'<span class="zpa-grid-result-address"> <i class="fa fa-map-marker" aria-hidden="true"></i> '+ address +' </span> </a>' +
+						'</div>' +
+						
+					'</div>' +
+																	
+					'<div class=" property-infos1">' +
+						infos +
+					'</div> </div>' +
+					'<div class="za-new-additional-info"><div class="">' +
+							'<div class="zpa-grid-result-additional-info">' +
+								'<div class="zpa-status '+ (jQuery.isNumeric(status)?'status_'+status.replace(' ', ''):status.replace(' ', '')) +'">' +
+									'<span class="text-center d-block">'+ zppr.get_status_name(status, property.sourceid).toUpperCase() +'</span>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="">' +
+							'<span class="zpa-on-site pull-right"> <i class="fa fa-calendar" aria-hidden="true" role="none"></i> '+ days +' Day(s)  </span>' +
+						'</div></div>' +
+					
+					
+				'</div>' +
+
+
+							'<!--Main Slider Start-->' +
+							'<div class="slider photo-carousel owl-carousel" aria-label="carousel">'
+
+if( property.hasOwnProperty('photoList' ) && property.photoList.length){
+	var index=0;
+	for (const [key, pic] of Object.entries(property.photoList)) {
+		if( pic.imgurl.includes('mlspin.com') ){								
+			html +=				'<div style="background-image: url("//media.mlspin.com/photo.aspx?mls='+ property.listno + '&w=500&h=300&n='+ index +'");" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+		} else {
+			html +=				'<div style="background-image: url('+ (pic.imgurl ? pic.imgurl.replaceAll(' ', '%20').replace('http://','//') : zppr.data.plugin_url + 'images/no-photo.jpg' ) +');" class="item '+ ( index==0 ? "active" : "" ) +' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+		} 
+		index++;
+	}
+} else {
+	html +=						'<div style="background-image: url('+ zppr.data.plugin_url + 'images/no-photo.jpg);" class="item '+ ( index==0 ? "active" : "" ) + ' zpa-results-grid-photo" ><a class="property_url" href="'+ prop_url +'"></a></div>';
+}
+												
+html +=						'</div>' +
+							'<!--Main Slider End-->' +								
+							rebate_badge_html +
+							(property.startDate || property.openHouses ? '<span class="badge-open-house">Open House</span>' : '') +
+							'<a class="listing-'+ listingid +' save-favorite-btn '+ is_favorite +'" isLogin="'+ zppr.data.is_login +'" listingid="'+ listingid +'" searchid="'+ searchid +'" contactid="'+ zppr.data.contactIds +'" href="#" afteraction="save_favorite_listing"><i class="fa fa-heart" aria-hidden="true" role="none"></i></a>' +
+							
+				
+						'</div>' +
+						
+						
+					'</div>' +
+				'</div>' +
+				
+				
+				'<div class="row">' +
+					'<div class="col-xs-12">' +
+						'<div class="property-divider">&nbsp;</div>' +
+					'</div>' +
+				'</div>' +
+					
+				'<div class="za-container">' +
+					'<div class="row">' +
+						'<div class="'+ ( column==4 ? 'col-xs-9' : 'col-xs-10' ) +' pull-left fs-11 ">' +
+							'<div class="zpa-grid-result-mlsnum-proptype">'+ displaySource +'#'+ property.listno +' | '+ zppr.list_proptype(property) +' </div>' +
+						'</div>' +
+						'<div class="'+ ( column==4 ? 'col-xs-3' : 'col-xs-2' ) +' pull-right fs-12 zpa-grid-result-photocount nopaddingleft">' +
+							albums +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+				'<div style="clear:both"></div>' +
+			'</div>' +
+			property_source +
+			'<div class="grid-margin"></div>' +
+		'</div>';
+
+
+		}else{
+
+		 html = '<div class="zpa-grid-result  '+ columns_code +'" index="'+ i +'" wrap="'+ (wrapOpen ? 'open' : 'closed') +'">' +
 					'<div class="zpa-grid-result-container well">' +
 						'<div class="row">' +
 							'<div class="col-xs-12">';
@@ -4634,7 +4806,7 @@ var zppr={
 					property_source +
 					'<div class="grid-margin"></div>' +
 				'</div>';
-		
+	}
 		return html;
 	},
 	one_property_list:function(property, i){
@@ -6184,14 +6356,15 @@ var zppr={
 	  return true;
 	},
 	is_favorite:function(listid){
+	
 		var check = false;
-
-		if(zppr.data.saved_favorites!= null && zppr.data.saved_favorites.map((value,index) => {
-
-			if(value.listingId == listid)
-				check=true;
-		}));
-
+		if (zppr.data.saved_favorites != null) {
+			Object.values(zppr.data.saved_favorites).forEach((value) => {
+				if (value.listingId == listid) {
+					check = true;
+				}
+			});
+		}
 		return check;
 	},
 	generate_template:function(single_property){

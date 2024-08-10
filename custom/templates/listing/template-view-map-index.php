@@ -543,9 +543,40 @@ function initialize() {
 	}); */ ?>
 	
 	//map clustering
-	var markerCluster = new MarkerClusterer(map, saved_markers,
-	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-	
+
+	var markerCluster = new markerClusterer.MarkerClusterer({
+    map: map,                 // The map on which to cluster the markers
+    markers: saved_markers,   // The array of markers to be clustered
+    // The cluster icon set
+    icons: [
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
+            width: 53,
+            height: 53
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m2.png',
+            width: 56,
+            height: 56
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m3.png',
+            width: 66,
+            height: 66
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m4.png',
+            width: 78,
+            height: 78
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m5.png',
+            width: 90,
+            height: 90
+        }
+    ]
+});
+
 	<?php		
 	//map highlight
 	ob_start();

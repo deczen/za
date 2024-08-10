@@ -767,6 +767,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 			
 			window.addFilterLabel = function(name, value, linked_name, label){
 				var newLabel=label;
+				
 				var currency='<?php echo zipperagent_currency(); ?>';
 				
 				if(!newLabel){
@@ -966,6 +967,22 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						case "astt":
 							newLabel = 'State ' + value;	
 							break;
+						case "alotd": //added by ravinder
+							newLabel = value;		
+							break;
+						case "armks": // added by ravinder 
+							newLabel = value;		
+							break;
+						case "awtrf": //added by ravinder
+							newLabel = value;		
+							break;
+						case "asubar": //added by ravinder
+							if(value=='Lower Deer Valley;Upper Deer Valley'){
+								newLabel="Deer Valley";
+							}else{
+							newLabel = value;	
+							}	
+							break;
 						<?php
 						if($extra_proptypes = zipperagent_extra_proptype()){
 							foreach($extra_proptypes as $key=>$extra_proptype){
@@ -1004,18 +1021,23 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						<?php
 						$fields = get_references_field('LAKECHAINNAME');
 						foreach($fields as $field){
+							$escapedLongDescription = addslashes($field->longDescription);
 						echo "\r\n" .
 						'case "alkchnnm_'.$field->shortDescription.'":'."\r\n" .
-							"newLabel = '{$field->longDescription}'"."\r\n" .
-							// "newLabel = ''"."\r\n" . //disable label text
+						"newLabel = '{$escapedLongDescription}';"."\r\n" .
+						// "newLabel = ''"."\r\n" . //disable label text
 							'break;'."\r\n";
 						}
 						?>
+						
 						default:
 							switch(name){
 								case "alstid":
 								case "alstid[]":
 									newLabel = 'MLS#' + value;	
+									break;
+								case "propertytype[]":
+									newLabel =  value;	
 									break;
 								default:										
 									newLabel = linked_name.toLowerCase()+' '+value;
@@ -1029,9 +1051,12 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					return;
 				
 				if(jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').length){
+				
 					var replace='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
 					jQuery('#zpa-selected-filter .ms-sel-ctn .ms-sel-item[attribute-name="'+linked_name+'"]').replaceWith(replace);
 				}else{
+				
+
 					var add='<div class="ms-sel-item" real-name="'+name+'" attribute-name="'+linked_name+'" attribute-value="'+value+'"><div class="name">'+ newLabel +'</div><span class="ms-close-btn"></span></div>';
 					jQuery('#zpa-selected-filter .ms-sel-ctn').append(add);						
 				}
@@ -1372,7 +1397,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 						},
 						success: function( response ) {         
 							if( response ){
-								var data = response.schools;
+								var data = cleanDataArray(response.schools,inputText);
 								ms_school.setData(data);
 								ms_school.expand();
 							}
@@ -1417,7 +1442,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.schools;
+									var data = cleanDataArray(response.schools,inputText);
 									ms_school3.setData(data);
 									ms_school3.expand();
 								}
@@ -1457,7 +1482,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								response=JSON.parse(this.responseText);
 								if(response.responseCode===200){
 									
-									var data = zppr.populate_schools(response);
+									var data = cleanDataArray(zppr.populate_schools(response),inputText);
 									ms_school3.setData(data);
 									ms_school3.expand();
 									
@@ -1508,7 +1533,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.addresses;
+									var data = cleanDataArray(response.addresses,inputText);
 									ms_address.setData(data);
 									ms_address.expand();
 								}
@@ -1548,7 +1573,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								response=JSON.parse(this.responseText);
 								if(response.responseCode===200){
 									
-									var data = zppr.populate_addresses(response);
+									var data = cleanDataArray(zppr.populate_addresses(response),inputText);
 									ms_address.setData(data);
 									ms_address.expand();
 									
@@ -1599,7 +1624,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.listids;
+									var data = cleanDataArray(response.listids,inputText);
 									ms_listid.setData(data);
 									ms_listid.expand();
 								}
@@ -1639,7 +1664,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								response=JSON.parse(this.responseText);
 								if(response.responseCode===200){
 									
-									var data = zppr.populate_listids(response);
+									var data = cleanDataArray(zppr.populate_listids(response),inputText);
 									ms_listid.setData(data);
 									ms_listid.expand();
 									
@@ -1678,7 +1703,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							requests[el.name]=el.value
 						});
 						
-						console.time('populate address & school');
+						console.time('populate address & school1996');
 						xhr_all = jQuery.ajax({
 							type: 'POST',
 							dataType : 'json',
@@ -1690,21 +1715,21 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.addresses;
+									var data = cleanDataArray(response.addresses,inputText);
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all.setData(combined);
 									ms_all.expand();
 								}
-								console.timeEnd('populate address & school');
+								console.timeEnd('populate address & school1714');
 							},
 							error: function(){
-								console.timeEnd('populate address & school');
+								console.timeEnd('populate address & school1717');
 							}
 						});
 					}, 500);
 				}else{
-					console.time('populate address & school');
+					console.time('populate address & school1722');
 					
 					var parm=[];
 					var subdomain=zppr.data.root.web.subdomain;
@@ -1721,6 +1746,8 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 					var addr=1;
 					var mls=1;
 					var inputText = ms_all.getRawValue();
+					
+									
 					parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 					
 					var xhttp = new XMLHttpRequest();
@@ -1731,14 +1758,16 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							
 								response=JSON.parse(this.responseText);
 								if(response.responseCode===200){
-									
-									var data = zppr.populate_addresses_and_schools(response);
+									var data = cleanDataArray(zppr.populate_addresses_and_schools(response),inputText);
+								
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all.setData(combined);
 									ms_all.expand();
-									
-									console.timeEnd('populate address & school');
+									console.log("tempAll = " , tempAll);
+									console.log("combined = " , combined);
+									console.log("data = " , data);
+									console.timeEnd('populate address & school1756');
 								}
 								
 							}else {
@@ -1772,7 +1801,7 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							requests[el.name]=el.value
 						});
 						
-						console.time('populate address & school');
+						console.time('populate address & school1790');
 						xhr_all = jQuery.ajax({
 							type: 'POST',
 							dataType : 'json',
@@ -1784,21 +1813,21 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.addresses;
+									var data = cleanDataArray(response.addresses,inputText);
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all_mobile.setData(combined);
 									ms_all_mobile.expand();
 								}
-								console.timeEnd('populate address & school');
+								console.timeEnd('populate address & school1808');
 							},
 							error: function(){
-								console.timeEnd('populate address & school');
+								console.timeEnd('populate address & school1811');
 							}
 						});
 					}, 500);
 				}else{
-					console.time('populate address & school');
+					console.time('populate address & school1816');
 					
 					var parm=[];
 					var subdomain=zppr.data.root.web.subdomain;
@@ -1826,13 +1855,12 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 								response=JSON.parse(this.responseText);
 								if(response.responseCode===200){
 									
-									var data = zppr.populate_addresses_and_schools(response);
+									var data = cleanDataArray(zppr.populate_addresses_and_schools(response),inputText);
 									var tempAll = all.slice();
 									var combined = jQuery.merge(tempAll, data);
 									ms_all_mobile.setData(combined);
 									ms_all_mobile.expand();
-									
-									console.timeEnd('populate address & school');
+									console.timeEnd('populate address & school1850');
 								}
 								
 							}else {
@@ -1861,7 +1889,6 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 				
 				var name = 'location[]';
 				var linked_name = 'location_'+value;
-				
 				this.removeFromSelection(this.getSelection(), true);
 				addFilterLabel(name, value, linked_name, label);
 				addFormField(name,value,linked_name);
@@ -2055,10 +2082,12 @@ $rb = ZipperagentGlobalFunction()->zipperagent_rb();
 				var is_add, is_location, is_aflladdr, is_lake, is_address, is_mls = 0;
 								
 				for(i=0; i<data.length; i++){
+					
 					if(data[i].code==value){
 						label = data[i].name;
 					}
 				}
+			
 				if (value.toLowerCase().indexOf("atwns_") >= 0){ //town
 					is_location=1;
 				}else if (value.toLowerCase().indexOf("aars_") >= 0){ //area

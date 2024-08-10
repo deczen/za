@@ -323,3 +323,129 @@
 @media only screen and (max-width: 400px){
 	/* .zy_price-mls .zy-detail-tool .btn_wrap {width: 25% !important;} */
 }
+
+ /* added by ravinder 22-05-2024 for agent card*/
+  
+ .zy_agentinfo-card {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: .25rem;
+	background: #fff;
+	border-radius: .75rem;
+	border: 1px solid #c7d5e1;
+	box-shadow: 0 1px 8px rgba(0, 0, 0, .08);
+	max-width: 600px;
+	width: 100%;
+}
+.zy_agentinfo-card:hover{
+	box-shadow: 0 0 20px 0 rgba(13,38,60,0.5)
+}
+.zy_agentinfo-image {
+	margin-right: 1rem;
+}
+
+.zy_agentinfo-image img {
+   border-radius: .75rem;
+	border: .01px solid rgba(62, 61, 57, .1) !important;
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+}
+
+.zy_agentinfo-details {
+	display: flex;
+	flex-direction: column;
+	max-width: 60%;
+	width:60%;
+	min-height: 100px;
+   justify-content: space-between;
+}
+
+.zy_agent-info h3.zy_agentinfo-name {
+		margin: 0;
+		padding-top:8px!important;
+		padding-bottom:2px!important;
+		 padding-left:5px!important;
+		font-size: 1.25rem;
+		font-weight: bold;
+		
+}
+
+	  .zy_agentinfo-phone {
+		
+		 line-height: 1.5rem;
+		font-size: 1rem;
+		 padding-left:5px!important;
+		color: #8b8b88;
+		}
+
+.zy_agentinfo-details a.zy_agentinfo-email {
+   margin: 0 0 0.3rem 0;
+	font-size: 1rem;
+   color: #8b8b88!important;
+   padding-left:5px!important;
+	text-decoration: none;
+	font-weight: bold;
+	 line-height: 1.5rem;
+}
+
+.zy_agentinfo-details a.zy_agentinfo-email:hover {
+	text-decoration: underline;
+}
+
+.zy_agentinfo-details a.zy_agentinfo-btn  {
+	 padding: 0.3rem 1rem !important;
+	background-color: #4a4a4a;
+   color: #fff !important;
+	   margin-top: 8px !important;
+	border: none;
+	border-radius: 1.75rem;
+	cursor: pointer;
+	font-size: 1rem;
+	margin-top:5px;
+	text-align:center;
+}
+
+.zy_agentinfo-details a.zy_agentinfo-btn:hover {
+	background-color: #eee;
+		border-color: #bbb;
+	color: #4a4a4a!important;
+}
+
+@media (max-width: 600px) {
+	.zy_agentinfo-card {
+		flex-direction: column;
+		align-items: center;
+		padding: 1rem !important;
+	}
+	 .zy_agentinfo-details {
+		   width:100%;
+		   max-width:100%;
+		   align-items: center;
+		}
+		 .zy_agentinfo-details {
+		   width:100%;
+		   max-width:100%;
+			 min-height: auto;
+		   align-items: center;
+		}
+		.zy_agentinfo-details > div:last-child {
+			margin-top:10px;
+		}
+		
+		.zy_agent-info h3.zy_agentinfo-name {
+	 
+		 padding-left:0px!important;
+		
+}
+
+	  .zy_agentinfo-phone {
+		   padding-left:0px!important;
+		}
+
+.zy_agentinfo-details a.zy_agentinfo-email {
+padding-left:0px!important;
+}
+
+   }

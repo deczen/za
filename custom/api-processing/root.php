@@ -165,6 +165,8 @@
 	if(isset($rb['layout']['detailpage_group']))			$data['layout']['detailpage_group'] = $rb['layout']['detailpage_group'];
 	if(isset($rb['layout']['detailpage_direct']))			$data['layout']['detailpage_direct'] = $rb['layout']['detailpage_direct'];
 	if(isset($rb['layout']['new_template']))				$data['layout']['new_template'] = $rb['layout']['new_template'];
+	if(isset($rb['layout']['card_template']))				$data['layout']['card_template'] = $rb['layout']['card_template'];
+
 	
 	if(isset($rb['google']['apikey']))  					$data['google']['apikey'] = $rb['google']['apikey'];
 	if(isset($rb['google']['adwords']['code']))				$data['google']['adwords']['code'] = $rb['google']['adwords']['code'];
@@ -187,6 +189,8 @@
 	if(isset($rb['web']['hideemail']))  					$data['web']['hideemail'] = $rb['web']['hideemail'];
 	if(isset($rb['web']['hidephone']))  					$data['web']['hidephone'] = $rb['web']['hidephone'];
 	if(isset($rb['web']['youragent']))  					$data['web']['youragent'] = $rb['web']['youragent'];
+	if(isset($rb['web']['youragent_btn']))  				$data['web']['youragent_btn'] = $rb['web']['youragent_btn'];
+	if(isset($rb['web']['youragent_btn_action']))  			$data['web']['youragent_btn_action'] = $rb['web']['youragent_btn_action'];
 	if(isset($rb['web']['hidelistsource']))  				$data['web']['hidelistsource'] = $rb['web']['hidelistsource'];
 	
 	if(isset($rb['mortgage']['default_interestrate']))		$data['mortgage']['default_interestrate'] = $rb['mortgage']['default_interestrate'];

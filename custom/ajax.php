@@ -229,6 +229,7 @@ function regist_user(){
 			
 			if($leadSource){
 				$vars['leadSource']=$leadSource;
+				$vars['websiteLeadFrom']="Website";
 			}
 			
 			if(isset($_REQUEST['city'])){

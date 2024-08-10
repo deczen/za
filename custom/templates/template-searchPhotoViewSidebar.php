@@ -43,7 +43,8 @@ $contactIds=get_contact_id();
 </div>
 <script>
 	jQuery('.zpa-listing-search-results').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-		
+		console.log("working on sidebar");
+
 		var element = jQuery(this);
 		
 		if( element.hasClass('active') )

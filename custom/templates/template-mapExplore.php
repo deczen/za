@@ -56,7 +56,7 @@ if($requests['lat'] && $requests['lng']){
 	</div>
 	<script>
 		jQuery('#zpa-main-container').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-			
+			console.log("click is working mapexp");
 			var element = jQuery(this);
 			
 			if( element.hasClass('active') )
@@ -109,8 +109,8 @@ if($requests['lat'] && $requests['lng']){
 			});
 		}
 	</script>
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-	<script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js"></script>
+<script>
 		jQuery(document).ready(function(){ 
 
 			var map;
@@ -337,9 +337,38 @@ if($requests['lat'] && $requests['lng']){
 				}			
 				
 				//map clustering
-				var markerCluster = new MarkerClusterer(map, saved_markers,
-				{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-				
+				var markerCluster = new markerClusterer.MarkerClusterer({
+					map: map,
+    markers: saved_markers,
+    icons: [
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
+            width: 53,
+            height: 53
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m2.png',
+            width: 56,
+            height: 56
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m3.png',
+            width: 66,
+            height: 66
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m4.png',
+            width: 78,
+            height: 78
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m5.png',
+            width: 90,
+            height: 90
+        }
+    ]
+});
+
 				<?php /*
 				//update polygon input value
 				updateCoords(); */ ?>

@@ -551,7 +551,7 @@ class Zipperagent_Shortcodes{
 		return $html;
 	} */
 	
-	function display_zipperagent_gallery_view($atts){
+	function display_zipperagent_gallery_view($atts){	
 		$vars=array();
 		if(is_array($atts)){
 			foreach( $atts as $var=>$val ){
@@ -653,7 +653,6 @@ class Zipperagent_Shortcodes{
 	} */
 		
 	function display_zipperagent_photo_view($atts){
-		
 		$vars=array();
 		if(is_array($atts)){
 			foreach( $atts as $var=>$val ){
@@ -875,7 +874,6 @@ class Zipperagent_Shortcodes{
 	}
 
 	function display_office_listing($atts){
-		
 		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 		$aloff=isset($rb['web']['aloff'])?$rb['web']['aloff']:null;
 		

@@ -188,7 +188,8 @@ else: ?>
 </script>
 <script>
 	jQuery('.zpa-listing-search-results').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-		
+		console.log("working on mapView");
+
 		var element = jQuery(this);
 		
 		if( element.hasClass('active') )
@@ -566,9 +567,38 @@ else: ?>
 		}); */ ?>
 		
 		//map clustering
-		var markerCluster = new MarkerClusterer(map, saved_markers,
-		{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-		
+		var markerCluster = new markerClusterer.MarkerClusterer({
+			map: map,
+    markers: saved_markers,
+    icons: [
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
+            width: 53,
+            height: 53
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m2.png',
+            width: 56,
+            height: 56
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m3.png',
+            width: 66,
+            height: 66
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m4.png',
+            width: 78,
+            height: 78
+        },
+        {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m5.png',
+            width: 90,
+            height: 90
+        }
+    ]
+});
+
 		<?php		
 		//map highlight
 		ob_start();

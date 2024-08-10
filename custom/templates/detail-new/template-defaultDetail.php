@@ -330,6 +330,15 @@ switch($property_type){
 	case "COMMERCIAL LEASE": //Commercial Lease	
 	case "CO": //Commercial Lease	
 	case "Commercial Lease": //Commercial Lease
+		
+		$template_name=get_detail_template_filename('cc')?get_detail_template_filename('cc'):'';
+		$template_features='cc-features.php';
+		$template_print='cc-print.php';
+		$template_sidebar='cc-sidebar.php';
+		$template_vtlink='cc-vtlink.php';
+		break;
+
+
 	case "Condo": //Condo
 	case "Coop": //Coop
 	case "Condos":
@@ -355,8 +364,20 @@ switch($property_type){
 	case "Commercial_Sale": //Commercial Sale	
 	case "Commercial": //Commercial	
 	case "COMMERCIAL_SALE": //Commercial	
-	case "COMMERCIAL SALE": //Commercial Sale	
+	case "COMMERCIAL SALE": //Commercial Sale
+		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
+		$template_features='ci-features.php';
+		$template_print='ci-print.php';
+		$template_sidebar='ci-sidebar.php';
+		$template_vtlink='ci-vtlink.php';
+		break;		
 	case "Commercial Sale": //Commercial Sale
+		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
+		$template_features='ci-features.php';
+		$template_print='ci-print.php';
+		$template_sidebar='ci-sidebar.php';
+		$template_vtlink='ci-vtlink.php';
+		break;	
 	case "CommercialSale":
 		$template_name=get_detail_template_filename('ci')?get_detail_template_filename('ci'):'';
 		$template_features='ci-features.php';
@@ -380,6 +401,12 @@ switch($property_type){
 	case "BUSINESS": //Business		
 	case "BUSO": //Business		
 	case "BUSINESS OPPORTUNITY": //Business Opportunity		
+		$template_name=get_detail_template_filename('bu')?get_detail_template_filename('bu'):'';
+		$template_features='bu-features.php';
+		$template_print='bu-print.php';
+		$template_sidebar='bu-sidebar.php';
+		$template_vtlink='bu-vtlink.php';
+		break;
 	case "BUSINESS_OPPORTUNITY": //Business Opportunity		
 	case "BUSINESSOPPORTUNITY": //Business Opportunity		
 	case "Business Opportunity": //Business Opportunity
@@ -448,6 +475,11 @@ if( is_array( $groups  ) ) {
 } else {
 	$groupname = $groups;
 }
+if(strtolower($sourceid) == 'united') {
+	$groupname='unitedmls';
+}
+
+
 
 // $group_dir_default='/default';
 // $template_features_default = 'default-features.php';
@@ -1020,12 +1052,61 @@ $col_length_sub = ! $enable_rebate ? 'col-lg-6' : 'col-lg-4';
 							<?php default: ?>
 							<li>Your Agent</li>
 							<li>
-								<?php if($agentImage): ?><div class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col"><img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>" class="zy_agent-pic"/></div><?php endif; ?>
-								<span class="col-lg-6 col-sm-6 col-md-6 col-xl-6 col zy_nopadding"><h3><?php echo $agentFullName; ?></h3>
-								<p class="zy_agent-phone"><?php echo $agentPhone; ?></p>
-								<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agent-email"><?php echo $agentEmail; ?></a>
-								<?php if( $agent ) /* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form">Ask Question</button>'; ?></span>
-								<div class="clearfix"></div>
+								
+							<div class="zy_agentinfo-card">
+									<div class="zy_agentinfo-image">
+										<?php if($agentImage){ ?>
+											<img src="<?php echo $agentImage; ?>" alt="<?php echo $agentFullName; ?>">
+										<?php }else{
+											?>
+												<img src="" alt="<?php echo $agentFullName; ?>">
+											<?php
+										} ?>
+									</div>
+									<div class="zy_agentinfo-details">
+										<div>
+											<h3 class="zy_agentinfo-name"><?php echo $agentFullName; ?></h3>
+											<?php if(!empty($agentPhone)){?> <span class="zy_agentinfo-phone"><?php echo $agentPhone; ?></span> <?php }?>
+											
+											<a href="mailto:<?php echo $agentEmail; ?>" class="zy_agentinfo-email"><?php echo $agentEmail; ?></a>
+										</div>
+										<div>
+										<?php 
+										$agentButtonActions = is_show_contact_agent_btn();
+
+										if( !$agent ) {
+												if (!empty($agentButtonActions)) {
+													$btnText = $agentButtonActions[0];
+													$btnLink = $agentButtonActions[1];
+													if (!empty($btnText) && !empty($btnLink)) {
+														echo '<a href="'.$btnLink.'" target="_blank" class="zy_agentinfo-btn">'.$btnText.'</a>';
+													}elseif (!empty($btnText) && empty($btnLink)) {
+														echo '<button class="go-to-form zy_agentinfo-btn">'.$btnText.'</button>'; 
+													}elseif (empty($btnText) && !empty($btnLink)) {
+														echo '<a href="'.$btnLink.'" target="_blank" class="zy_agentinfo-btn">sAsk Question</a>';
+													}else{
+														echo '<button class="go-to-form zy_agentinfo-btn">Ask Questions</button>'; 
+													}
+												}else{
+												/* echo '<a href="#zpa-modal-contact-agent-form"> */ echo '<button class="go-to-form zy_agentinfo-btn">Ask wQuestion</button>'; 
+												}
+											}else{
+
+												if (!empty($agentButtonActions)) {
+													$btnText = $agentButtonActions[0];
+													$btnLink = $agentButtonActions[1];
+													if (!empty($btnText) && !empty($btnLink)) {
+														echo '<a href="'.$btnLink.'" target="_blank" class="zy_agentinfo-btn">'.$btnText.'</a>';
+													}elseif (!empty($btnText) && empty($btnLink)) {
+														echo '<button class="go-to-form zy_agentinfo-btn">'.$btnText.'</button>'; 
+													}
+												}
+											}
+										?>
+										<div>
+										
+									</div>
+    						</div>
 							</li>
 							<?php break; ?>
 							

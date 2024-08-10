@@ -5,7 +5,7 @@
 			  isset($single_property->unmapped->{"Transaction Type"}) || isset($single_property->unmapped->Basement) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Property Features</h3>
-		<ul class="zy-sub-list">
+		<ul class="zy-sub-list pfeature">
 			
 			<?php if( isset($single_property->amenities)): ?>
 			<li>Amenities: [amenities]</li>
@@ -44,7 +44,7 @@
 			<li>Basement: [unmapped_Basement]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->interiorfeatures)): ?>
-			<li>Iinterior Features: [interiorfeatures]</li>
+			<li>Interior Features: [interiorfeatures]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->{"HOA/POA"})): ?>
 			<li>HOA/POA: [unmapped_HOA/POA]</li>
@@ -55,7 +55,51 @@
 			<?php if( isset($single_property->unmapped->{"Transaction Type"})): ?>
 			<li>Transaction Type: [unmapped_Transaction Type]</li>
 			<?php endif; ?>
-			
+			<?php if( isset($single_property->lotdescription) ): ?>
+					<li>Lot Features: [lotdescription]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->lotsize) ): ?>
+					<li>Lot Size (Sq. Ft.): [lotsize]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'PatioAndPorchFeatures'}) ): ?>
+					<li>Patio And Porch Features: [unmapped_PatioAndPorchFeatures]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'View'}) ): ?>
+					<li>View: [unmapped_View]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'FireplaceFeatures'}) ): ?>
+					<li>Fireplace Features: [unmapped_FireplaceFeatures]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'FireplaceYN'}) ): ?>
+					<li>Fireplace YN: [unmapped_FireplaceYN]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->laundryfeatures) ): ?>
+					<li>Laundry Features: [laundryfeatures]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'Levels'}) ): ?>
+					<li>Levels: [unmapped_Levels]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->totalrooms) ): ?>
+					<li>Rooms Total: [totalrooms]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->reqdownassociation) ): ?>
+					<li>Association YN: [reqdownassociation]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'ListingTerms'}) ): ?>
+					<li>Listing Terms: [unmapped_ListingTerms]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'LotSizeDimensions'}) ): ?>
+					<li>Lot Size Dimensions: [unmapped_LotSizeDimensions]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'NewConstructionYN'}) ): ?>
+					<li>New Construction YN: [unmapped_NewConstructionYN]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->unmapped->{'PropertyAttachedYN'}) ): ?>
+					<li>Property Attached YN: [unmapped_PropertyAttachedYN]</li>
+				<?php endif; ?>
+	<?php if( isset($single_property->neighborhood) ): ?>
+					<li>Township: [neighborhood]</li>
+				<?php endif; ?>
 			<?php if( isset($single_property->petsallowed)): ?>
 			<li>Pets Allowed: [petsallowed]</li>
 			<?php endif; ?>
@@ -66,7 +110,7 @@
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || 
+	<?php if(isset($single_property->unmapped->{'HighSchoolDistrict'}) || isset($single_property->middleschool) || isset($single_property->middleschool) || isset($single_property->cooling) || isset($single_property->coolingzones) || isset($single_property->heating) || isset($single_property->heatzones) || isset($single_property->energyfeatures) || 
 			  isset($single_property->electricfeature) || isset($single_property->hotwater) || isset($single_property->sewer) || isset($single_property->water) || isset($single_property->unmapped->{"Central Air"}) ||
 			  isset($single_property->unmapped->{"Heat System"}) ):?>
 	<li class="cell">
@@ -111,6 +155,26 @@
 			<?php endif; ?>								
 			
 		</ul>
+		
+		<?php if( isset($single_property->unmapped->{'HighSchoolDistrict'}) || isset($single_property->middleschool) || isset($single_property->middleschool) ): ?>
+
+			<h3 class="zy-feature-title">School Information</h3>
+			<ul class="zy-sub-list">
+
+			<?php if( isset($single_property->middleschool) ): ?>
+				<li>School District: [middleschool]</li>
+			<?php endif; ?>							
+			<?php if( isset($single_property->highschool) ): ?>
+				<li>School District: [highschool]</li>
+			<?php endif; ?>							
+				
+			<?php if( isset($single_property->unmapped->{'HighSchoolDistrict'}) ): ?>
+				<li>School District: [unmapped_HighSchoolDistrict]</li>
+			<?php endif; ?>							
+			
+			
+			</ul>
+		<?php endif; ?>	
 	</li>
 	<?php endif; ?>
 
@@ -124,6 +188,10 @@
 			<?php endif; ?>
 			<?php if( isset($single_property->parkingspaces)): ?>
 			<li>Parking Spaces: [parkingspaces]</li>
+			<?php endif; ?>
+			
+			<?php if( isset($single_property->parkingfeature)): ?>
+			<li>Parking Features: [parkingfeature]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->roadtype)): ?>
 			<li>Road Type: [roadtype]</li>

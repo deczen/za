@@ -11,7 +11,7 @@ if( !empty( $_POST ) && $_POST['actionType']=='login' ){
 	if( $result ){
 		// $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		wp_safe_redirect( ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-edit-subscriber') );
-		die();
+		die();	
 	}else{
 		$loginfail=1;
 	}
@@ -25,6 +25,7 @@ if( ZipperagentGlobalFunction()->getCurrentUserContactLogin() ){
 
 $contactIds=get_contact_id();
 $rb = ZipperagentGlobalFunction()->zipperagent_rb();	
+$leadSourceCheck=isset($rb['web']['lead_source'])?$rb['web']['lead_source']:'WEBST';
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <div id="zpa-main-container" class="zpa-container zpa-color-scheme-gray zpa-account-login" style="display: inline;" data-zpa-client-id="">
@@ -254,9 +255,16 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 									<br />
 									<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
 								<?php endif; ?>
-								<?php if( isset($atts['leadsource']) && $atts['leadsource'] ): ?>
+								<?php if( isset($atts['leadsource']) && $atts['leadsource'] ){ ?>
 									<input type="hidden" name="leadSource" value="<?php echo $atts['leadsource']; ?>" />
-								<?php endif; ?>
+								<?php } else { 
+								 if( isset($leadSourceCheck)): ?>
+									<input type="hidden" name="leadSource" value="<?php echo $leadSourceCheck; ?>" />
+								<?php endif; 
+								}
+								?>
+								
+
 								<button type="submit" class="btn btn-primary btn-block">Sign Up</button>
 							</div>
 						</div>
@@ -326,7 +334,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 		
 		var data = jQuery(this).serialize();
 		
-		console.time('sign up');
+		console.time('sign up 329');
 		jQuery.ajax({
 			type: 'POST',
 			dataType : 'json',

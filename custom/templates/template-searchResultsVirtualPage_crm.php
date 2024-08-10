@@ -77,7 +77,7 @@ $plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zippe
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js?ver=" . $plugin_data['Version']; ?>"></script>
 <script src="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'js/owl.carousel.min.js'; ?>"></script>
 <?php endif; ?>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js"></script>
 <div id="zpa-main-container" class="zpa-container <?php echo $uniqueClass; ?>" style="display: inline;">
 
 	<div class="zpa-listing-list">
@@ -417,7 +417,8 @@ if( $top_search_enabled ):
 <?php endif; ?>
 <script>
 	jQuery('body').on('click', '.zpa-listing-search-results .save-favorite-btn:not(.needLogin)', function(){
-		
+		console.log("working on _crm");
+
 		var element = jQuery(this);
 		
 		if( element.hasClass('active') )

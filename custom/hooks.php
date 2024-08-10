@@ -1131,14 +1131,21 @@ function postblog_endpoint_template_redirect() {
 				$rb = ZipperagentGlobalFunction()->zipperagent_rb();
 				$root_subdomain = $rb['web']['subdomain'];
 				$root_consumerkey = $rb['web']['authorization']['consumer_key'];
-
+				
 				if ($subdomain === $root_subdomain && $consumerkey === $root_consumerkey) {
-					if ($_SERVER['REQUEST_METHOD'] === 'POST' && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+					
+					if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  strpos($_SERVER['REQUEST_URI'], 'get-users') !== false) {
+						handle_get_users_request();
+					}
+					else if ($_SERVER['REQUEST_METHOD'] === 'POST' && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
 						
 						handle_json_create_blog_request();
 					}
-					if ($_SERVER['REQUEST_METHOD'] === 'DELETE' ) {
+					else if ($_SERVER['REQUEST_METHOD'] === 'DELETE' ) {
 						handle_blog_delete_request();
+					}else{
+						status_header(404);
+						exit;
 					}
 
 				}else{
@@ -1157,77 +1164,154 @@ function postblog_endpoint_template_redirect() {
 		}
 	}
 }
+function handle_get_users_request() {
+	$all_users = get_users();
+    $emails = array();
+    foreach ($all_users as $user) {
+		if ($user->user_email !== 'sanjay.singh@zyprr.com') {
+        	$emails[] = $user->user_email;
+		}
+    }
+	status_header(200);
+	header('Content-Type: application/json; charset=utf-8');
+	echo json_encode($emails);
+	exit;
+}
 function handle_json_create_blog_request() {
-        // Get JSON data from the request body
-        $json_data = json_decode(file_get_contents("php://input"), true);
+	// Get JSON data from the request body
+	$json_data = json_decode(file_get_contents("php://input"), true);
 
-        // Check if required fields are present in JSON data
-        if (isset($json_data['title']) && isset($json_data['status']) && isset($json_data['content']) && isset($json_data['category'])) {
-        
-			$category_name = sanitize_text_field($json_data['category']);
-			$category_id = get_cat_ID($category_name);
-			$user_email = sanitize_email($json_data['email']);
-			$user = get_user_by('email', $user_email);
-			
-			 // If the category doesn't exist, create it
-			 if ($category_id == 0) {
-                $category = wp_insert_term($category_name, 'category');
-                if (!is_wp_error($category)) {
-                    $category_id = $category['term_id'];
-                } else {
-                    // Handle error creating category
-                    status_header(500);
-                    header('Content-Type: application/json; charset=utf-8');
-                    echo json_encode(array('status' => 'error', 'message' => 'Error creating category', 'details' => $category->get_error_message()));
-                    exit;
-                }
-            }
-			// Create a new post
-			if ($user) {
-				$user_id = $user->ID;
-				$post_data = array(
-					'post_title' => sanitize_text_field($json_data['title']),
-					'post_status' => sanitize_text_field($json_data['status']),
-					'post_content' => wp_kses_post($json_data['content']),
-					'post_category' => array($category_id),
-					'post_author' => $user_id,
-				);
-			}else{
-				$post_data = array(
-					'post_title' => sanitize_text_field($json_data['title']),
-					'post_status' => sanitize_text_field($json_data['status']),
-					'post_content' => wp_kses_post($json_data['content']),
-					'post_category' => array($category_id),
-				);
+	// Check if required fields are present in JSON data
+	if (isset($json_data['title']) && isset($json_data['status']) && isset($json_data['content']) && isset($json_data['category'])) {
+	
+		$category_name = sanitize_text_field($json_data['category']);
+		$category_id = get_cat_ID($category_name);
+		$user_email = sanitize_email($json_data['email']);
+		$user = get_user_by('email', $user_email);
+		
+		 // If the category doesn't exist, create it
+		 if ($category_id == 0) {
+			$category = wp_insert_term($category_name, 'category');
+			if (!is_wp_error($category)) {
+				$category_id = $category['term_id'];
+			} else {
+				// Handle error creating category
+				status_header(500);
+				header('Content-Type: application/json; charset=utf-8');
+				echo json_encode(array('status' => 'error', 'message' => 'Error creating category', 'details' => $category->get_error_message()));
+				exit;
 			}
-        
+		}
+		// Create a new post
+		if ($user) {
+			$user_id = $user->ID;
+			$post_data = array(
+				'post_title' => sanitize_text_field($json_data['title']),
+				'post_status' => sanitize_text_field($json_data['status']),
+				'post_content' => wp_kses_post($json_data['content']),
+				'post_category' => array($category_id),
+				'post_author' => $user_id,
+			);
+		}else{
+			$post_data = array(
+				'post_title' => sanitize_text_field($json_data['title']),
+				'post_status' => sanitize_text_field($json_data['status']),
+				'post_content' => wp_kses_post($json_data['content']),
+				'post_category' => array($category_id),
+			);
+		}
+		
+	
 
-            $post_id = wp_insert_post($post_data);
+		$post_id = wp_insert_post($post_data);
 
-            if (!is_wp_error($post_id)) {
-                // Post created successfully
-                 $post_title = get_the_title($post_id);
-                $post_url = get_permalink($post_id);
+		if (!is_wp_error($post_id)) {
+			if (isset($json_data['featureimageurl'])) {
+				$feature_image_url = esc_url_raw($json_data['featureimageurl']);
+				$filename = basename($feature_image_url);
+		
+				// Default extension if missing
+				$extension = '.jpg'; // Default extension if needed
+				if (strpos($filename, '.') === false) {
+					$filename .= $extension;
+				}
+		
+				// Download the image data
+				$image_data = file_get_contents($feature_image_url);
+		
+				if (!$image_data) {
+					// Handle error if image data cannot be retrieved
+					status_header(400);
+					echo json_encode(array('status' => 'error', 'message' => 'Failed to retrieve image data'));
+					exit;
+				}
+		
+				// Upload the file using wp_upload_bits
+				$upload_file = wp_upload_bits($filename, null, $image_data);
+				if ($upload_file['error']) {
+					// Handle error if file upload fails
+					status_header(500);
+					echo json_encode(array('status' => 'error', 'message' => 'Failed to upload image'));
+					exit;
+				}
+		
+				// Use getimagesize() to determine the correct MIME type
+				$image_info = getimagesize($upload_file['file']);
+				$mime_type = $image_info ? $image_info['mime'] : 'image/jpeg'; // Default to 'image/jpeg' if detection fails
+		
+				// Prepare attachment data
+				$attachment = array(
+					'guid' => $upload_file['url'],
+					'post_mime_type' => $mime_type,
+					'post_title' => sanitize_file_name($filename),
+					'post_content' => '',
+					'post_status' => 'inherit'
+				);
+		
+				// Insert attachment into WordPress media library
+				$attachment_id = wp_insert_attachment($attachment, $upload_file['file']);
+		
+				if (!is_wp_error($attachment_id)) {
+					// Generate and update attachment metadata
+					require_once(ABSPATH . 'wp-admin/includes/image.php');
+					$attachment_data = wp_generate_attachment_metadata($attachment_id, $upload_file['file']);
+					wp_update_attachment_metadata($attachment_id, $attachment_data);
+		
+					// Set the featured image of the post
+					set_post_thumbnail($post_id, $attachment_id);
+				} else {
+					// Handle error if attachment insertion fails
+					status_header(500);
+					echo json_encode(array('status' => 'error', 'message' => 'Failed to insert attachment'));
+					exit;
+				}
+			}
+		
+			// Post created successfully
+			$post_title = get_the_title($post_id);
+			$post_url = get_permalink($post_id);
+		
+			status_header(200);
+			header('Content-Type: application/json; charset=utf-8');
+			echo json_encode(array('status' => 'success', 'message' => 'Blog created successfully', 'post_id' => $post_id, 'title' => $post_title, 'url' => $post_url));
+			exit;
+		}
+		
+		 else {
+			// Error creating post
+			status_header(500);
+			header('Content-Type: application/json; charset=utf-8');
+			echo json_encode(array('status' => 'error', 'message' => 'Error creating blog post', 'details' => $post_id->get_error_message()));
+			exit;
+		}
+	} else {
+		// Missing required fields in JSON data
+		status_header(400);
+		header('Content-Type: application/json; charset=utf-8');
+		echo json_encode(array('status' => 'error', 'message' => 'Missing required fields', 'details' => 'Title, status, content, and category are required fields.'));
+		exit;
+	}
 
-                status_header(200);
-                header('Content-Type: application/json; charset=utf-8');
-                echo json_encode(array('status' => 'success', 'message' => 'Blog created successfully', 'post_id' => $post_id, 'title' => $post_title, 'url' => $post_url));
-                exit;
-            } else {
-                // Error creating post
-                status_header(500);
-                header('Content-Type: application/json; charset=utf-8');
-                echo json_encode(array('status' => 'error', 'message' => 'Error creating blog post', 'details' => $post_id->get_error_message()));
-                exit;
-            }
-        } else {
-            // Missing required fields in JSON data
-            status_header(400);
-            header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(array('status' => 'error', 'message' => 'Missing required fields', 'details' => 'Title, status, content, and category are required fields.'));
-            exit;
-        }
-    
 }
 function handle_blog_delete_request() {
     $url_parts = explode('/', $_SERVER['REQUEST_URI']);
@@ -1254,6 +1338,88 @@ function handle_blog_delete_request() {
 	}
 
 }
+
+
 // create new blog endpoint
 add_action('template_redirect', 'postblog_endpoint_template_redirect');
 //end of custom blog posts
+
+
+
+
+// hook for logout action custom
+add_action( 'init', 'custom_logout_action_custom_code' );
+function custom_logout_action_custom_code() {
+    // Custom logout URL
+    $logoutUrlCustom = ZipperagentGlobalFunction()->zipperagent_page_url('property-organizer-logout');
+	$parsedUrl = parse_url($logoutUrlCustom);
+    $logoutPath = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+    if ( isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] === $logoutPath ) {
+        userContactLoggout();
+    }
+}
+
+
+
+function javascript_function_clean_search_data() {
+	?>
+	<script> 
+	function cleanDataArray(dataArray, inputText) {
+
+    // Helper function to remove special characters (#, ,) and normalize spaces to single space
+    const normalizeString = str => str.replace(/[#,]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+    
+    // Clean the input text
+    const cleanedInputText = normalizeString(inputText);
+
+
+	let cleanedInput = inputText.replace(/,/g, '');
+	
+    // Iterate over each item in the dataArray
+    dataArray.forEach(item => {
+        if (item && item.name) {
+            const cleanedItemName = normalizeString(item.name);
+            
+            const index = cleanedItemName.indexOf(cleanedInputText);
+            
+            if (index !== -1) {
+                let cleanedRunningIndex = 0;
+                let originalStartIndex = -1;
+                let originalEndIndex = -1;
+                
+                for (let i = 0; i < item.name.length; i++) {
+                    if (/[#,]/.test(item.name[i])) continue;
+
+                    if (cleanedRunningIndex === index && originalStartIndex === -1) {
+                        originalStartIndex = i;
+                    }
+
+                    if (cleanedRunningIndex === index + cleanedInputText.length) {
+                        originalEndIndex = i;
+                        break;
+                    }
+
+                    cleanedRunningIndex++;
+                }
+                
+                if (originalEndIndex === -1) {
+                    originalEndIndex = item.name.length;
+                }
+                item.name = item.name.slice(0, originalStartIndex) + inputText + item.name.slice(originalEndIndex);
+				// if(!item.name.includes(',')){
+				// 	document.querySelector('#zpa-all-input input').value=cleanedInput;
+				// }
+
+            }
+        }
+    });
+
+    return dataArray;
+}
+
+
+	</script>
+	<?php
+	
+ }
+ add_action('wp_footer', 'javascript_function_clean_search_data');

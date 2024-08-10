@@ -66,7 +66,7 @@ if(!empty($is_singleid) && !is_array($is_singleid)){
 unset($alstid); */
 ?>
 
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js"></script>
 <div id="zpa-main-container" class="zpa-container <?php echo $uniqueClass; ?>" style="display: inline;">
 
 	<div class="zpa-listing-list">

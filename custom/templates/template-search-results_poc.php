@@ -662,7 +662,7 @@ if( $enable_filter ):
 <?php endif; ?>
 <script>
 	jQuery('.zpa-listing-search-results<?php echo $uniqueClassWithDot ?>').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-		
+		console.log("working on _poc");
 		var element = jQuery(this);
 		
 		if( element.hasClass('active') )

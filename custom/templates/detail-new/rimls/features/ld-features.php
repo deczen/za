@@ -37,6 +37,33 @@
 				<?php if( isset($single_property->unmapped->SeniorCommunityYN)): ?>
 				<li>Adult Community: [unmapped_SeniorCommunityYN]</li>
 				<?php endif; ?>
+
+
+				<?php if( isset($single_property->unmapped->FrontageLength)): ?>
+				<li>Frontage Length: [unmapped_FrontageLength]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->lotdescription)): ?>
+				<li>Lot Features: [lotdescription]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->View)): ?>
+				<li>View: [unmapped_View]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->termsfeature)): ?>
+				<li>Community Features: [termsfeature]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'NewConstructionYN'})): ?>
+				<li>New Construction: <?php if($single_property->unmapped->{'NewConstructionYN'}==false){echo "No";}else{echo "Yes";} ?></li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->{'SeniorCommunityYN'})): ?>
+				<li>Senior Community YN: <?php if($single_property->unmapped->{'SeniorCommunityYN'}==false){echo "No";}else{echo "Yes";} ?></li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->WoodedArea)): ?>
+				<li>Wooded Area: [unmapped_WoodedArea]</li>
+				<?php endif; ?>
+				
+				
+
+
 				<?php if( isset($single_property->assocsecurity)): ?>
 				<li>Security: [assocsecurity]</li>
 				<?php endif; ?>
@@ -68,11 +95,17 @@
 				<?php if( isset($single_property->petrestrictionsallow)): ?>
 				<li>Pet Restrictions Allow: [petrestrictionsallow]</li>
 				<?php endif; ?>
+				<?php if( isset($single_property->zoning)): ?>
+				<li>Zoning: [zoning]</li>
+				<?php endif; ?>
+				<?php if( isset($single_property->unmapped->ZoningDescription)): ?>
+				<li>Zoning Description: [unmapped_ZoningDescription]</li>
+				<?php endif; ?>
 		</ul>
 	</li>						
 	<?php endif; ?>
 	
-	<?php if( isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->unmapped->WindowFeatures) || isset($single_property->unmapped->SpaFeatures) ):?>
+	<?php if( isset($single_property->unmapped->FireplaceFeatures) || isset($single_property->utilities) || isset($single_property->water) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Cooling, Heating, Utilities</h3>
 		<ul class="zy-sub-list">
@@ -86,6 +119,12 @@
 			<?php if( isset($single_property->unmapped->SpaFeatures)): ?>
 			<li>Spa: [unmapped_SpaFeatures]</li>
 			<?php endif; ?>
+			<?php if( isset($single_property->water)): ?>
+                <li>Water Utilities: [water]</li>
+            <?php endif; ?>
+			<?php if( isset($single_property->utilities)): ?>
+                <li>Utilities: [utilities]</li>
+            <?php endif; ?>
 			
 		</ul>
 	</li>
@@ -107,12 +146,21 @@
 		</ul>
 		<?php endif; ?>
 
-		<?php if( isset($single_property->taxes) || isset($single_property->unmapped->TaxLot) ):?>
+		<?php if( isset($single_property->taxes) || isset($single_property->unmapped->hoafee) || isset($single_property->unmapped->feeinterval)):?>
 		<h3 class="zy-feature-title">Taxes, Fees</h3>
 		<ul class="zy-sub-list">
 		
 			<?php if( isset($single_property->taxes)): ?>
 			<li>Taxes: [taxes]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->hoafee)): ?>
+			<li>Association Fee: [hoafee]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->feeinterval)): ?>
+			<li>Association Fee Frequency: [feeinterval]</li>
+			<?php endif; ?>
+			<?php if( isset($single_property->taxyear)): ?>
+			<li>Tax Year: [taxyear]</li>
 			<?php endif; ?>
 			<?php if( isset($single_property->unmapped->TaxLot)): ?>
 			<li>TaxLot: [unmapped_TaxLot]</li>

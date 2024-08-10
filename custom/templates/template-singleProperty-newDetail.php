@@ -96,7 +96,7 @@ $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP
 <?php
  // echo 'weq'.$single_property->proptype;
 ?>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js"></script>
 <div id="zpa-main-container" class="zpa-container ">
 	
 	<div class="zpa-listing-detail">	

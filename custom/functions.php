@@ -1830,6 +1830,7 @@ if( ! function_exists('userContactLogin') ){
 
 if( ! function_exists('userContactLoggout') ){
 	function userContactLoggout(){
+		
 		//remove sessions
 		unset($_SESSION['userMail']);
 		unset($_SESSION['userRemember']);
@@ -5033,6 +5034,16 @@ if( ! function_exists('is_show_contact_agent') ){
 		return $enabled;
 	}
 }
+if( ! function_exists('is_show_contact_agent_btn') ){
+	function is_show_contact_agent_btn(){
+		$btnAction=array();	
+		$rb = ZipperagentGlobalFunction()->zipperagent_rb();
+		
+		$btnAction[0] = isset($rb['web']['youragent_btn'])?$rb['web']['youragent_btn']:0;
+		$btnAction[1] = isset($rb['web']['youragent_btn_action'])?$rb['web']['youragent_btn_action']:0;
+		return $btnAction;
+	}
+}
 
 if( ! function_exists('is_branded_virtualtour') ){
 	function is_branded_virtualtour(){
@@ -5681,7 +5692,8 @@ if( ! function_exists('zipperagent_generate_filter_label') ){
 							
 							if(isset($data->$index)){					
 								foreach($data->$index as $ety){
-									if($ety->code===$value){
+									$decoded_value = urldecode($value);
+									if($ety->code===$value || $ety->code===$decoded_value){
 										$label = $ety->name;
 									}
 								}					
@@ -7004,6 +7016,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 		<script>		
 			jQuery(document).ready(function($) {
 				
+				
 				var timer;
 				
 				<?php 
@@ -7040,7 +7053,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7061,7 +7074,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7082,7 +7095,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7103,7 +7116,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7124,7 +7137,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7135,7 +7148,6 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						return '<div class="name">' + data.name + '</div>';
 					},				
 				});
-				
 				var ms_all = $('<?php echo $el; ?> #zpa-all-input').magicSuggest({
 					
 					data: tenants ? tenants : all,
@@ -7145,7 +7157,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7173,7 +7185,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7194,7 +7206,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7215,7 +7227,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7236,7 +7248,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 					groupBy: 'group',
 					// maxSelection: 1,
 					allowFreeEntries: false,
-					minChars: 2,
+					minChars: 3,
 					renderer: function(data){
 						return '<div class="location">' +
 							'<div class="name '+ data.type +'">' + data.name + '</div>' +
@@ -7423,7 +7435,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 							},
 							success: function( response ) {         
 								if( response ){
-									var data = response.schools;
+									var data = cleanDataArray(response.schools,inputText);
 									ms_school.setData(data);
 									ms_school.expand();
 								}
@@ -7433,7 +7445,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								console.timeEnd('populate schools');
 							}
 						});
-					}, 500);
+					}, 300);
 				});
 				
 				var xhr_school3;
@@ -7469,7 +7481,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.schools;
+										var data = cleanDataArray(response.schools,inputText);
 										ms_school3.setData(data);
 										ms_school3.expand();
 									}
@@ -7479,7 +7491,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									console.timeEnd('populate schools');
 								}
 							});
-						}, 500);
+						}, 300);
 					}else{
 						console.time('populate schools');
 						
@@ -7510,7 +7522,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_schools(response);
+										var data = cleanDataArray(zppr.populate_schools(response),inputText);
 										ms_school3.setData(data);
 										ms_school3.expand();
 										
@@ -7563,7 +7575,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.addresses;
+										var data = cleanDataArray(response.addresses,inputText);
 										ms_address.setData(data);
 										ms_address.expand();
 									}
@@ -7573,7 +7585,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									console.timeEnd('populate address');
 								}
 							});
-						}, 500);
+						}, 300);
 					}else{
 						console.time('populate address');
 						
@@ -7604,7 +7616,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_addresses(response);
+										var data = cleanDataArray(zppr.populate_addresses(response),inputText);
 										ms_address.setData(data);
 										ms_address.expand();
 										
@@ -7657,7 +7669,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.listids;
+										var data = cleanDataArray(response.listids,inputText);
 										ms_listid.setData(data);
 										ms_listid.expand();
 									}
@@ -7667,7 +7679,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									console.timeEnd('populate listid');
 								}
 							});
-						}, 500);
+						}, 300);
 					}else{
 						console.time('populate listid');
 						
@@ -7698,7 +7710,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_listids(response);
+										var data = cleanDataArray(zppr.populate_listids(response),inputText);
 										ms_listid.setData(data);
 										ms_listid.expand();
 										
@@ -7738,7 +7750,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								requests[el.name]=el.value
 							});
 							
-							console.time('populate address & school');
+							console.time('populate address & schools1');
 							xhr_all = jQuery.ajax({
 								type: 'POST',
 								dataType : 'json',
@@ -7750,7 +7762,8 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 								},
 								success: function( response ) {         
 									if( response ){
-										var data = response.addresses;
+										var data = cleanDataArray(response.addresses,inputText);
+
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
@@ -7762,10 +7775,10 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									console.timeEnd('populate address & school');
 								}
 							});
-						}, 500);
+						}, 300);
 					
 					}else{
-						console.time('populate address & school');
+						console.time('populate address & schoolsp');
 						
 						var parm=[];
 						var subdomain=zppr.data.root.web.subdomain;
@@ -7783,6 +7796,7 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 						var addr=1;
 						var mls=1;
 						var inputText = ms_all.getRawValue();
+						
 						parm.push(9,subdomain,customer_key,crit,inputText,ps,gs,ms,hs,sd,addr,mls);
 						
 						var xhttp = new XMLHttpRequest();
@@ -7794,13 +7808,14 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 									response=JSON.parse(this.responseText);
 									if(response.responseCode===200){
 										
-										var data = zppr.populate_addresses_and_schools(response);
+										var data = cleanDataArray(zppr.populate_addresses_and_schools(response),inputText);
+										
 										var tempAll = all.slice();
 										var combined = jQuery.merge(tempAll, data);
 										ms_all.setData(combined);
 										ms_all.expand();
 										
-										console.timeEnd('populate address & school');
+										console.timeEnd('populate address & school7815');
 									}
 									
 								}else {
@@ -7849,8 +7864,9 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				//get user input keywords
 				$(ms_all).on('keyup', function(){
 					ms_all__rawValue = ms_all.getRawValue();
+
 					ms_all__afterDelete=0;
-					
+
 					//set data on 
 					if(ms_all__rawValue.length===1)
 						ms_all.setData(all);
@@ -7859,6 +7875,8 @@ if( ! function_exists('global_new_omnibar_script_v2') ){
 				//get current selected value
 				$(ms_all).on('focus', function(c){
 					ms_all__recentSelected = ms_all.getValue();
+					ms_all__rawValue = ms_all.getRawValue();
+
 					ms_all__afterDelete=1;
 					
 					//auto open dropdown

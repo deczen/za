@@ -50,8 +50,7 @@
 			  isset($single_property->elevator) || isset($single_property->expandable) || isset($single_property->facilities) || isset($single_property->handicapaccess) || isset($single_property->noofloadingdocks) || 
 			  isset($single_property->noofrestrooms) || isset($single_property->sprinklers) || isset($single_property->utilities) || isset($single_property->unmapped->{"Owner Expenses"}) || isset($single_property->unmapped->{"# Floors"}) ||
 			  isset($single_property->nobuildings) || isset($single_property->tenantexpanses) || isset($single_property->rntype) || isset($single_property->unmapped->shrtCOUNTYCODE) || isset($single_property->vacant) ||
-			  isset($single_property->unmapped->Amperage) || isset($single_property->unmapped->{"Flood Plain"}) || isset($single_property->unmapped->Tract) || isset($single_property->unmapped->lngTOWNSDESCRIPTION) || isset($single_property->unmapped->{"Total SqFt Available"}) ||
-			  ):?>
+			  isset($single_property->unmapped->Amperage) || isset($single_property->unmapped->{"Flood Plain"}) || isset($single_property->unmapped->Tract) || isset($single_property->unmapped->lngTOWNSDESCRIPTION) || isset($single_property->unmapped->{"Total SqFt Available"}) ):?>
 	<li class="cell">
 		<h3 class="zy-feature-title">Propery Features</h3>
 		<ul class="zy-sub-list">

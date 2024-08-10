@@ -31,6 +31,18 @@ $formatted_mortgage_insurance = zipperagent_currency() . round($default_mortgage
 $formatted_homeowners_insurance_percent = $default_homeowners_insurance_percent . '%';
 $formatted_homeowners_insurance = zipperagent_currency() . round($default_homeowners_insurance, 2);
 $formatted_interestrate = $default_interestrate. '%';
+
+//added by ravinder 
+$current_domain_for_hao = $_SERVER['HTTP_HOST'];
+$target_domain_for_hao = 'www.bobmanginosellsnaples.com';
+if ($current_domain_for_hao === $target_domain_for_hao) {
+
+	$default_hoadues12 = $default_hoadues/12;
+	$formatted_hoadues = zipperagent_currency() . round($default_hoadues12, 2);
+
+}
+
+
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ZipperagentGlobalFunction()->zipperagent_url(false) . 'css/detail-page.css'; ?>">
 <div class="zy-mortgage-calculator">

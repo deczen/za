@@ -191,7 +191,8 @@ switch( $view ){
 			<?php endif; ?>
 			<script>
 				jQuery('.zpa-listing-search-results').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-					
+					console.log("working on search");
+
 					var element = jQuery(this);
 					
 					if( element.hasClass('active') )

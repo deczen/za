@@ -25,3 +25,4 @@ $list=$result;
 	
 	<?php // include ZIPPERAGENTPATH . '/custom/templates/template-needLogin.php'; ?>
 </div>
+<?php endif; ?>

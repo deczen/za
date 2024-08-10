@@ -100,7 +100,7 @@ $plugin_data = get_plugin_data( ABSPATH . "/wp-content/plugins/zipperagent/zippe
 ?>
 <script defer type="text/javascript" src="https://app.zipperagent.com/za-jslib/za-jsutil.min.js"></script>
 <script defer type="text/javascript" src="<?php echo ZIPPERAGENTURL . "js/zipperagent.js?ver=" . $plugin_data['Version']; ?>"></script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js"></script>
 <div id="zpa-main-container" class="zpa-container ">
 	
 	<div class="zpa-listing-detail">	

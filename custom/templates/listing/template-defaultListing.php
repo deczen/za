@@ -192,7 +192,15 @@ if($templatename && file_exists($template_path)){
 	<?php
 	$listing_disclaimer = zipperagent_get_listing_disclaimer();
 	?>
-	<?php if( $listing_disclaimer ): ?>
+	<?php if( $listing_disclaimer ): 
+		$current_domain_custom = $_SERVER['HTTP_HOST'];
+		if (strpos($current_domain_custom, 'surfing4properties') !== false) {
+			preg_match('/(<img [^>]*alt="BeachesMLS"[^>]*>.*?BeachesMLS.*?)(<img [^>]*alt="Space Coast Association of REALTORS®"[^>]*>.*?Space Coast Association of REALTORS®.*?)/s', $listing_disclaimer, $matches);
+			if (isset($matches[1]) && isset($matches[2])) {
+				$listing_disclaimer = $matches[2] . '<br><br>' . $matches[1];
+			}
+		}
+		?>
 	<div class="row">
 		<div class="col-xs-12">
 			<span class="listing-disclaimer" role="none"><?php echo $listing_disclaimer ?></span>

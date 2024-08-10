@@ -404,8 +404,8 @@ if(get_query_var('pagenum')){
 	* @ javascript
 	*/	
 	?>
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-	<script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js"></script>
+<script>
 		
 		jQuery(document).ready(function(){
 			

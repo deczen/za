@@ -937,7 +937,7 @@ $excludes = get_new_filter_excludes();
 						},
 						success: function( response ) {         
 							if( response ){
-								var data = response.schools;
+								var data = cleanDataArray(response.schools,inputText);
 								ms_school.setData(data);
 							}
 							console.timeEnd('populate schools');

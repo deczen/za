@@ -53,7 +53,8 @@ if( $list ): ?>
 
 <script>
 	jQuery('.zpa-listing-search-results').unbind().on('click', '.save-favorite-btn:not(.needLogin)', function(){
-		
+		console.log("working on gallery view");
+
 		var element = jQuery(this);
 		
 		if( element.hasClass('active') )
